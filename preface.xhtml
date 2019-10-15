@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" epub:prefix="z3998: http://www.daisy.org/z3998/2012/vocab/structure/#" lang="en" xml:lang="en">
+  <head>
+    <title>PREFACE</title>
+  </head>
+  <body><h1>PREFACE</h1><p class="aloha-empty-paragraph"/><div class="group_img" style="text-align: justify;"><div class="image bk-image-editor" style="width: 607.04px; height: 180.019px;"><img style="width: 607.04px; height: 180.019px; transform: translate(0px) rotate(0deg) scaleX(1) scaleY(1); filter: contrast(100%) brightness(100%) blur(0px) opacity(100%) saturate(100%);" src="static/montage_3.png" alt="" transform-data="{&quot;imageWidth&quot;:607.039627039627,&quot;imageHeight&quot;:180.018648018648,&quot;imageTranslateX&quot;:0,&quot;imageTranslateY&quot;:null,&quot;imageScaleX&quot;:1,&quot;imageScaleY&quot;:1,&quot;imageRotateDegree&quot;:0,&quot;imageContrast&quot;:100,&quot;imageBrightness&quot;:100,&quot;imageBlur&quot;:0,&quot;imageSaturate&quot;:100,&quot;imageOpacity&quot;:100,&quot;frameWidth&quot;:607.039627039627,&quot;frameHeight&quot;:180.018648018648,&quot;frameFPI&quot;:false,&quot;editorWidth&quot;:898}"/></div></div><p class="aloha-empty-paragraph"/><p><br/></p><p><br/></p><div class="group_table"><table>
+<tbody>
+<tr>
+<td><strong><a href="http://en.flossmanuals.net/csound/_full">Read the<br/>Online Version</a></strong></td>
+<td><strong><a href="http://openweb.flossmanuals.net/files/csound.epub">Read the<br/>
+EPUB Version</a></strong></td>
+</tr>
+<tr>
+<td><strong><a href="http://openweb.flossmanuals.net/files/csound.pdf">Read the<br/>
+PDF Version</a></strong></td>
+<td><strong><a href="http://openweb.flossmanuals.net/files/csound.odt">Read in<br/>
+Open Office</a></strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>Csound is one of the best known and longest established programs
+in the field of audio programming. It was developed in the
+mid-1980s at the Massachusetts Institute of Technology (MIT) by
+Barry Vercoe but Csound's history lies even deeper within the roots
+of computer music: it is a direct descendant of the oldest computer
+program for sound synthesis, 'MusicN', by Max Mathews. Csound is
+free and open source, distributed under the LGPL licence, and it is
+maintained and expanded by a core of developers with support from a
+wider global community.</p>
+<p>Csound has been growing for 30 years. There is rarely anything
+related to audio that you cannot do with Csound. You can work by
+rendering offline, or in real-time by processing live audio and
+synthesizing sound on the fly. You can control Csound via MIDI,
+OSC, through a network, within a browser or via the Csound API
+(Application Programming Interface). Csound will run on all major
+platforms, on phones, tablets and tinyware computers. In Csound you
+will find the widest collection of tools for sound synthesis and
+sound modification, arguably offering a superset of features
+offered by similar software and with an unrivaled audio
+precision.</p>
+<p>Csound is simultaneously both 'old school' and 'new school'.</p>
+<p>Is Csound difficult to learn? Generally speaking, graphical
+audio programming languages like Pure Data,<sup class="endnote" data-id="c61a087f-0119-4a89-b7d8-deec3cb78b8a">1</sup> Max
+or Reaktor are easier to learn than text-coded audio programming
+languages such as Csound or SuperCollider. In Pd, Max or Reaktor
+you cannot make a typo which produces an error that you do not
+understand. You program without being aware that you are
+programming. The user experience mirrors that of patching together
+various devices in a studio. This is a fantastically intuitive
+approach but when you deal with more complex projects, a text-based
+programming language is often easier to use and debug, and many
+people prefer to program by typing words and sentences rather than
+by wiring symbols together using the mouse. <strong><br/>
+</strong></p>
+<p>Yet Csound can straddle both approaches: it is also very easy to
+use Csound as an audio engine inside Pd or Max. Have a look at the
+chapter <em>Csound in Other Applications</em> for further
+information.</p>
+<p>Amongst text-based audio programming languages, Csound is
+arguably the simplest. You do not need to know any specific
+programming techniques or to be a computer scientist. The basics of
+the Csound language are a straightforward transfer of the signal
+flow paradigm to text.</p>
+<p>For example, to create a 400 Hz sine oscillator with an
+amplitude of 0.2, this is the signal flow:</p>
+<p class="aloha-empty-paragraph"/><div class="group_img" style="text-align: start;"><div class="image bk-image-editor" style="width: 379.923px; height: 340.152px;"><img style="width: 379.923px; height: 340.152px; transform: translate(0px) rotate(0deg) scaleX(1) scaleY(1); filter: contrast(100%) brightness(100%) blur(0px) opacity(100%) saturate(100%);" src="static/introflowchart.png" alt="" transform-data="{&quot;imageWidth&quot;:379.9230769230769,&quot;imageHeight&quot;:340.1515151515151,&quot;imageTranslateX&quot;:0,&quot;imageTranslateY&quot;:null,&quot;imageScaleX&quot;:1,&quot;imageScaleY&quot;:1,&quot;imageRotateDegree&quot;:0,&quot;imageContrast&quot;:100,&quot;imageBrightness&quot;:100,&quot;imageBlur&quot;:0,&quot;imageSaturate&quot;:100,&quot;imageOpacity&quot;:100,&quot;frameWidth&quot;:379.9230769230769,&quot;frameHeight&quot;:340.1515151515151,&quot;frameFPI&quot;:false,&quot;editorWidth&quot;:898}"/></div></div><div class="group_img" style="text-align: justify;"><div class="image bk-image-editor" style="width: 240px; height: 0px;"><img style="width: 240px; height: 0px; transform: translate(0px, 0px) rotate(0deg) scaleX(1) scaleY(1); filter: contrast(100%) brightness(100%) blur(0px) opacity(100%) saturate(100%);" src="static/introflowchart.png" alt="" transform-data="{&quot;imageWidth&quot;:240,&quot;imageHeight&quot;:0,&quot;imageTranslateX&quot;:0,&quot;imageTranslateY&quot;:0,&quot;imageScaleX&quot;:1,&quot;imageScaleY&quot;:1,&quot;imageRotateDegree&quot;:0,&quot;imageContrast&quot;:100,&quot;imageBrightness&quot;:100,&quot;imageBlur&quot;:0,&quot;imageSaturate&quot;:100,&quot;imageOpacity&quot;:100,&quot;frameWidth&quot;:240,&quot;frameHeight&quot;:0,&quot;frameFPI&quot;:false,&quot;editorWidth&quot;:898}" width="240" height="214"/></div></div>Here is a possible transformation of the signal graph
+into Csound code:
+<pre>     instr   Sine
+aSig poscil  0.2, 400
+     out     aSig
+     endin
+</pre>
+<p>The oscillator is represented by the opcode <a href="http://csound.github.io/docs/manual/poscil.html">poscil</a> and
+receives its input arguments on the right-hand side. These are
+amplitude (0.2) and frequency (400). It produces an audio signal
+called <em>aSig</em> at the left side which is in turn the input of
+the second opcode <em>out</em>. The first and last lines encase
+these connections inside an instrument called <em>Sine</em>.</p>
+<p>With the release of Csound version 6, it is possible to write
+the same code in an even more condensed fashion using so-called
+"functional syntax", as shown below:<sup class="endnote" data-id="e09721ff-cae1-44fc-9908-5d8e9af975e2">2</sup></p>
+<pre>    instr Sine
+out poscil(0.2, 400)
+    endin
+</pre>
+<p>It is often difficult to find up to date resources that show and
+explain what is possible with Csound. Documentation and tutorials
+produced by developers and experienced users tend to be scattered
+across many different locations. This issue was one of the main
+motivations for producing this manual; to facilitate a flow between
+the knowledge of contemporary Csound users and those wishing to
+learn more about Csound.</p>
+<p>More than 15 years after the milestone of Richard Boulanger's
+<a href="https://mitpress.mit.edu/books/csound-book">Csound
+Book</a>, the Csound FLOSS Manual is intended to offer an
+easy-to-understand introduction and to provide a centre of up to
+date information about the many features of Csound, not as detailed
+and as in depth as the Csound Book, but including new information
+and sharing this knowledge with the wider Csound community.</p>
+<p>Throughout this manual we will attempt to maintain a balance
+between providing users with knowledge of most of the important
+aspects of Csound whilst also remaining concise and simple enough
+to avoid overwhelming the reader through the shear number of
+possibilities offered by Csound. Frequently this manual will link
+to other more detailed resources such as the <a href="http://csound.github.io/docs/manual/index.html">Canonical Csound
+Reference Manual</a>, the main support documentation provided by
+the Csound developers and associated community over the years, and
+the <a href="http://csoundjournal.com/index.html">Csound
+Journal</a> (edited by James Hearon and Iain McCurdy), a roughly
+quarterly online publication with many great Csound-related
+articles.</p>
+<p>We hope you enjoy reading this textbook and wish you happy
+Csounding!</p>
+<ol class="endnotes" dir="ltr"><li id="endnote-c61a087f-0119-4a89-b7d8-deec3cb78b8a">more commonly known as Pd - see the
+Pure Data FLOSS
+Manual for further information</li><li id="endnote-e09721ff-cae1-44fc-9908-5d8e9af975e2">See chapter 03I
+about Functional Syntax</li></ol>
+
+
+</body>
+</html>

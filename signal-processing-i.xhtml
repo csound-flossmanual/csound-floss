@@ -1,0 +1,419 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" epub:prefix="z3998: http://www.daisy.org/z3998/2012/vocab/structure/#" lang="en" xml:lang="en">
+  <head>
+    <title>SIGNAL PROCESSING I</title>
+  </head>
+  <body><h1>SIGNAL PROCESSING I</h1><h2>OPCODE GUIDE: BASIC SIGNAL PROCESSING</h2>
+<p> </p>
+<ul>
+<li>
+<h3>OSCILLATORS AND PHASORS</h3>
+<ul>
+<li>
+<h4>Standard Oscillators</h4>
+<p><a href="http://www.csounds.com/manual/html/oscils.html"><strong>oscils</strong></a>
+is a very <strong>simple sine oscillator</strong> which is ideally
+suited for quick tests. It needs no function table, but offers just
+i-rate input arguments.</p>
+<p><a href="http://www.csounds.com/manual/html/ftgen.html"><strong>ftgen</strong></a>
+generates a function table, which is needed by any oscillator
+except <a href="http://www.csounds.com/manual/html/oscils.html">oscils</a>. The
+<a href="http://www.csounds.com/manual/html/ScoreGenRef.html">GEN
+Routines</a> fill the function table with any desired waveform,
+either a sine wave or any other curve. Refer to the <a href="http://en.flossmanuals.net/bin/view/Csound/FUNCTIONTABLES">function
+table chapter</a> of this manual for more information.<br/></p>
+<p><a href="http://www.csounds.com/manual/html/poscil.html"><strong>poscil</strong></a>
+can be recommended as <strong>standard oscillator</strong> because
+it is very precise, in particular for long tables and low
+frequencies. It provides linear interpolation, any rate its
+amplitude and frequency input arguments, and works also for
+non-power-of-two tables. <a href="http://www.csounds.com/manual/html/poscil3.html">poscil3</a>
+provides cubic interpolation, but has just k-rate input.
+<strong>Other common oscillators</strong> are <a href="http://www.csounds.com/manual/html/oscili.html">oscili</a> and
+<a href="http://www.csounds.com/manual/html/oscil3.html">oscil3</a>. They
+are less precise than poscil/poscili, but you can skip the
+initialization which can be useful in certain situations. The
+<a href="http://www.csounds.com/manual/html/oscil.html">oscil</a>
+opcode does not provide any interpolation, so it should usually be
+avoided. <strong>More</strong> Csound oscillators can be found
+<a href="http://www.csounds.com/manual/html/SiggenBasic.html">here</a>.</p>
+</li>
+<li>
+<h4>Dynamic Spectrum Oscillators</h4>
+<p><a href="http://www.csounds.com/manual/html/buzz.html"/></p>
+<p><a href="http://www.csounds.com/manual/html/buzz.html"><strong>buzz</strong></a>
+and <a href="http://www.csounds.com/manual/html/gbuzz.html"><strong>gbuzz</strong></a>
+generate a set of harmonically related cosine partials.</p>
+<p><a href="http://www.csounds.com/manual/html/mpulse.html"><strong>mpulse</strong></a>
+generates a set of impulses of user-definable amplitude and
+interval gap between impulses.</p>
+<p><a href="http://www.csounds.com/manual/html/vco.html"><strong>vco</strong></a>
+and <a href="http://www.csounds.com/manual/html/vco2.html"><strong>vco2</strong></a>
+implement band-limited, analogue modelled oscillators that can use
+variety of standard waveforms.</p>
+</li>
+<li>
+<h5>Phasors</h5>
+<p><a href="http://www.csounds.com/manual/html/phasor.html"/><a href="http://www.csounds.com/manual/html/phasor.html"><strong>phasor</strong></a>
+produces the typical moving phase values between 0 and 1. The more
+complex <a href="http://www.csounds.com/manual/html/syncphasor.html">syncphasor</a>
+lets you synchronize more than one phasor precisely.</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<h3>RANDOM AND NOISE GENERATORS</h3>
+<p><a href="http://www.csounds.com/manual/html/seed.html"/></p>
+<p><a href="http://www.csounds.com/manual/html/seed.html"><strong>seed</strong></a>
+sets the seed value for the majority of the Csound (pseudo) random
+number generators. A seed value of zero will seed random number
+generators from the system clock thereby guaranteeing a different
+result each time Csound is run, while any other seed value
+generates the same random values each time.<br/></p>
+<p><a href="http://www.csounds.com/manual/html/rand.html"><strong>rand</strong></a>
+is the usual opcode for uniformly distributed bipolar random
+values. If you give 1 as input argument (called "amp"), you will
+get values between -1 and +1. <strong><a href="http://www.csounds.com/manual/html/randi.html">randi</a></strong>
+interpolates between values which are generated with a variable
+frequency. <strong><a href="http://www.csounds.com/manual/html/randh.html">randh</a></strong>
+holds the value until the next one is generated (sample and hold).
+You can control the seed value by an input argument (a value
+greater than 1 seeds from current time), you can decide whether to
+generate 16bit or 31bit random numbers and you can add an
+offset.<br/></p>
+<p><strong><a href="http://www.csounds.com/manual/html/rnd31.html">rnd31</a></strong>
+can output all rates of variables (i-rate variables are not
+supported by rand). It also gives the user control over the random
+distribution, but has no offset parameter.</p>
+<p><a href="http://www.csounds.com/manual/html/random.html"><strong>random</strong></a>
+provides extra conveniece in that the user can define both the
+minimum and a maximum of the distribution as input argument;
+<em>rand</em> and <em>rnd31</em> only output bipolar ranges and we
+define amplitude. It can also be used for all rates, but you have
+no direct seed input, and the <a href="http://www.csounds.com/manual/html/randomi.html">randomi</a>/<a href="http://www.csounds.com/manual/html/randomh.html">randomh</a>
+variants always start from the lower border, instead anywhere
+between the borders.</p>
+<p><strong><a href="http://www.csounds.com/manual/html/pinkish.html">pinkish</a></strong>
+produces pink noise at audio-rate (white noise can be produced
+using <em>rand</em> or <em>noise</em>).</p>
+<p>There are many more random opcodes worth investigating. <a href="http://www.csounds.com/manual/html/SiggenNoise.html">Here</a> is
+an overview. A number of GEN routines are also used for generating
+random distributions. They can be found in the <a href="http://www.csounds.com/manual/html/ScoreGenRef.html">GEN Routines
+overview</a>.</p>
+</li>
+</ul>
+<ul>
+<li>
+<h3>ENVELOPES</h3>
+<ul>
+<li>
+<h4>Simple Standard Envelopes</h4>
+<p><a href="http://www.csounds.com/manual/html/linen.html"/></p>
+<p><a href="http://www.csounds.com/manual/html/linen.html"><strong>linen</strong></a>
+applies a linear rise (fade in) and decay (fade out) to a signal.
+It is very easy to use, as you put the raw audio signal in and get
+the enveloped signal out.</p>
+<p><a href="http://www.csounds.com/manual/html/linenr.html"><strong>linenr</strong></a>
+does the same for any note whose duration is not known when they
+begin. This could mean MIDI notes or events triggered in real time.
+linenr begins the final stage of the envelope only when that event
+is turned off (released). The penultimate value is held until this
+release is received.</p>
+<p><strong><a href="http://www.csounds.com/manual/html/adsr.html">adsr</a></strong>
+calculates the classic attack-decay-sustain-release envelope. The
+result is to be multiplied with the audio signal to get the
+enveloped signal.</p>
+<p><a href="http://www.csounds.com/manual/html/madsr.html"><strong>madsr</strong></a>
+does the same for notes triggered in real time (functioning in a
+similar way to linenr explained above).</p>
+<p>Other standard envelope generators can be found in the <a href="http://www.csounds.com/manual/html/SiggenEnvelope.html">Envelope
+Generators overview</a> of the Canonical Csound Manual.</p>
+</li>
+<li>
+<h4>Envelopes By Linear And Exponential Generators </h4>
+<p><strong><a href="http://www.csounds.com/manual/html/linseg.html">linseg</a></strong>
+creates one or more segments of lines between specified points.</p>
+<p><strong><a href="http://www.csounds.com/manual/html/expseg.html">expseg</a></strong>
+does the same but with exponential segments. Note that zero values
+or crossing the zero axis are illegal.</p>
+<p><strong><a href="http://www.csounds.com/manual/html/transeg.html">transeg</a></strong>
+is particularly flexible as you can specify the shape of each
+segment individually (continuously from convex to linear to
+concave).</p>
+<p>All of these opcodes have 'r' variants (<a href="http://www.csounds.com/manual/html/linsegr.html">linsegr</a>,
+<a href="http://www.csounds.com/manual/html/expsegr.html">expsegr</a>,
+<a href="http://en.flossmanuals.net/bin/view/Csound/transegr">transegr</a>)
+for MIDI or other real time triggered events. ('r' stands for
+'release'.)<br/></p>
+<p>More opcodes for generating envelopes can be found in <a href="http://www.csounds.com/manual/html/SiggenLineexp.html">this</a>
+overview.</p>
+</li>
+<li>
+<h4>Envelopes By Function Tables</h4>
+<p>Any function table (or part of it) can be used as envelope. Once
+a function table has been created using <a href="http://www.csounds.com/manual/html/ftgen.html">ftgen</a> or a
+<a href="http://www.csounds.com/manual/html/ScoreGenRef.html">GEN
+Routine</a> it can then be read using an oscillator, and multiply
+the result with the audio signal you want to
+envelope. <br/></p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<h3>DELAYS</h3>
+<ul>
+<li>
+<h4>Audio Delays</h4>
+<p>The <strong>vdelay family</strong> of opcodes are easy to use
+and implement all the necessary features expected when working with
+delays:</p>
+<p><a href="http://www.csounds.com/manual/html/vdelay.html"><strong>vdelay</strong></a>
+implements a variable delay at audio rate with linear
+interpolation.</p>
+<p><a href="http://www.csounds.com/manual/html/vdelay.html"><strong>vdelay3</strong></a>
+offers cubic interpolation.</p>
+<p><a href="http://www.csounds.com/manual/html/vdelayx.html"><strong>vdelayx</strong></a>
+has an even higher quality interpolation (and is for this reason
+slower). <a href="http://www.csounds.com/manual/html/vdelayxs.html">vdelayxs</a>
+lets you input and output two channels, and <a href="http://www.csounds.com/manual/html/vdelayxq.html">vdelayxq</a>
+four.</p>
+<p><a href="http://www.csounds.com/manual/html/vdelayw.html"><strong>vdelayw</strong></a>
+changes the position of the write tap in the delay line instead of
+the read tap. <a href="http://www.csounds.com/manual/html/vdelayws.html">vdelayws</a> is
+for stereo, and <a href="http://www.csounds.com/manual/html/vdelaywq.html">vdelaywq</a> for
+quadro.</p>
+<p>The <strong>delayr/delayw</strong> opcodes establishes a delay
+line in a more complicated way. The advantage is that you can have
+as many taps in one delay line as you need.</p>
+<p><a href="http://www.csounds.com/manual/html/delayr.html"><strong>delayr</strong></a>
+establishes a delay line and reads from the end of it.</p>
+<p><a href="http://www.csounds.com/manual/html/delayw.html"><strong>delayw</strong></a>
+writes an audio signal to the delay line.</p>
+<p><a href="http://www.csounds.com/manual/html/deltap.html"><strong>deltap</strong></a>,
+<a href="http://www.csounds.com/manual/html/deltapi.html"><strong>deltapi</strong></a>,
+<a href="http://www.csounds.com/manual/html/deltap3.html"><strong>deltap3</strong></a>,
+<a href="http://www.csounds.com/manual/html/deltapx.html"><strong>deltapx</strong></a>
+and <a href="http://www.csounds.com/manual/html/deltapxw.html"><strong>deltapxw</strong></a>
+function in a similar manner to the relevant opcodes of the vdelay
+family (see above) bearing the same suffixes.</p>
+<a href="http://www.csounds.com/manual/html/deltapn.html"><strong>deltapn</strong></a>
+offers a tap delay measured in samples, not seconds. This might be
+more useful in the design of filters<br/></li>
+<li>
+<h4>Control Delays</h4>
+<p><a href="http://www.csounds.com/manual/html/delayk.html"/><a href="http://www.csounds.com/manual/html/delayk.html"><strong>delk</strong></a>
+and <a href="http://www.csounds.com/manual/html/delayk.html"><strong>vdel_k</strong></a>
+let you delay any k-signal by some time interval (useful, for
+instance, as a kind of 'wait' function).</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<h3>FILTERS</h3>
+<p>Csound boasts an extensive range of filters and they can all be
+perused on the Csound Manual pages for <a href="http://www.csounds.com/manual/html/SigmodStandard.html">Standard
+Filters</a> and <a href="http://www.csounds.com/manual/html/SigmodSpeciali.html">Specialized
+Filters</a>. Here, some of the most frequently used filters are
+mentioned, and some tips are given. Note that filters usually
+change the signal level, so you may also find the <a href="http://www.csounds.com/manual/html/balance.html">balance</a>
+opcode useful.</p>
+<ul>
+<li>
+<h4>Low Pass Filters</h4>
+<p><a href="http://www.csounds.com/manual/html/tone.html"/></p>
+<p><a href="http://www.csounds.com/manual/html/tone.html"><strong>tone</strong></a>
+is a first order recursive low pass filter. <a href="http://www.csounds.com/manual/html/tonex.html">tonex</a>
+implements a series of tone filters.<br/></p>
+<p><a href="http://www.csounds.com/manual/html/butterlp.html"><strong>butlp</strong></a>
+is a second order low pass Butterworth filter.</p>
+<a href="http://www.csounds.com/manual/html/clfilt.html"><strong>clfilt</strong></a>
+lets you choose between different filter types and different
+numbers of poles in the design.</li>
+</ul>
+<ul>
+<li>
+<h4>High Pass Filters</h4>
+<p><a href="http://www.csounds.com/manual/html/atone.html"/></p>
+<p><a href="http://www.csounds.com/manual/html/atone.html"><strong>atone</strong></a>
+is a first order recursive high pass filter. <a href="http://www.csounds.com/manual/html/atonex.html">atonex</a>
+implements a series of atone filters.<br/></p>
+<p><a href="http://www.csounds.com/manual/html/butterhp.html"><strong>buthp</strong></a>
+is a second order high pass Butterworth filter.</p>
+<a href="http://www.csounds.com/manual/html/clfilt.html"><strong>clfilt</strong></a>
+lets you choose between different filter types and different
+numbers of poles in the design.</li>
+</ul>
+<ul>
+<li>
+<h4>Band Pass And Resonant Filters</h4>
+<p><a href="http://www.csounds.com/manual/html/reson.html"/></p>
+<p><a href="http://www.csounds.com/manual/html/reson.html"><strong>reson</strong></a>
+is a second order resonant filter. <a href="http://www.csounds.com/manual/html/resonx.html">resonx</a>
+implements a series of reson filters, while <a href="http://www.csounds.com/manual/html/resony.html">resony</a>
+emulates a bank of second order bandpass filters in parallel.
+<a href="http://www.csounds.com/manual/html/resonr.html">resonr</a>
+and <a href="http://www.csounds.com/manual/html/resonz.html">resonz</a> are
+variants of reson with variable frequency response.<br/></p>
+<a href="http://www.csounds.com/manual/html/butterbp.html"><strong>butbp</strong></a>
+is a second order band-pass Butterworth filter.</li>
+</ul>
+<ul>
+<li>
+<h4>Band Reject Filters</h4>
+<p><a href="http://www.csounds.com/manual/html/areson.html"/></p>
+<p><a href="http://www.csounds.com/manual/html/areson.html"><strong>areson</strong></a>
+is the complement of the reson filter.  </p>
+<p><a href="http://www.csounds.com/manual/html/butterbp.html"><strong>butbr</strong></a>
+is a band-reject butterworth filter.</p>
+</li>
+<li>
+<h4>Filters For Smoothing Control Signals</h4>
+<p><a href="http://www.csounds.com/manual/html/port.html"/><a href="http://www.csounds.com/manual/html/port.html"><strong>port</strong></a>
+and <a href="http://www.csounds.com/manual/html/portk.html"><strong>portk</strong></a>
+are very frequently used to smooth control signals which are
+received by MIDI or widgets.</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<h3>REVERB</h3>
+<p>Note that you can easily work in Csound with convolution reverbs
+based on impulse response files, for instance with <a href="http://www.csounds.com/manual/html/pconvolve.html">pconvolve</a>. </p>
+<p><a href="http://www.csounds.com/manual/html/freeverb.html"><strong>freeverb</strong></a>
+is the implementation of Jezar's well-known free (stereo)
+reverb.</p>
+<p><a href="http://www.csounds.com/manual/html/reverbsc.html"><strong>reverbsc</strong></a>
+is a stereo FDN reverb, based on work of Sean Costello.</p>
+<p><a href="http://www.csounds.com/manual/html/reverb.html"><strong>reverb</strong></a>
+and <a href="http://www.csounds.com/manual/html/nreverb.html"><strong>nreverb</strong></a>
+are the traditional Csound reverb units.</p>
+<a href="http://www.csounds.com/manual/html/babo.html"><strong>babo</strong></a>
+is a physical model reverberator ("ball within the box").</li>
+</ul>
+<ul>
+<li>
+<h3>SIGNAL MEASUREMENT, DYNAMIC PROCESSING, SAMPLE LEVEL
+OPERATIONS</h3>
+<ul>
+<li>
+<h4>Amplitude Measurement And Amplitude Envelope Following</h4>
+<p><a href="http://www.csounds.com/manual/html/rms.html"><strong>rms</strong></a>
+determines the root-mean-square amplitude of an audio signal.</p>
+<p><strong><a href="http://www.csounds.com/manual/html/balance.html">balance</a></strong>
+adjusts the amplitudes of an audio signal according to the rms
+amplitudes of another audio signal.<br/></p>
+<p><a href="http://www.csounds.com/manual/html/follow.html"><strong>follow</strong></a>
+/ <a href="http://www.csounds.com/manual/html/follow2.html"><strong>follow2</strong></a>
+are envelope followers which report the average amplitude in a
+certain time span (follow) or according to an attack/decay rate
+(follow2).<br/></p>
+<p><a href="http://www.csounds.com/manual/html/peak.html"><strong>peak</strong></a>
+reports the highest absolute amplitude value received.<br/></p>
+<a href="http://www.csounds.com/manual/html/max_k.html"><strong>max_k</strong></a>
+outputs the local maximum or minimum value of an incoming audio
+signal, checked in a certain time interval.</li>
+</ul>
+<ul>
+<li>
+<h4>Pitch Estimation</h4>
+<p><a href="http://www.csounds.com/manual/html/ptrack.html"/></p>
+<p><a href="http://www.csounds.com/manual/html/ptrack.html"><strong>ptrack</strong></a>,
+<a href="http://www.csounds.com/manual/html/pitch.html"><strong>pitch</strong></a>
+and <a href="http://www.csounds.com/manual/html/pitchamdf.html"><strong>pitchamdf</strong></a>
+track the pitch of an incoming audio signal, using different
+methods.<br/></p>
+<a href="http://www.csounds.com/manual/html/pvscent.html"><strong>pvscent</strong></a>
+calculates the spectral centroid for FFT streaming signals (see
+below under "FFT And Spectral Processing")</li>
+</ul>
+<ul>
+<li>
+<h4>Tempo Estimation</h4>
+<p><a href="http://www.csounds.com/manual/html/tempest.html"/><a href="http://www.csounds.com/manual/html/tempest.html"><strong>tempest</strong></a>
+estimates the tempo of beat patterns in a control signal.
+ </p>
+</li>
+<li>
+<h4>Dynamic Processing</h4>
+<p><a href="http://www.csounds.com/manual/html/compress.html"/></p>
+<p><a href="http://www.csounds.com/manual/html/compress.html"><strong>compress</strong></a>
+compresses, limits, expands, ducks or gates an audio
+signal.<br/></p>
+<p><a href="http://www.csounds.com/manual/html/dam.html"><strong>dam</strong></a>
+is a dynamic compressor/expander.<br/></p>
+<a href="http://www.csounds.com/manual/html/clip.html"><strong>clip</strong></a>
+clips an a-rate signal to a predefined limit, in a “soft”
+manner.</li>
+<li>
+<h4>Sample Level Operations</h4>
+<p><a href="http://www.csounds.com/manual/html/limit.html"/></p>
+<p><a href="http://www.csounds.com/manual/html/limit.html"><strong>limit</strong></a>
+sets the lower and upper limits of an incoming value (all
+rates).<br/></p>
+<p><a href="http://www.csounds.com/manual/html/samphold.html"><strong>samphold</strong></a>
+performs a sample-and-hold operation on its a- or
+k-input.<br/></p>
+<a href="http://www.csounds.com/manual/html/vaget.html"><strong>vaget</strong></a>
+/ <a href="http://www.csounds.com/manual/html/vaset.html"><strong>vaset</strong></a>
+allow getting and setting certain samples of an audio vector at
+k-rate.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<h3> SPATIALIZATION</h3>
+<ul>
+<li>
+<h4>Panning</h4>
+<p><a href="http://www.csounds.com/manual/html/pan2.html"/></p>
+<p><a href="http://www.csounds.com/manual/html/pan2.html"><strong>pan2</strong></a>
+distributes a mono audio signal across two channels according to a
+variety of panning laws.<br/></p>
+<a href="http://www.csounds.com/manual/html/pan.html"><strong>pan</strong></a>
+distributes a mono audio signal amongst four channels.</li>
+</ul>
+<ul>
+<li>
+<h4>VBAP</h4>
+<p><a href="http://www.csounds.com/manual/html/vpaplsinit.html"/></p>
+<p><a href="http://www.csounds.com/manual/html/vpaplsinit.html"><strong>vbaplsinit</strong></a>
+configures VBAP output according to loudspeaker parameters for a 2-
+or 3-dimensional space.<br/></p>
+<a href="http://www.csounds.com/manual/html/vpap4.html"><strong>vbap4</strong></a>
+/ <a href="http://www.csounds.com/manual/html/vbap8.html"><strong>vbap8</strong></a>
+/ <a href="http://www.csounds.com/manual/html/vbap16.html"><strong>vbap16</strong></a>
+distributes an audio signal among up to 16 channels, with k-rate
+control over azimut, elevation and spread.</li>
+<li>
+<h4>Ambisonics</h4>
+<p><a href="http://www.csounds.com/manual/html/bformenc1.html"/></p>
+<p><a href="http://www.csounds.com/manual/html/bformenc1.html"><strong>bformenc1</strong></a>
+encodes an audio signal to the Ambisonics B format.<br/></p>
+<a href="http://www.csounds.com/manual/html/bformdec1.html"><strong>bformdec1</strong></a>
+decodes Ambisonics B format signals to loudspeaker signals in
+different possible configurations.</li>
+<li>
+<h4>Binaural / HRTF</h4>
+<p><a href="http://www.csounds.com/manual/html/hrtfstat.html"/><a href="http://www.csounds.com/manual/html/hrtfstat.html"><strong>hrtfstat</strong></a>,
+<a href="http://www.csounds.com/manual/html/hrtfmove.html"><strong>hrtfmove</strong></a>
+and <a href="http://www.csounds.com/manual/html/hrtfmove2.html"><strong>hrtfmove2</strong></a>
+are opcodes for creating 3d binaural audio for headphones. <a href="http://www.csounds.com/manual/html/hrtfer.html">hrtfer</a> is an
+older implementation. All of these opcodes require data files
+containing information about the sound shadowing qualities of the
+human head and ears.</p>
+</li>
+</ul>
+</li>
+</ul>
+</body>
+</html>

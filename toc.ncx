@@ -1,0 +1,584 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">
+  <head>
+    <meta content="booktype:csound" name="dtb:uid"/>
+    <meta content="0" name="dtb:depth"/>
+    <meta content="0" name="dtb:totalPageCount"/>
+    <meta content="0" name="dtb:maxPageNumber"/>
+  </head>
+  <docTitle>
+    <text>csound</text>
+  </docTitle>
+  <navMap>
+    <navPoint id="sep_0">
+      <navLabel>
+        <text>INTRODUCTION</text>
+      </navLabel>
+      <content src="preface.xhtml"/>
+      <navPoint id="chapter_0">
+        <navLabel>
+          <text>PREFACE</text>
+        </navLabel>
+        <content src="preface.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_1">
+        <navLabel>
+          <text>HOW TO USE THIS MANUAL</text>
+        </navLabel>
+        <content src="how-to-use-this-manual.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_2">
+        <navLabel>
+          <text>ON THIS RELEASE</text>
+        </navLabel>
+        <content src="on-this-release.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_3">
+        <navLabel>
+          <text>CREDITS</text>
+        </navLabel>
+        <content src="credits.xhtml"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="sep_1">
+      <navLabel>
+        <text>01 BASICS</text>
+      </navLabel>
+      <content src="a-digital-audio.xhtml"/>
+      <navPoint id="chapter_4">
+        <navLabel>
+          <text>A. DIGITAL AUDIO</text>
+        </navLabel>
+        <content src="a-digital-audio.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_5">
+        <navLabel>
+          <text>B. PITCH AND FREQUENCY</text>
+        </navLabel>
+        <content src="b-pitch-and-frequency.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_6">
+        <navLabel>
+          <text>C. INTENSITIES</text>
+        </navLabel>
+        <content src="c-intensities.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_7">
+        <navLabel>
+          <text>D. RANDOM</text>
+        </navLabel>
+        <content src="d-random.xhtml"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="sep_2">
+      <navLabel>
+        <text>02 QUICK START</text>
+      </navLabel>
+      <content src="a-make-csound-run.xhtml"/>
+      <navPoint id="chapter_8">
+        <navLabel>
+          <text>A. MAKE CSOUND RUN</text>
+        </navLabel>
+        <content src="a-make-csound-run.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_9">
+        <navLabel>
+          <text>B. CSOUND SYNTAX</text>
+        </navLabel>
+        <content src="b-csound-syntax.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_10">
+        <navLabel>
+          <text>C. CONFIGURING MIDI</text>
+        </navLabel>
+        <content src="c-configuring-midi.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_11">
+        <navLabel>
+          <text>D. LIVE AUDIO</text>
+        </navLabel>
+        <content src="d-live-audio.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_12">
+        <navLabel>
+          <text>E. RENDERING TO FILE</text>
+        </navLabel>
+        <content src="e-rendering-to-file.xhtml"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="sep_3">
+      <navLabel>
+        <text>03 CSOUND LANGUAGE</text>
+      </navLabel>
+      <content src="a-initialization-and-performance-pass.xhtml"/>
+      <navPoint id="chapter_13">
+        <navLabel>
+          <text>A. INITIALIZATION AND PERFORMANCE PASS</text>
+        </navLabel>
+        <content src="a-initialization-and-performance-pass.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_14">
+        <navLabel>
+          <text>B. LOCAL AND GLOBAL VARIABLES</text>
+        </navLabel>
+        <content src="b-local-and-global-variables.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_15">
+        <navLabel>
+          <text>C. CONTROL STRUCTURES</text>
+        </navLabel>
+        <content src="c-control-structures.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_16">
+        <navLabel>
+          <text>D. FUNCTION TABLES</text>
+        </navLabel>
+        <content src="d-function-tables.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_17">
+        <navLabel>
+          <text>E. ARRAYS</text>
+        </navLabel>
+        <content src="e-arrays.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_18">
+        <navLabel>
+          <text>F. LIVE EVENTS</text>
+        </navLabel>
+        <content src="f-live-events.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_19">
+        <navLabel>
+          <text>G. USER DEFINED OPCODES</text>
+        </navLabel>
+        <content src="g-user-defined-opcodes.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_20">
+        <navLabel>
+          <text>H. MACROS</text>
+        </navLabel>
+        <content src="h-macros.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_21">
+        <navLabel>
+          <text>I. FUNCTIONAL SYNTAX</text>
+        </navLabel>
+        <content src="i-functional-syntax.xhtml"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="sep_4">
+      <navLabel>
+        <text>04 SOUND SYNTHESIS</text>
+      </navLabel>
+      <content src="a-additive-synthesis.xhtml"/>
+      <navPoint id="chapter_22">
+        <navLabel>
+          <text>A. ADDITIVE SYNTHESIS</text>
+        </navLabel>
+        <content src="a-additive-synthesis.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_23">
+        <navLabel>
+          <text>B. SUBTRACTIVE SYNTHESIS</text>
+        </navLabel>
+        <content src="b-subtractive-synthesis.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_24">
+        <navLabel>
+          <text>C. AMPLITUDE AND RING MODULATION</text>
+        </navLabel>
+        <content src="c-amplitude-and-ring-modulation.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_25">
+        <navLabel>
+          <text>D. FREQUENCY MODULATION</text>
+        </navLabel>
+        <content src="d-frequency-modulation.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_26">
+        <navLabel>
+          <text>E. WAVESHAPING</text>
+        </navLabel>
+        <content src="e-waveshaping.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_27">
+        <navLabel>
+          <text>F. GRANULAR SYNTHESIS</text>
+        </navLabel>
+        <content src="f-granular-synthesis.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_28">
+        <navLabel>
+          <text>G. PHYSICAL MODELLING</text>
+        </navLabel>
+        <content src="g-physical-modelling.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_29">
+        <navLabel>
+          <text>H. SCANNED SYNTHESIS</text>
+        </navLabel>
+        <content src="h-scanned-synthesis.xhtml"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="sep_5">
+      <navLabel>
+        <text>05 SOUND MODIFICATION</text>
+      </navLabel>
+      <content src="a-envelopes.xhtml"/>
+      <navPoint id="chapter_30">
+        <navLabel>
+          <text>A. ENVELOPES</text>
+        </navLabel>
+        <content src="a-envelopes.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_31">
+        <navLabel>
+          <text>B. PANNING AND SPATIALIZATION</text>
+        </navLabel>
+        <content src="b-panning-and-spatialization.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_32">
+        <navLabel>
+          <text>C. FILTERS</text>
+        </navLabel>
+        <content src="c-filters.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_33">
+        <navLabel>
+          <text>D. DELAY AND FEEDBACK</text>
+        </navLabel>
+        <content src="d-delay-and-feedback.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_34">
+        <navLabel>
+          <text>E. REVERBERATION</text>
+        </navLabel>
+        <content src="e-reverberation.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_35">
+        <navLabel>
+          <text>F. AM / RM / WAVESHAPING</text>
+        </navLabel>
+        <content src="f-am-rm-waveshaping.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_36">
+        <navLabel>
+          <text>G. GRANULAR SYNTHESIS</text>
+        </navLabel>
+        <content src="g-granular-synthesis.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_37">
+        <navLabel>
+          <text>H. CONVOLUTION</text>
+        </navLabel>
+        <content src="h-convolution.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_38">
+        <navLabel>
+          <text>I. FOURIER ANALYSIS / SPECTRAL PROCESSING</text>
+        </navLabel>
+        <content src="i-fourier-analysis-spectral-processing.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_39">
+        <navLabel>
+          <text>K. ATS RESYNTHESIS</text>
+        </navLabel>
+        <content src="k-ats-resynthesis.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_40">
+        <navLabel>
+          <text>L. AMPLITUDE AND PITCH TRACKING</text>
+        </navLabel>
+        <content src="l-amplitude-and-pitch-tracking.xhtml"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="sep_6">
+      <navLabel>
+        <text>06 SAMPLES</text>
+      </navLabel>
+      <content src="a-record-and-play-soundfiles.xhtml"/>
+      <navPoint id="chapter_41">
+        <navLabel>
+          <text>A. RECORD AND PLAY SOUNDFILES</text>
+        </navLabel>
+        <content src="a-record-and-play-soundfiles.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_42">
+        <navLabel>
+          <text>B. RECORD AND PLAY BUFFERS</text>
+        </navLabel>
+        <content src="b-record-and-play-buffers.xhtml"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="sep_7">
+      <navLabel>
+        <text>07 MIDI</text>
+      </navLabel>
+      <content src="a-receiving-events-by-midiin.xhtml"/>
+      <navPoint id="chapter_43">
+        <navLabel>
+          <text>A. RECEIVING EVENTS BY MIDIIN</text>
+        </navLabel>
+        <content src="a-receiving-events-by-midiin.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_44">
+        <navLabel>
+          <text>B. TRIGGERING INSTRUMENT INSTANCES</text>
+        </navLabel>
+        <content src="b-triggering-instrument-instances.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_45">
+        <navLabel>
+          <text>C. WORKING WITH CONTROLLERS</text>
+        </navLabel>
+        <content src="c-working-with-controllers.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_46">
+        <navLabel>
+          <text>D. READING MIDI FILES</text>
+        </navLabel>
+        <content src="d-reading-midi-files.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_47">
+        <navLabel>
+          <text>E. MIDI OUTPUT</text>
+        </navLabel>
+        <content src="e-midi-output.xhtml"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="sep_8">
+      <navLabel>
+        <text>08 OTHER COMMUNICATION</text>
+      </navLabel>
+      <content src="a-open-sound-control.xhtml"/>
+      <navPoint id="chapter_48">
+        <navLabel>
+          <text>A. OPEN SOUND CONTROL</text>
+        </navLabel>
+        <content src="a-open-sound-control.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_49">
+        <navLabel>
+          <text>B. CSOUND AND ARDUINO</text>
+        </navLabel>
+        <content src="b-csound-and-arduino.xhtml"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="sep_9">
+      <navLabel>
+        <text>09 CSOUND IN OTHER APPLICATIONS</text>
+      </navLabel>
+      <content src="a-csound-in-pd.xhtml"/>
+      <navPoint id="chapter_50">
+        <navLabel>
+          <text>A. CSOUND IN PD</text>
+        </navLabel>
+        <content src="a-csound-in-pd.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_51">
+        <navLabel>
+          <text>B. CSOUND IN MAXMSP</text>
+        </navLabel>
+        <content src="b-csound-in-maxmsp.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_52">
+        <navLabel>
+          <text>C. CSOUND IN ABLETON LIVE</text>
+        </navLabel>
+        <content src="c-csound-in-ableton-live.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_53">
+        <navLabel>
+          <text>D. CSOUND AS A VST PLUGIN</text>
+        </navLabel>
+        <content src="d-csound-as-a-vst-plugin.xhtml"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="sep_10">
+      <navLabel>
+        <text>10 CSOUND FRONTENDS</text>
+      </navLabel>
+      <content src="csoundqt.xhtml"/>
+      <navPoint id="chapter_54">
+        <navLabel>
+          <text>CSOUNDQT</text>
+        </navLabel>
+        <content src="csoundqt.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_55">
+        <navLabel>
+          <text>CABBAGE</text>
+        </navLabel>
+        <content src="cabbage.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_56">
+        <navLabel>
+          <text>BLUE</text>
+        </navLabel>
+        <content src="blue.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_57">
+        <navLabel>
+          <text>WINXOUND</text>
+        </navLabel>
+        <content src="winxound.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_58">
+        <navLabel>
+          <text>CSOUND VIA TERMINAL</text>
+        </navLabel>
+        <content src="csound-via-terminal.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_59">
+        <navLabel>
+          <text>WEB BASED CSOUND</text>
+        </navLabel>
+        <content src="web-based-csound.xhtml"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="sep_11">
+      <navLabel>
+        <text>11 CSOUND UTILITIES</text>
+      </navLabel>
+      <content src="csound-utilities.xhtml"/>
+      <navPoint id="chapter_60">
+        <navLabel>
+          <text>CSOUND UTILITIES</text>
+        </navLabel>
+        <content src="csound-utilities.xhtml"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="sep_12">
+      <navLabel>
+        <text>12 CSOUND AND OTHER PROGRAMMING LANGUAGES</text>
+      </navLabel>
+      <content src="b-python-inside-csound.xhtml"/>
+      <navPoint id="chapter_61">
+        <navLabel>
+          <text>B. PYTHON INSIDE CSOUND</text>
+        </navLabel>
+        <content src="b-python-inside-csound.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_62">
+        <navLabel>
+          <text>C. PYTHON IN CSOUNDQT</text>
+        </navLabel>
+        <content src="c-python-in-csoundqt.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_63">
+        <navLabel>
+          <text>D. LUA IN CSOUND</text>
+        </navLabel>
+        <content src="d-lua-in-csound.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_64">
+        <navLabel>
+          <text>E. CSOUND IN iOS</text>
+        </navLabel>
+        <content src="e-csound-in-ios.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_65">
+        <navLabel>
+          <text>F. CSOUND ON ANDROID</text>
+        </navLabel>
+        <content src="f-csound-on-android.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_66">
+        <navLabel>
+          <text>G. CSOUND AND HASKELL</text>
+        </navLabel>
+        <content src="g-csound-and-haskell.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_67">
+        <navLabel>
+          <text>H. CSOUND AND HTML</text>
+        </navLabel>
+        <content src="h-csound-and-html.xhtml"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="sep_13">
+      <navLabel>
+        <text>13 EXTENDING CSOUND</text>
+      </navLabel>
+      <content src="extending-csound.xhtml"/>
+      <navPoint id="chapter_68">
+        <navLabel>
+          <text>EXTENDING CSOUND</text>
+        </navLabel>
+        <content src="extending-csound.xhtml"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="sep_14">
+      <navLabel>
+        <text>OPCODE GUIDE</text>
+      </navLabel>
+      <content src="overview.xhtml"/>
+      <navPoint id="chapter_69">
+        <navLabel>
+          <text>OVERVIEW</text>
+        </navLabel>
+        <content src="overview.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_70">
+        <navLabel>
+          <text>SIGNAL PROCESSING I</text>
+        </navLabel>
+        <content src="signal-processing-i.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_71">
+        <navLabel>
+          <text>SIGNAL PROCESSING II</text>
+        </navLabel>
+        <content src="signal-processing-ii.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_72">
+        <navLabel>
+          <text>DATA</text>
+        </navLabel>
+        <content src="data.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_73">
+        <navLabel>
+          <text>REALTIME INTERACTION</text>
+        </navLabel>
+        <content src="realtime-interaction.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_74">
+        <navLabel>
+          <text>INSTRUMENT CONTROL</text>
+        </navLabel>
+        <content src="instrument-control.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_75">
+        <navLabel>
+          <text>MATHS, PYTHON/SYSTEM, PLUGINS</text>
+        </navLabel>
+        <content src="maths-pythonsystem-plugins.xhtml"/>
+      </navPoint>
+    </navPoint>
+    <navPoint id="sep_15">
+      <navLabel>
+        <text>APPENDIX</text>
+      </navLabel>
+      <content src="methods-of-writing-csound-scores.xhtml"/>
+      <navPoint id="chapter_76">
+        <navLabel>
+          <text>METHODS OF WRITING CSOUND SCORES</text>
+        </navLabel>
+        <content src="methods-of-writing-csound-scores.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_77">
+        <navLabel>
+          <text>GLOSSARY</text>
+        </navLabel>
+        <content src="glossary.xhtml"/>
+      </navPoint>
+      <navPoint id="chapter_78">
+        <navLabel>
+          <text>LINKS</text>
+        </navLabel>
+        <content src="links.xhtml"/>
+      </navPoint>
+    </navPoint>
+  </navMap>
+</ncx>

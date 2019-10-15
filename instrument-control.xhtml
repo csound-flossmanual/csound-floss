@@ -1,0 +1,239 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" epub:prefix="z3998: http://www.daisy.org/z3998/2012/vocab/structure/#" lang="en" xml:lang="en">
+  <head>
+    <title>INSTRUMENT CONTROL</title>
+  </head>
+  <body><h1>INSTRUMENT CONTROL</h1><h2>OPCODE GUIDE: INSTRUMENT CONTROL</h2>
+<ul>
+<li>
+<h3>SCORE PARAMETER ACCESS</h3>
+<p><a href="http://www.csounds.com/manual/html/p.html"/></p>
+<p><a href="http://www.csounds.com/manual/html/p.html"><strong>p(x)</strong></a>
+gets the value of a specified p-field. (So, 'p(5)' and 'p5' both
+return the value of the fifth parameter in a certain score line,
+but in the former case you can insert a variable to specify the
+p-field.<br/></p>
+<p><a href="http://www.csounds.com/manual/html/pindex.html"><strong>pindex</strong></a>
+does actually the same, but as an opcode instead of an
+expression.<br/></p>
+<p><a href="http://www.csounds.com/manual/html/pset.html"><strong>pset</strong></a>
+sets p-field values in case there is no value from a
+scoreline.<br/></p>
+<p><a href="http://www.csounds.com/manual/html/passign.html"><strong>passign</strong></a>
+assigns a range of p-fields to i-variables.<br/></p>
+<a href="http://www.csounds.com/manual/html/pcount.html"><strong>pcount</strong></a>
+returns the number of p-fields belonging to a note event.</li>
+<li>
+<h3>TIME AND TEMPO</h3>
+<ul>
+<li>
+<h4>Time Reading</h4>
+<p><a href="http://www.csounds.com/manual/html/times.html"/></p>
+<p><a href="http://www.csounds.com/manual/html/times.html"><strong>times</strong></a>
+/ <a href="http://www.csounds.com/manual/html/timek.html"><strong>timek</strong></a>
+return the time in seconds (times) or in control cycles (timek)
+since the start of the current Csound performance.<br/></p>
+<p><a href="http://www.csounds.com/manual/html/timeinsts.html"><strong>timeinsts</strong></a>
+/ <a href="http://www.csounds.com/manual/html/timeinstk.html"><strong>timeinstk</strong></a>
+return the time in seconds (timeinsts) or in control cycles
+(timeinstk) since the start of the instrument in which they are
+defined.<br/></p>
+<p><a href="http://www.csounds.com/manual/html/date.html"><strong>date</strong></a>
+/ <a href="http://www.csounds.com/manual/html/dates.html"><strong>dates</strong></a>
+return the number of seconds since 1 January 1970, using the
+operating system's clock, either as a number (date) or as a string
+(dates).<br/></p>
+<a href="http://www.csounds.com/manual/html/setscorepos.html"><strong>setscorepos</strong></a>
+sets the playback position of the current score performance to a
+given position.</li>
+<li>
+<h4>Tempo Reading</h4>
+<p><a href="http://www.csounds.com/manual/html/tempo.html"/></p>
+<p><a href="http://www.csounds.com/manual/html/tempo.html"><strong>tempo</strong></a>
+allows the performance speed of Csound scored events to be
+controlled from within an orchestra.<br/></p>
+<p><a href="http://www.csounds.com/manual/html/miditempo.html"><strong>miditempo</strong></a>
+returns the current tempo at k-rate, of either the midi file (if
+available) or the score.</p>
+<p><a href="http://www.csounds.com/manual/html/tempoval.html"><strong>tempoval</strong></a>
+reads the current value of the tempo.</p>
+</li>
+<li>
+<h4>Duration Modifications</h4>
+<p><a href="http://www.csounds.com/manual/html/ihold.html"/></p>
+<p><a href="http://www.csounds.com/manual/html/ihold.html"><strong>ihold</strong></a>
+forces a finite-duration note to become a 'held' note.<br/></p>
+<a href="http://www.csounds.com/manual/html/xtratim.html"><strong>xtratim</strong></a>
+extend the duration of the current instrument instance by a
+specified time duration.</li>
+<li>
+<h4>Time Signal Generators</h4>
+<p><a href="http://www.csounds.com/manual/html/metro.html"/></p>
+<p><a href="http://www.csounds.com/manual/html/metro.html"><strong>metro</strong></a>
+outputs a metronome-like control signal (1 value impulses separated
+by zeroes). Rate of impulses can be specified as impulses per
+second</p>
+<a href="http://www.csounds.com/manual/html/mpulse.html"><strong>mpulse</strong></a>
+generates an impulse for one sample of user definable amplitude,
+followed by a user-definable time gap.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<p id="alexbreak"/>
+<h3>CONDITIONS AND LOOPS</h3>
+<p><a href="http://www.csounds.com/manual/html/changed.html"/></p>
+<p><a href="http://www.csounds.com/manual/html/changed.html"><strong>changed</strong></a>
+reports whether any of its k-rate variable inputs has changed.</p>
+<p><a href="http://www.csounds.com/manual/html/trigger.html"><strong>trigger</strong></a>
+informs whether a k-rate signal crosses a certain threshold, either
+in an upward direction, in a downward direction or both.<br/></p>
+<p><a href="http://www.csounds.com/manual/html/if.html"><strong>if</strong></a>
+branches conditionally at initialisation or during performance
+time.</p>
+<a href="http://www.csounds.com/manual/html/loop_lt.html"><strong>loop_lt</strong></a>,
+<a href="http://www.csounds.com/manual/html/loop_le.html"><strong>loop_le</strong></a>,
+<a href="http://www.csounds.com/manual/html/loop_gt.html"><strong>loop_gt</strong></a>
+and <a href="http://www.csounds.com/manual/html/loop_ge.html"><strong>loop_ge</strong></a>
+perform loops either at i-time or at k-rate.</li>
+</ul>
+<ul>
+<li>
+<h3>PROGRAM FLOW</h3>
+<p><a href="http://www.csounds.com/manual/html/init.html"><strong>init</strong></a>
+initializes a k- or a-variable (assigns a value to a k- or
+a-variable which is valid at i-time).<br/></p>
+<p><a href="http://www.csounds.com/manual/html/igoto.html"><strong>igoto</strong></a>
+jumps to a label at i-time.<br/></p>
+<p><a href="http://www.csounds.com/manual/html/kgoto.html"><strong>kgoto</strong></a>
+jumps to a label at k-rate.<br/></p>
+<p><a href="http://www.csounds.com/manual/html/timout.html"><strong>timout</strong></a>
+jumps to a label for a given time. Can be used in conjunction with
+<a href="http://www.csounds.com/manual/html/reinit.html">reinit</a>
+to perform time loops (see the chapter about Control Structures for
+more information).<br/></p>
+<a href="http://www.csounds.com/manual/html/reinit.html"><strong>reinit</strong></a>
+/ <a href="http://www.csounds.com/manual/html/rigoto.html"><strong>rigoto</strong></a>
+/ <a href="http://www.csounds.com/manual/html/rireturn.html"><strong>rireturn</strong></a>
+forces a certain section of code to be reinitialised (i.e. i-rate
+variables will be refreshed).</li>
+</ul>
+<ul>
+<li>
+<h3>EVENT TRIGGERING</h3>
+<p><strong><a href="http://www.csounds.com/manual/html/event_i.html">event_i</a></strong>
+/ <strong><a href="http://www.csounds.com/manual/html/event.html">event</a></strong>:
+Generate an instrument event at i-time (event_i) or at k-time
+(event). Easy to use, but you cannot send a string to the
+subinstrument.</p>
+<p><strong><a href="http://www.csounds.com/manual/html/scoreline_i.html">scoreline_i</a></strong>
+/ <strong><a href="http://www.csounds.com/manual/html/scoreline.html">scoreline</a></strong>:
+Generate an instrument at i-time (scoreline_i) or at k-time
+(scoreline). Like event_i/event, but you can send to more than one
+instrument but unlike event_i/event you can send strings. On the
+other hand, you must usually pre-format your scoreline-string using
+sprintf.</p>
+<p><a href="http://www.csounds.com/manual/html/schedkwhen.html"><strong>schedkwhen</strong></a>
+triggers an instrument event at k-time if a certain condition is
+given.<br/></p>
+<p><a href="http://www.csounds.com/manual/html/seqtime.html"><strong>seqtime</strong></a>
+/ <a href="http://www.csounds.com/manual/html/seqtime2.html"><strong>seqtime2</strong></a>
+can be used to generate a trigger signal according to time values
+in a function table.</p>
+<p><a href="http://www.csounds.com/manual/html/timedseq.html"><strong>timedseq</strong></a>
+is an event-sequencer in which time can be controlled by a
+time-pointer. Sequence data is stored in a function table or text
+file.</p>
+</li>
+</ul>
+<ul>
+<li>
+<h3>INSTRUMENT SUPERVISION</h3>
+<ul>
+<li>
+<h4>Instances And Allocation</h4>
+<p><a href="http://www.csounds.com/manual/html/active.html"><strong>active</strong></a>
+returns the number of active instances of an instrument.<br/></p>
+<p><a href="http://www.csounds.com/manual/html/maxalloc.html"><strong>maxalloc</strong></a>
+limits the number of allocations (instances) of an
+instrument.<br/></p>
+<a href="http://www.csounds.com/manual/html/prealloc.html"><strong>prealloc</strong></a>
+creates space for instruments but does not run them.</li>
+</ul>
+<ul>
+<li>
+<h4>Turning On And Off</h4>
+<p><a href="http://www.csounds.com/manual/html/turnon.html"><strong>turnon</strong></a>
+activates an instrument for an indefinite time.<br/></p>
+<p><a href="http://www.csounds.com/manual/html/turnoff.html"><strong>turnoff</strong></a>
+/ <a href="http://www.csounds.com/manual/html/turnoff2.html"><strong>turnoff2</strong></a>
+enables an instrument to turn itself, or another instrument,
+off.<br/></p>
+<p><a href="http://www.csounds.com/manual/html/mute.html"><strong>mute</strong></a>
+mutes/unmutes new instances of a given instrument.<br/></p>
+<p><a href="http://www.csounds.com/manual/html/remove.html"><strong>remove</strong></a>
+removes the definition of an instrument as long as it is not in
+use.<br/></p>
+<a href="http://www.csounds.com/manual/html/exitnow.html"><strong>exitnow</strong></a>
+causes Csound to exit as fast as possible and with no cleaning
+up.</li>
+<li>
+<h4>Named Instruments</h4>
+<p><a href="http://www.csounds.com/manual/html/nstrnum.html"/><a href="http://www.csounds.com/manual/html/nstrnum.html"><strong>nstrnum</strong></a>
+returns the number of a named instrument.</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<h3>SIGNAL EXCHANGE AND MIXING</h3>
+<ul>
+<li>
+<h4>chn opcodes</h4>
+<p><a href="http://www.csounds.com/manual/html/chn.html"><strong>chn_k</strong></a>,
+<a href="http://www.csounds.com/manual/html/chn.html"><strong>chn_a</strong></a>,
+and <a href="http://www.csounds.com/manual/html/chn.html"><strong>chn_S</strong></a>
+declare a control, audio, or string channel. Note that this can be
+done implicitly in most cases by chnset/chnget.</p>
+<p><a href="http://www.csounds.com/manual/html/chnset.html"><strong>chnset</strong></a>
+writes a value (i, k, S or a) to a software channel (which is
+identified by a string as its name).</p>
+<p><a href="http://www.csounds.com/manual/html/chnget.html"><strong>chnget</strong></a>
+gets the value of a named software channel.</p>
+<p><a href="http://www.csounds.com/manual/html/chnmix.html"><strong>chnmix</strong></a>
+writes audio data to an named audio channel, mixing to the previous
+output.<br/></p>
+<a href="http://www.csounds.com/manual/html/chnclear.html"><strong>chnclear</strong></a>
+clears an audio channel of the named software bus to zero.</li>
+<li>
+<h4>zak  <a href="http://www.csounds.com/manual/html/chn.html"/></h4>
+<p><strong><a href="http://www.csounds.com/manual/html/zakinit.html">zakinit</a></strong>
+initialised zak space for the storage of zak variables.</p>
+<p><strong><a href="http://www.csounds.com/manual/html/zaw.html">zaw</a></strong>,
+<a href="http://www.csounds.com/manual/html/zkw.html"><strong>zkw</strong></a>
+and <a href="http://www.csounds.com/manual/html/ziw.html"><strong>ziw</strong></a>
+write to (or overwrite) a-rate, k-rate or i-rate zak variables
+respectively.</p>
+<p><strong><a href="http://www.csounds.com/manual/html/zawm.html">zawm</a></strong>,
+<strong><a href="http://www.csounds.com/manual/html/zkwm.html">zkwm</a></strong>
+and <a href="http://www.csounds.com/manual/html/ziw.html"><strong>ziwm</strong></a>
+mix (accumulate) a-rate, k-rate or i-rate zak variables
+respectively.<br/></p>
+<p><a href="http://www.csounds.com/manual/html/zar.html"><strong>zar</strong></a>,
+<a href="instrument-control/instrument-control/zkr"><strong>zkr</strong></a>
+and <a href="http://www.csounds.com/manual/html/zir.html"><strong>zir</strong></a>
+read from a-rate, k-rate or i-rate zak variables
+respectively.<br/></p>
+<p><a href="http://www.csounds.com/manual/html/zacl.html"><strong>zacl</strong></a>
+and <a href="http://www.csounds.com/manual/html/zkcl.html"><strong>zkcl</strong></a>
+clears a range of a-rate or k-rate zak variables
+respectively.<br/></p>
+</li>
+</ul>
+</li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" epub:prefix="z3998: http://www.daisy.org/z3998/2012/vocab/structure/#" lang="en" xml:lang="en">
+  <head>
+    <title>WINXOUND</title>
+  </head>
+  <body><h1>WINXOUND</h1><br/>
+<h2>WinXound</h2>
+<div><strong>WinXound Description:</strong><br/>
+WinXound is a free and open-source Front-End GUI Editor for CSound
+6, CSoundAV,<br/>
+CSoundAC, with Python and Lua support, developed by Stefano
+Bonetti.<br/>
+It runs on Microsoft Windows, Apple Mac OsX and Linux.<br/>
+WinXound is optimized to work with the CSound 6 compiler.<br/>
+<br/>
+<br/>
+<strong>WinXound Features:</strong></div>
+<div>
+<ul>
+<li>Edit CSound, Python and Lua files (csd, orc, sco, py, lua) with
+Syntax Highlight and Rectangular Selection;</li>
+<li>Run CSound, CSoundAV, CSoundAC, Python and Lua compilers;</li>
+<li>Run external language tools (QuteCsound, Idle, or other GUI
+Editors);</li>
+<li>CSound analysis user friendly GUI;</li>
+<li>Integrated CSound manual help;</li>
+<li>Possibilities to set personal colors for the syntax
+highlighter;</li>
+<li>Convert orc/sco to csd or csd to orc/sco;</li>
+<li>Split code into two windows horizontally or vertically;</li>
+<li>CSound csd explorer (File structure for Tags and
+Instruments);</li>
+<li>CSound Opcodes autocompletion menu;</li>
+<li>Line numbers;</li>
+<li>Bookmarks;</li>
+<li>...and much more ... (Download it!) </li>
+</ul>
+<br/></div>
+<p> </p><div class="group_img"><div class="image"><img src="static/winxound_linux.jpg" height="322" width="438" alt=""/></div></div>
+<p> </p>
+<p><strong>Web Site and Contacts:</strong><br/>
+- Web: <a title="winxound.codeplex.com" href="http://winxound.codeplex.com">winxound.codeplex.com</a><br/>
+- Email: <a href="mailto:stefano_bonetti@tin.it">stefano_bonetti@tin.it</a> (or
+<a href="mailto:stefano_bonetti@alice.it">stefano_bonetti@alice.it</a>)</p>
+<hr/>
+<p><strong> <br/></strong>
+<strong>REQUIREMENTS<br/></strong><br/>
+<strong>System requirements for Microsoft Windows:</strong></p>
+<ul>
+<li>Supported: Xp, Vista, Seven (32/64 bit versions);</li>
+<li>(Note: For Windows Xp you also need the Microsoft Framework
+.Net version 2.0 or major. You can download it from
+www.microsoft.com site);</li>
+<li>CSound 6: <a href="http://sourceforge.net/projects/csound">http://sourceforge.net/projects/csound</a>
+- (needed for CSound and LuaJit compilers);</li>
+<li>Not requested but suggested: CSoundAV by Gabriel Maldonado
+(<a href="http://www.csounds.com/maldonado/">http://www.csounds.com/maldonado/</a>);</li>
+<li>Requested to work with Python: Python compiler (<a href="http://www.python.org/download/">http://www.python.org/download/</a>)<br/>
+</li>
+</ul>
+<strong>System requirements for Apple Mac OsX:</strong>
+<ul>
+<li>Osx 10.5 or major;</li>
+<li>CSound 6: <a href="http://sourceforge.net/projects/csound">http://sourceforge.net/projects/csound</a>
+- (needed for CSound compiler);</li>
+</ul>
+<p><strong>System requirements for Linux:</strong></p>
+<ul>
+<li>Gnome environment or libraries;</li>
+<li>Please, read carefully the "ReadMe" file in the source
+code.<br/></li>
+</ul>
+<hr/>
+<br/>
+<br/>
+<strong>INSTALLATION AND USAGE<br/>
+<br/>
+Microsoft Windows Installation and Usage:</strong>
+<ul>
+<li>Download and install the Microsoft Framework .Net version 2.0
+or major (only for Windows Xp);</li>
+<li>Download and install the latest version of CSound 6 (<a href="http://sourceforge.net/projects/csound">http://sourceforge.net/projects/csound</a>);</li>
+<li>Download the WinXound zipped file, decompress it where you want
+(see the (*)note below), and double-click on "WinXound_Net"
+executable;</li>
+<li>(*)note: THE WINXOUND FOLDER MUST BE LOCATED IN A PATH WHERE
+YOU HAVE FULL READ AND WRITE PERMISSION (for example in your User
+Personal folder).<br/></li>
+</ul>
+<strong>Apple Mac OsX Installation and Usage:</strong>
+<ul>
+<li>Download and install the latest version of CSound 6 (<a href="http://sourceforge.net/projects/csound">http://sourceforge.net/projects/csound</a>);</li>
+<li>Download the WinXound zipped file, decompress it and drag
+WinXound.app to your Applications folder (or where you want).
+Launch it from there.</li>
+</ul>
+<p><strong>Linux Installation and Usage:</strong></p>
+<ul>
+<li>Download and install the latest version of CSound 6 for your
+distribution;</li>
+<li>Ubuntu (32/64 bit): Download the WinXound zipped file,
+decompress it in a location where you have the full read and write
+permissions;</li>
+<li>To compile the source code:<br/>
+1) Before to compile WinXound you need to install:<br/>
+- gtkmm-2.4 (libgtkmm-2.4-dev) &gt;= 2.12<br/>
+- vte (libvte-dev)<br/>
+- webkit-1.0 (libwebkit-dev)<br/>
+<br/>
+2) To compile WinXound open the terminal window, go into the
+uncompressed "winxound_gtkmm" directory and type:<br/>
+./preconfigure<br/>
+./configure<br/>
+(make clean)<br/>
+make<br/>
+<br/>
+3) To use WinXound without installing it:<br/>
+make standalone<br/>
+./bin/winxound<br/>
+[Note: WinXound folder must be located in a path where you have
+full read and write permission.]<br/>
+<br/>
+4) To install WinXound:<br/>
+make install</li>
+</ul>
+<hr/>
+<p><br/>
+<strong>Source Code:</strong></p>
+<ul>
+<li>Windows: The source code is written in C# using Microsoft
+Visual Studio C# Express Edition 2008.</li>
+<li>OsX: The source code is written in Cocoa and Objective-C using
+XCode 3.2 version.</li>
+<li>Linux: The source code is written in C++ (Gtkmm) using
+Anjuta.</li>
+</ul>
+<p><br/>
+Note: <em>The TextEditor is entirely based on the wonderful
+SCINTILLA text control by Neil Hodgson (<a href="http://www.scintilla.org">http://www.scintilla.org</a>).</em><br/>
+
+<br/></p>
+<hr/>
+<p><br/>
+<br/>
+<strong>Screenshots:</strong><br/>
+<br/>
+Look at: <span><a title="winxound.codeplex.com" href="http://winxound.codeplex.com/">winxound.codeplex.com</a> </span></p>
+<hr/>
+<p><br/></p>
+<strong>Credits:</strong><br/>
+Many thanks for suggestions and debugging help to Roberto Doati,
+Gabriel Maldonado, Mark Jamerson, Andreas Bergsland, Oeyvind
+Brandtsegg, Francesco Biasiol, Giorgio Klauer, Paolo Girol,
+Francesco Porta, Eric Dexter, Menno Knevel, Joseph Alford, Panos
+Katergiathis, James Mobberley, Fabio Macelloni, Giuseppe Silvi,
+Maurizio Goina, Andrés Cabrera, Peiman Khosravi, Rory Walsh and
+Luis Jure.<br/>
+<br/>
+</body>
+</html>

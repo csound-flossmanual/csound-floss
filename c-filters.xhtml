@@ -1,0 +1,367 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" epub:prefix="z3998: http://www.daisy.org/z3998/2012/vocab/structure/#" lang="en" xml:lang="en">
+  <head>
+    <title>C. FILTERS</title>
+  </head>
+  <body><h1>C. FILTERS</h1><h2>FILTERS</h2>
+<p>Audio filters can range from devices that subtly shape the tonal
+characteristics of a sound to ones that dramatically remove whole
+portions of a sound spectrum to create new sounds. Csound includes
+several versions of each of the commonest types of filters and some
+more esoteric ones also. The full list of Csound's standard filters
+can be found <a href="http://www.csounds.com/manual/html/SigmodStandard.html">here</a>.
+A list of the more specialised filters can be found <a href="http://www.csounds.com/manual/html/SigmodSpeciali.html">here</a>.</p>
+<h3>Lowpass Filters</h3>
+<p>The first type of filter encountered is normally the lowpass
+filter. As its name suggests it allows lower frequencies to pass
+through unimpeded and therefore filters higher frequencies. The
+crossover  frequency is normally referred to as the 'cutoff'
+frequency. Filters of this type do not really cut frequencies off
+at the cutoff point like a brick wall but instead attenuate
+increasingly according to a cutoff slope. Different filters offer
+cutoff slopes of different of steepness. Another aspect of a
+lowpass filter that we may be concerned with is a ripple that might
+emerge at the cutoff point. If this is exaggerated intentionally it
+is referred to as resonance or 'Q'.<br/>
+<br/>
+In the following example, three lowpass filters filters are
+demonstrated: <a href="http://www.csounds.com/manual/html/tone.html">tone</a>, <a href="http://www.csounds.com/manual/html/butterlp.html">butlp</a> and
+<a href="http://www.csounds.com/manual/html/moogladder.html">moogladder</a>.
+<em>tone</em> offers a quite gentle cutoff slope and therefore is
+better suited to subtle spectral enhancement tasks. <em>butlp</em>
+is based on the Butterworth filter design and produces a much
+sharper cutoff slope at the expense of a slightly greater CPU
+overhead. <em>moogladder</em> is an interpretation of an analogue
+filter found in a moog synthesizer – it includes a resonance
+control.<br/>
+<br/>
+In the example a sawtooth waveform is played in turn through each
+filter. Each time the cutoff frequency is modulated using an
+envelope, starting high and descending low so that more and more of
+the spectral content of the sound is removed as the note
+progresses. A sawtooth waveform has been chosen as it contains
+strong higher frequencies and therefore demonstrates the filters
+characteristics well; a sine wave would be a poor choice of source
+sound on account of its lack of spectral richness.</p>
+<p>   <strong><em>EXAMPLE
+05C01_tone_butlp_moogladder.csd</em></strong></p>
+<pre>&lt;CsoundSynthesizer&gt;
+
+&lt;CsOptions&gt;
+-odac ; activates real time sound output
+&lt;/CsOptions&gt;
+
+&lt;CsInstruments&gt;
+; Example by Iain McCurdy
+
+sr = 44100
+ksmps = 32
+nchnls = 1
+0dbfs = 1
+
+  instr 1
+        prints       "tone%n"    ; indicate filter type in console
+aSig    vco2         0.5, 150    ; input signal is a sawtooth waveform
+kcf     expon        10000,p3,20 ; descending cutoff frequency
+aSig    tone         aSig, kcf   ; filter audio signal
+        out          aSig        ; filtered audio sent to output
+  endin
+
+  instr 2
+        prints       "butlp%n"   ; indicate filter type in console
+aSig    vco2         0.5, 150    ; input signal is a sawtooth waveform
+kcf     expon        10000,p3,20 ; descending cutoff frequency
+aSig    butlp        aSig, kcf   ; filter audio signal
+        out          aSig        ; filtered audio sent to output
+  endin
+
+  instr 3
+        prints       "moogladder%n" ; indicate filter type in console
+aSig    vco2         0.5, 150       ; input signal is a sawtooth waveform
+kcf     expon        10000,p3,20    ; descending cutoff frequency
+aSig    moogladder   aSig, kcf, 0.9 ; filter audio signal
+        out          aSig           ; filtered audio sent to output
+  endin
+
+&lt;/CsInstruments&gt;
+
+&lt;CsScore&gt;
+; 3 notes to demonstrate each filter in turn
+i 1 0  3; tone
+i 2 4  3; butlp
+i 3 8  3; moogladder
+e
+&lt;/CsScore&gt;
+
+&lt;/CsoundSynthesizer&gt;
+</pre>
+<h3>Highpass Filters</h3>
+<p>A highpass filter is the converse of a lowpass filter;
+frequencies higher than the cutoff point are allowed to pass whilst
+those lower are attenuated. <a href="http://www.csounds.com/manual/html/atone.html">atone</a> and
+<a href="http://www.csounds.com/manual/html/butterhp.html">buthp</a> are
+the analogues of <em>tone</em> and <em>butlp</em>. Resonant
+highpass filters are harder to find but Csound has one in <a href="http://www.csounds.com/manual/html/bqrez.html">bqrez</a>.
+<em>bqrez</em> is actually a multi-mode filter and could also be
+used as a resonant lowpass filter amongst other things. We can
+choose which mode we want by setting one of its input arguments
+appropriately. Resonant highpass is mode 1. In this example a
+sawtooth waveform is again played through each of the filters in
+turn but this time the cutoff frequency moves from low to high.
+Spectral content is increasingly removed but from the opposite
+spectral direction.</p>
+<p><strong>   <em>EXAMPLE
+05C02_atone_buthp_bqrez.csd</em></strong></p>
+<pre>&lt;CsoundSynthesizer&gt;
+
+&lt;CsOptions&gt;
+-odac ; activates real time sound output
+&lt;/CsOptions&gt;
+
+&lt;CsInstruments&gt;
+; Example by Iain McCurdy
+
+sr = 44100
+ksmps = 32
+nchnls = 1
+0dbfs = 1
+
+  instr 1
+        prints       "atone%n"     ; indicate filter type in console
+aSig    vco2         0.2, 150      ; input signal is a sawtooth waveform
+kcf     expon        20, p3, 20000 ; define envelope for cutoff frequency
+aSig    atone        aSig, kcf     ; filter audio signal
+        out          aSig          ; filtered audio sent to output
+  endin
+
+  instr 2
+        prints       "buthp%n"     ; indicate filter type in console
+aSig    vco2         0.2, 150      ; input signal is a sawtooth waveform
+kcf     expon        20, p3, 20000 ; define envelope for cutoff frequency
+aSig    buthp        aSig, kcf     ; filter audio signal
+        out          aSig          ; filtered audio sent to output
+  endin
+
+  instr 3
+        prints       "bqrez(mode:1)%n" ; indicate filter type in console
+aSig    vco2         0.03, 150         ; input signal is a sawtooth waveform
+kcf     expon        20, p3, 20000     ; define envelope for cutoff frequency
+aSig    bqrez        aSig, kcf, 30, 1  ; filter audio signal
+        out          aSig              ; filtered audio sent to output
+  endin
+
+&lt;/CsInstruments&gt;
+
+&lt;CsScore&gt;
+; 3 notes to demonstrate each filter in turn
+i 1 0  3 ; atone
+i 2 5  3 ; buthp
+i 3 10 3 ; bqrez(mode 1)
+e
+&lt;/CsScore&gt;
+
+&lt;/CsoundSynthesizer&gt;
+</pre>
+<h3>Bandpass Filters</h3>
+<p>A bandpass filter allows just a narrow band of sound to pass
+through unimpeded and as such is a little bit like a combination of
+a lowpass and highpass filter connected in series. We normally
+expect at least one additional parameter of control: control over
+the width of the band of frequencies allowed to pass through, or
+'bandwidth'.<br/>
+<br/>
+In the next example cutoff frequency and bandwidth are demonstrated
+independently for two different bandpass filters offered by Csound.
+First of all a sawtooth waveform is passed through a <a href="http://www.csounds.com/manual/html/reson.html">reson</a> filter
+and a <a href="http://www.csounds.com/manual/html/butterbp.html">butbp</a> filter
+in turn while the cutoff frequency rises (bandwidth remains
+static). Then pink noise is passed through <em>reson</em> and
+<em>butbp</em> in turn again but this time the cutoff frequency
+remains static at 5000Hz while the bandwidth expands from 8 to
+5000Hz. In the latter two notes it will be heard how the resultant
+sound moves from almost a pure sine tone to unpitched noise.
+<em>butbp</em> is obviously the Butterworth based bandpass filter.
+<em>reson</em> can produce dramatic variations in amplitude
+depending on the bandwidth value and therefore some balancing of
+amplitude in the output signal may be necessary if out of range
+samples and distortion are to be avoided. Fortunately the opcode
+itself includes two modes of amplitude balancing built in but by
+default neither of these methods are active and in this case the
+use of the balance opcode may be required. Mode 1 seems to work
+well with spectrally sparse sounds like harmonic tones while mode 2
+works well with spectrally dense sounds such as white or pink
+noise.</p>
+<p><strong><em>   EXAMPLE
+05C03_reson_butbp.csd</em></strong></p>
+<pre>&lt;CsoundSynthesizer&gt;
+
+&lt;CsOptions&gt;
+-odac ; activates real time sound output
+&lt;/CsOptions&gt;
+
+&lt;CsInstruments&gt;
+; Example by Iain McCurdy
+
+sr = 44100
+ksmps = 32
+nchnls = 1
+0dbfs = 1
+
+  instr 1
+        prints       "reson%n"          ; indicate filter type in console
+aSig    vco2         0.5, 150           ; input signal: sawtooth waveform
+kcf     expon        20,p3,10000        ; rising cutoff frequency
+aSig    reson        aSig,kcf,kcf*0.1,1 ; filter audio signal
+        out          aSig               ; send filtered audio to output
+  endin
+
+  instr 2
+        prints       "butbp%n"          ; indicate filter type in console
+aSig    vco2         0.5, 150           ; input signal: sawtooth waveform
+kcf     expon        20,p3,10000        ; rising cutoff frequency
+aSig    butbp        aSig, kcf, kcf*0.1 ; filter audio signal
+        out          aSig               ; send filtered audio to output
+  endin
+
+  instr 3
+        prints       "reson%n"          ; indicate filter type in console
+aSig    pinkish      0.5                ; input signal: pink noise
+kbw     expon        10000,p3,8         ; contracting bandwidth
+aSig    reson        aSig, 5000, kbw, 2 ; filter audio signal
+        out          aSig               ; send filtered audio to output
+  endin
+
+  instr 4
+        prints       "butbp%n"          ; indicate filter type in console
+aSig    pinkish      0.5                ; input signal: pink noise
+kbw     expon        10000,p3,8         ; contracting bandwidth
+aSig    butbp        aSig, 5000, kbw    ; filter audio signal
+        out          aSig               ; send filtered audio to output
+  endin
+
+&lt;/CsInstruments&gt;
+
+&lt;CsScore&gt;
+i 1 0  3 ; reson - cutoff frequency rising
+i 2 4  3 ; butbp - cutoff frequency rising
+i 3 8  6 ; reson - bandwidth increasing
+i 4 15 6 ; butbp - bandwidth increasing
+e
+&lt;/CsScore&gt;
+
+&lt;/CsoundSynthesizer&gt;
+</pre>
+<h3>Comb Filtering</h3>
+<p>A comb filter is a special type of filter that creates a
+harmonically related stack of resonance peaks on an input sound
+file. A comb filter is really just a very short delay effect with
+feedback. Typically the delay times involved would be less than
+0.05 seconds. Many of the comb filters documented in <a href="http://www.csounds.com/manual/html/">the Csound Manual</a> term
+this delay time, 'loop time'. The fundamental of the harmonic stack
+of resonances produced will be 1/loop time. Loop time and the
+frequencies of the resonance peaks will be inversely proportional –
+as loop time gets smaller, the frequencies rise. For a loop time of
+0.02 seconds, the fundamental resonance peak will be 50Hz, the next
+peak 100Hz, the next 150Hz and so on. Feedback is normally
+implemented as reverb time – the time taken for amplitude to drop
+to 1/1000 of its original level or by 60dB. This use of reverb time
+as opposed to feedback alludes to the use of comb filters in the
+design of reverb algorithms. Negative reverb times will result in
+only the odd numbered partials of the harmonic stack being
+present.</p>
+<p>The following example demonstrates a comb filter using the
+<a href="http://www.csounds.com/manual/html/vcomb.html">vcomb</a>
+opcode. This opcode allows for performance time modulation of the
+loop time parameter. For the first 5 seconds of the demonstration
+the reverb time increases from 0.1 seconds to 2 while the loop time
+remains constant at 0.005 seconds. Then the loop time decreases to
+0.0005 seconds over 6 seconds (the resonant peaks rise in
+frequency), finally over the course of 10 seconds the loop time
+rises to 0.1 seconds (the resonant peaks fall in frequency). A
+repeating noise impulse is used as a source sound to best
+demonstrate the qualities of a comb filter.</p>
+<p><strong><em>   EXAMPLE
+05C04_comb.csd</em></strong></p>
+<pre>&lt;CsoundSynthesizer&gt;
+
+&lt;CsOptions&gt;
+-odac ;activates real time sound output
+&lt;/CsOptions&gt;
+
+&lt;CsInstruments&gt;
+;Example by Iain McCurdy
+
+sr = 44100
+ksmps = 32
+nchnls = 1
+0dbfs = 1
+
+  instr 1
+; -- generate an input audio signal (noise impulses) --
+; repeating amplitude envelope:
+kEnv         loopseg   1,0, 0,1,0.005,1,0.0001,0,0.9949,0
+aSig         pinkish   kEnv*0.6                     ; pink noise pulses
+
+; apply comb filter to input signal
+krvt    linseg  0.1, 5, 2                           ; reverb time
+alpt    expseg  0.005,5,0.005,6,0.0005,10,0.1,1,0.1 ; loop time
+aRes    vcomb   aSig, krvt, alpt, 0.1               ; comb filter
+        out     aRes                                ; audio to output
+  endin
+
+&lt;/CsInstruments&gt;
+
+&lt;CsScore&gt;
+i 1 0 25
+e
+&lt;/CsScore&gt;
+
+&lt;/CsoundSynthesizer&gt;
+</pre>
+<h3>Other Filters Worth Investigating</h3>
+<p>In addition to a wealth of low and highpass filters, Csound
+offers several more unique filters. Multimode such as <a href="http://www.csounds.com/manual/html/bqrez.html">bqrez</a> provide
+several different filter types within a single opcode. Filter type
+is normally chosen using an i-rate input argument that functions
+like a switch. Another multimode filter, <a href="http://www.csounds.com/manual/html/clfilt.html">clfilt</a>, offers
+additional filter controls such as 'filter design' and 'number of
+poles' to create unusual sound filters. unfortunately some parts of
+this opcode are not implemented yet.</p>
+<p><a href="http://www.csounds.com/manual/html/eqfil.html">eqfil</a> is
+essentially a parametric equaliser but multiple iterations could be
+used as modules in a graphic equaliser bank. In addition to the
+capabilities of eqfil, <a href="http://www.csounds.com/manual/html/pareq.html">pareq</a> adds the
+possibility of creating low and high shelving filtering which might
+prove useful in mastering or in spectral adjustment of more
+developed sounds.</p>
+<p><a href="http://www.csounds.com/manual/html/rbjeq.html">rbjeq</a> offers a
+quite comprehensive multimode filter including highpass, lowpass,
+bandpass, bandreject, peaking, low-shelving and high-shelving, all
+in a single opcode</p>
+<p><a href="http://www.csounds.com/manual/html/statevar.html">statevar</a>
+offers the outputs from four filter types - highpass, lowpass,
+bandpass and bandreject - simultaneously so that the user can morph
+between them smoothly. <a href="http://www.csounds.com/manual/html/svfilter.html">svfilter</a>
+does a similar thing but with just highpass, lowpass and bandpass
+filter types. </p>
+<p><a href="http://www.csounds.com/manual/html/phaser1.html">phaser1</a> and
+<a href="http://www.csounds.com/manual/html/phaser2.html">phaser2</a> offer
+algorithms containing chains of first order and second order
+allpass filters respectively. These algorithms could conceivably be
+built from individual allpass filters, but these ready-made
+versions provide convenience and added efficiency.</p>
+<p><a href="http://www.csounds.com/manual/html/hilbert.html">hilbert</a> is a
+specialist IIR filter that implements the Hilbert transformer.</p>
+<p>For those wishing to devise their own filter using coefficients
+Csound offers <a href="http://www.csounds.com/manual/html/filter2.html">filter2</a> and
+<a href="http://www.csounds.com/manual/html/zfilter2.html">zfilter2</a>.</p>
+<h3>Filter Comparision</h3>
+<p>The following example shows a nice comparision between a number
+of common used filters.</p>
+<p><strong>   <em>EXAMPLE
+05C05_filter_compar.csd</em></strong></p>
+<pre>
+&lt;CsoundSynthesizer&gt;<br/>&lt;CsOptions&gt;<br/>-odac -m128<br/>&lt;/CsOptions&gt;<br/>&lt;CsInstruments&gt;<br/>; comparison of filters with PAD timbre<br/>; written by Anton Kholomiov, 2016<br/>; based on the Jacob Joaquin wobble bass sound<br/><br/>sr = 44100<br/>ksmps = 64<br/>nchnls = 2<br/>0dbfs = 1<br/><br/>gaOut init 0<br/>giSpb init 0.45<br/><br/><br/>; Filter types<br/>#define MOOG_LADDER #1#<br/>#define MOOG_VCF    #2# <br/>#define LPF18       #3#<br/>#define BQREZ       #4#<br/>#define CLFILT      #5#<br/>#define BUTTERLP    #6#<br/>#define LOWRES      #7#<br/>#define REZZY       #8#<br/>#define SVFILTER    #9# <br/>#define VLOWRES     #10#<br/>#define STATEVAR    #11#<br/>#define MVCLPF1     #12#<br/>#define MVCLPF2     #13#<br/>#define MVCLPF3     #14#<br/><br/><br/>opcode Echo, 0, S<br/>Smsg xin<br/>    printf_i "\n%s\n\n", 1, Smsg<br/>endop<br/><br/>opcode EchoFilterName, 0, i<br/>iType xin<br/><br/>if iType == $MOOG_LADDER then<br/>    Echo "moogladder"<br/>elseif iType == $MOOG_VCF then<br/>    Echo "moogvcf"<br/>elseif iType == $LPF18 then<br/>    Echo "lpf18"<br/>elseif iType == $BQREZ then<br/>    Echo "bqrez"<br/>elseif iType == $CLFILT then<br/>    Echo "clfilt"<br/>elseif iType == $BUTTERLP then<br/>    Echo "butterlp"<br/>elseif iType == $LOWRES then<br/>    Echo "lowres"<br/>elseif iType == $REZZY then<br/>   Echo "rezzy"<br/>elseif iType == $SVFILTER then<br/>  Echo "svfilter"<br/>elseif iType == $VLOWRES then<br/>    Echo "vlowres"<br/>elseif iType == $STATEVAR then<br/>    Echo "statevar"<br/>elseif iType == $MVCLPF1 then<br/>    Echo "mvclpf1"<br/>elseif iType == $MVCLPF2 then<br/>    Echo "mvclpf2"<br/>elseif iType == $MVCLPF3 then<br/>    Echo "mvclpf3"<br/>else    <br/>endif<br/>endop<br/><br/>opcode MultiFilter, a, akki<br/>ain, kcfq, kres, iType xin<br/><br/>kType init iType<br/>if kType == $MOOG_LADDER then<br/>    aout    moogladder ain, kcfq, kres<br/>elseif kType == $MOOG_VCF then<br/>    aout    moogvcf ain, kcfq, kres    <br/>elseif kType == $LPF18 then<br/>    aout    lpf18 ain, kcfq, kres, 0.5<br/>elseif kType == $BQREZ then<br/>    aout    bqrez ain, kcfq, 99 * kres + 1<br/>elseif kType == $CLFILT then<br/>    aout    clfilt ain, kcfq, 0, 2<br/>elseif kType == $BUTTERLP then<br/>    aout    butterlp ain, kcfq<br/>elseif kType == $LOWRES then<br/>    aout    lowres ain, kcfq, kres<br/>elseif kType == $REZZY then<br/>   aout     rezzy ain, kcfq, kres<br/>elseif kType == $SVFILTER then<br/>  aout, ahigh, aband  svfilter ain, kcfq, (499 / 10) * kres + 1 ; rescales to make it musical<br/>elseif kType == $VLOWRES then<br/>    aout    vlowres ain, kcfq, kres, 2, 0<br/>elseif kType == $STATEVAR then<br/>    ahp, aout, abp, abr     statevar ain, kcfq, kres<br/>elseif kType == $MVCLPF1 then<br/>    aout mvclpf1 ain, kcfq, kres<br/>elseif kType == $MVCLPF2 then<br/>    aout mvclpf2 ain, kcfq, kres<br/>elseif kType == $MVCLPF3 then<br/>    aout mvclpf3 ain, kcfq, kres<br/>else<br/>    aout = 0<br/>endif<br/>    xout aout<br/>endop<br/><br/><br/>opcode Wave, a, k<br/>kcps    xin<br/><br/>asqr    vco2 1, kcps * 0.495, 10      ; square<br/>asaw    vco2 1, kcps * 1.005, 0       ; wave<br/>        xout    0.5 * (asqr + asaw)<br/>endop<br/><br/><br/>opcode Filter, a, aiii<br/>ain, iFilterType, iCoeff, iCps  xin<br/><br/>iDivision = 1 / (iCoeff * giSpb)<br/>kLfo    loopseg iDivision, 0, 0, 0, 0.5, 1, 0.5, 0<br/>iBase   = iCps<br/>iMod    = iBase * 9<br/><br/>kcfq    = iBase + iMod * kLfo<br/>kres    init 0.6<br/><br/>aout    MultiFilter ain,   kcfq, kres, iFilterType<br/>aout    balance aout, ain<br/><br/>        xout aout<br/>endop<br/><br/>opcode Reverb, aa, aaii<br/>adryL, adryR, ifeedback, imix xin<br/>awetL, awetR reverbsc adryL, adryR, ifeedback, 10000<br/><br/>aoutL  = (1 - imix) * adryL  + imix * awetL<br/>aoutR  = (1 - imix) * adryR  + imix * awetR<br/><br/>       xout aoutL, aoutR<br/>endop<br/><br/>instr Bass<br/>    iCoeff      = p4<br/>    iCps        = p5    <br/>    iFilterType = p6    <br/>    <br/>    aWave   Wave iCps<br/>    aOut    Filter aWave, iFilterType, iCoeff, iCps<br/>    aOut    linen aOut, .01, p3, .1<br/><br/>    gaOut   = gaOut + aOut<br/>endin<br/><br/>opcode Note, 0, iiii   <br/>    idt = 2 * giSpb<br/>    iNum, iCoeff, iPch, iFilterType xin<br/>    event_i "i", "Bass", idt * iNum, idt, iCoeff, cpspch(iPch), iFilterType<br/>endop<br/><br/>instr Notes<br/>    iFilterType = p4<br/>    EchoFilterName iFilterType<br/><br/>    Note 0, 2, 6.04, iFilterType<br/>    Note 1, 1/3, 7.04, iFilterType<br/>    Note 2, 2, 6.04, iFilterType<br/>    Note 3, 1/1.5, 7.07, iFilterType<br/><br/>    Note 4, 2, 5.09, iFilterType<br/>    Note 5, 1, 6.09, iFilterType<br/>    Note 6, 1/1.5, 5.09, iFilterType<br/>    Note 7, 1/3, 6.11, iFilterType<br/><br/>    Note 8, 1, 6.04, iFilterType<br/>    Note 9, 1/3, 7.04, iFilterType<br/>    Note 10, 2, 6.04, iFilterType<br/>    Note 11, 1/1.5, 7.07, iFilterType<br/>    <br/>    Note 12, 2, 6.09, iFilterType<br/>    Note 13, 1, 7.09, iFilterType<br/>    Note 14, 1/1.5, 6.11, iFilterType<br/>    Note 15, 1/3, 6.07, iFilterType<br/>    <br/>    Note 16, 2, 6.04, iFilterType<br/>    Note 17, 1/3, 7.04, iFilterType<br/>    Note 18, 2, 6.04, iFilterType<br/>    Note 19, 1/1.5, 7.07, iFilterType<br/><br/>    turnoff<br/>endin<br/><br/>opcode TrigNotes, 0, ii<br/>iNum, iFilterType xin<br/>idt = 20<br/>    event_i "i", "Notes", idt * iNum, 0, iFilterType<br/>endop<br/><br/>instr PlayAll<br/>iMixLevel = p4<br/>event_i "i", "Main", 0, (14 * 20), iMixLevel<br/><br/>TrigNotes 0, $MOOG_LADDER<br/>TrigNotes 1, $MOOG_VCF<br/>TrigNotes 2, $LPF18 <br/>TrigNotes 3, $BQREZ<br/>TrigNotes 4, $CLFILT<br/>TrigNotes 5, $BUTTERLP<br/>TrigNotes 6, $LOWRES <br/>TrigNotes 7, $REZZY  <br/>TrigNotes 8, $SVFILTER<br/>TrigNotes 9, $VLOWRES <br/>TrigNotes 10, $STATEVAR<br/>TrigNotes 11, $MVCLPF1 <br/>TrigNotes 12, $MVCLPF2 <br/>TrigNotes 13, $MVCLPF3 <br/><br/>turnoff<br/>endin<br/><br/>opcode DumpNotes, 0, iiSi<br/>iNum, iFilterType, SFile, iMixLevel xin<br/>idt = 30   <br/>Sstr    sprintf {{i "%s" %f %f "%s" %f}}, "Dump", idt * iNum, idt, SFile, iMixLevel<br/>        scoreline_i Sstr<br/>        event_i "i", "Notes", idt * iNum, 0, iFilterType<br/>endop<br/><br/><br/>instr DumpAll<br/>iMixLevel = p4<br/><br/>DumpNotes 0, $MOOG_LADDER,  "moogladder-dubstep.wav", iMixLevel<br/>DumpNotes 1, $MOOG_VCF,     "moogvcf-dubstep.wav",  iMixLevel<br/>DumpNotes 2, $LPF18 ,       "lpf18-dubstep.wav",    iMixLevel<br/>DumpNotes 3, $BQREZ,        "bqrez-dubstep.wav",    iMixLevel<br/>DumpNotes 4, $CLFILT,       "clfilt-dubstep.wav",   iMixLevel<br/>DumpNotes 5, $BUTTERLP,     "butterlp-dubstep.wav", iMixLevel<br/>DumpNotes 6, $LOWRES,       "lowres-dubstep.wav",   iMixLevel<br/>DumpNotes 7, $REZZY,        "rezzy-dubstep.wav",    iMixLevel<br/>DumpNotes 8, $SVFILTER,     "svfilter-dubstep.wav", iMixLevel<br/>DumpNotes 9, $VLOWRES ,     "vlowres-dubstep.wav",  iMixLevel<br/>DumpNotes 10, $STATEVAR,    "statevar-dubstep.wav", iMixLevel<br/>DumpNotes 11, $MVCLPF1 ,    "mvclpf1-dubstep.wav",  iMixLevel<br/>DumpNotes 12, $MVCLPF2 ,    "mvclpf2-dubstep.wav",  iMixLevel<br/>DumpNotes 13, $MVCLPF3 ,    "mvclpf3-dubstep.wav",  iMixLevel<br/><br/>turnoff<br/>endin<br/><br/>instr Main<br/>iVolume = 0.2<br/>iReverbFeedback = 0.3<br/>iMixLevel       = p4<br/><br/>aoutL, aoutR Reverb gaOut, gaOut, iReverbFeedback, iMixLevel<br/>outs (iVolume * aoutL), (iVolume * aoutR)<br/><br/>gaOut = 0<br/>endin<br/><br/>instr Dump<br/>SFile       = p4<br/>iMixLevel   = p5<br/><br/>iVolume     = 0.2<br/>iReverbFeedback = 0.85<br/><br/>aoutL, aoutR Reverb gaOut, gaOut, iReverbFeedback, iMixLevel<br/>fout SFile, 14, (iVolume * aoutL), (iVolume * aoutR)<br/><br/>gaOut = 0<br/>endin<br/><br/>&lt;/CsInstruments&gt;<br/>&lt;CsScore&gt;<br/>; the fourth parameter is a reverb mix level<br/>i "PlayAll" 0 1 0.35<br/>; uncomment to save output to wav files<br/>;i "DumpAll" 0 1 0.35<br/>&lt;/CsScore&gt;<br/>&lt;/CsoundSynthesizer&gt;<br/><br/><br/></pre>
+</body>
+</html>

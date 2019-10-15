@@ -1,0 +1,224 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" epub:prefix="z3998: http://www.daisy.org/z3998/2012/vocab/structure/#" lang="en" xml:lang="en">
+  <head>
+    <title>MATHS, PYTHON/SYSTEM, PLUGINS</title>
+  </head>
+  <body><h1>MATHS, PYTHON/SYSTEM, PLUGINS</h1><h2>OPCODE GUIDE: MATH, PYTHON/ SYSTEM, PLUGINS</h2>
+<h3>MATHS</h3>
+<ul>
+<li>
+<h3>MATHEMATICAL CALCULATIONS</h3>
+<ul>
+<li>
+<h4>Arithmetic Operations<br/></h4>
+<p><a href="http://www.csounds.com/manual/html/adds.html"><strong>+</strong></a>,
+<a href="http://www.csounds.com/manual/html/subtracts.html"><strong>-</strong></a>,
+<a href="http://www.csounds.com/manual/html/multiplies.html"><strong>*</strong></a>,
+<a href="http://www.csounds.com/manual/html/divides.html"><strong>/</strong></a>,
+<a href="http://www.csounds.com/manual/html/raises.html"><strong>^</strong></a>,
+<a href="http://www.csounds.com/manual/html/modulus.html"><strong>%</strong></a>
+are the usual signs for addition, subtraction, multiplication,
+division, raising to a power and modulo. The precedence is like
+that used in common mathematics (* binds stronger than + etc.), but
+you can change this behaviour with parentheses: 2^(1/12) returns 2
+raised by 1/12 (= the 12st root of 2), while 2^1/12 returns 2
+raised by 1, and the result divided by 12.</p>
+<p><strong><a href="http://www.csounds.com/manual/html/exp.html">exp(x)</a></strong>,
+<a href="http://www.csounds.com/manual/html/log.html"><strong>log(x)</strong></a>,
+<a href="http://www.csounds.com/manual/html/log10.html"><strong>log10(x)</strong></a>
+and <a href="http://www.csounds.com/manual/html/sqrt.html"><strong>sqrt(x)</strong></a>
+return e raised to the xth power, the natural log of x, the base 10
+log of x, and the square root of x.<br/></p>
+<p><a href="http://www.csounds.com/manual/html/abs.html"><strong>abs(x)</strong></a>
+returns the absolute value of a number.<br/></p>
+<p><a href="http://www.csounds.com/manual/html/int.html"><strong>int(x)</strong></a>
+and <a href="http://www.csounds.com/manual/html/frac.html"><strong>frac(x)</strong></a>
+return the integer respective the fractional part of a
+number.<br/></p>
+<a href="http://www.csounds.com/manual/html/round.html"><strong>round(x)</strong></a>,
+<a href="http://www.csounds.com/manual/html/ceil.html"><strong>ceil(x)</strong></a>,
+<a href="http://www.csounds.com/manual/html/floor.html"><strong>floor(x)</strong></a>
+round a number to the nearest, the next higher or the next lower
+integer.</li>
+<li>
+<h4>Trigonometric Functions</h4>
+<p><a href="http://www.csounds.com/manual/html/sin.html"><strong>sin(x)</strong></a>,
+<a href="http://www.csounds.com/manual/html/cos.html"><strong>cos(x)</strong></a>,
+<a href="http://www.csounds.com/manual/html/tan.html"><strong>tan(x)</strong></a>
+perform a sine, cosine or tangent function.<br/></p>
+<p><a href="http://www.csounds.com/manual/html/sinh.html"><strong>sinh(x)</strong></a>,
+<a href="http://www.csounds.com/manual/html/cosh.html"><strong>cosh(x)</strong></a>,
+<a href="http://www.csounds.com/manual/html/tanh.html"><strong>tanh(x)</strong></a>
+perform a hyperbolic sine, cosine or tangent function.<br/></p>
+<a href="http://www.csounds.com/manual/html/sininv.html"><strong>sininv(x)</strong></a>,
+<a href="http://www.csounds.com/manual/html/cosinv.html"><strong>cosinv(x)</strong></a>,
+<a href="http://www.csounds.com/manual/html/taninv.html"><strong>taninv(x)</strong></a>
+and <a href="http://www.csounds.com/manual/html/taninv2.html"><strong>taninv2(x)</strong></a>
+perform the arcsine, arccosine and arctangent functions.</li>
+<li>
+<h4>Logic Operators</h4>
+<p><a href="http://www.csounds.com/manual/html/opand.html"/><a href="http://www.csounds.com/manual/html/opand.html"><strong>&amp;&amp;</strong></a>
+and <a href="http://www.csounds.com/manual/html/opor.html"><strong>||</strong></a> 
+are the symbols for a logical "and" and "or". Note that you can use
+here parentheses for defining the precedence, too, for instance: if
+(ival1 &lt; 10 &amp;&amp; ival2 &gt; 5) || (ival1 &gt; 20
+&amp;&amp; ival2 &lt; 0) then ...</p>
+<p><a href="http://www.csounds.com/manual/html/opor.html"><strong>!</strong></a>
+is the symbol for logical "not". For example: if (kx != 2) then ...
+would serve a conditional branch if variable kx was not equal to
+'2'.<br/></p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<h3>CONVERTERS</h3>
+<ul>
+<li>
+<h4>MIDI To Frequency </h4>
+<p><a href="http://www.csounds.com/manual/html/cpsmidi.html"/></p>
+<p><a href="http://www.csounds.com/manual/html/cpsmidi.html"><strong>cpsmidi</strong></a>
+converts a MIDI note number from a triggered instrument to the
+frequency in Hertz.</p>
+<p><a href="http://www.csounds.com/manual/html/cpsmidinn.html"><strong>cpsmidinn</strong></a>
+does the same for any input values (i- or k-rate).</p>
+<p>Other opcodes convert to Csound's pitch- or octave-class system.
+They can be found <a href="http://www.csounds.com/manual/html/PitchTop.html#PitchFuncs">here</a>.</p>
+</li>
+</ul>
+<ul>
+<li>
+<h4>Frequency To MIDI</h4>
+<p>Csound has no own opcode for the conversion of a frequency to a
+midi note number, because this is a rather simple calculation. You
+can find a User Defined Opcode for <a href="http://www.csounds.com/udo/displayOpcode.php?opcode_id=123">rounding
+to the next possible midi note number</a> or for the <a href="http://www.csounds.com/udo/displayOpcode.php?opcode_id=124">exact
+translation to a midi note number and a cent value as fractional
+part</a>.</p>
+</li>
+<li>
+<h4>Cent Values To Frequency </h4>
+<p><a href="http://www.csounds.com/manual/html/cent.html"/><a href="http://www.csounds.com/manual/html/cent.html"><strong>cent</strong></a>
+converts a cent value to a multiplier. For instance,
+<em>cent(1200)</em> returns 2, <em>cent(100)</em> returns 1.059403.
+If you multiply this with the frequency you reference to, you get
+frequency of the note which corresponds to the cent interval.</p>
+</li>
+<li>
+<h4>Amplitude Converters</h4>
+<p><a href="http://www.csounds.com/manual/html/ampdb.html"/></p>
+<p><a href="http://www.csounds.com/manual/html/ampdb.html"><strong>ampdb</strong></a>
+returns the amplitude equivalent of the dB value. <em>ampdb(0)</em>
+returns 1, <em>ampdb(-6)</em> returns 0.501187, and so on.</p>
+<p><a href="http://www.csounds.com/manual/html/ampdbfs.html"><strong>ampdbfs</strong></a>
+returns the amplitude equivalent of the dB value, according to what
+has been set as <a href="http://www.csounds.com/manual/html/0dbfs.html">0dbfs</a> (1 is
+recommended, the default is 15bit = 32768). So ampdbfs(-6) returns
+0.501187 for 0dbfs=1, but 16422.904297 for 0dbfs=32768.</p>
+<p><a href="http://www.csounds.com/manual/html/dbamp.html"><strong>dbamp</strong></a>
+returns the decibel equivalent of the amplitude value, where an
+amplitude of 1 is the maximum. So dbamp(1) -&gt; 0 and dbamp(0.5)
+-&gt; -6.020600.</p>
+<a href="http://www.csounds.com/manual/html/dbfsamp.html"><strong>dbfsamp</strong></a>
+returns the decibel equivalent of the amplitude value set by the
+<a href="http://www.csounds.com/manual/html/0dbfs.html">0dbfs</a>
+statement. So dbfsamp(10) is 20.000002 for 0dbfs=0 but -70.308998
+for 0dbfs=32768.</li>
+<li>
+<h4>Scaling </h4>
+<p>Scaling of signals from an input range to an output range, like
+the "scale" object in Max/MSP, is not implemented in Csound,
+because it is a rather simple calculation. It is available as User
+Defined Opcode: <a href="http://www.csounds.com/udo/displayOpcode.php?opcode_id=125">Scali</a>
+(i-rate), <a href="http://www.csounds.com/udo/displayOpcode.php?opcode_id=126">Scalk</a>
+(k-rate) or <a href="http://www.csounds.com/udo/displayOpcode.php?opcode_id=127">Scala</a>
+(a-rate).<br/></p>
+</li>
+</ul>
+</li>
+</ul>
+<p id="alexbreak"/>
+<h3>PYTHON AND SYSTEM</h3>
+<ul>
+<li>
+<h3>PYTHON OPCODES</h3>
+<p><a href="http://www.csounds.com/manual/html/pyinit.html"/></p>
+<p><a href="http://www.csounds.com/manual/html/pyinit.html"><strong>pyinit</strong></a>
+initializes the Python interpreter.<br/></p>
+<p><a href="http://www.csounds.com/manual/html/pyrun.html"><strong>pyrun</strong></a>
+runs a Python statement or block of statements.</p>
+<p><a href="http://www.csounds.com/manual/html/pyexec.html"><strong>pyexec</strong></a>
+executes a script from a file at k-time, i-time or if a trigger has
+been received.</p>
+<p><a href="http://www.csounds.com/manual/html/pycall.html"><strong>pycall</strong></a>
+invokes the specified Python callable at k-time or i-time.</p>
+<p><a href="http://www.csounds.com/manual/html/pyeval.html"><strong>pyeval</strong></a>
+evaluates a generic Python expression and stores the result in a
+Csound k- or i-variable, with optional trigger.</p>
+<p><a href="http://www.csounds.com/manual/html/pyassign.html"><strong>pyassign</strong></a>
+assigns the value of the given Csound variable to a Python variable
+possibly destroying its previous content.</p>
+</li>
+</ul>
+<ul>
+<li>
+<h3>SYSTEM OPCODES</h3>
+<p><a href="http://www.csounds.com/manual/html/getcfg.html"/></p>
+<p><a href="http://www.csounds.com/manual/html/getcfg.html"><strong>getcfg</strong></a>
+returns various Csound configuration settings as a string at init
+time.</p>
+<p><a href="http://www.csounds.com/manual/html/system.html"><strong>system</strong></a>
+/ <a href="http://www.csounds.com/manual/html/system.html"><strong>system_i</strong></a>
+call an external program via the system call.</p>
+</li>
+</ul>
+<h3>PLUGINS<br/></h3>
+<ul>
+<li>
+<h3>PLUGIN HOSTING</h3>
+<ul>
+<li>
+<h4>LADSPA</h4>
+<p><a href="http://www.csounds.com/manual/html/dssiinit.html"/></p>
+<p><a href="http://www.csounds.com/manual/html/dssiinit.html"><strong>dssiinit</strong></a>
+loads a plugin.</p>
+<p><a href="http://www.csounds.com/manual/html/dssiactivate.html"><strong>dssiactivate</strong></a>
+activates or deactivates a plugin if it has this facility.</p>
+<p><a href="http://www.csounds.com/manual/html/dssilist.html"><strong>dssilist</strong></a>
+lists all available plugins found in the LADSPA_PATH and DSSI_PATH
+global variables.</p>
+<p><a href="http://www.csounds.com/manual/html/dssiaudio.html"><strong>dssiaudio</strong></a>
+processes audio using a plugin.</p>
+<p><a href="http://www.csounds.com/manual/html/dssictls.html"><strong>dssictls</strong></a>
+sends control information to a plugin's control port.</p>
+</li>
+<li>
+<h4>VST</h4>
+<p><a href="http://www.csounds.com/manual/html/vstinit.html"/></p>
+<p><a href="http://www.csounds.com/manual/html/vstinit.html"><strong>vstinit</strong></a>
+loads a plugin.</p>
+<p><a href="http://www.csounds.com/manual/html/vstaudio.html"><strong>vstaudio</strong></a>
+/ <a href="http://www.csounds.com/manual/html/vstaudio.html"><strong>vstaudiog</strong></a>
+return a plugin's output.</p>
+<p><a href="http://www.csounds.com/manual/html/vstmidiout.html"><strong>vstmidiout</strong></a>
+sends midi data to a plugin.</p>
+<p><a href="http://www.csounds.com/manual/html/vstparamset.html"><strong>vstparamset</strong></a>
+/ <a href="http://www.csounds.com/manual/html/vstparamget.html"><strong>vstparamget</strong></a>
+sends and receives automation data to and from the plugin.</p>
+<p><a href="http://www.csounds.com/manual/html/vstnote.html"><strong>vstnote</strong></a>
+sends a midi note with a definite duration.</p>
+<p><a href="http://www.csounds.com/manual/html/vstinfo.html"><strong>vstinfo</strong></a>
+outputs the parameter and program names for a plugin.</p>
+<p><a href="http://www.csounds.com/manual/html/vstbankload.html"><strong>vstbankload</strong></a>
+loads an .fxb bank.</p>
+<p><a href="http://www.csounds.com/manual/html/vstprogset.html"><strong>vstprogset</strong></a>
+sets the program in a .fxb bank.</p>
+<a href="http://www.csounds.com/manual/html/vstedit.html"><strong>vstedit</strong></a>
+opens the GUI editor for the plugin, when available.</li>
+</ul>
+</li>
+</ul>
+</body>
+</html>

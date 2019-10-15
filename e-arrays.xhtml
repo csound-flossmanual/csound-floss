@@ -1,0 +1,1765 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" epub:prefix="z3998: http://www.daisy.org/z3998/2012/vocab/structure/#" lang="en" xml:lang="en">
+  <head>
+    <title>E. ARRAYS</title>
+  </head>
+  <body><h1>E. ARRAYS</h1><div id="yass_top_edge_dummy"> </div>
+<div id="yass_top_edge"> </div>
+<p> </p>
+<h2>ARRAYS</h2>
+<p>One of the principal new features of Csound 6 is the support of
+arrays. This chapter aims to demonstrate how to use arrays using
+the methods currently implemented.</p>
+<p>The outline of this chapter is as follows:</p>
+<ul>
+<li>Types of Arrays</li>
+<li>
+<ul>
+<li>Dimensions</li>
+<li>i- or k-rate</li>
+<li>Local or Global</li>
+<li>Arrays of Strings</li>
+<li>Arrays of Audio Signals</li>
+<li>More on Array Rates</li>
+</ul>
+</li>
+<li>Naming Conventions</li>
+<li>Creating an Array</li>
+<li>
+<ul>
+<li>init</li>
+<li>array / fillarray</li>
+<li>genarray</li>
+</ul>
+</li>
+<li>Basic Operations: len / slice</li>
+<li>Copy Arrays from/to Tables</li>
+<li>Copy Arrays from/to FFT Data</li>
+<li>Math Operations</li>
+<li>
+<ul>
+<li>+, -, *, / on a Number</li>
+<li>+, -, *, / on a Second Array</li>
+<li>min / max / sum / scale</li>
+<li>Function Mapping on an Array: maparray</li>
+</ul>
+</li>
+<li>Arrays in UDOs</li>
+</ul>
+<h3>Types of Arrays</h3>
+<h4>Dimensions</h4>
+<p>One-dimensional arrays - also called vectors - are the most
+commonly used type of array, but in Csound6 you can also use arrays
+with two or more dimensions. The way in which the number of
+dimensions is designated is very similar to how it is done in other
+programming languages.</p>
+<p>The code below denotes the second element of a one-dimensional
+array (as usual, indexing an element starts at zero, so kArr[0]
+would be the first element):</p>
+<pre>kArr[1]
+</pre>
+<p>The following denotes the second column in the third row of a
+two-dimensional array:</p>
+<pre>kArr[2][1]
+</pre>
+<p>Note that the square brackets are not used everywhere. This is
+explained in more detail below under 'Naming Conventions'.</p>
+<h4>i- or k-Rate</h4>
+<p>Like most other variables in Csound, arrays can be either i-rate
+or k-rate. An i-array can only be modified at init-time, and any
+operation on it is only performed once, at init-time. A k-array can
+be modified during the performance, and any (k-) operation on it
+will be performed in every k-cycle (!). Here is a very simple
+example:</p>
+<p><em><strong>   EXAMPLE
+03E01_i_k_arrays.csd</strong></em></p>
+<pre>&lt;CsoundSynthesizer&gt;
+&lt;CsOptions&gt;
+-nm128 ;no sound and reduced messages
+&lt;/CsOptions&gt;
+&lt;CsInstruments&gt;
+sr = 44100
+ksmps = 4410 ;10 k-cycles per second
+
+instr 1
+iArr[] array 1, 2, 3
+iArr[0] = iArr[0] + 10
+prints "   iArr[0] = %d\n\n", iArr[0]
+endin
+
+instr 2
+kArr[] array 1, 2, 3
+kArr[0] = kArr[0] + 10
+printks "   kArr[0] = %d\n", 0, kArr[0]
+endin
+
+&lt;/CsInstruments&gt;
+&lt;CsScore&gt;
+i 1 0 1
+i 2 1 1
+&lt;/CsScore&gt;
+&lt;/CsoundSynthesizer&gt;
+;example by joachim heintz
+</pre>
+<p>The output shows this:<br/>
+<span><br/>
+iArr[0] = 11<br/>
+<br/>
+kArr[0] = 11<br/>
+kArr[0] = 21<br/>
+kArr[0] = 31<br/>
+kArr[0] = 41<br/>
+kArr[0] = 51<br/>
+kArr[0] = 61<br/>
+kArr[0] = 71<br/>
+kArr[0] = 81<br/>
+kArr[0] = 91<br/>
+kArr[0] = 101</span></p>
+<p>Although both instruments run for one second, the operation to
+increment the first array value by ten is executed only once in the
+i-rate version of the array. But in the k-rate version, the
+incrementation is repeated in each k-cycle - in this case every
+1/10 second, but usually something around every 1/1000 second. A
+good opportunity to throw off rendering power for useless
+repetitions, or to produce errors if you intentionally wanted to
+operate something only once ...</p>
+<h4>Local or Global</h4>
+<p>Like any other variable in Csound, an array usually has a local
+scope - this means that it is only recognized within the scope of
+the instrument in which it has been defined. If you want to use
+arrays in a globally (across instruments), then you have to prefix
+the variable name with the character g, (as is done with other
+types of global variable in Csound). The next example demonstrates
+local and global arrays at both i- and k-rate.</p>
+<p><em><strong>   EXAMPLE
+03E02_Local_vs_global_arrays.csd</strong></em></p>
+<pre>&lt;CsoundSynthesizer&gt;
+&lt;CsOptions&gt;
+-nm128 ;no sound and reduced messages
+&lt;/CsOptions&gt;
+&lt;CsInstruments&gt;
+ksmps = 32
+
+instr i_local
+iArr[] array  1, 2, 3
+       prints "   iArr[0] = %d   iArr[1] = %d   iArr[2] = %d\n",
+              iArr[0], iArr[1], iArr[2]
+endin
+
+instr i_local_diff ;same name, different content
+iArr[] array  4, 5, 6
+       prints "   iArr[0] = %d   iArr[1] = %d   iArr[2] = %d\n",
+              iArr[0], iArr[1], iArr[2]
+endin
+
+instr i_global
+giArr[] array 11, 12, 13
+endin
+
+instr i_global_read ;understands giArr though not defined here
+       prints "   giArr[0] = %d   giArr[1] = %d   giArr[2] = %d\n",
+              giArr[0], giArr[1], giArr[2]
+endin
+
+instr k_local
+kArr[] array  -1, -2, -3
+       printks "   kArr[0] = %d   kArr[1] = %d   kArr[2] = %d\n",
+               0, kArr[0], kArr[1], kArr[2]
+       turnoff
+endin
+
+instr k_local_diff
+kArr[] array  -4, -5, -6
+       printks "   kArr[0] = %d   kArr[1] = %d   kArr[2] = %d\n",
+               0, kArr[0], kArr[1], kArr[2]
+       turnoff
+endin
+
+instr k_global
+gkArr[] array -11, -12, -13
+       turnoff
+endin
+
+instr k_global_read
+       printks "   gkArr[0] = %d   gkArr[1] = %d   gkArr[2] = %d\n",
+               0, gkArr[0], gkArr[1], gkArr[2]
+       turnoff
+endin
+&lt;/CsInstruments&gt;
+&lt;CsScore&gt;
+i "i_local" 0 0
+i "i_local_diff" 0 0
+i "i_global" 0 0
+i "i_global_read" 0 0
+i "k_local" 0 1
+i "k_local_diff" 0 1
+i "k_global" 0 1
+i "k_global_read" 0 1
+&lt;/CsScore&gt;
+&lt;/CsoundSynthesizer&gt;
+;example by joachim heintz
+</pre>
+<h4>Arrays of Strings</h4>
+<p>So far we have discussed only arrays of numbers. It is also
+possible to have arrays of strings, which can be very useful in
+many situations, for instance while working with file
+paths.<sup data-id="0582bc55-3be0-4d95-8a06-ee3ee09256d0" class="endnote">1</sup>   Here is a
+very simple example first, followed by a more extended one.</p>
+<p><em><strong>   EXAMPLE
+03E03_String_arrays.csd</strong></em></p>
+<pre>&lt;CsoundSynthesizer&gt;
+&lt;CsOptions&gt;
+-nm128 ;no sound and reduced messages
+&lt;/CsOptions&gt;
+&lt;CsInstruments&gt;
+ksmps = 32
+
+instr 1
+String   =       "onetwothree"
+S_Arr[]  init    3
+S_Arr[0] strsub  String, 0, 3
+S_Arr[1] strsub  String, 3, 6
+S_Arr[2] strsub  String, 6
+         printf_i "S_Arr[0] = '%s'\nS_Arr[1] = '%s'\nS_Arr[2] = '%s'\n", 1,
+                  S_Arr[0], S_Arr[1], S_Arr[2]
+endin
+
+&lt;/CsInstruments&gt;
+&lt;CsScore&gt;
+i 1 0 1
+&lt;/CsScore&gt;
+&lt;/CsoundSynthesizer&gt;
+;example by joachim heintz
+</pre>
+<p><em><strong>   EXAMPLE
+03E04_Anagram.csd  </strong></em></p>
+<pre>&lt;CsoundSynthesizer&gt;
+&lt;CsOptions&gt;
+-dnm0
+&lt;/CsOptions&gt;
+&lt;CsInstruments&gt;
+ksmps = 32
+
+giArrLen  =        5
+gSArr[]   init     giArrLen
+
+  opcode StrAgrm, S, Sj
+  ;changes the elements in Sin randomly, like in an anagram
+Sin, iLen  xin
+ if iLen == -1 then
+iLen       strlen     Sin
+ endif
+Sout       =          ""
+;for all elements in Sin
+iCnt       =          0
+iRange     =          iLen
+loop:
+;get one randomly
+iRnd       rnd31      iRange-.0001, 0
+iRnd       =          int(abs(iRnd))
+Sel        strsub     Sin, iRnd, iRnd+1
+Sout       strcat     Sout, Sel
+;take it out from Sin
+Ssub1      strsub     Sin, 0, iRnd
+Ssub2      strsub     Sin, iRnd+1
+Sin        strcat     Ssub1, Ssub2
+;adapt range (new length)
+iRange     =          iRange-1
+           loop_lt    iCnt, 1, iLen, loop
+           xout       Sout
+  endop
+
+
+instr 1
+           prints     "Filling gSArr[] in instr %d at init-time!\n", p1
+iCounter   =          0
+  until      (iCounter == giArrLen) do
+S_new      StrAgrm    "csound"
+gSArr[iCounter] =     S_new
+iCounter   +=         1
+  od
+endin
+
+instr 2
+           prints     "Printing gSArr[] in instr %d at init-time:\n  [", p1
+iCounter   =          0
+  until      (iCounter == giArrLen) do
+           printf_i   "%s ", iCounter+1, gSArr[iCounter]
+iCounter   +=         1
+  od
+           prints     "]\n"
+endin
+
+instr 3
+          printks   "Printing gSArr[] in instr %d at perf-time:\n  [", 0, p1
+kcounter  =        0
+  until (kcounter == giArrLen) do
+          printf   "%s ", kcounter+1, gSArr[kcounter]
+kcounter  +=       1
+  od
+          printks  "]\n", 0
+          turnoff
+endin
+
+instr 4
+           prints     "Modifying gSArr[] in instr %d at init-time!\n", p1
+iCounter   =          0
+  until      (iCounter == giArrLen) do
+S_new      StrAgrm    "csound"
+gSArr[iCounter] =     S_new
+iCounter   +=         1
+  od
+endin
+
+instr 5
+           prints     "Printing gSArr[] in instr %d at init-time:\n  [", p1
+iCounter   =          0
+  until (iCounter == giArrLen) do
+           printf_i   "%s ", iCounter+1, gSArr[iCounter]
+iCounter   +=         1
+  od
+           prints     "]\n"
+endin
+
+instr 6
+kCycle     timeinstk
+           printks    "Modifying gSArr[] in instr %d at k-cycle %d!\n", 0,
+                      p1, kCycle
+kCounter   =          0
+  until (kCounter == giArrLen) do
+kChar      random     33, 127
+S_new      sprintfk   "%c ", int(kChar)
+gSArr[kCounter] strcpyk S_new ;'=' should work but does not
+kCounter   +=         1
+  od
+  if kCycle == 3 then
+           turnoff
+  endif
+endin
+
+instr 7
+kCycle     timeinstk
+           printks    "Printing gSArr[] in instr %d at k-cycle %d:\n  [",
+                      0, p1, kCycle
+kCounter   =          0
+  until (kCounter == giArrLen) do
+           printf     "%s ", kCounter+1, gSArr[kCounter]
+kCounter   +=         1
+  od
+           printks    "]\n", 0
+  if kCycle == 3 then
+           turnoff
+  endif
+endin
+
+&lt;/CsInstruments&gt;
+&lt;CsScore&gt;
+i 1 0 1
+i 2 0 1
+i 3 0 1
+i 4 1 1
+i 5 1 1
+i 6 1 1
+i 7 1 1
+&lt;/CsScore&gt;
+&lt;/CsoundSynthesizer&gt;
+;example by joachim heintz
+</pre>
+<p>Prints:</p>
+<p><span>Filling gSArr[] in instr 1 at init-time!<br/>
+Printing gSArr[] in instr 2 at init-time:<br/>
+[nudosc coudns dsocun ocsund osncdu ]<br/>
+Printing gSArr[] in instr 3 at perf-time:<br/>
+[nudosc coudns dsocun ocsund osncdu ]<br/>
+Modifying gSArr[] in instr 4 at init-time!<br/>
+Printing gSArr[] in instr 5 at init-time:<br/>
+[ousndc uocdns sudocn usnocd ouncds ]<br/>
+Modifying gSArr[] in instr 6 at k-cycle 1!<br/>
+Printing gSArr[] in instr 7 at k-cycle 1:<br/>
+[s &lt; x + ! ]<br/>
+Modifying gSArr[] in instr 6 at k-cycle 2!<br/>
+Printing gSArr[] in instr 7 at k-cycle 2:<br/>
+[P Z r u U ]<br/>
+Modifying gSArr[] in instr 6 at k-cycle 3!<br/>
+Printing gSArr[] in instr 7 at k-cycle 3:<br/>
+[b K c " h ]</span></p>
+<h4>Arrays of Audio Signals</h4>
+<p>Collecting audio signals in an array simplifies working with
+multiple channels, as one of many possible cases of use. Here are
+two simple examples, one for local audio arrays and the other for
+global audio arrays.</p>
+<p><em><strong>   EXAMPLE
+03E05_Local_audio_array.csd  </strong></em></p>
+<pre>&lt;CsoundSynthesizer&gt;
+&lt;CsOptions&gt;
+-odac -d
+&lt;/CsOptions&gt;
+&lt;CsInstruments&gt;
+
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
+
+instr 1
+aArr[]     init       2
+a1         oscils     .2, 400, 0
+a2         oscils     .2, 500, 0
+kEnv       transeg    1, p3, -3, 0
+aArr[0]    =          a1 * kEnv
+aArr[1]    =          a2 * kEnv
+           outch      1, aArr[0], 2, aArr[1]
+endin
+
+instr 2 ;to test identical names
+aArr[]     init       2
+a1         oscils     .2, 600, 0
+a2         oscils     .2, 700, 0
+kEnv       transeg    0, p3-p3/10, 3, 1, p3/10, -6, 0
+aArr[0]    =          a1 * kEnv
+aArr[1]    =          a2 * kEnv
+           outch      1, aArr[0], 2, aArr[1]
+endin
+&lt;/CsInstruments&gt;
+&lt;CsScore&gt;
+i 1 0 3
+i 2 0 3
+&lt;/CsScore&gt;
+&lt;/CsoundSynthesizer&gt;
+;example by joachim heintz
+</pre>
+<p><em><strong>   EXAMPLE
+03E06_Global_audio_array.csd  </strong></em></p>
+<pre>&lt;CsoundSynthesizer&gt;
+&lt;CsOptions&gt;
+-odac -d
+&lt;/CsOptions&gt;
+&lt;CsInstruments&gt;
+
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
+
+gaArr[]    init       2
+
+  instr 1 ; left channel
+kEnv       loopseg    0.5, 0, 0, 1,0.003, 1,0.0001, 0,0.9969
+aSig       pinkish    kEnv
+gaArr[0]   =          aSig
+  endin
+
+  instr 2 ; right channel
+kEnv       loopseg    0.5, 0, 0.5, 1,0.003, 1,0.0001, 0,0.9969
+aSig       pinkish    kEnv
+gaArr[1]   =          aSig
+  endin
+
+  instr 3 ; reverb
+aInSigL    =          gaArr[0] / 3
+aInSigR    =          gaArr[1] / 2
+aRvbL,aRvbR reverbsc  aInSigL, aInSigR, 0.88, 8000
+gaArr[0]   =          gaArr[0] + aRvbL
+gaArr[1]   =          gaArr[1] + aRvbR
+           outs       gaArr[0]/4, gaArr[1]/4
+gaArr[0]   =          0
+gaArr[1]   =          0
+  endin
+&lt;/CsInstruments&gt;
+&lt;CsScore&gt;
+i 1 0 10
+i 2 0 10
+i 3 0 12
+&lt;/CsScore&gt;
+&lt;/CsoundSynthesizer&gt;
+;example by joachim heintz, using code by iain mccurdy
+</pre>
+<p>If you use soundin/diskin, the array is created automatically in
+the size which fits to the number of channels in the input
+file:</p>
+<pre>arr[] diskin "7chnls.aiff", 1</pre>
+<p>will create an audio array of size 7 according to the seven
+channel input file.</p>
+<h4>More on Array Rates</h4>
+<p>Usually the first character of a variable name in Csound shows
+whether it is i-rate or k-rate or a-rate. But for arrays, we have
+actually two signifiers: the array variable name, and the index
+type. If both coincide, it is easy:</p>
+<ul>
+<li>i_array[i_index] reads and writes at i-time</li>
+<li>k_array[k_index] reads and writes at k-time</li>
+<li>a_array[a_index] reads and writes at a-time</li>
+</ul>
+<p>But what to do if array type and index type do not coincide? In
+general, the index type will then determine whether the array is
+read or written only once (at init-time) or at each k-cycle. This
+is valid in particular for S_arrays (containing strings) and
+f_arrays (containing f-data). Other cases are:</p>
+<ul>
+<li>i_array[k_index] reads at k-time; writing is not possible
+(yields a runtime error)</li>
+<li>k_array[i_index] reads and writes at k-rate</li>
+<li>a_array[i_index] reads and writes at a-rate</li>
+</ul>
+<p>For usual k-variables, you can get the value at init-time via
+the expression i(kVar), for instance:</p>
+<pre>
+instr 1<br/> gkLine linseg 1, 1, 2<br/> schedule 2, .5, 0<br/>endin<br/>instr 2<br/> iLine = i(gkLine)<br/> print iLine<br/>endin</pre>
+<p>will print: iLine = 1.499.</p>
+<p>This expression cannot be used for arrays:</p>
+<pre>
+kArray[] fillarray 1, 2, 3<br/>iFirst = i(kArray[0])<br/>print iFirst </pre>
+<p>will print: iFirst = 0.000, which is obviously not what could be
+expected. For this purpose, the i() expression can be used to pass
+the index as second argument:</p>
+<pre>
+kArray[] fillarray 1, 2, 3<br/>iFirst = i(kArray, 0)<br/>print iFirst</pre>
+<p>will print: iFirst = 1.000.</p>
+<h3>Naming Conventions</h3>
+<p>An array must be created (via init or array / fillarray<sup data-id="acc150e3-7d05-4b83-8553-11c19074938b" class="endnote">2</sup>) as kMyArrayName
+<em>plus</em> ending brackets. The brackets determine the
+dimensions of the array. So</p>
+<pre>kArr[] init 10
+</pre>
+<p>creates a one-dimensional array of length 10, whereas</p>
+<pre>kArr[][] init 10, 10</pre>
+<p>creates a two-dimensional array with 10 rows and 10 columns.</p>
+<p>After the initialization of the array, referring to the array as
+a whole is done <em>without</em> any brackets. Brackets are only
+used if an element is indexed:</p>
+<pre>
+kArr[]   init   10             ;with brackets because of initialization
+kLen     =      lenarray(kArr) ;without brackets
+kFirstEl =      kArr[0]        ;with brackets because of indexing
+</pre>
+<p>The same syntax is used for a simple copy via the '='
+operator:</p>
+<pre>kArr1[]  array  1, 2, 3, 4, 5  ;creates kArr1
+kArr2[]  =      kArr1          ;creates kArr2 as copy of kArr1
+</pre>
+<h3>Creating an Array</h3>
+<p>An array can currently be created by four methods: with the init
+opcode, with array/fillarray, with genarray, or as a copy of an
+already existing array with the '=' operator.</p>
+<h4>init</h4>
+<p>The most general method, which works for arrays of any number of
+dimensions, is to use the init opcode. Here you define a specified
+space for the array:</p>
+<pre>
+kArr[]   init 10     ;creates a one-dimensional array with length 10
+kArr[][] init 10, 10 ;creates a two-dimensional array
+</pre>
+<p> </p>
+<h4>fillarray</h4>
+<p>If you want to fill an array with distinct values, you can use
+the fillarray opcode. This line creates a vector with length 4 and
+puts in the numbers [1, 2, 3, 4]:</p>
+<pre>kArr[] fillarray 1, 2, 3, 4
+</pre>
+<p>You can also use this opcode for filling two-dimensional
+arrays.<sup data-id="cc944ca7-ce6e-4a68-ab90-fcd22911d18e" class="endnote">3</sup> The example shows also
+the usage of the opcodes getrow and setrow to get or set one row of
+a two-dimensional array.</p>
+<p><br/>
+<em><strong>   EXAMPLE
+03E07_Fill_multidim_array.csd </strong></em></p>
+<pre>&lt;CsoundSynthesizer&gt;
+&lt;CsOptions&gt;
+-nm0
+&lt;/CsOptions&gt;
+&lt;CsInstruments&gt;
+ksmps = 32
+<br/>gk_2d_Arr[][] init   2,3 ;two lines, three columns<br/>gk_2d_Arr     fillarray  1,2,3,4,5,6<br/><br/>instr FirstContent<br/>prints "First content of array gk_2d_arr:\n"<br/>schedule "PrintContent", 0, 1<br/>endin<br/><br/>instr ChangeRow<br/>k_1d_Arr[] fillarray 7,8,9<br/>gk_2d_Arr setrow k_1d_Arr, 0 ;change first row<br/>prints "\nContent of gk_2d_Arr after having changed the first row:\n"<br/>event "i", "PrintContent", 0, 1<br/>turnoff<br/>endin<br/><br/>instr GetRow<br/>k_Row2[] getrow gk_2d_Arr, 1 ;second row as own array<br/>prints "\nSecond row as own array:\n"<br/>kColumn = 0<br/>until kColumn == 3 do<br/> printf "k_Row2[%d] = %d\n", kColumn+1, kColumn, k_Row2[kColumn]<br/> kColumn +=    1<br/>od<br/>turnoff<br/>endin<br/><br/>instr PrintContent<br/>kRow     =      0<br/>until kRow == 2 do<br/> kColumn  =      0<br/> until kColumn == 3 do<br/>  printf "gk_2d_Arr[%d][%d] = %d\n", kColumn+1, kRow, kColumn, gk_2d_Arr[kRow][kColumn]<br/>  kColumn +=    1<br/> od<br/>kRow      +=    1<br/>od<br/>turnoff<br/>endin<br/><br/>&lt;/CsInstruments&gt;<br/>&lt;CsScore&gt;<br/>i "FirstContent" 0 1<br/>i "ChangeRow" .1 1<br/>i "GetRow" .2 1
+&lt;/CsScore&gt;
+&lt;/CsoundSynthesizer&gt;
+;example by joachim heintz<br/> </pre>
+<p>Prints:</p>
+<p><span>First content of array gk_2d_arr:</span><br/>
+<span>gk_2d_Arr[0][0] = 1</span><br/>
+<span>gk_2d_Arr[0][1] = 2</span><br/>
+<span>gk_2d_Arr[0][2] = 3</span><br/>
+<span>gk_2d_Arr[1][0] = 4</span><br/>
+<span>gk_2d_Arr[1][1] = 5</span><br/>
+<span>gk_2d_Arr[1][2] = 6</span><br/>
+<br/>
+<span>Content of gk_2d_Arr after having changed the first
+row:</span><br/>
+<span>gk_2d_Arr[0][0] = 7</span><br/>
+<span>gk_2d_Arr[0][1] = 8</span><br/>
+<span>gk_2d_Arr[0][2] = 9</span><br/>
+<span>gk_2d_Arr[1][0] = 4</span><br/>
+<span>gk_2d_Arr[1][1] = 5</span><br/>
+<span>gk_2d_Arr[1][2] = 6</span><br/>
+<br/>
+<span>Second row as own array:</span><br/>
+<span>k_Row2[0] = 4</span><br/>
+<span>k_Row2[1] = 5</span><br/>
+<span>k_Row2[2] = 6</span></p>
+<h4>genarray</h4>
+<p>This opcode creates an array which is filled by a series of
+numbers from a starting value to an (included) ending value. Here
+are some examples:</p>
+<pre>iArr[] genarray   1, 5 ; creates i-array with [1, 2, 3, 4, 5]
+kArr[] genarray_i 1, 5 ; creates k-array at init-time with [1, 2, 3, 4, 5]
+iArr[] genarray   -1, 1, 0.5 ; i-array with [-1, -0.5, 0, 0.5, 1]
+iArr[] genarray   1, -1, -0.5 ; [1, 0.5, 0, -0.5, -1]
+iArr[] genarray   -1, 1, 0.6 ; [-1, -0.4, 0.2, 0.8]  
+</pre>
+<h3>Basic Operations: len, slice</h3>
+<p>The opcode lenarray reports the length of an i- or k-array. As
+with many opcodes now in Csound 6, it can be used either in the
+traditional way (Left-hand-side &lt;- Opcode &lt;-
+Right-hand-side), or as a function. The next example shows both
+usages, for i- and k-arrays. For multidimensional arrays, lenarray
+returns the length of the first dimension (instr 5).</p>
+<p><em><strong>   EXAMPLE
+03E08_lenarray.csd </strong></em></p>
+<pre>&lt;CsoundSynthesizer&gt;
+&lt;CsOptions&gt;
+-nm0
+&lt;/CsOptions&gt;
+&lt;CsInstruments&gt;
+ksmps = 32
+
+instr 1 ;simple i-rate example
+iArr[]   fillarray 1, 3, 5, 7, 9
+iLen     lenarray  iArr
+         prints    "Length of iArr = %d\n", iLen
+endin
+
+instr 2 ;simple k-rate example
+kArr[]   fillarray 2, 4, 6, 8
+kLen     lenarray  kArr
+         printks   "Length of kArr = %d\n", 0, kLen
+         turnoff
+endin
+
+instr 3 ;i-rate with functional syntax
+iArr[]   genarray 1, 9, 2
+iIndx    =        0
+  until iIndx == lenarray(iArr) do
+         prints   "iArr[%d] = %d\n", iIndx, iArr[iIndx]
+iIndx    +=       1
+  od
+endin
+
+instr 4 ;k-rate with functional syntax
+kArr[]   genarray_i -2, -8, -2
+kIndx    =        0
+  until kIndx == lenarray(kArr) do
+         printf   "kArr[%d] = %d\n", kIndx+1, kIndx, kArr[kIndx]
+kIndx    +=       1
+  od
+         turnoff
+endin
+
+instr 5 ;multi-dimensional arrays
+kArr[][] init     9, 5
+kArrr[][][] init  7, 9, 5
+printks "lenarray(kArr) (2-dim) = %d\n", 0, lenarray(kArr)
+printks "lenarray(kArrr) (3-dim) = %d\n", 0, lenarray(kArrr)<br/>turnoff<br/>endin
+
+&lt;/CsInstruments&gt;
+&lt;CsScore&gt;
+i 1 0 0
+i 2 .1 .1
+i 3 .2 0
+i 4 .3 .1
+i 5 .4 .1
+&lt;/CsScore&gt;
+&lt;/CsoundSynthesizer&gt;
+;example by joachim heintz
+</pre>
+<p>Prints:</p>
+<p><span>Length of iArr = 5<br/>
+Length of kArr = 4<br/>
+iArr[0] = 1<br/>
+iArr[1] = 3<br/>
+iArr[2] = 5<br/>
+iArr[3] = 7<br/>
+iArr[4] = 9<br/>
+kArr[0] = -2<br/>
+kArr[1] = -4<br/>
+kArr[2] = -6<br/>
+kArr[3] = -8<br/>
+lenarray(kArr) (2-dim) = 9<br/>
+lenarray(kArrr) (3-dim) = 7</span></p>
+<p>The opcode slicearray takes a slice of a (one-dimensional)
+array:</p>
+<pre>  slicearray kArr, iStart, iEnd </pre>
+<p>returns a slice of kArr from index iStart to index iEnd
+(included).</p>
+<p>The array for receiving the slice must have been created in
+advance:</p>
+<pre>  kArr[]  fillarray  1, 2, 3, 4, 5, 6, 7, 8, 9
+  kArr1[] init       5
+  kArr2[] init       4
+  kArr1   slicearray kArr, 0, 4        ;[1, 2, 3, 4, 5]
+  kArr2   slicearray kArr, 5, 8        ;[6, 7, 8, 9]
+</pre>
+<p> </p>
+<p><em><strong>   EXAMPLE
+03E09_slicearray.csd</strong></em></p>
+<pre>&lt;CsoundSynthesizer&gt;
+&lt;CsOptions&gt;
+-n
+&lt;/CsOptions&gt;
+&lt;CsInstruments&gt;
+ksmps = 32
+
+instr 1
+
+;create and fill an array
+kArr[]  genarray_i 1, 9
+
+;print the content
+        printf  "%s", 1, "kArr = whole array\n"
+kndx    =       0
+  until kndx == lenarray(kArr) do
+        printf  "kArr[%d] = %f\n", kndx+1, kndx, kArr[kndx]
+kndx    +=      1
+  od
+
+;build new arrays for the slices
+kArr1[] init    5
+kArr2[] init    4
+
+;put in first five and last four elements
+kArr1   slicearray kArr, 0, 4
+kArr2   slicearray kArr, 5, 8
+
+;print the content
+        printf  "%s", 1, "\nkArr1 = slice from index 0 to index 4\n"
+kndx    =       0
+  until kndx == lenarray(kArr1) do
+        printf  "kArr1[%d] = %f\n", kndx+1, kndx, kArr1[kndx]
+kndx    +=      1
+  od
+        printf  "%s", 1, "\nkArr2 = slice from index 5 to index 8\n"
+kndx    =       0
+  until kndx == lenarray(kArr2) do
+        printf  "kArr2[%d] = %f\n", kndx+1, kndx, kArr2[kndx]
+kndx    +=      1
+  od
+
+        turnoff
+endin
+
+&lt;/CsInstruments&gt;
+&lt;CsScore&gt;
+i 1 0 1
+&lt;/CsScore&gt;
+&lt;/CsoundSynthesizer&gt;
+;example by joachim heintz
+</pre>
+<h3>Copy Arrays from/to Tables</h3>
+<p>As function tables have been the classical way of working with
+arrays in Csound, switching between them and the new array facility
+in Csound is a basic operation. Copying data from a function table
+to a vector is done by copyf2array, whereas copya2ftab copies data
+from a vector to a function table:</p>
+<pre>copyf2array kArr, kfn ;from a function table to an array
+copya2ftab  kArr, kfn ;from an array to a function table</pre>
+<p>The following presents a simple example of each operation.</p>
+<p><em><strong>   EXAMPLE
+03E10_copyf2array.csd</strong></em></p>
+<pre>&lt;CsoundSynthesizer&gt;
+&lt;CsOptions&gt;
+-nm0
+&lt;/CsOptions&gt;
+&lt;CsInstruments&gt;
+ksmps = 32
+
+;8 points sine wave function table
+giSine  ftgen   0, 0, 8, 10, 1
+
+
+  instr 1
+;create array
+kArr[]  init    8
+
+;copy table values in it
+        copyf2array kArr, giSine
+
+;print values
+kndx    =       0
+  until kndx == lenarray(kArr) do
+        printf  "kArr[%d] = %f\n", kndx+1, kndx, kArr[kndx]
+kndx    +=      1
+  enduntil
+
+;turn instrument off
+        turnoff
+  endin
+
+&lt;/CsInstruments&gt;
+&lt;CsScore&gt;
+i 1 0 0.1
+&lt;/CsScore&gt;
+&lt;/CsoundSynthesizer&gt;
+;example by joachim heintz
+</pre>
+<p><em><strong>   EXAMPLE
+03E11_copya2ftab.csd</strong></em> </p>
+<pre>&lt;CsoundSynthesizer&gt;
+&lt;CsOptions&gt;
+-nm0
+&lt;/CsOptions&gt;
+&lt;CsInstruments&gt;
+ksmps = 32
+
+;an 'empty' function table with 10 points
+giTable ftgen   0, 0, -10, 2, 0
+
+
+  instr 1
+
+;print inital values of giTable
+        puts    "\nInitial table content:", 1
+indx    =       0
+  until indx == ftlen(giTable) do
+iVal    table   indx, giTable
+        printf_i "Table index %d = %f\n", 1, indx, iVal
+indx += 1
+  od
+
+;create array with values 1..10
+kArr[]  genarray_i 1, 10
+
+;print array values
+        printf  "%s", 1, "\nArray content:\n"
+kndx    =       0
+  until kndx == lenarray(kArr) do
+        printf  "kArr[%d] = %f\n", kndx+1, kndx, kArr[kndx]
+kndx    +=      1
+  od
+
+;copy array values to table
+        copya2ftab kArr, giTable
+
+;print modified values of giTable
+        printf  "%s", 1, "\nModified table content after copya2ftab:\n"
+kndx    =       0
+  until kndx == ftlen(giTable) do
+kVal    table   kndx, giTable
+        printf  "Table index %d = %f\n", kndx+1, kndx, kVal
+kndx += 1
+  od
+
+;turn instrument off
+        turnoff
+  endin
+
+&lt;/CsInstruments&gt;
+&lt;CsScore&gt;
+i 1 0 0.1
+&lt;/CsScore&gt;
+&lt;/CsoundSynthesizer&gt;
+;example by joachim heintz
+</pre>
+<h3>Copy Arrays from/to FFT Data</h3>
+<p>You can copy the data of an f-signal - which contains the
+results of a Fast Fourier Transform - into an array with the opcode
+pvs2array. The counterpart pvsfromarray copies the content of an
+array to a f-signal.</p>
+<pre>
+kFrame  pvs2array    kArr, fSigIn ;from f-signal fSig to array kArr
+fSigOut pvsfromarray kArr [,ihopsize, iwinsize, iwintype]
+</pre>
+<p>Some care is needed to use these opcodes correctly:</p>
+<ul>
+<li>The array kArr must be declared in advance to its usage in
+these opcodes, usually with init.</li>
+<li>The size of this array depends on the FFT size of the f-signal
+fSigIn. If the FFT size is N, the f-signal will contain N/2+1
+amplitude-frequency pairs. For instance, if the FFT size is 1024,
+the FFT will write out 513 bins, each bin containing one value for
+amplitude and one value for frequency. So to store all these
+values, the array must have a size of 1026. In general, the size of
+kArr equals FFT-size plus two.</li>
+<li>The indices 0, 2, 4, ... of kArr will contain the amplitudes;
+the indices 1, 3, 5, ... will contain the frequencies of the bins
+of a specific frame.</li>
+<li>The number of this frame is reported in the kFrame output of
+pvs2array. By this parameter you know when pvs2array writes new
+values to the array kArr.</li>
+<li>On the way back, the FFT size of fSigOut, which is written by
+pvsfromarray, depends on the size of kArr. If the size of kArr is
+1026, the FFT size will be 1024.</li>
+<li>The default value for ihopsize is 4 (= fftsize/4); the default
+value for inwinsize is the fftsize; and the default value for
+iwintype is 1, which means a hanning window.</li>
+</ul>
+<p>Here is an example that implements a spectral high-pass filter.
+The f-signal is written to an array and the amplitudes of the first
+40 bins are then zeroed.<sup data-id="c2211456-bbae-4423-b3ae-18b6f31fbb8a" class="endnote">4</sup>  This is only
+done when a new frame writes its values to the array so as not to
+waste rendering power.</p>
+<p><em><strong>   EXAMPLE
+03E12_pvs_to_from_array.csd</strong></em>  </p>
+<pre>&lt;CsoundSynthesizer&gt;
+&lt;CsOptions&gt;
+-o dac
+&lt;/CsOptions&gt;
+&lt;CsInstruments&gt;
+
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs  = 1
+
+gifil    ftgen     0, 0, 0, 1, "fox.wav", 0, 0, 1
+
+instr 1
+ifftsize =         2048 ;fft size set to pvstanal default
+fsrc     pvstanal  1, 1, 1, gifil ;create fsig stream from function table
+kArr[]   init      ifftsize+2 ;create array for bin data
+kflag    pvs2array kArr, fsrc ;export data to array     
+
+;if kflag has reported a new write action ...
+knewflag changed   kflag
+if knewflag == 1 then
+ ; ... set amplitude of first 40 bins to zero:
+kndx     =         0 ;even array index = bin amplitude
+kstep    =         2 ;change only even indices
+kmax     =         80
+loop:
+kArr[kndx] =       0
+         loop_le   kndx, kstep, kmax, loop
+endif
+
+fres     pvsfromarray kArr ;read modified data back to fres
+aout     pvsynth   fres ;and resynth
+         outs      aout, aout
+
+endin
+&lt;/CsInstruments&gt;
+&lt;CsScore&gt;
+i 1 0 2.7
+&lt;/CsScore&gt;
+&lt;/CsoundSynthesizer&gt;
+;example by joachim heintz
+</pre>
+<p>Basically, with the opcodes pvs2array and pvsfromarray, you have
+complete access to every operation in the spectral domain. You
+could re-write the existing pvs transformations, you could change
+them, but you can also simply use the spectral data to do anything
+with it. The next example looks for the most prominent amplitudes
+in a frame, and then triggers another instrument.</p>
+<p><em><strong>   EXAMPLE
+03E13_fft_peaks_arpegg.csd</strong></em>  </p>
+<pre>&lt;CsoundSynthesizer&gt;
+&lt;CsOptions&gt;
+-odac -d -m128
+; Example by Tarmo Johannes
+&lt;/CsOptions&gt;
+&lt;CsInstruments&gt;
+
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
+
+giSine     ftgen      0, 0, 4096, 10, 1
+
+instr getPeaks
+
+;generate signal to analyze
+kfrcoef    jspline    60, 0.1, 1 ; change the signal in time a bit for better testing
+kharmcoef  jspline    4, 0.1, 1
+kmodcoef   jspline    1, 0.1, 1
+kenv       linen      0.5, 0.05, p3, 0.05
+asig       foscil     kenv, 300+kfrcoef, 1, 1+kmodcoef, 10, giSine
+           outs       asig*0.05, asig*0.05 ; original sound in backround
+
+;FFT analysis
+ifftsize   =          1024
+ioverlap   =          ifftsize / 4
+iwinsize   =          ifftsize
+iwinshape  =          1
+fsig       pvsanal    asig, ifftsize, ioverlap, iwinsize, iwinshape
+ithresh    =          0.001 ; detect only peaks over this value
+
+;FFT values to array
+kFrames[]  init       iwinsize+2 ; declare array
+kframe     pvs2array  kFrames, fsig ; even member = amp of one bin, odd = frequency
+
+;detect peaks
+kindex     =          2 ; start checking from second bin
+kcounter   =          0
+iMaxPeaks  =          13 ; track up to iMaxPeaks peaks
+ktrigger   metro      1/2 ; check after every 2 seconds
+ if ktrigger == 1 then
+loop:
+; check with neigbouring amps - if higher or equal than previous amp
+; and more than the coming one, must be peak.
+   if (kFrames[kindex-2]&lt;=kFrames[kindex] &amp;&amp;
+      kFrames[kindex]&gt;kFrames[kindex+2] &amp;&amp;
+      kFrames[kindex]&gt;ithresh &amp;&amp;
+      kcounter&lt;iMaxPeaks) then
+kamp        =         kFrames[kindex]
+kfreq       =         kFrames[kindex+1]
+; play sounds with the amplitude and frequency of the peak as in arpeggio
+            event     "i", "sound", kcounter*0.1, 1, kamp, kfreq
+kcounter = kcounter+1
+    endif
+            loop_lt   kindex, 2,  ifftsize, loop
+  endif
+endin
+
+instr sound
+iamp       =          p4
+ifreq      =          p5
+kenv       adsr       0.1,0.1,0.5,p3/2
+kndx       line       5,p3,1
+asig       foscil     iamp*kenv, ifreq,1,0.75,kndx,giSine
+           outs       asig, asig
+endin
+
+&lt;/CsInstruments&gt;
+&lt;CsScore&gt;
+i "getPeaks" 0 60
+&lt;/CsScore&gt;
+&lt;/CsoundSynthesizer&gt;
+</pre>
+<p> </p>
+<h3>Math Operations</h3>
+<h4>+, -, *, / on a Number</h4>
+<p>If the four basic math operators are used between an array and a
+scalar (number), the operation is applied to each element. The
+safest way to do this is to store the result in a new array:</p>
+<pre>kArr1[] fillarray 1, 2, 3
+kArr2[] = kArr1 + 10    ;(kArr2 is now [11, 12, 13])
+</pre>
+<p>Here is an example of array-scalar operations.</p>
+<p><em><strong>   EXAMPLE
+03E14_array_scalar_math.csd</strong></em>  </p>
+<pre>&lt;CsoundSynthesizer&gt;
+&lt;CsOptions&gt;
+-n -m128
+&lt;/CsOptions&gt;
+&lt;CsInstruments&gt;
+ksmps = 32
+
+  instr 1
+
+;create array and fill with numbers 1..10
+kArr1[] genarray_i 1, 10
+
+;print content
+        printf  "%s", 1, "\nInitial content:\n"
+kndx    =       0
+  until kndx == lenarray(kArr1) do
+        printf  "kArr[%d] = %f\n", kndx+1, kndx, kArr1[kndx]
+kndx    +=      1
+  od
+
+;add 10
+kArr2[] =       kArr1 + 10
+
+;print content
+        printf  "%s", 1, "\nAfter adding 10:\n"
+kndx    =       0
+  until kndx == lenarray(kArr2) do
+        printf  "kArr[%d] = %f\n", kndx+1, kndx, kArr2[kndx]
+kndx    +=      1
+  od
+
+;subtract 5
+kArr3[] =       kArr2 - 5
+
+;print content
+        printf  "%s", 1, "\nAfter subtracting 5:\n"
+kndx    =       0
+  until kndx == lenarray(kArr3) do
+        printf  "kArr[%d] = %f\n", kndx+1, kndx, kArr3[kndx]
+kndx    +=      1
+  od
+
+;multiply by -1.5
+kArr4[] =       kArr3 * -1.5
+
+;print content
+        printf  "%s", 1, "\nAfter multiplying by -1.5:\n"
+kndx    =       0
+  until kndx == lenarray(kArr4) do
+        printf  "kArr[%d] = %f\n", kndx+1, kndx, kArr4[kndx]
+kndx    +=      1
+  od
+
+;divide by -3/2
+kArr5[] =       kArr4 / -(3/2)
+
+;print content
+        printf  "%s", 1, "\nAfter dividing by -3/2:\n"
+kndx    =       0
+  until kndx == lenarray(kArr5) do
+        printf  "kArr[%d] = %f\n", kndx+1, kndx, kArr5[kndx]
+kndx    +=      1
+  od
+
+;turnoff
+        turnoff
+  endin
+
+
+&lt;/CsInstruments&gt;
+&lt;CsScore&gt;
+i 1 0 .1
+&lt;/CsScore&gt;
+&lt;/CsoundSynthesizer&gt;
+;example by joachim heintz
+</pre>
+<p>Prints:</p>
+<p><span>Initial content:<br/>
+kArr[0] = 1.000000<br/>
+kArr[1] = 2.000000<br/>
+kArr[2] = 3.000000<br/>
+kArr[3] = 4.000000<br/>
+kArr[4] = 5.000000<br/>
+kArr[5] = 6.000000<br/>
+kArr[6] = 7.000000<br/>
+kArr[7] = 8.000000<br/>
+kArr[8] = 9.000000<br/>
+kArr[9] = 10.000000<br/>
+<br/>
+After adding 10:<br/>
+kArr[0] = 11.000000<br/>
+kArr[1] = 12.000000<br/>
+kArr[2] = 13.000000<br/>
+kArr[3] = 14.000000<br/>
+kArr[4] = 15.000000<br/>
+kArr[5] = 16.000000<br/>
+kArr[6] = 17.000000<br/>
+kArr[7] = 18.000000<br/>
+kArr[8] = 19.000000<br/>
+kArr[9] = 20.000000<br/>
+<br/>
+After subtracting 5:<br/>
+kArr[0] = 6.000000<br/>
+kArr[1] = 7.000000<br/>
+kArr[2] = 8.000000<br/>
+kArr[3] = 9.000000<br/>
+kArr[4] = 10.000000<br/>
+kArr[5] = 11.000000<br/>
+kArr[6] = 12.000000<br/>
+kArr[7] = 13.000000<br/>
+kArr[8] = 14.000000<br/>
+kArr[9] = 15.000000<br/>
+<br/>
+After multiplying by -1.5:<br/>
+kArr[0] = -9.000000<br/>
+kArr[1] = -10.500000<br/>
+kArr[2] = -12.000000<br/>
+kArr[3] = -13.500000<br/>
+kArr[4] = -15.000000<br/>
+kArr[5] = -16.500000<br/>
+kArr[6] = -18.000000<br/>
+kArr[7] = -19.500000<br/>
+kArr[8] = -21.000000<br/>
+kArr[9] = -22.500000<br/>
+<br/>
+After dividing by -3/2:<br/>
+kArr[0] = 6.000000<br/>
+kArr[1] = 7.000000<br/>
+kArr[2] = 8.000000<br/>
+kArr[3] = 9.000000<br/>
+kArr[4] = 10.000000<br/>
+kArr[5] = 11.000000<br/>
+kArr[6] = 12.000000<br/>
+kArr[7] = 13.000000<br/>
+kArr[8] = 14.000000<br/>
+kArr[9] = 15.000000</span></p>
+<h4>+, -, *, / on a Second Array</h4>
+<p>If the four basic math operators are used between two arrays,
+their operation is applied element by element. The result can be
+easily stored in a new array:</p>
+<pre>kArr1[] fillarray 1, 2, 3
+kArr2[] fillarray 10, 20, 30
+kArr3[] = kArr1 + kArr2    ;(kArr3 is now [11, 22, 33])
+</pre>
+<p>Here is an example of array-array operations.</p>
+<p><em><strong>   EXAMPLE
+03E15_array_array_math.csd</strong></em>   </p>
+<pre>&lt;CsoundSynthesizer&gt;
+&lt;CsOptions&gt;
+-n -m128
+&lt;/CsOptions&gt;
+&lt;CsInstruments&gt;
+ksmps = 32
+
+  instr 1
+
+;create array and fill with numbers 1..10 resp .1..1
+kArr1[] fillarray 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
+kArr2[] fillarray 1, 2, 3, 5, 8, 13, 21, 34, 55, 89
+
+;print contents
+        printf  "%s", 1, "\nkArr1:\n"
+kndx    =       0
+  until kndx == lenarray(kArr1) do
+        printf  "kArr1[%d] = %f\n", kndx+1, kndx, kArr1[kndx]
+kndx    +=      1
+  od
+        printf  "%s", 1, "\nkArr2:\n"
+kndx    =       0
+  until kndx == lenarray(kArr2) do
+        printf  "kArr2[%d] = %f\n", kndx+1, kndx, kArr2[kndx]
+kndx    +=      1
+  od
+
+;add arrays
+kArr3[] =       kArr1 + kArr2
+
+;print content
+        printf  "%s", 1, "\nkArr1 + kArr2:\n"
+kndx    =       0
+  until kndx == lenarray(kArr3) do
+        printf  "kArr3[%d] = %f\n", kndx+1, kndx, kArr3[kndx]
+kndx    +=      1
+  od
+
+;subtract arrays
+kArr4[] =       kArr1 - kArr2
+
+;print content
+        printf  "%s", 1, "\nkArr1 - kArr2:\n"
+kndx    =       0
+  until kndx == lenarray(kArr4) do
+        printf  "kArr4[%d] = %f\n", kndx+1, kndx, kArr4[kndx]
+kndx    +=      1
+  od
+
+;multiply arrays
+kArr5[] =       kArr1 * kArr2
+
+;print content
+        printf  "%s", 1, "\nkArr1 * kArr2:\n"
+kndx    =       0
+  until kndx == lenarray(kArr5) do
+        printf  "kArr5[%d] = %f\n", kndx+1, kndx, kArr5[kndx]
+kndx += 1
+  od
+
+;divide arrays
+kArr6[] =       kArr1 / kArr2
+
+;print content
+        printf  "%s", 1, "\nkArr1 / kArr2:\n"
+kndx    =       0
+  until kndx == lenarray(kArr6) do
+        printf  "kArr5[%d] = %f\n", kndx+1, kndx, kArr6[kndx]
+kndx += 1
+  od
+
+;turnoff
+        turnoff
+
+  endin
+
+&lt;/CsInstruments&gt;
+&lt;CsScore&gt;
+i 1 0 .1
+&lt;/CsScore&gt;
+&lt;/CsoundSynthesizer&gt;
+;example by joachim heintz
+</pre>
+<h4>min, max, sum, scale</h4>
+<p>minarray and maxarray return the smallest / largest value in an
+array, and optionally its index:</p>
+<pre>kMin [,kMinIndx] minarray kArr
+kMax [,kMaxIndx] maxarray kArr </pre>
+<p>Here is a simple example of these operations:</p>
+<p><em><strong>   EXAMPLE
+03E16_min_max_array.csd</strong></em>   </p>
+<pre>&lt;CsoundSynthesizer&gt;
+&lt;CsOptions&gt;
+-nm0
+&lt;/CsOptions&gt;
+&lt;CsInstruments&gt;
+ksmps = 32
+
+           seed       0
+
+instr 1
+;create an array with 10 elements
+kArr[]     init       10
+;fill in random numbers and print them out
+kIndx      =          0
+  until kIndx == 10 do
+kNum       random     -100, 100
+kArr[kIndx] =         kNum
+           printf     "kArr[%d] = %10f\n", kIndx+1, kIndx, kNum
+kIndx      +=         1
+  od
+;investigate minimum and maximum number and print them out
+kMin, kMinIndx minarray kArr
+kMax, kMaxIndx maxarray kArr
+           printf     "Minimum of kArr = %f at index %d\n", kIndx+1, kMin, kMinIndx
+           printf     "Maximum of kArr = %f at index %d\n\n", kIndx+1, kMax, kMaxIndx
+           turnoff
+endin
+&lt;/CsInstruments&gt;
+&lt;CsScore&gt;
+i1 0 0.1
+&lt;/CsScore&gt;
+&lt;/CsoundSynthesizer&gt;
+;example by joachim heintz 
+</pre>
+<p>This would create a different output each time you run it; for
+instance:</p>
+<p><span>kArr[0] =  -2.071383<br/>
+kArr[1] =  97.150272<br/>
+kArr[2] =  21.187835<br/>
+kArr[3] =  72.199983<br/>
+kArr[4] = -64.908241<br/>
+kArr[5] =  -7.276434<br/>
+kArr[6] = -51.368650<br/>
+kArr[7] =  41.324552<br/>
+kArr[8] =  -8.483235<br/>
+kArr[9] =  77.560219<br/>
+Minimum of kArr = -64.908241 at index 4<br/>
+Maximum of kArr = 97.150272 at index 1</span></p>
+<p>sumarray simply returns the sum of all values in an (numerical)
+array. Here is a simple example:</p>
+<p><em><strong>   EXAMPLE
+03E17_sumarray.csd</strong></em>   </p>
+<pre>&lt;CsoundSynthesizer&gt;
+&lt;CsOptions&gt;
+-nm0
+&lt;/CsOptions&gt;
+&lt;CsInstruments&gt;
+ksmps = 32
+
+           seed       0
+
+instr 1
+;create an array with 10 elements
+kArr[]     init       10
+;fill in random numbers and print them out
+kIndx      =          0
+  until kIndx == 10 do
+kNum       random     0, 10
+kArr[kIndx] =         kNum
+           printf     "kArr[%d] = %10f\n", kIndx+1, kIndx, kNum
+kIndx      +=         1
+  od
+;calculate sum of all values and print it out
+kSum       sumarray   kArr
+           printf     "Sum of all values in kArr = %f\n", kIndx+1, kSum
+           turnoff
+endin
+&lt;/CsInstruments&gt;
+&lt;CsScore&gt;
+i1 0 0.1
+&lt;/CsScore&gt;
+&lt;/CsoundSynthesizer&gt;
+;example by joachim heintz
+</pre>
+<p>Finally, scalearray scales the values of a given numerical array
+between a minimum and a maximum value. These lines ...</p>
+<pre>kArr[] fillarray  1, 3, 9, 5, 6
+       scalearray kArr, 1, 3  
+</pre>
+<p>... change kArr from [1, 3, 9, 5, 6] to [1, 1.5, 3, 2, 2.25].
+Here is a simple example:</p>
+<p><em><strong>   EXAMPLE
+03E18_scalearray.csd</strong></em>   </p>
+<pre>&lt;CsoundSynthesizer&gt;
+&lt;CsOptions&gt;
+-nm0
+&lt;/CsOptions&gt;
+&lt;CsInstruments&gt;
+ksmps = 32
+
+           seed       0
+
+instr 1
+;create an array with 10 elements
+kArr[]     init       10
+;fill in random numbers and print them out
+           printks    "kArr in maximum range 0..100:\n", 0
+kIndx      =          0
+  until kIndx == 10 do
+kNum       random     0, 100
+kArr[kIndx] =         kNum
+           printf     "kArr[%d] = %10f\n", kIndx+1, kIndx, kNum
+kIndx      +=         1
+  od
+;scale numbers 0...1 and print them out again
+           scalearray kArr, 0, 1
+kIndx      =          0
+           printks    "kArr in range 0..1\n", 0
+  until kIndx == 10 do
+           printf     "kArr[%d] = %10f\n", kIndx+1, kIndx, kArr[kIndx]
+kIndx      +=         1
+  od
+           turnoff
+endin
+&lt;/CsInstruments&gt;
+&lt;CsScore&gt;
+i1 0 0.1
+&lt;/CsScore&gt;
+&lt;/CsoundSynthesizer&gt;
+;example by joachim heintz
+</pre>
+<p>One possible output:</p>
+<p><span>kArr in maximum range 0..100:<br/>
+kArr[0] =  93.898027<br/>
+kArr[1] =  98.554934<br/>
+kArr[2] =  37.244273<br/>
+kArr[3] =  58.581820<br/>
+kArr[4] =  71.195263<br/>
+kArr[5] =  11.948356<br/>
+kArr[6] =   3.493777<br/>
+kArr[7] =  13.688537<br/>
+kArr[8] =  24.875835<br/>
+kArr[9] =  52.205258<br/>
+kArr in range 0..1<br/>
+kArr[0] =   0.951011<br/>
+kArr[1] =   1.000000<br/>
+kArr[2] =   0.355040<br/>
+kArr[3] =   0.579501<br/>
+kArr[4] =   0.712189<br/>
+kArr[5] =   0.088938<br/>
+kArr[6] =   0.000000<br/>
+kArr[7] =   0.107244<br/>
+kArr[8] =   0.224929<br/>
+kArr[9] =   0.512423</span></p>
+<h4>Function Mapping on an Array: maparray</h4>
+<p>maparray applies the function "fun" (which needs to have one
+input and one output argument) to each element of the vector
+kArrSrc and stores the result in kArrRes (which needs to have been
+created previously):</p>
+<pre>kArrRes  maparray kArrSrc, "fun" </pre>
+<p>Possible functions are for instance <em>abs</em>, <em>ceil</em>,
+<em>exp</em>, <em>floor</em>, <em>frac</em>, <em>int</em>,
+<em>log</em>, <em>log10</em>, <em>round</em>, <em>sqrt</em>. The
+following example applies different functions sequentially to the
+source array:</p>
+<p><em><strong>   EXAMPLE
+03E19_maparray.csd</strong></em>   </p>
+<pre>&lt;CsoundSynthesizer&gt;
+&lt;CsOptions&gt;
+-nm0
+&lt;/CsOptions&gt;
+&lt;CsInstruments&gt;
+ksmps = 32
+
+instr 1
+
+;create an array and fill with numbers
+kArrSrc[] array 1.01, 2.02, 3.03, 4.05, 5.08, 6.13, 7.21
+
+;print source array
+        printf  "%s", 1, "\nSource array:\n"
+kndx    =       0
+  until kndx == lenarray(kArrSrc) do
+        printf  "kArrSrc[%d] = %f\n", kndx+1, kndx, kArrSrc[kndx]
+kndx    +=      1
+  od
+
+;create an empty array for the results
+kArrRes[] init  7
+
+;apply the sqrt() function to each element
+kArrRes maparray kArrSrc, "sqrt"
+
+;print the result
+        printf  "%s", 1, "\nResult after applying sqrt() to source array\n"
+kndx    =       0
+  until kndx == lenarray(kArrRes) do
+        printf  "kArrRes[%d] = %f\n", kndx+1, kndx, kArrRes[kndx]
+kndx    +=      1
+  od
+
+;apply the log() function to each element
+kArrRes maparray kArrSrc, "log"
+
+;print the result
+        printf  "%s", 1, "\nResult after applying log() to source array\n"
+kndx    =       0
+  until kndx == lenarray(kArrRes) do
+        printf  "kArrRes[%d] = %f\n", kndx+1, kndx, kArrRes[kndx]
+kndx    +=      1
+  od
+
+;apply the int() function to each element
+kArrRes maparray kArrSrc, "int"
+
+;print the result
+        printf  "%s", 1, "\nResult after applying int() to source array\n"
+kndx    =       0
+  until kndx == lenarray(kArrRes) do
+        printf  "kArrRes[%d] = %f\n", kndx+1, kndx, kArrRes[kndx]
+kndx     +=     1
+  od
+
+;apply the frac() function to each element
+kArrRes maparray kArrSrc, "frac"
+
+;print the result
+        printf  "%s", 1, "\nResult after applying frac() to source array\n"
+kndx    =       0
+  until kndx == lenarray(kArrRes) do
+        printf  "kArrRes[%d] = %f\n", kndx+1, kndx, kArrRes[kndx]
+kndx += 1
+  od
+
+;turn instrument instance off
+        turnoff
+
+endin
+
+
+&lt;/CsInstruments&gt;
+&lt;CsScore&gt;
+i 1 0 0.1
+&lt;/CsScore&gt;
+&lt;/CsoundSynthesizer&gt;
+;example by joachim heintz
+</pre>
+<p>Prints:</p>
+<p><span>Source array:<br/>
+kArrSrc[0] = 1.010000<br/>
+kArrSrc[1] = 2.020000<br/>
+kArrSrc[2] = 3.030000<br/>
+kArrSrc[3] = 4.050000<br/>
+kArrSrc[4] = 5.080000<br/>
+kArrSrc[5] = 6.130000<br/>
+kArrSrc[6] = 7.210000<br/>
+<br/>
+Result after applying sqrt() to source array<br/>
+kArrRes[0] = 1.004988<br/>
+kArrRes[1] = 1.421267<br/>
+kArrRes[2] = 1.740690<br/>
+kArrRes[3] = 2.012461<br/>
+kArrRes[4] = 2.253886<br/>
+kArrRes[5] = 2.475884<br/>
+kArrRes[6] = 2.685144<br/>
+<br/>
+Result after applying log() to source array<br/>
+kArrRes[0] = 0.009950<br/>
+kArrRes[1] = 0.703098<br/>
+kArrRes[2] = 1.108563<br/>
+kArrRes[3] = 1.398717<br/>
+kArrRes[4] = 1.625311<br/>
+kArrRes[5] = 1.813195<br/>
+kArrRes[6] = 1.975469<br/>
+<br/>
+Result after applying int() to source array<br/>
+kArrRes[0] = 1.000000<br/>
+kArrRes[1] = 2.000000<br/>
+kArrRes[2] = 3.000000<br/>
+kArrRes[3] = 4.000000<br/>
+kArrRes[4] = 5.000000<br/>
+kArrRes[5] = 6.000000<br/>
+kArrRes[6] = 7.000000<br/>
+<br/>
+Result after applying frac() to source array<br/>
+kArrRes[0] = 0.010000<br/>
+kArrRes[1] = 0.020000<br/>
+kArrRes[2] = 0.030000<br/>
+kArrRes[3] = 0.050000<br/>
+kArrRes[4] = 0.080000<br/>
+kArrRes[5] = 0.130000<br/>
+kArrRes[6] = 0.210000</span></p>
+<h3>Arrays in UDOs</h3>
+<p>The dimension of an input array must be declared in two
+places:</p>
+<ul>
+<li>as k[] or k[][] in the type input list</li>
+<li>as kName[], kName[][] etc in the xin list.</li>
+</ul>
+<p>For Instance:</p>
+<pre>opcode FirstEl, k, k[]
+;returns the first element of vector kArr
+kArr[] xin
+       xout   kArr[0]
+endop
+</pre>
+<p>This is a simple example using this code:</p>
+<p><em><strong>   EXAMPLE
+03E20_array_UDO.csd</strong></em>   </p>
+<pre>&lt;CsoundSynthesizer&gt;
+&lt;CsOptions&gt;
+-nm128
+&lt;/CsOptions&gt;
+&lt;CsInstruments&gt;
+ksmps = 32
+
+  opcode FirstEl, k, k[]
+  ;returns the first element of vector kArr
+kArr[] xin
+xout kArr[0]
+  endop
+
+  instr 1
+kArr[] array   6, 3, 9, 5, 1
+kFirst FirstEl kArr
+       printf  "kFirst = %d\n", 1, kFirst
+       turnoff
+  endin
+
+&lt;/CsInstruments&gt;
+&lt;CsScore&gt;
+i 1 0 .1
+&lt;/CsScore&gt;
+&lt;/CsoundSynthesizer&gt;
+;example by joachim heintz
+</pre>
+<p>As there is no built-in opcode for printing the contents of an
+array, it is a good task for an UDO. Let us finish with an example
+that does just this:</p>
+<p><em><strong>   EXAMPLE
+03E21_print_array.csd</strong></em>    </p>
+<pre>&lt;CsoundSynthesizer&gt;
+&lt;CsOptions&gt;
+-n -m0
+&lt;/CsOptions&gt;
+&lt;CsInstruments&gt;
+ksmps = 32
+
+           seed       0
+
+  opcode PrtArr1k, 0, k[]POVVO
+kArr[], ktrig, kstart, kend, kprec, kppr xin
+kprint     init       0
+kndx       init       0
+if ktrig &gt; 0 then
+kppr       =          (kppr == 0 ? 10 : kppr)
+kend       =          (kend == -1 || kend == .5 ? lenarray(kArr) : kend)
+kprec      =          (kprec == -1 || kprec == .5 ? 3 : kprec)
+kndx       =          kstart
+Sformat    sprintfk   "%%%d.%df, ", kprec+3, kprec
+Sdump      sprintfk   "%s", "["
+loop:
+Snew       sprintfk   Sformat, kArr[kndx]
+Sdump      strcatk    Sdump, Snew
+kmod       =          (kndx+1-kstart) % kppr
+ if kmod == 0 &amp;&amp; kndx != kend-1 then
+           printf     "%s\n", kprint+1, Sdump
+Sdump      strcpyk    " "
+ endif
+kprint     =          kprint + 1
+           loop_lt    kndx, 1, kend, loop
+klen       strlenk    Sdump
+Slast      strsubk    Sdump, 0, klen-2
+           printf     "%s]\n", kprint+1, Slast
+endif
+  endop
+
+  instr SimplePrinting
+kArr[]     fillarray  1, 2, 3, 4, 5, 6, 7
+kPrint     metro      1
+           prints     "\nSimple Printing with defaults, once a second:\n"
+           PrtArr1k   kArr, kPrint
+  endin
+
+  instr EatTheHead
+kArr[]     fillarray  1, 2, 3, 4, 5, 6, 7
+kPrint     metro      1
+kStart     init       0
+           prints     "\nChanging the start index:\n"
+ if kPrint == 1 then
+           PrtArr1k   kArr, 1, kStart
+kStart     +=         1
+ endif
+  endin
+
+  instr EatTheTail
+kArr[]     fillarray  1, 2, 3, 4, 5, 6, 7
+kPrint     metro      1
+kEnd       init       7
+           prints     "\nChanging the end index:\n"
+ if kPrint == 1 then
+           PrtArr1k   kArr, 1, 0, kEnd
+kEnd       -=         1
+ endif
+  endin
+
+  instr PrintFormatted
+;create an array with 24 elements
+kArr[] init 24
+
+;fill with random values
+kndx = 0
+until kndx == lenarray(kArr) do
+kArr[kndx] rnd31 10, 0
+kndx += 1
+od
+
+;print
+           prints     "\nPrinting with precision=5 and 4 elements per row:\n"
+           PrtArr1k   kArr, 1, 0, -1, 5, 4
+           printks    "\n", 0
+
+;turnoff after first k-cycle
+turnoff
+  endin
+
+&lt;/CsInstruments&gt;
+&lt;CsScore&gt;
+i "SimplePrinting" 0 5
+i "EatTheHead" 6 5
+i "EatTheTail" 12 5
+i "PrintFormatted" 18 1
+&lt;/CsScore&gt;
+&lt;/CsoundSynthesizer&gt;
+;example by joachim heintz
+</pre>
+<p>Prints:</p>
+<p><span>Simple Printing with defaults, once a second:<br/>
+[ 1.000,  2.000,  3.000,  4.000,  5.000, 
+6.000,  7.000]<br/>
+[ 1.000,  2.000,  3.000,  4.000,  5.000, 
+6.000,  7.000]<br/>
+[ 1.000,  2.000,  3.000,  4.000,  5.000, 
+6.000,  7.000]<br/>
+[ 1.000,  2.000,  3.000,  4.000,  5.000, 
+6.000,  7.000]<br/>
+[ 1.000,  2.000,  3.000,  4.000,  5.000, 
+6.000,  7.000]<br/>
+<br/>
+Changing the start index:<br/>
+[ 1.000,  2.000,  3.000,  4.000,  5.000, 
+6.000,  7.000]<br/>
+[ 2.000,  3.000,  4.000,  5.000,  6.000, 
+7.000]<br/>
+[ 3.000,  4.000,  5.000,  6.000,  7.000]<br/>
+[ 4.000,  5.000,  6.000,  7.000]<br/>
+[ 5.000,  6.000,  7.000]<br/>
+<br/>
+Changing the end index:<br/>
+[ 1.000,  2.000,  3.000,  4.000,  5.000, 
+6.000,  7.000]<br/>
+[ 1.000,  2.000,  3.000,  4.000,  5.000, 
+6.000]<br/>
+[ 1.000,  2.000,  3.000,  4.000,  5.000]<br/>
+[ 1.000,  2.000,  3.000,  4.000]<br/>
+[ 1.000,  2.000,  3.000]<br/>
+<br/>
+Printing with precision=5 and 4 elements per row:<br/>
+[-6.02002,  1.55606, -7.25789, -3.43802,<br/>
+ -2.86539,  1.35237,  9.26686,  8.13951,<br/>
+  0.68799,  3.02332, -7.03470,  7.87381,<br/>
+ -4.86597, -2.42907, -5.44999,  2.07420,<br/>
+  1.00121,  7.33340, -7.53952,  3.23020,<br/>
+  9.93770,  2.84713, -8.23949, -1.12326]</span></p>
+<ol class="endnotes">
+<li id="endnote-0582bc55-3be0-4d95-8a06-ee3ee09256d0">You cannot currently have a mixture of
+numbers and strings in an array, but you can convert a string to a
+number with the strtod opcode.</li><li id="endnote-acc150e3-7d05-4b83-8553-11c19074938b">array and fillarray are only different
+names for the same opcode.</li><li id="endnote-cc944ca7-ce6e-4a68-ab90-fcd22911d18e">Actually, fillarray is supposed to work for
+one dimension. It will probably work on two dimensions, but not at
+three or more.^^^^</li><li id="endnote-c2211456-bbae-4423-b3ae-18b6f31fbb8a">As sample rate is here 44100, and fftsize
+is 2048, each bin has a frequency range of 44100 / 2048 = 21.533
+Hz. Bin 0 looks for frequencies around 0 Hz, bin 1 for frequencies
+around 21.533 Hz, bin 2 around 43.066 Hz, and so on. So setting the
+first 40 bin amplitudes to 0 means that no frequencies will be
+resynthesized which are lower than bin 40 which is centered at 40 *
+21.533 = 861.328 Hz.</li></ol>
+<div id="yass_bottom_edge"> </div>
+</body>
+</html>

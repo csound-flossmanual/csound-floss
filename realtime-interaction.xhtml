@@ -1,0 +1,159 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" epub:prefix="z3998: http://www.daisy.org/z3998/2012/vocab/structure/#" lang="en" xml:lang="en">
+  <head>
+    <title>REALTIME INTERACTION</title>
+  </head>
+  <body><h1>REALTIME INTERACTION</h1><h2>OPCODE GUIDE: REALTIME INTERACTION</h2>
+<ul>
+<li>
+<h3>MIDI</h3>
+<ul>
+<li>
+<h4>Opcodes For Use In MIDI-Triggered Instruments </h4>
+<p><a href="http://www.csounds.com/manual/html/massign.html"/></p>
+<p><a href="http://www.csounds.com/manual/html/massign.html"><strong>massign</strong></a>
+assigns specified midi channels to instrument numbers. See the
+<a href="http://en.flossmanuals.net/bin/view/Csound/TRIGGERINGINSTRUMENTINSTANCES">
+Triggering Instrument Instances</a> chapter for more
+information.</p>
+<p><a href="http://www.csounds.com/manual/html/pgmassign.html"><strong>pgmassign</strong></a>
+assigns midi program changes to specified instrument
+numbers.<br/></p>
+<p><a href="http://www.csounds.com/manual/html/notnum.html"><strong>notnum</strong></a>
+retrieves the midi number of the key which has been pressed and
+activated this instrument instance. </p>
+<p><a href="http://www.csounds.com/manual/html/cpsmidi.html"><strong>cpsmidi</strong></a>
+converts this note number to the frequency in cycles per second
+(Hertz).</p>
+<p><a href="http://www.csounds.com/manual/html/veloc.html"><strong>veloc</strong></a>
+and <a href="http://www.csounds.com/manual/html/ampmidi.html"><strong>ampmidi</strong></a>
+get the velocity of the key which has been pressed and activated
+this instrument instance.</p>
+<p><a href="http://www.csounds.com/manual/html/midichn.html"><strong>midichn</strong></a>
+returns the midi channel number from which the note was
+activated.</p>
+<p><a href="http://www.csounds.com/manual/html/pchbend.html"><strong>pchbend</strong></a>
+reads pitch bend information.</p>
+<a href="http://www.csounds.com/manual/html/aftouch.html"><strong>aftouch</strong></a>
+and <a href="http://www.csounds.com/manual/html/polyaft.html"><strong>polyaft</strong></a>
+read the monophonic aftertouch (afttouch) and polyphonic aftertouch
+(polyaft) information.</li>
+<li>
+<h4>Opcodes For Use In All Instruments</h4>
+<p><a href="http://www.csounds.com/manual/html/ctrl7.html"/></p>
+<p><a href="http://www.csounds.com/manual/html/ctrl7.html"><strong>ctrl7</strong></a>
+reads the values of a usual (7 bit) controller and scales it.
+<a href="http://www.csounds.com/manual/html/ctrl14.html">ctrl14</a>
+and <a href="http://www.csounds.com/manual/html/ctrl21.html">ctrl21</a> can be
+used for high definition controllers.</p>
+<p><a href="http://www.csounds.com/manual/html/initc7.html"><strong>initc7</strong></a>
+or <a href="http://www.csounds.com/manual/html/ctrlinit.html"><strong>ctrlinit</strong></a>
+set the initial value of 7 bit controllers. Use <a href="http://www.csounds.com/manual/html/initc14.html">initc14</a> and
+<a href="http://www.csounds.com/manual/html/initc21.html">initc21</a> for
+high definition devices.<br/></p>
+<p><a href="http://www.csounds.com/manual/html/midiin.html"><strong>midiin</strong></a>
+reads all incoming midi events. </p>
+<p><a href="http://www.csounds.com/manual/html/midiout.html"><strong>midiout</strong></a>
+writes any type of midi message to the midi out port.</p>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<h3>OPEN SOUND CONTROL AND NETWORK</h3>
+<ul>
+<li>
+<h4>Open Sound Control</h4>
+<p><a href="http://www.csounds.com/manual/html/OSCinit.html"/></p>
+<p><a href="http://www.csounds.com/manual/html/OSCinit.html"><strong>OSCinit</strong></a>
+initialises a port for later use of the OSClisten opcode.</p>
+<p><a href="http://www.csounds.com/manual/html/OSClisten.html"><strong>OSClisten</strong></a>
+receives messages of the port which was initialised by OSCinit.</p>
+<p><a href="http://www.csounds.com/manual/html/OSCsend.html"><strong>OSCsend</strong></a>
+sends messages to a port.</p>
+</li>
+<li>
+<h4>Remote Instruments</h4>
+<p><a href="http://www.csounds.com/manual/html/remoteport.html"/></p>
+<p><a href="http://www.csounds.com/manual/html/remoteport.html"><strong>remoteport</strong></a>
+defines the port for use with the remote system.<br/></p>
+<p><a href="http://www.csounds.com/manual/html/insremot.html"><strong>insremot</strong></a>
+will send note events from a source machine to one
+destination.<br/></p>
+<p><a href="http://www.csounds.com/manual/html/insglobal.html"><strong>insglobal</strong></a>
+will send note events from a source machine to many
+destinations.<br/></p>
+<p><a href="http://www.csounds.com/manual/html/midiremot.html"><strong>midiremot</strong></a>
+will send midi events from a source machine to one
+destination.<br/></p>
+<a href="http://www.csounds.com/manual/html/midiglobal.html"><strong>midiglobal</strong></a>
+will broadcast the midi events to all the machines involved in the
+remote concert.</li>
+<li>
+<h4>Network Audio</h4>
+<p><a href="http://www.csounds.com/manual/html/socksend.html"/></p>
+<p><a href="http://www.csounds.com/manual/html/socksend.html"><strong>socksend</strong></a>
+sends audio data to other processes using the low-level UDP or TCP
+protocols.<br/></p>
+<a href="http://www.csounds.com/manual/html/sockrecv.html"><strong>sockrecv</strong></a>
+receives audio data from other processes using the low-level UDP or
+TCP protocols.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<h3>HUMAN INTERFACES</h3>
+<ul>
+<li>
+<h4>Widgets</h4>
+<p>The FLTK Widgets are integrated in Csound. Information and
+examples can be found <a href="http://www.csounds.com/manual/html/ControlFltkIntro.html">here</a>.</p>
+<p>QuteCsound implements a more modern and easy-to-use system for
+widgets. The communication between the widgets and Csound is done
+via <a href="http://www.csounds.com/manual/html/invalue.html">invalue</a> (or
+<a href="http://www.csounds.com/manual/html/chnget.html">chnget</a>) and
+<a href="http://www.csounds.com/manual/html/outvalue.html">outvalue</a> (or
+<a href="http://www.csounds.com/manual/html/chnset.html">chnset</a>).</p>
+</li>
+<li>
+<h4>Keys</h4>
+<p><a href="http://www.csounds.com/manual/html/sensekey.html"/><a href="http://www.csounds.com/manual/html/sensekey.html"><strong>sensekey</strong></a>
+reads the input of the computer keyboard.</p>
+</li>
+<li>
+<h4>Mouse</h4>
+<p><a href="http://www.csounds.com/manual/html/xyin.html"/></p>
+<p><a href="http://www.csounds.com/manual/html/xyin.html"><strong>xyin</strong></a>
+reads the current mouse position. This should be used if your
+frontend does not provide any other means of reading mouse
+information.</p>
+</li>
+<li>
+<h4>WII</h4>
+<p><a href="http://www.csounds.com/manual/html/wiiconnect.html"/></p>
+<p><a href="http://www.csounds.com/manual/html/wiiconnect.html"><strong>wiiconnect</strong></a>
+reads data from a number of external Nintendo Wiimote
+controllers.<br/></p>
+<p><a href="http://www.csounds.com/manual/html/wiidata.html"><strong>wiidata</strong></a>
+reads data fields from a number of external Nintendo Wiimote
+controllers.<br/></p>
+<p><a href="http://www.csounds.com/manual/html/wiirange.html"><strong>wiirange</strong></a>
+sets scaling and range limits for certain Wiimote fields.<br/></p>
+<a href="http://www.csounds.com/manual/html/wiisend.html"><strong>wiisend</strong></a>
+sends data to one of a number of external Wii controllers.</li>
+<li>
+<h4>P5 Glove</h4>
+<p><a href="http://www.csounds.com/manual/html/p5gconnect.html"/></p>
+<p><a href="http://www.csounds.com/manual/html/p5gconnect.html"><strong>p5gconnect</strong></a>
+reads data from an external P5 glove controller.<br/></p>
+<a href="http://www.csounds.com/manual/html/p5gdata.html"><strong>p5gdata</strong></a>
+reads data fields from an external P5 glove controller.</li>
+</ul>
+</li>
+</ul>
+<p id="alexbreak"/>
+</body>
+</html>

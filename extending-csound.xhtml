@@ -1,0 +1,296 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" epub:prefix="z3998: http://www.daisy.org/z3998/2012/vocab/structure/#" lang="en" xml:lang="en">
+  <head>
+    <title>EXTENDING CSOUND</title>
+  </head>
+  <body><h1>EXTENDING CSOUND</h1><h2>Developing Plugin Opcodes</h2>
+<p>Csound is possibly one of the most easily extensible of all
+modern music programming languages. The addition of unit generators
+(opcodes) and function tables is generally the most common type of
+extension to the language. This is possible through two basic
+mechanisms: user-defined opcodes (UDOs), written in the Csound
+language itself and pre-compiled/binary opcodes, written in C or
+C++. </p>
+<p>To facilitate the latter case, Csound offers a simple opcode
+development API, from which dynamically-loadable, or ‘plugin’ unit
+generators can be built. A similar mechanism for function tables is
+also available. For this we can use either the C++ or the C
+languages. C++ opcodes are written as classes derived from a
+template (‘pseudo-virtual’) base class OpcodeBase. In the case of C
+opcodes, we normally supply a module according to a basic
+description. The sections on plugin opcodes will use the C
+language. For those interested in object-oriented programming,
+alternative<br/>
+C++ class implementations for the examples discussed in this text
+can be extrapolated from the original C code.</p>
+<p>You may find additional information and examples at <a title="https://github.com/csound/opcode_sdk" href="https://github.com/csound/opcode_sdk">https://github.com/csound/opcode_sdk</a>.</p>
+<h3>Csound data types and signals</h3>
+<p>The Csound language provides four basic data types: i-, k-, a-
+and f-types  (there is also a fifth type, w, which will not be
+discussed here). These are used to pass the data between opcodes,
+each opcode input or output parameter relating to one of these
+types. The Csound i-type variable is used for initialisation
+variables, which will assume only one value in performance. Once
+set, they will remain constant throughout the instrument or UDO
+code, unless there is a reinitialisation pass. In a plugin opcode,
+parameters that receive i-type variables are set inside the
+initialisation part of the code, because they will not change
+during processing.</p>
+<p>The other types are used to hold scalar (k-type) , vectorial
+(a-type)  and spectral-frame (f) signal variables. These will
+change in performance, so parameters assigned to these variables
+are set and modified in the opcode processing function. Scalars
+will hold a single value, whereas vectors hold an array of values
+(a vector). These values are floating-point numbers, either 32- or
+64-bit, depending on the executable version used, defined in C/C++
+as a custom MYFLT type.</p>
+<p>Plugin opcodes will use pointers to input and output parameters
+to read and write their input/output. The Csound engine will take
+care of allocating the memory used for its variables, so the
+opcodes only need to manipulate the pointers to the addresses of
+these variables.</p>
+<p>A Csound instrument code can use any of these variables, but
+opcodes will have to accept specific types as input and will
+generate data in one of those types. Certain opcodes, known as
+polymorphic opcodes, will be able to cope with more than one type
+for a specific parameter (input or output). This generally implies
+that more than one version of the opcode will have to be
+implemented, which will be called depending on the parameter types
+used.</p>
+<h3>Plugin opcodes</h3>
+<p>Originally, Csound opcodes could only be added to the system as
+statically-linked code. This required that the user recompiled the
+whole Csound code with the added C module. The introduction of a
+dynamic-loading mechanism has provided a simpler way for opcode
+addition, which only requires the C code to be compiled and built
+as a shared, dynamic library. These are known in Csound parlance as
+plugin opcodes and the following sections are dedicated to their
+development process.</p>
+<h4>Anatomy of an opcode</h4>
+<p>The C code for a Csound opcode has three main programming
+components: a data structure to hold the internal data, an
+initialising function and a processing function. From an
+object-oriented perspective, an opcode is a simple class, with its
+attributes, constructor and perform methods. The data structure
+will hold the attributes of the class: input/output parameters and
+internal variables (such as delays, coefficients, counters, indices
+etc.), which make up its dataspace.</p>
+<p>The constructor method is the initialising function, which sets
+some attributes to certain values, allocates memory (if necessary)
+and anything that is needed for an opcode to be ready for use. This
+method is called by the Csound engine when an instrument with its
+opcodes is allocated in memory, just before performance, or when a
+reinitialisation is required.</p>
+<p>Performance is implemented by the processing function, or
+perform method, which is called when new output is to be generated.
+This happens at every control period, or <em>ksmps</em> samples.
+This implies that signals are generated at two different rates: the
+control rate, <em>kr</em>, and the audio rate, <em>sr</em>, which
+is <em>kr</em> * <em>ksmps</em> samples/sec. What is actually
+generated by the opcode, and how its perform method is implemented,
+will depend on its input and output Csound language data types.</p>
+<h4>Opcoding basics</h4>
+<p>C-language opcodes normally obey a few basic rules and their
+development require very little in terms of knowledge of the actual
+processes involved in Csound. Plugin opcodes will have to provide
+the three main programming components outlined above: a data
+structure plus the initialisation and processing functions. Once
+these elements are supplied, all we need to do is to add a line
+telling Csound what type of opcode it is, whether it is an i-, k-
+or a-rate based unit generator and what arguments it takes.</p>
+<p>The data structure will be organised in the following
+fashion:<br/>
+1.    The OPDS data structure, holding the common
+components of all opcodes.<br/>
+2.    The output pointers (one MYFLT pointer for
+each output)<br/>
+3.    The input pointers (as above)<br/>
+4.    Any other internal dataspace member.</p>
+<p>The Csound opcode API is defined by csdl.h, which should be
+included at the top of the source file. The example below shows a
+simple data structure for an opcode with one output and three
+inputs, plus a couple of private internal variables:</p>
+<pre>#include "csdl.h"
+
+typedef struct  _newopc {
+
+OPDS  h;
+MYFLT *out;/* output pointer  */
+MYFLT *in1,*in2,*in3; /* input pointers */
+MYFLT  var1;  /* internal variables */
+MYFLT  var2;
+
+} newopc;
+</pre>
+<h4>Initialisation</h4>
+<p>The initialisation function is only there to initialise any
+data, such as the internal variables, or allocate memory, if
+needed. The plugin opcode model in Csound 6 expects both the
+initialisation function and the perform function to return an int
+value, either OK or NOTOK. Both methods  take two
+arguments:  pointers to the CSOUND data structure and the
+opcode dataspace. The following example shows an example
+initialisation function. It initialises one of the variables to 0
+and the other to the third opcode input parameter.</p>
+<pre>int newopc_init(CSOUND *csound, newopc *p){
+ p-&gt;var1 = (MYFLT) 0;
+ p-&gt;var2 = *p-&gt;in3;
+return OK;
+}</pre>
+<h4>Control-rate performance</h4>
+<p>The processing function implementation will depend on the type
+of opcode that is being created. For control rate opcodes, with k-
+or i-type input parameters, we will be generating one output value
+at a time. The example below shows an example of this type of
+processing function. This simple example just keeps ramping up or
+down depending on the value of the second input. The output is
+offset by the first input and the ramping is reset if it reaches
+the value of <em>var2</em> (which is set to the third input
+argument in the constructor above).</p>
+<pre>int newopc_process_control(CSOUND *csound, newopc *p){
+ MYFLT cnt = p-&gt;var1 + *(p-&gt;in2);
+ if(cnt &gt; p-&gt;var2) cnt = (MYFLT) 0; /* check bounds */
+ *(p-&gt;out) = *(p-&gt;in1) + cnt; /* generate output */
+  p-&gt;var1 = cnt; /* keep the value of cnt */
+  return OK;
+}</pre>
+<h4>Audio-rate performance</h4>
+<p>For audio rate opcodes, because it will be generating audio
+signal vectors, it will require an internal loop to process the
+vector samples. This is not necessary with k-rate opcodes, because,
+as we are dealing with scalar inputs and outputs,  the
+function has to process only one sample at a time. If we were to
+make an audio version of the control opcode above (disregarding its
+usefulness), we would have to change the code slightly. The basic
+difference is that we have an audio rate output instead of control
+rate. In this case, our output is a whole vector (a MYFLT array)
+with ksmps samples, so we have to write a loop to fill it. It is
+important to point out that the control rate and audio rate
+processing functions will produce exactly the same result. The
+difference here is that in the audio case, we will produce ksmps
+samples, instead of just one  sample. However, all the vector
+samples will have the same value (which actually makes the audio
+rate function redundant, but we will use it just to illustrate our
+point).</p>
+<p>Another important thing to consider is to support the
+--sample-accurate mode introduced in Csound 6. For this we will
+need to add code to start processing at an offset (when this is
+given), and finish early (if that is required). The opcode will
+then lookup these two variables (called "offset" and "early") that
+are passed to it from the container instrument, and act to ensure
+these are taken into account. Without this, the opcode would still
+work, but not support the sample-accurate mode.</p>
+<pre>int newopc_process_audio(CSOUND *csound, newopc *p){
+ int i, n = CS_KSMPS;
+ MYFLT *aout = p-&gt;out;  /* output signal */
+ MYFLT cnt = p-&gt;var1 + *(p-&gt;in2);
+ uint32_t offset = p-&gt;h.insdshead-&gt;ksmps_offset;
+ uint32_t early  = p-&gt;h.insdshead-&gt;ksmps_no_end;
+
+ /* sample-accurate mode mechanism */
+ if(offset) memset(aout, '\0', offset*sizeof(MYFLT));
+ if(early) {
+        n -= early;
+        memset(&amp;aout[n], '\0', early*sizeof(MYFLT));
+  }        
+
+  if(cnt &gt; p-&gt;var2) cnt = (MYFLT) 0; /* check bounds */
+   
+  /* processing loop    */
+  for(i=offset; i &lt; n; i++) aout[i] = *(p-&gt;in1) + cnt;
+   
+   p-&gt;var1 = cnt; /* keep the value of cnt */
+   return OK;
+}</pre>
+<p>In order for Csound to be aware of the new opcode, we will have
+to register it. This is done by filling an opcode registration
+structure OENTRY array called localops (which is static, meaning
+that only one such array exists in memory at a time):</p>
+<pre>static OENTRY localops[] = {
+{ "newopc", sizeof(newopc), 0, 7, "s", "kki",(SUBR) newopc_init,
+(SUBR) newopc_process_control, (SUBR) newopc_process_audio }
+};</pre>
+<p>LINKAGE</p>
+<p>The OENTRY structure defines the details of the new opcode:</p>
+<ol>
+<li>the opcode name (a string without any spaces).</li>
+<li>the size of the opcode dataspace, set using the macro
+S(struct_name), in most cases; otherwise this is a code indicating
+that the opcode will have more than one implementation, depending
+on the type of input arguments (a polymorphic opcode).</li>
+<li>Flags to control multicore operation (0 for most cases).</li>
+<li>An int code defining when the opcode is active: 1 is for
+i-time, 2 is for k-rate and 4 is for a-rate. The actual value is a
+combination of one or more of those. The value of 7 means active at
+i-time (1), k-rate (2) and a-rate (4). This means that the opcode
+has an init function, plus a k-rate  and an a-rate processing
+functions.</li>
+<li>String definition the output type(s): a, k, s (either a or k),
+i, m (multiple output arguments), w or  f  (spectral
+signals).</li>
+<li>Same as above, for input types: a, k, s, i, w, f, o (optional
+i-rate, default to 0), p (opt, default to 1), q (opt, 10), 
+v(opt, 0.5), j(opt, ?1), h(opt, 127), y (multiple inputs, a-type),
+z (multiple inputs, k-type), Z (multiple inputs, alternating k- and
+a-types), m (multiple inputs, i-type), M (multiple inputs, any
+type) and n (multiple inputs, odd number of inputs, i-type).</li>
+<li>I-time function (init), cast to (SUBR).</li>
+<li>K-rate function.</li>
+<li>A-rate function.</li>
+</ol>
+<p>Since we have defined our output as 's', the actual processing
+function called by csound will depend on the output type. For
+instance</p>
+<pre>k1  newopc  kin1, kin2, i1</pre>
+<p>will use <span>newopc_process_control()</span>, whereas<br/>
+<br/></p>
+<pre>a1  newopc  kin1, kin2, i1</pre>
+<p><br/>
+will use <span>newopc_process_audio()</span>. This type of code is
+found for instance in the oscillator opcodes, which can generate
+control or audio rate (but in that case, they actually produce a
+different output for each type of signal, unlike our example).</p>
+<p>Finally, it is necessary to add, at the end of the opcode C code
+the LINKAGE macro, which defines some functions needed for the
+dynamic loading of the opcode.</p>
+<h4>Building opcodes</h4>
+<p>The plugin opcode is build as a dynamic module. All we need is
+to build the opcode as a dynamic library, as demonstrated by the
+examples below.</p>
+<p>On OSX:</p>
+<pre>gcc -O2 -dynamiclib -o myopc.dylib opsrc.c -DUSE_DOUBLE
+    -I/Library/Frameworks/CsoundLib64.framework/Headers</pre>
+<p>Linux:</p>
+<pre>gcc -O2 -shared -o myopc.so -fPIC opsrc.c -DUSE_DOUBLE
+    -I&lt;path to Csound headers&gt;
+</pre>
+<p>Windows (MinGW+MSYS):</p>
+<pre>gcc -O2 -shared -o myopc.dll opsrc.c -DUSE_DOUBLE
+    -I&lt;path to Csound headers&gt;</pre>
+<h4>CSD Example</h4>
+<p>To run Csound with the new opcodes, we can use the
+--opcode-lib=<em>libname</em> option.</p>
+<pre>&lt;CsoundSynthesizer&gt;
+&lt;CsOptions&gt;
+--opcode-lib=newopc.so  ; OSX: newopc.dylib; Windows: newopc.dll
+&lt;/CsOptions&gt;
+&lt;CsInstruments&gt;
+
+schedule 1,0,100,440
+
+instr 1
+
+asig   newopc  0, 0.001, 1
+ksig   newopc  1, 0.001, 1.5
+aosc   oscili 1000, p4*ksig
+    outs aosc*asig
+
+endin
+
+&lt;/CsInstruments&gt;
+&lt;/CsoundSynthesizer&gt;
+;example by victor lazzarini
+</pre>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" epub:prefix="z3998: http://www.daisy.org/z3998/2012/vocab/structure/#" lang="en" xml:lang="en">
+  <head>
+    <title>B. PITCH AND FREQUENCY</title>
+  </head>
+  <body><h1>B. PITCH AND FREQUENCY</h1><h2>FREQUENCIES</h2>
+<p><span>As mentioned in the previous section, frequency is defined
+as the number of cycles or periods per second. Frequency is
+measured in Hertz. If a tone has a frequency of 440Hz it completes
+440 cycles every second. Given a tone's frequency, one can easily
+calculate the period of any sound. Mathematically, the period is
+the reciprocal of the frequency and vice versa. In equation form,
+this is expressed as follows.</span></p>
+<pre> Frequency = 1/Period         Period = 1/Frequency </pre>
+<p> </p>
+<p>Therefore the frequency is the inverse of the
+period, so a wave of 100Hz frequency has a period of 1/100 or 0.01
+seconds, likewise a frequency of 256Hz has a period of 1/256, or
+0.004 seconds. To calculate the wavelength of a sound in any given
+medium we can use the following equation:</p>
+<pre><em>λ = Velocity/Frequency</em>
+</pre>
+<p>For instance, a wave of 1000 Hz in air (velocity of diffusion
+about 340 m/s) has a length of approximately 340/1000 m = 34
+cm.</p>
+<h3>Upper and Lower Limits of Hearing</h3>
+<p>It is generally stated that the human ear can hear sounds in the
+range 20Hz to 20,000Hz (20kHz). This upper limit tends to decrease
+with age due to a condition known as presbyacusis, or age related
+hearing loss. Most adults can hear to about 16 kHz while most
+children can hear beyond this. At the lower end of the spectrum the
+human ear does not respond to frequencies below 20 Hz, with 40 of
+50 Hz being the lowest most people can perceive. </p>
+<p>So, in the following example, you will not hear the first (10
+Hz) tone, and probably not the last (20 kHz) one, but hopefully the
+other ones (100 Hz, 1000 Hz, 10000 Hz):</p>
+<p><em><strong>EXAMPLE 01B01_LimitsOfHearing.csd</strong></em></p>
+<pre>&lt;CsoundSynthesizer&gt;
+&lt;CsOptions&gt;
+-odac -m0
+&lt;/CsOptions&gt;
+&lt;CsInstruments&gt;
+;example by joachim heintz
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
+
+instr 1
+        prints  "Playing %d Hertz!\n", p4
+asig    oscils  .2, p4, 0
+        outs    asig, asig
+endin
+
+&lt;/CsInstruments&gt;
+&lt;CsScore&gt;
+i 1 0 2 10
+i . + . 100
+i . + . 1000
+i . + . 10000
+i . + . 20000
+&lt;/CsScore&gt;
+&lt;/CsoundSynthesizer&gt;
+</pre>
+<h3>Logarithms, Frequency Ratios and Intervals</h3>
+<p>A lot of basic maths is about simplification of complex
+equations. Shortcuts are taken all the time to make things easier
+to read and equate. Multiplication can be seen as a shorthand for
+repeated additions, for example, 5x10 = 5+5+5+5+5+5+5+5+5+5.
+Exponents are shorthand for repeated multiplications, 3<sup>5</sup>
+= 3x3x3x3x3. Logarithms are shorthand for exponents and are used in
+many areas of science and engineering in which quantities vary over
+a large range. Examples of logarithmic scales include the decibel
+scale, the Richter scale for measuring earthquake magnitudes and
+the astronomical scale of stellar brightnesses. Musical frequencies
+also work on a logarithmic scale; more on this later.</p>
+<p>Intervals in music describe the distance between two notes. When
+dealing with standard musical notation it is easy to determine an
+interval between two adjacent notes. For example a perfect 5th is
+always made up of 7 semitones. When dealing with Hz values things
+are different. A difference of say 100Hz does not always equate to
+the same musical interval. This is because musical intervals as we
+hear them are represented in Hz as frequency ratios. An octave for
+example is always 2:1. That is to say every time you double a Hz
+value you will jump up by a musical interval of an octave.</p>
+<p>Consider the following. A flute can play the note A at 440Hz. If
+the player plays another A an octave above it at 880 Hz the
+difference in Hz is 440. Now consider the piccolo, the highest
+pitched instrument of the orchestra. It can play a frequency of
+2000Hz but it can also play an octave above this at 4000Hz (2 x
+2000Hz). While the difference in Hertz between the two notes on the
+flute is only 440Hz, the difference between the two high pitched
+notes on a piccolo is 1000Hz yet they are both only playing notes
+one octave apart.</p>
+<p>What all this demonstrates is that the higher two pitches
+become, the greater the difference in Hertz required for us to
+recognize the spacing as the same musical interval. We can use
+simple ratios to represent a number of familiar intervals; for
+example the unison: (1:1), the octave: (2:1), the perfect fifth
+(3:2), the perfect fourth (4:3), the major third (5:4) and the
+minor third (6:5); but it should be noted that most of these
+intervals are only represented with absolute precision when using
+just intonation. In equal temperament, the dominant method used in
+the tuning of many instruments, only unison and the octave are
+represented with these precise ratios.</p>
+<p>The following example shows the difference between adding a
+certain frequency and applying a ratio. First, the frequencies of
+100, 400 and 800 Hz all get an addition of 100 Hz. This sounds very
+different, though the added frequency is the same. Second, the
+ratio 3/2 (perfect fifth) is applied to the same frequencies. This
+spacing sounds constant, although the frequency displacement is
+different each time.</p>
+<p><em><strong>EXAMPLE
+01B02_Adding_vs_ratio.csd</strong></em> </p>
+<pre>
+&lt;CsoundSynthesizer&gt;<br/>&lt;CsOptions&gt;<br/>--env:SSDIR+=../SourceMaterials -odac -m0<br/>&lt;/CsOptions&gt;<br/>&lt;CsInstruments&gt;<br/>;example by joachim heintz<br/>sr = 44100<br/>ksmps = 32<br/>nchnls = 2<br/>0dbfs = 1<br/><br/>instr 1<br/>        prints  "Playing %d Hertz!\n", p4<br/>asig    oscils  .2, p4, 0<br/>        outs    asig, asig<br/>endin<br/><br/>instr 2<br/>        prints  "Adding %d Hertz to %d Hertz!\n", p5, p4<br/>asig    oscils  .2, p4+p5, 0<br/>        outs    asig, asig<br/>endin<br/><br/>instr 3<br/>        prints  "Applying the ratio of %f (adding %d Hertz) to %d Hertz!\n", p5, p4*p5, p4<br/>asig    oscils  .2, p4*p5, 0<br/>        outs    asig, asig<br/>endin<br/><br/>&lt;/CsInstruments&gt;<br/>&lt;CsScore&gt;<br/>;adding a certain frequency (instr 2)<br/>i 1 0 1 100<br/>i 2 1 1 100 100<br/>i 1 3 1 400<br/>i 2 4 1 400 100<br/>i 1 6 1 800<br/>i 2 7 1 800 100<br/>;applying a certain ratio (instr 3)<br/>i 1 10 1 100<br/>i 3 11 1 100 [3/2]<br/>i 1 13 1 400<br/>i 3 14 1 400 [3/2]<br/>i 1 16 1 800<br/>i 3 17 1 800 [3/2]<br/>&lt;/CsScore&gt;<br/>&lt;/CsoundSynthesizer&gt;
+</pre>
+<p>So what of the algorithms mentioned above. As some readers will
+know the current preferred method of tuning western instruments is
+based on equal temperament. Essentially this means that all octaves
+are split into 12 equal intervals. Therefore a semitone has a ratio
+of 2<sup>(1/12)</sup>, which is approximately 1.059463.</p>
+<p>So what about the reference to logarithms in the heading above?
+As stated previously, logarithms are shorthand for exponents.
+2<sup>(1/12)</sup>= 1.059463 can also be written as log2(1.059463)=
+1/12. Therefore musical frequency works on a logarithmic
+scale. </p>
+<h3>MIDI Notes</h3>
+<p>Csound can easily deal with MIDI notes and comes with functions
+that will convert MIDI notes to Hertz values and back again. In
+MIDI speak A440 is equal to A4 and is MIDI note 69. You can think
+of A4 as being the fourth A from the lowest A we can hear; well,
+almost hear.</p>
+<p><em>Caution: like many 'standards' there is occasional
+disagreement about the mapping between frequency and octave number.
+You may occasionally encounter A440 being described as A3.</em></p>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" epub:prefix="z3998: http://www.daisy.org/z3998/2012/vocab/structure/#" lang="en" xml:lang="en">
+  <head>
+    <title>B. CSOUND SYNTAX</title>
+  </head>
+  <body><h1>B. CSOUND SYNTAX</h1><h2>Orchestra and Score</h2>
+<p>In Csound, you must define "instruments", which are units which
+"do things", for instance creating a sine wave as audio signal and
+play it (= output it to the audio card). These instruments must be
+called or "turned on" by a "score". The Csound "score" is a list of
+events which describe how the instruments are to be played in time.
+It can be thought of as a timeline in text.</p>
+<p>A Csound instrument is contained within an Instrument Block,
+which starts with the keyword <a title="event" href="http://csound.github.io/docs/manual/html/instr.html">instr</a> and
+ends with the keyword <a title="event" href="http://csound.github.io/docs/manual/html/endin.html">endin</a>.
+All instruments are given a number (or a name) to identify
+them.</p>
+<pre>instr 1
+... instrument instructions come here...
+endin
+</pre>
+<p>Score events in Csound are individual text lines, which can turn
+on instruments for a certain time. For example, to turn on
+instrument 1, at time 0, for 2 seconds you will use:</p>
+<pre>i 1 0 2</pre>
+<p>Note that orchestra and score are two completely different types
+of code. The orchestra contains the actual Csound code.<sup data-id="1fae07db-883a-4c3f-85d1-95e0135d8661" class="endnote">1</sup>
+The instruments are written in the Csound Programming Language. The
+score is mainly a list of events. The Score Language is poor and
+offers only some very basic tools.</p>
+<p>In modern Csound code, the score often remains empty. The events
+derive from orchestra code,<sup data-id="ea925da8-47bf-4c61-bd33-d205764d8f4d" class="endnote">2</sup> <span>or from
+real-time interaction, like MIDI, OSC, mouse clicks or any other
+live input.</span></p>
+<h2>The Csound Document Structure</h2>
+<p>A Csound document is structured into three main sections:</p>
+<ul>
+<li><strong>CsOptions</strong>: Contains the configuration options
+for Csound. For example using "-o dac" in this section will make
+Csound run in real-time instead of writing a sound file.</li>
+<li><strong>CsInstruments</strong>: Contains the instrument
+definitions and optionally some global settings and definitions
+like sample rate, etc.</li>
+<li><strong>CsScore</strong>: Contains the score events which
+trigger the instruments.</li>
+</ul>
+<p>Each of these sections is opened with a &lt;xyz&gt; tag and
+closed with a &lt;/xyz&gt; tag. Every Csound file starts with the
+&lt;CsoundSynthesizer&gt; tag, and ends with
+&lt;/CsoundSynthesizer&gt;. Only the text in-between will be used
+by Csound.</p>
+<p>   <em><strong>EXAMPLE
+02B01_DocStruct.csd</strong></em> </p>
+<pre>&lt;CsoundSynthesizer&gt;; START OF A CSOUND FILE
+
+&lt;CsOptions&gt; ; CSOUND CONFIGURATION
+-odac
+&lt;/CsOptions&gt;
+
+&lt;CsInstruments&gt; ; INSTRUMENT DEFINITIONS GO HERE
+
+; Set the audio sample rate to 44100 Hz
+sr = 44100
+
+instr 1
+; a 440 Hz Sine Wave
+aSin      poscil    0dbfs/4, 440
+          out       aSin
+endin
+&lt;/CsInstruments&gt;
+
+&lt;CsScore&gt; ; SCORE EVENTS GO HERE
+i 1 0 1
+&lt;/CsScore&gt;
+
+&lt;/CsoundSynthesizer&gt; ; END OF THE CSOUND FILE
+; Anything after a semicolon is ignored by Csound
+</pre>
+<p>Comments, which are lines of text that Csound will ignore, are
+started with the ";" character. Multi-line comments can be made by
+encasing them between "/*" and  "*/".</p>
+<h2>Opcodes</h2>
+<p>"Opcodes" or "Unit generators" are the basic building blocks of
+Csound. Opcodes can do many things like produce oscillating
+signals, filter signals, perform mathematical functions or even
+turn on and off instruments. Opcodes, depending on their function,
+will take inputs and outputs. Each input or output is called, in
+programming terms, an "argument". Opcodes always take input
+arguments on the right and output their results on the left, like
+this:</p>
+<pre>output    OPCODE    input1, input2, input3, .., inputN </pre>
+<p>For example the <a title="event" href="http://csound.github.io/docs/manual/html/poscil.html">poscil</a>
+opcode has two mandatory inputs:<sup data-id="7de55625-c29d-46e7-9048-8504575a3596" class="endnote">3</sup> 
+amplitude and frequency, and produces a sine wave signal:</p>
+<pre>aSin      poscil    0dbfs/4, 440</pre>
+<p>In this case, a 440 Hertz oscillation with an amplitude of
+<em>0dbfs/4</em> (a quarter of 0 dB as full scale) will be created
+and its output will be stored in a container called <em>aSin</em>.
+The order of the arguments is important: the first input to
+<em>poscil</em> will always be amplitude and the second input will
+always be read by Csound as frequency.</p>
+<p>Since Csound6, the code can be written in a way which is knows
+from many other programming languages:</p>
+<pre>aSin = poscil(0dbfs/4,440)</pre>
+<p>Many opcodes include optional input arguments and occasionally
+optional output arguments. These will always be placed after the
+essential arguments. In the Csound Manual documentation they are
+indicated using square brackets "[]". If optional input arguments
+are omitted they are replaced with the default values indicated in
+the Csound Manual. The addition of optional output arguments
+normally initiates a different mode of that opcode: for example, a
+stereo as opposed to mono version of the opcode.</p>
+<h2>Variables</h2>
+<p>A "variable" is a named container. It is a place to store things
+like signals or values from where they can be recalled by using
+their name. In Csound there are various types of variables. The
+easiest way to deal with variables when getting to know Csound is
+to imagine them as cables.</p>
+<p>If you want to patch this together:</p>
+<p>  Sound Generator -&gt; Filter -&gt; Output,</p>
+<p>you need two cables, one going out from the generator into the
+filter and one from the filter to the output. The cables carry
+audio signals, which are variables beginning with the letter
+"a".</p>
+<pre>aSource    buzz       0.8, 200, 10, 1
+aFiltered  moogladder aSource, 400, 0.8
+           out        aFiltered</pre>
+<p>In the example above, the <a title="event" href="http://csound.github.io/docs/manual/html/buzz.html">buzz</a>
+opcode produces a complex waveform as signal <em>aSource</em>. This
+signal is fed into the <a title="event" href="http://csound.github.io/docs/manual/html/moogladder.html">moogladder</a>
+opcode, which in turn produces the signal <em>aFiltered</em>. The
+<a title="event" href="http://csound.github.io/docs/manual/html/out.html">out</a> opcode
+takes this signal, and sends it to the output whether that be to
+the speakers or to a rendered file.</p>
+<p>Other common variable types are "k" variables which store
+control signals, which are updated less frequently than audio
+signals, and "i" variables which are constants within each
+instrument note.</p>
+<p>You can find more information about variable types <a title="event" href="b-local-and-global-variables">here</a> in this
+manual, or <a title="event" href="http://csoundjournal.com/issue10/CsoundRates.html">here</a> in the
+Csound Journal.</p>
+<h2>Using the Manual</h2>
+<p>The <a title="event" href="http://csound.github.io/docs/manual/index.html">Csound Reference
+Manual</a> is a comprehensive source regarding Csound's syntax and
+opcodes. All opcodes have their own manual entry describing their
+syntax and behavior, and the manual contains a detailed reference
+on the Csound language and options.</p>
+<p>In <a title="event" href="http://qutecsound.sourceforge.net">CsoundQt</a> you can find the
+Csound Manual in the Help Menu. You can quickly go to a particular
+opcode entry in the manual by putting the cursor on the opcode and
+pressing Shift+F1. <a title="event" href="http://winxound.codeplex.com">WinXsound</a> , <a title="event" href="http://code.google.com/p/cabbage">Cabbage</a> and <a title="event" href="http://blue.kunstmusik.com/">Blue</a> also provide
+easy access to the manual.</p>
+<ol class="endnotes">
+<li id="endnote-1fae07db-883a-4c3f-85d1-95e0135d8661">Its characteristics are described in
+detail in section 03 CSOUND LANGUAGE.</li><li id="endnote-ea925da8-47bf-4c61-bd33-d205764d8f4d">For instance using the schedule or
+event opcode.</li><li id="endnote-7de55625-c29d-46e7-9048-8504575a3596"/></ol>
+</body>
+</html>

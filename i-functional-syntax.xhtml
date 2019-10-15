@@ -1,0 +1,334 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops" epub:prefix="z3998: http://www.daisy.org/z3998/2012/vocab/structure/#" lang="en" xml:lang="en">
+  <head>
+    <title>I. FUNCTIONAL SYNTAX</title>
+  </head>
+  <body><h1>I. FUNCTIONAL SYNTAX</h1><p>Functional syntax is very common in many programming languages.
+It takes the form of fun(), where fun is any function which
+encloses its arguments in parentheses. Even in "old" Csound, there
+existed some rudiments of this functional syntax in some
+mathematical functions, such as sqrt(), log(), int(), frac(). For
+instance, the following code</p>
+<pre>iNum = 1.234
+print int(iNum)
+print frac(iNum)
+</pre>
+<p>would print:</p>
+<p>instr 1:  #i0 = 1.000<br/>
+instr 1:  #i1 = 0.230</p>
+<p>Here the integer part and the fractional part of the number
+1.234 are passed directly as an argument to the <em>print</em>
+opcode, without needing to be stored at any point as a
+variable.</p>
+<p>This alternative way of formulating code can now be used with
+many opcodes in Csound6<sup data-id="e2166531-1ed6-4743-9939-ca75a3ac389c" class="endnote">1</sup>.
+In the future many more opcodes will be incorporated into this
+system. First we shall look at some examples.</p>
+<p>The traditional way of applying a fade and a sliding pitch
+(glissando) to a tone is something like this:</p>
+<p>  <em><strong>EXAMPLE
+03I01_traditional_syntax.csd</strong></em></p>
+<pre>&lt;CsoundSynthesizer&gt;
+&lt;CsOptions&gt;
+-odac
+&lt;/CsOptions&gt;
+&lt;CsInstruments&gt;
+sr = 44100
+nchnls = 1
+ksmps = 32
+0dbfs = 1
+
+instr 1
+kFade    linseg   0, p3/2, 1, p3/2, 0
+kSlide   expseg   400, p3/2, 800, p3/2, 600
+aTone    poscil   kFade, kSlide
+         out      aTone
+endin
+
+&lt;/CsInstruments&gt;
+&lt;CsScore&gt;
+i 1 0 5
+&lt;/CsScore&gt;
+&lt;/CsoundSynthesizer&gt;
+;example by joachim heintz
+</pre>
+<p>In plain English what is happening is:</p>
+<ol>
+<li>We create a line signal with the opcode <em>linseg.</em> It
+starts at zero, moves to one in half of the instrument's duration
+(p3/2), and moves back to zero for the second half of the
+instrument's duration. We store this signal in the variable
+<strong>kFade</strong>.</li>
+<li>We create an exponential<sup data-id="5ff6b634-0c9b-4365-899f-840e8a7e3368" class="endnote">2</sup>
+signal with the opcode <em>expseg.</em> It starts at 400, moves to
+800 in half the instrument's duration, and moves to 600 for the
+second half of the instrument's duration. We store this signal in
+the variable <strong>kSlide</strong>.</li>
+<li>We create a sine audio signal with the opcode <em>poscil</em>.
+We feed in the signal stored in the variable kFade as amplitude,
+and the signal stored in the variable kSlide as frequency input. We
+store the audio signal in the variable <strong>aTone</strong>.</li>
+<li>Finally, we write the audio signal to the output with the
+opcode <em>out</em>.<br/></li>
+</ol>
+<p>Each of these four lines can be considered as a "function call",
+as we call the opcodes (functions) <em>linseg</em>,
+<em>expseg</em>, <em>poscil</em> and <em>out</em> with certain
+arguments (input parameters). If we now transform this example to
+functional syntax, we will avoid storing the result of a function
+call in a variable. Rather we will feed the function and its
+arguments directly into the appropriate slot, by means of the fun()
+syntax.</p>
+<p>If we write the first line in functional syntax, it will look
+like this:</p>
+<pre>linseg(0, p3/2, 1, p3/2, 0)
+</pre>
+<p>And the second line will look like this:</p>
+<pre>expseg(400, p3/2, 800, p3/2, 600)
+</pre>
+<p>So we can reduce our code from four lines to two lines:</p>
+<p>  <em><strong>EXAMPLE
+03I02_functional_syntax_1.csd</strong></em></p>
+<pre>&lt;CsoundSynthesizer&gt;
+&lt;CsOptions&gt;
+-odac
+&lt;/CsOptions&gt;
+&lt;CsInstruments&gt;
+sr = 44100
+nchnls = 1
+ksmps = 32
+0dbfs = 1
+
+instr 1
+aTone    poscil   linseg(0, p3/2, 1, p3/2, 0), expseg(400, p3/2, 800, p3/2, 600)
+         out      aTone
+endin
+
+&lt;/CsInstruments&gt;
+&lt;CsScore&gt;
+i 1 0 5
+&lt;/CsScore&gt;
+&lt;/CsoundSynthesizer&gt;
+;example by joachim heintz
+</pre>
+<p>Or would you prefer the "all-in-one" solution?</p>
+<p>  <em><strong>EXAMPLE
+03I03_functional_syntax_2.csd</strong></em></p>
+<pre>&lt;CsoundSynthesizer&gt;
+&lt;CsOptions&gt;
+-odac
+&lt;/CsOptions&gt;
+&lt;CsInstruments&gt;
+sr = 44100
+nchnls = 1
+ksmps = 32
+0dbfs = 1
+
+instr 1
+out poscil(linseg(0, p3/2, 1, p3/2, 0), expseg(400, p3/2, 800, p3/2, 600))
+endin
+
+&lt;/CsInstruments&gt;
+&lt;CsScore&gt;
+i 1 0 5
+&lt;/CsScore&gt;
+&lt;/CsoundSynthesizer&gt;
+;example by joachim heintz
+</pre>
+<h2>Declare your color: i, k or a?<br/></h2>
+<p>Most of the Csound opcodes work not only at one rate. You can,
+for instance, produce random numbers at i-, k- or
+a-rate:<sup data-id="57b0f15e-116c-4216-8287-75a84727d795" class="endnote">3</sup> </p>
+<pre>ires      random    imin, imax
+kres      random    kmin, kmax
+ares      random    kmin, kmax</pre>
+<p>Let us assume we want to change the highest frequency in our
+example from 800 to a random value between 700 and 1400 Hz, so that
+we hear a different movement for each tone. In this case, we can
+simply write <em>random(700, 1400)</em>, because the context
+demands an i-rate result of the random operation here:<sup data-id="4aa70382-9a5c-4f07-bfa9-bb82a1da5b27" class="endnote">4</sup></p>
+<p>  <em><strong>EXAMPLE
+03I04_functional_syntax_rate_1.csd</strong></em></p>
+<pre>&lt;CsoundSynthesizer&gt;
+&lt;CsOptions&gt;
+-odac
+&lt;/CsOptions&gt;
+&lt;CsInstruments&gt;
+sr = 44100
+nchnls = 1
+ksmps = 32
+0dbfs = 1
+
+instr 1
+out poscil(linseg(0, p3/2, 1, p3/2, 0), expseg(400, p3/2, random(700, 1400), p3/2, 600))
+endin
+
+&lt;/CsInstruments&gt;
+&lt;CsScore&gt;
+r 5
+i 1 0 3
+&lt;/CsScore&gt;
+&lt;/CsoundSynthesizer&gt;
+;example by joachim heintz
+</pre>
+But it is much clearer both, for the Csound parser and for the
+Csound user, if you explicitly declare at which rate a function is
+to be performed. This code claims that <em>poscil</em> runs at
+a-rate, <em>linseg</em> and <em>expseg</em> run at k-rate, and
+<em>random</em> runs at i-rate here:<br/>
+<p>  <em><strong>EXAMPLE
+03I05_functional_syntax_rate_2.csd</strong></em></p>
+<pre>&lt;CsoundSynthesizer&gt;
+&lt;CsOptions&gt;
+-odac
+&lt;/CsOptions&gt;
+&lt;CsInstruments&gt;
+sr = 44100
+nchnls = 1
+ksmps = 32
+0dbfs = 1
+
+instr 1
+out poscil:a(linseg:k(0, p3/2, 1, p3/2, 0), expseg:k(400, p3/2, random:i(700, 1400), p3/2, 600))
+endin
+
+&lt;/CsInstruments&gt;
+&lt;CsScore&gt;
+r 5
+i 1 0 3
+&lt;/CsScore&gt;
+&lt;/CsoundSynthesizer&gt;
+;example by joachim heintz
+</pre>
+<p>As you can see, rate declaration is done with simply :a, :k or
+:i after the function. It would represent good practice to include
+it all the time, to be clear about what is happening.</p>
+<h2>Only one output<br/></h2>
+<p>Currently, there is a limitation in that only opcodes which have
+one or no outputs can be written using functional syntax. For
+instance, reading a stereo file using soundin</p>
+<pre>aL, aR soundin "my_file.wav"
+</pre>
+<p><strong>cannot</strong> be written using functional syntax. This
+limitation is likely to be removed in the future.</p>
+<h2>fun() with UDOs<br/></h2>
+It should be mentioned that you can use the functional style also
+with self created opcodes ("User Defined Opcodes"):<br/>
+<p>  <em><strong>EXAMPLE
+03I06_functional_syntax_udo.csd</strong></em></p>
+<pre>&lt;CsoundSynthesizer&gt;
+&lt;CsOptions&gt;
+-odac
+&lt;/CsOptions&gt;
+&lt;CsInstruments&gt;
+sr = 44100
+nchnls = 1
+ksmps = 32
+0dbfs = 1
+
+opcode FourModes, a, akk[]
+  ;kFQ[] contains four frequency-quality pairs
+  aIn, kBasFreq, kFQ[] xin
+aOut1 mode aIn, kBasFreq*kFQ[0], kFQ[1]
+aOut2 mode aIn, kBasFreq*kFQ[2], kFQ[3]
+aOut3 mode aIn, kBasFreq*kFQ[4], kFQ[5]
+aOut4 mode aIn, kBasFreq*kFQ[6], kFQ[7]
+      xout (aOut1+aOut2+aOut3+aOut4) / 4
+endop
+
+instr 1
+kArr[] fillarray 1, 2000, 2.8, 2000, 5.2, 2000, 8.2, 2000
+aImp   mpulse    .3, 1
+       out       FourModes(aImp, 200, kArr)
+endin
+
+&lt;/CsInstruments&gt;
+&lt;CsScore&gt;
+i 1 0 10
+&lt;/CsScore&gt;
+&lt;/CsoundSynthesizer&gt;
+;example by joachim heintz, based on an example of iain mccurdy
+</pre>
+<h2>How much fun() is good for you?<br/></h2>
+<p>Only you, and perhaps your spiritual consultant, can know
+...</p>
+<p>But seriously, this is mostly a matter of style. Some people
+consider it most elegant if all is written in one single
+expression, whilst others prefer to see the signal flow from line
+to line. Certainly excessive numbers of parentheses may not result
+in the best looking code ...</p>
+<p>At least the functional syntax allows the user to emphasize his
+or her own personal style and to avoid some awkwardness:</p>
+<p>"If i new value of kIn has been received, do this and that", can
+be written:</p>
+<pre>if changed(kIn)==1 then
+  &lt;do this and that&gt;
+endif
+</pre>
+<p>"If you understand what happens here, you will have been moved
+to the next level", can be written:</p>
+<p> <em><strong>EXAMPLE
+03I07_functional_syntax_you_win.csd</strong></em></p>
+<pre>&lt;CsoundSynthesizer&gt;
+&lt;CsOptions&gt;
+-odac -m128
+&lt;/CsOptions&gt;
+&lt;CsInstruments&gt;
+sr = 44100
+nchnls = 1
+ksmps = 32
+0dbfs = 1
+seed 0
+
+opcode FourModes, a, akk[]
+  ;kFQ[] contains four frequency-quality pairs
+  aIn, kBasFreq, kFQ[] xin
+aOut1 mode aIn, kBasFreq*kFQ[0], kFQ[1]
+aOut2 mode aIn, kBasFreq*kFQ[2], kFQ[3]
+aOut3 mode aIn, kBasFreq*kFQ[4], kFQ[5]
+aOut4 mode aIn, kBasFreq*kFQ[6], kFQ[7]
+      xout (aOut1+aOut2+aOut3+aOut4) / 4
+endop
+
+
+instr ham
+gkPchMovement = randomi:k(50, 1000, (random:i(.2, .4)), 3)
+schedule("hum", 0, p3)
+endin
+
+instr hum
+if metro(randomh:k(1, 10, random:k(1, 4), 3)) == 1 then
+event("i", "play", 0, 5, gkPchMovement)
+endif
+endin
+
+instr play
+iQ1 = random(100, 1000)
+kArr[] fillarray 1*random:i(.9, 1.1), iQ1,
+                 2.8*random:i(.8, 1.2), iQ1*random:i(.5, 2),
+                 5.2*random:i(.7, 1.4), iQ1*random:i(.5, 2),
+                 8.2*random:i(.6, 1.8), iQ1*random:i(.5, 2)
+aImp   mpulse    ampdb(random:k(-30, 0)), p3
+       out       FourModes(aImp, p4, kArr)*linseg(1, p3/2, 1, p3/2, 0)
+endin
+
+&lt;/CsInstruments&gt;
+&lt;CsScore&gt;
+i "ham" 0 60
+&lt;/CsScore&gt;
+&lt;/CsoundSynthesizer&gt;
+;example by joachim heintz, with thanks to steven and iain
+</pre>
+<p>So enjoy, and stay in contact with the spirit ... </p>
+<p> </p>
+<p> </p>
+<ol class="endnotes">
+<li id="endnote-e2166531-1ed6-4743-9939-ca75a3ac389c">thanks to the huge work of John ffitch,
+Steven Yi and others on a new parser</li><li id="endnote-5ff6b634-0c9b-4365-899f-840e8a7e3368">which in simple words means that the signal
+moves like a curve which coincidents with the way we perceive
+frequency relations</li><li id="endnote-57b0f15e-116c-4216-8287-75a84727d795">See chapter 03A Initialization and
+Performance Pass for a more thorough explanation.</li><li id="endnote-4aa70382-9a5c-4f07-bfa9-bb82a1da5b27">because all inputs for expseg must be
+i-rate</li></ol>
+</body>
+</html>
