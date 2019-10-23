@@ -1,0 +1,9 @@
+Click==7.0
+cloudpickle==1.2.2
+doit==0.31.1
+future==0.18.1
+grizzled-python==2.2.0
+panflute==1.11.2
+pyinotify==0.9.6
+PyYAML==5.1.2
+shutilwhich==1.1.0

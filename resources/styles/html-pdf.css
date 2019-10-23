@@ -1,0 +1,154 @@
+html {
+    hyphens: auto;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    color: #333;
+    font-size: 17px;
+    font-family: "roboto";
+    line-height: 1.25em;
+}
+
+div.book_section {
+    margin-top: 3em;
+}
+
+div#section_dedication {
+    border-bottom: 1px solid #aaa;
+    width: 100%;
+}
+
+p {
+    text-align: justify;
+    margin: 0;
+    padding: 0;
+}
+
+img {
+    border: 0;
+    max-width: 100%;
+}
+
+img.plantuml {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+div.left p {
+    margin-top: 1em;
+    text-indent: 0;
+    text-align: left;
+}
+
+div.center p {
+    margin-top: 1em;
+    text-indent: 0;
+    text-align: center;
+}
+
+div.right p {
+    margin-top: 1em;
+    text-indent: 0;
+    text-align: right;
+}
+
+div.sep {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    text-align: center;
+    font-size: 200%;
+}
+
+h1 {
+    font-family: "roboto-condensed";
+    font-size: 42px;
+    text-align: left;
+    font-weight: normal;
+    text-transform: none;
+    text-decoration: none;
+    padding-top: 31.5pt;
+    margin-bottom: 31.5pt;
+    line-height: 1.1em;
+}
+
+h1.title {
+    text-align: center;
+}
+
+h1.subtitle {
+    font-style: italic;
+    text-align: center;
+}
+
+h2.author {
+    text-align: center;
+    padding-bottom: 2em;
+}
+
+div.figure {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+div#cover-image {
+    width: 100%;
+    margin-bottom: 3em;
+    padding-bottom: 3em;
+    border-bottom: 1px solid #aaa;
+}
+
+div#cover-image img {
+    max-width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+a {
+    color: #e55b00;
+    text-decoration: none;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
+    width: 100%;
+    height: auto;
+    margin: 15px 0;
+}
+
+tbody {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+table th {
+    font-weight: bold;
+    border: 1px solid black;
+    padding: 6px 13px;
+}
+table td {
+    border: 1px solid black;
+    padding: 6px 13px;
+}
+
+hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #eee;
+    height: 0;
+}
+
+.indent {
+    text-indent: +2em;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}

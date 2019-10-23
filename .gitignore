@@ -1,0 +1,12 @@
+*.iml
+/.idea
+/tmp
+csound-floss-export*
+html2pdf*.html
+doit-db.json
+__pycache__
+/.direnv
+.envrc
+.mypy_cache
+*~
+*#
