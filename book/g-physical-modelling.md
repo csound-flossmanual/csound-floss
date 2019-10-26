@@ -893,7 +893,7 @@ modulate the bow pressure and the bowing position at k-rate. Varying bow
 pressure will change the tone of the sound produced by changing the
 harmonic emphasis. As bow pressure reduces, the fundamental of the tone
 becomes weaker and overtones become more prominent. If the bow pressure
-is reduced further the abilty of the system to produce a resonance at
+is reduced further the ability of the system to produce a resonance at
 all collapse. This boundary between tone production and the inability to
 produce a tone can provide some interesting new sound effect. The
 following example explores this sound area by modulating the bow
