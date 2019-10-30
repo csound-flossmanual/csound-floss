@@ -158,11 +158,14 @@ One way in which data can be sent from a host application to an instance of Csou
 
     int csoundGetChannelPtr(CSOUND *, MYFLT **p, const char *name,  int type);
 
-    CsoundGetChannelPtr() stores a pointer to the specified channel of the bus in p. The channel pointer p is of type MYFLT *. The argument name is the name of the channel and the argument type is a bitwise OR of exactly one of the following values:
+    CsoundGetChannelPtr() 
+
+stores a pointer to the specified channel of the bus in p. The channel pointer p is of type MYFLT *. The argument name is the name of the channel and the argument type is a bitwise OR of exactly one of the following values:
 
     CSOUND_CONTROL_CHANNEL - control data (one MYFLT value) 
     CSOUND_AUDIO_CHANNEL - audio data (ksmps MYFLT values) 
-    CSOUND_STRING_CHANNEL - string data (MYFLT values with enough space to store csoundGetChannelDatasize() characters, including the NULL character at the end of the string)
+    CSOUND_STRING_CHANNEL - string data (MYFLT values with enough space to store csoundGetChannelDatasize() characters, 
+                                including the NULL character at the end of the string)
 
     and at least one of these:
 
@@ -264,10 +267,8 @@ It is particularly useful when dealing with string channels.
 
 Each time a named channel with callback is used (opcodes invalue, outvalue, chnrecv, and chnsend), the corresponding callback registered by one of those functions will be called:
 
-    void csoundSetInputChannelCallback(CSOUND *csound,
-                                                               channelCallback_t inputChannelCalback)
-    void csoundSetOutputChannelCallback(CSOUND *csound,
-                                                                  channelCallback_t outputChannelCalback)
+    void csoundSetInputChannelCallback(CSOUND *csound, channelCallback_t inputChannelCalback)
+    void csoundSetOutputChannelCallback(CSOUND *csound, channelCallback_t outputChannelCalback)
 
 
 ### Other Channel Functions
@@ -275,27 +276,19 @@ Each time a named channel with callback is used (opcodes invalue, outvalue, chnr
     int csoundSetPvsChannel(CSOUND *, const PVSDATEXT *fin, const char *name), and
     int csoundGetPvsChannel(CSOUND *csound, PVSDATEXT *fout, const char *name)
 
-
-
-    int csoundSetControlChannelHints(CSOUND *, const char *name,
-                                                            controlChannelHints_t hints), and
-    int csoundGetControlChannelHints(CSOUND *, const char *name,
-                                                            controlChannelHints_t *hints)
-
+    int csoundSetControlChannelHints(CSOUND *, const char *name, controlChannelHints_t hints), and
+    int csoundGetControlChannelHints(CSOUND *, const char *name, controlChannelHints_t *hints)
 
     int *csoundGetChannelLock(CSOUND *, const char *name)
-    int csoundKillInstance(CSOUND *csound, MYFLT instr,
-                                        char *instrName, int mode, int allow_release)
-
-kills off one or more running instances of an instrument.
+    int csoundKillInstance(CSOUND *csound, MYFLT instr, char *instrName, int mode, int allow_release)
+        kills off one or more running instances of an instrument.
 
     int csoundRegisterKeyboardCallback(CSOUND *,
                                         int (*func)(void *userData, void *p, unsigned int type),
                                         void *userData, unsigned int type), and
     void csoundRemoveKeyboardCallback(CSOUND *csound,
                                         int (*func)(void *, void *, unsigned int))
-
-replace csoundSetCallback() and csoundRemoveCallback().
+        replace csoundSetCallback() and csoundRemoveCallback().
 
 
 ## Score Events 
@@ -363,7 +356,7 @@ The yieldCallback routine must be non-blocking. That's why it is a bit tricky to
 
 The user can also set callback routines for file open events, real-time audio events, real-time MIDI events, message events, keyboards events, graph events,  and channel invalue and outvalue events.
 
-## CsoundPerformanceThread: a Swiss Knife for the API
+## CsoundPerformanceThread: A Swiss Knife for the API
 
 Beside the API, Csound provides a helper C++ class to facilitate threading issues: CsoundPerformanceThread. This class performs a score in a separate thread, allowing the host program to do its own processing in its main thread during the score performance. The host program will communicate with the CsoundPerformanceThread class by sending messages to it, calling CsoundPerformanceThread methods. Those messages are queued inside CsoundPerformanceThread and are treated in a first in first out (FIFO) manner.
 
