@@ -6,7 +6,7 @@ before the name. Substitute spaces and slashes by minus.
 
 For instance:
 
-    *04-d-flowchart-fm.png
+    04-d-flowchart-fm.png
 
 for the figure "flowchart fm.png" in the chapter "D. FREQUENCY MODULATION" in the 
 section "04 SOUND SYNTHESIS".
