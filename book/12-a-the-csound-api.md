@@ -164,8 +164,8 @@ stores a pointer to the specified channel of the bus in p. The channel pointer p
 
     CSOUND_CONTROL_CHANNEL - control data (one MYFLT value) 
     CSOUND_AUDIO_CHANNEL - audio data (ksmps MYFLT values) 
-    CSOUND_STRING_CHANNEL - string data (MYFLT values with enough space to store csoundGetChannelDatasize() characters, 
-                                including the NULL character at the end of the string)
+    CSOUND_STRING_CHANNEL - string data (MYFLT values with enough space to store csoundGetChannelDatasize()
+                                characters, including the NULL character at the end of the string)
 
     and at least one of these:
 
