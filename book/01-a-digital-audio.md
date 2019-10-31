@@ -177,7 +177,7 @@ Aliasing
 
 Here is a graphical representation of aliasing.
 
-![](../resources/images/01-a-aliasing-1.png){:width="50%"}
+<img src="../resources/images/01-a-aliasing-1.png" width="50%">
 <small><i>Aliasing (red) of a high frequency (blue)</i></small>
 
 The sinusoidal waveform in blue is being sampled at the vertical black
