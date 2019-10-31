@@ -11,12 +11,8 @@ medium can be described as sound waves. The simplest type of waveform,
 describing what is referred to as \'simple harmonic motion\', is a sine
 wave.
 
-::: {.group_img style="text-align: justify;"}
-::: {.image .bk-image-editor style="width: 525.403px; height: 321.312px;"}
-![SineWave](resources/images/csound-picts-01_basics-sinewave-en.png){width="502"
+![SineWave](resources/images/01-a-sinewave.png){width="502"
 height="307"}
-:::
-:::
 
 Each time the waveform signal goes above 0 the molecules are in a state
 of compression meaning that each molecule within the waveform
@@ -47,14 +43,10 @@ parameters affects the way we perceive sound.
 
          Frequency = 1/Period         Period = 1/Frequency
 
-<div>
-
 Therefore the frequency is the inverse of the period, so a wave of 100
 Hz frequency has a period of 1/100 or 0.01 secs, likewise a frequency of
 256Hz has a period of 1/256, or 0.004 secs. To calculate the wavelength
 of a sound in any given medium we can use the following equation:
-
-</div>
 
      Wavelength = Velocity/Frequency
 
@@ -131,15 +123,8 @@ Csound one can process the incoming audio samples in real time and
 output a new stream of samples or write them to disk in the form of a
 sound file.
 
-::: {.group_img .image-layout-1image_1caption_bottom}
-::: {.image .bk-image-editor style="width: 563.472px; height: 343.937px;"}
-![](resources/images/01a_sampling_1b.png)
-:::
-
-::: {.caption_small style="width: 563.472px;"}
+![](resources/images/01a-sampling-1b.png){.caption_small style="width: 563.472px;"}
 Sampling of an analog signal\
-:::
-:::
 
 It is important to remember that each sample represents the amount of
 voltage, positive or negative, that was present in the signal at the
@@ -195,15 +180,9 @@ Aliasing
 
 Here is a graphical representation of aliasing.
 
-::: {.group_img .image-layout-1image_1caption_bottom}
-::: {.image .bk-image-editor style="width: 544.654px; height: 343.937px;"}
-![](resources/images/01a_aliasing_1b.png)
-:::
-
+![](resources/images/01a-aliasing-1.png)
 ::: {.caption_small style="width: 544.654px;"}
 Aliasing (red) of a high frequency (blue)\
-:::
-:::
 
 \
 The sinusoidal waveform in blue is being sampled at the vertical black
@@ -213,16 +192,11 @@ waveform express different frequencies.
 
 Here is another example:
 
-::: {.group_img .image-layout-1image_1caption_bottom}
-::: {.image .bk-image-editor style="width: 610px; height: 360px;"}
-![](resources/images/01a_aliasing_2.png)
-:::
-
+![](resources/images/01-a-aliasing-2.png)
 ::: {.caption_small style="width: 610px;"}
 Aliasing of a 30 kHz sine at 40 kHz sample rate\
-:::
-:::
 
+\
 We can see that if the sample rate is 40,000 there is no problem with
 sampling a signal that is 10KHz. On the other hand, in the second
 example it can be seen that a 30kHz waveform is not going to be
@@ -345,15 +319,9 @@ plot the correct amplitude of each sample. We can see in the diagram
 that some vertical lines stop above or below the real signal. For a
 signal with lower amplitude the distortion would even be stronger.\
 
-::: {.group_img .image-layout-1image_1caption_bottom}
-::: {.image .bk-image-editor style="width: 898px; height: 367.981px;"}
 ![](resources/images/01a_bitdepth.png)
-:::
-
-::: {.caption_small style="width: 898px;"}
+{.caption_small style="width: 898px;"}
 Wrong amplitude values due to insufficient bit depth resolution\
-:::
-:::
 
 The standard resolution for CDs is 16 bit, which allows for 65536
 different possible amplitude levels, 32767 either side of the zero axis.
