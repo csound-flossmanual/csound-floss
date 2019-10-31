@@ -11,7 +11,7 @@ power on a certain surface, so its unit is Watts per square meter
 
 ::: {.group_img}
 ::: {.image}
-![](static/www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7BW%7D%5C//%7B%7Bm%7D%7D%5E%7B%7B2%7D%7D "W//m^2")
+![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7BW%7D%5C//%7B%7Bm%7D%7D%5E%7B%7B2%7D%7D "W//m^2")
 :::
 :::
 
@@ -19,7 +19,7 @@ power on a certain surface, so its unit is Watts per square meter
 
 ::: {.group_img}
 ::: {.image}
-![](static/www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B%7B10%7D%7D%5E%7B%7B-%7B%7B12%7D%7D%7D%7D%7BW%7D%5C//%7B%7Bm%7D%7D%5E%7B%7B2%7D%7D "10^-12 W//m^2")
+![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B%7B10%7D%7D%5E%7B%7B-%7B%7B12%7D%7D%7D%7D%7BW%7D%5C//%7B%7Bm%7D%7D%5E%7B%7B2%7D%7D "10^-12 W//m^2")
 :::
 :::
 
@@ -27,7 +27,7 @@ at the threshold of hearing to []{title="`10^0 W//m^2`"}
 
 ::: {.group_img}
 ::: {.image}
-![](static/www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B%7B10%7D%7D%5E%7B%7B0%7D%7D%7BW%7D%5C//%7B%7Bm%7D%7D%5E%7B%7B2%7D%7D "10^0 W//m^2")
+![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B%7B10%7D%7D%5E%7B%7B0%7D%7D%7BW%7D%5C//%7B%7Bm%7D%7D%5E%7B%7B2%7D%7D "10^0 W//m^2")
 :::
 :::
 
@@ -41,7 +41,7 @@ intensity [I~0~]{title="<math title="} as follows:
 
 ::: {.group_img}
 ::: {.image}
-![](static/www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B%5Clog%7D_%7B%7B%7B10%7D%7D%7D%5Cfrac%7B%7BI%7D%7D%7B%7BI%7D_%7B%7B0%7D%7D%7D "log_(10)I/I_0")
+![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B%5Clog%7D_%7B%7B%7B10%7D%7D%7D%5Cfrac%7B%7BI%7D%7D%7B%7BI%7D_%7B%7B0%7D%7D%7D "log_(10)I/I_0")
 :::
 :::
 
@@ -51,7 +51,7 @@ If, for example, the ratio  []{title="<img title="}
 
 ::: {.group_img}
 ::: {.image}
-![](static/www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%5Cfrac%7B%7BI%7D%7D%7B%7BI%7D_%7B%7B0%7D%7D%7D "I/I_0")
+![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%5Cfrac%7B%7BI%7D%7D%7B%7BI%7D_%7B%7B0%7D%7D%7D "I/I_0")
 :::
 :::
 
@@ -62,7 +62,7 @@ For real world sounds, it makes sense to set the reference value
 
 ::: {.group_img}
 ::: {.image}
-![](static/www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7BI%7D_%7B%7B0%7D%7D "I_0")
+![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7BI%7D_%7B%7B0%7D%7D "I_0")
 :::
 :::
 
@@ -71,7 +71,7 @@ to the threshold of hearing which has been fixed as
 
 ::: {.group_img}
 ::: {.image}
-![](static/www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B%7B10%7D%7D%5E%7B%7B-%7B%7B12%7D%7D%7D%7D%7BW%7D%5C//%7B%7Bm%7D%7D%5E%7B%7B2%7D%7D "10^-12 W//m^2")
+![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B%7B10%7D%7D%5E%7B%7B-%7B%7B12%7D%7D%7D%7D%7BW%7D%5C//%7B%7Bm%7D%7D%5E%7B%7B2%7D%7D "10^-12 W//m^2")
 :::
 :::
 
@@ -85,7 +85,7 @@ measuring a sound intensity is:
 
 ::: {.group_img}
 ::: {.image}
-![](static/www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B10%7D%5Ccdot%7B%5Clog%7D_%7B%7B10%7D%7D%5Cfrac%7B%7BI%7D%7D%7B%7BI%7D_%7B%7B0%7D%7D%7D "10*log_10 I/I_0")
+![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B10%7D%5Ccdot%7B%5Clog%7D_%7B%7B10%7D%7D%5Cfrac%7B%7BI%7D%7D%7B%7BI%7D_%7B%7B0%7D%7D%7D "10*log_10 I/I_0")
 :::
 :::
 
@@ -94,7 +94,7 @@ measuring a sound intensity is:
 
 ::: {.group_img}
 ::: {.image}
-![](static/www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7BI%7D_%7B%7B0%7D%7D=%7B%7B10%7D%7D%5E%7B%7B-%7B%7B12%7D%7D%7D%7D%7BW%7D%5C//%7B%7Bm%7D%7D%5E%7B%7B2%7D%7D "I_0=10^-12 W//m^2")
+![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7BI%7D_%7B%7B0%7D%7D=%7B%7B10%7D%7D%5E%7B%7B-%7B%7B12%7D%7D%7D%7D%7BW%7D%5C//%7B%7Bm%7D%7D%5E%7B%7B2%7D%7D "I_0=10^-12 W//m^2")
 :::
 :::
 
@@ -111,7 +111,7 @@ changes []{title="<img title="}
 
 ::: {.group_img}
 ::: {.image}
-![](static/www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7BI%7D "I")
+![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7BI%7D "I")
 :::
 :::
 
@@ -120,7 +120,7 @@ are proportional to the *square* of the sound pressure changes
 
 ::: {.group_img}
 ::: {.image}
-![](static/www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7BP%7D "P")
+![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7BP%7D "P")
 :::
 :::
 
@@ -130,7 +130,7 @@ are proportional to the *square* of the sound pressure changes
 
 ::: {.group_img}
 ::: {.image}
-![](static/www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7BI%7D%5Capprox%7B%7BP%7D%7D%5E%7B%7B2%7D%7D "I~~P^2")
+![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7BI%7D%5Capprox%7B%7BP%7D%7D%5E%7B%7B2%7D%7D "I~~P^2")
 :::
 :::
 
@@ -141,7 +141,7 @@ threshold of hearing can be fixed at []{title="<img title="}
 
 ::: {.group_img}
 ::: {.image}
-![](static/www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B2%7D%5Ccdot%7B%7B10%7D%7D%5E%7B%7B-%7B%7B5%7D%7D%7D%7D%7BP%7D%7Ba%7D "2*10^-5 Pa")
+![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B2%7D%5Ccdot%7B%7B10%7D%7D%5E%7B%7B-%7B%7B5%7D%7D%7D%7D%7BP%7D%7Ba%7D "2*10^-5 Pa")
 :::
 :::
 
@@ -150,7 +150,7 @@ If we now have a value of []{title="<img title="}
 
 ::: {.group_img}
 ::: {.image}
-![](static/www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B2%7D%5Ccdot%7B%7B10%7D%7D%5E%7B%7B-%7B%7B4%7D%7D%7D%7D%7BP%7D%7Ba%7D "2*10^-4 Pa")
+![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B2%7D%5Ccdot%7B%7B10%7D%7D%5E%7B%7B-%7B%7B4%7D%7D%7D%7D%7BP%7D%7Ba%7D "2*10^-4 Pa")
 :::
 :::
 
@@ -160,7 +160,7 @@ If we now have a value of []{title="<img title="}
 
 ::: {.group_img}
 ::: {.image}
-![](static/www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B%7B%5Cleft(%5Cfrac%7B%7B%7B2%7D%5Ccdot%7B%7B10%7D%7D%5E%7B%7B4%7D%7D%7D%7D%7B%7B%7B2%7D%5Ccdot%7B%7B10%7D%7D%5E%7B%7B5%7D%7D%7D%7D%5Cright)%7D%7D%5E%7B%7B2%7D%7D=%7B%7B10%7D%7D%5E%7B%7B2%7D%7D=%7B100%7D "((2*10^4)/(2*10^5))^2 = 10^2 = 100")
+![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B%7B%5Cleft(%5Cfrac%7B%7B%7B2%7D%5Ccdot%7B%7B10%7D%7D%5E%7B%7B4%7D%7D%7D%7D%7B%7B%7B2%7D%5Ccdot%7B%7B10%7D%7D%5E%7B%7B5%7D%7D%7D%7D%5Cright)%7D%7D%5E%7B%7B2%7D%7D=%7B%7B10%7D%7D%5E%7B%7B2%7D%7D=%7B100%7D "((2*10^4)/(2*10^5))^2 = 10^2 = 100")
 :::
 :::
 
@@ -175,7 +175,7 @@ pressure [P]{title="<math title="} related to the pressure
 
 ::: {.group_img}
 ::: {.image}
-![](static/www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B10%7D%5Ccdot%7B%5Clog%7D_%7B%7B10%7D%7D%7B%7B%5Cleft(%5Cfrac%7B%7BP%7D%7D%7B%7BP%7D_%7B%7B0%7D%7D%7D%5Cright)%7D%7D%5E%7B%7B2%7D%7D=%7B2%7D%5Ccdot%7B10%7D%5Ccdot%7B%5Clog%7D_%7B%7B10%7D%7D%5Cfrac%7B%7BP%7D%7D%7B%7BP%7D_%7B%7B0%7D%7D%7D=%7B20%7D%5Ccdot%7B%5Clog%7D_%7B%7B10%7D%7D%5Cfrac%7B%7BP%7D%7D%7B%7BP%7D_%7B%7B0%7D%7D%7D "10 * log_10 (P/P_0)^2 = 2 * 10 * log_10 P/P_0 = 20 * log_10 P/P_0")
+![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B10%7D%5Ccdot%7B%5Clog%7D_%7B%7B10%7D%7D%7B%7B%5Cleft(%5Cfrac%7B%7BP%7D%7D%7B%7BP%7D_%7B%7B0%7D%7D%7D%5Cright)%7D%7D%5E%7B%7B2%7D%7D=%7B2%7D%5Ccdot%7B10%7D%5Ccdot%7B%5Clog%7D_%7B%7B10%7D%7D%5Cfrac%7B%7BP%7D%7D%7B%7BP%7D_%7B%7B0%7D%7D%7D=%7B20%7D%5Ccdot%7B%5Clog%7D_%7B%7B10%7D%7D%5Cfrac%7B%7BP%7D%7D%7B%7BP%7D_%7B%7B0%7D%7D%7D "10 * log_10 (P/P_0)^2 = 2 * 10 * log_10 P/P_0 = 20 * log_10 P/P_0")
 :::
 :::
 
@@ -184,7 +184,7 @@ pressure [P]{title="<math title="} related to the pressure
 
 ::: {.group_img}
 ::: {.image}
-![](static/www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7BP%7D_%7B%7B0%7D%7D=%7B2%7D%5Ccdot%7B%7B10%7D%7D%5E%7B%7B-%7B%7B5%7D%7D%7D%7D%7BP%7D%7Ba%7D "P_0=2*10^-5 Pa")
+![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7BP%7D_%7B%7B0%7D%7D=%7B2%7D%5Ccdot%7B%7B10%7D%7D%5E%7B%7B-%7B%7B5%7D%7D%7D%7D%7BP%7D%7Ba%7D "P_0=2*10^-5 Pa")
 :::
 :::
 
@@ -204,7 +204,7 @@ intensity and amplitudes:
 
 ::: {.group_img}
 ::: {.image}
-![](static/www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7BI%7D%5Capprox%7B%7BA%7D%7D%5E%7B%7B2%7D%7D "I~~A^2")
+![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7BI%7D%5Capprox%7B%7BA%7D%7D%5E%7B%7B2%7D%7D "I~~A^2")
 :::
 :::
 
@@ -214,7 +214,7 @@ intensity and amplitudes:
 
 ::: {.group_img}
 ::: {.image}
-![](static/www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B20%7D%5Ccdot%7B%5Clog%7D_%7B%7B10%7D%7D%5Cfrac%7B%7BA%7D%7D%7B%7BA%7D_%7B%7B0%7D%7D%7D "20*log_10 A/A_0")
+![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B20%7D%5Ccdot%7B%5Clog%7D_%7B%7B10%7D%7D%5Cfrac%7B%7BA%7D%7D%7B%7BA%7D_%7B%7B0%7D%7D%7D "20*log_10 A/A_0")
 :::
 :::
 
@@ -223,7 +223,7 @@ intensity and amplitudes:
 
 ::: {.group_img}
 ::: {.image}
-![](static/www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7BA%7D "A")
+![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7BA%7D "A")
 :::
 :::
 
@@ -231,7 +231,7 @@ related to another amplitude []{title="<img title="}
 
 ::: {.group_img}
 ::: {.image}
-![](static/www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7BA%7D_%7B%7B0%7D%7D "A_0")
+![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7BA%7D_%7B%7B0%7D%7D "A_0")
 :::
 :::
 
@@ -245,7 +245,7 @@ in dB, you can calculate this as follows:
 
 ::: {.group_img}
 ::: {.image}
-![](static/www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B20%7D%5Ccdot%7B%5Clog%7D_%7B%7B10%7D%7D%5Cfrac%7B%7B1%7D%7D%7B%7B0.5%7D%7D=%7B20%7D%5Ccdot%7B%5Clog%7D_%7B%7B10%7D%7D%7B2%7D=%7B20%7D%5Ccdot%7B0.30103%7D=%7B6.0206%7D%7Bd%7D%7BB%7D "20*log_10 1/0.5 = 20 * log_10 2 = 20 * 0.30103 = 6.0206 dB")
+![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B20%7D%5Ccdot%7B%5Clog%7D_%7B%7B10%7D%7D%5Cfrac%7B%7B1%7D%7D%7B%7B0.5%7D%7D=%7B20%7D%5Ccdot%7B%5Clog%7D_%7B%7B10%7D%7D%7B2%7D=%7B20%7D%5Ccdot%7B0.30103%7D=%7B6.0206%7D%7Bd%7D%7BB%7D "20*log_10 1/0.5 = 20 * log_10 2 = 20 * 0.30103 = 6.0206 dB")
 :::
 :::
 
@@ -269,7 +269,7 @@ saw, by setting the SIL to []{title="<img title="}
 
 ::: {.group_img}
 ::: {.image}
-![](static/www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B%7B10%7D%7D%5E%7B%7B-%7B%7B12%7D%7D%7D%7D%7BW%7D%5C//%7B%7Bm%7D%7D%5E%7B%7B2%7D%7D "10^-12 W//m^2") 
+![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B%7B10%7D%7D%5E%7B%7B-%7B%7B12%7D%7D%7D%7D%7BW%7D%5C//%7B%7Bm%7D%7D%5E%7B%7B2%7D%7D "10^-12 W//m^2") 
 :::
 :::
 
@@ -277,7 +277,7 @@ and the SPL to []{title="<img title="}
 
 ::: {.group_img}
 ::: {.image}
-![](static/www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B2%7D%5Ccdot%7B%7B10%7D%7D%5E%7B%7B-%7B%7B5%7D%7D%7D%7D%7BP%7D%7Ba%7D "2*10^-5 Pa")
+![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B2%7D%5Ccdot%7B%7B10%7D%7D%5E%7B%7B-%7B%7B5%7D%7D%7D%7D%7BP%7D%7Ba%7D "2*10^-5 Pa")
 :::
 :::
 
@@ -380,7 +380,7 @@ samples, we get these amplitudes:
 
 ::: {.group_img}
 ::: {.image}
-![16 times sampled sine wave](static/sine_16points_v2.png){width="619"
+![16 times sampled sine wave](../resources/images/sine_16points_v2.png){width="619"
 height="391"} 
 :::
 :::
@@ -389,7 +389,7 @@ These are the squared amplitudes:
 
 ::: {.group_img}
 ::: {.image}
-![](static/sine_16points_rms_v2.png){width="603" height="373"}
+![](../resources/images/sine_16points_rms_v2.png){width="603" height="373"}
 :::
 :::
 
@@ -470,7 +470,7 @@ They look like this:
 
 ::: {.group_img}
 ::: {.image}
-![](static/fletcher-munson.png){width="422" height="375"} 
+![](../resources/images/fletcher-munson.png){width="422" height="375"} 
 :::
 :::
 

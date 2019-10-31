@@ -17,7 +17,7 @@ speakers based on first principles.
 
 The simplest method that is typically encountered is to multiply one
 channel of audio (aSig) by a panning variable (kPan) and to multiply the
-other side by 1 minus the same variable like this:
+other side by 0 minus the same variable like this:
 
     aSigL  =  aSig * kPan
     aSigR  =  aSig * (1 – kPan)
@@ -197,7 +197,7 @@ currently.
     i 1 10  4.5   2 ; linear
     e
     </CsScore>
-    </CsoundSynthesizer> 
+    </CsoundSynthesizer>
 
 In the next example we will generate some sounds as the primary signal.
 We apply some delay and reverb to this signal to produce a secondary
@@ -482,7 +482,7 @@ mono sound files we could use the code:
      fout      "Channel1.wav", 8, a1
      fout      "Channel2.wav", 8, a2
      fout      "Channel3.wav", 8, a3
-     fout      "Channel4.wav", 8, a4 
+     fout      "Channel4.wav", 8, a4
 
 VBAP
 ----
@@ -503,7 +503,7 @@ below (M = middle/centre):
 
 ::: {.group_img}
 ::: {.image}
-![](static/05b_vbap_ls_konfig.jpg){width="600" height="424"}
+![](../resources/images/05b_vbap_ls_konfig.jpg){width="600" height="424"}
 :::
 :::
 
@@ -539,7 +539,7 @@ The following would be the Csound code to play the sound file
     </CsOptions>
     <CsInstruments>
     sr = 44100
-    ksmps = 32      
+    ksmps = 32
     0dbfs = 1
     nchnls = 7
 
@@ -613,7 +613,7 @@ down to zero.
     </CsOptions>
     <CsInstruments>
     sr = 44100
-    ksmps = 32      
+    ksmps = 32
     0dbfs = 1
     nchnls = 7
 
@@ -656,7 +656,7 @@ configurations which are called in three different instruments:
     </CsOptions>
     <CsInstruments>
     sr = 44100
-    ksmps = 32      
+    ksmps = 32
     0dbfs = 1
     nchnls = 7
 
@@ -764,7 +764,7 @@ implementing a transformation of the VBAP circle example to Ambisonics.
     </CsOptions>
     <CsInstruments>
     sr = 44100
-    ksmps = 32      
+    ksmps = 32
     0dbfs = 1
     nchnls = 8
 
@@ -834,7 +834,7 @@ compare the results.
     </CsOptions>
     <CsInstruments>
     sr = 44100
-    ksmps = 32      
+    ksmps = 32
     0dbfs = 1
     nchnls = 8
 
@@ -914,22 +914,22 @@ them for CsoundQt) from [here (as of September
 
     #include "ambisonics_udos.txt"  (order <= 8)
             ambi_encode     asnd, iorder, kazimuth, kelevation (azimuth, elevation in degrees)
-            ambi_enc_dist asnd, iorder, kazimuth, kelevation, kdistance     
-    a1 [, a2] ... [, a8]    ambi_decode     iorder, ifn     
-    a1 [, a2] ... [, a8]    ambi_dec_inph   iorder, ifn     
+            ambi_enc_dist asnd, iorder, kazimuth, kelevation, kdistance
+    a1 [, a2] ... [, a8]    ambi_decode     iorder, ifn
+    a1 [, a2] ... [, a8]    ambi_dec_inph   iorder, ifn
     f ifn  0  n  -2 p1 az1 el1 az2 el2 ... (n is a power of 2 greater than 3·number_of_spekers + 1) (p1 is not used)
-            ambi_write_B    "name", iorder, ifile_format    (ifile_format see fout in the csound help)      
+            ambi_write_B    "name", iorder, ifile_format    (ifile_format see fout in the csound help)
             ambi_read_B     "name", iorder (only <= 5)
     kaz, kel, kdist xyz_to_aed      kx, ky, kz
 
-    ;#include "ambisonics2D_udos.txt"       
+    ;#include "ambisonics2D_udos.txt"
             ambi2D_encode   asnd, iorder, kazimuth  (any order) (azimuth in degrees)
-            ambi2D_enc_dist asnd, iorder, kazimuth, kdistance       
-    a1 [, a2] ... [, a8]    ambi2D_decode   iorder, iaz1 [, iaz2] ...       [, iaz8]        
+            ambi2D_enc_dist asnd, iorder, kazimuth, kdistance
+    a1 [, a2] ... [, a8]    ambi2D_decode   iorder, iaz1 [, iaz2] ...       [, iaz8]
     a1 [, a2] ... [, a8]    ambi2D_dec_inph iorder, iaz1 [, iaz2] ...       [, iaz8]        (order <= 12)
             ambi2D_write_B  "name", iorder, ifile_format
             ambi2D_read_B   "name", iorder  (order <= 19)
-    kaz, kdist      xy_to_ad        kx, ky  
+    kaz, kdist      xy_to_ad        kx, ky
 
     #include "AEP_udos.txt" (any order integer or fractional)
     a1 [, a2] ... [, a16] AEP_xyz   asnd, korder, ifn, kx, ky, kz, kdistance
@@ -946,7 +946,7 @@ them for CsoundQt) from [here (as of September
     ix, iy, iz      aed_to_xyz      iazimuth, ielevation, idistance
     a1 [, a2] ... [, a16]   dist_corr       a1 [, a2] ... [, a16], ifn
     f ifn  0  32  -2  max_speaker_distance dist1, dist2, ... (distances in m)
-    irad    radiani idegree 
+    irad    radiani idegree
     krad    radian  kdegree
     arad    radian  adegree
     idegree degreei irad
@@ -999,7 +999,7 @@ equivalent panning (AEP). 
 
 ::: {.group_img}
 ::: {.image}
-![](static/ambi-fig1-intro.png){width="582" height="118"}
+![](../resources/images/ambi-fig1-intro.png){width="582" height="118"}
 :::
 :::
 
@@ -1029,7 +1029,7 @@ polar to Cartesian coordinates by 
 
 ::: {.group_img}
 ::: {.image}
-![](static/ambi-fig2-2d.png)
+![](../resources/images/ambi-fig2-2d.png)
 :::
 :::
 
@@ -1089,7 +1089,7 @@ angles of the speakers. 
     ; decoding for 8 speakers symmetrically positioned on a circle
 
     ; produces the 3 channels 1st order; input: asound, kazimuth
-    opcode  ambi2D_encode_1a, aaa, ak       
+    opcode  ambi2D_encode_1a, aaa, ak
     asnd,kaz        xin
     kaz = $M_PI*kaz/180
     a0      =       asnd
@@ -1099,7 +1099,7 @@ angles of the speakers. 
     endop
 
     ; decodes 1st order to a setup of 8 speakers at angles i1, i2, ...
-    opcode  ambi2D_decode_1_8, aaaaaaaa, aaaiiiiiiii                
+    opcode  ambi2D_decode_1_8, aaaaaaaa, aaaiiiiiiii
     a0,a11,a12,i1,i2,i3,i4,i5,i6,i7,i8      xin
     i1 = $M_PI*i1/180
     i2 = $M_PI*i2/180
@@ -1109,14 +1109,14 @@ angles of the speakers. 
     i6 = $M_PI*i6/180
     i7 = $M_PI*i7/180
     i8 = $M_PI*i8/180
-    a1      =       (.5*a0 + cos(i1)*a11 + sin(i1)*a12)*2/3                 
-    a2      =       (.5*a0 + cos(i2)*a11 + sin(i2)*a12)*2/3 
-    a3      =       (.5*a0 + cos(i3)*a11 + sin(i3)*a12)*2/3 
-    a4      =       (.5*a0 + cos(i4)*a11 + sin(i4)*a12)*2/3 
-    a5      =       (.5*a0 + cos(i5)*a11 + sin(i5)*a12)*2/3 
-    a6      =       (.5*a0 + cos(i6)*a11 + sin(i6)*a12)*2/3 
-    a7      =       (.5*a0 + cos(i7)*a11 + sin(i7)*a12)*2/3 
-    a8      =       (.5*a0 + cos(i8)*a11 + sin(i8)*a12)*2/3                         
+    a1      =       (.5*a0 + cos(i1)*a11 + sin(i1)*a12)*2/3
+    a2      =       (.5*a0 + cos(i2)*a11 + sin(i2)*a12)*2/3
+    a3      =       (.5*a0 + cos(i3)*a11 + sin(i3)*a12)*2/3
+    a4      =       (.5*a0 + cos(i4)*a11 + sin(i4)*a12)*2/3
+    a5      =       (.5*a0 + cos(i5)*a11 + sin(i5)*a12)*2/3
+    a6      =       (.5*a0 + cos(i6)*a11 + sin(i6)*a12)*2/3
+    a7      =       (.5*a0 + cos(i7)*a11 + sin(i7)*a12)*2/3
+    a8      =       (.5*a0 + cos(i8)*a11 + sin(i8)*a12)*2/3
                     xout                    a1,a2,a3,a4,a5,a6,a7,a8
     endop
 
@@ -1168,11 +1168,11 @@ for the first 4 speakers of an 18 speaker setup. 
     ; instr 10 decodes
 
     ; zak space with the 21 channels of the B-format up to 10th order
-    zakinit 21, 1   
+    zakinit 21, 1
 
     ;explicit encoding third order
-    opcode  ambi2D_encode_3, 0, ak  
-    asnd,kaz        xin     
+    opcode  ambi2D_encode_3, 0, ak
+    asnd,kaz        xin
 
     kaz = $M_PI*kaz/180
 
@@ -1183,11 +1183,11 @@ for the first 4 speakers of an 18 speaker setup. 
                     zawm            sin(2*kaz)*asnd,4       ;a22
                     zawm            cos(3*kaz)*asnd,5       ;a31
                     zawm            sin(3*kaz)*asnd,6       ;a32
-                    
+
     endop
 
     ; encoding arbitrary order n(zakinit 2*n+1, 1)
-    opcode  ambi2D_encode_n, 0, aik         
+    opcode  ambi2D_encode_n, 0, aik
     asnd,iorder,kaz xin
     kaz = $M_PI*kaz/180
     kk =    iorder
@@ -1197,11 +1197,11 @@ for the first 4 speakers of an 18 speaker setup. 
     kk =            kk-1
 
     if      kk > 0 goto c1
-            zawm    asnd,0  
+            zawm    asnd,0
     endop
 
     ; basic decoding for arbitrary order n for 1 speaker
-    opcode  ambi2D_decode_basic, a, ii              
+    opcode  ambi2D_decode_basic, a, ii
     iorder,iaz      xin
     iaz = $M_PI*iaz/180
     igain   =       2/(2*iorder+1)
@@ -1216,7 +1216,7 @@ for the first 4 speakers of an 18 speaker setup. 
     endop
 
     ; decoding for 2 speakers
-    opcode  ambi2D_decode_basic, aa, iii    
+    opcode  ambi2D_decode_basic, aa, iii
     iorder,iaz1,iaz2        xin
     iaz1 = $M_PI*iaz1/180
     iaz2 = $M_PI*iaz2/180
@@ -1255,7 +1255,7 @@ for the first 4 speakers of an 18 speaker setup. 
     instr 10        ;decode all insruments (the first 4 speakers of a 18 speaker setup)
     a1,a2           ambi2D_decode_basic     10,0,20
     a3,a4           ambi2D_decode_basic     10,40,60
-                    outc    a1,a2,a3,a4                     
+                    outc    a1,a2,a3,a4
                     zacl    0,20            ; clear the za variables
     endin
 
@@ -1289,7 +1289,7 @@ figure).
 
 ::: {.group_img}
 ::: {.image}
-![](static/ambi-fig3-in-phase.png){width="577" height="136"}
+![](../resources/images/ambi-fig3-in-phase.png){width="577" height="136"}
 :::
 :::
 
@@ -1303,7 +1303,7 @@ of the particular channel being decoded (m). 
 
 ::: {.group_img}
 ::: {.image}
-![](static/ambi-fig8-tab1.png){width="587" height="183"}
+![](../resources/images/ambi-fig8-tab1.png){width="587" height="183"}
 :::
 :::
 
@@ -1314,7 +1314,7 @@ The decoded signal can be normalised with the factor gnorm(M) = (2M + 1)
 
 ::: {.group_img}
 ::: {.image}
-![](static/ambi-fig9-tab2.png)
+![](../resources/images/ambi-fig9-tab2.png)
 :::
 :::
 
@@ -1324,7 +1324,7 @@ corrected by weighting (so-called in-phase decoding, right).
 
 ::: {.group_img}
 ::: {.image}
-![](static/ambi-fig4-in-phase2.png){width="593" height="141"}
+![](../resources/images/ambi-fig4-in-phase2.png){width="593" height="141"}
 :::
 :::
 
@@ -1343,7 +1343,7 @@ speakers in a square.
     nchnls  =  4
     0dbfs    = 1
 
-    opcode  ambi2D_encode_n, 0, aik         
+    opcode  ambi2D_encode_n, 0, aik
     asnd,iorder,kaz xin
     kaz = $M_PI*kaz/180
     kk =    iorder
@@ -1353,12 +1353,12 @@ speakers in a square.
     kk =            kk-1
 
     if      kk > 0 goto c1
-            zawm    asnd,0  
+            zawm    asnd,0
 
     endop
 
     ;in-phase-decoding
-    opcode  ambi2D_dec_inph, a, ii  
+    opcode  ambi2D_dec_inph, a, ii
     ; weights and norms up to 12th order
     iNorm2D[] array 1,0.75,0.625,0.546875,0.492188,0.451172,0.418945,
                                             0.392761,0.370941,0.352394,0.336376,0.322360
@@ -1393,7 +1393,7 @@ speakers in a square.
                     xout                    iNorm2D[iorder-1]*a1
     endop
 
-    zakinit 7, 1            
+    zakinit 7, 1
 
     instr 1
     asnd    rand            p4
@@ -1402,7 +1402,7 @@ speakers in a square.
                     ambi2D_encode_n         asnd,3,kaz
     endin
 
-    instr 11                
+    instr 11
 
     a1              ambi2D_dec_inph         3,0
     a2              ambi2D_dec_inph         3,90
@@ -1450,7 +1450,7 @@ the speaker signals reaches its maximum when the distance is 0. 
 
 ::: {.group_img}
 ::: {.image}
-![](static/ambi-fig5-dist.png) 
+![](../resources/images/ambi-fig5-dist.png) 
 :::
 :::
 
@@ -1465,7 +1465,7 @@ channels by multiplying f1 by the factor (1 -- E\^(-d)).
 
 ::: {.group_img}
 ::: {.image}
-![](static/ambi-fig6-dist2.png) 
+![](../resources/images/ambi-fig6-dist2.png) 
 :::
 :::
 
@@ -1493,7 +1493,7 @@ taken positive. 
     ; distance encoding
     ; with any distance (includes zero and negative distance)
 
-    opcode    ambi2D_enc_dist_n, 0, aikk        
+    opcode    ambi2D_enc_dist_n, 0, aikk
     asnd,iorder,kaz,kdist    xin
     kaz = $M_PI*kaz/180
     kaz    =            (kdist < 0 ? kaz + $M_PI : kaz)
@@ -1509,25 +1509,25 @@ taken positive. 
     kk =        kk-1
 
     if    kk > 0 goto c1
-        zawm    asndW,0    
-        
+        zawm    asndW,0
+
     endop
 
-    zakinit 17, 1        
+    zakinit 17, 1
 
     instr 1
     asnd    rand        p4
     ;asnd    soundin    "/Users/user/csound/ambisonic/violine.aiff"
     kaz       line        0,p3,p5*360        ;turns around p5 times in p3 seconds
-    kdist    line        p6,p3,p7            
+    kdist    line        p6,p3,p7
             ambi2D_enc_dist_n asnd,8,kaz,kdist
     endin
 
-    instr 10        
+    instr 10
     a1,a2,a3,a4,
     a5,a6,a7,a8         ambi2D_decode        8,0,45,90,135,180,225,270,315
             outc    a1,a2,a3,a4,a5,a6,a7,a8
-            zacl     0,16        
+            zacl     0,16
     endin
 
     </CsInstruments>
@@ -1582,7 +1582,7 @@ sound file. 
 
     opcode Absorb, a, ak
     asnd,kdist    xin
-    aabs         tone         5*asnd,20000*exp(-.1*kdist)    
+    aabs         tone         5*asnd,20000*exp(-.1*kdist)
                 xout         aabs
     endop
 
@@ -1590,11 +1590,11 @@ sound file. 
     asnd,kdist    xin
     abuf        delayr     .5
     adop        deltapi    interp(kdist)*0.0029137529 + .01 ; 1/343.2
-                delayw     asnd     
+                delayw     asnd
                 xout        adop
     endop
     */
-    opcode    write_ambi2D_2, 0,    S        
+    opcode    write_ambi2D_2, 0,    S
     Sname            xin
     fout     Sname,12,zar(0),zar(1),zar(2),zar(3),zar(4)
     endop
@@ -1604,8 +1604,8 @@ sound file. 
     instr 1
     asnd    buzz     p4,p5,50,1
     ;asnd   soundin  "/Users/user/csound/ambisonic/violine.aiff"
-    kx      line     p7,p3,p8        
-    ky      line     p9,p3,p10        
+    kx      line     p7,p3,p8
+    ky      line     p9,p3,p10
     kaz,kdist xy_to_ad kx,ky
     aabs    absorb   asnd,kdist
     adop    Doppler  .2*aabs,kdist
@@ -1618,7 +1618,7 @@ sound file. 
                     outc            a1,a2,a3,a4,a5,a6,a7,a8
     ;               fout "B_format2D.wav",12,zar(0),zar(1),zar(2),zar(3),zar(4),
     ;                                zar(5),zar(6),zar(7),zar(8),zar(9),zar(10)
-                    write_ambi2D_2  "ambi_ex5.wav"    
+                    write_ambi2D_2  "ambi_ex5.wav"
                     zacl            0,16 ; clear the za variables
     endin
 
@@ -1639,7 +1639,7 @@ distance r from the origin of the coordinate system, the elevation δ
 
 ::: {.group_img}
 ::: {.image}
-![](static/ambi-fig7-3d.png)
+![](../resources/images/ambi-fig7-3d.png)
 :::
 :::
 
@@ -1649,7 +1649,7 @@ The formulae for transforming coordinates are as follows:
 
 ::: {.group_img}
 ::: {.image}
-![](static/ambi-fig12-formulas.png){width="672" height="84"}
+![](../resources/images/ambi-fig12-formulas.png){width="672" height="84"}
 :::
 :::
 
@@ -1669,7 +1669,7 @@ speaker setups are the same.
 
 ::: {.group_img}
 ::: {.image}
-![](static/ambi-fig10-tab3.png) 
+![](../resources/images/ambi-fig10-tab3.png) 
 :::
 :::
 
@@ -1696,7 +1696,7 @@ and ambi\_decode up to 8th order are saved in the text file
 
     zakinit 9, 1    ; zak space with the 9 channel B-format second order
 
-    opcode  ambi_encode, 0, aikk            
+    opcode  ambi_encode, 0, aikk
     asnd,iorder,kaz,kel     xin
     kaz = $M_PI*kaz/180
     kel = $M_PI*kel/180
@@ -1730,7 +1730,7 @@ and ambi\_decode up to 8th order are saved in the text file
     endop
 
     ; decoding of order iorder for 1 speaker at position iaz,iel,idist
-    opcode  ambi_decode1, a, iii            
+    opcode  ambi_decode1, a, iii
     iorder,iaz,iel  xin
     iaz = $M_PI*iaz/180
     iel = $M_PI*iel/180
@@ -1774,7 +1774,7 @@ and ambi\_decode up to 8th order are saved in the text file
     i6 = .5*(3*isin_el_p2 - 1)              ; R = Y(2,0)
     i7 = ic2*isin_2el*icos_az               ; S = Y(2,1)
     i8 = ic2*icos_el_p2*icos_2az    ; U = Y(2,2)
-            
+
     aout    =       (1/9)*(a0 + 3*i1*a1 + 3*i2*a2 + 3*i3*a3 + 5*i4*a4 + 5*i5*a5 + 5*i6*a6 + 5*i7*a7 + 5*i8*a8)
 
     end:
@@ -1809,8 +1809,8 @@ and ambi\_decode up to 8th order are saved in the text file
 
     ao1,ao2,ao3     ambi_decode     2,17
                     outvalue "sp1", downsamp(ao1)
-                    outvalue "sp2", downsamp(ao2)   
-                    outvalue "sp3", downsamp(ao3)   
+                    outvalue "sp2", downsamp(ao2)
+                    outvalue "sp3", downsamp(ao3)
                     zacl    0,8
     endin
 
@@ -1845,7 +1845,7 @@ to 8th order are stored in the arrays iWeight3D\[\]\[\]. 
     #include "../SourceMaterials/ambisonics_udos.txt"
 
     ; in-phase decoding up to third order for one speaker
-    opcode    ambi_dec1_inph3, a, iii        
+    opcode    ambi_dec1_inph3, a, iii
     ; weights up to 8th order
     iWeight3D[][] init   8,8
     iWeight3D     array  0.333333,0,0,0,0,0,0,0,
@@ -1953,7 +1953,7 @@ The weighting factors for in-phase decoding of Ambisonics (3D) are:
 
 ::: {.group_img}
 ::: {.image}
-![](static/ambi-fig11-tab4.png){width="571" height="168"}
+![](../resources/images/ambi-fig11-tab4.png){width="571" height="168"}
 :::
 :::
 
@@ -1975,14 +1975,14 @@ Example udo\_ambisonics\_3.csd shows distance encoding. 
 
     #include "../SourceMaterials/ambisonics_udos.txt"
 
-    opcode    ambi3D_enc_dist1, 0, aikkk        
+    opcode    ambi3D_enc_dist1, 0, aikkk
     asnd,iorder,kaz,kel,kdist    xin
     kaz = $M_PI*kaz/180
     kel = $M_PI*kel/180
     kaz    =        (kdist < 0 ? kaz + $M_PI : kaz)
     kel    =        (kdist < 0 ? -kel : kel)
     kdist =    abs(kdist)+0.00001
-    kgainW    =    taninv(kdist*1.5708) / (kdist*1.5708)        
+    kgainW    =    taninv(kdist*1.5708) / (kdist*1.5708)
     kgainHO =    (1 - exp(-kdist)) ;*kgainW
         outvalue "kgainHO", kgainHO
         outvalue "kgainW", kgainW
@@ -2042,7 +2042,7 @@ speaker setup in a cube (f17).
     nchnls  =  8
     0dbfs      = 1
 
-    zakinit 16, 1    
+    zakinit 16, 1
 
     #include "../SourceMaterials/ambisonics_udos.txt"
     #include "../SourceMaterials/ambisonics_utilities.txt"
@@ -2164,7 +2164,7 @@ be given.
     a3       AEP1    ain,korder,ispeaker[7],ispeaker[8],ispeaker[9],
                        idsmax,kx,ky,kz,kdist,kfade,kgain
     a4       AEP1    ain,korder,ispeaker[10],ispeaker[11],ispeaker[12],
-                       idsmax,kx,ky,kz,kdist,kfade,kgain    
+                       idsmax,kx,ky,kz,kdist,kfade,kgain
              xout    a1,a2,a3,a4
     endop
 
@@ -2173,7 +2173,7 @@ be given.
     ;ain            soundin "/Users/user/csound/ambisonic/violine.aiff"
     kt       line    0,p3,360
     korder   init    24
-    ;kdist  Dist kx, ky, kz 
+    ;kdist  Dist kx, ky, kz
     a1,a2,a3,a4 AEP  ain,korder,17,kt,0,1
              outc    a1,a2,a3,a4
     endin

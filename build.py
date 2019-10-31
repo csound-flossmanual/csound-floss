@@ -81,12 +81,16 @@ COPYRIGHT                  = os.path.join(BOOK_SRC_DIR, "copyright.md")
 LATEX_HEADER               = os.path.join(RESOURCES_DIR, "header.latex")
 # APPENDICES                 = glob(os.path.join(BOOK_SRC_DIR, "appendix-*.md"))
 
-BOOK_FILE_LIST    = (
-    [COMBINED_METADATA, COPYRIGHT] +
-    [
-        os.path.join(BOOK_SRC_DIR, "preface.md"),
-        os.path.join(BOOK_SRC_DIR, "a-digital-audio.md"),
-    ] +
+BOOK_MD_FILES = [];
+
+for file in glob("book/*.md"):
+    BOOK_MD_FILES.append(file)
+
+BOOK_MD_FILES.sort()
+
+BOOK_FILE_LIST = (
+    [COMBINED_METADATA] +
+    BOOK_MD_FILES +
     ([REFERENCES] if uses_references else [])
 )
 
@@ -111,6 +115,7 @@ METADATA_DEPS = (
 
 DEPS          = (BOOK_FILE_LIST + BUILD_FILE_DEPS + LOCAL_IMAGES +
                  [PANDOC_FILTER, COMBINED_METADATA])
+
 EPUB_DEPS     = DEPS + [EPUB_METADATA, EPUB_CSS, FONTS_CSS]
 HTML_DEPS     = DEPS + [HTML_CSS, FONTS_CSS]
 LATEX_DEPS    = DEPS + [LATEX_COVER_PAGE, LATEX_TEMPLATE,
@@ -268,22 +273,10 @@ def task_pdf():
             files_str = " ".join(files)
             target = targets[0]
             sh(f"{PANDOC} {HTML_PDF_PANDOC_OPTS} -o {target} {files_str}")
-
-
-    if use_weasyprint:
-        return {
-            "actions":  [run],
+    return {"actions":  [run],
             "file_dep": HTML_PDF_DEPS,
             "targets":  [OUTPUT_PDF],
-            "clean":    True,
-        }
-    else:
-        return {
-            "actions": [(_latex, [OUTPUT_PDF])],
-            "file_dep": LATEX_DEPS,
-            "targets": [OUTPUT_PDF],
-            "clean":   True
-        }
+            "clean":    True }
 
 def task_latex():
     """

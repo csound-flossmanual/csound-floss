@@ -46,7 +46,7 @@ WinXound is optimized to work with the CSound 6 compiler.\
 
 ::: {.group_img}
 ::: {.image}
-![](static/winxound_linux.jpg){width="438" height="322"}
+![](../resources/images/winxound_linux.jpg){width="438" height="322"}
 :::
 :::
 

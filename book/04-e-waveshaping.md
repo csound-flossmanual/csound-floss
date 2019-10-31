@@ -30,7 +30,7 @@ graph:
 
 ::: {.group_img}
 ::: {.image}
-![](static/04ebild1a.png){width="499" height="500"}
+![](../resources/images/04ebild1a.png){width="499" height="500"}
 :::
 :::
 
@@ -52,7 +52,7 @@ will create a table of 4096 points with the desired shape:
 
 ::: {.group_img}
 ::: {.image}
-![](static/04e01ftable2.png) 
+![](../resources/images/04e01ftable2.png) 
 :::
 :::
 
@@ -110,7 +110,7 @@ which has been discussed previously:
 
 ::: {.group_img}
 ::: {.image}
-![](static/04e01audacity.png){width="599" height="336"} 
+![](../resources/images/04e01audacity.png){width="599" height="336"} 
 :::
 :::
 
@@ -137,7 +137,7 @@ of 1 leaves that value unchanged).
 
 ::: {.group_img}
 ::: {.image}
-![](static/powershape1.png)
+![](../resources/images/powershape1.png)
 :::
 :::
 
@@ -146,7 +146,7 @@ less than 1 become increasingly biased towards the zero axis.
 
 ::: {.group_img}
 ::: {.image}
-![](static/powershape2_5.png) 
+![](../resources/images/powershape2_5.png) 
 :::
 :::
 
@@ -157,7 +157,7 @@ Below is the waveform resulting from a shaping amount of 50.
 
 ::: {.group_img}
 ::: {.image}
-![](static/powershape50.png)
+![](../resources/images/powershape50.png)
 :::
 :::
 
@@ -170,7 +170,7 @@ sine wave input.
 
 ::: {.group_img}
 ::: {.image}
-![](static/powershape0_5.png)
+![](../resources/images/powershape0_5.png)
 :::
 :::
 
@@ -181,7 +181,7 @@ the waveform. The result of a shape amount of 0.1 is shown below.
 
 ::: {.group_img}
 ::: {.image}
-![](static/powershape0_1.png)
+![](../resources/images/powershape0_1.png)
 :::
 :::
 
@@ -191,7 +191,7 @@ The sonograms of the five examples shown above are as shown below:
 
 ::: {.group_img}
 ::: {.image}
-![](static/sonograms2.PNG)
+![](../resources/images/sonograms2.PNG)
 :::
 :::
 
@@ -244,7 +244,7 @@ Start and end values of -1 and 1 will produce a gentle \'s\' curve.
 
 ::: {.group_img}
 ::: {.image}
-![](static/tanh-1to1.png)
+![](../resources/images/tanh-1to1.png)
 :::
 :::
 
@@ -264,7 +264,7 @@ and more dramatic waveshaping:
 
 ::: {.group_img}
 ::: {.image}
-![](static/tanh-5to5.png)
+![](../resources/images/tanh-5to5.png)
 :::
 :::
 
@@ -278,7 +278,7 @@ distort and the tanh function shown above.
 ***EXAMPLE 04E02\_Distort\_1.csd*** 
 
     <CsoundSynthesizer>
-    <CsOptions>  
+    <CsOptions>
     -dm0 -odac
     </CsOptions>
 
@@ -309,7 +309,7 @@ The resulting sonogram looks like this:
 
 ::: {.group_img}
 ::: {.image}
-![](static/distortexample1.png)
+![](../resources/images/distortexample1.png)
 :::
 :::
 
@@ -359,7 +359,7 @@ the fundamental. The sonogram looks like this:
 
 ::: {.group_img}
 ::: {.image}
-![](static/distortexample2.png)
+![](../resources/images/distortexample2.png)
 :::
 :::
 

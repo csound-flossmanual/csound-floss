@@ -11,7 +11,7 @@ of the carrier oscillator.
 
 ::: {.group_img .image-layout-1image_1caption_bottom style="text-align: start;"}
 ::: {.image .bk-image-editor style="width: 450px; height: 530px;"}
-![](static/fm_191009.png)
+![](../resources/images/fm_191009.png)
 :::
 
 ::: {.caption_small style="width: 450px;"}
@@ -60,8 +60,8 @@ nchnls = 2
 instr FM_vibr ;vibrato as an FM result when the modulator is in the sub-audio range
  kModFreq randomi 5, 10, 1
  kCarAmp linen 0.5, 0.1, p3, 0.5
- aModulator poscil 20, kModFreq 
- aCarrier poscil kCarAmp, 400 + aModulator 
+ aModulator poscil 20, kModFreq
+ aCarrier poscil kCarAmp, 400 + aModulator
  out aCarrier, aCarrier
 endin
 
@@ -140,7 +140,7 @@ multiple of the modulating amplitude (ModAmp).
 
 ::: {.group_img style="text-align: start;"}
 ::: {.image .bk-image-editor style="width: 656.512px; height: 312.575px;"}
-![](static/fm_2pic.png)
+![](../resources/images/fm_2pic.png)
 :::
 :::
 
@@ -197,10 +197,10 @@ nchnls = 2
 instr Rising_index
  ModAmp = 400
  kIndex linseg 3, p3, 8
- kModFreq = kModAmp/kIndex 
+ kModFreq = kModAmp/kIndex
  aModulator poscil kModAmp, kModFreq
  aCarrier poscil 0.3, 400 + aModulator
- aOut linen aCarrier, .1, p3, 1 
+ aOut linen aCarrier, .1, p3, 1
  out aOut, aOut
 endin
 
@@ -267,11 +267,11 @@ instr Standard
 endin
 
 instr PlayMess
- 
+
  kC randomi 300, 500, 1, 2, 400
  kR randomi 1, 2, 2, 3
  kI randomi 1, 5, randomi:k(3,10,1,3), 3
- 
+
  //transform
  kM = kC / kR
  kD = kI * kM
@@ -573,7 +573,7 @@ i 1 0 9
 
 ::: {.group_img style="text-align: start;"}
 ::: {.image .bk-image-editor style="width: 656.231px; height: 312.938px;"}
-![](static/fm_2pic.png)
+![](../resources/images/fm_2pic.png)
 :::
 :::
 

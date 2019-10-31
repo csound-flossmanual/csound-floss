@@ -40,7 +40,7 @@ parameters affects the way we perceive sound.
     reciprocal of the frequency (and vice versa). In equation form this
     is expressed as follows.
 
-         Frequency = 1/Period         
+         Frequency = 1/Period
          Period = 1/Frequency
 
 Therefore the frequency is the inverse of the period, so a wave of 100
@@ -52,7 +52,7 @@ of a sound in any given medium we can use the following equation:
 
 Humans can hear frequencies from 20Hz to 20000Hz (although this can
 differ dramatically from individual to individual and the upper limit
-will decay with age). You can read more about frequency in the [next 
+will decay with age). You can read more about frequency in the [next
 chapter](01-b-pitch-and-frequency).
 
 -   **Phase:** This is the starting point of a waveform. The starting
@@ -123,7 +123,7 @@ Csound one can process the incoming audio samples in real time and
 output a new stream of samples or write them to disk in the form of a
 sound file.
 
-![](../resources/images/01-a-sampling.png "Sampling of an analog signal")
+![Sampling of an analog signal](../resources/images/01-a-sampling.png)
 
 It is important to remember that each sample represents the amount of
 voltage, positive or negative, that was present in the signal at the
@@ -282,7 +282,7 @@ into 0's and 1's in the binary system. If you think of binary numbers
 in terms of switches. With one switch you can represent up to two
 different numbers.
 
-0 (OFF) = Decimal 0  
+0 (OFF) = Decimal 0
 1 (ON) = Decimal 1
 
 Thus, a single bit represents 2 numbers, two bits can represent 4

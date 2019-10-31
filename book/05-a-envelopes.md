@@ -263,7 +263,7 @@ example.
     e
     </CsScore>
 
-    </CsoundSynthesizer> 
+    </CsoundSynthesizer>
 
  
 
@@ -319,7 +319,7 @@ The following example illustrates the difference between *line* and
     e
     </CsScore>
 
-    </CsoundSynthesizer> 
+    </CsoundSynthesizer>
 
  
 
@@ -510,7 +510,7 @@ The resulting envelope will look like this:
 
 ::: {.group_img}
 ::: {.image}
-![](static/linseg.png) 
+![](../resources/images/linseg.png) 
 :::
 :::
 
@@ -539,7 +539,7 @@ and would look like this:
 
 ::: {.group_img}
 ::: {.image}
-![](static/expseg.png) 
+![](../resources/images/expseg.png) 
 :::
 :::
 
@@ -558,7 +558,7 @@ The resulting envelope looks like this:
 
 ::: {.group_img}
 ::: {.image}
-![](static/expseg-port.png)
+![](../resources/images/expseg-port.png)
 :::
 :::
 
@@ -590,7 +590,7 @@ the resulting envelope will look like this:
 
 ::: {.group_img}
 ::: {.image}
-![](static/cosseg.png) 
+![](../resources/images/cosseg.png) 
 :::
 :::
 
@@ -614,7 +614,7 @@ will produce the following envelope:
 
 ::: {.group_img}
 ::: {.image}
-![](static/transeg.png)
+![](../resources/images/transeg.png)
 :::
 :::
 

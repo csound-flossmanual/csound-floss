@@ -387,15 +387,13 @@ panel:
 
 ::: {.group_img}
 ::: {.image}
-![](static//_v/1.0/http://en.flossmanuals.net/floss/pub/Csound/){width="0"
-height="0"}
+![](../resources/images//_v/1.0/http://en.flossmanuals.net/floss/pub/Csound/){width="0" height="0"}
 :::
 :::
 
 ::: {.group_img}
 ::: {.image}
-![qcbutton1](static/csound-picts-03_cslanguage-qcbutton1-en.png "qcbutton1"){width="373"
-height="520"} 
+![qcbutton1](../resources/images/csound-picts-03_cslanguage-qcbutton1-en.png){width="373" height="520"}
 :::
 :::
 
@@ -406,8 +404,7 @@ in the score.
 
 ::: {.group_img}
 ::: {.image}
-![qcbutton3](static/csound-picts-03_cslanguage-qcbutton3-en.png "qcbutton3"){width="542"
-height="326"}
+![qcbutton3](../resources/images/csound-picts-03_cslanguage-qcbutton3-en.png){width="542" height="326"}
 :::
 :::
 
@@ -416,8 +413,7 @@ to trigger:
 
 ::: {.group_img}
 ::: {.image}
-![qcbutton4](static/csound-picts-03_cslanguage-qcbutton4-en.png "qcbutton4"){width="549"
-height="364"} 
+![qcbutton4](../resources/images/csound-picts-03_cslanguage-qcbutton4-en.png){width="549" height="364"}
 :::
 :::
 
@@ -470,8 +466,7 @@ If you run it by typing and returning a command line like this \...
 
 ::: {.group_img}
 ::: {.image}
-![cmdline](static/csound-picts-03_cslanguage-cmdline-en.png "cmdline"){width="640"
-height="74"}
+![cmdline](../resources/images/csound-picts-03_cslanguage-cmdline-en.png){width="640" height="74"}
 :::
 :::
 
@@ -479,8 +474,7 @@ height="74"}
 
 ::: {.group_img}
 ::: {.image}
-![\_L1](static/csound-picts-03_cslanguage-_l1-en.png "_L1"){width="632"
-height="444"} 
+![_L1](../resources/images/csound-picts-03_cslanguage-_l1-en.png){width="632" height="444"}
 :::
 :::
 
@@ -490,8 +484,7 @@ look like this:
 
 ::: {.group_img}
 ::: {.image}
-![\_L2](static/csound-picts-03_cslanguage-_l2-en.png "_L2"){width="509"
-height="448"} 
+![_L2](../resources/images/csound-picts-03_cslanguage-_l2-en.png){width="509" height="448"}
 :::
 :::
 
@@ -501,12 +494,11 @@ In general, this is the method that CsoundQt uses and it is made
 available to the user in a flexible environment called the Live Event
 Sheet. Have a look in the CsoundQt frontend to see more of the
 possibilities of \"firing\" live instrument events using the Live Event
-Sheet.^2^ 
+Sheet.^2
 
 ::: {.group_img}
 ::: {.image}
-![qcs\_lesheet](static/csound-picts-03_cslanguage-qcs_lesheet-en.png "qcs_lesheet"){width="740"
-height="483"} 
+![qcs_lesheet](../resources/images/csound-picts-03_cslanguage-qcs_lesheet-en.png){width="740" height="483"}
 :::
 :::
 
@@ -605,10 +597,10 @@ inside an instrument. The score events are then executed later.
 
 Using this opportunity we can introduce the
 [scoreline](http://www.csounds.com/manual/html/scoreline.html) /
-[scoreline\_i](http://www.csounds.com/manual/html/scoreline_i.html)
+[scoreline_i](http://www.csounds.com/manual/html/scoreline_i.html)
 opcode. It is quite similar to the
 [event](http://www.csounds.com/manual/html/event.html) /
-[event\_i](http://www.csounds.com/manual/html/event_i.html) opcode but
+[event_i](http://www.csounds.com/manual/html/event_i.html) opcode but
 has two major benefits:
 
 -   You can write more than one scoreline by using \"{{\" at the

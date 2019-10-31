@@ -173,7 +173,7 @@ User Interface
 
 ::: {.group_img}
 ::: {.image}
-![](static/csound6_user_guide_html_773f6605.png) 
+![](../resources/images/csound6_user_guide_html_773f6605.png)
 :::
 :::
 
@@ -525,4 +525,4 @@ performance to performance.
 
  
 
-###  
+###

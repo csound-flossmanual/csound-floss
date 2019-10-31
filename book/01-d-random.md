@@ -37,7 +37,7 @@ states. Examples here are Markov chains and random walks.
 
 ::: {.group_img}
 ::: {.image}
-![](static/random_overview.png){width="599" height="315"} 
+![](../resources/images/random_overview.png){width="599" height="315"} 
 :::
 :::
 
@@ -213,7 +213,7 @@ given range are more likely:
 
 ::: {.group_img}
 ::: {.image}
-![](static/01d_linear_distributiona2.png){width="487" height="344"}
+![](../resources/images/01d_linear_distributiona2.png){width="487" height="344"}
 :::
 :::
 
@@ -221,7 +221,7 @@ given range are more likely:
 
 ::: {.group_img}
 ::: {.image}
-![](static/01d_linear_distributionb2.png){width="508" height="342"}
+![](../resources/images/01d_linear_distributionb2.png){width="508" height="342"}
 :::
 :::
 
@@ -379,7 +379,7 @@ between the middle and the extrema are linear:
 
 ::: {.group_img}
 ::: {.image}
-![](static/01d_triangular_distribution.png){width="740" height="309"}
+![](../resources/images/01d_triangular_distribution.png){width="740" height="309"}
 :::
 :::
 
@@ -983,7 +983,7 @@ is written in a table like this:
 
 ::: {.group_img}
 ::: {.image}
-![](static/01d_markov_table.png){width="274" height="185"} 
+![](../resources/images/01d_markov_table.png){width="274" height="185"} 
 :::
 :::
 
@@ -1167,7 +1167,7 @@ independently from each other.
     i "trigger_note" 0 100
     </CsScore>
     </CsoundSynthesizer>
-    ;example by joachim heintz 
+    ;example by joachim heintz
 
  
 
@@ -1327,7 +1327,7 @@ crossed, and vice versa.
     i "walk" 0 999
     </CsScore>
     </CsoundSynthesizer>
-    ;example by joachim heintz 
+    ;example by joachim heintz
 
 ### II. SOME MATHS PERSPECTIVES ON RANDOM
 
@@ -1346,7 +1346,7 @@ equal to 1. The sum of the probabilities of all possible outcomes is 1.
 
 ::: {.group_img}
 ::: {.image}
-![](static/random1.gif) 
+![](../resources/images/random1.gif) 
 :::
 :::
 
@@ -1363,7 +1363,7 @@ can reach values greater than 1 but the area under the function is 1.
 
 ::: {.group_img}
 ::: {.image}
-![](static/random2.gif) 
+![](../resources/images/random2.gif) 
 :::
 :::
 
@@ -1398,7 +1398,7 @@ Synthesis*[^6^]{#InsertNodeID_9_marker10}  chapter 10.1.4.4)
 
 ::: {.group_img}
 ::: {.image}
-![](static/random-3.gif){width="200" height="200"}
+![](../resources/images/random-3.gif){width="200" height="200"}
 :::
 :::
 
@@ -1420,13 +1420,13 @@ Synthesis*[^6^]{#InsertNodeID_9_marker10}  chapter 10.1.4.4)
     ; random number generator to a given density function
     ; kout  random number; k_minimum,k_maximum,i_fn for a density function
 
-    opcode  rand_density, k, kki            
+    opcode  rand_density, k, kki
     kmin,kmax,ifn   xin
     loop:
     krnd1           random          0,1
     krnd2           random          0,1
-    k2              table           krnd1,ifn,1     
-                    if      krnd2 > k2   kgoto loop                      
+    k2              table           krnd1,ifn,1
+                    if      krnd2 > k2   kgoto loop
                     xout            kmin+krnd1*(kmax-kmin)
     endop
 
@@ -1436,14 +1436,14 @@ Synthesis*[^6^]{#InsertNodeID_9_marker10}  chapter 10.1.4.4)
     ; i_fn1 function for random values
     ; i_fn2 probability functionExponential: Generate a uniformly distributed number between 0 and 1 and take its natural logarithm.
 
-    opcode  rand_probability, k, iii                
+    opcode  rand_probability, k, iii
     inr,ifn1,ifn2   xin
     loop:
     krnd1           random          0,inr
     krnd2           random          0,1
-    k2              table           int(krnd1),ifn2,0       
-                    if      krnd2 > k2   kgoto loop      
-    kout            table           krnd1,ifn1,0            
+    k2              table           int(krnd1),ifn2,0
+                    if      krnd2 > k2   kgoto loop
+    kout            table           krnd1,ifn1,0
                     xout            kout
     endop
 
@@ -1472,7 +1472,7 @@ Synthesis*[^6^]{#InsertNodeID_9_marker10}  chapter 10.1.4.4)
     f5 0 8 -2 400 500 600 800
     f6 0 8  2 .3  .8  .3  .1
 
-    i1 0 10         
+    i1 0 10
     i2 0 10 4 5 6
     </CsScore>
     </CsoundSynthesizer>
@@ -1492,13 +1492,13 @@ numbers wildly jump around.
 
 ::: {.group_img}
 ::: {.image}
-![](static/random4a.gif)   
+![](../resources/images/random4a.gif)   
 :::
 :::
 
 ::: {.group_img}
 ::: {.image}
-![](static/random5a.gif) 
+![](../resources/images/random5a.gif) 
 :::
 :::
 
@@ -1507,17 +1507,17 @@ step a random number *r* to the actual position *x* (*x* += *r*).
 
 **Example 2** 
 
-    x = 0; walk = Table[x += RandomReal[{-.2, .2}], {300}]; 
+    x = 0; walk = Table[x += RandomReal[{-.2, .2}], {300}];
 
 ::: {.group_img}
 ::: {.image}
-![](static/random6a.gif)   
+![](../resources/images/random6a.gif)   
 :::
 :::
 
 ::: {.group_img}
 ::: {.image}
-![](static/random7a.gif)
+![](../resources/images/random7a.gif)
 :::
 :::
 
@@ -1536,21 +1536,21 @@ the velocity if the path exceeds the limits (*min*, *max*): 
 The movement can be damped by decreasing the velocity at every time step
 by a small factor *d*
 
-     v *= (1-d) 
+     v *= (1-d)
 
 **Example 3** 
 
-    x = 0; v = 0; walk = Table[x += v += RandomReal[{-.01, .01}], {300}]; 
+    x = 0; v = 0; walk = Table[x += v += RandomReal[{-.01, .01}], {300}];
 
 ::: {.group_img}
 ::: {.image}
-![](static/random8a.gif)   
+![](../resources/images/random8a.gif)   
 :::
 :::
 
 ::: {.group_img}
 ::: {.image}
-![](static/random9a.gif)
+![](../resources/images/random9a.gif)
 :::
 :::
 
@@ -1567,19 +1567,19 @@ actual acelleration *a*, the change of the aceleration, etc.
 
 **Example 4** 
 
-    x = 0; v = 0; a = 0;  
+    x = 0; v = 0; a = 0;
 
     Table[x += v += a += RandomReal[{-.0001, .0001}], {300}];
 
 ::: {.group_img}
 ::: {.image}
-![](static/random10a_1.gif)  
+![](../resources/images/random10a_1.gif)  
 :::
 :::
 
 ::: {.group_img}
 ::: {.image}
-![](static/random11a.gif)
+![](../resources/images/random11a.gif)
 :::
 :::
 
@@ -1684,7 +1684,7 @@ opcodes are illustrated below.
 
 ::: {.group_img}
 ::: {.image}
-![](static/linrand.png) 
+![](../resources/images/linrand.png) 
 :::
 :::
 
@@ -1692,31 +1692,31 @@ opcodes are illustrated below.
 
 ::: {.group_img}
 ::: {.image}
-![](static/trirand.png)
+![](../resources/images/trirand.png)
 :::
 :::
 
 ::: {.group_img}
 ::: {.image}
-![](static/gauss.png)
+![](../resources/images/gauss.png)
 :::
 :::
 
 ::: {.group_img}
 ::: {.image}
-![](static/exprand.png)
+![](../resources/images/exprand.png)
 :::
 :::
 
 ::: {.group_img}
 ::: {.image}
-![](static/bexprand.png)
+![](../resources/images/bexprand.png)
 :::
 :::
 
 ::: {.group_img}
 ::: {.image}
-![](static/betarand.png)
+![](../resources/images/betarand.png)
 :::
 :::
 
@@ -1740,7 +1740,7 @@ will produce and output something like:
 
 ::: {.group_img}
 ::: {.image}
-![](static/randomh.png){width="568" height="151"}
+![](../resources/images/randomh.png){width="568" height="151"}
 :::
 :::
 
@@ -1753,7 +1753,7 @@ output:
 
 ::: {.group_img}
 ::: {.image}
-![](static/randomi.png){width="567" height="164"}
+![](../resources/images/randomi.png){width="567" height="164"}
 :::
 :::
 
@@ -1776,7 +1776,7 @@ would generate an output something like:
 
 ::: {.group_img}
 ::: {.image}
-![](static/rspline.png){width="565" height="144"} 
+![](../resources/images/rspline.png){width="565" height="144"} 
 :::
 :::
 

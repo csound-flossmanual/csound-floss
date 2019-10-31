@@ -11,7 +11,7 @@ If you start CsoundQt and can open the panels \"Python Console\" and
 
 ::: {.group_img}
 ::: {.image}
-![](static/12c_pythonconsole_etc.png){width="600" height="418"}
+![](../resources/images/12c_pythonconsole_etc.png){width="600" height="418"}
 :::
 :::
 
@@ -50,7 +50,7 @@ If you have CsoundQt running on your computer, you should type the
 following code examples in the Python Console (if only one line) or the
 Python Scratch Pad (if more than one line of code).^4^ 
 
-### Create or Load a csd File 
+### Create or Load a csd File
 
 Type q.newDocument(\'cs\_floss\_1.csd\') in your Python Console and hit
 the Return key. This will create a new csd file named
@@ -59,7 +59,7 @@ integer (in the screenshot below: 3) as index for this file.
 
 ::: {.group_img}
 ::: {.image}
-![](static/12c_01.png){width="599" height="237"}
+![](../resources/images/12c_01.png){width="599" height="237"}
 :::
 :::
 
@@ -83,7 +83,7 @@ q.loadDocument(\'cs\_floss\_1.csd\', True) or
 q.loadDocument(\'cs\_floss\_1.csd\', 1), the csd file should start
 immediately.
 
-### Run, Pause or Stop a csd File 
+### Run, Pause or Stop a csd File
 
 For the next methods, we first need some more code in our csd. So let
 your \"cs\_floss\_1.csd\" look like this:
@@ -131,7 +131,7 @@ q.pause() ; this will start a new performance. With
 
 you can stop the current performance.
 
-### Access to Different csd Tabs via Indices 
+### Access to Different csd Tabs via Indices
 
 The play(), pause() and stop() method, as well as other methods in
 CsoundQt\'s integrated Python, allow also to access csd file tabs which
@@ -172,7 +172,7 @@ this:
 
 ::: {.group_img}
 ::: {.image}
-![](static/12c_02.png){width="600" height="300"}
+![](../resources/images/12c_02.png){width="600" height="300"}
 :::
 :::
 
@@ -189,7 +189,7 @@ Configure-\>General \...
 
 ::: {.group_img}
 ::: {.image}
-![](static/12c_03.png){width="396" height="127"}
+![](../resources/images/12c_03.png){width="396" height="127"}
 :::
 :::
 
@@ -201,7 +201,7 @@ running files, use:
 To set a csd as active, use **setDocument**(index). This will have the
 same effect as clicking on the tab. 
 
-### Send Score Events 
+### Send Score Events
 
 Now comment out the score line in the file \"cs\_floss\_2.csd\", or
 simply remove it. When you now start Csound, this tab should run.^6^ Now
@@ -211,7 +211,7 @@ execute this command:
 
 This should trigger instrument 1 for two seconds. \
 
-### Query File Name or Path 
+### Query File Name or Path
 
 In case you need to know the name^7^  or the path of a csd file, you
 have these functions:
@@ -260,7 +260,7 @@ One of the main features of Python scripting in CsoundQt is the ability
 to edit any section of a csd file. There are several \"get\" functions,
 to query text, and also \"set\" functions to change or insert text.
 
-### Get Text from a csd File 
+### Get Text from a csd File
 
 Make sure your \"cs\_floss\_2.csd\" is the active tab, and execute the
 following python code lines:
@@ -297,7 +297,7 @@ As usual, you can specify any of the loaded csds via its index. So
 calling q.getOrc(3) instead of q.getOrc()will return the orc text of the
 csd with index 3, instead of the orc text of the currently active csd.
 
-### Set Text in a csd File 
+### Set Text in a csd File
 
 Set the cursor anywhere in your active csd, and execute the following
 line in the Python Console:
@@ -321,7 +321,7 @@ Text can also be inserted to individual sections using the functions:
 
 Note that the whole section will be overwritten with the string *text*.
 
-### Opcode Exists 
+### Opcode Exists
 
 You can ask whether a string is an opcode name, or not, with the
 function **opcodeExtists**, for instance:
@@ -411,7 +411,7 @@ something like this as text.
 
 ::: {.group_img}
 ::: {.image}
-![](static/12c_04.png){width="600" height="381"}
+![](../resources/images/12c_04.png){width="600" height="381"}
 :::
 :::
 
@@ -421,7 +421,7 @@ strange unicode string as return value in the Python Console:
 
 ::: {.group_img}
 ::: {.image}
-![](static/12c_05.png){width="400" height="289"}
+![](../resources/images/12c_05.png){width="400" height="289"}
 :::
 :::
 
@@ -429,7 +429,7 @@ The string *u\'{3a171aa2-4cf8-4f05-9f30-172863909f56}\'* is a
 \"universally unique identifier\" (uuid). Each widget can be accessed by
 this ID.
 
-### Specifying the Common Properties as Arguments 
+### Specifying the Common Properties as Arguments
 
 Instead of having a live talk with the properties dialog, we can specify
 all properties as arguments for the createNewLabel method:
@@ -440,7 +440,7 @@ This should be the result:
 
 ::: {.group_img}
 ::: {.image}
-![](static/12c_06.png){width="402" height="297"}
+![](../resources/images/12c_06.png){width="402" height="297"}
 :::
 :::
 
@@ -452,7 +452,7 @@ widget at the same position and with the same name in the first tab:
 
     q.createNewLabel(200, 100, "second_label", 0)
 
-### Setting the Specific Properties 
+### Setting the Specific Properties
 
 Each widget has a xy position and a channel name.^9^  But the other
 properties depend on the type of widget. A Display has name, width and
@@ -465,7 +465,7 @@ Display widget. This command creates a Display widget with channel name
 
 ::: {.group_img}
 ::: {.image}
-![](static/12c_07.png){width="501" height="297"}
+![](../resources/images/12c_07.png){width="501" height="297"}
 :::
 :::
 
@@ -477,7 +477,7 @@ And this sets the text to a new string:^10^ 
 
 ::: {.group_img}
 ::: {.image}
-![](static/12c_08.png){width="506" height="310"}
+![](../resources/images/12c_08.png){width="506" height="310"}
 :::
 :::
 
@@ -496,11 +496,11 @@ use it implicitely, for instance in this command:
 
 ::: {.group_img}
 ::: {.image}
-![](static/12c_09.png){width="514" height="340"}
+![](../resources/images/12c_09.png){width="514" height="340"}
 :::
 :::
 
-### Getting the Property Names and Values 
+### Getting the Property Names and Values
 
 You may have asked how to know that the visible text of a Display widget
 is called \"QCS\_label\" and the fontsize \"QCS\_fontsize\". If you do
@@ -552,14 +552,14 @@ For getting the uuid strings of all widgets in the active csd tab, type
 
 ::: {.group_img}
 ::: {.image}
-![](static//_edit/static/12C_10.png){width="514" height="317"}
+<!-- ![](../resources/images/12C_10.png){width="514" height="317"} -->
 :::
 :::
 
 As always, the uuid strings of other csd tabs can be accessed via the
 index.
 
-### Some Examples for Creating and Modifying Widgets 
+### Some Examples for Creating and Modifying Widgets
 
 Create a new slider with the channel name \"level\" at position 10,10 in
 the (already open but not necessarily active) document \"test.csd\":
@@ -677,14 +677,14 @@ This is much more handy than the general method using setWidgetProperty:
     py> q.setWidgetProperty("level", "QCS_value", 1)
     py> q.setWidgetProperty("message", "QCS_label", "Nono")
 
-### Presets 
+### Presets
 
 Now right-click in the widget panel and choose Store Preset -\> New
 Preset:
 
 ::: {.group_img}
 ::: {.image}
-![](static/12c_11.png){width="449" height="347"} 
+![](../resources/images/12c_11.png){width="449" height="347"}
 :::
 :::
 
@@ -731,7 +731,7 @@ next three seconds in Preset 1, and finally again in Preset 0:
     i "loadPreset" + . 0
     </CsScore>
     </CsoundSynthesizer>
-    ;example by tarmo johannes and joachim heintz 
+    ;example by tarmo johannes and joachim heintz
 
 Csound Functions
 ----------------
@@ -792,7 +792,7 @@ which is already defined.
 
 []{#Creating_simple_GUIs}
 
-Creating Own GUIs with PythonQt 
+Creating Own GUIs with PythonQt
 --------------------------------
 
 One of the very powerful features of using Python inside CsoundQt is the
@@ -928,22 +928,22 @@ your active tab in CsoundQt:\
     #
 
     instr 1
-            $MAINJOB(1)     
+            $MAINJOB(1)
     endin
 
     instr 2
-            $MAINJOB(2)     
+            $MAINJOB(2)
     endin
 
     instr 3
-            $MAINJOB(3)     
+            $MAINJOB(3)
     endin
 
     instr sound
             ichar = p4
             ifreq = p5
             itype = p6
-            kenv linen 0.1,0.1, p3,0.5      
+            kenv linen 0.1,0.1, p3,0.5
             if itype== 1 then
                     asig pluck kenv,ifreq,ifreq,0, 3, 0
             elseif itype==2 then
@@ -977,10 +977,10 @@ different durations.\
         scoreLine = "f0 3600\n" + "i " + instrSpinBox.text + " 0 " + durSpinBox.text + ' "' + par1LineEdit.text + "\""
         print scoreLine
         q.setSco(scoreLine, csdIndex)
-            
+
     def play(): # play file with index csdIndex
         print "PLAY"
-        q.play(csdIndex)    
+        q.play(csdIndex)
 
     def send(): # read input from UI send live event
         scoreLine = "i " + instrSpinBox.text + " 0 " + durSpinBox.text + ' "' + par1LineEdit.text + "\""
@@ -1126,7 +1126,7 @@ the Python code in the Python Scratch Pad.^13^ \
     k10    randh   1, k6
     aright =       ((a3 * k10) * .3)+((a5 * k10) * .7)
     klevel invalue "red"
-    klevel port klevel,0.05 
+    klevel port klevel,0.05
            outs    aleft*klevel, aright*klevel
     garvb  =       garvb + (a3 * p10)*klevel
     endin
@@ -1157,7 +1157,7 @@ the Python code in the Python Scratch Pad.^13^ \
     asig   gbuzz    kenv, ifreq + k3, k5, ksweep, k1, 15
 
     klevel invalue "blue"
-    klevel port klevel,0.05 
+    klevel port klevel,0.05
     asig = asig*klevel
            outs     asig, asig
     garvb  =        garvb + (asig * p7)
@@ -1208,7 +1208,7 @@ the Python code in the Python Scratch Pad.^13^ \
     p4 = 1/10                          ; p4 = panrate
     k1     oscil   .5, p4, 1
     k2     =       .5 + k1
-    k3     =       1 - k2   
+    k3     =       1 - k2
     asig   reverb  garvb, 2.1
            outs    asig * k2, (asig * k3) * (-1)
     garvb  =       0
@@ -1259,32 +1259,32 @@ the Python code in the Python Scratch Pad.^13^ \
 List of PyQcsObject Methods in CsoundQt
 ---------------------------------------
 
-### Load/Create/Activate a csd File 
+### Load/Create/Activate a csd File
 
     int loadDocument(QString name, bool runNow = false)
     int getDocument(QString name = "")
     int newDocument(QString name)
-    void setDocument(int index) 
+    void setDocument(int index)
 
-### Play/Pause/Stop a csd File 
+### Play/Pause/Stop a csd File
 
     void play(int index = -1, bool realtime = true)
     void pause(int index = -1)
     void stop(int index = -1)
-    void stopAll() 
+    void stopAll()
 
-### Send Score Events 
+### Send Score Events
 
     void sendEvent(int index, QString events)
     void sendEvent(QString events)
-    void schedule(QVariant time, QVariant event) 
+    void schedule(QVariant time, QVariant event)
 
-### Query File Name/Path 
+### Query File Name/Path
 
     QString getFileName(int index = -1)
-    QString getFilePath(int index = -1) 
+    QString getFilePath(int index = -1)
 
-### Get csd Text 
+### Get csd Text
 
     QString getSelectedText(int index = -1, int section = -1)
     QString getCsd(int index = -1)
@@ -1294,9 +1294,9 @@ List of PyQcsObject Methods in CsoundQt
     QString getWidgetsText(int index = -1)
     QString getSelectedWidgetsText(int index = -1)
     QString getPresetsText(int index = -1)
-    QString getOptionsText(int index = -1) 
+    QString getOptionsText(int index = -1)
 
-### Set csd Text 
+### Set csd Text
 
     void insertText(QString text, int index = -1, int section = -1)
     void setCsd(QString text, int index = -1)
@@ -1305,13 +1305,13 @@ List of PyQcsObject Methods in CsoundQt
     void setSco(QString text, int index = -1)
     void setWidgetsText(QString text, int index = -1)
     void setPresetsText(QString text, int index = -1)
-    void setOptionsText(QString text, int index = -1) 
+    void setOptionsText(QString text, int index = -1)
 
-### Opcode Exists 
+### Opcode Exists
 
-    bool opcodeExists(QString opcodeName) 
+    bool opcodeExists(QString opcodeName)
 
-### Create Widgets 
+### Create Widgets
 
     QString createNewLabel(int x = 0, int y = 0, QString channel = QString(), int index = -1)
     QString createNewDisplay(int x = 0, int y = 0, QString channel = QString(), int index = -1)
@@ -1329,34 +1329,34 @@ List of PyQcsObject Methods in CsoundQt
     QString createNewGraph(int x = 0, int y = 0, QString channel = QString(), int index = -1)
     QString createNewScope(int x = 0, int y = 0, QString channel = QString(), int index = -1)
 
-### Query Widgets 
+### Query Widgets
 
     QVariant getWidgetProperty(QString widgetid, QString property, int index= -1)
     double getChannelValue(QString channel, int index = -1)
     QString getChannelString(QString channel, int index = -1)
     QStringList listWidgetProperties(QString widgetid, int index = -1)
-    QStringList getWidgetUuids(int index = -1) 
+    QStringList getWidgetUuids(int index = -1)
 
-### Modify Widgets 
+### Modify Widgets
 
     void setWidgetProperty(QString widgetid, QString property, QVariant value, int index= -1)
     void setChannelValue(QString channel, double value, int index = -1)
-    void setChannelString(QString channel, QString value, int index = -1) 
+    void setChannelString(QString channel, QString value, int index = -1)
 
-### Delete Widgets 
+### Delete Widgets
 
-    bool destroyWidget(QString widgetid) 
+    bool destroyWidget(QString widgetid)
 
-### Presets 
+### Presets
 
-    void loadPreset(int presetIndex, int index = -1) 
+    void loadPreset(int presetIndex, int index = -1)
 
-### Live Event Sheet 
+### Live Event Sheet
 
     QuteSheet* getSheet(int index = -1, int sheetIndex = -1)
-    QuteSheet* getSheet(int index, QString sheetName) 
+    QuteSheet* getSheet(int index, QString sheetName)
 
-### Csound / API 
+### Csound / API
 
     QString getVersion()
     void refresh()
@@ -1369,7 +1369,7 @@ List of PyQcsObject Methods in CsoundQt
     int getKsmps(int index = -1)
     int getNumChannels(int index = -1)
     MYFLT *getTableArray(int ftable, int index = -1)
-    void registerProcessCallback(QString func, int skipPeriods = 0, int index = -1) 
+    void registerProcessCallback(QString func, int skipPeriods = 0, int index = -1)
 
  \
 

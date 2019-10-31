@@ -82,12 +82,10 @@ will reveal a dialogue window looking something like this:
 
 ::: {.group_img}
 ::: {.image}
-![](static/csoundqtpvanal_1.jpg)
+![](../resources/images/csoundqtpvanal_1.jpg)
 :::
 :::
 
 Especially helpful is the fact that we are also automatically provided
 with [pvanal](http://www.csounds.com/manual/html/pvanal.html)\'s manual
 page.
-
-

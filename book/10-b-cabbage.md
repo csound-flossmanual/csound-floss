@@ -5,7 +5,7 @@ CABBAGE
 
 ::: {.group_img}
 ::: {.image}
-![](static/hlogo_blue_text.png){width="420" height="114"}
+![](../resources/images/hlogo_blue_text.png){width="420" height="114"}
 :::
 :::
 
@@ -58,7 +58,7 @@ instrument.\
 
 ::: {.group_img}
 ::: {.image}
-![](static/slide-2.jpg){width="531" height="285"}
+![](../resources/images/slide-2.jpg){width="531" height="285"}
 :::
 :::
 
@@ -129,7 +129,7 @@ need to declare \"-+RTMIDI=NULL -M0\" in the CsOptions.\
     f1 0 1024 10 1
     f0 3600
     </CsScore>
-    </CsoundSynthesizer>         
+    </CsoundSynthesizer>
 
 \
 You will notice that a -n and -d are passed to Csound in the
@@ -201,7 +201,7 @@ volume of our oscillator.\
 
 ::: {.group_img}
 ::: {.image}
-![](static/simplesynth_1.PNG){width="253" height="127"}
+![](../resources/images/simplesynth_1.PNG){width="253" height="127"}
 :::
 :::
 
@@ -269,7 +269,7 @@ stereo input and outputs a stereo signal.\
     f1 0 4096 10 1
     i1 0 1000
     </CsScore>
-    </CsoundSynthesizer> 
+    </CsoundSynthesizer>
 
 \
 The above instrument uses 3 sliders to control the reverb size, the
@@ -291,7 +291,7 @@ DAW. \
 
 ::: {.group_img}
 ::: {.image}
-![](static/simplereverb_1.PNG){width="142" height="96"}
+![](../resources/images/simplereverb_1.PNG){width="142" height="96"}
 :::
 :::
 
@@ -304,7 +304,7 @@ The gentable widget can be used to display any Csound function table.
 
 ::: {.group_img}
 ::: {.image}
-![](static/cabbagegentable.png)
+![](../resources/images/cabbagegentable.png)
 :::
 :::
 
@@ -330,7 +330,7 @@ this using the \'soundfiler\' widget.
 
 ::: {.group_img}
 ::: {.image}
-![](static/cabbagesoundfiler.png)
+![](../resources/images/cabbagesoundfiler.png)
 :::
 :::
 
@@ -353,7 +353,7 @@ large numbers of widgets in a single step.
 
 ::: {.group_img}
 ::: {.image}
-![](static/cabbagewidgetarray.png)
+![](../resources/images/cabbagewidgetarray.png)
 :::
 :::
 
@@ -397,7 +397,7 @@ type) employs two control knobs so that it can output two values.
 
 ::: {.group_img}
 ::: {.image}
-![](static/cabbagerangeslider.png) 
+![](../resources/images/cabbagerangeslider.png) 
 :::
 :::
 

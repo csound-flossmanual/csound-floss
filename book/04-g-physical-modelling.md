@@ -52,7 +52,7 @@ unimpeded following a constant velocity:
 
 ::: {.group_img}
 ::: {.image}
-![](static/04g01bild1a.png){width="600" height="556"} 
+![](../resources/images/04g01bild1a.png){width="600" height="556"} 
 :::
 :::
 
@@ -71,7 +71,7 @@ mass so that for a factor of c=0.4 the next position will be:
 
 ::: {.group_img}
 ::: {.image}
-![](static/04g01bild2a.png){width="600" height="556"} 
+![](../resources/images/04g01bild2a.png){width="600" height="556"} 
 :::
 :::
 
@@ -134,7 +134,7 @@ The output starts with:
 
 ::: {.group_img}
 ::: {.image}
-![](static/04g01bild4a.png) 
+![](../resources/images/04g01bild4a.png) 
 :::
 :::
 
@@ -277,7 +277,7 @@ For a mass with initial position *x* = 300m (above ground) and velocity
 
 ::: {.group_img}
 ::: {.image}
-![](static/physical-model-1.gif)             
+![](../resources/images/physical-model-1.gif)             
 :::
 :::
 
@@ -290,7 +290,7 @@ Example 2: The acceleration *a* of a mass on a spring is proportional
 
 ::: {.group_img}
 ::: {.image}
-![](static/physical-model-2.gif)
+![](../resources/images/physical-model-2.gif)
 :::
 :::
 
@@ -306,13 +306,13 @@ every time step by a certain amount *d*:
 Example 3: Spring with damping (see *lin\_reson.csd* below): 
 
     d = 0.2; c = .3; x = 0; v = 1;
-    Table[a = -c*x; v += a; v *= (1 - d); x += v, {22}];  
+    Table[a = -c*x; v += a; v *= (1 - d); x += v, {22}];
 
             
 
 ::: {.group_img}
 ::: {.image}
-![](static/physical-model-3.gif)
+![](../resources/images/physical-model-3.gif)
 :::
 :::
 
@@ -348,7 +348,7 @@ input)
 
 ::: {.group_img}
 ::: {.image}
-![](static/physical-model-4.gif)
+![](../resources/images/physical-model-4.gif)
 :::
 :::
 
@@ -408,7 +408,7 @@ This figure shows the function --.3sin(*x*)   
 
 ::: {.group_img}
 ::: {.image}
-![](static/physical-model-5.gif)
+![](../resources/images/physical-model-5.gif)
 :::
 :::
 
@@ -423,7 +423,7 @@ encreasing amplitude and that the pendulum can turn around.
 
 ::: {.group_img}
 ::: {.image}
-![](static/physical-model-6.gif)
+![](../resources/images/physical-model-6.gif)
 :::
 :::
 
@@ -442,7 +442,7 @@ Example 6: *a* = *f*(*x*) = -- *c*~1~x + *c*~2~sin(*c*~3~x) 
 
 ::: {.group_img}
 ::: {.image}
-![](static/physical-model-7.gif) 
+![](../resources/images/physical-model-7.gif) 
 :::
 :::
 
@@ -452,7 +452,7 @@ Example 6: *a* = *f*(*x*) = -- *c*~1~x + *c*~2~sin(*c*~3~x) 
 
 ::: {.group_img}
 ::: {.image}
-![](static/physical-model-8.gif)
+![](../resources/images/physical-model-8.gif)
 :::
 :::
 
@@ -499,7 +499,7 @@ Example 6: *a* = *f*(*x*) = -- *c*~1~x + *c*~2~sin(*c*~3~x) 
     </CsScore>
     </CsoundSynthesizer>
     ;example by martin neukom
-     
+
 
 ###  **The Van der Pol Oscillator**
 
@@ -530,7 +530,7 @@ are called *self-sustained oscillators*. 
 
 ::: {.group_img}
 ::: {.image}
-![](static/physical-model-9.gif)
+![](../resources/images/physical-model-9.gif)
 :::
 :::
 
@@ -559,19 +559,19 @@ values of μ. 
 
 ::: {.group_img}
 ::: {.image}
-![](static/physical-model-11.gif)  
+![](../resources/images/physical-model-11.gif)  
 :::
 :::
 
 ::: {.group_img}
 ::: {.image}
-![](static/physical-model-12.gif)  
+![](../resources/images/physical-model-12.gif)  
 :::
 :::
 
 ::: {.group_img}
 ::: {.image}
-![](static/physical-model-13.gif) 
+![](../resources/images/physical-model-13.gif) 
 :::
 :::
 
@@ -659,13 +659,13 @@ of higher order synchronization (figure d). 
 
 ::: {.group_img}
 ::: {.image}
-![](static/physical-model-21.gif)   
+![](../resources/images/physical-model-21.gif)   
 :::
 :::
 
 ::: {.group_img}
 ::: {.image}
-![](static/physical-model-22.gif)
+![](../resources/images/physical-model-22.gif)
 :::
 :::
 
@@ -675,13 +675,13 @@ of higher order synchronization (figure d). 
 
 ::: {.group_img}
 ::: {.image}
-![](static/physical-model-23.gif)   
+![](../resources/images/physical-model-23.gif)   
 :::
 :::
 
 ::: {.group_img}
 ::: {.image}
-![](static/physical-model-24.gif) 
+![](../resources/images/physical-model-24.gif) 
 :::
 :::
 
@@ -857,7 +857,7 @@ can be seen, and also the rich overtone structure:
 
 ::: {.group_img}
 ::: {.image}
-![](static/04g05auda.png)
+![](../resources/images/04g05auda.png)
 :::
 :::
 
@@ -1041,7 +1041,7 @@ and some reverb is added.
     i 2 0 480
     </CsScore>
 
-    </CsoundSynthesizer> 
+    </CsoundSynthesizer>
 
 All of the wg- family of opcodes are worth exploring and often the
 approach taken here - exploring each input parameter in isolation whilst

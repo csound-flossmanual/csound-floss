@@ -120,7 +120,7 @@ with headphones.)
     i 1 0 3
     i 2 3 10
     </CsScore>
-    </CsoundSynthesizer> 
+    </CsoundSynthesizer>
 
 You should hear first the \"fox.wav\" sample, and then the slightly
 delayed live input signal. The delay (or latency) that you will observe
@@ -151,7 +151,7 @@ resynthesis:
 
 ::: {.group_img}
 ::: {.image}
-![](static/04ischema_1.png){width="600" height="104"}
+![](../resources/images/04ischema_1.png){width="600" height="104"}
 :::
 :::
 
@@ -355,7 +355,7 @@ sound B: 
                          gifftsiz, giovlp, githresh
     fsigB     pvstanal  1, giamp, gipitch, gifilB, gidet, giwrap, giskip,\
                          gifftsiz, giovlp, githresh
-    fvoc      pvsvoc    fsigA, fsigB, 1, 1  
+    fvoc      pvsvoc    fsigA, fsigB, 1, 1
     aout      pvsynth   fvoc
     aenv      linen     aout, .1, p3, .5
               out       aenv
@@ -404,7 +404,7 @@ The next example introduces *pvscross*:
                         gifftsiz, giovlp, githresh
     fsigB     pvstanal  .5, giamp, gipitch, gifilB, gidet, giwrap, giskip,\
                          gifftsiz, giovlp, githresh
-    fcross    pvscross  fsigA, fsigB, 0, 1  
+    fcross    pvscross  fsigA, fsigB, 0, 1
     aout      pvsynth   fcross
     aenv      linen     aout, .1, p3, .5
               out       aenv
@@ -454,7 +454,7 @@ the amplitudes are strong enough, you will hear a resonating effect:
                          gifftsiz, giovlp, githresh
     fsigB     pvstanal  2, 5, gipitch, gifilB, gidet, giwrap, giskip,\
                          gifftsiz, giovlp, githresh
-    ffilt     pvsfilter fsigA, fsigB, 1    
+    ffilt     pvsfilter fsigA, fsigB, 1
     aout      pvsynth   ffilt
     aenv      linen     aout, .1, p3, .5
               out       aenv

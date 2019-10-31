@@ -11,7 +11,7 @@ volume/amplitude of an other. 
 
 ::: {.group_img .image-layout-1image_1caption_bottom style="text-align: start;"}
 ::: {.image .bk-image-editor style="width: 434.347px; height: 554.709px;"}
-![](static/am_191013_150dpi.png)
+![](../resources/images/am_191013_150dpi.png)
 :::
 
 ::: {.caption_small style="width: 434.347px;"}
@@ -103,7 +103,7 @@ frequency.
 
 ::: {.group_img .image-layout-1image_1caption_bottom style="text-align: start;"}
 ::: {.image .bk-image-editor style="width: 674.023px; height: 379.923px;"}
-![](static/rm_191013_150dpi.png)
+![](../resources/images/rm_191013_150dpi.png)
 :::
 
 ::: {.caption_small style="width: 674.023px;"}

@@ -70,7 +70,6 @@ def open_file(path: str,
 def find_local_images(markdown_files: Sequence[str]) -> Sequence[str]:
     from urllib.parse import urlparse
     image_pat = re.compile(r'^\s*!\[.*\]\(([^\)]+)\).*$')
-
     images = []
     for f in markdown_files:
         if not os.path.exists(f):
@@ -83,7 +82,11 @@ def find_local_images(markdown_files: Sequence[str]) -> Sequence[str]:
                 p = urlparse(m.group(1))
                 if p.scheme:
                     continue
-                images.append(m.group(1))
+                # let's allow external images
+                if "www." in m.group(1) or "http://" in m.group(1) or "https://" in m.group(1):
+                    continue
+                # replace ../ prefixes from image paths
+                images.append(m.group(1).replace("../", ""))
 
     return images
 
@@ -299,6 +302,8 @@ def preprocess_markdown(
                     t.write(f'<div class="book_section" id="section_{cls}">\n')
                 with open_file(f, mode='r') as input_file:
                     for line in input_file.readlines():
+                        # (warning hack!) replace relative path of resources - hlolli
+                        line = line.replace("../resources", "resources")
                         t.write(f"{line.rstrip()}\n")
                 # Force a newline after each file.
                 t.write("\n")

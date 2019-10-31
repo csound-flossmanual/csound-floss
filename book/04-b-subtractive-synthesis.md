@@ -72,7 +72,7 @@ A schematic for this instrument is shown below:
 
 ::: {.group_img}
 ::: {.image}
-![](static/2oscsynthflow.png){width="625" height="388"}
+![](../resources/images/2oscsynthflow.png){width="625" height="388"}
 :::
 :::
 
@@ -281,7 +281,7 @@ A flow diagram for this instrument is shown below:
 
 ::: {.group_img}
 ::: {.image}
-![](static/22reson.png){width="669" height="258"}
+![](../resources/images/22reson.png){width="669" height="258"}
 :::
 :::
 
@@ -454,7 +454,7 @@ A flow diagram for this instrument is shown below:
 
 ::: {.group_img}
 ::: {.image}
-![](static/vowelfilters.png)
+![](../resources/images/vowelfilters.png)
 :::
 :::
 

@@ -18,7 +18,7 @@ Run and Render buttons.
 
 ::: {.group_img}
 ::: {.image}
-![](static/snapshot1.png){width="600" height="371"}
+![](../resources/images/snapshot1.png){width="600" height="371"}
 :::
 :::
 
@@ -30,7 +30,7 @@ or chnset opcode.
 
 ::: {.group_img}
 ::: {.image}
-![](static/snapshot2.png){width="600" height="466"}
+![](../resources/images/snapshot2.png){width="600" height="466"}
 :::
 :::
 
@@ -50,7 +50,7 @@ scripting (see also chapter 12C).
 
 ::: {.group_img}
 ::: {.image}
-![](static/snapshot3.png){width="600" height="479"}
+![](../resources/images/snapshot3.png){width="600" height="479"}
 :::
 :::
 
@@ -77,7 +77,7 @@ parameters in each tab are described below for each tab.
 
 ::: {.group_img}
 ::: {.image}
-![](static/10a_01_run.png){width="500" height="517"}
+![](../resources/images/10a_01_run.png){width="500" height="517"}
 :::
 :::
 
@@ -283,7 +283,7 @@ button (or select the menu item Control -\> Run Csound).
 
 ::: {.group_img}
 ::: {.image}
-![](static/10a_02_general.png){width="500" height="519"}
+![](../resources/images/10a_02_general.png){width="500" height="519"}
 :::
 :::
 
@@ -382,7 +382,7 @@ There are some mixed options at the bottom of this tab:
 
 ::: {.group_img}
 ::: {.image}
-![](static/10a_03_widgets.png){width="500" height="520"}
+![](../resources/images/10a_03_widgets.png){width="500" height="520"}
 :::
 :::
 
@@ -452,7 +452,7 @@ There are some mixed options at the bottom of this tab:
 
 ::: {.group_img}
 ::: {.image}
-![](static/10a_04_editor.png){width="500" height="517"}  
+![](../resources/images/10a_04_editor.png){width="500" height="517"}  
 :::
 :::
 
@@ -466,7 +466,7 @@ Only one option needs some explanation:
 
 ::: {.group_img}
 ::: {.image}
-![](static/10a_05_environment_1.png){width="500" height="515"} 
+![](../resources/images/10a_05_environment_1.png){width="500" height="515"} 
 :::
 :::
 
@@ -519,7 +519,7 @@ users.
 
 ::: {.group_img}
 ::: {.image}
-![](static/10a_06_external.png){width="500" height="522"} 
+![](../resources/images/10a_06_external.png){width="500" height="522"} 
 :::
 :::
 
@@ -536,7 +536,7 @@ for new CSDs. Something like this can be a great timesaver:
 
 ::: {.group_img}
 ::: {.image}
-![](static/10a_07_template.png){width="500" height="521"}
+![](../resources/images/10a_07_template.png){width="500" height="521"}
 :::
 :::
 

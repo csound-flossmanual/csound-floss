@@ -80,7 +80,7 @@ power of 2 table sizes will ensure maximum compatibility.
 
     sr      =       44100
     ksmps   =       32
-    nchnls  =       1       
+    nchnls  =       1
     0dbfs   =       1
 
     ; STORE AUDIO IN RAM USING GEN01 FUNCTION TABLE
@@ -149,7 +149,7 @@ to use this example.
 
     sr      =       44100
     ksmps   =       32
-    nchnls  =       1       
+    nchnls  =       1
 
       instr 1
     ; PRINT INSTRUCTIONS
@@ -312,7 +312,7 @@ creating a stereo buffer:
     iftL      ftgen     inum, 0, -(ilen*sr), 2, 0
     iftR      ftgen     inum, 0, -(ilen*sr), 2, 0
               xout      iftL, iftR
-     endop 
+     endop
 
 This simplifies the procedure of creating a record/play buffer, because
 the user is just asked for the length of the buffer. A number can be
@@ -487,15 +487,13 @@ be \'imagined\' between two existing table value.
 
 ::: {.group_img}
 ::: {.image}
-![](static//_v/1.0/http://en.flossmanuals.net/floss/pub/Csound/){width="0"
-height="0"}
+![](../resources/images//_v/1.0/http://en.flossmanuals.net/floss/pub/Csound/){width="0" height="0"}
 :::
 :::
 
 ::: {.group_img}
 ::: {.image}
-![101124table3](static/csound-picts-06_samples-101124table3-en.png "101124table3"){width="605"
-height="643"} 
+![101124table3](../resources/images/csound-picts-06_samples-101124table3-en.png){width="605" height="643"}
 :::
 :::
 
@@ -619,7 +617,7 @@ CsoundQt version of this example for a more interactive version.)
     kfirst          =               0 ;end of first cycle in wrap = 0
       endif
      ;sound out if end of table has not yet reached
-    asig            table3          andx, ift, 1    
+    asig            table3          andx, ift, 1
     kprevndx        =               kndx ;next previous is this index
      ;2. WRAP BETWEEN START AND END (kwrap=1)
      elseif kwrap == 1 then
@@ -645,7 +643,7 @@ CsoundQt version of this example for a more interactive version.)
     kfqrel          =               kfqbas / (1-kstart01) ;phasor freq so that 0-1 values match distance start-end
     andxrel phasor  kfqrel ;index 0-1 for distance start-end
     andx            =               andxrel * (1-kstart01) + kstart01 ;final index for reading the table
-    asig            table3          andx, ift, 1    
+    asig            table3          andx, ift, 1
      endif
     else ;if either not started or finished at wrap=0
     asig            =               0 ;don't produce any sound

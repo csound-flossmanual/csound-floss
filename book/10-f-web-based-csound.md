@@ -243,7 +243,7 @@ Here is a minimal HTML example showing the use of Csound.
     </body>
     </html>
 
-### Limitations 
+### Limitations
 
 The following limitations apply:
 
@@ -260,7 +260,7 @@ More information on Csound for pNaCl can be found
 
 ::: {.group_img}
 ::: {.image}
-![](static/pnacl.png) 
+![](../resources/images/pnacl.png)
 :::
 :::
 
@@ -451,7 +451,7 @@ the button so that when pressed it will run a performance of csound. 
     };
     </script>
     </body>
-    </html> 
+    </html>
 
 Here we can see that the button *startButton* is instantiated using the
 *document.createElement* method. The buttons label is set using the

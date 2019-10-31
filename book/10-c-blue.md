@@ -44,7 +44,7 @@ Csound code.\
 
 ::: {.group_img}
 ::: {.image}
-![](static/blue_2012-10-29_generic-orc_3.png)
+![](../resources/images/blue_2012-10-29_generic-orc_3.png)
 :::
 :::
 
@@ -70,7 +70,7 @@ depending on their facilities and purposes.
 
 ::: {.group_img}
 ::: {.image}
-![](static/blue_2012-10-29_timelinesoundobject.png)
+![](../resources/images/blue_2012-10-29_timelinesoundobject.png)
 :::
 :::
 
@@ -154,7 +154,7 @@ GUI.\
 
 ::: {.group_img}
 ::: {.image}
-![](static/blue_2012-10-29_bsb-interface.png)
+![](../resources/images/blue_2012-10-29_bsb-interface.png)
 :::
 :::
 
@@ -179,7 +179,7 @@ changes over time.
 
 ::: {.group_img}
 ::: {.image}
-![](static/blue_2012-10-29_mixer.png)
+![](../resources/images/blue_2012-10-29_mixer.png)
 :::
 :::
 

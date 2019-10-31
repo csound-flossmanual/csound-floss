@@ -957,7 +957,7 @@ defined. Here are some examples of GEN08 tables:
 
 ::: {.group_img}
 ::: {.image}
-![](static/gen08_1.png) 
+![](../resources/images/gen08_1.png) 
 :::
 :::
 
@@ -967,7 +967,7 @@ defined. Here are some examples of GEN08 tables:
 
 ::: {.group_img}
 ::: {.image}
-![](static/gen08_2.png)
+![](../resources/images/gen08_2.png)
 :::
 :::
 
@@ -977,7 +977,7 @@ defined. Here are some examples of GEN08 tables:
 
 ::: {.group_img}
 ::: {.image}
-![](static/gen08_3.png)
+![](../resources/images/gen08_3.png)
 :::
 :::
 
@@ -987,7 +987,7 @@ defined. Here are some examples of GEN08 tables:
 
 ::: {.group_img}
 ::: {.image}
-![](static/gen08_4.png) 
+![](../resources/images/gen08_4.png) 
 :::
 :::
 
@@ -1013,7 +1013,7 @@ examples of GEN16 function tables:
 
 ::: {.group_img}
 ::: {.image}
-![](static/gen16_1.png)
+![](../resources/images/gen16_1.png)
 :::
 :::
 
@@ -1023,7 +1023,7 @@ examples of GEN16 function tables:
 
 ::: {.group_img}
 ::: {.image}
-![](static/gen16_2.png)
+![](../resources/images/gen16_2.png)
 :::
 :::
 
@@ -1033,7 +1033,7 @@ examples of GEN16 function tables:
 
 ::: {.group_img}
 ::: {.image}
-![](static/gen16_3.png) 
+![](../resources/images/gen16_3.png) 
 :::
 :::
 
@@ -1043,7 +1043,7 @@ examples of GEN16 function tables:
 
 ::: {.group_img}
 ::: {.image}
-![](static/gen16_4.png) 
+![](../resources/images/gen16_4.png) 
 :::
 :::
 
@@ -1053,7 +1053,7 @@ examples of GEN16 function tables:
 
 ::: {.group_img}
 ::: {.image}
-![](static/gen16_5.png) 
+![](../resources/images/gen16_5.png) 
 :::
 :::
 
@@ -1079,7 +1079,7 @@ granular synthesis. Below are some examples of GEN19:
 
 ::: {.group_img}
 ::: {.image}
-![](static/gen19_1.png)
+![](../resources/images/gen19_1.png)
 :::
 :::
 
@@ -1089,7 +1089,7 @@ granular synthesis. Below are some examples of GEN19:
 
 ::: {.group_img}
 ::: {.image}
-![](static/gen19_2.png) 
+![](../resources/images/gen19_2.png) 
 :::
 :::
 
@@ -1121,7 +1121,7 @@ band-limited versions of the first):
 
 ::: {.group_img}
 ::: {.image}
-![](static/gen30_1.png) 
+![](../resources/images/gen30_1.png) 
 :::
 :::
 
@@ -1133,7 +1133,7 @@ band-limited versions of the first):
 
 ::: {.group_img}
 ::: {.image}
-![](static/gen30_2.png)
+![](../resources/images/gen30_2.png)
 :::
 :::
 
@@ -1143,7 +1143,7 @@ band-limited versions of the first):
 
 ::: {.group_img}
 ::: {.image}
-![](static/gen30_3.png) 
+![](../resources/images/gen30_3.png) 
 :::
 :::
 

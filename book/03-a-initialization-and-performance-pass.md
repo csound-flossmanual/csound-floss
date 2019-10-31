@@ -105,7 +105,7 @@ control cycle has been finished at 0.000227 seconds, the second one at
 
 ::: {.group_img}
 ::: {.image}
-![](static/03a_sr_kr_time3.png){width="769" height="261"}
+![](../resources/images/03a_sr_kr_time3.png){width="769" height="261"}
 :::
 :::
 
@@ -365,12 +365,10 @@ this happens when the instrument call is performed:
 
 ::: {.group_img}
 ::: {.image}
-![InitAndPerfPass3](static//_edit/static/Csound-Picts-03_CsLanguage-InitAndPerfPass3-en.png "InitAndPerfPass3"){width="781"
-height="423"} 
+![InitAndPerfPass3](../resources/images/csound-picts-03_cslanguage-initandperfpass3-en.png){width="781" height="423"}
 :::
 :::
 
- 
 
 Accessing the Initialization Value of a k-Variable
 --------------------------------------------------
@@ -1079,7 +1077,7 @@ Your envelope will look like this:
 
 ::: {.group_img}
 ::: {.image}
-![](static/03a_k-rate_env.png){width="607" height="347"}
+![](../resources/images/03a_k-rate_env.png){width="607" height="347"}
 :::
 :::
 
@@ -1091,7 +1089,7 @@ sharp peak:
 
 ::: {.group_img}
 ::: {.image}
-![](static/03a_peak.png){width="127" height="258"} 
+![](../resources/images/03a_peak.png){width="127" height="258"} 
 :::
 :::
 
@@ -1164,7 +1162,7 @@ per second) to illustrate this.
     ksmps = 4410
     nchnls = 1
     0dbfs = 1
-      
+
       instr 1
     aPink oscils .5, 430, 0
     out aPink
@@ -1185,7 +1183,7 @@ time 0.1 and extends the second call to 0.2 seconds:
 
 ::: {.group_img}
 ::: {.image}
-![](static/03a_wrong_times.png){width="418" height="321"} 
+![](../resources/images/03a_wrong_times.png){width="418" height="321"} 
 :::
 :::
 
@@ -1209,7 +1207,7 @@ cases:
 
 ::: {.group_img}
 ::: {.image}
-![](static/03a_ksmps.png){width="740" height="305"} 
+![](../resources/images/03a_ksmps.png){width="740" height="305"} 
 :::
 :::
 
@@ -1281,24 +1279,24 @@ whichs values are between 0 and 1/10000. They are then multiplied by
      iFac = p4 ;multiplier for each audio sample
 
      aSinus poscil 0.1, 500
-     
+
      kIndx = 0
      while kIndx < ksmps do
       aSinus[kIndx] = aSinus[kIndx] * iFac + aSinus[kIndx]
       kIndx += 1
      od
-     
+
      out aSinus, aSinus
-     
+
     endin
 
     instr PrintSampleIf
 
      aRnd rnd31 1, 0, 1
-     
+
      kBlkCnt init 0
      kSmpCnt init 0
-     
+
      kIndx = 0
      while kIndx < ksmps do
       if aRnd[kIndx] > 0.99 then
@@ -1307,7 +1305,7 @@ whichs values are between 0 and 1/10000. They are then multiplied by
       kIndx += 1
       kSmpCnt += 1
      od
-     
+
      kBlkCnt += 1
 
     endin
@@ -1316,10 +1314,10 @@ whichs values are between 0 and 1/10000. They are then multiplied by
 
      aRnd rnd31 1, 0, 1
      aOut init 0
-     
+
      kBlkCnt init 0
      kSmpCnt init 0
-     
+
      kIndx = 0
      while kIndx < ksmps do
       if aRnd[kIndx] > 0 && aRnd[kIndx] < 1/10000 then
@@ -1329,7 +1327,7 @@ whichs values are between 0 and 1/10000. They are then multiplied by
       endif
       kIndx += 1
      od
-      
+
      out aOut, aOut
 
     endin
@@ -1395,17 +1393,17 @@ zero as initial value.
      ;explicit initialization
      k_Exp init 10
      S_Exp init "goodbye"
-     
+
      ;implicit initialization
      k_Imp linseg 10, 1, 0
      S_Imp strcpyk "world"
-     
+
      ;print out at init-time
      prints "k_Exp -> %d\n", k_Exp
      printf_i "S_Exp -> %s\n", 1, S_Exp
      prints "k_Imp -> %d\n", k_Imp
      printf_i "S_Imp -> %s\n", 1, S_Imp
-     
+
     endin
 
     </CsInstruments>
@@ -1450,18 +1448,18 @@ not take place.
 
     instr 1
 
-     ;k-variables 
+     ;k-variables
      k_var init 20
      k_var linseg 10, 1, 0
-     
+
      ;string variables
      S_var init "goodbye"
      S_var strcpyk "world"
-     
+
      ;print out at init-time
      prints "k_var -> %d\n", k_var
      printf_i "S_var -> %s\n", 1, S_var
-     
+
     endin
 
     </CsInstruments>
@@ -1506,25 +1504,25 @@ any k-rate if-clause initializes its expressions, in this case the
     0dbfs = 1
 
     instr 1
-     
+
      ;a string to be copied at init- and performance-time
      String strcpyk "yes!\n"
-     
+
      ;print it at init-time
      printf_i "INIT 1: %s", 1, String
-     
+
      ;a copy assignment that will never become true during performance
      kBla = 0
      if kBla == 1 then
       String strcpyk "no!\n"
      endif
-     
+
      ;nevertheless the string variable is initialized by it
      printf_i "INIT 2: %s", 1, String
 
      ;during performance only "yes!" remains
      printf "PERF %d: %s", timeinstk(), timeinstk(), String
-     
+
      ;turn off after three k-cycles
      if timeinstk() == 3 then
       turnoff
@@ -1616,7 +1614,7 @@ output as instrument 1.
     i 2 + .
     i 3 + .
     </CsScore>
-    </CsoundSynthesizer> 
+    </CsoundSynthesizer>
     ;example by joachim heintz
 
 But the output is:

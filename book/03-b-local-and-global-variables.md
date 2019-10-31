@@ -573,8 +573,7 @@ process of either enforcing or erasing quite clear:
 
 ::: {.group_img}
 ::: {.image}
-![Add\_Freq10Hz\_1](static/csound-picts-03_cslanguage-add_freq10hz_1-en.png "Add_Freq10Hz_1"){width="771"
-height="299"}
+![Add_Freq10Hz_1](../resources/images/csound-picts-03_cslanguage-add_freq10hz_1-en.png){width="771" height="299"}
 :::
 :::
 
@@ -585,8 +584,7 @@ control cycle being the same as in the previous one* 
 
 ::: {.group_img}
 ::: {.image}
-![Add\_Freq15Hz\_1](static/csound-picts-03_cslanguage-add_freq15hz_1-en.png "Add_Freq15Hz_1"){width="771"
-height="298"} 
+![Add_Freq15Hz_1](../resources/images/csound-picts-03_cslanguage-add_freq15hz_1-en.png){width="771" height="298"}
 :::
 :::
 

@@ -351,7 +351,6 @@ def substitute_any_metadata(elem: Element, doc: Any) -> Element:
         if m:
             s = doc.get_metadata(meta_key, '')
             return Str(f"{m.group(1)}{s}{m.group(2)}")
-
     return elem
 
 

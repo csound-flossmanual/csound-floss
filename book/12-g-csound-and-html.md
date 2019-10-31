@@ -47,7 +47,7 @@ HTML-enabled version of CsoundQt.
 
 ::: {.group_img}
 ::: {.image}
-![](static/gameoflife3d.png){width="100%"}Figure 1. GameOfLife3d.csd.
+![](../resources/images/gameoflife3d.png){width="100%"}Figure 1. GameOfLife3d.csd.
 :::
 :::
 
@@ -65,7 +65,7 @@ zooming it.
 
 ::: {.group_img}
 ::: {.image}
-![](static/lindenmayercanvas.png){width="100%"}Figure 2.
+![](../resources/images/lindenmayercanvas.png){width="100%"}Figure 2.
 LindenmayerCanvas.csd.
 :::
 :::
@@ -247,7 +247,7 @@ entirety it is: 
     </html>
     <CsScore>
     </CsScore>
-    </CsoundSynthesizer> 
+    </CsoundSynthesizer>
 
 Not much to it. HTML is full of graceful defaults. In HTML, plain text
 without any tags is imply printed as plain text. 
@@ -279,15 +279,15 @@ element is added to the body of the \<html\> element:
     function generate() {
             csound.message("generate()...\n");
             for (i = 0; i < 200; i++) {
-              var t = i * (1.0 / 3.0);      
+              var t = i * (1.0 / 3.0);
               var y1 = 4.0 * c * y * (1.0 - y);
               y = y1;
               var key = Math.round(36.0 + (y * 60.0));
               var note = "i 1 " + t + " 2.0 " + key + " 60 0.0 0.5\n";
-              csound.readScore(note);               
+              csound.readScore(note);
             };
     };
-    </script> 
+    </script>
 
 ### 03\_Sliders.csd
 
@@ -348,7 +348,7 @@ For this slider, the JavaScript handler is:
     function on_sliderC(value) {
             c = parseFloat(value);
             document.querySelector('#sliderCOutput').value = c;
-    } 
+    }
 
 The variable *c* was declared at global scope just above the generate()
 function, so that variable is accessible within the on\_sliderC
@@ -365,7 +365,7 @@ channel API, like this:
             var numberValue = parseFloat(value);
             document.querySelector('#sliderFmIndexOutput').value = numberValue;
             csound.setControlChannel('gk_FmIndex', numberValue);
-    } 
+    }
 
 Then, in the Csound orchestra, that value has to be retrieved using the
 chnget opcode and applied to the instrument to which it pertains. It is
@@ -402,7 +402,7 @@ global variables:
     if gk_MasterLevel_  != 0 then
      gk_MasterLevel = gk_MasterLevel_
     endif
-    endin 
+    endin
 
 Note that each actual global variable has a default value, which is only
 overridden if the user actually operates its slider.

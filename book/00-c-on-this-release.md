@@ -69,8 +69,6 @@ Also here are all the current csd files and audio samples.
 
 ::: {.group_img}
 ::: {.image}
-![](static/imag1106_small.jpg) 
+![imag1106](../resources/images/imag1106_small.jpg){}
 :::
 :::
-
- 

@@ -67,7 +67,7 @@ clicking on the right-pointing arrow button.
 
 ::: {.group_img}
 ::: {.image}
-![](static/arduinoide.png)
+![](../resources/images/arduinoide.png)
 :::
 :::
 
@@ -92,7 +92,7 @@ pin 0.
 
 ::: {.group_img}
 ::: {.image}
-![](static/poton0.png) 
+![](../resources/images/poton0.png) 
 :::
 :::
 
@@ -109,13 +109,13 @@ Arduino\'s analog inputs generate integers with 10-bit resolution (0 -
 
 ::: {.group_img}
 ::: {.image}
-![](static/arduinopd.tiff)
+![](../resources/images/arduinopd.tiff)
 :::
 :::
 
 ::: {.group_img}
 ::: {.image}
-![](static/arduinopd.png)
+![](../resources/images/arduinopd.png)
 :::
 :::
 
@@ -127,7 +127,7 @@ above example could be modified to employ csoundapi\~ as shown below.
 
 ::: {.group_img}
 ::: {.image}
-![](static/arduinopdcsound.png)
+![](../resources/images/arduinopdcsound.png)
 :::
 :::
 
@@ -163,7 +163,7 @@ pitch across a four octave range.
     koct    =        (kctrl2*4)+7
     ; create an oscillator
     a1      vco2     kctrl1,cpsoct(koct),4,0.1
-            outs     a1,a1  
+            outs     a1,a1
      endin
     </CsInstruments>
 
@@ -226,7 +226,7 @@ will read all Arduino inputs and output them as OSC.
 
 ::: {.group_img}
 ::: {.image}
-![](static/arduinoprocessing.png)
+![](../resources/images/arduinoprocessing.png)
 :::
 :::
 
@@ -297,7 +297,7 @@ library](http://playground.arduino.cc/Main/MIDILibrary "Wiring").
 
 ::: {.group_img}
 ::: {.image}
-![](static/midi_bb.png)
+![](../resources/images/midi_bb.png)
 :::
 :::
 
@@ -326,7 +326,7 @@ pin 0 could be done using the following code:
       if (sensorValue!=oldSensorValue)
         {
         // controller 1, rescale value from 0-1023 (Arduino) to 0-127 (MIDI)
-        MIDI.sendControlChange(1,sensorValue/8,midiChannel);        
+        MIDI.sendControlChange(1,sensorValue/8,midiChannel);
         oldSensorValue = sensorValue; // set old sensor value to current
         }
       }
@@ -362,7 +362,7 @@ this:
       pinMode(9, OUTPUT);
     }
 
-    void loop()  
+    void loop()
     {
       // only do something if we received something (this should be at csound's k-rate)
       if (Serial.available())
@@ -375,7 +375,7 @@ this:
            // while we are here, get our knob value and send it to csound
            int sensorValue = analogRead(A0);
            Serial.write(sensorValue/4); // scale to 1-byte range (0-255)
-      }    
+      }
     }
 
 It will be necessary to provide the correct address of the serial port
@@ -556,7 +556,7 @@ handles the messages sent from the Arduino sketch:
 
             kIndex = 0
             kSize  serialRead iPort
-            
+
             loopStart:
                 kValue      = kValue << 7
                 kByte       serialRead iPort
@@ -568,7 +568,7 @@ handles the messages sent from the Arduino sketch:
 
     if (kType == 128) then          ; This is the potmeter
             kPot    = kValue
-    elseif (kType == 129) then      ; This is the light     
+    elseif (kType == 129) then      ; This is the light
             kLight  = kValue
     elseif (kType == 130) then      ; This is the button (on/off)
             kButton = kValue
@@ -586,10 +586,10 @@ handles the messages sent from the Arduino sketch:
     kFreq   port    (kLight > 100 ? kLight : 100), 0.1
     aOut    oscil   kAmp, kFreq, giSaw
 
-    if (kButton == 0) then  
-            out     aOut    
+    if (kButton == 0) then
+            out     aOut
     endif
-            
+
     endin
 
     </CsInstruments>

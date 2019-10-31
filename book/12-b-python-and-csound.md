@@ -16,7 +16,7 @@ features\" checkbox in the Select Components dialog.
 
 ::: {.group_img}
 ::: {.image}
-![](static/jim_python_windows.jpg){width="415" height="322"}
+![](../resources/images/jim_python_windows.jpg){width="415" height="322"}
 :::
 :::
 
@@ -415,7 +415,7 @@ example shows both, local and global behaviour.
     if kTime == 0.5 then
     kvalue pyleval "value"
     printks "Python variable 'value' in instr %d, instance %d = %d\n", 0, p1, giInstanceLocal, kvalue
-    turnoff 
+    turnoff
     endif
     endin
 
@@ -426,7 +426,7 @@ example shows both, local and global behaviour.
     if kTime == 0.5 then
     kvalue pyleval "value"
     printks "Python variable 'value' in instr %d, instance %d = %d\n", 0, p1, giInstanceGlobal, kvalue
-    turnoff 
+    turnoff
     endif
     endin
 

@@ -86,7 +86,7 @@ Bit Depth = high                                    
 
 ::: {.group_img}
 ::: {.image}
-![](static/05fbild1a.png){width="599" height="599"}
+![](../resources/images/05fbild1a.png){width="599" height="599"}
 :::
 :::
 
@@ -94,7 +94,7 @@ Bit Depth = 2
 
 ::: {.group_img}
 ::: {.image}
-![](static/05fbild2a.png){width="601" height="601"}
+![](../resources/images/05fbild2a.png){width="601" height="601"}
 :::
 :::
 

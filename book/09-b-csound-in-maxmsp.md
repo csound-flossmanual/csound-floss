@@ -95,7 +95,7 @@ CREATING A CSOUND\~ PATCH
      
     ::: {.group_img}
     ::: {.image}
-    ![create\_a\_csound\_\_patch.png](static/csound-picts-09_csinotherapps-create_a_csound__patch-en.png){width="240"
+    ![create\_a\_csound\_\_patch.png](../resources/images/csound-picts-09_csinotherapps-create_a_csound__patch-en.png){width="240"
     height="242"}
     :::
     :::
@@ -127,7 +127,7 @@ CREATING A CSOUND\~ PATCH
         e
         </CsScore>
         </CsoundSynthesizer>
-            
+
 
 5.  Open the patch, press the bang button, then press the speaker icon.
 
@@ -177,7 +177,7 @@ audio\_io.maxpat that demonstrates audio i/o:
 
 ::: {.group_img}
 ::: {.image}
-![audio\_io\_patch.png](static/csound-picts-09_csinotherapps-audio_io_patch-en.png){width="397"
+![audio\_io\_patch.png](../resources/images/csound-picts-09_csinotherapps-audio_io_patch-en.png){width="397"
 height="233"}
 :::
 :::
@@ -248,7 +248,7 @@ The following patch and text file demonstrates control messages:
 
 ::: {.group_img}
 ::: {.image}
-![control\_messages\_patch.png](static/csound-picts-09_csinotherapps-control_messages_patch-en.png){width="360"
+![control\_messages\_patch.png](../resources/images/csound-picts-09_csinotherapps-control_messages_patch-en.png){width="360"
 height="261"}
 :::
 :::
@@ -314,7 +314,7 @@ and text file that uses MIDI:
 
 ::: {.group_img}
 ::: {.image}
-![midi\_patch.png](static/csound-picts-09_csinotherapps-midi_patch-en.png){width="422"
+![midi\_patch.png](../resources/images/csound-picts-09_csinotherapps-midi_patch-en.png){width="422"
 height="353"}
 :::
 :::
@@ -391,7 +391,7 @@ The following patch and text file demonstrates how to send events:
 
 ::: {.group_img}
 ::: {.image}
-![](static/csound-picts-09_csinotherapps-events-en.png)
+![](../resources/images/csound-picts-09_csinotherapps-events-en.png)
 :::
 :::
 
@@ -410,7 +410,7 @@ The following patch and text file demonstrates how to send events:
       iCps = cpsmidinn(p4)
      iMeth = 1
            print iDur, iCps, iMeth
-    aPluck pluck .2, iCps, iCps, 0, iMeth   
+    aPluck pluck .2, iCps, iCps, 0, iMeth
            outch 1, aPluck, 2, aPluck
     endin
     </CsInstruments>

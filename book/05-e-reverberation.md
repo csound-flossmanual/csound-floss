@@ -282,7 +282,7 @@ is more suggestive of a plate reverb than of a real room.
 
 ::: {.group_img}
 ::: {.image}
-![schroeder.jpg](static/csound-picts-05_soundmod-schroeder-en.jpg)
+![schroeder.jpg](../resources/images/csound-picts-05_soundmod-schroeder-en.jpg)
 :::
 :::
 

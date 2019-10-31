@@ -73,7 +73,7 @@ is what a guitar note looks like when spectrally analysed:
 
 ::: {.group_img}
 ::: {.image}
-![](static/wf_v2.png){width="754" height="565"} 
+![](../resources/images/wf_v2.png){width="754" height="565"} 
 :::
 :::
 
@@ -284,7 +284,7 @@ static.
 
 ::: {.group_img}
 ::: {.image}
-![](static/teiltoene_bild3.png){width="628" height="645"}
+![](../resources/images/teiltoene_bild3.png){width="628" height="645"}
 :::
 :::
 
@@ -653,7 +653,7 @@ Catalogue\'.^2^  
     r 6
     i 1 0 5   50          9           100
     </CsScore>
-    </CsoundSynthesizer> 
+    </CsoundSynthesizer>
 
 In midi-triggered descendant of this instrument, we could - as one of
 many possible options - vary the amount of possible random variation
@@ -736,7 +736,7 @@ increasing force the sound produced will be increasingly altered.
     <CsScore>
     f 0 3600
     </CsScore>
-    </CsoundSynthesizer> 
+    </CsoundSynthesizer>
 
 Whether you can play examples like this in realtime will depend on the
 power of your computer. Have a look at chapter 2D (Live Audio) for tips
@@ -874,7 +874,7 @@ appear equally spaced.
 
 ::: {.group_img}
 ::: {.image}
-![](static/gbuzz1.png){width="637" height="364"}
+![](../resources/images/gbuzz1.png){width="637" height="364"}
 :::
 :::
 
@@ -924,7 +924,7 @@ remains constant but the partial number of the lowest partial rises from
 
 ::: {.group_img}
 ::: {.image}
-![](static/gbuzz2.png){width="645" height="360"} 
+![](../resources/images/gbuzz2.png){width="645" height="360"} 
 :::
 :::
 
@@ -978,7 +978,7 @@ is on the uppermost partial.
 
 ::: {.group_img}
 ::: {.image}
-![](static/gbuzz3.png){width="651" height="376"}
+![](../resources/images/gbuzz3.png){width="651" height="376"}
 :::
 :::
 

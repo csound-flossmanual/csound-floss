@@ -45,7 +45,7 @@ Installer box and make sure the item \"csound6\~\" is checked:
 
 ::: {.group_img}
 ::: {.image}
-![](static/pd-cs_installer_win.png)
+![](../resources/images/pd-cs_installer_win.png)
 :::
 :::
 
@@ -70,8 +70,7 @@ object, and type in \"csound6\~\":
 
 ::: {.group_img}
 ::: {.image}
-![pd2](static/csound-picts-09_csinotherapps-pd2-en.png "pd2"){width="671"
-height="342"} 
+![pd2](../resources/images/csound-picts-09_csinotherapps-pd2-en.png){width="671" height="342"}
 :::
 :::
 
@@ -122,8 +121,7 @@ same folder and create the following patch:
 
 ::: {.group_img}
 ::: {.image}
-![pd3.png](static/csound-picts-09_csinotherapps-pd3-en.png){width="600"
-height="349"} 
+![pd3.png](../resources/images/csound-picts-09_csinotherapps-pd3-en.png){width="600" height="349"}
 :::
 :::
 
@@ -182,8 +180,7 @@ The corresponding PD patch is extremely simple:
 
 ::: {.group_img}
 ::: {.image}
-![pd4.png](static/csound-picts-09_csinotherapps-pd4-en.png){width="600"
-height="341"} 
+![pd4.png](../resources/images/csound-picts-09_csinotherapps-pd4-en.png){width="600" height="341"}
 :::
 :::
 
@@ -198,8 +195,7 @@ a synthesizer with arbitrary polyphonic output:
 
 ::: {.group_img}
 ::: {.image}
-![pd5.png](static/csound-picts-09_csinotherapps-pd5-en.png){width="468"
-height="341"}
+![pd5.png](../resources/images/csound-picts-09_csinotherapps-pd5-en.png){width="468" height="341"}
 :::
 :::
 
@@ -253,8 +249,7 @@ function table) to Csound.
 
 ::: {.group_img}
 ::: {.image}
-![pd6.png](static/csound-picts-09_csinotherapps-pd6-en.png){width="479"
-height="403"}
+![pd6.png](../resources/images/csound-picts-09_csinotherapps-pd6-en.png){width="479" height="403"}
 :::
 :::
 
@@ -306,8 +301,7 @@ second element. You can get the values by a *route* object or by a
 
 ::: {.group_img}
 ::: {.image}
-![pd7.png](static/csound-picts-09_csinotherapps-pd7-en.png){width="396"
-height="340"} 
+![pd7.png](../resources/images/csound-picts-09_csinotherapps-pd7-en.png){width="396" height="340"}
 :::
 :::
 
@@ -335,7 +329,7 @@ height="340"} 
     <CsScore>
     i 1 0 30
     </CsScore>
-    </CsoundSynthesizer> 
+    </CsoundSynthesizer>
 
  
 
@@ -351,7 +345,7 @@ soundfile instead of \"stimme.wav\".
 
 ::: {.group_img}
 ::: {.image}
-![](static/09a06a.png) 
+![](../resources/images/09a06a.png)
 :::
 :::
 
@@ -425,7 +419,7 @@ that number of seconds.
 
 ::: {.group_img}
 ::: {.image}
-![](static/csound-picts-09_csinotherapps-pd8-en.png)
+![](../resources/images/csound-picts-09_csinotherapps-pd8-en.png)
 :::
 :::
 

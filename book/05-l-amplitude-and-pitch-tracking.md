@@ -104,7 +104,7 @@ saying: "the quick brown fox jumps over the lazy dog".
 
 ::: {.group_img}
 ::: {.image}
-![](static/fox.png)
+![](../resources/images/fox.png)
 :::
 :::
 
@@ -114,7 +114,7 @@ signal:
 
 ::: {.group_img}
 ::: {.image}
-![](static/homebrew.png)
+![](../resources/images/homebrew.png)
 :::
 :::
 
@@ -144,7 +144,7 @@ waveform is shown below:
 
 ::: {.group_img}
 ::: {.image}
-![](static/rms.png)
+![](../resources/images/rms.png)
 :::
 :::
 
@@ -159,7 +159,7 @@ of a buffer of amplitude values.
 [rms](http://www.csounds.com/manual/html/rms.html) allows us to set the
 cutoff frequency (kCf) of its internal filter:
 
-    kRms  rms  aSig, kCf 
+    kRms  rms  aSig, kCf
 
 This is an optional argument which defaults to 10. Lowering this value
 will dampen changes in rms and smooth out ripple, raising it will
@@ -183,7 +183,7 @@ amplitude tracked using the following line:
 
 ::: {.group_img}
 ::: {.image}
-![](static/follow.png)
+![](../resources/images/follow.png)
 :::
 :::
 
@@ -207,7 +207,7 @@ and the result of amplitude tracking is:
 
 ::: {.group_img}
 ::: {.image}
-![](static/follow2.png)
+![](../resources/images/follow2.png)
 :::
 :::
 
@@ -231,14 +231,14 @@ be implemented thus:
 
     <CsoundSynthesizer>
 
-    <CsOptions>  
+    <CsOptions>
     -dm0 -odac
     </CsOptions>
 
     <CsInstruments>
 
     ksmps = 32
-    0dbfs = 1 
+    0dbfs = 1
     ; this is a necessary definition,
     ;         otherwise amplitude will be -32768 to 32767
 
@@ -277,7 +277,7 @@ The results of this dynamic gate are shown below:
 
 ::: {.group_img}
 ::: {.image}
-![](static/gate.png)
+![](../resources/images/gate.png)
 :::
 :::
 
@@ -301,7 +301,7 @@ prevent quietly played notes from generating triggers.
 
 ::: {.group_img}
 ::: {.image}
-![](static/thresholdtriggering.png)
+![](../resources/images/thresholdtriggering.png)
 :::
 :::
 
@@ -325,7 +325,7 @@ look like this:
 
 ::: {.group_img}
 ::: {.image}
-![](static//_edit/static/DynamicTrigger.png)
+<!-- FIXME: ![](../resources/images/DynamicTrigger.png) -->
 :::
 :::
 
@@ -339,7 +339,7 @@ this mechanism.
 
     <CsoundSynthesizer>
 
-    <CsOptions>  
+    <CsOptions>
     -dm0 -iadc -odac
     </CsOptions>
 
@@ -380,7 +380,7 @@ this mechanism.
     <CsScore>
     i 1 0 [3600*24*7]
     </CsScore>
-    </CsoundSynthesizer> 
+    </CsoundSynthesizer>
 
  
 
