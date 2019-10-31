@@ -8,10 +8,10 @@ molecules to move back and forth in a spring-like manner. As one
 molecule hits the next, the disturbance moves through the medium causing
 sound to travel. These so called compressions and rarefactions in the
 medium can be described as sound waves. The simplest type of waveform,
-describing what is referred to as \'simple harmonic motion\', is a sine
+describing what is referred to as *simple harmonic motion*, is a sine
 wave.
 
-![SineWave](../resources/images/01-a-sinewave.png)
+![](../resources/images/01-a-sinewave.png)
 
 Each time the waveform signal goes above 0 the molecules are in a state
 of compression meaning that each molecule within the waveform
@@ -40,7 +40,8 @@ parameters affects the way we perceive sound.
     reciprocal of the frequency (and vice versa). In equation form this
     is expressed as follows.
 
-         Frequency = 1/Period         Period = 1/Frequency
+         Frequency = 1/Period         
+         Period = 1/Frequency
 
 Therefore the frequency is the inverse of the period, so a wave of 100
 Hz frequency has a period of 1/100 or 0.01 secs, likewise a frequency of
@@ -51,8 +52,8 @@ of a sound in any given medium we can use the following equation:
 
 Humans can hear frequencies from 20Hz to 20000Hz (although this can
 differ dramatically from individual to individual and the upper limit
-will decay with age). You can read more about frequency in the [next
-chapter](b-pitch-and-frequency).
+will decay with age). You can read more about frequency in the [next 
+chapter](01-b-pitch-and-frequency).
 
 -   **Phase:** This is the starting point of a waveform. The starting
     point along the Y-axis of our plotted waveform is not always zero.
@@ -79,7 +80,7 @@ by a device known as a a transducer.
 A transducer, which is usually found in microphones, produces a changing
 electrical voltage that mirrors the changing compression and rarefaction
 of the air molecules caused by the sound wave. The continuous variation
-of pressure is therefore \'transduced\' into continuous variation of
+of pressure is therefore *transduced* into continuous variation of
 voltage. The greater the variation of pressure the greater the variation
 of voltage that is sent to the computer.
 
@@ -88,9 +89,9 @@ whatever goes in should come out as a perfect analogue in a voltage
 representation. In reality however this will not be the case, noise and
 distortion are always incorporated into the signal. Every time sound
 passes through a transducer or is transmitted electrically a change in
-signal quality will result. When we talk of \'noise\' we are talking
+signal quality will result. When we talk of *noise* we are talking
 specifically about any unwanted signal captured during the transduction
-process. This normally manifests itself as an unwanted \'hiss\'.
+process. This normally manifests itself as an unwanted *hiss*.
 
  
 
@@ -106,7 +107,7 @@ infinite number of instances between every two instances!).
 
 What the soundcard can do, however, is to measure the power of the
 analogue voltage at intervals of equal duration. This is how all digital
-recording works and this is known as \'sampling\'. The result of this
+recording works and this is known as *sampling*. The result of this
 sampling process is a discrete, or digital, signal which is no more than
 a sequence of numbers corresponding to the voltage at each successive
 moment of sampling.
@@ -117,7 +118,7 @@ snapshot is taken of the signal. After the sampling has taken place we
 are left with what is known as a discrete signal consisting of a
 collection of audio samples, as illustrated in the bottom half of the
 diagram. If one is recording using a typical audio editor the incoming
-samples will be stored in the computer\'s RAM (Random Access Memory). In
+samples will be stored in the computer's RAM (Random Access Memory). In
 Csound one can process the incoming audio samples in real time and
 output a new stream of samples or write them to disk in the form of a
 sound file.
@@ -147,7 +148,7 @@ considerably. It is for this reason that the music industry has almost
 entirely turned to digital technology. One particular advantage of
 storing a signal digitally is that once the changing signal has been
 converted to a discrete series of values, it can effectively be
-\'cloned\' an clones can be made of that clone with no loss or
+*cloned* as clones can be made of that clone with no loss or
 distortion of data. Mathematical routines can be applied to prevent
 errors in transmission, which could otherwise introduce noise into the
 signal.
@@ -169,14 +170,14 @@ frequency, after the Swedish physicist Harry Nyquist who formalized the
 theory in the 1920s. What it all means is that any signal with
 frequencies above the Nyquist frequency will be misrepresented and will
 actually produce a frequency lower than the one being sampled. When this
-happens it results in what is known as \'aliasing\' or \'foldover\'.
+happens it results in what is known as *aliasing* or *foldover*.
 
 Aliasing
 --------
 
 Here is a graphical representation of aliasing.
 
-![](../resources/images/01-a-aliasing-1.png){ width=50% }
+![](../resources/images/01-a-aliasing-1.png){:width="50%"}
 <small><i>Aliasing (red) of a high frequency (blue)</i></small>
 
 The sinusoidal waveform in blue is being sampled at the vertical black
@@ -186,7 +187,7 @@ waveform express different frequencies.
 
 Here is another example:
 
-![](../resources/images/01-a-aliasing-2.png){width=50%}
+![](../resources/images/01-a-aliasing-2.png){:width=50%}
 <small><i>Aliasing of a 30 kHz sine at 40 kHz sample rate</i></small>
 
 We can see that if the sample rate is 40,000 there is no problem with
@@ -273,11 +274,11 @@ The Binary System
 
 All digital computers work in a environment that has only two variables,
 0 and 1. All numbers in our decimal system therefore must be translated
-into 0\'s and 1\'s in the binary system. If you think of binary numbers
+into 0's and 1's in the binary system. If you think of binary numbers
 in terms of switches. With one switch you can represent up to two
 different numbers.
 
-0 (OFF) = Decimal 0\
+0 (OFF) = Decimal 0  
 1 (ON) = Decimal 1
 
 Thus, a single bit represents 2 numbers, two bits can represent 4
@@ -329,7 +330,7 @@ to use the highest bit rate available.
 
 Many electronic musicians make use of deliberately low bit depth
 quantization in order to add noise to a signal. The effect is commonly
-known as \'bit-crunching\' and is relatively easy to implement in
+known as *bit-crunching* and is relatively easy to implement in
 Csound.
 
 ADC / DAC
@@ -347,7 +348,7 @@ range from -32768 to +32767.
 
 When the sound card receives these numbers from the audio stream it will
 output corresponding voltages to a loudspeaker. When the voltages reach
-the loudspeaker they cause the loudspeaker\'s magnet to move inwards and
+the loudspeaker they cause the loudspeaker's magnet to move inwards and
 outwards. This causes a disturbance in the air around the speaker - the
 compressions and rarefactions introduced at the beginning of this
 chapter - resulting in what we perceive as sound.
