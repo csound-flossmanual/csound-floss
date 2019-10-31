@@ -11,8 +11,7 @@ medium can be described as sound waves. The simplest type of waveform,
 describing what is referred to as \'simple harmonic motion\', is a sine
 wave.
 
-![SineWave](resources/images/01-a-sinewave.png){width="502"
-height="307"}
+![SineWave](../resources/images/01-a-sinewave.png)
 
 Each time the waveform signal goes above 0 the molecules are in a state
 of compression meaning that each molecule within the waveform
@@ -123,8 +122,7 @@ Csound one can process the incoming audio samples in real time and
 output a new stream of samples or write them to disk in the form of a
 sound file.
 
-![](resources/images/01a-sampling-1b.png){.caption_small style="width: 563.472px;"}
-Sampling of an analog signal\
+![](../resources/images/01-a-sampling.png "Sampling of an analog signal")
 
 It is important to remember that each sample represents the amount of
 voltage, positive or negative, that was present in the signal at the
@@ -161,8 +159,6 @@ The sample rate describes the number of samples (pictures/snapshots)
 taken each second. To sample an audio signal correctly it is important
 to pay attention to the sampling theorem:
 
-\
-
 *To represent digitally a signal containing frequencies up to X Hz, it
 is necessary to use a sampling rate of at least 2X samples per second.*
 
@@ -180,11 +176,8 @@ Aliasing
 
 Here is a graphical representation of aliasing.
 
-![](resources/images/01a-aliasing-1.png)
-::: {.caption_small style="width: 544.654px;"}
-Aliasing (red) of a high frequency (blue)\
+![](../resources/images/01-a-aliasing-1.png "Aliasing (red) of a high frequency (blue)")
 
-\
 The sinusoidal waveform in blue is being sampled at the vertical black
 lines. The line that joins the red circles together is the captured
 waveform. As you can see, the captured waveform and the original
@@ -192,11 +185,8 @@ waveform express different frequencies.
 
 Here is another example:
 
-![](resources/images/01-a-aliasing-2.png)
-::: {.caption_small style="width: 610px;"}
-Aliasing of a 30 kHz sine at 40 kHz sample rate\
+![](../resources/images/01-a-aliasing-2.png "Aliasing of a 30 kHz sine at 40 kHz sample rate")
 
-\
 We can see that if the sample rate is 40,000 there is no problem with
 sampling a signal that is 10KHz. On the other hand, in the second
 example it can be seen that a 30kHz waveform is not going to be
@@ -211,7 +201,6 @@ The following Csound instrument plays a 1000 Hz tone first directly, and
 then because the frequency is 1000 Hz lower than the sample rate of
 44100 Hz:
 
-\
 
 ***EXAMPLE 01A01\_Aliasing.csd***
 
@@ -319,9 +308,7 @@ plot the correct amplitude of each sample. We can see in the diagram
 that some vertical lines stop above or below the real signal. For a
 signal with lower amplitude the distortion would even be stronger.\
 
-![](resources/images/01a_bitdepth.png)
-{.caption_small style="width: 898px;"}
-Wrong amplitude values due to insufficient bit depth resolution\
+![](../resources/images/01-a-bitdepth.png "Wrong amplitude values due to insufficient bit depth resolution")
 
 The standard resolution for CDs is 16 bit, which allows for 65536
 different possible amplitude levels, 32767 either side of the zero axis.
