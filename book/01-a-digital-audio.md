@@ -190,8 +190,8 @@ waveform express different frequencies.
 Here is another example:
 
 <figure>
-<img src="../resources/images/01-a-aliasing-2.png" width="50%">
-<figcaption>Aliasing of a 30 kHz sine at 40 kHz sample rate</figcaption>
+<img src="../resources/images/01-a-aliasing-2.png" width="80%">
+<figcaption><small><i>Aliasing of a 30 kHz sine at 40 kHz sample rate</i></small></figcaption>
 </figure>
 
 We can see that if the sample rate is 40,000 there is no problem with
@@ -313,7 +313,7 @@ diagram below. At each sampling period the soundcard plots an amplitude.
 As we are only using a 3-bit system the resolution is not good enough to
 plot the correct amplitude of each sample. We can see in the diagram
 that some vertical lines stop above or below the real signal. For a
-signal with lower amplitude the distortion would even be stronger.\
+signal with lower amplitude the distortion would even be stronger.
 
 <figure>
 <img src="../resources/images/01-a-bitdepth.png">
