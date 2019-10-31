@@ -176,7 +176,8 @@ Aliasing
 
 Here is a graphical representation of aliasing.
 
-![](../resources/images/01-a-aliasing-1.png "Aliasing (red) of a high frequency (blue)")
+![](../resources/images/01-a-aliasing-1.png){ width=50% }
+<small><i>Aliasing (red) of a high frequency (blue)</i></small>
 
 The sinusoidal waveform in blue is being sampled at the vertical black
 lines. The line that joins the red circles together is the captured
@@ -185,7 +186,8 @@ waveform express different frequencies.
 
 Here is another example:
 
-![](../resources/images/01-a-aliasing-2.png "Aliasing of a 30 kHz sine at 40 kHz sample rate")
+![](../resources/images/01-a-aliasing-2.png){width=50%}
+<small><i>Aliasing of a 30 kHz sine at 40 kHz sample rate</i></small>
 
 We can see that if the sample rate is 40,000 there is no problem with
 sampling a signal that is 10KHz. On the other hand, in the second
@@ -308,7 +310,8 @@ plot the correct amplitude of each sample. We can see in the diagram
 that some vertical lines stop above or below the real signal. For a
 signal with lower amplitude the distortion would even be stronger.\
 
-![](../resources/images/01-a-bitdepth.png "Wrong amplitude values due to insufficient bit depth resolution")
+![](../resources/images/01-a-bitdepth.png)
+<small><i>Wrong amplitude values due to insufficient bit depth resolution</i></small>
 
 The standard resolution for CDs is 16 bit, which allows for 65536
 different possible amplitude levels, 32767 either side of the zero axis.
