@@ -5,9 +5,9 @@
 Csound is one of the best known and longest established programs in the
 field of audio programming. It was developed in the mid-1980s at the
 Massachusetts Institute of Technology (MIT) by Barry Vercoe but
-Csound\'s history lies even deeper within the roots of computer music:
+Csound's history lies even deeper within the roots of computer music:
 it is a direct descendant of the oldest computer program for sound
-synthesis, \'MusicN\', by Max Mathews. Csound is free and open source,
+synthesis, *MusicN*, by Max Mathews. Csound is free and open source,
 distributed under the LGPL licence, and it is maintained and expanded by
 a core of developers with support from a wider global community.
 
@@ -50,8 +50,6 @@ For example, to create a 400 Hz sine oscillator with an amplitude of
 
 
 ![](../resources/images/00-a-signal-flow.png){.center style="width: 240px"}
-
------------------
 
 Here is a possible transformation of the signal graph into Csound code:
 

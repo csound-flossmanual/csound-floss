@@ -3,14 +3,14 @@ ON THIS RELEASE
 
 A year on from the 5th release, this release adds some exciting new
 sections as well as a number of chapter augmentations and necessary
-updates. Notable are Michael Gogins\' Chapter on running Csound within a
-browser using HTML5 technology, Victor Lazarrini\'s and Ed Costello\'s
+updates. Notable are Michael Gogins' Chapter on running Csound within a
+browser using HTML5 technology, Victor Lazarrini's and Ed Costello's
 explanations about Web based Csound, and a new chapter describing the
 pairing of Csound with the Haskell programming language.
 
 Thanks to all contributors to this release. 
 
-### What\'s new in this Release
+### What's new in this Release
 
 -   Added a section about the necessity of explicit initialization of
     k-variables for multiple calls of an instrument or UDO in chapter
@@ -25,9 +25,6 @@ Thanks to all contributors to this release. 
 -   Added a chapter 03I about **Functional Syntax**. 
 -   Added examples and descriptions for the powershape and distort
     opcodes in the chapter 04 **Sound Synthesis: Waveshaping**.
-
-<!-- -->
-
 -   Expanded chapter 05A **Envelopes**, principally to incorporate
     descriptions of transeg and cosseg.
 -   Added chapter 05L about methods of **amplitude and pitch tracking**
@@ -50,7 +47,7 @@ Thanks to all contributors to this release. 
 -   Added chapter 12H about **Csound and HMTL**, also explaining the
     usage of HTML5 Widgets (written by Michael Gogins).
 
-The examples in this book are included in CsoundQt (Examples \> FLOSS
+The examples in this book are included in CsoundQt (Examples > FLOSS
 Manual Examples). Even the examples which require external files
 should now work out of the box. 
 
@@ -60,15 +57,10 @@ Also here are all the current csd files and audio samples.
 
  
 
-   Berlin, March 2015 \
+   Berlin, March 2015  
    Iain McCurdy and Joachim Heintz
 
  
 
  
-
-::: {.group_img}
-::: {.image}
-![imag1106](../resources/images/imag1106_small.jpg){}
-:::
-:::
+![imag1106](../resources/images/photo-berlin.jpg)
