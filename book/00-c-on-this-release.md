@@ -63,4 +63,4 @@ Also here are all the current csd files and audio samples.
  
 
  
-![imag1106](../resources/images/photo-berlin.jpg)
+![](../resources/images/00-c-photo-berlin.jpg)
