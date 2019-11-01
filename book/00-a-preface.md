@@ -49,7 +49,7 @@ For example, to create a 400 Hz sine oscillator with an amplitude of
 0.2, this is the signal flow:
 
 
-![](resources/images/00-a-signal-flow.png){.center style="width: 240px"}
+![](../resources/images/00-a-signal-flow.png){.center style="width: 240px"}
 
 -----------------
 
