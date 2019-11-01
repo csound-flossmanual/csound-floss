@@ -123,7 +123,7 @@ Csound one can process the incoming audio samples in real time and
 output a new stream of samples or write them to disk in the form of a
 sound file.
 
-![Sampling of an analog signal](../resources/images/01-a-sampling.png)
+![*Sampling of an analog signal*](../resources/images/01-a-sampling.png)
 
 It is important to remember that each sample represents the amount of
 voltage, positive or negative, that was present in the signal at the
