@@ -1,12 +1,6 @@
 # PREFACE
 
-![](../resources/images/montage_3.png)
-
-|                                                                                  |                                                                                    |
-|----------------------------------------------------------------------------------|------------------------------------------------------------------------------------|
-| **[Read the<br/>Online Version](http://en.flossmanuals.net/csound/_full)**       | **[Read the<br/>EPUB Version](http://openweb.flossmanuals.net/files/csound.epub)** |
-| **[Read the<br/>PDF Version](http://openweb.flossmanuals.net/files/csound.pdf)** | **[Read in<br/>Open Office](http://openweb.flossmanuals.net/files/csound.odt)**    |
-
+![](../resources/images/00-a-montage-3.png)
 
 Csound is one of the best known and longest established programs in the
 field of audio programming. It was developed in the mid-1980s at the
@@ -17,9 +11,6 @@ synthesis, \'MusicN\', by Max Mathews. Csound is free and open source,
 distributed under the LGPL licence, and it is maintained and expanded by
 a core of developers with support from a wider global community.
 
-</br>
-
-::: { .indent }
 Csound has been growing for 30 years. There is rarely anything related
 to audio that you cannot do with Csound. You can work by rendering
 offline, or in real-time by processing live audio and synthesizing sound
@@ -30,13 +21,11 @@ and tinyware computers. In Csound you will find the widest collection of
 tools for sound synthesis and sound modification, arguably offering a
 superset of features offered by similar software and with an unrivaled
 audio precision.
-:::
 
-Csound is simultaneously both \'old school\' and \'new school\'.
+Csound is simultaneously both *old school* and *new school*.
 
-::: { .indent }
 Is Csound difficult to learn? Generally speaking, graphical audio
-programming languages like Pure Data,^1^ Max or Reaktor are easier to
+programming languages like Pure Data, Max or Reaktor are easier to
 learn than text-coded audio programming languages such as Csound or
 SuperCollider. In Pd, Max or Reaktor you cannot make a typo which
 produces an error that you do not understand. You program without being
@@ -46,7 +35,6 @@ intuitive approach but when you deal with more complex projects, a
 text-based programming language is often easier to use and debug, and
 many people prefer to program by typing words and sentences rather than
 by wiring symbols together using the mouse.
-:::
 
 Yet Csound can straddle both approaches: it is also very easy to use
 Csound as an audio engine inside Pd or Max. Have a look at the chapter
@@ -61,16 +49,16 @@ For example, to create a 400 Hz sine oscillator with an amplitude of
 0.2, this is the signal flow:
 
 
-![](resources/images/191015_preface.png){.center style="width: 240px"}
+![](resources/images/00-a-signal-flow.png){.center style="width: 240px"}
 
 -----------------
 
 Here is a possible transformation of the signal graph into Csound code:
 
-         instr   Sine
-    aSig poscil  0.2, 400
-         out     aSig
-         endin
+    instr   Sine
+     aSig poscil  0.2, 400
+     out     aSig
+    endin
 
 The oscillator is represented by the opcode
 [poscil](http://csound.github.io/docs/manual/poscil.html) and receives
@@ -81,12 +69,12 @@ first and last lines encase these connections inside an instrument
 called *Sine*.
 
 With the release of Csound version 6, it is possible to write the same
-code in an even more condensed fashion using so-called \"functional
-syntax\", as shown below:^2^
+code in an even more condensed fashion using so-called *functional
+syntax*, as shown below:
 
-        instr Sine
-    out poscil(0.2, 400)
-        endin
+    instr Sine
+     out poscil(0.2, 400)
+    endin
 
 It is often difficult to find up to date resources that show and explain
 what is possible with Csound. Documentation and tutorials produced by
@@ -117,8 +105,3 @@ and Iain McCurdy), a roughly quarterly online publication with many
 great Csound-related articles.
 
 We hope you enjoy reading this textbook and wish you happy Csounding!
-
-1.  [more commonly known as Pd - see the Pure Data FLOSS Manual for
-    further information]{#endnote-c61a087f-0119-4a89-b7d8-deec3cb78b8a}
-2.  [See chapter 03I about Functional
-    Syntax]{#endnote-e09721ff-cae1-44fc-9908-5d8e9af975e2}
