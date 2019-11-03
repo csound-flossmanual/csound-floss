@@ -6,99 +6,29 @@ Real World Intensities and Amplitudes
 
 There are many ways to describe a sound physically. One of the most
 common is the sound intensity level (SIL). It describes the amount of
-power on a certain surface, so its unit is Watts per square meter (*W/m^2^*).
+power on a certain surface, so its unit is Watts per square meter W/m².
 
-([]{title="<img title="}
-
-::: {.group_img}
-::: {.image}
-![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7BW%7D%5C//%7B%7Bm%7D%7D%5E%7B%7B2%7D%7D "W//m^2")
-:::
-:::
-
-). The range of human hearing is about []{title="<img title="}
-
-::: {.group_img}
-::: {.image}
-![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B%7B10%7D%7D%5E%7B%7B-%7B%7B12%7D%7D%7D%7D%7BW%7D%5C//%7B%7Bm%7D%7D%5E%7B%7B2%7D%7D "10^-12 W//m^2")
-:::
-:::
-
-at the threshold of hearing to []{title="`10^0 W//m^2`"}
-
-::: {.group_img}
-::: {.image}
-![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B%7B10%7D%7D%5E%7B%7B0%7D%7D%7BW%7D%5C//%7B%7Bm%7D%7D%5E%7B%7B2%7D%7D "10^0 W//m^2")
-:::
-:::
-
+The range of human hearing is about 10⁻¹² W/m²
+at the threshold of hearing to 10⁰ W/m²
 at the threshold of pain. For ordering this immense range, and to
 facilitate the measurement of one sound intensity based upon its ratio
 with another, a logarithmic scale is used. The unit *Bel* describes the
-relation of one intensity [I]{title="<math title="} to a reference
-intensity [I~0~]{title="<math title="} as follows:
+relation of one intensity I to a reference
+intensity I_0 as follows:
 
-[]{title="<img title="}
+log_(10)I/I_0  
+*Sound Intensity Level in Bel*
 
-::: {.group_img}
-::: {.image}
-![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B%5Clog%7D_%7B%7B%7B10%7D%7D%7D%5Cfrac%7B%7BI%7D%7D%7B%7BI%7D_%7B%7B0%7D%7D%7D "log_(10)I/I_0")
-:::
-:::
+If, for example, the ratio I/I_0 is 10, this is 1 Bel. If the ratio is 100, this is 2 Bel.
 
-  *Sound Intensity Level in Bel*
-
-If, for example, the ratio  []{title="<img title="}
-
-::: {.group_img}
-::: {.image}
-![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%5Cfrac%7B%7BI%7D%7D%7B%7BI%7D_%7B%7B0%7D%7D%7D "I/I_0")
-:::
-:::
-
-is 10, this is 1 Bel. If the ratio is 100, this is 2 Bel.
-
-For real world sounds, it makes sense to set the reference value
-[]{title="<img title="}
-
-::: {.group_img}
-::: {.image}
-![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7BI%7D_%7B%7B0%7D%7D "I_0")
-:::
-:::
-
-to the threshold of hearing which has been fixed as
-[]{title="<img title="}
-
-::: {.group_img}
-::: {.image}
-![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B%7B10%7D%7D%5E%7B%7B-%7B%7B12%7D%7D%7D%7D%7BW%7D%5C//%7B%7Bm%7D%7D%5E%7B%7B2%7D%7D "10^-12 W//m^2")
-:::
-:::
-
+For real world sounds, it makes sense to set the reference value I_0
+to the threshold of hearing which has been fixed as 10^-12 W//m^2
 at 1000 Hertz. So the range of human hearing covers about 12 Bel.
 Usually 1 Bel is divided into 10 decibel, so the common formula for
 measuring a sound intensity is:
-
- 
-
-[]{title="<img title="}
-
-::: {.group_img}
-::: {.image}
-![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B10%7D%5Ccdot%7B%5Clog%7D_%7B%7B10%7D%7D%5Cfrac%7B%7BI%7D%7D%7B%7BI%7D_%7B%7B0%7D%7D%7D "10*log_10 I/I_0")
-:::
-:::
-
-  ***sound intensity level (SIL) in decibel (dB)*** with
-[]{title="<img title="}
-
-::: {.group_img}
-::: {.image}
-![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7BI%7D_%7B%7B0%7D%7D=%7B%7B10%7D%7D%5E%7B%7B-%7B%7B12%7D%7D%7D%7D%7BW%7D%5C//%7B%7Bm%7D%7D%5E%7B%7B2%7D%7D "I_0=10^-12 W//m^2")
-:::
-:::
-
+10*log_10 I/I_0  
+*sound intensity level (SIL) in decibel (dB)* with
+I_0=10^-12 W/m^2
  
 
 While the sound intensity level is useful in describing the way in which
@@ -108,149 +38,49 @@ particles and by this they increase and decrease the localized air
 pressure. These deviations are measured and transformed by a microphone.
 The question arises: what is the relationship between the sound pressure
 deviations and the sound intensity? The answer is: sound intensity
-changes []{title="<img title="}
-
-::: {.group_img}
-::: {.image}
-![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7BI%7D "I")
-:::
-:::
-
-are proportional to the *square* of the sound pressure changes
-[]{title="<img title="}
-
-::: {.group_img}
-::: {.image}
-![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7BP%7D "P")
-:::
-:::
-
-. As a formula:
-
-[]{title="<img title="}
-
-::: {.group_img}
-::: {.image}
-![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7BI%7D%5Capprox%7B%7BP%7D%7D%5E%7B%7B2%7D%7D "I~~P^2")
-:::
-:::
-
-  *Relation between Sound Intensity and Sound Pressure*
+changes I
+are proportional to the *square* of the sound pressure changes P.
+As a formula:  
+I~~P^2  
+*Relation between Sound Intensity and Sound Pressure*
 
 Let us take an example to see what this means. The sound pressure at the
-threshold of hearing can be fixed at []{title="<img title="}
-
-::: {.group_img}
-::: {.image}
-![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B2%7D%5Ccdot%7B%7B10%7D%7D%5E%7B%7B-%7B%7B5%7D%7D%7D%7D%7BP%7D%7Ba%7D "2*10^-5 Pa")
-:::
-:::
-
-. This value is the reference value of the Sound Pressure Level (SPL).
-If we now have a value of []{title="<img title="}
-
-::: {.group_img}
-::: {.image}
-![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B2%7D%5Ccdot%7B%7B10%7D%7D%5E%7B%7B-%7B%7B4%7D%7D%7D%7D%7BP%7D%7Ba%7D "2*10^-4 Pa")
-:::
-:::
-
-, the corresponding sound intensity relationship can be calculated as:
-
-[]{title="<img title="}
-
-::: {.group_img}
-::: {.image}
-![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B%7B%5Cleft(%5Cfrac%7B%7B%7B2%7D%5Ccdot%7B%7B10%7D%7D%5E%7B%7B4%7D%7D%7D%7D%7B%7B%7B2%7D%5Ccdot%7B%7B10%7D%7D%5E%7B%7B5%7D%7D%7D%7D%5Cright)%7D%7D%5E%7B%7B2%7D%7D=%7B%7B10%7D%7D%5E%7B%7B2%7D%7D=%7B100%7D "((2*10^4)/(2*10^5))^2 = 10^2 = 100")
-:::
-:::
+threshold of hearing can be fixed at 2*10^-5 Pa. 
+This value is the reference value of the Sound Pressure Level (SPL).
+If we now have a value of 
+2*10^-4 Pa, 
+the corresponding sound intensity relationship can be calculated as:
+((2*10^4)/(2*10^5))^2 = 10^2 = 100
 
 Therefore a factor of 10 in a pressure relationship yields a factor of
 100 in the intensity relationship. In general, the dB scale for the
-pressure [P]{title="<math title="} related to the pressure
-[P0]{title="<math title="} is:
+pressure related to the pressure P_0 is:
 
- 
-
-[]{title="<img title="}
-
-::: {.group_img}
-::: {.image}
-![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B10%7D%5Ccdot%7B%5Clog%7D_%7B%7B10%7D%7D%7B%7B%5Cleft(%5Cfrac%7B%7BP%7D%7D%7B%7BP%7D_%7B%7B0%7D%7D%7D%5Cright)%7D%7D%5E%7B%7B2%7D%7D=%7B2%7D%5Ccdot%7B10%7D%5Ccdot%7B%5Clog%7D_%7B%7B10%7D%7D%5Cfrac%7B%7BP%7D%7D%7B%7BP%7D_%7B%7B0%7D%7D%7D=%7B20%7D%5Ccdot%7B%5Clog%7D_%7B%7B10%7D%7D%5Cfrac%7B%7BP%7D%7D%7B%7BP%7D_%7B%7B0%7D%7D%7D "10 * log_10 (P/P_0)^2 = 2 * 10 * log_10 P/P_0 = 20 * log_10 P/P_0")
-:::
-:::
-
-***Sound pressure level (SPL) in decibels (dB)*** with
-[]{title="<img title="}
-
-::: {.group_img}
-::: {.image}
-![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7BP%7D_%7B%7B0%7D%7D=%7B2%7D%5Ccdot%7B%7B10%7D%7D%5E%7B%7B-%7B%7B5%7D%7D%7D%7D%7BP%7D%7Ba%7D "P_0=2*10^-5 Pa")
-:::
-:::
-
- 
+10 * log_10 (P/P_0)^2 = 2 * 10 * log_10 P/P_0 = 20 * log_10 P/P_0  
+*Sound pressure level (SPL) in decibels (dB)*
+with
+P_0=2*10^-5 Pa
 
 Working with digital audio means working with *amplitudes*. Any audio
-file is a sequence of amplitudes. What you generate in Csound and write
+signal is a sequence of amplitudes. What you generate in Csound and write
 either to the DAC in realtime or to a sound file, are again nothing but
 a sequence of amplitudes. As amplitudes are directly related to the
 sound pressure deviations, all the relationships between sound intensity
 and sound pressure can be transferred to relationships between sound
 intensity and amplitudes:
 
- 
+I~~A^2  
+*Relationship between intensity and amplitudes*
 
-[]{title="<img title="}
-
-::: {.group_img}
-::: {.image}
-![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7BI%7D%5Capprox%7B%7BA%7D%7D%5E%7B%7B2%7D%7D "I~~A^2")
-:::
-:::
-
-  ***Relationship between intensity and amplitudes***
-
-[]{title="<img title="}
-
-::: {.group_img}
-::: {.image}
-![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B20%7D%5Ccdot%7B%5Clog%7D_%7B%7B10%7D%7D%5Cfrac%7B%7BA%7D%7D%7B%7BA%7D_%7B%7B0%7D%7D%7D "20*log_10 A/A_0")
-:::
-:::
-
-  ***Decibel (dB) scale of amplitudes*** with any amplitude
-[]{title="<img title="}
-
-::: {.group_img}
-::: {.image}
-![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7BA%7D "A")
-:::
-:::
-
-related to another amplitude []{title="<img title="}
-
-::: {.group_img}
-::: {.image}
-![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7BA%7D_%7B%7B0%7D%7D "A_0")
-:::
-:::
-
- 
+20*log_10 A/A_0  
+*Decibel (dB) scale of amplitudes*  
+with any amplitude A related to another amplitude A_0
 
 If you drive an oscillator with an amplitude of 1, and another
 oscillator with an amplitude of 0.5 and you want to know the difference
 in dB, you can calculate this as follows:
 
-[]{title="<img title="}
-
-::: {.group_img}
-::: {.image}
-![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B20%7D%5Ccdot%7B%5Clog%7D_%7B%7B10%7D%7D%5Cfrac%7B%7B1%7D%7D%7B%7B0.5%7D%7D=%7B20%7D%5Ccdot%7B%5Clog%7D_%7B%7B10%7D%7D%7B2%7D=%7B20%7D%5Ccdot%7B0.30103%7D=%7B6.0206%7D%7Bd%7D%7BB%7D "20*log_10 1/0.5 = 20 * log_10 2 = 20 * 0.30103 = 6.0206 dB")
-:::
-:::
-
- 
+20*log_10 1/0.5 = 20 * log_10 2 = 20 * 0.30103 = 6.0206 dB  
 
 The most useful thing to bear in mind is that when you double an
 amplitude this will provide a change of +6 dB, or when you have halve an
@@ -264,25 +94,9 @@ What is 0 dB?
 As described in the last section, any dB scale - for intensities,
 pressures or amplitudes - is just a way to describe a *relationship*. To
 have any sort of quantitative measurement you will need to know the
-reference value referred to as \"0 dB\". For real world sounds, it makes
+reference value referred to as *0 dB*. For real world sounds, it makes
 sense to set this level to the threshold of hearing. This is done, as we
-saw, by setting the SIL to []{title="<img title="}
-
-::: {.group_img}
-::: {.image}
-![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B%7B10%7D%7D%5E%7B%7B-%7B%7B12%7D%7D%7D%7D%7BW%7D%5C//%7B%7Bm%7D%7D%5E%7B%7B2%7D%7D "10^-12 W//m^2") 
-:::
-:::
-
-and the SPL to []{title="<img title="}
-
-::: {.group_img}
-::: {.image}
-![](www.imathas.com/cgi-bin/mimetex.cgi?%5Cdisplaystyle%5Cblack%7B2%7D%5Ccdot%7B%7B10%7D%7D%5E%7B%7B-%7B%7B5%7D%7D%7D%7D%7BP%7D%7Ba%7D "2*10^-5 Pa")
-:::
-:::
-
-.
+saw, by setting the SIL to 10^-12 W//m^2, and the SPL to 2*10^-5 Pa.
 
 When working with digital sound within a computer, this method for
 defining 0dB will not make any sense. The loudness of the sound produced
@@ -295,17 +109,17 @@ can store as amplitude. This maximum possible level is normally used as
 the reference point for 0 dB.
 
 Each program connects this maximum possible amplitude with a number.
-Usually it is \'1\' which is a good choice, because you know that
+Usually it is 1 which is a good choice, because you know that
 everything above 1 is clipping, and you have a handy relation for lower
 values. But actually this value is nothing but a setting, and in Csound
 you are free to set it to any value you like via the
-[0dbfs](http://www.csounds.com/manual/html/Zerodbfs.html) opcode.
+`[0dbfs](https://csound.com/docs/manual/Zerodbfs.html)` opcode.
 Usually you should use this statement in the orchestra header:
 
     0dbfs = 1
 
-This means: \"Set the level for zero dB as full scale to 1 as reference
-value.\" Note that for historical reasons the default value in Csound is
+This means: "Set the level for zero dB as full scale to 1 as reference
+value." Note that for historical reasons the default value in Csound is
 not 1 but 32768. So you must have this *0dbfs=1* statement in your
 header if you want to use the amplitude convention used by most modern
 audio programming environments.
@@ -320,7 +134,7 @@ discussed so far. One major point is that for achieving perceivably
 smooth changes across intensity levels you must not use a simple linear
 transition of the amplitudes, but a linear transition of the dB
 equivalent. The following example shows a linear rise of the amplitudes
-from 0 to 1, and then a linear rise of the dB\'s from -80 to 0 dB, both
+from 0 to 1, and then a linear rise of the dB's from -80 to 0 dB, both
 over 10 seconds.
 
    ***EXAMPLE 01C01\_db\_vs\_linear.csd*** 
@@ -330,7 +144,6 @@ over 10 seconds.
     -odac
     </CsOptions>
     <CsInstruments>
-    ;example by joachim heintz
     sr = 44100
     ksmps = 32
     nchnls = 2
@@ -338,14 +151,14 @@ over 10 seconds.
 
     instr 1 ;linear amplitude rise
     kamp      line    0, p3, 1     ;amp rise 0->1
-    asig      oscils  1, 1000, 0   ;1000 Hz sine
+    asig      poscil  1, 1000      ;1000 Hz sine
     aout      =       asig * kamp
               outs    aout, aout
     endin
 
     instr 2 ;linear rise of dB
     kdb       line    -80, p3, 0   ;dB rise -80 -> 0
-    asig      oscils  1, 1000, 0   ;1000 Hz sine
+    asig      poscil  1, 1000      ;1000 Hz sine
     kamp      =       ampdb(kdb)   ;transformation db -> amp
     aout      =       asig * kamp
               outs    aout, aout
@@ -357,6 +170,7 @@ over 10 seconds.
     i 2 11 10
     </CsScore>
     </CsoundSynthesizer>
+    ;example by joachim heintz
 
 The first note, which employs a linear rise in amplitude, is perceived
 as rising quickly in intensity with the rate of increase slowing
@@ -379,27 +193,17 @@ Let us consider a simple example and then look how to derive rms values
 within Csound. Assuming we have a sine wave which consists of 16
 samples, we get these amplitudes:
 
-::: {.group_img}
-::: {.image}
-![16 times sampled sine wave](../resources/images/sine_16points_v2.png){width="619"
-height="391"} 
-:::
-:::
+![16 times sampled sine wave](../resources/images/01-c-sine-16points-v2.png)
 
 These are the squared amplitudes:
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/sine_16points_rms_v2.png){width="603" height="373"}
-:::
-:::
+![](../resources/images/01-c-sine-16points-rms-v2.png)
 
 The mean of these values is:
 
-[(0+0.146+0.5+0.854+1+0.854+0.5+0.146+0+0.146+0.5+0.854+1+0.854+0.5+0.146)/16=8/16=0.5]{title="<math title="}
+0+0.146+0.5+0.854+1+0.854+0.5+0.146+0+0.146+0.5+0.854+1+0.854+0.5+0.146)/16=8/16=0.5
 
-And the resulting RMS value is sqrt([0.5) = 0.707]{title="<math title="}
-. 
+And the resulting RMS value is sqrt([0.5) = 0.707. 
 
 The [rms](http://www.csounds.com/manual/html/rms.html) opcode in Csound
 calculates the RMS power in a certain time span, and smoothes the values
@@ -417,7 +221,6 @@ reduced. This is an example^1^ :
     -odac
     </CsOptions>
     <CsInstruments>
-    ;example by Martin Neukom, adapted by Joachim Heintz
     sr = 44100
     ksmps = 32
     nchnls = 2
@@ -426,24 +229,24 @@ reduced. This is an example^1^ :
     giSine    ftgen     0, 0, 2^10, 10, 1 ;table with a sine wave
 
     instr 1
-    a3        init      0
-    kamp      linseg    0, 1.5, 0.2, 1.5, 0        ;envelope for initial input
-    asnd      poscil    kamp, 440, giSine          ;initial input
-    if p4 == 1 then                                ;choose between two sines ...
-     adel1     poscil    0.0523, 0.023, giSine
-     adel2     poscil    0.073, 0.023, giSine,.5
-    else                                           ;or a random movement for the delay lines
-     adel1     randi     0.05, 0.1, 2
-     adel2     randi     0.08, 0.2, 2
-    endif
-    a0        delayr    1                          ;delay line of 1 second
-    a1        deltapi   adel1 + 0.1                ;first reading
-    a2        deltapi   adel2 + 0.1                ;second reading
-    krms      rms       a3                         ;rms measurement
-              delayw    asnd + exp(-krms) * a3     ;feedback depending on rms
-    a3        reson     -(a1+a2), 3000, 7000, 2    ;calculate a3
-    aout      linen     a1/3, 1, p3, 1             ;apply fade in and fade out
-              outs      aout, aout
+     a3        init      0
+     kamp      linseg    0, 1.5, 0.2, 1.5, 0        ;envelope for initial input
+     asnd      poscil    kamp, 440, giSine          ;initial input
+     if p4 == 1 then                                ;choose between two sines ...
+      adel1     poscil    0.0523, 0.023, giSine
+      adel2     poscil    0.073, 0.023, giSine,.5
+     else                                           ;or a random movement for the delay lines
+      adel1     randi     0.05, 0.1, 2
+      adel2     randi     0.08, 0.2, 2
+     endif
+     a0        delayr    1                          ;delay line of 1 second
+     a1        deltapi   adel1 + 0.1                ;first reading
+     a2        deltapi   adel2 + 0.1                ;second reading
+     krms      rms       a3                         ;rms measurement
+               delayw    asnd + exp(-krms) * a3     ;feedback depending on rms
+     a3        reson     -(a1+a2), 3000, 7000, 2    ;calculate a3
+     aout      linen     a1/3, 1, p3, 1             ;apply fade in and fade out
+               outs      aout, aout
     endin
     </CsInstruments>
     <CsScore>
@@ -451,6 +254,7 @@ reduced. This is an example^1^ :
     i 1 61 . 2          ;two random movements of delay with feedback
     </CsScore>
     </CsoundSynthesizer>
+    ;example by Martin Neukom, adapted by Joachim Heintz
 
  
 
@@ -465,15 +269,11 @@ sensitive region is around 3000 Hz. If a sound is operating in the upper
 or lower limits of this range, it will need greater intensity in order
 to be perceived as equally loud. 
 
-These curves of equal loudness are mostly called \"Fletcher-Munson
-Curves\" because of the paper of H. Fletcher and W. A. Munson in 1933.
+These curves of equal loudness are mostly called *Fletcher-Munson
+Curves* because of the paper of H. Fletcher and W. A. Munson in 1933.
 They look like this:
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/fletcher-munson.png){width="422" height="375"} 
-:::
-:::
+![](../resources/images/01-c-fletcher-munson.png)
 
 Try the following test. During the first 5 seconds you will hear a tone
 of 3000 Hz. Adjust the level of your amplifier to the lowest possible
@@ -500,14 +300,12 @@ not hear anything in the bass region.
     nchnls = 2
     0dbfs = 1
 
-    giSine    ftgen     0, 0, 2^10, 10, 1 ;table with a sine wave
-
     instr 1
-    kfreq     expseg    p4, p3, p5
-              printk    1, kfreq ;prints the frequencies once a second
-    asin      poscil    .2, kfreq, giSine
-    aout      linen     asin, .01, p3, .01
-              outs      aout, aout
+     kfreq     expseg    p4, p3, p5
+               printk    1, kfreq ;prints the frequencies once a second
+     asin      poscil    .2, kfreq
+     aout      linen     asin, .01, p3, .01
+               outs      aout, aout
     endin
     </CsInstruments>
     <CsScore>
@@ -515,6 +313,7 @@ not hear anything in the bass region.
     i 1 6 20 20  20000
     </CsScore>
     </CsoundSynthesizer>
+    ;example by joachim heintz
 
 It is very important to bear in mind when designing instruments that the
 perceived loudness of a sound will depend upon its frequency content.
@@ -525,4 +324,4 @@ amplitude; the latter will sound much louder.  
  
 
 1.  [cf Martin Neukom, Signale Systeme Klangsynthese, Zürich 2003, p.
-    383]{#endnote-2bd6a21b-7272-401a-b044-8d0273434ae0}
+    383]
