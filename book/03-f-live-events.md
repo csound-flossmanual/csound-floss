@@ -190,8 +190,7 @@ list in the score section of a .csd file. Each line which begins with an
 \"i\", is an instrument event. As this is very simple, and examples can
 be found easily, let us focus instead on some additional features which
 can be useful when you work in this way. Documentation for these
-features can be found in the [Score
-Statements](http://www.csounds.com/manual/html/ScoreStatements.html)
+features can be found in the [Score Statements](http://www.csounds.com/manual/html/ScoreStatements.html)
 section of the Canonical Csound Reference Manual. Here are some
 examples:
 
@@ -324,8 +323,7 @@ Csound\'s FLTK widgets, and then using CsoundQt\'s widgets.
 ### FLTK Button
 
 This is a very simple example demonstrating how to trigger an instrument
-using an [FLTK
-button](http://www.csounds.com/manual/html/FLbutton.html). A more
+using an [FLTK button](http://www.csounds.com/manual/html/FLbutton.html). A more
 extended example can be found
 [here](http://www.csounds.com/manual/html/examples/FLbutton.csd).
 
@@ -384,12 +382,6 @@ calculation within the instrument itself at i-time.
 
 In CsoundQt, a button can be created easily from the submenu in a widget
 panel:
-
-::: {.group_img}
-::: {.image}
-![](../resources/images//_v/1.0/http://en.flossmanuals.net/floss/pub/Csound/){width="0" height="0"}
-:::
-:::
 
 ::: {.group_img}
 ::: {.image}
@@ -1262,8 +1254,7 @@ collection has been ported to QuteCsound by René Jopi, and is part of
 QuteCsound\'s example menu.
 
 An extended example for calculating score events at i-time can be found
-in the [Re-Generation of Stockhausen\'s \"Studie
-II\"](http://www.joachimheintz.de/soft/popsoft.html) by Joachim Heintz
+in the [Re-Generation of Stockhausen\'s \"StudieII\"](http://www.joachimheintz.de/soft/popsoft.html) by Joachim Heintz
 (also included in the QuteCsound Examples menu).
 
 ### Related Opcodes

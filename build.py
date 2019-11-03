@@ -60,6 +60,7 @@ COMBINED_METADATA          = os.path.join(TMP_DIR, "metadata.yaml")
 # Input files
 
 HTML_HEAD_INCLUDE          = os.path.join(RESOURCES_DIR, "html", "head_include.html")
+HTML_BODY_INCLUDE          = os.path.join(RESOURCES_DIR, "html", "body_include.html")
 
 EPUB_METADATA_TEMPLATE     = os.path.join(RESOURCES_DIR, "epub-metadata.xml")
 
@@ -142,7 +143,8 @@ PANDOC_EXTENSIONS = (
     "fenced_code_attributes",
     "backtick_code_blocks",
     "yaml_metadata_block",
-    "implicit_figures"
+    "implicit_figures",
+    "tex_math_dollars"
 )
 
 INPUT_FORMAT = "markdown+{}".format("+".join(PANDOC_EXTENSIONS))
@@ -151,7 +153,7 @@ COMMON_PANDOC_OPTS = (
     f"-f {INPUT_FORMAT} {HASKELL_OPTS} -F {PANDOC_FILTER}" +
     (" -F pandoc-citeproc" if uses_references else "") +
     (f" -F {PLANTUML_FILTER}" if uses_plantuml else "") +
-    (" --standalone")
+    (" --standalone --mathjax")
 )
 NON_LATEX_PANDOC_OPTS = f"{COMMON_PANDOC_OPTS} "
 LATEX_PANDOC_OPTS = (f"{COMMON_PANDOC_OPTS} --template={LATEX_TEMPLATE} " +
@@ -159,7 +161,8 @@ LATEX_PANDOC_OPTS = (f"{COMMON_PANDOC_OPTS} --template={LATEX_TEMPLATE} " +
                      "--toc")
 HTML_PANDOC_OPTS = (f"{NON_LATEX_PANDOC_OPTS} -t html " +
                     f"--css={FONTS_CSS} --css={HTML_CSS} " +
-                    f"-H {HTML_HEAD_INCLUDE}")
+                    f"-H {HTML_HEAD_INCLUDE} " +
+                    f"-B {HTML_BODY_INCLUDE}")
 EPUB_PANDOC_OPTS = (f"{NON_LATEX_PANDOC_OPTS} -t epub --toc " +
                     "--epub-embed-font=resources/styles/fonts/*.ttf " +
                     f"--epub-chapter-level=1 --css={EPUB_CSS} " +

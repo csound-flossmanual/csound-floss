@@ -23,7 +23,7 @@ also the option of modulating the loop points at k-rate. In this example
 the entire file is simply played and looped. You can replace the sound
 file with one of your own or you can download the one used in the
 example from
-[here](b-record-and-play-buffers/b-record-and-play-buffers/www.iainmccurdy.org/csoundrealtimeexamples/sourcematerials/loop.wav).
+[here](www.iainmccurdy.org/csoundrealtimeexamples/sourcematerials/loop.wav).
 
 ### Some notes about GEN01 and function table sizes:
 
@@ -484,12 +484,6 @@ table opcodes in this case, because we want to translate any number of
 samples in the table to any number of output samples using different
 speed values. In short, we will need to read amplitude values that must
 be \'imagined\' between two existing table value.
-
-::: {.group_img}
-::: {.image}
-![](../resources/images//_v/1.0/http://en.flossmanuals.net/floss/pub/Csound/){width="0" height="0"}
-:::
-:::
 
 ::: {.group_img}
 ::: {.image}
