@@ -42,6 +42,10 @@ strong {
     font-weight: 700;
 }
 
+figcaption {
+    font-style: italic;
+}
+
 img.plantuml {
     margin-top: 1em;
     margin-bottom: 1em;

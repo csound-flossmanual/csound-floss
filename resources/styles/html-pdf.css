@@ -31,6 +31,10 @@ img {
     max-width: 100%;
 }
 
+figcaption {
+    font-style: italic;
+}
+
 img.plantuml {
     margin-top: 1em;
     margin-bottom: 1em;
