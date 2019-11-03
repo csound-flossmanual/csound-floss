@@ -6,7 +6,9 @@ Real World Intensities and Amplitudes
 
 There are many ways to describe a sound physically. One of the most
 common is the sound intensity level (SIL). It describes the amount of
-power on a certain surface, so its unit is Watts per square meter
+power on a certain surface, so its unit is Watts per square meter \(
+![](../resources/images/01-c-01.gif)\).
+
 ([]{title="<img title="}
 
 ::: {.group_img}

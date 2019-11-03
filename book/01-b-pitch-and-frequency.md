@@ -47,16 +47,15 @@ and probably not the last (20 kHz) one, but hopefully the other ones
     -odac -m0
     </CsOptions>
     <CsInstruments>
-    ;example by joachim heintz
     sr = 44100
     ksmps = 32
     nchnls = 2
     0dbfs = 1
 
     instr 1
-            prints  "Playing %d Hertz!\n", p4
-    asig    oscils  .2, p4, 0
-            outs    asig, asig
+     prints  "Playing %d Hertz!\n", p4
+     asig    poscil  .2, p4
+     outs    asig, asig
     endin
 
     </CsInstruments>
@@ -68,6 +67,7 @@ and probably not the last (20 kHz) one, but hopefully the other ones
     i . + . 20000
     </CsScore>
     </CsoundSynthesizer>
+    ;example by joachim heintz
 
 ### Logarithms, Frequency Ratios and Intervals
 
@@ -124,31 +124,30 @@ although the frequency displacement is different each time.
 
     <CsoundSynthesizer>
     <CsOptions>
-    --env:SSDIR+=../SourceMaterials -odac -m0
+    -odac -m0
     </CsOptions>
     <CsInstruments>
-    ;example by joachim heintz
     sr = 44100
     ksmps = 32
     nchnls = 2
     0dbfs = 1
 
     instr 1
-            prints  "Playing %d Hertz!\n", p4
-    asig    oscils  .2, p4, 0
-            outs    asig, asig
+     prints  "Playing %d Hertz!\n", p4
+     asig    poscil  .2, p4
+     outs    asig, asig
     endin
 
     instr 2
-            prints  "Adding %d Hertz to %d Hertz!\n", p5, p4
-    asig    oscils  .2, p4+p5, 0
-            outs    asig, asig
+     prints  "Adding %d Hertz to %d Hertz!\n", p5, p4
+     asig    poscil  .2, p4+p5
+     outs    asig, asig
     endin
 
     instr 3
-            prints  "Applying the ratio of %f (adding %d Hertz) to %d Hertz!\n", p5, p4*p5, p4
-    asig    oscils  .2, p4*p5, 0
-            outs    asig, asig
+     prints  "Applying the ratio of %f (adding %d Hertz) to %d Hertz!\n", p5, p4*p5, p4
+     asig    poscil  .2, p4*p5
+     outs    asig, asig
     endin
 
     </CsInstruments>
@@ -169,6 +168,7 @@ although the frequency displacement is different each time.
     i 3 17 1 800 [3/2]
     </CsScore>
     </CsoundSynthesizer>
+    ;example by joachim heintz
 
 So what of the algorithms mentioned above. As some readers will know the
 current preferred method of tuning western instruments is based on equal
@@ -188,6 +188,6 @@ will convert MIDI notes to Hertz values and back again. In MIDI speak
 A440 is equal to A4 and is MIDI note 69. You can think of A4 as being
 the fourth A from the lowest A we can hear; well, almost hear.
 
-*Caution: like many \'standards\' there is occasional disagreement about
+*Caution: like many standards there is occasional disagreement about
 the mapping between frequency and octave number. You may occasionally
 encounter A440 being described as A3.*

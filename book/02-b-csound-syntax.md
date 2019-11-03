@@ -13,13 +13,13 @@ thought of as a timeline in text.
 
 A Csound instrument is contained within an Instrument Block, which
 starts with the keyword
-[instr](http://csound.github.io/docs/manual/html/instr.html "event") and
+[instr](http://csound.github.io/docs/manual/html/instr.html) and
 ends with the keyword
-[endin](http://csound.github.io/docs/manual/html/endin.html "event").
+[endin](http://csound.github.io/docs/manual/html/endin.html).
 All instruments are given a number (or a name) to identify them.
 
     instr 1
-    ... instrument instructions come here...
+     ... instrument instructions come here...
     endin
 
 Score events in Csound are individual text lines, which can turn on
@@ -44,7 +44,7 @@ The Csound Document Structure
 A Csound document is structured into three main sections:
 
 -   **CsOptions**: Contains the configuration options for Csound. For
-    example using \"-o dac\" in this section will make Csound run in
+    example using *-o dac* in this section will make Csound run in
     real-time instead of writing a sound file.
 -   **CsInstruments**: Contains the instrument definitions and
     optionally some global settings and definitions like sample rate,
@@ -102,8 +102,8 @@ output their results on the left, like this:
     output    OPCODE    input1, input2, input3, .., inputN 
 
 For example the
-[poscil](http://csound.github.io/docs/manual/html/poscil.html "event")
-opcode has two mandatory inputs:^3^  amplitude and frequency, and
+[poscil](http://csound.github.io/docs/manual/html/poscil.html)
+opcode has two mandatory inputs: amplitude and frequency, and
 produces a sine wave signal:
 
     aSin      poscil    0dbfs/4, 440
@@ -149,12 +149,12 @@ which are variables beginning with the letter \"a\".
                out        aFiltered
 
 In the example above, the
-[buzz](http://csound.github.io/docs/manual/html/buzz.html "event")
+[buzz](http://csound.github.io/docs/manual/html/buzz.html)
 opcode produces a complex waveform as signal *aSource*. This signal is
 fed into the
-[moogladder](http://csound.github.io/docs/manual/html/moogladder.html "event")
+[moogladder](http://csound.github.io/docs/manual/html/moogladder.html)
 opcode, which in turn produces the signal *aFiltered*. The
-[out](http://csound.github.io/docs/manual/html/out.html "event") opcode
+[out](http://csound.github.io/docs/manual/html/out.html) opcode
 takes this signal, and sends it to the output whether that be to the
 speakers or to a rendered file.
 
@@ -163,31 +163,29 @@ signals, which are updated less frequently than audio signals, and \"i\"
 variables which are constants within each instrument note.
 
 You can find more information about variable types
-[here](b-local-and-global-variables "event") in this manual, or
-[here](http://csoundjournal.com/issue10/CsoundRates.html "event") in the
+[here](03-b-local-and-global-variables) in this manual, or
+[here](http://csoundjournal.com/issue10/CsoundRates.html) in the
 Csound Journal.
 
 Using the Manual
 ----------------
 
 The [Csound Reference
-Manual](http://csound.github.io/docs/manual/index.html "event") is a
+Manual](http://csound.github.io/docs/manual/index.html) is a
 comprehensive source regarding Csound\'s syntax and opcodes. All opcodes
 have their own manual entry describing their syntax and behavior, and
 the manual contains a detailed reference on the Csound language and
 options.
 
-In [CsoundQt](http://qutecsound.sourceforge.net "event") you can find
+In [CsoundQt](http://qutecsound.sourceforge.net) you can find
 the Csound Manual in the Help Menu. You can quickly go to a particular
 opcode entry in the manual by putting the cursor on the opcode and
-pressing Shift+F1. [WinXsound](http://winxound.codeplex.com "event") ,
-[Cabbage](http://code.google.com/p/cabbage "event") and
-[Blue](http://blue.kunstmusik.com/ "event") also provide easy access to
+pressing Shift+F1. [WinXsound](http://winxound.codeplex.com) ,
+[Cabbage](http://code.google.com/p/cabbage) and
+[Blue](http://blue.kunstmusik.com/) also provide easy access to
 the manual.
 
 1.  [Its characteristics are described in detail in section 03 CSOUND
     LANGUAGE.]{#endnote-1fae07db-883a-4c3f-85d1-95e0135d8661}
 2.  [For instance using the schedule or event
     opcode.]{#endnote-ea925da8-47bf-4c61-bd33-d205764d8f4d}
-3.  ::: {#endnote-7de55625-c29d-46e7-9048-8504575a3596}
-    :::
