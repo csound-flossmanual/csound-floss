@@ -14,7 +14,7 @@ at the threshold of pain. For ordering this immense range, and to
 facilitate the measurement of one sound intensity based upon its ratio
 with another, a logarithmic scale is used. The unit *Bel* describes the
 relation of one intensity I to a reference
-intensity I_0 as follows:
+intensity I~0 as follows:
 
 log_(10)I/I_0  
 *Sound Intensity Level in Bel*
@@ -113,7 +113,7 @@ Usually it is 1 which is a good choice, because you know that
 everything above 1 is clipping, and you have a handy relation for lower
 values. But actually this value is nothing but a setting, and in Csound
 you are free to set it to any value you like via the
-`[0dbfs](https://csound.com/docs/manual/Zerodbfs.html)` opcode.
+[0dbfs](https://csound.com/docs/manual/Zerodbfs.html) opcode.
 Usually you should use this statement in the orchestra header:
 
     0dbfs = 1
@@ -323,5 +323,4 @@ amplitude; the latter will sound much louder.  
 
  
 
-1.  [cf Martin Neukom, Signale Systeme Klangsynthese, Zürich 2003, p.
-    383]
+1.  cf Martin Neukom, Signale Systeme Klangsynthese, Zürich 2003, p.383
