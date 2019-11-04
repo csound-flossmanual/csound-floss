@@ -267,7 +267,8 @@ def target_dir_for(file: str,
 def preprocess_markdown(
         tmp_dir: str,
         files: Sequence[str],
-        divs: bool = False) -> Generator[Sequence[str], None, None]:
+        divs: bool = False,
+        autoremove: bool = True) -> Generator[Sequence[str], None, None]:
     """
     Content manager that preprocesses the Markdown files, adding some content
     and producing new, individual files.
@@ -287,7 +288,7 @@ def preprocess_markdown(
     directory = os.path.join(tmp_dir, 'preprocessed')
     from_to = [(f, os.path.join(directory, os.path.basename(f))) for f in files]
     generated = [t for f, t in from_to]
-    with ensure_dir(directory, autoremove=True):
+    with ensure_dir(directory, autoremove=autoremove):
         for f, temp in from_to:
             with open_file(temp, mode="w") as t:
                 basefile, ext = os.path.splitext(os.path.basename(f))

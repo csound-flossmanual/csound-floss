@@ -3,3 +3,4 @@ grizzled-python>=2.0.0
 doit==0.31.1
 panflute==1.11.2
 WeasyPrint==50
+livereload==2.6.1

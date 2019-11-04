@@ -1,3 +1,6 @@
+# pypi2nix command:
+# pypi2nix -r requirements.txt -E "pkgconfig zlib libjpeg openjpeg libtiff freetype lcms2 libwebp tcl libffi"
+
 with import <nixpkgs> {};
 
 let py = import ./requirements.nix { inherit pkgs; };

@@ -20,10 +20,12 @@
 
 import sys
 import os
+import codecs
+import shutil
 from glob import glob
 from string import Template
 from pathlib import Path
-import codecs
+from livereload import Server
 
 sys.path.insert(0, os.path.dirname(__file__))
 from lib import *
@@ -36,6 +38,7 @@ VERSION = "0.8.0"
 
 BOOK_SRC_DIR = "book"
 TMP_DIR  = "tmp"
+TMP_DEV_DIR  = os.path.join(TMP_DIR, "dev")
 RESOURCES_DIR = "resources"
 
 BUILD_FILE = "build.py"
@@ -235,12 +238,56 @@ def task_html():
         with preprocess_markdown(TMP_DIR, BOOK_FILE_LIST, divs=True) as files:
             files_str = " ".join(files)
             sh(f"{PANDOC} {HTML_PANDOC_OPTS} -o {targets[0]} {files_str} ")
-
     return {
         "actions": [run],
         "file_dep": HTML_DEPS,
         "targets": [OUTPUT_HTML],
         "clean":   True
+    }
+
+def task_dev():
+    """
+    Autoreload for book development
+    """
+    def create_index():
+        uris = []
+        for p in BOOK_MD_FILES:
+            html = os.path.basename(p).replace(".md", ".html")
+            uris.append(f"<li><a href=\"{html}\">{html}</a></li>")
+        template = '''<!DOCTYPE html>
+        <html>
+        <head>
+        <title>Live Reload Index</title>
+        </head>
+        <body>
+        <ul>%s</ul>
+        </body>
+        </html>''' %("\n".join(uris))
+        with open(os.path.join(TMP_DEV_DIR, "index.html"), "w") as index_html:
+            index_html.write(template)
+    def render_single_file(p):
+        with preprocess_markdown(TMP_DEV_DIR, [p], divs=True, autoremove=False) as files:
+            files_str = " ".join(files)
+            html = os.path.basename(p).replace(".md", ".html")
+            output = os.path.join(TMP_DEV_DIR, html)
+            sh(f"{PANDOC} {HTML_PANDOC_OPTS} --metadata-file={TMP_DIR}/metadata.yaml -o {output} {files_str}")
+    def render_single_file_closure(p):
+        return lambda: render_single_file(p)
+    def run(targets):
+        server = Server()
+        shutil.rmtree(TMP_DEV_DIR, ignore_errors=True)
+        os.makedirs(TMP_DEV_DIR, exist_ok=True)
+        os.symlink("../../resources", os.path.join(TMP_DEV_DIR, "resources"), target_is_directory=True)
+        create_index()
+        for p in BOOK_FILE_LIST:
+            render_single_file(p)
+            server.watch(p, render_single_file_closure(p), delay=2)
+        server.serve(port=8080, host='localhost', root=f"{TMP_DEV_DIR}", open_url_delay=1)
+
+    return {
+        "actions": [run],
+        "clean":   True,
+        "task_dep": ["combined_metadata"]
     }
 
 # def task_html_body_include():
