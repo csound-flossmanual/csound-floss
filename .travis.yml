@@ -16,7 +16,7 @@ install:
 - nix-shell nix/shell.nix --run 'exit 0' # just install and exit to prevent filling memory
 script:
 - nix-shell nix/shell.nix --run 'python3 build.py html'
-- mkdir -p dist && cp -r resources dist && cp csound-floss-export.html dist
+- mkdir -p dist && cp -r resources dist && cp csound-floss-export.html dist/index.html
 
 deploy:
   skip_cleanup: true
