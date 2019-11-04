@@ -9,4 +9,4 @@ install:
 - sudo mount -o remount,exec,size=4G,mode=755 /run/user || true
 - nix-env -iA nixpkgs.nix-prefetch-git nixpkgs.nix-prefetch-hg
 script:
-- nix-shell --command 'python build.py html'
+- nix-shell nix/shell.nix --run 'python3 build.py html'
