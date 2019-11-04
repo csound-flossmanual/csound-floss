@@ -132,8 +132,8 @@ PANDOC        = find_in_path("pandoc")
 # -Ksize sets the stack size. -K10m uses a 10 Mb stack, for instance. The
 # default size is 8M.
 
-#HASKELL_OPTS = "+RTS -K20m -RTS"
-HASKELL_OPTS = ""
+HASKELL_OPTS = "+RTS -K4096m -RTS"
+# HASKELL_OPTS = ""
 
 PANDOC_EXTENSIONS = (
     "line_blocks",

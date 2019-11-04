@@ -5,6 +5,12 @@ os:
 env:
   global:
     - NIX_PATH=nixpkgs=https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz
+before_install:
+  - sudo fallocate -l 4G /swapfile
+  - sudo chmod 600 /swapfile
+  - sudo mkswap /swapfile
+  - sudo swapon /swapfile
+  - sudo sysctl vm.swappiness=10
 install:
 - sudo mount -o remount,exec,size=4G,mode=755 /run/user || true
 - nix-shell nix/shell.nix --run 'exit 0' # just install and exit to prevent filling memory
