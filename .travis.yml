@@ -7,6 +7,12 @@ env:
     - NIX_PATH=nixpkgs=https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz
 install:
 - sudo mount -o remount,exec,size=4G,mode=755 /run/user || true
-- nix-env -iA nixpkgs.nix-prefetch-git nixpkgs.nix-prefetch-hg
+- nix-shell nix/shell.nix --run 'exit 0' # just install and exit to prevent filling memory
 script:
 - nix-shell nix/shell.nix --run 'python3 build.py html'
+- mkdir -p dist && cp -r resources dist && cp csound-floss-export.html dist
+
+deploy:
+  provider: firebase
+  token:
+    secure: "abHkIVZt/NAZN8ANgpAdHdLKFOCiKuiNmZbWFM6eCJ50WKUGPyXqe15qKXf6hTyijNTjf0S8LFeSAaa21MoXYd4djrcydkYD9hwOQ+RdIFW5zv2kxR+c5QUZ7L9MB3srB6Y7bWxxK4LzW7zTkPJJTNCIV0prMmrb+2PyosQMzQIarPEoNx2ZtArhtXCn+qKsShhQHVfNxM2qJ+TNidRla9P3WbDOQMQJ3jN+MSojs1nSVCPQ3UDi4uefVo/WQ8/saYR2vwAVj9WUr2kozzBMH8ghaRdrxretFAUSRDOESiDl72JRA02awcL7WdTtSE6SAbtQL+YA7uGAEmc0SkOwZIFzYKwCU67Hyk73xJaKvRLuySXSMEKFh/2x/nNoTJp0wmAZ06vFoGtbXtkRbP5VSTTX7g3tMRAIyz9yPk7c+38zqJiBeBI5xFqYuKMgV9K+69LO7YNp1AXw4ob7jqOeusEXZ9nvMkvRkgIDXlCYRu7ix7VGhZ3PxakRDZhF90bgRw2OyGmnBKMHoV3Ni0++ZUhBIxcbwn97xbYMqxv2tQjFIfkIcinpSoKEfYiqdio0K6joQdZjh+xqbw/SDzudYXiNySCNK34m1RQ4kCC1Erm+quMTC6cu0t14spEpU5e2ICVSY6zuDBXOys1K7nLcF4hv3pXyVX+s4P075Yb+Zu4="
