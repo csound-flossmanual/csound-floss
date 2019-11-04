@@ -2,8 +2,7 @@
 
 VERSION="1.0.0"
 
-if which docker >/dev/null; then
-else
+if ! which docker >/dev/null; then
     echo "Error: docker is not installed" >&2
     exit 1
 fi
