@@ -49,7 +49,7 @@ For example, to create a 400 Hz sine oscillator with an amplitude of
 0.2, this is the signal flow:
 
 
-![](../resources/images/00-a-signal-flow.png){.center style="width: 240px"}
+![](../resources/images/00-a-signal-flow.png){.center width=50%}
 
 Here is a possible transformation of the signal graph into Csound code:
 
@@ -95,7 +95,7 @@ Csound whilst also remaining concise and simple enough to avoid
 overwhelming the reader through the shear number of possibilities
 offered by Csound. Frequently this manual will link to other more
 detailed resources such as the [Canonical Csound Reference
-Manual](http://csound.github.io/docs/manual/index.html), the main
+Manual](http://csound.com/docs/manual/index.html), the main
 support documentation provided by the Csound developers and associated
 community over the years, and the [Csound
 Journal](http://csoundjournal.com/index.html) (edited by James Hearon
