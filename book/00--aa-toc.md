@@ -62,7 +62,7 @@
 ### [B. TRIGGERING INSTRUMENT INSTANCES](07-b-triggering-instrument-instances.md)
 ### [C. WORKING WITH CONTROLLERS](07-c-working-with-controllers.md)
 ### [D. READING MIDI FILES](07-d-reading-midi-files.md)
-### 8E. MIDI OUTPUT](07-e-midi-output.md)
+### [E. MIDI OUTPUT](07-e-midi-output.md)
 
 ## 08 OTHER COMMUNICATION
 ### [A. OPEN SOUND CONTROL](08-a-open-sound-control.md)
@@ -72,7 +72,7 @@
 ### [A. CSOUND IN PD](09-a-csound-in-pd.md)
 ### [B. CSOUND IN MAXMSP](09-b-csound-in-maxmsp.md)
 ### [C. CSOUND IN ABLETON LIVE](09-c-csound-in-ableton-live.md)
-### 8D. CSOUND AS A VST PLUGIN](09-d-csound-as-a-vst-plugin.md)
+### [D. CSOUND AS A VST PLUGIN](09-d-csound-as-a-vst-plugin.md)
 
 ## 10 CSOUND FRONTENDS
 ### [A. CSOUNDQT](10-a-csoundqt.md)

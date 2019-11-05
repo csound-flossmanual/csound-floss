@@ -9,21 +9,7 @@ modulated by the signal from another oscillator (called the modulator).
 The output of the modulating oscillator is added to the frequency input
 of the carrier oscillator.
 
-::: {.group_img .image-layout-1image_1caption_bottom style="text-align: start;"}
-::: {.image .bk-image-editor style="width: 450px; height: 530px;"}
-![](../resources/images/fm_191009.png)
-:::
-
-::: {.caption_small style="width: 450px;"}
-Basic Model of Frequency Modulation
-:::
-:::
-
-::: {.group_img .image-layout-1image_1caption_bottom style="text-align: start;"}
-::: {.caption_small}
-\
-:::
-:::
+![<small>*Basic Model of Frequency Modulation*</small>](../resources/images/fm_191009.png){width=50%}
 
 The amplitude of the modulator determines the amount of modulation, or
 the frequency deviation from the fundamental carrier frequency. The
@@ -41,7 +27,6 @@ running in the sub-audio frequency range (below 20 Hz), the result of FM
 is vibrato. When the modulator's frequency rises in the audio range, we
 hear it as a change in the timbre of the carrier.
 
-\
 
 ***EXAMPLE 04D01\_Frequency\_modulation.csd***
 

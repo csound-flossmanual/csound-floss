@@ -1,4 +1,4 @@
-97 A. RECEIVING EVENTS BY MIDIIN
+07 A. RECEIVING EVENTS BY MIDIIN
 ================================
 
 Csound provides a variety of opcodes, such as

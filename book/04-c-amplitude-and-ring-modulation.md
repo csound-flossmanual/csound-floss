@@ -7,17 +7,7 @@ Introduction
 Amplitude-modulation (AM) means, that one oscillator varies the
 volume/amplitude of an other. 
 
-\
-
-::: {.group_img .image-layout-1image_1caption_bottom style="text-align: start;"}
-::: {.image .bk-image-editor style="width: 434.347px; height: 554.709px;"}
-![](../resources/images/am_191013_150dpi.png)
-:::
-
-::: {.caption_small style="width: 434.347px;"}
-Basic Model of Amplitude Modulation\
-:::
-:::
+![<small>*Basic Model of Amplitude Modulation*>/small>](../resources/images/am_191013_150dpi.png){width=50%}
 
 If this modulation is done very slowly (1 Hz to 10 Hz) it is recognised
 as tremolo. Volume-modulation above 10 Hz leads to the effect, that the
