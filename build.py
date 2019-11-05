@@ -147,7 +147,9 @@ PANDOC_EXTENSIONS = (
     "backtick_code_blocks",
     "yaml_metadata_block",
     "implicit_figures",
-    "tex_math_dollars"
+    "tex_math_dollars",
+    "implicit_figures",
+    "link_attributes"
 )
 
 INPUT_FORMAT = "markdown+{}".format("+".join(PANDOC_EXTENSIONS))
