@@ -49,7 +49,7 @@ For example, to create a 400 Hz sine oscillator with an amplitude of
 0.2, this is the signal flow:
 
 
-![](../resources/images/00-a-signal-flow.png){.center width=50%}
+![](../resources/images/00-a-signal-flow.png){.center} { width=50% }
 
 Here is a possible transformation of the signal graph into Csound code:
 
@@ -59,7 +59,7 @@ Here is a possible transformation of the signal graph into Csound code:
     endin
 
 The oscillator is represented by the opcode
-[poscil](http://csound.github.io/docs/manual/poscil.html) and receives
+[poscil](http://csound.com/docs/manual/poscil.html) and receives
 its input arguments on the right-hand side. These are amplitude (0.2)
 and frequency (400). It produces an audio signal called *aSig* at the
 left side which is in turn the input of the second opcode *out*. The

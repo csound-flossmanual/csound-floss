@@ -277,7 +277,6 @@ Joachim Heintz, Iain McCurdy
 Joachim Heintz, Stefano Bonetti
 
 ------------------------------------------------------------------------
-------------------------------------------------------------------------
 
 V.1 - Final Editing Team in March 2011:
 
