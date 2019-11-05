@@ -862,7 +862,7 @@ The FFI package of the Google Go programming language is called cgo. Here is a v
 	    csound.Destroy()
     }
 
-A complete wrapper to the Csound API written in Go is available at https://github.com/fggp/go-csnd.
+A complete wrapper to the Csound API written in Go is available at <https://github.com/fggp/go-csnd>.
 
 The different examples in this section are written for Linux. For other operating systems, some adaptations are needed: for example, for Windows the library name suffix is .dll instead of .so.
 
