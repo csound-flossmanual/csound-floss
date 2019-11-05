@@ -1,5 +1,5 @@
-A. DIGITAL AUDIO
-================
+01 A. DIGITAL AUDIO
+===================
 
 At a purely physical level, sound is simply a mechanical disturbance of
 a medium. The medium in question may be air, solid, liquid, gas or a
@@ -211,28 +211,30 @@ then because the frequency is 1000 Hz lower than the sample rate of
 
 ***EXAMPLE 01A01\_Aliasing.csd***
 
-    <CsoundSynthesizer>
-    <CsOptions>
-    -odac
-    </CsOptions>
-    <CsInstruments>
-    ;example by Joachim Heintz
-    sr = 44100
-    ksmps = 32
-    nchnls = 2
-    0dbfs = 1
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-odac
+</CsOptions>
+<CsInstruments>
+;example by Joachim Heintz
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
 
-    instr 1
-     asig poscil .2, p4
-     out asig, asig
-    endin
+instr 1
+ asig poscil .2, p4
+ out asig, asig
+endin
 
-    </CsInstruments>
-    <CsScore>
-    i 1 0 2 1000 ;1000 Hz tone
-    i 1 3 2 43100 ;43100 Hz tone sounds like 1000 Hz because of aliasing
-    </CsScore>
-    </CsoundSynthesizer>
+</CsInstruments>
+<CsScore>
+i 1 0 2 1000 ;1000 Hz tone
+i 1 3 2 43100 ;43100 Hz tone sounds like 1000 Hz because of aliasing
+</CsScore>
+</CsoundSynthesizer>
+~~~
 
 The same phenomenon takes places in film and video too. You may recall
 having seen wagon wheels apparently turn at the wrong speed in old
@@ -315,10 +317,7 @@ plot the correct amplitude of each sample. We can see in the diagram
 that some vertical lines stop above or below the real signal. For a
 signal with lower amplitude the distortion would even be stronger.
 
-<figure>
-<img src="../resources/images/01-a-bitdepth.png">
-<figcaption>Wrong amplitude values due to insufficient bit depth resolution</figcaption>
-</figure>
+![*Wrong amplitude values due to insufficient bit depth resolution*](../resources/images/01-a-bitdepth.png)
 
 The standard resolution for CDs is 16 bit, which allows for 65536
 different possible amplitude levels, 32767 either side of the zero axis.
