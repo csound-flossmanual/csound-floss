@@ -195,10 +195,10 @@ model for many random number generator opcodes in Csound.[^4]
 A linear distribution means that either lower or higher values in a
 given range are more likely:
 
-![](../resources/images/01-d-linear-distributiona2.png)
+![](../resources/images/01-d-linear-distributiona2.png){ width=50% }
  
 
-![](../resources/images/01-d-linear-distributionb2.png)
+![](../resources/images/01-d-linear-distributionb2.png){ width=50% }
 
 To get this behaviour, two uniform random numbers are generated, and the
 lower is taken for the first shape. If the second shape with the
@@ -952,7 +952,7 @@ A typical case for a Markov chain in music is a sequence of certain
 pitches or notes. For each note, the probability of the following note
 is written in a table like this:
 
-![](../resources/images/01-d-markov-table.png)
+![](../resources/images/01-d-markov-table.png){ width=50% }
 
 This means: the probability that element *a* is repeated, is 0.2; the
 probability that *b* follows a is 0.5; the probability that *c* follows a is
@@ -1380,7 +1380,8 @@ Synthesis*[^6] chapter 10.1.4.4)
     ; kout  random number
     ; in: i_nr number of possible values
     ; i_fn1 function for random values
-    ; i_fn2 probability functionExponential: Generate a uniformly distributed number between 0 and 1 and take its natural logarithm.
+    ; i_fn2 probability functionExponential: Generate a uniformly distributed 
+    ; number between 0 and 1 and take its natural logarithm.
 
     opcode  rand_probability, k, iii
     inr,ifn1,ifn2   xin
@@ -1609,7 +1610,7 @@ In addition to these so called *x-class noise generators* Csound
 provides random function generators, providing values that change over
 time a various ways.
 
-[randomh](http://(http://www.csound.com/docs/manual/randomh.html) generates new
+[randomh](http://www.csound.com/docs/manual/randomh.html) generates new
 random numbers at a user defined rate. The previous value is held until
 a new value is generated, and then the output immediately assumes that
 value.
