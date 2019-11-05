@@ -1,16 +1,6 @@
-D. RANDOM
-=========
+01 D. RANDOM
+============
 
-::: {#yass_top_edge_dummy}
- 
-:::
-
-::: {#yass_top_edge}
- 
-:::
-
-RANDOM
-------
 
 This chapter is in three parts. Part I provides a general introduction
 to the concepts behind random numbers and how to work with them in
@@ -18,35 +8,31 @@ Csound. Part II focusses on a more mathematical approach. Part III
 introduces a number of opcodes for generating random numbers, functions
 and distributions and demonstrates their use in musical examples.
 
-### I. GENERAL INTRODUCTION
+## I. GENERAL INTRODUCTION
 
-#### Random is Different
+### Random is Different
 
 The term *random* derives from the idea of a horse that is running so
-fast it becomes \'out of control\' or \'beyond predictability\'.^1^  Yet
+fast it becomes *out of control* or *beyond predictability*.[^1]  Yet
 there are different ways in which to run fast and to be out of control;
 therefore there are different types of randomness.
 
 We can divide types of randomness into two classes. The first contains
 random events that are independent of previous events. The most common
 example for this is throwing a die. Even if you have just thrown three
-\'1\'s in a row, when thrown again, a \'1\' has the same probability as
+One's in a row, when thrown again, a One has the same probability as
 before (and as any other number). The second class of random number
 involves random events which depend in some way upon previous numbers or
 states. Examples here are Markov chains and random walks.
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/random_overview.png){width="599" height="315"} 
-:::
-:::
+![](../resources/images/01-d-random-overview.png)
 
 The use of randomness in electronic music is widespread. In this
 chapter, we shall try to explain how the different random horses are
 moving, and how you can create and modify them on your own. Moreover,
 there are many pre-built random opcodes in Csound which can be used out
 of the box (see the
-[overview](http://www.csounds.com/manual/html/SiggenNoise.html) in the
+[overview](http://wwws.csound.com/docs/manual/SiggenNoise.html) in the
 Csound Manual). The final section of this chapter introduces some
 musically interesting applications of them.
 
@@ -64,7 +50,7 @@ generation. For a huge amount of numbers, they look as if they are
 randomly distributed, although everything depends on the first input:
 the *seed*. For one given seed, the next values can be predicted.
 
-#### Uniform Distribution
+### Uniform Distribution
 
 The output of a classical pseudo-random generator is uniformly
 distributed: each value in a given range has the same likelihood of
@@ -79,7 +65,7 @@ whereas the last three groups should always have a different pitch.
 
     <CsoundSynthesizer>
     <CsOptions>
-    -d -odac -m0
+    -odac -m0
     </CsOptions>
     <CsInstruments>
     sr = 44100
@@ -93,11 +79,11 @@ whereas the last three groups should always have a different pitch.
                seed       p4
      ;generate four notes to be played from subinstrument
     iNoteCount =          0
-     until iNoteCount == 4 do
+     while iNoteCount < 4 do
     iFreq      random     400, 800
-               event_i    "i", "play", iNoteCount, 2, iFreq
+               schedule   "play", iNoteCount, 2, iFreq
     iNoteCount +=         1 ;increase note count
-     enduntil
+     od
     endin
 
     instr play
@@ -126,14 +112,14 @@ after as many steps as are given by the size of the generator. If a
 steps. If you listen carefully to the following example, you will hear a
 repetition in the structure of the white noise (which is the result of
 uniformly distributed amplitudes) after about 1.5 seconds in the first
-note.^2^  In the second note, there is no perceivable repetition as the
+note.[^2]  In the second note, there is no perceivable repetition as the
 random generator now works with a 31-bit number.
 
    ***EXAMPLE 01D02\_white\_noises.csd*** 
 
     <CsoundSynthesizer>
     <CsOptions>
-    -d -odac
+    -odac
     </CsOptions>
     <CsInstruments>
     sr = 44100
@@ -160,13 +146,13 @@ Two more general notes about this:
 
 1.  The way to set the seed differs from opcode to opcode. There are
     several opcodes such as
-    [rand](http://www.csounds.com/manual/html/rand.html) featured above,
+    [rand](https://csound.com/docs/manual/rand.html) featured above,
     which offer the choice of setting a seed as input parameter. For
     others, such as the frequently used
-    [random](http://www.csounds.com/manual/html/random.html) family, the
+    [random](https://csound.com/docs/manual/random.html) family, the
     seed can only be set globally via the
-    [seed](http://www.csounds.com/manual/html/seed.html) statement. This
-    is usually done in the header so a typical statement would be:\
+    [seed](https://csound.com/docs/manual/seed.html) statement. This
+    is usually done in the header so a typical statement would be:
 
         <CsInstruments>
         sr = 44100
@@ -175,12 +161,10 @@ Two more general notes about this:
         0dbfs = 1
         seed = 0 ;seeding from current time
 
-    \...
-
 2.  Random number generation in Csound can be done at any rate. The type
     of the output variable tells you whether you are generating random
     values at i-, k- or a-rate. Many random opcodes can work at all
-    these rates, for instance random:\
+    these rates, for instance random:
 
         1) ires  random  imin, imax
         2) kres  random  kmin, kmax
@@ -196,34 +180,25 @@ Two more general notes about this:
     03A tries to explain the background of the different rates in depth,
     and how to work with them.  
 
-#### Other Distributions
+### Other Distributions
 
 The uniform distribution is the one each computer can output via its
 pseudo-random generator. But there are many situations you will not want
 a uniformly distributed random, but any other shape. Some of these
 shapes are quite common, but you can actually build your own shapes
 quite easily in Csound. The next examples demonstrate how to do this.
-They are based on the chapter in Dodge/Jerse^3^  which also served as a
-model for many random number generator opcodes in Csound.^4^
+They are based on the chapter in Dodge/Jerse[^3]  which also served as a
+model for many random number generator opcodes in Csound.[^4]
 
-##### Linear
+#### Linear
 
 A linear distribution means that either lower or higher values in a
 given range are more likely:
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/01d_linear_distributiona2.png){width="487" height="344"}
-:::
-:::
-
+![](../resources/images/01-d-linear-distributiona2.png)
  
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/01d_linear_distributionb2.png){width="508" height="342"}
-:::
-:::
+![](../resources/images/01-d-linear-distributionb2.png)
 
 To get this behaviour, two uniform random numbers are generated, and the
 lower is taken for the first shape. If the second shape with the
@@ -238,7 +213,7 @@ precedence of higher pitches (but shorter durations).
 
     <CsoundSynthesizer>
     <CsOptions>
-    -d -odac -m0
+    -odac -m0
     </CsOptions>
     <CsInstruments>
     sr = 44100
@@ -371,17 +346,13 @@ precedence of higher pitches (but shorter durations).
     </CsoundSynthesizer>
     ;example by joachim heintz
 
-##### Triangular
+#### Triangular
 
 In a triangular distribution the values in the middle of the given range
 are more likely than those at the borders. The probability transition
 between the middle and the extrema are linear:
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/01d_triangular_distribution.png){width="740" height="309"}
-:::
-:::
+![](../resources/images/01-d-triangular-distribution.png)
 
 The algorithm for getting this distribution is very simple as well.
 Generate two uniform random numbers and take the mean of them. The next
@@ -392,7 +363,7 @@ in the same environment as the previous example.
 
     <CsoundSynthesizer>
     <CsOptions>
-    -d -odac -m0
+    -odac -m0
     </CsOptions>
     <CsInstruments>
     sr = 44100
@@ -492,7 +463,7 @@ in the same environment as the previous example.
     </CsoundSynthesizer>
     ;example by joachim heintz
 
-##### More Linear and Triangular
+#### More Linear and Triangular
 
 Having written this with some very simple UDOs, it is easy to emphasise
 the probability peaks of the distributions by generating more than two
@@ -529,7 +500,7 @@ above code for the UDO *trirnd* would lead to this formulation:
 
 To get this completely flexible, you only have to get *iMaxCount* as
 input argument. The code for the linear distribution UDOs is quite
-similar. \-- The next example shows these steps:
+similar. -- The next example shows these steps:
 
 1.  Uniform distribution.
 2.  Linear distribution with the precedence of lower pitches and longer
@@ -548,17 +519,17 @@ Inside the loop which generates as many notes as desired by the
 *iHowMany* argument, an if-branch calculates the pitch and duration of
 one note depending on the distribution type and the number of sub-units
 used. The whole sequence (which type first, which next, etc) is stored
-in the global array *giSequence*. Each instance of instrument \"notes\"
+in the global array *giSequence*. Each instance of instrument *notes*
 increases the pointer giSeqIndx, so that for the next run the next
 element in the array is being read. If the pointer has reached the end
 of the array, the instrument which exits Csound is called instead of a
-new instance of \"notes\".
+new instance of *notes*.
 
    ***EXAMPLE 01D05\_more\_lin\_tri\_units.csd***    
 
     <CsoundSynthesizer>
     <CsOptions>
-    -d -odac -m0
+    -odac -m0
     </CsOptions>
     <CsInstruments>
     sr = 44100
@@ -729,14 +700,14 @@ new instance of \"notes\".
     ;example by joachim heintz
 
 With this method we can build probability distributions which are very
-similar to exponential or gaussian distributions.^5^  Their shape can
+similar to exponential or gaussian distributions.[^5]  Their shape can
 easily be formed by the number of sub-units used.
 
-##### Scalings
+### Scalings
 
 Random is a complex and sensible context. There are so many ways to let
-the horse go, run, or dance \-- the conditions you set for this \'way of
-moving\' are much more important than the fact that one single move is
+the horse go, run, or dance -- the conditions you set for this *way of
+moving* are much more important than the fact that one single move is
 not predictable. What are the conditions of this randomness?
 
 -   *Which Way.* This is what has already been described: random with or
@@ -746,7 +717,7 @@ not predictable. What are the conditions of this randomness?
     Midi Note 36 to 84 (C2 to C6), and durations between 0.1 and 2
     seconds. Imagine how it would have been sounded with pitches from 60
     to 67, and durations from 0.9 to 1.1 seconds, or from 0.1 to 0.2
-    seconds. There is no range which is \'correct\', everything depends
+    seconds. There is no range which is "correct", everything depends
     on the musical idea.
 -   *Which Development.* Usually the boundaries will change in the run
     of a piece. The pitch range may move from low to high, or from
@@ -755,9 +726,9 @@ not predictable. What are the conditions of this randomness?
 
 In the example above we used two implicit scalings. The pitches have
 been scaled to the keys of a piano or keyboard. Why? We do not play
-piano here obviously \... \-- What other possibilities might have been
+piano here obviously ... -- What other possibilities might have been
 instead? One would be: no scaling at all. This is the easiest way to go
-\-- whether it is really the best, or simple laziness, can only be
+-- whether it is really the best, or simple laziness, can only be
 decided by the composer or the listener.
 
 Instead of using the equal tempered chromatic scale, or no scale at all,
@@ -766,7 +737,7 @@ which has been, or is still, used in any part of the world, or be it
 your own invention, by whatever fantasy or invention or system.
 
 As regards the durations, the example above has shown no scaling at all.
-This was definitely laziness\...
+This was definitely laziness...
 
 The next example is essentially the same as the previous one, but it
 uses a pitch scale which represents the overtone scale, starting at the
@@ -780,7 +751,7 @@ according to their position in the array.
 
     <CsoundSynthesizer>
     <CsOptions>
-    -d -odac -m0
+    -odac -m0
     </CsOptions>
     <CsInstruments>
     sr = 44100
@@ -981,18 +952,14 @@ A typical case for a Markov chain in music is a sequence of certain
 pitches or notes. For each note, the probability of the following note
 is written in a table like this:
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/01d_markov_table.png){width="274" height="185"} 
-:::
-:::
+![](../resources/images/01-d-markov-table.png)
 
-This means: the probability that element a is repeated, is 0.2; the
-probability that b follows a is 0.5; the probability that c follows a is
+This means: the probability that element *a* is repeated, is 0.2; the
+probability that *b* follows a is 0.5; the probability that *c* follows a is
 0.3. The sum of all probabilities must, by convention, add up to 1. The
 following example shows the basic algorithm which evaluates the first
 line of the Markov table above, in the case, the previous element has
-been \'a\'.
+been *a*.
 
    ***EXAMPLE 01D07\_markov\_basics.csd***      
 
@@ -1034,21 +1001,21 @@ the second element is added (0.2+0.5=0.7), and the process is repeated,
 until the accumulator is greater or equal the random value. The output
 of the example should show something like this:
 
-Random number = 0.850, next element = c!\
-Random number = 0.010, next element = a!\
-Random number = 0.805, next element = c!\
-Random number = 0.696, next element = b!\
-Random number = 0.626, next element = b!\
-Random number = 0.476, next element = b!\
-Random number = 0.420, next element = b!\
-Random number = 0.627, next element = b!\
-Random number = 0.065, next element = a!\
-Random number = 0.782, next element = c!
+    Random number = 0.850, next element = c!
+    Random number = 0.010, next element = a!
+    Random number = 0.805, next element = c!
+    Random number = 0.696, next element = b!
+    Random number = 0.626, next element = b!
+    Random number = 0.476, next element = b!
+    Random number = 0.420, next element = b!
+    Random number = 0.627, next element = b!
+    Random number = 0.065, next element = a!
+    Random number = 0.782, next element = c!
 
 The next example puts this algorithm in an User Defined Opcode. Its
 input is a Markov table as a two-dimensional array, and the previous
 line as index (starting with 0). Its output is the next element, also as
-index. \-- There are two Markov chains in this example: seven pitches,
+index. -- There are two Markov chains in this example: seven pitches,
 and three durations. Both are defined in two-dimensional arrays:
 *giProbNotes* and *giProbDurs*. Both Markov chains are running
 independently from each other.
@@ -1057,7 +1024,7 @@ independently from each other.
 
     <CsoundSynthesizer>
     <CsOptions>
-    -dnm128 -odac
+    -m128 -odac
     </CsOptions>
     <CsInstruments>
     sr = 44100
@@ -1103,7 +1070,7 @@ independently from each other.
       ;sixth -> mostly to seventh
       ;seventh -> mostly to sixth
     giProbNotes[][] init  7, 7
-    giProbNotes array     0.0, 0.0, 0.5, 0.5, 0.0, 0.0, 0.0,
+    giProbNotes fillarray 0.0, 0.0, 0.5, 0.5, 0.0, 0.0, 0.0,
                           0.2, 0.0, 0.2, 0.2, 0.2, 0.1, 0.1,
                           0.1, 0.1, 0.5, 0.1, 0.1, 0.1, 0.0,
                           0.0, 0.1, 0.1, 0.5, 0.1, 0.1, 0.1,
@@ -1173,8 +1140,8 @@ independently from each other.
 
 #### Random Walk
 
-In the context of movement between random values, \'walk\' can be
-thought of as the opposite of \'jump\'. If you jump within the
+In the context of movement between random values, *walk* can be
+thought of as the opposite of *jump*. If you jump within the
 boundaries A and B, you can end up anywhere between these boundaries,
 but if you walk between A and B you will be limited by the extent of
 your step - each step applies a deviation to the previous one. If the
@@ -1202,8 +1169,8 @@ reports this with a message printed to the terminal.
 
 The *density* of the notes is defined as notes per second, and is
 applied as frequency to the
-[metro](http://www.csounds.com/manual/html/metro.html) opcode in
-instrument \'walk\'. The lowest possible density *giLowestDens* is set
+[metro](http://www.csound.com/docs/manual/metro.html) opcode in
+instrument *walk*. The lowest possible density *giLowestDens* is set
 to 1, the highest to 8 notes per second, and the first density
 *giStartDens* is set to 3. The possible random deviation for the next
 density is defined in a range from zero to one: zero means no deviation
@@ -1222,7 +1189,7 @@ crossed, and vice versa.
 
     <CsoundSynthesizer>
     <CsOptions>
-    -dnm128 -odac
+    -m128 -odac
     </CsOptions>
     <CsInstruments>
     sr = 44100
@@ -1329,26 +1296,21 @@ crossed, and vice versa.
     </CsoundSynthesizer>
     ;example by joachim heintz
 
-### II. SOME MATHS PERSPECTIVES ON RANDOM
 
-#### Random Processes  
+## II. SOME MATHS PERSPECTIVES ON RANDOM
+
+### Random Processes  
 
 The relative frequency of occurrence of a random variable can be
 described by a probability function (for discrete random variables) or
 by density functions (for continuous random variables).
 
 When two dice are thrown simultaneously, the sum *x* of their numbers
-can be 2, 3, \...12. The following figure shows the probability function
+can be 2, 3, ...12. The following figure shows the probability function
 *p*(*x*) of these possible outcomes. *p*(*x*) is always less than or
 equal to 1. The sum of the probabilities of all possible outcomes is 1.
-
     
-
-::: {.group_img}
-::: {.image}
-![](../resources/images/random1.gif) 
-:::
-:::
+![](../resources/images/01-d-random1.gif) 
 
 For continuous random variables the probability of getting a specific
 value *x* is 0. But the probability of getting a value within a certain
@@ -1358,18 +1320,11 @@ density function. With the following density the chance of getting a
 number smaller than 0 is 0, to get a number between 0 and 0.5 is 0.5, to
 get a number between 0.5 and 1 is 0.5 etc. Density functions *f*(*x*)
 can reach values greater than 1 but the area under the function is 1.
-
-       
-
-::: {.group_img}
-::: {.image}
-![](../resources/images/random2.gif) 
-:::
-:::
-
+    
+![](../resources/images/01-d-random2.gif) 
  
 
-##### **Generating Random Numbers With a Given Probability or Density **
+#### Generating Random Numbers With a Given Probability or Density
 
 Csound provides opcodes for some specific densities but no means to
 produce random number with user defined probability or density
@@ -1378,31 +1333,23 @@ below) generate random numbers with probabilities or densities given by
 tables. They are realized by using the so-called *rejection sampling
 method*.
 
-##### **Rejection Sampling: **
+#### Rejection Sampling
 
 The principle of *rejection sampling* is to first generate uniformly
 distributed random numbers in the range required and to then accept
 these values corresponding to a given density function (or otherwise
 reject them). Let us demonstrate this method using the density function
 shown in the next figure. (Since the rejection sampling method uses only
-the \"shape\" of the function, the area under the function need not be
+the *shape* of the function, the area under the function need not be
 1). We first generate uniformly distributed random numbers *rnd1* over
 the interval \[0, 1\]. Of these we accept a proportion corresponding to
 *f*(*rnd1*). For example, the value 0.32 will only be accepted in the
 proportion of *f*(0.32) = 0.82. We do this by generating a new random
 number *rand2* between 0 and 1 and accept *rnd1* only if *rand2* \<
 *f*(*rnd1*); otherwise we reject it. (see *Signals, Systems and Sound
-Synthesis*[^6^]{#InsertNodeID_9_marker10}  chapter 10.1.4.4)
+Synthesis*[^6] chapter 10.1.4.4)
 
-        
-
-::: {.group_img}
-::: {.image}
-![](../resources/images/random-3.gif){width="200" height="200"}
-:::
-:::
-
- 
+![](../resources/images/01-d-random3.gif)
 
 ***EXAMPLE 01D10\_Rejection\_Sampling.csd***
 
@@ -1411,7 +1358,6 @@ Synthesis*[^6^]{#InsertNodeID_9_marker10}  chapter 10.1.4.4)
     -odac
     </CsOptions>
     <CsInstruments>
-    ;example by martin neukom
     sr = 44100
     ksmps = 10
     nchnls = 1
@@ -1476,10 +1422,10 @@ Synthesis*[^6^]{#InsertNodeID_9_marker10}  chapter 10.1.4.4)
     i2 0 10 4 5 6
     </CsScore>
     </CsoundSynthesizer>
-
+    ;example by martin neukom
  
 
-##### **Random Walk**
+#### Random Walk
 
 In a series of random numbers the single numbers are independent upon
 each other. Parameter (left figure) or paths in the room
@@ -1490,17 +1436,9 @@ numbers wildly jump around.
 
     Table[RandomReal[{-1, 1}], {100}];
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/random4a.gif)   
-:::
-:::
+![](../resources/images/01-d-random4a.gif)   
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/random5a.gif) 
-:::
-:::
+![](../resources/images/01-d-random5a.gif) 
 
 We get a smoother path, a so-called random walk, by adding at every time
 step a random number *r* to the actual position *x* (*x* += *r*).
@@ -1509,23 +1447,14 @@ step a random number *r* to the actual position *x* (*x* += *r*).
 
     x = 0; walk = Table[x += RandomReal[{-.2, .2}], {300}];
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/random6a.gif)   
-:::
-:::
+![](../resources/images/01-d-random6a.gif)   
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/random7a.gif)
-:::
-:::
+![](../resources/images/01-d-random7a.gif)
 
 The path becomes even smoother by adding a random number *r* to the
 actual velocity *v*. 
 
     v += r
-
     x += v
 
 The path can be bounded to an area (figure to the right) by inverting
@@ -1536,52 +1465,32 @@ the velocity if the path exceeds the limits (*min*, *max*): 
 The movement can be damped by decreasing the velocity at every time step
 by a small factor *d*
 
-     v *= (1-d)
+    v *= (1-d)
 
 **Example 3** 
 
     x = 0; v = 0; walk = Table[x += v += RandomReal[{-.01, .01}], {300}];
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/random8a.gif)   
-:::
-:::
+![](../resources/images/01-d-random8a.gif)   
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/random9a.gif)
-:::
-:::
+![](../resources/images/01-d-random9a.gif)
 
- 
 
 The path becomes again smoother by adding a random number *r* to the
 actual acelleration *a*, the change of the aceleration, etc.
 
     a += r
-
     v += a
-
     x += v
 
 **Example 4** 
 
     x = 0; v = 0; a = 0;
-
     Table[x += v += a += RandomReal[{-.0001, .0001}], {300}];
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/random10a_1.gif)  
-:::
-:::
+![](../resources/images/01-d-random10a1.gif)  
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/random11a.gif)
-:::
-:::
+![](../resources/images/01-d-random11a.gif)
 
 (see Martin Neukom, *Signals, Systems and Sound Synthesis* chapter
 10.2.3.2)
@@ -1593,7 +1502,6 @@ actual acelleration *a*, the change of the aceleration, etc.
     -odac
     </CsOptions>
     <CsInstruments>
-    ;example by martin neukom
 
     sr = 44100
     ksmps = 128
@@ -1649,12 +1557,14 @@ actual acelleration *a*, the change of the aceleration, etc.
     i3 0 20         .1      600     1       0.001   0.001
     </CsScore>
     </CsoundSynthesizer>
+    ;example by martin neukom
 
-### III. MISCELLANEOUS EXAMPLES
+
+## III. MISCELLANEOUS EXAMPLES
 
 Csound has a range of opcodes and GEN routine for the creation of
 various random functions and distributions. Perhaps the simplest of
-these is [random](http://www.csounds.com/manual/html/random.html) which
+these is [random](http://www.csound.com/docs/manual/random.html) which
 simply generates a random value within user defined minimum and maximum
 limit and at i-time, k-rate or a-rate accroding to the variable type of
 its output:
@@ -1668,63 +1578,38 @@ that any value within the limits has equal chance of occurence.
 Non-uniform distributions in which certain values have greater chance of
 occurence over others are often more useful and musical. For these
 purposes, Csound includes the
-[betarand](http://www.csounds.com/manual/html/betarand.html),
-[bexprand](http://www.csounds.com/manual/html/bexprnd.html),
-[cauchy](http://www.csounds.com/manual/html/cauchy.html),
-[exprand](http://www.csounds.com/manual/html/exprand.html),
-[gauss](http://www.csounds.com/manual/html/gauss.html),
-[linrand](http://www.csounds.com/manual/html/linrand.html),
-[pcauchy](http://www.csounds.com/manual/html/pcauchy.html),
-[poisson](http://www.csounds.com/manual/html/poisson.html),
-[trirand](http://www.csounds.com/manual/html/trirand.html),
-[unirand](http://www.csounds.com/manual/html/unirand.html) and
-[weibull](http://www.csounds.com/manual/html/weibull.html) random number
+[betarand](http://www.csound.com/docs/manual/betarand.html),
+[bexprand](http://www.csound.com/docs/manual/bexprnd.html),
+[cauchy](http://www.csound.com/docs/manual/cauchy.html),
+[exprand](http://www.csound.com/docs/manual/exprand.html),
+[gauss](http://www.csound.com/docs/manual/gauss.html),
+[linrand](http://www.csound.com/docs/manual/linrand.html),
+[pcauchy](http://www.csound.com/docs/manual/pcauchy.html),
+[poisson](http://www.csound.com/docs/manual/poisson.html),
+[trirand](http://www.csound.com/docs/manual/trirand.html),
+[unirand](http://www.csound.com/docs/manual/unirand.html) and
+[weibull](http://www.csound.com/docs/manual/weibull.html) random number
 generator opcodes. The distributions generated by several of these
 opcodes are illustrated below.
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/linrand.png) 
-:::
-:::
+![](../resources/images/01-d-linrand.png)
 
- 
+![](../resources/images/01-d-trirand.png)
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/trirand.png)
-:::
-:::
+![](../resources/images/01-d-gauss.png)
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/gauss.png)
-:::
-:::
+![](../resources/images/01-d-exprand.png)
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/exprand.png)
-:::
-:::
+![](../resources/images/01-d-bexprand.png)
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/bexprand.png)
-:::
-:::
+![](../resources/images/01-d-betarand.png)
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/betarand.png)
-:::
-:::
 
-In addition to these so called \'x-class noise generators\' Csound
+In addition to these so called *x-class noise generators* Csound
 provides random function generators, providing values that change over
 time a various ways.
 
-[randomh](http://www.csounds.com/manual/html/randomh.html) generates new
+[randomh](http://(http://www.csound.com/docs/manual/randomh.html) generates new
 random numbers at a user defined rate. The previous value is held until
 a new value is generated, and then the output immediately assumes that
 value.
@@ -1738,11 +1623,7 @@ The instruction:
 
 will produce and output something like:
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/randomh.png){width="568" height="151"}
-:::
-:::
+![](../resources/images/01-d-randomh.png)
 
 [randomi](http://www.csounds.com/manual/html/randomi.html) is an
 interpolating version of randomh. Rather than jump to new values when
@@ -1751,16 +1632,12 @@ reaching it just as a new random value is generated. Replacing randomh
 with randomi in the above code snippet would result in the following
 output:
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/randomi.png){width="567" height="164"}
-:::
-:::
+![](../resources/images/01-d-randomi.png)
 
-In practice randomi\'s angular changes in direction as new random values
+In practice randomi's angular changes in direction as new random values
 are generated might be audible depending on the how it is used.
-[rsplsine](http://www.csounds.com/manual/html/rspline.html) (or the
-simpler [jsplsine](http://www.csounds.com/manual/html/jspline.html))
+[rspline](http://www.csound.com/docs/manual/rspline.html) (or the
+simpler [jspline](http://www.csound.com/docs/manual/jspline.html))
 allows us to specify not just a single frequency but a minimum and a
 maximum frequency, and the resulting function is a smooth spline between
 the minimum and maximum values and these minimum and maximum
@@ -1774,19 +1651,15 @@ frequencies. The following input:
 
 would generate an output something like:
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/rspline.png){width="565" height="144"} 
-:::
-:::
+![](../resources/images/01-d-rspline.png)
 
-We need to be careful with what we do with rspline\'s output as it can
-exceed the limits set by kmin and kmax. Minimum and maximum values can
+We need to be careful with what we do with rspline's output as it can
+exceed the limits set by *kmin* and *kmax*. Minimum and maximum values can
 be set conservatively or the
-[limit](http://www.csounds.com/manual/html/limit.html) opcode could be
+[limit](http://www.csound.com/docs/manual/limit.html) opcode could be
 used to prevent out of range values that could cause problems.
 
-The following example uses rspline to \'humanise\' a simple synthesiser.
+The following example uses rspline to *humanise* a simple synthesiser.
 A short melody is played, first without any humanising and then with
 humanising. rspline random variation is added to the amplitude and pitch
 of each note in addition to an i-time random offset.
@@ -1865,7 +1738,7 @@ of certain notes and certain rhythmic gaps occuring.
 
     <CsoundSynthesizer>
     <CsOptions>
-    -odac -dm0
+    -odac -m0
     </CsOptions>
     <CsInstruments>
     sr = 44100
@@ -1903,25 +1776,20 @@ of certain notes and certain rhythmic gaps occuring.
     </CsoundSynthesizer>
     ;example by Iain McCurdy
 
-1.  [http://www.etymonline.com/index.php?term=random]{#endnote-80b3a158-ac87-42b7-8467-304eb2fe5af9}
-2.  [Because the sample rate is 44100 samples per second. So a
-    repetition after 65536 samples will lead to a repetition after
-    65536/44100 = 1.486
-    seconds.]{#endnote-e738aab3-881f-4e4c-bd30-e25b43072dc5}
-3.  [Charles Dodge and Thomas A. Jerse, Computer Music, New York 1985,
-    Chapter 8.1, in particular page
-    269-278.]{#endnote-aadfddf6-3cd1-47e0-b2cc-214d4173d3e7}
-4.  [Most of them have been written by Paris Smaragdis in 1995: betarnd,
-    bexprnd, cauchy, exprnd, gauss, linrand, pcauchy, poisson, trirand,
-    unirand and weibull.]{#endnote-59e6d8b4-3006-4ae2-959f-de3d682d949a}
-5.  [According to Dodge/Jerse, the usual algorithms for exponential and
-    gaussian are: Exponential: Generate a uniformly distributed number
-    between 0 and 1 and take its natural logarithm. Gauss: Take the mean
-    of uniformly distributed numbers and scale them by the standard
-    deviation.]{#endnote-c030d03a-dd3a-4fe6-ab0d-5c4a8428cd93}
-6.  [Neukom, Martin. Signals, systems and sound synthesis. Bern: Peter
-    Lang, 2013. Print.]{#endnote-b5c24715-7341-4254-935c-d0afe886d632}
+[^1]: <http://www.etymonline.com/index.php?term=random>
+[^2]: Because the sample rate is 44100 samples per second. So a 
+      repetition after 65536 samples will lead to a repetition after
+      65536/44100 = 1.486 seconds.
+[^3]: Charles Dodge and Thomas A. Jerse, Computer Music, New York 1985,
+      Chapter 8.1, in particular page 269-278.
+[^4]: Most of them have been written by Paris Smaragdis in 1995: betarnd,
+      bexprnd, cauchy, exprnd, gauss, linrand, pcauchy, poisson, trirand,
+      unirand and weibull.
+[^5]: According to Dodge/Jerse, the usual algorithms for exponential and
+      gaussian are: Exponential: Generate a uniformly distributed number
+      between 0 and 1 and take its natural logarithm. Gauss: Take the mean
+      of uniformly distributed numbers and scale them by the standard
+      deviation.
+[^6]: Neukom, Martin. Signals, systems and sound synthesis. Bern: Peter
+      Lang, 2013. Print.
 
-::: {#yass_bottom_edge}
- 
-:::
