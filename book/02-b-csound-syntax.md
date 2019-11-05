@@ -1,5 +1,5 @@
-B. CSOUND SYNTAX
-================
+02 B. CSOUND SYNTAX
+===================
 
 Orchestra and Score
 -------------------

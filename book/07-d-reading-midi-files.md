@@ -1,5 +1,5 @@
-D. READING MIDI FILES
-=====================
+07 D. READING MIDI FILES
+========================
 
 Instead of using either the standard Csound score or live midi events as
 input for a orchestra Csound can read a midi file and use the data

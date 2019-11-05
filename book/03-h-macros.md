@@ -1,16 +1,6 @@
-H. MACROS
-=========
+03 H. MACROS
+============
 
-::: {#yass_top_edge_dummy}
- 
-:::
-
-::: {#yass_top_edge}
- 
-:::
-
-MACROS
-------
 
 Macros within Csound provide a mechanism whereby a line or a block of
 code can be referenced using a macro codeword. Whenever the user-defined

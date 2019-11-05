@@ -1,7 +1,5 @@
-F. AM / RM / WAVESHAPING
-========================
-
-Csound: AMRMWAVESHAPING
+05 F. AM / RM / WAVESHAPING
+===========================
 
 An introduction as well as some background theory of amplitude
 modulation, ring modulation and waveshaping is given in the fourth

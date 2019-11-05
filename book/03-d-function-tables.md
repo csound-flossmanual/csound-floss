@@ -1,5 +1,5 @@
-D. FUNCTION TABLES
-==================
+03 D. FUNCTION TABLES
+=====================
 
 Csound: FUNCTIONTABLES
 

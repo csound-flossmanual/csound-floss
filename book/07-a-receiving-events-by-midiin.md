@@ -1,5 +1,5 @@
-A. RECEIVING EVENTS BY MIDIIN
-=============================
+97 A. RECEIVING EVENTS BY MIDIIN
+================================
 
 Csound provides a variety of opcodes, such as
 [cpsmidi](http://www.csounds.com/manual/html/cpsmidi.html "cpsmidi"),

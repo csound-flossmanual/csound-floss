@@ -1,5 +1,5 @@
-A. RECORD AND PLAY SOUNDFILES
-=============================
+06 A. RECORD AND PLAY SOUNDFILES
+================================
 
 Playing Soundfiles From Disk - diskin2^1^ 
 ------------------------------------------
@@ -28,7 +28,7 @@ additional parameters for speed of playback, and interpolation.
 
     sr      =       44100
     ksmps   =       32
-    nchnls  =       1       
+    nchnls  =       1
 
       instr 1 ; play audio from disk
     kSpeed  init     1           ; playback speed

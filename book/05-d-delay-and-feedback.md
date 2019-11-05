@@ -1,5 +1,5 @@
-D. DELAY AND FEEDBACK
-=====================
+05 D. DELAY AND FEEDBACK
+========================
 
 A delay in DSP is a special kind of buffer, sometimes called a *circular
 buffer*. The length of this buffer is finite and must be declared upon

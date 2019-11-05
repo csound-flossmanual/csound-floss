@@ -1,5 +1,5 @@
-FILE INFO AND CONVERSION
-========================
+11 B. FILE INFO AND CONVERSION
+==============================
 
 sndinfo
 -------

@@ -1,5 +1,5 @@
-ANALYSIS
-========
+11 A. ANALYSIS
+==============
 
 Csound comes bundled with a variety of additional utility applications.
 These are small programs that perform a single function, very often with

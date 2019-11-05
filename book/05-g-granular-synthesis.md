@@ -1,5 +1,5 @@
-G. GRANULAR SYNTHESIS
-=====================
+05 G. GRANULAR SYNTHESIS
+========================
 
 This chapter will focus upon granular synthesis used as a DSP technique
 upon recorded sound files and will introduce techniques including time

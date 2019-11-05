@@ -1,18 +1,6 @@
-E. ARRAYS
-=========
+03 E. ARRAYS
+============
 
-::: {#yass_top_edge_dummy}
- 
-:::
-
-::: {#yass_top_edge}
- 
-:::
-
- 
-
-ARRAYS
-------
 
 One of the principal new features of Csound 6 is the support of arrays.
 This chapter aims to demonstrate how to use arrays using the methods

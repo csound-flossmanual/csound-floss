@@ -1,5 +1,5 @@
-F. LIVE EVENTS
-==============
+03 F. LIVE EVENTS
+=================
 
 The basic concept of Csound from the early days of the program is still
 valid and useful because it is a musically familiar one: you create a

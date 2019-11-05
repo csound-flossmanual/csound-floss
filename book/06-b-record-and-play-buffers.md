@@ -1,5 +1,5 @@
-B. RECORD AND PLAY BUFFERS
-==========================
+06 B. RECORD AND PLAY BUFFERS
+=============================
 
 Playing Audio From RAM - flooper2
 ---------------------------------

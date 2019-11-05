@@ -1,5 +1,5 @@
-E. CSOUND IN iOS
-================
+12 D. CSOUND IN iOS
+===================
 
 Note: this chapter can be found in PDF form
 [here](https://www.dropbox.com/s/319wxt38l9ncllx/CsoundiOS_AGuide.pdf?dl=0) and

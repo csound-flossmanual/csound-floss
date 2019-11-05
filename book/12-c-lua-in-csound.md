@@ -1,5 +1,5 @@
-D. LUA IN CSOUND
-================
+12 C. LUA IN CSOUND
+===================
 
 Have a look at Michael Gogins\' paper [Writing Csound Opcodes in
 Lua](http://www.incontri.hmtm-hannover.de/fileadmin/www.incontri/Csound_Conference/Gogins.pdf)

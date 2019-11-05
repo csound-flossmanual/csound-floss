@@ -1,5 +1,5 @@
-H. CONVOLUTION
-==============
+05 H. CONVOLUTION
+=================
 
 Convolution is a mathematical procedure whereby one function is modified
 by another. Applied to audio, one of these functions might be a sound

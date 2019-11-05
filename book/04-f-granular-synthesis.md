@@ -1,7 +1,5 @@
-F. GRANULAR SYNTHESIS
-=====================
-
-Csound: GRANULARSYNTHESIS
+04 F. GRANULAR SYNTHESIS
+========================
 
 Concept Behind Granular Synthesis
 ---------------------------------

@@ -1,5 +1,5 @@
-B. PITCH AND FREQUENCY
-======================
+01 B. PITCH AND FREQUENCY
+=========================
 
 FREQUENCIES
 -----------

@@ -1,8 +1,6 @@
-CSOUNDQT
-========
+10 A. CSOUNDQT
+==============
 
-CsoundQt
---------
 
 CsoundQt is a free, cross-platform graphical frontend to Csound. It
 features syntax highlighting, code completion and a graphical widget

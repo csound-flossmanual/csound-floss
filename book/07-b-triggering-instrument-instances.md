@@ -1,5 +1,5 @@
-B. TRIGGERING INSTRUMENT INSTANCES
-==================================
+07 B. TRIGGERING INSTRUMENT INSTANCES
+=====================================
 
 Csound\'s Default System of Instrument Triggering Via Midi
 ----------------------------------------------------------

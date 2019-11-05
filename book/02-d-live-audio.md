@@ -1,5 +1,5 @@
-D. LIVE AUDIO
-=============
+02 D. LIVE AUDIO
+================
 
 Similar to the MIDI configuration, the standard Csound frontends
 [CsoundQt](csoundqt "BLUE"), [Cabbage](cabbage "BLUE") and

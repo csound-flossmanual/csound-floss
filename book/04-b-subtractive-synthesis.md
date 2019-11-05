@@ -1,10 +1,6 @@
-B. SUBTRACTIVE SYNTHESIS
-========================
+04 B. SUBTRACTIVE SYNTHESIS
+===========================
 
-Csound: SUBTRACTIVESYNTHESIS
-
-Introduction
-------------
 
 Subtractive synthesis is, at least conceptually, the inverse of additive
 synthesis in that instead of building complex sound through the addition

@@ -1,4 +1,4 @@
-B. PYTHON INSIDE CSOUND
+12 B. PYTHON AND CSOUND
 =======================
 
 This chapter is based on Andrés Cabrera\'s article *Using Python inside

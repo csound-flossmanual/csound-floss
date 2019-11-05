@@ -1,7 +1,5 @@
-I. FOURIER ANALYSIS / SPECTRAL PROCESSING
-=========================================
-
-Csound: FOURIERSPECTRAL
+05 I. FOURIER ANALYSIS / SPECTRAL PROCESSING
+============================================
 
 FOURIER TRANSFORMATION / SPECTRAL PROCESSING
 --------------------------------------------

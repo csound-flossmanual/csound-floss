@@ -1,5 +1,5 @@
-E. MIDI OUTPUT
-==============
+07 E. MIDI OUTPUT
+=================
 
 Csound\'s ability to output midi data in real-time can open up many
 possibilities. We can relay the Csound score to a hardware synthesizer

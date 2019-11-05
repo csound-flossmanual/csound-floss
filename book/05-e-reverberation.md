@@ -1,5 +1,5 @@
-E. REVERBERATION
-================
+05 E. REVERBERATION
+===================
 
 Reverb is the effect a room or space has on a sound where the sound we
 perceive is a mixture of the direct sound and the dense overlapping

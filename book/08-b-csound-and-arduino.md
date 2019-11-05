@@ -1,5 +1,5 @@
-B. CSOUND AND ARDUINO
-=====================
+08 B. CSOUND AND ARDUINO
+========================
 
 It is the intention of this chapter to suggest a number of ways in which
 Csound can be paired with an Arduino prototyping circuit board. It is

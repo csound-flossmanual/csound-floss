@@ -1,7 +1,7 @@
-D. FREQUENCY MODULATION
-=======================
+04 D. FREQUENCY MODULATION
+==========================
 
-Basic Model {#basic-model style=""}
+Basic Model
 -----------
 
 In FM synthesis, the frequency of one oscillator (called the carrier) is

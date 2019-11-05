@@ -1,5 +1,5 @@
-C. CONFIGURING MIDI
-===================
+02 C. CONFIGURING MIDI
+======================
 
 Csound can receive MIDI events (like MIDI notes and MIDI control
 changes) from an external MIDI interface or from another program via a

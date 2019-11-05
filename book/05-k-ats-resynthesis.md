@@ -1,8 +1,5 @@
-K. ATS RESYNTHESIS
-==================
-
-K. ANALYSIS TRANSFORMATION SYNTHESIS
-------------------------------------
+05 K. ATS RESYNTHESIS
+=====================
 
 ### 1. The ATS technique.
 

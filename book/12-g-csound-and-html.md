@@ -1,5 +1,5 @@
-H. CSOUND AND HTML
-==================
+12 G. CSOUND AND HTML
+=====================
 
 Introduction 
 -------------

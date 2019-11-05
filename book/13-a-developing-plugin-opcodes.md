@@ -1,4 +1,5 @@
-# Developing Plugin Opcodes
+13 A. DEVELOPING PLUGIN OPCODES
+===============================
 
 Csound is possibly one of the most easily extensible of all modern music
 programming languages. The addition of unit generators (opcodes) and

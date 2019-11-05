@@ -1,15 +1,5 @@
-G. USER DEFINED OPCODES
-=======================
-
-::: {#yass_top_edge_dummy}
- 
-:::
-
-::: {#yass_top_edge}
- 
-:::
-
-Csound: Userdefinedopcodes
+03 G. USER DEFINED OPCODES
+==========================
 
 Opcodes are the core units of everything that Csound does. They are like
 little machines that do a job, and programming is akin to connecting

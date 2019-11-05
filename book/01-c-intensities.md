@@ -1,5 +1,5 @@
-C. INTENSITIES
-==============
+01 C. INTENSITIES
+=================
 
 Real World Intensities and Amplitudes
 -------------------------------------

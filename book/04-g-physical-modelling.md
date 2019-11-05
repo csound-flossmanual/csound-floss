@@ -1,13 +1,6 @@
-G. PHYSICAL MODELLING
-=====================
+04 G. PHYSICAL MODELLING
+========================
 
-::: {#yass_top_edge_dummy}
- 
-:::
-
-::: {#yass_top_edge}
- 
-:::
 
 With physical modelling we employ a completely different approach to
 synthesis than we do with all other standard techniques. Unusually the

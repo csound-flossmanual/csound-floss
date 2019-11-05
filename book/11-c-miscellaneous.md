@@ -1,5 +1,5 @@
-MISCELLANEOUS
-=============
+11 C. MISCELLANEOUS
+===================
 
 A final group gathers together various unsorted utilities:
 [cs](http://www.csounds.com/manual/html/cs.html),

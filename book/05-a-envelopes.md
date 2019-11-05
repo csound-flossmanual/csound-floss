@@ -1,5 +1,5 @@
-A. ENVELOPES
-============
+05 A. ENVELOPES
+===============
 
 Envelopes are used to define how a value evolves over time. In early
 synthesisers, envelopes were used to define the changes in amplitude in

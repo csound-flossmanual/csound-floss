@@ -1,5 +1,5 @@
-C. PYTHON IN CSOUNDQT
-=====================
+14 B. PYTHON IN CSOUNDQT
+========================
 
 If CsoundQt is built with PythonQt support,^2^  it enables a lot of new
 possibilities, mostly in three main fields: interaction with the

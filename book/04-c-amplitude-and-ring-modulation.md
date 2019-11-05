@@ -1,5 +1,5 @@
-C. AMPLITUDE AND RING MODULATION
-================================
+04 C. AMPLITUDE AND RING MODULATION
+===================================
 
 Introduction
 ------------

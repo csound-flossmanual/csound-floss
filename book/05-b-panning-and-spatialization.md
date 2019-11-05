@@ -1,5 +1,5 @@
-B. PANNING AND SPATIALIZATION
-=============================
+05 B. PANNING AND SPATIALIZATION
+================================
 
 Simple Stereo Panning 
 ----------------------

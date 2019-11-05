@@ -1,5 +1,5 @@
-H. SCANNED SYNTHESIS
-====================
+04 H. SCANNED SYNTHESIS
+=======================
 
 Scanned Synthesis is a relatively new synthesis technique invented by
 Max Mathews, Rob Shaw and Bill Verplank at Interval Research in 2000.

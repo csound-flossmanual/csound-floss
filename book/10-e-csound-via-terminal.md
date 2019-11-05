@@ -1,5 +1,5 @@
-CSOUND VIA TERMINAL
-===================
+10 E. CSOUND VIA TERMINAL
+=========================
 
 Whilst many of us now interact with Csound through one of its many
 front-ends which provide us with an experience more akin the that of

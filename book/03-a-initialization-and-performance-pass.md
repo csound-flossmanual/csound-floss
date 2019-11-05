@@ -1,5 +1,5 @@
-A. INITIALIZATION AND PERFORMANCE PASS
-======================================
+03 A. INITIALIZATION AND PERFORMANCE PASS
+=========================================
 
 Not only for beginners, but also for experienced Csound users, many
 problems result from the misunderstanding of the so-called i-rate and

@@ -1,5 +1,5 @@
-B. LOCAL AND GLOBAL VARIABLES
-=============================
+03 B. LOCAL AND GLOBAL VARIABLES
+================================
 
 Variable Types
 --------------

@@ -1,5 +1,5 @@
-METHODS OF WRITING CSOUND SCORES
-================================
+14 A. METHODS OF WRITING CSOUND SCORES
+======================================
 
 Although the use of Csound real-time has become more prevalent and
 arguably more important whilst the use if the score has diminished and

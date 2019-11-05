@@ -1,5 +1,5 @@
-I. FUNCTIONAL SYNTAX
-====================
+03 I. FUNCTIONAL SYNTAX
+=======================
 
 Functional syntax is very common in many programming languages. It takes
 the form of fun(), where fun is any function which encloses its
@@ -13,8 +13,8 @@ as sqrt(), log(), int(), frac(). For instance, the following code
 
 would print:
 
-instr 1:  \#i0 = 1.000\
-instr 1:  \#i1 = 0.230
+    instr 1:  #i0 = 1.000
+    instr 1:  #i1 = 0.230
 
 Here the integer part and the fractional part of the number 1.234 are
 passed directly as an argument to the *print* opcode, without needing to

@@ -1,7 +1,5 @@
-A. ADDITIVE SYNTHESIS
-=====================
-
-Csound: AdditiveSynthesis
+04 A. ADDITIVE SYNTHESIS
+========================
 
 Jean Baptiste Joseph Fourier demonstrated in around 1800 that any
 continuous function can be described perfectly as a sum of sine waves.

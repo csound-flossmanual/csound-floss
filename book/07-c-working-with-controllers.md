@@ -1,5 +1,5 @@
-C. WORKING WITH CONTROLLERS
-===========================
+07 C. WORKING WITH CONTROLLERS
+==============================
 
 Scanning MIDI Continuous Controllers
 ------------------------------------

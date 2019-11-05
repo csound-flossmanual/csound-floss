@@ -123,7 +123,7 @@ Csound one can process the incoming audio samples in real time and
 output a new stream of samples or write them to disk in the form of a
 sound file.
 
-![*Sampling of an analog signal*](../resources/images/01-a-sampling.png)
+![<small>*Sampling of an analog signal*</small>](../resources/images/01-a-sampling.png)
 
 It is important to remember that each sample represents the amount of
 voltage, positive or negative, that was present in the signal at the
@@ -217,7 +217,6 @@ then because the frequency is 1000 Hz lower than the sample rate of
 -odac
 </CsOptions>
 <CsInstruments>
-;example by Joachim Heintz
 sr = 44100
 ksmps = 32
 nchnls = 2
@@ -234,6 +233,7 @@ i 1 0 2 1000 ;1000 Hz tone
 i 1 3 2 43100 ;43100 Hz tone sounds like 1000 Hz because of aliasing
 </CsScore>
 </CsoundSynthesizer>
+;example by joachim heintz
 ~~~
 
 The same phenomenon takes places in film and video too. You may recall

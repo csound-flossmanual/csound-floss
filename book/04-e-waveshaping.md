@@ -1,7 +1,5 @@
-E. WAVESHAPING
-==============
-
-Csound: WAVESHAPING
+04 E. WAVESHAPING
+=================
 
 Waveshaping is in some ways a relation of modulation techniques such as
 frequency or phase modulation. Waveshaping can create quite dramatic
