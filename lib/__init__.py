@@ -39,6 +39,7 @@ _ALERT_PREFIX = '*** '
 _alert_wrapper = TextWrapper(width=_columns - 1,
                              subsequent_indent=' ' * len(_ALERT_PREFIX))
 
+TABLE_OF_CONTENTS_FILENAME = "00--aa-toc.md"
 
 def import_from_file(path: str, module_name: str) -> Any:
     """
@@ -300,9 +301,17 @@ def preprocess_markdown(
 
                 # Added classes to each section. Can be used in CSS.
                 if divs and ext == ".md":
-                    t.write(f'<div class="book_section" id="section_{cls}">\n')
+                    t.write(f'<div class="book_section" id="{basefile}">\n')
                 with open_file(f, mode='r') as input_file:
                     for line in input_file.readlines():
+                        # TOC hack - hlolli
+                        if f.endswith(TABLE_OF_CONTENTS_FILENAME):
+                            parens_regex = re.compile(".*?\((.*?)\)")
+                            result = re.findall(parens_regex, line)
+                            if len(result):
+                                to_replace = result[0]
+                                new_url = to_replace.replace(".md", "")
+                                line = line.replace(to_replace, "#" + new_url)
                         # (warning hack!) replace relative path of resources - hlolli
                         line = line.replace("../resources", "resources")
                         t.write(f"{line.rstrip()}\n")

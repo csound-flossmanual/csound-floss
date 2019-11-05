@@ -2,8 +2,8 @@
 
 ## 00 INTRODUCTION
 #### [A. PREFACE](00-a-preface.md)
-#### [B. HOW TO USE THIS MANUAL](00-b-how-to-use-this-manual.html)
-#### C. ON THIS RELEASE
+#### [B. HOW TO USE THIS MANUAL](00-b-how-to-use-this-manual.md)
+#### [C. ON THIS RELEASE](00-c-on-this-release.md)
 #### D. CREDITS
 
 ## 01 BASICS
