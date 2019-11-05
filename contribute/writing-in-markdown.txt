@@ -1,0 +1,20 @@
+WRITING IN MARKDOWN
+===================
+
+We use Pandoc Markdown here. For a full description,
+see https://pandoc.org/MANUAL.html#pandocs-markdown or
+https://rmarkdown.rstudio.com/authoring_pandoc_markdown.html%23raw-tex#pandoc_markdown
+
+For anyone who writes on this book, these features are in particular important:
+
+1. headings
+2. italics
+3. bold
+4. images
+   a) links and sources
+   b) captions
+   c) size adaptions
+5. footnotes
+6. math formulars
+
+[desscribe more later]
