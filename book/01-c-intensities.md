@@ -139,38 +139,40 @@ over 10 seconds.
 
    ***EXAMPLE 01C01\_db\_vs\_linear.csd*** 
 
-    <CsoundSynthesizer>
-    <CsOptions>
-    -odac
-    </CsOptions>
-    <CsInstruments>
-    sr = 44100
-    ksmps = 32
-    nchnls = 2
-    0dbfs = 1
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-odac
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
 
-    instr 1 ;linear amplitude rise
-    kamp      line    0, p3, 1     ;amp rise 0->1
-    asig      poscil  1, 1000      ;1000 Hz sine
-    aout      =       asig * kamp
-              outs    aout, aout
-    endin
+instr 1 ;linear amplitude rise
+kamp      line    0, p3, 1     ;amp rise 0->1
+asig      poscil  1, 1000      ;1000 Hz sine
+aout      =       asig * kamp
+          outs    aout, aout
+endin
 
-    instr 2 ;linear rise of dB
-    kdb       line    -80, p3, 0   ;dB rise -80 -> 0
-    asig      poscil  1, 1000      ;1000 Hz sine
-    kamp      =       ampdb(kdb)   ;transformation db -> amp
-    aout      =       asig * kamp
-              outs    aout, aout
-    endin
+instr 2 ;linear rise of dB
+kdb       line    -80, p3, 0   ;dB rise -80 -> 0
+asig      poscil  1, 1000      ;1000 Hz sine
+kamp      =       ampdb(kdb)   ;transformation db -> amp
+aout      =       asig * kamp
+          outs    aout, aout
+endin
 
-    </CsInstruments>
-    <CsScore>
-    i 1 0 10
-    i 2 11 10
-    </CsScore>
-    </CsoundSynthesizer>
-    ;example by joachim heintz
+</CsInstruments>
+<CsScore>
+i 1 0 10
+i 2 11 10
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+~~~
 
 The first note, which employs a linear rise in amplitude, is perceived
 as rising quickly in intensity with the rate of increase slowing
@@ -193,11 +195,11 @@ Let us consider a simple example and then look how to derive rms values
 within Csound. Assuming we have a sine wave which consists of 16
 samples, we get these amplitudes:
 
-![16 times sampled sine wave](../resources/images/01-c-sine-16points-v2.png)
+![16 times sampled sine wave](../resources/images/01-c-sine-16points-v2.png){width=50%}
 
 These are the squared amplitudes:
 
-![](../resources/images/01-c-sine-16points-rms-v2.png)
+![](../resources/images/01-c-sine-16points-rms-v2.png){width=50%}
 
 The mean of these values is:
 
@@ -212,51 +214,52 @@ default is 10 Hz), the quicker this measurement will respond to changes,
 and vice versa. This opcode can be used to implement a self-regulating
 system, in which the rms opcode prevents the system from exploding. Each
 time the rms value exceeds a certain value, the amount of feedback is
-reduced. This is an example^1^ :
+reduced. This is an example[^1]\:
 
    ***EXAMPLE 01C02\_rms\_feedback\_system.csd***  
 
-    <CsoundSynthesizer>
-    <CsOptions>
-    -odac
-    </CsOptions>
-    <CsInstruments>
-    sr = 44100
-    ksmps = 32
-    nchnls = 2
-    0dbfs = 1
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-odac
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
 
-    giSine    ftgen     0, 0, 2^10, 10, 1 ;table with a sine wave
+giSine    ftgen     0, 0, 2^10, 10, 1 ;table with a sine wave
 
-    instr 1
-     a3        init      0
-     kamp      linseg    0, 1.5, 0.2, 1.5, 0        ;envelope for initial input
-     asnd      poscil    kamp, 440, giSine          ;initial input
-     if p4 == 1 then                                ;choose between two sines ...
-      adel1     poscil    0.0523, 0.023, giSine
-      adel2     poscil    0.073, 0.023, giSine,.5
-     else                                           ;or a random movement for the delay lines
-      adel1     randi     0.05, 0.1, 2
-      adel2     randi     0.08, 0.2, 2
-     endif
-     a0        delayr    1                          ;delay line of 1 second
-     a1        deltapi   adel1 + 0.1                ;first reading
-     a2        deltapi   adel2 + 0.1                ;second reading
-     krms      rms       a3                         ;rms measurement
-               delayw    asnd + exp(-krms) * a3     ;feedback depending on rms
-     a3        reson     -(a1+a2), 3000, 7000, 2    ;calculate a3
-     aout      linen     a1/3, 1, p3, 1             ;apply fade in and fade out
-               outs      aout, aout
-    endin
-    </CsInstruments>
-    <CsScore>
-    i 1 0 60 1          ;two sine movements of delay with feedback
-    i 1 61 . 2          ;two random movements of delay with feedback
-    </CsScore>
-    </CsoundSynthesizer>
-    ;example by Martin Neukom, adapted by Joachim Heintz
+instr 1
+ a3        init      0
+ kamp      linseg    0, 1.5, 0.2, 1.5, 0        ;envelope for initial input
+ asnd      poscil    kamp, 440, giSine          ;initial input
+ if p4 == 1 then                                ;choose between two sines ...
+  adel1     poscil    0.0523, 0.023, giSine
+  adel2     poscil    0.073, 0.023, giSine,.5
+ else                                           ;or a random movement for the delay lines
+  adel1     randi     0.05, 0.1, 2
+  adel2     randi     0.08, 0.2, 2
+ endif
+ a0        delayr    1                          ;delay line of 1 second
+ a1        deltapi   adel1 + 0.1                ;first reading
+ a2        deltapi   adel2 + 0.1                ;second reading
+ krms      rms       a3                         ;rms measurement
+           delayw    asnd + exp(-krms) * a3     ;feedback depending on rms
+ a3        reson     -(a1+a2), 3000, 7000, 2    ;calculate a3
+ aout      linen     a1/3, 1, p3, 1             ;apply fade in and fade out
+           outs      aout, aout
+endin
+</CsInstruments>
+<CsScore>
+i 1 0 60 1          ;two sine movements of delay with feedback
+i 1 61 . 2          ;two random movements of delay with feedback
+</CsScore>
+</CsoundSynthesizer>
+;example by Martin Neukom, adapted by Joachim Heintz
+~~~
 
- 
 
  
 
@@ -273,7 +276,7 @@ These curves of equal loudness are mostly called *Fletcher-Munson
 Curves* because of the paper of H. Fletcher and W. A. Munson in 1933.
 They look like this:
 
-![](../resources/images/01-c-fletcher-munson.png)
+![](../resources/images/01-c-fletcher-munson.png){width=70%}
 
 Try the following test. During the first 5 seconds you will hear a tone
 of 3000 Hz. Adjust the level of your amplifier to the lowest possible
@@ -290,30 +293,32 @@ not hear anything in the bass region.
 
    ***EXAMPLE 01C03\_FletcherMunson.csd***   
 
-    <CsoundSynthesizer>
-    <CsOptions>
-    -odac
-    </CsOptions>
-    <CsInstruments>
-    sr = 44100
-    ksmps = 32
-    nchnls = 2
-    0dbfs = 1
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-odac
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
 
-    instr 1
-     kfreq     expseg    p4, p3, p5
-               printk    1, kfreq ;prints the frequencies once a second
-     asin      poscil    .2, kfreq
-     aout      linen     asin, .01, p3, .01
-               outs      aout, aout
-    endin
-    </CsInstruments>
-    <CsScore>
-    i 1 0 5 1000 1000
-    i 1 6 20 20  20000
-    </CsScore>
-    </CsoundSynthesizer>
-    ;example by joachim heintz
+instr 1
+ kfreq     expseg    p4, p3, p5
+           printk    1, kfreq ;prints the frequencies once a second
+ asin      poscil    .2, kfreq
+ aout      linen     asin, .01, p3, .01
+           outs      aout, aout
+endin
+</CsInstruments>
+<CsScore>
+i 1 0 5 1000 1000
+i 1 6 20 20  20000
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+~~~
 
 It is very important to bear in mind when designing instruments that the
 perceived loudness of a sound will depend upon its frequency content.
@@ -323,4 +328,4 @@ amplitude; the latter will sound much louder.  
 
  
 
-1.  cf Martin Neukom, Signale Systeme Klangsynthese, Zürich 2003, p.383
+[^1]:  cf Martin Neukom, Signale Systeme Klangsynthese, Zürich 2003, p.383
