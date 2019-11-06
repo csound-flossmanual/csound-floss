@@ -63,48 +63,50 @@ whereas the last three groups should always have a different pitch.
 
    ***EXAMPLE 01D01\_different\_seed.csd***
 
-    <CsoundSynthesizer>
-    <CsOptions>
-    -odac -m0
-    </CsOptions>
-    <CsInstruments>
-    sr = 44100
-    ksmps = 32
-    nchnls = 2
-    0dbfs = 1
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-odac -m0
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
 
-    instr generate
-     ;get seed: 0 = seeding from system clock
-     ;          otherwise = fixed seed
-               seed       p4
-     ;generate four notes to be played from subinstrument
-    iNoteCount =          0
-     while iNoteCount < 4 do
-    iFreq      random     400, 800
-               schedule   "play", iNoteCount, 2, iFreq
-    iNoteCount +=         1 ;increase note count
-     od
-    endin
+instr generate
+ ;get seed: 0 = seeding from system clock
+ ;          otherwise = fixed seed
+           seed       p4
+ ;generate four notes to be played from subinstrument
+iNoteCount =          0
+ while iNoteCount < 4 do
+iFreq      random     400, 800
+           schedule   "play", iNoteCount, 2, iFreq
+iNoteCount +=         1 ;increase note count
+ od
+endin
 
-    instr play
-    iFreq      =          p4
-               print      iFreq
-    aImp       mpulse     .5, p3
-    aMode      mode       aImp, iFreq, 1000
-    aEnv       linen      aMode, 0.01, p3, p3-0.01
-               outs       aEnv, aEnv
-    endin
-    </CsInstruments>
-    <CsScore>
-    ;repeat three times with fixed seed
-    r 3
-    i "generate" 0 2 1
-    ;repeat three times with seed from the system clock
-    r 3
-    i "generate" 0 1 0
-    </CsScore>
-    </CsoundSynthesizer>
-    ;example by joachim heintz
+instr play
+iFreq      =          p4
+           print      iFreq
+aImp       mpulse     .5, p3
+aMode      mode       aImp, iFreq, 1000
+aEnv       linen      aMode, 0.01, p3, p3-0.01
+           outs       aEnv, aEnv
+endin
+</CsInstruments>
+<CsScore>
+;repeat three times with fixed seed
+r 3
+i "generate" 0 2 1
+;repeat three times with seed from the system clock
+r 3
+i "generate" 0 1 0
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+~~~
 
 Note that a pseudo-random generator will repeat its series of numbers
 after as many steps as are given by the size of the generator. If a
@@ -117,30 +119,32 @@ random generator now works with a 31-bit number.
 
    ***EXAMPLE 01D02\_white\_noises.csd*** 
 
-    <CsoundSynthesizer>
-    <CsOptions>
-    -odac
-    </CsOptions>
-    <CsInstruments>
-    sr = 44100
-    ksmps = 32
-    nchnls = 2
-    0dbfs = 1
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-odac
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
 
-    instr white_noise
-    iBit       =          p4 ;0 = 16 bit, 1 = 31 bit
-     ;input of rand: amplitude, fixed seed (0.5), bit size
-    aNoise     rand       .1, 0.5, iBit
-               outs       aNoise, aNoise
-    endin
+instr white_noise
+iBit       =          p4 ;0 = 16 bit, 1 = 31 bit
+ ;input of rand: amplitude, fixed seed (0.5), bit size
+aNoise     rand       .1, 0.5, iBit
+           outs       aNoise, aNoise
+endin
 
-    </CsInstruments>
-    <CsScore>
-    i "white_noise" 0 10 0
-    i "white_noise" 11 10 1
-    </CsScore>
-    </CsoundSynthesizer>
-    ;example by joachim heintz
+</CsInstruments>
+<CsScore>
+i "white_noise" 0 10 0
+i "white_noise" 11 10 1
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+~~~
 
 Two more general notes about this:
 
@@ -211,140 +215,142 @@ precedence of higher pitches (but shorter durations).
 
    ***EXAMPLE 01D03\_linrand.csd***  
 
-    <CsoundSynthesizer>
-    <CsOptions>
-    -odac -m0
-    </CsOptions>
-    <CsInstruments>
-    sr = 44100
-    ksmps = 32
-    nchnls = 2
-    0dbfs = 1
-    seed 0
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-odac -m0
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
+seed 0
 
-    ;****DEFINE OPCODES FOR LINEAR DISTRIBUTION****
+;****DEFINE OPCODES FOR LINEAR DISTRIBUTION****
 
-    opcode linrnd_low, i, ii
-     ;linear random with precedence of lower values
-    iMin, iMax xin
-     ;generate two random values with the random opcode
-    iOne       random     iMin, iMax
-    iTwo       random     iMin, iMax
-     ;compare and get the lower one
-    iRnd       =          iOne < iTwo ? iOne : iTwo
-               xout       iRnd
-    endop
+opcode linrnd_low, i, ii
+ ;linear random with precedence of lower values
+iMin, iMax xin
+ ;generate two random values with the random opcode
+iOne       random     iMin, iMax
+iTwo       random     iMin, iMax
+ ;compare and get the lower one
+iRnd       =          iOne < iTwo ? iOne : iTwo
+           xout       iRnd
+endop
 
-    opcode linrnd_high, i, ii
-     ;linear random with precedence of higher values
-    iMin, iMax xin
-     ;generate two random values with the random opcode
-    iOne       random     iMin, iMax
-    iTwo       random     iMin, iMax
-     ;compare and get the higher one
-    iRnd       =          iOne > iTwo ? iOne : iTwo
-               xout       iRnd
-    endop
-
-
-    ;****INSTRUMENTS FOR THE DIFFERENT DISTRIBUTIONS****
-
-    instr notes_uniform
-               prints     "... instr notes_uniform playing:\n"
-               prints     "EQUAL LIKELINESS OF ALL PITCHES AND DURATIONS\n"
-     ;how many notes to be played
-    iHowMany   =          p4
-     ;trigger as many instances of instr play as needed
-    iThisNote  =          0
-    iStart     =          0
-     until iThisNote == iHowMany do
-    iMidiPch   random     36, 84 ;midi note
-    iDur       random     .5, 1 ;duration
-               event_i    "i", "play", iStart, iDur, int(iMidiPch)
-    iStart     +=         iDur ;increase start
-    iThisNote  +=         1 ;increase counter
-     enduntil
-     ;reset the duration of this instr to make all events happen
-    p3         =          iStart + 2
-     ;trigger next instrument two seconds after the last note
-               event_i    "i", "notes_linrnd_low", p3, 1, iHowMany
-    endin
-
-    instr notes_linrnd_low
-               prints     "... instr notes_linrnd_low playing:\n"
-               prints     "LOWER NOTES AND LONGER DURATIONS PREFERRED\n"
-    iHowMany   =          p4
-    iThisNote  =          0
-    iStart     =          0
-     until iThisNote == iHowMany do
-    iMidiPch   linrnd_low 36, 84 ;lower pitches preferred
-    iDur       linrnd_high .5, 1 ;longer durations preferred
-               event_i    "i", "play", iStart, iDur, int(iMidiPch)
-    iStart     +=         iDur
-    iThisNote  +=         1
-     enduntil
-     ;reset the duration of this instr to make all events happen
-    p3         =          iStart + 2
-     ;trigger next instrument two seconds after the last note
-               event_i    "i", "notes_linrnd_high", p3, 1, iHowMany
-    endin
-
-    instr notes_linrnd_high
-               prints     "... instr notes_linrnd_high playing:\n"
-               prints     "HIGHER NOTES AND SHORTER DURATIONS PREFERRED\n"
-    iHowMany   =          p4
-    iThisNote  =          0
-    iStart     =          0
-     until iThisNote == iHowMany do
-    iMidiPch   linrnd_high 36, 84 ;higher pitches preferred
-    iDur       linrnd_low .3, 1.2 ;shorter durations preferred
-               event_i    "i", "play", iStart, iDur, int(iMidiPch)
-    iStart     +=         iDur
-    iThisNote  +=         1
-     enduntil
-     ;reset the duration of this instr to make all events happen
-    p3         =          iStart + 2
-     ;call instr to exit csound
-               event_i    "i", "exit", p3+1, 1
-    endin
+opcode linrnd_high, i, ii
+ ;linear random with precedence of higher values
+iMin, iMax xin
+ ;generate two random values with the random opcode
+iOne       random     iMin, iMax
+iTwo       random     iMin, iMax
+ ;compare and get the higher one
+iRnd       =          iOne > iTwo ? iOne : iTwo
+           xout       iRnd
+endop
 
 
-    ;****INSTRUMENTS TO PLAY THE SOUNDS AND TO EXIT CSOUND****
+;****INSTRUMENTS FOR THE DIFFERENT DISTRIBUTIONS****
 
-    instr play
-     ;increase duration in random range
-    iDur       random     p3, p3*1.5
-    p3         =          iDur
-     ;get midi note and convert to frequency
-    iMidiNote  =          p4
-    iFreq      cpsmidinn  iMidiNote
-     ;generate note with karplus-strong algorithm
-    aPluck     pluck      .2, iFreq, iFreq, 0, 1
-    aPluck     linen      aPluck, 0, p3, p3
-     ;filter
-    aFilter    mode       aPluck, iFreq, .1
-     ;mix aPluck and aFilter according to MidiNote
-     ;(high notes will be filtered more)
-    aMix       ntrpol     aPluck, aFilter, iMidiNote, 36, 84
-     ;panning also according to MidiNote
-     ;(low = left, high = right)
-    iPan       =          (iMidiNote-36) / 48
-    aL, aR     pan2       aMix, iPan
-               outs       aL, aR
-    endin
+instr notes_uniform
+           prints     "... instr notes_uniform playing:\n"
+           prints     "EQUAL LIKELINESS OF ALL PITCHES AND DURATIONS\n"
+ ;how many notes to be played
+iHowMany   =          p4
+ ;trigger as many instances of instr play as needed
+iThisNote  =          0
+iStart     =          0
+ until iThisNote == iHowMany do
+iMidiPch   random     36, 84 ;midi note
+iDur       random     .5, 1 ;duration
+           event_i    "i", "play", iStart, iDur, int(iMidiPch)
+iStart     +=         iDur ;increase start
+iThisNote  +=         1 ;increase counter
+ enduntil
+ ;reset the duration of this instr to make all events happen
+p3         =          iStart + 2
+ ;trigger next instrument two seconds after the last note
+           event_i    "i", "notes_linrnd_low", p3, 1, iHowMany
+endin
 
-    instr exit
-               exitnow
-    endin
+instr notes_linrnd_low
+           prints     "... instr notes_linrnd_low playing:\n"
+           prints     "LOWER NOTES AND LONGER DURATIONS PREFERRED\n"
+iHowMany   =          p4
+iThisNote  =          0
+iStart     =          0
+ until iThisNote == iHowMany do
+iMidiPch   linrnd_low 36, 84 ;lower pitches preferred
+iDur       linrnd_high .5, 1 ;longer durations preferred
+           event_i    "i", "play", iStart, iDur, int(iMidiPch)
+iStart     +=         iDur
+iThisNote  +=         1
+ enduntil
+ ;reset the duration of this instr to make all events happen
+p3         =          iStart + 2
+ ;trigger next instrument two seconds after the last note
+           event_i    "i", "notes_linrnd_high", p3, 1, iHowMany
+endin
 
-    </CsInstruments>
-    <CsScore>
-    i "notes_uniform" 0 1 23 ;set number of notes per instr here
-    ;instruments linrnd_low and linrnd_high are triggered automatically
-    e 99999 ;make possible to perform long (exit will be automatically)
-    </CsScore>
-    </CsoundSynthesizer>
-    ;example by joachim heintz
+instr notes_linrnd_high
+           prints     "... instr notes_linrnd_high playing:\n"
+           prints     "HIGHER NOTES AND SHORTER DURATIONS PREFERRED\n"
+iHowMany   =          p4
+iThisNote  =          0
+iStart     =          0
+ until iThisNote == iHowMany do
+iMidiPch   linrnd_high 36, 84 ;higher pitches preferred
+iDur       linrnd_low .3, 1.2 ;shorter durations preferred
+           event_i    "i", "play", iStart, iDur, int(iMidiPch)
+iStart     +=         iDur
+iThisNote  +=         1
+ enduntil
+ ;reset the duration of this instr to make all events happen
+p3         =          iStart + 2
+ ;call instr to exit csound
+           event_i    "i", "exit", p3+1, 1
+endin
+
+
+;****INSTRUMENTS TO PLAY THE SOUNDS AND TO EXIT CSOUND****
+
+instr play
+ ;increase duration in random range
+iDur       random     p3, p3*1.5
+p3         =          iDur
+ ;get midi note and convert to frequency
+iMidiNote  =          p4
+iFreq      cpsmidinn  iMidiNote
+ ;generate note with karplus-strong algorithm
+aPluck     pluck      .2, iFreq, iFreq, 0, 1
+aPluck     linen      aPluck, 0, p3, p3
+ ;filter
+aFilter    mode       aPluck, iFreq, .1
+ ;mix aPluck and aFilter according to MidiNote
+ ;(high notes will be filtered more)
+aMix       ntrpol     aPluck, aFilter, iMidiNote, 36, 84
+ ;panning also according to MidiNote
+ ;(low = left, high = right)
+iPan       =          (iMidiNote-36) / 48
+aL, aR     pan2       aMix, iPan
+           outs       aL, aR
+endin
+
+instr exit
+           exitnow
+endin
+
+</CsInstruments>
+<CsScore>
+i "notes_uniform" 0 1 23 ;set number of notes per instr here
+;instruments linrnd_low and linrnd_high are triggered automatically
+e 99999 ;make possible to perform long (exit will be automatically)
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+~~~
 
 #### Triangular
 
@@ -361,107 +367,109 @@ in the same environment as the previous example.
 
    ***EXAMPLE 01D04\_trirand.csd***   
 
-    <CsoundSynthesizer>
-    <CsOptions>
-    -odac -m0
-    </CsOptions>
-    <CsInstruments>
-    sr = 44100
-    ksmps = 32
-    nchnls = 2
-    0dbfs = 1
-    seed 0
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-odac -m0
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
+seed 0
 
-    ;****UDO FOR TRIANGULAR DISTRIBUTION****
-    opcode trirnd, i, ii
-    iMin, iMax xin
-     ;generate two random values with the random opcode
-    iOne       random     iMin, iMax
-    iTwo       random     iMin, iMax
-     ;get the mean and output
-    iRnd       =          (iOne+iTwo) / 2
-               xout       iRnd
-    endop
+;****UDO FOR TRIANGULAR DISTRIBUTION****
+opcode trirnd, i, ii
+iMin, iMax xin
+ ;generate two random values with the random opcode
+iOne       random     iMin, iMax
+iTwo       random     iMin, iMax
+ ;get the mean and output
+iRnd       =          (iOne+iTwo) / 2
+           xout       iRnd
+endop
 
-    ;****INSTRUMENTS FOR UNIFORM AND TRIANGULAR DISTRIBUTION****
+;****INSTRUMENTS FOR UNIFORM AND TRIANGULAR DISTRIBUTION****
 
-    instr notes_uniform
-               prints     "... instr notes_uniform playing:\n"
-               prints     "EQUAL LIKELINESS OF ALL PITCHES AND DURATIONS\n"
-     ;how many notes to be played
-    iHowMany   =          p4
-     ;trigger as many instances of instr play as needed
-    iThisNote  =          0
-    iStart     =          0
-     until iThisNote == iHowMany do
-    iMidiPch   random     36, 84 ;midi note
-    iDur       random     .25, 1.75 ;duration
-               event_i    "i", "play", iStart, iDur, int(iMidiPch)
-    iStart     +=         iDur ;increase start
-    iThisNote  +=         1 ;increase counter
-     enduntil
-     ;reset the duration of this instr to make all events happen
-    p3         =          iStart + 2
-     ;trigger next instrument two seconds after the last note
-               event_i    "i", "notes_trirnd", p3, 1, iHowMany
-    endin
+instr notes_uniform
+           prints     "... instr notes_uniform playing:\n"
+           prints     "EQUAL LIKELINESS OF ALL PITCHES AND DURATIONS\n"
+ ;how many notes to be played
+iHowMany   =          p4
+ ;trigger as many instances of instr play as needed
+iThisNote  =          0
+iStart     =          0
+ until iThisNote == iHowMany do
+iMidiPch   random     36, 84 ;midi note
+iDur       random     .25, 1.75 ;duration
+           event_i    "i", "play", iStart, iDur, int(iMidiPch)
+iStart     +=         iDur ;increase start
+iThisNote  +=         1 ;increase counter
+ enduntil
+ ;reset the duration of this instr to make all events happen
+p3         =          iStart + 2
+ ;trigger next instrument two seconds after the last note
+           event_i    "i", "notes_trirnd", p3, 1, iHowMany
+endin
 
-    instr notes_trirnd
-               prints     "... instr notes_trirnd playing:\n"
-               prints     "MEDIUM NOTES AND DURATIONS PREFERRED\n"
-    iHowMany   =          p4
-    iThisNote  =          0
-    iStart     =          0
-     until iThisNote == iHowMany do
-    iMidiPch   trirnd     36, 84 ;medium pitches preferred
-    iDur       trirnd     .25, 1.75 ;medium durations preferred
-               event_i    "i", "play", iStart, iDur, int(iMidiPch)
-    iStart     +=         iDur
-    iThisNote  +=         1
-     enduntil
-     ;reset the duration of this instr to make all events happen
-    p3         =          iStart + 2
-     ;call instr to exit csound
-               event_i    "i", "exit", p3+1, 1
-    endin
+instr notes_trirnd
+           prints     "... instr notes_trirnd playing:\n"
+           prints     "MEDIUM NOTES AND DURATIONS PREFERRED\n"
+iHowMany   =          p4
+iThisNote  =          0
+iStart     =          0
+ until iThisNote == iHowMany do
+iMidiPch   trirnd     36, 84 ;medium pitches preferred
+iDur       trirnd     .25, 1.75 ;medium durations preferred
+           event_i    "i", "play", iStart, iDur, int(iMidiPch)
+iStart     +=         iDur
+iThisNote  +=         1
+ enduntil
+ ;reset the duration of this instr to make all events happen
+p3         =          iStart + 2
+ ;call instr to exit csound
+           event_i    "i", "exit", p3+1, 1
+endin
 
 
-    ;****INSTRUMENTS TO PLAY THE SOUNDS AND EXIT CSOUND****
+;****INSTRUMENTS TO PLAY THE SOUNDS AND EXIT CSOUND****
 
-    instr play
-     ;increase duration in random range
-    iDur       random     p3, p3*1.5
-    p3         =          iDur
-     ;get midi note and convert to frequency
-    iMidiNote  =          p4
-    iFreq      cpsmidinn  iMidiNote
-     ;generate note with karplus-strong algorithm
-    aPluck     pluck      .2, iFreq, iFreq, 0, 1
-    aPluck     linen      aPluck, 0, p3, p3
-     ;filter
-    aFilter    mode       aPluck, iFreq, .1
-     ;mix aPluck and aFilter according to MidiNote
-     ;(high notes will be filtered more)
-    aMix       ntrpol     aPluck, aFilter, iMidiNote, 36, 84
-     ;panning also according to MidiNote
-     ;(low = left, high = right)
-    iPan       =          (iMidiNote-36) / 48
-    aL, aR     pan2       aMix, iPan
-               outs       aL, aR
-    endin
+instr play
+ ;increase duration in random range
+iDur       random     p3, p3*1.5
+p3         =          iDur
+ ;get midi note and convert to frequency
+iMidiNote  =          p4
+iFreq      cpsmidinn  iMidiNote
+ ;generate note with karplus-strong algorithm
+aPluck     pluck      .2, iFreq, iFreq, 0, 1
+aPluck     linen      aPluck, 0, p3, p3
+ ;filter
+aFilter    mode       aPluck, iFreq, .1
+ ;mix aPluck and aFilter according to MidiNote
+ ;(high notes will be filtered more)
+aMix       ntrpol     aPluck, aFilter, iMidiNote, 36, 84
+ ;panning also according to MidiNote
+ ;(low = left, high = right)
+iPan       =          (iMidiNote-36) / 48
+aL, aR     pan2       aMix, iPan
+           outs       aL, aR
+endin
 
-    instr exit
-               exitnow
-    endin
+instr exit
+           exitnow
+endin
 
-    </CsInstruments>
-    <CsScore>
-    i "notes_uniform" 0 1 23 ;set number of notes per instr here
-    ;instr trirnd will be triggered automatically
-    e 99999 ;make possible to perform long (exit will be automatically)
-    </CsScore>
-    </CsoundSynthesizer>
-    ;example by joachim heintz
+</CsInstruments>
+<CsScore>
+i "notes_uniform" 0 1 23 ;set number of notes per instr here
+;instr trirnd will be triggered automatically
+e 99999 ;make possible to perform long (exit will be automatically)
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+~~~
 
 #### More Linear and Triangular
 
@@ -527,177 +535,179 @@ new instance of *notes*.
 
    ***EXAMPLE 01D05\_more\_lin\_tri\_units.csd***    
 
-    <CsoundSynthesizer>
-    <CsOptions>
-    -odac -m0
-    </CsOptions>
-    <CsInstruments>
-    sr = 44100
-    ksmps = 32
-    nchnls = 2
-    0dbfs = 1
-    seed 0
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-odac -m0
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
+seed 0
 
-    ;****SEQUENCE OF UNITS AS ARRAY****/
-    giSequence[] array 0, 1.2, 1.4, 2.2, 2.4, 3.2, 3.6
-    giSeqIndx = 0 ;startindex
+;****SEQUENCE OF UNITS AS ARRAY****/
+giSequence[] array 0, 1.2, 1.4, 2.2, 2.4, 3.2, 3.6
+giSeqIndx = 0 ;startindex
 
-    ;****UDO DEFINITIONS****
-    opcode linrnd_low, i, iii
-     ;linear random with precedence of lower values
-    iMin, iMax, iMaxCount xin
-     ;set counter and initial (absurd) result
-    iCount     =          0
-    iRnd       =          iMax
-     ;loop and reset iRnd
-     until iCount == iMaxCount do
-    iUniRnd    random     iMin, iMax
-    iRnd       =          iUniRnd < iRnd ? iUniRnd : iRnd
-    iCount     +=         1
-     enduntil
-               xout       iRnd
-    endop
+;****UDO DEFINITIONS****
+opcode linrnd_low, i, iii
+ ;linear random with precedence of lower values
+iMin, iMax, iMaxCount xin
+ ;set counter and initial (absurd) result
+iCount     =          0
+iRnd       =          iMax
+ ;loop and reset iRnd
+ until iCount == iMaxCount do
+iUniRnd    random     iMin, iMax
+iRnd       =          iUniRnd < iRnd ? iUniRnd : iRnd
+iCount     +=         1
+ enduntil
+           xout       iRnd
+endop
 
-    opcode linrnd_high, i, iii
-     ;linear random with precedence of higher values
-    iMin, iMax, iMaxCount xin
-     ;set counter and initial (absurd) result
-    iCount     =          0
-    iRnd       =          iMin
-     ;loop and reset iRnd
-     until iCount == iMaxCount do
-    iUniRnd    random     iMin, iMax
-    iRnd       =          iUniRnd > iRnd ? iUniRnd : iRnd
-    iCount     +=         1
-     enduntil
-               xout       iRnd
-    endop
+opcode linrnd_high, i, iii
+ ;linear random with precedence of higher values
+iMin, iMax, iMaxCount xin
+ ;set counter and initial (absurd) result
+iCount     =          0
+iRnd       =          iMin
+ ;loop and reset iRnd
+ until iCount == iMaxCount do
+iUniRnd    random     iMin, iMax
+iRnd       =          iUniRnd > iRnd ? iUniRnd : iRnd
+iCount     +=         1
+ enduntil
+           xout       iRnd
+endop
 
-    opcode trirnd, i, iii
-    iMin, iMax, iMaxCount xin
-     ;set a counter and accumulator
-    iCount     =          0
-    iAccum     =          0
-     ;perform loop and accumulate
-     until iCount == iMaxCount do
-    iUniRnd    random     iMin, iMax
-    iAccum     +=         iUniRnd
-    iCount     +=         1
-     enduntil
-     ;get the mean and output
-    iRnd       =          iAccum / iMaxCount
-               xout       iRnd
-    endop
+opcode trirnd, i, iii
+iMin, iMax, iMaxCount xin
+ ;set a counter and accumulator
+iCount     =          0
+iAccum     =          0
+ ;perform loop and accumulate
+ until iCount == iMaxCount do
+iUniRnd    random     iMin, iMax
+iAccum     +=         iUniRnd
+iCount     +=         1
+ enduntil
+ ;get the mean and output
+iRnd       =          iAccum / iMaxCount
+           xout       iRnd
+endop
 
-    ;****ONE INSTRUMENT TO PERFORM ALL DISTRIBUTIONS****
-    ;0 = uniform, 1 = linrnd_low, 2 = linrnd_high, 3 = trirnd
-    ;the fractional part denotes the number of units, e.g.
-    ;3.4 = triangular distribution with four sub-units
+;****ONE INSTRUMENT TO PERFORM ALL DISTRIBUTIONS****
+;0 = uniform, 1 = linrnd_low, 2 = linrnd_high, 3 = trirnd
+;the fractional part denotes the number of units, e.g.
+;3.4 = triangular distribution with four sub-units
 
-    instr notes
-     ;how many notes to be played
-    iHowMany   =          p4
-     ;by which distribution with how many units
-    iWhich     =          giSequence[giSeqIndx]
-    iDistrib   =          int(iWhich)
-    iUnits     =          round(frac(iWhich) * 10)
-     ;set min and max duration
-    iMinDur    =          .1
-    iMaxDur    =          2
-     ;set min and max pitch
-    iMinPch    =          36
-    iMaxPch    =          84
+instr notes
+ ;how many notes to be played
+iHowMany   =          p4
+ ;by which distribution with how many units
+iWhich     =          giSequence[giSeqIndx]
+iDistrib   =          int(iWhich)
+iUnits     =          round(frac(iWhich) * 10)
+ ;set min and max duration
+iMinDur    =          .1
+iMaxDur    =          2
+ ;set min and max pitch
+iMinPch    =          36
+iMaxPch    =          84
 
-     ;trigger as many instances of instr play as needed
-    iThisNote  =          0
-    iStart     =          0
-    iPrint     =          1
+ ;trigger as many instances of instr play as needed
+iThisNote  =          0
+iStart     =          0
+iPrint     =          1
 
-     ;for each note to be played
-     until iThisNote == iHowMany do
+ ;for each note to be played
+ until iThisNote == iHowMany do
 
-      ;calculate iMidiPch and iDur depending on type
-      if iDistrib == 0 then
-               printf_i   "%s", iPrint, "... uniform distribution:\n"
-               printf_i   "%s", iPrint, "EQUAL LIKELIHOOD OF ALL PITCHES AND DURATIONS\n"
-    iMidiPch   random     iMinPch, iMaxPch ;midi note
-    iDur       random     iMinDur, iMaxDur ;duration
-      elseif iDistrib == 1 then
-               printf_i    "... linear low distribution with %d units:\n", iPrint, iUnits
-               printf_i    "%s", iPrint, "LOWER NOTES AND LONGER DURATIONS PREFERRED\n"
-    iMidiPch   linrnd_low iMinPch, iMaxPch, iUnits
-    iDur       linrnd_high iMinDur, iMaxDur, iUnits
-      elseif iDistrib == 2 then
-               printf_i    "... linear high distribution with %d units:\n", iPrint, iUnits
-               printf_i    "%s", iPrint, "HIGHER NOTES AND SHORTER DURATIONS PREFERRED\n"
-    iMidiPch   linrnd_high iMinPch, iMaxPch, iUnits
-    iDur       linrnd_low iMinDur, iMaxDur, iUnits
-      else
-               printf_i    "... triangular distribution with %d units:\n", iPrint, iUnits
-               printf_i    "%s", iPrint, "MEDIUM NOTES AND DURATIONS PREFERRED\n"
-    iMidiPch   trirnd     iMinPch, iMaxPch, iUnits
-    iDur       trirnd     iMinDur, iMaxDur, iUnits
-      endif
+  ;calculate iMidiPch and iDur depending on type
+  if iDistrib == 0 then
+           printf_i   "%s", iPrint, "... uniform distribution:\n"
+           printf_i   "%s", iPrint, "EQUAL LIKELIHOOD OF ALL PITCHES AND DURATIONS\n"
+iMidiPch   random     iMinPch, iMaxPch ;midi note
+iDur       random     iMinDur, iMaxDur ;duration
+  elseif iDistrib == 1 then
+           printf_i    "... linear low distribution with %d units:\n", iPrint, iUnits
+           printf_i    "%s", iPrint, "LOWER NOTES AND LONGER DURATIONS PREFERRED\n"
+iMidiPch   linrnd_low iMinPch, iMaxPch, iUnits
+iDur       linrnd_high iMinDur, iMaxDur, iUnits
+  elseif iDistrib == 2 then
+           printf_i    "... linear high distribution with %d units:\n", iPrint, iUnits
+           printf_i    "%s", iPrint, "HIGHER NOTES AND SHORTER DURATIONS PREFERRED\n"
+iMidiPch   linrnd_high iMinPch, iMaxPch, iUnits
+iDur       linrnd_low iMinDur, iMaxDur, iUnits
+  else
+           printf_i    "... triangular distribution with %d units:\n", iPrint, iUnits
+           printf_i    "%s", iPrint, "MEDIUM NOTES AND DURATIONS PREFERRED\n"
+iMidiPch   trirnd     iMinPch, iMaxPch, iUnits
+iDur       trirnd     iMinDur, iMaxDur, iUnits
+  endif
 
-     ;call subinstrument to play note
-               event_i    "i", "play", iStart, iDur, int(iMidiPch)
+ ;call subinstrument to play note
+           event_i    "i", "play", iStart, iDur, int(iMidiPch)
 
-     ;increase start tim and counter
-    iStart     +=         iDur
-    iThisNote  +=         1
-     ;avoid continuous printing
-    iPrint     =          0
-     enduntil
+ ;increase start tim and counter
+iStart     +=         iDur
+iThisNote  +=         1
+ ;avoid continuous printing
+iPrint     =          0
+ enduntil
 
-     ;reset the duration of this instr to make all events happen
-    p3         =          iStart + 2
+ ;reset the duration of this instr to make all events happen
+p3         =          iStart + 2
 
-     ;increase index for sequence
-    giSeqIndx  +=         1
-     ;call instr again if sequence has not been ended
-     if giSeqIndx < lenarray(giSequence) then
-               event_i    "i", "notes", p3, 1, iHowMany
-     ;or exit
-     else
-               event_i    "i", "exit", p3, 1
-     endif
-    endin
+ ;increase index for sequence
+giSeqIndx  +=         1
+ ;call instr again if sequence has not been ended
+ if giSeqIndx < lenarray(giSequence) then
+           event_i    "i", "notes", p3, 1, iHowMany
+ ;or exit
+ else
+           event_i    "i", "exit", p3, 1
+ endif
+endin
 
 
-    ;****INSTRUMENTS TO PLAY THE SOUNDS AND EXIT CSOUND****
-    instr play
-     ;increase duration in random range
-    iDur       random     p3, p3*1.5
-    p3         =          iDur
-     ;get midi note and convert to frequency
-    iMidiNote  =          p4
-    iFreq      cpsmidinn  iMidiNote
-     ;generate note with karplus-strong algorithm
-    aPluck     pluck      .2, iFreq, iFreq, 0, 1
-    aPluck     linen      aPluck, 0, p3, p3
-     ;filter
-    aFilter    mode       aPluck, iFreq, .1
-     ;mix aPluck and aFilter according to MidiNote
-     ;(high notes will be filtered more)
-    aMix       ntrpol     aPluck, aFilter, iMidiNote, 36, 84
-     ;panning also according to MidiNote
-     ;(low = left, high = right)
-    iPan       =          (iMidiNote-36) / 48
-    aL, aR     pan2       aMix, iPan
-               outs       aL, aR
-    endin
+;****INSTRUMENTS TO PLAY THE SOUNDS AND EXIT CSOUND****
+instr play
+ ;increase duration in random range
+iDur       random     p3, p3*1.5
+p3         =          iDur
+ ;get midi note and convert to frequency
+iMidiNote  =          p4
+iFreq      cpsmidinn  iMidiNote
+ ;generate note with karplus-strong algorithm
+aPluck     pluck      .2, iFreq, iFreq, 0, 1
+aPluck     linen      aPluck, 0, p3, p3
+ ;filter
+aFilter    mode       aPluck, iFreq, .1
+ ;mix aPluck and aFilter according to MidiNote
+ ;(high notes will be filtered more)
+aMix       ntrpol     aPluck, aFilter, iMidiNote, 36, 84
+ ;panning also according to MidiNote
+ ;(low = left, high = right)
+iPan       =          (iMidiNote-36) / 48
+aL, aR     pan2       aMix, iPan
+           outs       aL, aR
+endin
 
-    instr exit
-               exitnow
-    endin
+instr exit
+           exitnow
+endin
 
-    </CsInstruments>
-    <CsScore>
-    i "notes" 0 1 23 ;set number of notes per instr here
-    e 99999 ;make possible to perform long (exit will be automatically)
-    </CsScore>
-    </CsoundSynthesizer>
-    ;example by joachim heintz
+</CsInstruments>
+<CsScore>
+i "notes" 0 1 23 ;set number of notes per instr here
+e 99999 ;make possible to perform long (exit will be automatically)
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+~~~
 
 With this method we can build probability distributions which are very
 similar to exponential or gaussian distributions.[^5]  Their shape can
@@ -749,192 +759,193 @@ according to their position in the array.
 
    ***EXAMPLE 01D06\_scalings.csd***     
 
-    <CsoundSynthesizer>
-    <CsOptions>
-    -odac -m0
-    </CsOptions>
-    <CsInstruments>
-    sr = 44100
-    ksmps = 32
-    nchnls = 2
-    0dbfs = 1
-    seed 0
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-odac -m0
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
+seed 0
 
 
-    ;****POSSIBLE DURATIONS AS ARRAY****
-    giDurs[]   array      3/2, 1, 2/3, 1/2, 1/3, 1/4
-    giLenDurs  lenarray   giDurs
+;****POSSIBLE DURATIONS AS ARRAY****
+giDurs[]   array      3/2, 1, 2/3, 1/2, 1/3, 1/4
+giLenDurs  lenarray   giDurs
 
-    ;****POSSIBLE PITCHES AS ARRAY****
-     ;initialize array with 31 steps
-    giScale[]  init       31
-    giLenScale lenarray   giScale
-     ;iterate to fill from 65 hz onwards
-    iStart     =          65
-    iDenom     =          3 ;start with 3/2
-    iCnt       =          0
-     until iCnt = giLenScale do
-    giScale[iCnt] =       iStart
-    iStart     =          iStart * iDenom / (iDenom-1)
-    iDenom     +=         1 ;next proportion is 4/3 etc
-    iCnt       +=         1
-     enduntil
+;****POSSIBLE PITCHES AS ARRAY****
+ ;initialize array with 31 steps
+giScale[]  init       31
+giLenScale lenarray   giScale
+ ;iterate to fill from 65 hz onwards
+iStart     =          65
+iDenom     =          3 ;start with 3/2
+iCnt       =          0
+ until iCnt = giLenScale do
+giScale[iCnt] =       iStart
+iStart     =          iStart * iDenom / (iDenom-1)
+iDenom     +=         1 ;next proportion is 4/3 etc
+iCnt       +=         1
+ enduntil
 
-    ;****SEQUENCE OF UNITS AS ARRAY****
-    giSequence[] array    0, 1.2, 1.4, 2.2, 2.4, 3.2, 3.6
-    giSeqIndx  =          0 ;startindex
+;****SEQUENCE OF UNITS AS ARRAY****
+giSequence[] array    0, 1.2, 1.4, 2.2, 2.4, 3.2, 3.6
+giSeqIndx  =          0 ;startindex
 
-    ;****UDO DEFINITIONS****
-    opcode linrnd_low, i, iii
-     ;linear random with precedence of lower values
-    iMin, iMax, iMaxCount xin
-     ;set counter and initial (absurd) result
-    iCount     =          0
-    iRnd       =          iMax
-     ;loop and reset iRnd
-     until iCount == iMaxCount do
-    iUniRnd    random     iMin, iMax
-    iRnd       =          iUniRnd < iRnd ? iUniRnd : iRnd
-    iCount += 1
-    enduntil
-               xout       iRnd
-    endop
+;****UDO DEFINITIONS****
+opcode linrnd_low, i, iii
+ ;linear random with precedence of lower values
+iMin, iMax, iMaxCount xin
+ ;set counter and initial (absurd) result
+iCount     =          0
+iRnd       =          iMax
+ ;loop and reset iRnd
+ until iCount == iMaxCount do
+iUniRnd    random     iMin, iMax
+iRnd       =          iUniRnd < iRnd ? iUniRnd : iRnd
+iCount += 1
+enduntil
+           xout       iRnd
+endop
 
-    opcode linrnd_high, i, iii
-     ;linear random with precedence of higher values
-    iMin, iMax, iMaxCount xin
-     ;set counter and initial (absurd) result
-    iCount     =          0
-    iRnd       =          iMin
-     ;loop and reset iRnd
-     until iCount == iMaxCount do
-    iUniRnd    random     iMin, iMax
-    iRnd       =          iUniRnd > iRnd ? iUniRnd : iRnd
-    iCount += 1
-    enduntil
-               xout       iRnd
-    endop
+opcode linrnd_high, i, iii
+ ;linear random with precedence of higher values
+iMin, iMax, iMaxCount xin
+ ;set counter and initial (absurd) result
+iCount     =          0
+iRnd       =          iMin
+ ;loop and reset iRnd
+ until iCount == iMaxCount do
+iUniRnd    random     iMin, iMax
+iRnd       =          iUniRnd > iRnd ? iUniRnd : iRnd
+iCount += 1
+enduntil
+           xout       iRnd
+endop
 
-    opcode trirnd, i, iii
-    iMin, iMax, iMaxCount xin
-     ;set a counter and accumulator
-    iCount     =          0
-    iAccum     =          0
-     ;perform loop and accumulate
-     until iCount == iMaxCount do
-    iUniRnd    random     iMin, iMax
-    iAccum += iUniRnd
-    iCount += 1
-    enduntil
-     ;get the mean and output
-    iRnd       =          iAccum / iMaxCount
-               xout       iRnd
-    endop
+opcode trirnd, i, iii
+iMin, iMax, iMaxCount xin
+ ;set a counter and accumulator
+iCount     =          0
+iAccum     =          0
+ ;perform loop and accumulate
+ until iCount == iMaxCount do
+iUniRnd    random     iMin, iMax
+iAccum += iUniRnd
+iCount += 1
+enduntil
+ ;get the mean and output
+iRnd       =          iAccum / iMaxCount
+           xout       iRnd
+endop
 
-    ;****ONE INSTRUMENT TO PERFORM ALL DISTRIBUTIONS****
-    ;0 = uniform, 1 = linrnd_low, 2 = linrnd_high, 3 = trirnd
-    ;the fractional part denotes the number of units, e.g.
-    ;3.4 = triangular distribution with four sub-units
+;****ONE INSTRUMENT TO PERFORM ALL DISTRIBUTIONS****
+;0 = uniform, 1 = linrnd_low, 2 = linrnd_high, 3 = trirnd
+;the fractional part denotes the number of units, e.g.
+;3.4 = triangular distribution with four sub-units
 
-    instr notes
-     ;how many notes to be played
-    iHowMany   =          p4
-     ;by which distribution with how many units
-    iWhich     =          giSequence[giSeqIndx]
-    iDistrib   =          int(iWhich)
-    iUnits     =          round(frac(iWhich) * 10)
+instr notes
+ ;how many notes to be played
+iHowMany   =          p4
+ ;by which distribution with how many units
+iWhich     =          giSequence[giSeqIndx]
+iDistrib   =          int(iWhich)
+iUnits     =          round(frac(iWhich) * 10)
 
-     ;trigger as many instances of instr play as needed
-    iThisNote  =          0
-    iStart     =          0
-    iPrint     =          1
+ ;trigger as many instances of instr play as needed
+iThisNote  =          0
+iStart     =          0
+iPrint     =          1
 
-     ;for each note to be played
-     until iThisNote == iHowMany do
+ ;for each note to be played
+ until iThisNote == iHowMany do
 
-      ;calculate iMidiPch and iDur depending on type
-      if iDistrib == 0 then
-               printf_i   "%s", iPrint, "... uniform distribution:\n"
-               printf_i   "%s", iPrint, "EQUAL LIKELINESS OF ALL PITCHES AND DURATIONS\n"
-    iScaleIndx random     0, giLenScale-.0001 ;midi note
-    iDurIndx   random     0, giLenDurs-.0001 ;duration
-      elseif iDistrib == 1 then
-               printf_i   "... linear low distribution with %d units:\n", iPrint, iUnits
-               printf_i   "%s", iPrint, "LOWER NOTES AND LONGER DURATIONS PREFERRED\n"
-    iScaleIndx linrnd_low 0, giLenScale-.0001, iUnits
-    iDurIndx   linrnd_low 0, giLenDurs-.0001, iUnits
-      elseif iDistrib == 2 then
-               printf_i   "... linear high distribution with %d units:\n", iPrint, iUnits
-               printf_i   "%s", iPrint, "HIGHER NOTES AND SHORTER DURATIONS PREFERRED\n"
-    iScaleIndx linrnd_high 0, giLenScale-.0001, iUnits
-    iDurIndx   linrnd_high 0, giLenDurs-.0001, iUnits
-               else
-               printf_i   "... triangular distribution with %d units:\n", iPrint, iUnits
-               printf_i   "%s", iPrint, "MEDIUM NOTES AND DURATIONS PREFERRED\n"
-    iScaleIndx trirnd     0, giLenScale-.0001, iUnits
-    iDurIndx   trirnd     0, giLenDurs-.0001, iUnits
-      endif
+  ;calculate iMidiPch and iDur depending on type
+  if iDistrib == 0 then
+           printf_i   "%s", iPrint, "... uniform distribution:\n"
+           printf_i   "%s", iPrint, "EQUAL LIKELINESS OF ALL PITCHES AND DURATIONS\n"
+iScaleIndx random     0, giLenScale-.0001 ;midi note
+iDurIndx   random     0, giLenDurs-.0001 ;duration
+  elseif iDistrib == 1 then
+           printf_i   "... linear low distribution with %d units:\n", iPrint, iUnits
+           printf_i   "%s", iPrint, "LOWER NOTES AND LONGER DURATIONS PREFERRED\n"
+iScaleIndx linrnd_low 0, giLenScale-.0001, iUnits
+iDurIndx   linrnd_low 0, giLenDurs-.0001, iUnits
+  elseif iDistrib == 2 then
+           printf_i   "... linear high distribution with %d units:\n", iPrint, iUnits
+           printf_i   "%s", iPrint, "HIGHER NOTES AND SHORTER DURATIONS PREFERRED\n"
+iScaleIndx linrnd_high 0, giLenScale-.0001, iUnits
+iDurIndx   linrnd_high 0, giLenDurs-.0001, iUnits
+           else
+           printf_i   "... triangular distribution with %d units:\n", iPrint, iUnits
+           printf_i   "%s", iPrint, "MEDIUM NOTES AND DURATIONS PREFERRED\n"
+iScaleIndx trirnd     0, giLenScale-.0001, iUnits
+iDurIndx   trirnd     0, giLenDurs-.0001, iUnits
+  endif
 
-     ;call subinstrument to play note
-    iDur       =          giDurs[int(iDurIndx)]
-    iPch       =          giScale[int(iScaleIndx)]
-               event_i    "i", "play", iStart, iDur, iPch
+ ;call subinstrument to play note
+iDur       =          giDurs[int(iDurIndx)]
+iPch       =          giScale[int(iScaleIndx)]
+           event_i    "i", "play", iStart, iDur, iPch
 
-     ;increase start time and counter
-    iStart     +=         iDur
-    iThisNote  +=         1
-     ;avoid continuous printing
-    iPrint     =          0
-    enduntil
+ ;increase start time and counter
+iStart     +=         iDur
+iThisNote  +=         1
+ ;avoid continuous printing
+iPrint     =          0
+enduntil
 
-     ;reset the duration of this instr to make all events happen
-    p3         =          iStart + 2
+ ;reset the duration of this instr to make all events happen
+p3         =          iStart + 2
 
-     ;increase index for sequence
-    giSeqIndx += 1
-     ;call instr again if sequence has not been ended
-     if giSeqIndx < lenarray(giSequence) then
-               event_i    "i", "notes", p3, 1, iHowMany
-     ;or exit
-               else
-               event_i    "i", "exit", p3, 1
-     endif
-    endin
+ ;increase index for sequence
+giSeqIndx += 1
+ ;call instr again if sequence has not been ended
+ if giSeqIndx < lenarray(giSequence) then
+           event_i    "i", "notes", p3, 1, iHowMany
+ ;or exit
+           else
+           event_i    "i", "exit", p3, 1
+ endif
+endin
 
 
-    ;****INSTRUMENTS TO PLAY THE SOUNDS AND EXIT CSOUND****
-    instr play
-     ;increase duration in random range
-    iDur       random     p3*2, p3*5
-    p3         =          iDur
-     ;get frequency
-    iFreq      =          p4
-     ;generate note with karplus-strong algorithm
-    aPluck     pluck      .2, iFreq, iFreq, 0, 1
-    aPluck     linen      aPluck, 0, p3, p3
-     ;filter
-    aFilter    mode       aPluck, iFreq, .1
-     ;mix aPluck and aFilter according to freq
-     ;(high notes will be filtered more)
-    aMix       ntrpol     aPluck, aFilter, iFreq, 65, 65*16
-     ;panning also according to freq
-     ;(low = left, high = right)
-    iPan       =          (iFreq-65) / (65*16)
-    aL, aR     pan2       aMix, iPan
-               outs       aL, aR
-    endin
+;****INSTRUMENTS TO PLAY THE SOUNDS AND EXIT CSOUND****
+instr play
+ ;increase duration in random range
+iDur       random     p3*2, p3*5
+p3         =          iDur
+ ;get frequency
+iFreq      =          p4
+ ;generate note with karplus-strong algorithm
+aPluck     pluck      .2, iFreq, iFreq, 0, 1
+aPluck     linen      aPluck, 0, p3, p3
+ ;filter
+aFilter    mode       aPluck, iFreq, .1
+ ;mix aPluck and aFilter according to freq
+ ;(high notes will be filtered more)
+aMix       ntrpol     aPluck, aFilter, iFreq, 65, 65*16
+ ;panning also according to freq
+ ;(low = left, high = right)
+iPan       =          (iFreq-65) / (65*16)
+aL, aR     pan2       aMix, iPan
+           outs       aL, aR
+endin
 
-    instr exit
-               exitnow
-    endin
-    </CsInstruments>
-    <CsScore>
-    i "notes" 0 1 23 ;set number of notes per instr here
-    e 99999 ;make possible to perform long (exit will be automatically)
-    </CsScore>
-    </CsoundSynthesizer>
-    ;example by joachim heintz
-
+instr exit
+           exitnow
+endin
+</CsInstruments>
+<CsScore>
+i "notes" 0 1 23 ;set number of notes per instr here
+e 99999 ;make possible to perform long (exit will be automatically)
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+~~~
  
 
 ### Random With History
@@ -952,7 +963,7 @@ A typical case for a Markov chain in music is a sequence of certain
 pitches or notes. For each note, the probability of the following note
 is written in a table like this:
 
-![](../resources/images/01-d-markov-table.png){ width=50% }
+![](../resources/images/01-d-markov-table.png){ width=30% }
 
 This means: the probability that element *a* is repeated, is 0.2; the
 probability that *b* follows a is 0.5; the probability that *c* follows a is
@@ -963,35 +974,37 @@ been *a*.
 
    ***EXAMPLE 01D07\_markov\_basics.csd***      
 
-    <CsoundSynthesizer>
-    <CsOptions>
-    -ndm0
-    </CsOptions>
-    <CsInstruments>
-    sr = 44100
-    ksmps = 32
-    0dbfs = 1
-    nchnls = 1
-    seed 0
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-ndm0
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+0dbfs = 1
+nchnls = 1
+seed 0
 
-    instr 1
-    iLine[]    array      .2, .5, .3
-    iVal       random     0, 1
-    iAccum     =          iLine[0]
-    iIndex     =          0
-     until iAccum >= iVal do
-    iIndex     +=         1
-    iAccum     +=         iLine[iIndex]
-     enduntil
-               printf_i   "Random number = %.3f, next element = %c!\n", 1, iVal, iIndex+97
-    endin
-    </CsInstruments>
-    <CsScore>
-    r 10
-    i 1 0 0
-    </CsScore>
-    </CsoundSynthesizer>
-    ;example by joachim heintz
+instr 1
+iLine[]    array      .2, .5, .3
+iVal       random     0, 1
+iAccum     =          iLine[0]
+iIndex     =          0
+ until iAccum >= iVal do
+iIndex     +=         1
+iAccum     +=         iLine[iIndex]
+ enduntil
+           printf_i   "Random number = %.3f, next element = %c!\n", 1, iVal, iIndex+97
+endin
+</CsInstruments>
+<CsScore>
+r 10
+i 1 0 0
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+~~~
 
 The probabilities are 0.2 0.5 0.3. First a uniformly distributed random
 number between 0 and 1 is generated. An acculumator is set to the first
@@ -1022,120 +1035,121 @@ independently from each other.
 
    ***EXAMPLE 01D08\_markov\_music.csd***
 
-    <CsoundSynthesizer>
-    <CsOptions>
-    -m128 -odac
-    </CsOptions>
-    <CsInstruments>
-    sr = 44100
-    ksmps = 32
-    0dbfs = 1
-    nchnls = 2
-    seed 0
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-m128 -odac
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+0dbfs = 1
+nchnls = 2
+seed 0
 
-    ;****USER DEFINED OPCODES FOR MARKOV CHAINS****
-      opcode Markov, i, i[][]i
-    iMarkovTable[][], iPrevEl xin
-    iRandom    random     0, 1
-    iNextEl    =          0
-    iAccum     =          iMarkovTable[iPrevEl][iNextEl]
-     until iAccum >= iRandom do
-    iNextEl    +=         1
-    iAccum     +=         iMarkovTable[iPrevEl][iNextEl]
-     enduntil
-               xout       iNextEl
-      endop
-      opcode Markovk, k, k[][]k
-    kMarkovTable[][], kPrevEl xin
-    kRandom    random     0, 1
-    kNextEl    =          0
-    kAccum     =          kMarkovTable[kPrevEl][kNextEl]
-     until kAccum >= kRandom do
-    kNextEl    +=         1
-    kAccum     +=         kMarkovTable[kPrevEl][kNextEl]
-     enduntil
-               xout       kNextEl
-      endop
+;****USER DEFINED OPCODES FOR MARKOV CHAINS****
+  opcode Markov, i, i[][]i
+iMarkovTable[][], iPrevEl xin
+iRandom    random     0, 1
+iNextEl    =          0
+iAccum     =          iMarkovTable[iPrevEl][iNextEl]
+ until iAccum >= iRandom do
+iNextEl    +=         1
+iAccum     +=         iMarkovTable[iPrevEl][iNextEl]
+ enduntil
+           xout       iNextEl
+  endop
+  opcode Markovk, k, k[][]k
+kMarkovTable[][], kPrevEl xin
+kRandom    random     0, 1
+kNextEl    =          0
+kAccum     =          kMarkovTable[kPrevEl][kNextEl]
+ until kAccum >= kRandom do
+kNextEl    +=         1
+kAccum     +=         kMarkovTable[kPrevEl][kNextEl]
+ enduntil
+           xout       kNextEl
+  endop
 
-    ;****DEFINITIONS FOR NOTES****
-     ;notes as proportions and a base frequency
-    giNotes[]  array      1, 9/8, 6/5, 5/4, 4/3, 3/2, 5/3
-    giBasFreq  =          330
-     ;probability of notes as markov matrix:
-      ;first -> only to third and fourth
-      ;second -> anywhere without self
-      ;third -> strong probability for repetitions
-      ;fourth -> idem
-      ;fifth -> anywhere without third and fourth
-      ;sixth -> mostly to seventh
-      ;seventh -> mostly to sixth
-    giProbNotes[][] init  7, 7
-    giProbNotes fillarray 0.0, 0.0, 0.5, 0.5, 0.0, 0.0, 0.0,
-                          0.2, 0.0, 0.2, 0.2, 0.2, 0.1, 0.1,
-                          0.1, 0.1, 0.5, 0.1, 0.1, 0.1, 0.0,
-                          0.0, 0.1, 0.1, 0.5, 0.1, 0.1, 0.1,
-                          0.2, 0.2, 0.0, 0.0, 0.2, 0.2, 0.2,
-                          0.1, 0.1, 0.0, 0.0, 0.1, 0.1, 0.6,
-                          0.1, 0.1, 0.0, 0.0, 0.1, 0.6, 0.1
+;****DEFINITIONS FOR NOTES****
+ ;notes as proportions and a base frequency
+giNotes[]  array      1, 9/8, 6/5, 5/4, 4/3, 3/2, 5/3
+giBasFreq  =          330
+ ;probability of notes as markov matrix:
+  ;first -> only to third and fourth
+  ;second -> anywhere without self
+  ;third -> strong probability for repetitions
+  ;fourth -> idem
+  ;fifth -> anywhere without third and fourth
+  ;sixth -> mostly to seventh
+  ;seventh -> mostly to sixth
+giProbNotes[][] init  7, 7
+giProbNotes fillarray 0.0, 0.0, 0.5, 0.5, 0.0, 0.0, 0.0,
+                      0.2, 0.0, 0.2, 0.2, 0.2, 0.1, 0.1,
+                      0.1, 0.1, 0.5, 0.1, 0.1, 0.1, 0.0,
+                      0.0, 0.1, 0.1, 0.5, 0.1, 0.1, 0.1,
+                      0.2, 0.2, 0.0, 0.0, 0.2, 0.2, 0.2,
+                      0.1, 0.1, 0.0, 0.0, 0.1, 0.1, 0.6,
+                      0.1, 0.1, 0.0, 0.0, 0.1, 0.6, 0.1
 
-    ;****DEFINITIONS FOR DURATIONS****
-     ;possible durations
-    gkDurs[]    array     1, 1/2, 1/3
-     ;probability of durations as markov matrix:
-      ;first -> anything
-      ;second -> mostly self
-      ;third -> mostly second
-    gkProbDurs[][] init   3, 3
-    gkProbDurs array      1/3, 1/3, 1/3,
-                          0.2, 0.6, 0.3,
-                          0.1, 0.5, 0.4
+;****DEFINITIONS FOR DURATIONS****
+ ;possible durations
+gkDurs[]    array     1, 1/2, 1/3
+ ;probability of durations as markov matrix:
+  ;first -> anything
+  ;second -> mostly self
+  ;third -> mostly second
+gkProbDurs[][] init   3, 3
+gkProbDurs array      1/3, 1/3, 1/3,
+                      0.2, 0.6, 0.3,
+                      0.1, 0.5, 0.4
 
-    ;****SET FIRST NOTE AND DURATION FOR MARKOV PROCESS****
-    giPrevNote init       1
-    gkPrevDur  init       1
+;****SET FIRST NOTE AND DURATION FOR MARKOV PROCESS****
+giPrevNote init       1
+gkPrevDur  init       1
 
-    ;****INSTRUMENT FOR DURATIONS****
-      instr trigger_note
-    kTrig      metro      1/gkDurs[gkPrevDur]
-     if kTrig == 1 then
-               event      "i", "select_note", 0, 1
-    gkPrevDur  Markovk    gkProbDurs, gkPrevDur
-     endif
-      endin
+;****INSTRUMENT FOR DURATIONS****
+  instr trigger_note
+kTrig      metro      1/gkDurs[gkPrevDur]
+ if kTrig == 1 then
+           event      "i", "select_note", 0, 1
+gkPrevDur  Markovk    gkProbDurs, gkPrevDur
+ endif
+  endin
 
-    ;****INSTRUMENT FOR PITCHES****
-      instr select_note
-     ;choose next note according to markov matrix and previous note
-     ;and write it to the global variable for (next) previous note
-    giPrevNote Markov     giProbNotes, giPrevNote
-     ;call instr to play this note
-               event_i    "i", "play_note", 0, 2, giPrevNote
-     ;turn off this instrument
-               turnoff
-      endin
+;****INSTRUMENT FOR PITCHES****
+  instr select_note
+ ;choose next note according to markov matrix and previous note
+ ;and write it to the global variable for (next) previous note
+giPrevNote Markov     giProbNotes, giPrevNote
+ ;call instr to play this note
+           event_i    "i", "play_note", 0, 2, giPrevNote
+ ;turn off this instrument
+           turnoff
+  endin
 
-    ;****INSTRUMENT TO PERFORM ONE NOTE****
-      instr play_note
-     ;get note as index in ginotes array and calculate frequency
-    iNote      =          p4
-    iFreq      =          giBasFreq * giNotes[iNote]
-     ;random choice for mode filter quality and panning
-    iQ         random     10, 200
-    iPan       random     0.1, .9
-     ;generate tone and put out
-    aImp       mpulse     1, p3
-    aOut       mode       aImp, iFreq, iQ
-    aL, aR     pan2       aOut, iPan
-               outs       aL, aR
-      endin
+;****INSTRUMENT TO PERFORM ONE NOTE****
+  instr play_note
+ ;get note as index in ginotes array and calculate frequency
+iNote      =          p4
+iFreq      =          giBasFreq * giNotes[iNote]
+ ;random choice for mode filter quality and panning
+iQ         random     10, 200
+iPan       random     0.1, .9
+ ;generate tone and put out
+aImp       mpulse     1, p3
+aOut       mode       aImp, iFreq, iQ
+aL, aR     pan2       aOut, iPan
+           outs       aL, aR
+  endin
 
-    </CsInstruments>
-    <CsScore>
-    i "trigger_note" 0 100
-    </CsScore>
-    </CsoundSynthesizer>
-    ;example by joachim heintz
-
+</CsInstruments>
+<CsScore>
+i "trigger_note" 0 100
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+~~~
  
 
 #### Random Walk
@@ -1187,115 +1201,116 @@ crossed, and vice versa.
 
    ***EXAMPLE 01D09\_random\_walk.csd***
 
-    <CsoundSynthesizer>
-    <CsOptions>
-    -m128 -odac
-    </CsOptions>
-    <CsInstruments>
-    sr = 44100
-    ksmps = 32
-    0dbfs = 1
-    nchnls = 2
-    seed 1 ;change to zero for always changing results
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-m128 -odac
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+0dbfs = 1
+nchnls = 2
+seed 1 ;change to zero for always changing results
 
-    ;****SETTINGS FOR PITCHES****
-     ;define the pitch street in octave notation
-    giLowestPitch =     7
-    giHighestPitch =    9
-     ;set pitch startpoint, deviation range and the first direction
-    giStartPitch =      8
-    gkPitchDev init     0.2 ;random range for next pitch
-    gkPitchDir init     0.1 ;positive = upwards
+;****SETTINGS FOR PITCHES****
+ ;define the pitch street in octave notation
+giLowestPitch =     7
+giHighestPitch =    9
+ ;set pitch startpoint, deviation range and the first direction
+giStartPitch =      8
+gkPitchDev init     0.2 ;random range for next pitch
+gkPitchDir init     0.1 ;positive = upwards
 
-    ;****SETTINGS FOR DENSITY****
-     ;define the maximum and minimum density (notes per second)
-    giLowestDens =      1
-    giHighestDens =     8
-     ;set first density
-    giStartDens =       3
-     ;set possible deviation in range 0..1
-     ;0 = no deviation at all
-     ;1 = possible deviation is between half and twice the current density
-    gkDensDev init      0.5
-     ;set direction in the same range 0..1
-     ;(positive = more dense, shorter notes)
-    gkDensDir init      0.1
+;****SETTINGS FOR DENSITY****
+ ;define the maximum and minimum density (notes per second)
+giLowestDens =      1
+giHighestDens =     8
+ ;set first density
+giStartDens =       3
+ ;set possible deviation in range 0..1
+ ;0 = no deviation at all
+ ;1 = possible deviation is between half and twice the current density
+gkDensDev init      0.5
+ ;set direction in the same range 0..1
+ ;(positive = more dense, shorter notes)
+gkDensDir init      0.1
 
-    ;****INSTRUMENT FOR RANDOM WALK****
-      instr walk
-     ;set initial values
-    kPitch    init      giStartPitch
-    kDens     init      giStartDens
-     ;trigger impulses according to density
-    kTrig     metro     kDens
-     ;if the metro ticks
-     if kTrig == 1 then
-      ;1) play current note
-              event     "i", "play", 0, 1.5/kDens, kPitch
-      ;2) calculate next pitch
-       ;define boundaries according to direction
-    kLowPchBound =      gkPitchDir < 0 ? -gkPitchDev+gkPitchDir : -gkPitchDev
-    kHighPchBound =     gkPitchDir > 0 ? gkPitchDev+gkPitchDir : gkPitchDev
-       ;get random value in these boundaries
-    kPchRnd   random    kLowPchBound, kHighPchBound
-       ;add to current pitch
-    kPitch += kPchRnd
-      ;change direction if maxima are crossed, and report
-      if kPitch > giHighestPitch && gkPitchDir > 0 then
-    gkPitchDir =        -gkPitchDir
-              printks   " Pitch touched maximum - now moving down.\n", 0
-      elseif kPitch < giLowestPitch && gkPitchDir < 0 then
-    gkPitchDir =        -gkPitchDir
-              printks   "Pitch touched minimum - now moving up.\n", 0
-      endif
-      ;3) calculate next density (= metro frequency)
-       ;define boundaries according to direction
-    kLowDensBound =     gkDensDir < 0 ? -gkDensDev+gkDensDir : -gkDensDev
-    kHighDensBound =    gkDensDir > 0 ? gkDensDev+gkDensDir : gkDensDev
-       ;get random value in these boundaries
-    kDensRnd  random    kLowDensBound, kHighDensBound
-       ;get multiplier (so that kDensRnd=1 yields to 2, and kDens=-1 to 1/2)
-    kDensMult =         2 ^ kDensRnd
-       ;multiply with current duration
-    kDens *= kDensMult
-       ;avoid too high values and too low values
-    kDens     =         kDens > giHighestDens*1.5 ? giHighestDens*1.5 : kDens
-    kDens     =         kDens < giLowestDens/1.5 ? giLowestDens/1.5 : kDens
-       ;change direction if maxima are crossed
-      if (kDens > giHighestDens && gkDensDir > 0) || (kDens < giLowestDens && gkDensDir < 0) then
-    gkDensDir =         -gkDensDir
-       if kDens > giHighestDens then
-              printks   " Density touched upper border - now becoming less dense.\n", 0
-              else
-              printks   " Density touched lower border - now becoming more dense.\n", 0
-       endif
-      endif
-     endif
-      endin
+;****INSTRUMENT FOR RANDOM WALK****
+  instr walk
+ ;set initial values
+kPitch    init      giStartPitch
+kDens     init      giStartDens
+ ;trigger impulses according to density
+kTrig     metro     kDens
+ ;if the metro ticks
+ if kTrig == 1 then
+  ;1) play current note
+          event     "i", "play", 0, 1.5/kDens, kPitch
+  ;2) calculate next pitch
+   ;define boundaries according to direction
+kLowPchBound =      gkPitchDir < 0 ? -gkPitchDev+gkPitchDir : -gkPitchDev
+kHighPchBound =     gkPitchDir > 0 ? gkPitchDev+gkPitchDir : gkPitchDev
+   ;get random value in these boundaries
+kPchRnd   random    kLowPchBound, kHighPchBound
+   ;add to current pitch
+kPitch += kPchRnd
+  ;change direction if maxima are crossed, and report
+  if kPitch > giHighestPitch && gkPitchDir > 0 then
+gkPitchDir =        -gkPitchDir
+          printks   " Pitch touched maximum - now moving down.\n", 0
+  elseif kPitch < giLowestPitch && gkPitchDir < 0 then
+gkPitchDir =        -gkPitchDir
+          printks   "Pitch touched minimum - now moving up.\n", 0
+  endif
+  ;3) calculate next density (= metro frequency)
+   ;define boundaries according to direction
+kLowDensBound =     gkDensDir < 0 ? -gkDensDev+gkDensDir : -gkDensDev
+kHighDensBound =    gkDensDir > 0 ? gkDensDev+gkDensDir : gkDensDev
+   ;get random value in these boundaries
+kDensRnd  random    kLowDensBound, kHighDensBound
+   ;get multiplier (so that kDensRnd=1 yields to 2, and kDens=-1 to 1/2)
+kDensMult =         2 ^ kDensRnd
+   ;multiply with current duration
+kDens *= kDensMult
+   ;avoid too high values and too low values
+kDens     =         kDens > giHighestDens*1.5 ? giHighestDens*1.5 : kDens
+kDens     =         kDens < giLowestDens/1.5 ? giLowestDens/1.5 : kDens
+   ;change direction if maxima are crossed
+  if (kDens > giHighestDens && gkDensDir > 0) || (kDens < giLowestDens && gkDensDir < 0) then
+gkDensDir =         -gkDensDir
+   if kDens > giHighestDens then
+          printks   " Density touched upper border - now becoming less dense.\n", 0
+          else
+          printks   " Density touched lower border - now becoming more dense.\n", 0
+   endif
+  endif
+ endif
+  endin
 
-    ;****INSTRUMENT TO PLAY ONE NOTE****
-      instr play
-     ;get note as octave and calculate frequency and panning
-    iOct       =          p4
-    iFreq      =          cpsoct(iOct)
-    iPan       ntrpol     0, 1, iOct, giLowestPitch, giHighestPitch
-     ;calculate mode filter quality according to duration
-    iQ         ntrpol     10, 400, p3, .15, 1.5
-     ;generate tone and throw out
-    aImp       mpulse     1, p3
-    aMode      mode       aImp, iFreq, iQ
-    aOut       linen      aMode, 0, p3, p3/4
-    aL, aR     pan2       aOut, iPan
-               outs       aL, aR
-      endin
+;****INSTRUMENT TO PLAY ONE NOTE****
+  instr play
+ ;get note as octave and calculate frequency and panning
+iOct       =          p4
+iFreq      =          cpsoct(iOct)
+iPan       ntrpol     0, 1, iOct, giLowestPitch, giHighestPitch
+ ;calculate mode filter quality according to duration
+iQ         ntrpol     10, 400, p3, .15, 1.5
+ ;generate tone and throw out
+aImp       mpulse     1, p3
+aMode      mode       aImp, iFreq, iQ
+aOut       linen      aMode, 0, p3, p3/4
+aL, aR     pan2       aOut, iPan
+           outs       aL, aR
+  endin
 
-    </CsInstruments>
-    <CsScore>
-    i "walk" 0 999
-    </CsScore>
-    </CsoundSynthesizer>
-    ;example by joachim heintz
-
+</CsInstruments>
+<CsScore>
+i "walk" 0 999
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+~~~
 
 ## II. SOME MATHS PERSPECTIVES ON RANDOM
 
@@ -1353,77 +1368,79 @@ Synthesis*[^6] chapter 10.1.4.4)
 
 ***EXAMPLE 01D10\_Rejection\_Sampling.csd***
 
-    <CsoundSynthesizer>
-    <CsOptions>
-    -odac
-    </CsOptions>
-    <CsInstruments>
-    sr = 44100
-    ksmps = 10
-    nchnls = 1
-    0dbfs = 1
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-odac
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 10
+nchnls = 1
+0dbfs = 1
 
-    ; random number generator to a given density function
-    ; kout  random number; k_minimum,k_maximum,i_fn for a density function
+; random number generator to a given density function
+; kout  random number; k_minimum,k_maximum,i_fn for a density function
 
-    opcode  rand_density, k, kki
-    kmin,kmax,ifn   xin
-    loop:
-    krnd1           random          0,1
-    krnd2           random          0,1
-    k2              table           krnd1,ifn,1
-                    if      krnd2 > k2   kgoto loop
-                    xout            kmin+krnd1*(kmax-kmin)
-    endop
+opcode  rand_density, k, kki
+kmin,kmax,ifn   xin
+loop:
+krnd1           random          0,1
+krnd2           random          0,1
+k2              table           krnd1,ifn,1
+                if      krnd2 > k2   kgoto loop
+                xout            kmin+krnd1*(kmax-kmin)
+endop
 
-    ; random number generator to a given probability function
-    ; kout  random number
-    ; in: i_nr number of possible values
-    ; i_fn1 function for random values
-    ; i_fn2 probability functionExponential: Generate a uniformly distributed 
-    ; number between 0 and 1 and take its natural logarithm.
+; random number generator to a given probability function
+; kout  random number
+; in: i_nr number of possible values
+; i_fn1 function for random values
+; i_fn2 probability functionExponential: Generate a uniformly distributed 
+; number between 0 and 1 and take its natural logarithm.
 
-    opcode  rand_probability, k, iii
-    inr,ifn1,ifn2   xin
-    loop:
-    krnd1           random          0,inr
-    krnd2           random          0,1
-    k2              table           int(krnd1),ifn2,0
-                    if      krnd2 > k2   kgoto loop
-    kout            table           krnd1,ifn1,0
-                    xout            kout
-    endop
+opcode  rand_probability, k, iii
+inr,ifn1,ifn2   xin
+loop:
+krnd1           random          0,inr
+krnd2           random          0,1
+k2              table           int(krnd1),ifn2,0
+                if      krnd2 > k2   kgoto loop
+kout            table           krnd1,ifn1,0
+                xout            kout
+endop
 
-    instr 1
-    krnd            rand_density    400,800,2
-    aout            poscil          .1,krnd,1
-                    out             aout
-    endin
+instr 1
+krnd            rand_density    400,800,2
+aout            poscil          .1,krnd,1
+                out             aout
+endin
 
-    instr 2
-    krnd            rand_probability p4,p5,p6
-    aout            poscil          .1,krnd,1
-                    out             aout
-    endin
+instr 2
+krnd            rand_probability p4,p5,p6
+aout            poscil          .1,krnd,1
+                out             aout
+endin
 
-    </CsInstruments>
-    <CsScore>
-    ;sine
-    f1 0 32768 10 1
-    ;density function
-    f2 0 1024 6 1 112 0 800 0 112 1
-    ;random values and their relative probability (two dice)
-    f3 0 16 -2 2 3 4 5 6 7 8 9 10 11 12
-    f4 0 16  2 1 2 3 4 5 6 5 4  3  2  1
-    ;random values and their relative probability
-    f5 0 8 -2 400 500 600 800
-    f6 0 8  2 .3  .8  .3  .1
+</CsInstruments>
+<CsScore>
+;sine
+f1 0 32768 10 1
+;density function
+f2 0 1024 6 1 112 0 800 0 112 1
+;random values and their relative probability (two dice)
+f3 0 16 -2 2 3 4 5 6 7 8 9 10 11 12
+f4 0 16  2 1 2 3 4 5 6 5 4  3  2  1
+;random values and their relative probability
+f5 0 8 -2 400 500 600 800
+f6 0 8  2 .3  .8  .3  .1
 
-    i1 0 10
-    i2 0 10 4 5 6
-    </CsScore>
-    </CsoundSynthesizer>
-    ;example by martin neukom
+i1 0 10
+i2 0 10 4 5 6
+</CsScore>
+</CsoundSynthesizer>
+;example by martin neukom
+~~~
  
 
 #### Random Walk
@@ -1498,67 +1515,69 @@ actual acelleration *a*, the change of the aceleration, etc.
 
 ***EXAMPLE 01D11\_Random\_Walk2.csd***
 
-    <CsoundSynthesizer>
-    <CsOptions>
-    -odac
-    </CsOptions>
-    <CsInstruments>
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-odac
+</CsOptions>
+<CsInstruments>
 
-    sr = 44100
-    ksmps = 128
-    nchnls = 1
-    0dbfs = 1
+sr = 44100
+ksmps = 128
+nchnls = 1
+0dbfs = 1
 
-    ; random frequency
-    instr 1
-    kx      random  -p6, p6
-    kfreq   =       p5*2^kx
-    aout    oscil   p4, kfreq, 1
-    out     aout
-    endin
+; random frequency
+instr 1
+kx      random  -p6, p6
+kfreq   =       p5*2^kx
+aout    oscil   p4, kfreq, 1
+out     aout
+endin
 
-    ; random change of frequency
-    instr 2
-    kx      init    .5
-    kfreq   =       p5*2^kx
-    kv      random  -p6, p6
-    kv      =       kv*(1 - p7)
-    kx      =       kx + kv
-    aout    oscil   p4, kfreq, 1
-    out     aout
-    endin
+; random change of frequency
+instr 2
+kx      init    .5
+kfreq   =       p5*2^kx
+kv      random  -p6, p6
+kv      =       kv*(1 - p7)
+kx      =       kx + kv
+aout    oscil   p4, kfreq, 1
+out     aout
+endin
 
-    ; random change of change of frequency
-    instr 3
-    kv      init    0
-    kx      init    .5
-    kfreq   =       p5*2^kx
-    ka      random  -p7, p7
-    kv      =       kv + ka
-    kv      =       kv*(1 - p8)
-    kx      =       kx + kv
-    kv      =       (kx < -p6 || kx > p6?-kv : kv)
-    aout    oscili  p4, kfreq, 1
-    out     aout
+; random change of change of frequency
+instr 3
+kv      init    0
+kx      init    .5
+kfreq   =       p5*2^kx
+ka      random  -p7, p7
+kv      =       kv + ka
+kv      =       kv*(1 - p8)
+kx      =       kx + kv
+kv      =       (kx < -p6 || kx > p6?-kv : kv)
+aout    oscili  p4, kfreq, 1
+out     aout
 
-    endin
+endin
 
-    </CsInstruments>
-    <CsScore>
+</CsInstruments>
+<CsScore>
 
-    f1 0 32768 10 1
-    ; i1    p4      p5      p6
-    ; i2    p4      p5      p6      p7
-    ;       amp     c_fr    rand    damp
-    ; i2 0 20       .1      600     0.01    0.001
-    ;       amp     c_fr    d_fr    rand    damp
-    ;       amp     c_fr    rand
-    ; i1 0 20       .1      600     0.5
-    ; i3    p4      p5      p6      p7      p8
-    i3 0 20         .1      600     1       0.001   0.001
-    </CsScore>
-    </CsoundSynthesizer>
-    ;example by martin neukom
+f1 0 32768 10 1
+; i1    p4      p5      p6
+; i2    p4      p5      p6      p7
+;       amp     c_fr    rand    damp
+; i2 0 20       .1      600     0.01    0.001
+;       amp     c_fr    d_fr    rand    damp
+;       amp     c_fr    rand
+; i1 0 20       .1      600     0.5
+; i3    p4      p5      p6      p7      p8
+i3 0 20         .1      600     1       0.001   0.001
+</CsScore>
+</CsoundSynthesizer>
+;example by martin neukom
+~~~
 
 
 ## III. MISCELLANEOUS EXAMPLES
@@ -1667,69 +1686,71 @@ of each note in addition to an i-time random offset.
 
 ***EXAMPLE 01D12\_humanising.csd***
 
-    <CsoundSynthesizer>
-    <CsOptions>
-    -odac
-    </CsOptions>
-    <CsInstruments>
-    sr = 44100
-    ksmps = 32
-    nchnls = 2
-    0dbfs = 1
-    seed 0
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-odac
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
+seed 0
 
-    giWave  ftgen  0, 0, 2^10, 10, 1,0,1/4,0,1/16,0,1/64,0,1/256,0,1/1024
+giWave  ftgen  0, 0, 2^10, 10, 1,0,1/4,0,1/16,0,1/64,0,1/256,0,1/1024
 
-      instr 1 ; an instrument with no 'humanising'
-    inote =       p4
-    aEnv  linen   0.1,0.01,p3,0.01
-    aSig  poscil  aEnv,cpsmidinn(inote),giWave
-          outs    aSig,aSig
-      endin
+  instr 1 ; an instrument with no 'humanising'
+inote =       p4
+aEnv  linen   0.1,0.01,p3,0.01
+aSig  poscil  aEnv,cpsmidinn(inote),giWave
+      outs    aSig,aSig
+  endin
 
-      instr 2 ; an instrument with 'humanising'
-    inote   =       p4
+  instr 2 ; an instrument with 'humanising'
+inote   =       p4
 
-    ; generate some i-time 'static' random paramters
-    iRndAmp random  -3,3   ; amp. will be offset by a random number of decibels
-    iRndNte random  -5,5   ; note will be offset by a random number of cents
+; generate some i-time 'static' random paramters
+iRndAmp random  -3,3   ; amp. will be offset by a random number of decibels
+iRndNte random  -5,5   ; note will be offset by a random number of cents
 
-    ; generate some k-rate random functions
-    kAmpWob rspline -1,1,1,10   ; amplitude 'wobble' (in decibels)
-    kNteWob rspline -5,5,0.3,10 ; note 'wobble' (in cents)
+; generate some k-rate random functions
+kAmpWob rspline -1,1,1,10   ; amplitude 'wobble' (in decibels)
+kNteWob rspline -5,5,0.3,10 ; note 'wobble' (in cents)
 
-    ; calculate final note function (in CPS)
-    kcps    =        cpsmidinn(inote+(iRndNte*0.01)+(kNteWob*0.01))
+; calculate final note function (in CPS)
+kcps    =        cpsmidinn(inote+(iRndNte*0.01)+(kNteWob*0.01))
 
-    ; amplitude envelope (randomisation of attack time)
-    aEnv    linen   0.1*ampdb(iRndAmp+kAmpWob),0.01+rnd(0.03),p3,0.01
-    aSig    poscil  aEnv,kcps,giWave
-            outs    aSig,aSig
-    endin
+; amplitude envelope (randomisation of attack time)
+aEnv    linen   0.1*ampdb(iRndAmp+kAmpWob),0.01+rnd(0.03),p3,0.01
+aSig    poscil  aEnv,kcps,giWave
+        outs    aSig,aSig
+endin
 
-    </CsInstruments>
-    <CsScore>
-    t 0 80
-    #define SCORE(i) #
-    i $i 0 1   60
-    i .  + 2.5 69
-    i .  + 0.5 67
-    i .  + 0.5 65
-    i .  + 0.5 64
-    i .  + 3   62
-    i .  + 1   62
-    i .  + 2.5 70
-    i .  + 0.5 69
-    i .  + 0.5 67
-    i .  + 0.5 65
-    i .  + 3   64 #
-    $SCORE(1)  ; play melody without humanising
-    b 17
-    $SCORE(2)  ; play melody with humanising
-    e
-    </CsScore>
-    </CsoundSynthesizer>
-    ;example by Iain McCurdy
+</CsInstruments>
+<CsScore>
+t 0 80
+#define SCORE(i) #
+i $i 0 1   60
+i .  + 2.5 69
+i .  + 0.5 67
+i .  + 0.5 65
+i .  + 0.5 64
+i .  + 3   62
+i .  + 1   62
+i .  + 2.5 70
+i .  + 0.5 69
+i .  + 0.5 67
+i .  + 0.5 65
+i .  + 3   64 #
+$SCORE(1)  ; play melody without humanising
+b 17
+$SCORE(2)  ; play melody with humanising
+e
+</CsScore>
+</CsoundSynthesizer>
+;example by Iain McCurdy
+~~~
 
 The final example implements a simple algorithmic note generator. It
 makes use of GEN17 to generate histograms which define the probabilities
@@ -1737,45 +1758,47 @@ of certain notes and certain rhythmic gaps occuring.
 
 ***EXAMPLE 01D13\_simple\_algorithmic\_note\_generator.csd***
 
-    <CsoundSynthesizer>
-    <CsOptions>
-    -odac -m0
-    </CsOptions>
-    <CsInstruments>
-    sr = 44100
-    ksmps = 32
-    nchnls = 1
-    0dbfs = 1
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-odac -m0
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 1
+0dbfs = 1
 
-    giNotes ftgen   0,0,-100,-17,0,48, 15,53, 30,55, 40,60, 50,63, 60,65, 79,67, 85,70, 90,72, 96,75
-    giDurs  ftgen   0,0,-100,-17,0,2, 30,0.5, 75,1, 90,1.5
+giNotes ftgen   0,0,-100,-17,0,48, 15,53, 30,55, 40,60, 50,63, 60,65, 79,67, 85,70, 90,72, 96,75
+giDurs  ftgen   0,0,-100,-17,0,2, 30,0.5, 75,1, 90,1.5
 
-      instr 1
-    kDur  init        0.5             ; initial rhythmic duration
-    kTrig metro       2/kDur          ; metronome freq. 2 times inverse of duration
-    kNdx  trandom     kTrig,0,1       ; create a random index upon each metro 'click'
-    kDur  table       kNdx,giDurs,1   ; read a note duration value
-          schedkwhen  kTrig,0,0,2,0,1 ; trigger a note!
-      endin
+  instr 1
+kDur  init        0.5             ; initial rhythmic duration
+kTrig metro       2/kDur          ; metronome freq. 2 times inverse of duration
+kNdx  trandom     kTrig,0,1       ; create a random index upon each metro 'click'
+kDur  table       kNdx,giDurs,1   ; read a note duration value
+      schedkwhen  kTrig,0,0,2,0,1 ; trigger a note!
+  endin
 
-      instr 2
-    iNote table     rnd(1),giNotes,1                 ; read a random value from the function table
-    aEnv  linsegr   0, 0.005, 1, p3-0.105, 1, 0.1, 0 ; amplitude envelope
-    iPlk  random    0.1, 0.3                         ; point at which to pluck the string
-    iDtn  random    -0.05, 0.05                      ; random detune
-    aSig  wgpluck2  0.98, 0.2, cpsmidinn(iNote+iDtn), iPlk, 0.06
-          out       aSig * aEnv
-      endin
-    </CsInstruments>
+  instr 2
+iNote table     rnd(1),giNotes,1                 ; read a random value from the function table
+aEnv  linsegr   0, 0.005, 1, p3-0.105, 1, 0.1, 0 ; amplitude envelope
+iPlk  random    0.1, 0.3                         ; point at which to pluck the string
+iDtn  random    -0.05, 0.05                      ; random detune
+aSig  wgpluck2  0.98, 0.2, cpsmidinn(iNote+iDtn), iPlk, 0.06
+      out       aSig * aEnv
+  endin
+</CsInstruments>
 
-    <CsScore>
-    i 1 0    300  ; start 3 long notes close after one another
-    i 1 0.01 300
-    i 1 0.02 300
-    e
-    </CsScore>
-    </CsoundSynthesizer>
-    ;example by Iain McCurdy
+<CsScore>
+i 1 0    300  ; start 3 long notes close after one another
+i 1 0.01 300
+i 1 0.02 300
+e
+</CsScore>
+</CsoundSynthesizer>
+;example by Iain McCurdy
+~~~
 
 [^1]: <http://www.etymonline.com/index.php?term=random>
 [^2]: Because the sample rate is 44100 samples per second. So a 

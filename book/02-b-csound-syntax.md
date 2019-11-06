@@ -87,8 +87,8 @@ i 1 0 1
 ~~~
 
 Comments, which are lines of text that Csound will ignore, are started
-with the \";\" character. Multi-line comments can be made by encasing
-them between \"/\*\" and  \"\*/\".
+with the \";\" character or two slashes \"//\". Multi-line comments can 
+be made by encasing them between \"/\*\" and  \"\*/\".
 
 Opcodes
 -------
@@ -144,7 +144,7 @@ If you want to patch this together:
 
 you need two cables, one going out from the generator into the filter
 and one from the filter to the output. The cables carry audio signals,
-which are variables beginning with the letter *a*.
+which are variables beginning with the letter **a**.
 
     aSource    buzz       0.8, 200, 10, 1
     aFiltered  moogladder aSource, 400, 0.8
@@ -160,8 +160,8 @@ opcode, which in turn produces the signal *aFiltered*. The
 takes this signal, and sends it to the output whether that be to the
 speakers or to a rendered file.
 
-Other common variable types are *k* variables which store control
-signals, which are updated less frequently than audio signals, and *i*
+Other common variable types are **k** variables which store control
+signals, which are updated less frequently than audio signals, and **i**
 variables which are constants within each instrument note.
 
 You can find more information about variable types in chapter 
