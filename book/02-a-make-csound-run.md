@@ -208,23 +208,26 @@ executed as an independent process. The result should be the same - the
 
 1\. Save the following code in any plain text editor as HelloWorld.csd.
 
+
    ***EXAMPLE 02A01\_HelloWorld.csd*** 
 
-    <CsoundSynthesizer>
-    <CsOptions>
-    -odac
-    </CsOptions>
-    <CsInstruments>
-    ;Example by Alex Hofmann
-    instr 1
-    aSin      poscil    0dbfs/4, 440
-              out       aSin
-    endin
-    </CsInstruments>
-    <CsScore>
-    i 1 0 1
-    </CsScore>
-    </CsoundSynthesizer>
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-odac
+</CsOptions>
+<CsInstruments>
+instr 1
+aSin      poscil    0dbfs/4, 440
+          out       aSin
+endin
+</CsInstruments>
+<CsScore>
+i 1 0 1
+</CsScore>
+</CsoundSynthesizer>
+;Example by Alex Hofmann
+~~~
 
 2\. Open the Terminal / Prompt / Console
 
@@ -287,33 +290,35 @@ Cabbage please consult the chapter on
 
    ***EXAMPLE 02A02\_HelloCabbage.csd*** 
 
-    <Cabbage>
-    form size(420,100)
-    keyboard bounds(10,10,300,80)
-    rslider bounds(325,15,80,80), channel("level"), text("Level"), range(0,1,0.3)
-    </Cabbage>
+~~~
+<Cabbage>
+form size(420,100)
+keyboard bounds(10,10,300,80)
+rslider bounds(325,15,80,80), channel("level"), text("Level"), range(0,1,0.3)
+</Cabbage>
 
-    <CsoundSynthesizer>
+<CsoundSynthesizer>
 
-    <CsOptions>
-    -dm0 -n -+rtmidi=null -M0
-    </CsOptions>
+<CsOptions>
+-dm0 -n -+rtmidi=null -M0
+</CsOptions>
 
-    <CsInstruments>
+<CsInstruments>
 
-    sr     = 44100
-    ksmps  = 32
-    nchnls = 2
-    0dbfs  = 1
+sr     = 44100
+ksmps  = 32
+nchnls = 2
+0dbfs  = 1
 
-    instr    1
-     icps cpsmidi
-     klev chnget  "level"
-     a1   poscil klev*0.2,icps
-          outs   a1,a1
-    endin
+instr    1
+ icps cpsmidi
+ klev chnget  "level"
+ a1   poscil klev*0.2,icps
+      outs   a1,a1
+endin
 
-    </CsInstruments>
+</CsInstruments>
 
-    </CsoundSynthesizer>
-    ;example by Iain McCurdy
+</CsoundSynthesizer>
+;example by Iain McCurdy
+~~~

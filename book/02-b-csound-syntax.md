@@ -4,10 +4,10 @@
 Orchestra and Score
 -------------------
 
-In Csound, you must define \"instruments\", which are units which \"do
-things\", for instance creating a sine wave as audio signal and play it
+In Csound, you must define *instruments*, which are units which *do
+things*, for instance creating a sine wave as audio signal and play it
 (= output it to the audio card). These instruments must be called or
-\"turned on\" by a \"score\". The Csound \"score\" is a list of events
+*turned on* by a *score*. The Csound *score* is a list of events
 which describe how the instruments are to be played in time. It can be
 thought of as a timeline in text.
 
@@ -29,13 +29,13 @@ time 0, for 2 seconds you will use:
     i 1 0 2
 
 Note that orchestra and score are two completely different types of
-code. The orchestra contains the actual Csound code.^1^ The instruments
+code. The orchestra contains the actual Csound code.[^1] The instruments
 are written in the Csound Programming Language. The score is mainly a
 list of events. The Score Language is poor and offers only some very
 basic tools.
 
 In modern Csound code, the score often remains empty. The events derive
-from orchestra code,^2^ or from real-time interaction, like MIDI, OSC,
+from orchestra code,[^2] or from real-time interaction, like MIDI, OSC,
 mouse clicks or any other live input.
 
 The Csound Document Structure
@@ -59,30 +59,32 @@ be used by Csound.
 
    ***EXAMPLE 02B01\_DocStruct.csd*** 
 
-    <CsoundSynthesizer>; START OF A CSOUND FILE
+~~~
+<CsoundSynthesizer>; START OF A CSOUND FILE
 
-    <CsOptions> ; CSOUND CONFIGURATION
-    -odac
-    </CsOptions>
+<CsOptions> ; CSOUND CONFIGURATION
+-odac
+</CsOptions>
 
-    <CsInstruments> ; INSTRUMENT DEFINITIONS GO HERE
+<CsInstruments> ; INSTRUMENT DEFINITIONS GO HERE
 
-    ; Set the audio sample rate to 44100 Hz
-    sr = 44100
+; Set the audio sample rate to 44100 Hz
+sr = 44100
 
-    instr 1
-    ; a 440 Hz Sine Wave
-    aSin      poscil    0dbfs/4, 440
-              out       aSin
-    endin
-    </CsInstruments>
+instr 1
+; a 440 Hz Sine Wave
+aSin      poscil    0dbfs/4, 440
+          out       aSin
+endin
+</CsInstruments>
 
-    <CsScore> ; SCORE EVENTS GO HERE
-    i 1 0 1
-    </CsScore>
+<CsScore> ; SCORE EVENTS GO HERE
+i 1 0 1
+</CsScore>
 
-    </CsoundSynthesizer> ; END OF THE CSOUND FILE
-    ; Anything after a semicolon is ignored by Csound
+</CsoundSynthesizer> ; END OF THE CSOUND FILE
+; Anything after a semicolon is ignored by Csound
+~~~
 
 Comments, which are lines of text that Csound will ignore, are started
 with the \";\" character. Multi-line comments can be made by encasing
@@ -91,12 +93,12 @@ them between \"/\*\" and  \"\*/\".
 Opcodes
 -------
 
-\"Opcodes\" or \"Unit generators\" are the basic building blocks of
+*Opcodes* or *Unit generators* are the basic building blocks of
 Csound. Opcodes can do many things like produce oscillating signals,
 filter signals, perform mathematical functions or even turn on and off
 instruments. Opcodes, depending on their function, will take inputs and
 outputs. Each input or output is called, in programming terms, an
-\"argument\". Opcodes always take input arguments on the right and
+*argument*. Opcodes always take input arguments on the right and
 output their results on the left, like this:
 
     output    OPCODE    input1, input2, input3, .., inputN 
@@ -131,7 +133,7 @@ the opcode.
 Variables
 ---------
 
-A \"variable\" is a named container. It is a place to store things like
+A variable is a named container. It is a place to store things like
 signals or values from where they can be recalled by using their name.
 In Csound there are various types of variables. The easiest way to deal
 with variables when getting to know Csound is to imagine them as cables.
@@ -142,7 +144,7 @@ If you want to patch this together:
 
 you need two cables, one going out from the generator into the filter
 and one from the filter to the output. The cables carry audio signals,
-which are variables beginning with the letter \"a\".
+which are variables beginning with the letter *a*.
 
     aSource    buzz       0.8, 200, 10, 1
     aFiltered  moogladder aSource, 400, 0.8
@@ -158,12 +160,12 @@ opcode, which in turn produces the signal *aFiltered*. The
 takes this signal, and sends it to the output whether that be to the
 speakers or to a rendered file.
 
-Other common variable types are \"k\" variables which store control
-signals, which are updated less frequently than audio signals, and \"i\"
+Other common variable types are *k* variables which store control
+signals, which are updated less frequently than audio signals, and *i*
 variables which are constants within each instrument note.
 
-You can find more information about variable types
-[here](03-b-local-and-global-variables) in this manual, or
+You can find more information about variable types in chapter 
+[03 B](03-b-local-and-global-variables.md) in this manual, or
 [here](http://csoundjournal.com/issue10/CsoundRates.html) in the
 Csound Journal.
 
@@ -172,20 +174,20 @@ Using the Manual
 
 The [Csound Reference
 Manual](http://csound.github.io/docs/manual/index.html) is a
-comprehensive source regarding Csound\'s syntax and opcodes. All opcodes
+comprehensive source regarding Csound's syntax and opcodes. All opcodes
 have their own manual entry describing their syntax and behavior, and
 the manual contains a detailed reference on the Csound language and
 options.
 
-In [CsoundQt](http://qutecsound.sourceforge.net) you can find
+In [CsoundQt](http://csoundqt.github.io) you can find
 the Csound Manual in the Help Menu. You can quickly go to a particular
 opcode entry in the manual by putting the cursor on the opcode and
 pressing Shift+F1. [WinXsound](http://winxound.codeplex.com) ,
-[Cabbage](http://code.google.com/p/cabbage) and
+[Cabbage](http://cabbageaudio.com/) and
 [Blue](http://blue.kunstmusik.com/) also provide easy access to
 the manual.
 
-1.  [Its characteristics are described in detail in section 03 CSOUND
-    LANGUAGE.]{#endnote-1fae07db-883a-4c3f-85d1-95e0135d8661}
-2.  [For instance using the schedule or event
-    opcode.]{#endnote-ea925da8-47bf-4c61-bd33-d205764d8f4d}
+[^1]:  Its characteristics are described in detail in section 03 CSOUND
+    LANGUAGE.
+[^2]:  For instance using the schedule or event
+    opcode.
