@@ -552,7 +552,7 @@ def _check_pandoc():
         raise Exception("Unable to determine pandoc version.")
 
     version = tuple(int(v) for v in version)
-    if version[0:2] < (2, 7):
+    if version[0:2] < (2, 0, 4):
         raise Exception(
             "Pandoc version is {0}. Version 2.0.4 or newer is required.".format(
                 ".".join([str(i) for i in version])
