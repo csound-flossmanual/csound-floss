@@ -10,11 +10,14 @@ For anyone who writes on this book, these features are in particular important:
 1. headings
 2. italics
 3. bold
-4. images
+4. Code examples
+   a) full .csd examples
+   b) other code snippets
+5. images
    a) links and sources
    b) captions
    c) size adaptions
-5. footnotes
-6. math formulars
+6. footnotes
+7. math formulars
 
 [desscribe more later]
