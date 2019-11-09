@@ -17,7 +17,7 @@ relation of one intensity $I$ to a reference
 intensity $I_0$ as follows:
 
 $$\log_{10} \frac{I}{I_0}$$ 
-$$\textit{Sound Intensity Level in Bel}$$
+$$\textit{\small Sound Intensity Level in Bel}$$
 
 If, for example, the ratio I/I~0~ is 10, this is 1 Bel. 
 If the ratio is 100, this is 2 Bel.
@@ -29,8 +29,8 @@ Usually 1 Bel is divided into 10 decibel, so the common formula for
 measuring a sound intensity is:
 
 $$10 \log_{10} \frac{I}{I_0}$$
-
-$$\textit{Sound Intensity Level (SIL) in deci Bel (dB) with } I_0 = 10 ^ {-12} \frac{W}{m^2}$$ 
+$$\textit{\small Sound Intensity Level (SIL) in deci Bel (dB) with } 
+I_0 = 10 ^ {-12} \frac{W}{m^2}$$ 
 
 While the sound intensity level is useful in describing the way in which
 human hearing works, the measurement of sound is more closely related to
@@ -39,11 +39,11 @@ particles and by this they increase and decrease the localized air
 pressure. These deviations are measured and transformed by a microphone.
 The question arises: what is the relationship between the sound pressure
 deviations and the sound intensity? The answer is: sound intensity
-changes I
-are proportional to the *square* of the sound pressure changes P.
-As a formula:  
-I~~P^2  
-*Relation between Sound Intensity and Sound Pressure*
+changes $I$ are proportional to the *square* of the sound pressure changes 
+$P$. As a formula:
+
+$$I \approx P ^ 2$$
+$$\textit{\small Relation between Sound Intensity and Sound Pressure}$$
 
 Let us take an example to see what this means. The sound pressure at the
 threshold of hearing can be fixed at 2*10^-5 Pa. 
