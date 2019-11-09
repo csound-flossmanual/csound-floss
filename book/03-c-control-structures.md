@@ -1310,7 +1310,7 @@ the *metro* opcode did, but now by using the internal clock.[^3]
       for live situations for which this approach is mainly meant to be used.
 
 
-   ***EXAMPLE 03C23_Timeloop_Internal_Clock.csd***
+    ***EXAMPLE 03C23_Timeloop_Internal_Clock.csd***
 
 ~~~
 <CsoundSynthesizer>
