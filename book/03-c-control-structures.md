@@ -16,7 +16,7 @@ chapter. Finally, time loops are shown, which are particulary important
 in audio programming languages.
 
 
-If i-Time then tot k-Time!
+If i-Time then not k-Time!
 --------------------------
 
 The fundamental difference in Csound between i-time and k-time which has
@@ -826,7 +826,7 @@ Another way of performing time loops is by using a measurement of time
 or k-cycles. This method is also discussed and similar examples to those
 used for the *timout* opcode are given so that both methods can be compared.
 
-### timout Basics
+### Timout Basics
 
 The [timout](http://www.csound.com/docs/manual/timout.html) opcode
 refers to the fact that in the traditional way of working with Csound,
@@ -974,7 +974,7 @@ i 1 4 5
 ;example by joachim heintz
 ~~~
 
-### timout Applications
+### Timout Applications
 
 In a time loop, it is very important to change the duration of the loop.
 This can be done either by referring to the duration of this note (p3)
@@ -1169,7 +1169,7 @@ loop, thus producing clicks.
 ### Time Loops by using the *metro* Opcode
 
 The [metro](http://www.csound.com/docs/manual/metro.html) opcode
-outputs a \"1\" at distinct times, otherwise it outputs a \"0\". The
+outputs a *1* at distinct times, otherwise it outputs a *0*. The
 frequency of this \"banging\" (which is in some way similar to the metro
 objects in PD or Max) is given by the *kfreq* input argument. So the
 output of *metro* offers
@@ -1215,7 +1215,7 @@ The example which is given above (03C19_Timout_trigger_events.csd) as
 a flexible time loop by *timout*, can be done
 with the *metro* opcode in this way:
 
-   **EXAMPLE 03C22_Metro_trigger_events.csd**
+   ***EXAMPLE 03C22_Metro_trigger_events.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1270,7 +1270,7 @@ to the *timout* feature:
     use the i-variants: of *event_i* or *scoreline_i*,
     because it uses reinitialization for performing the time loops.
 -   You must select the one k-cycle where the *metro* opcode sends
-    a "1". This is done with an if-statement. The rest of the
+    a *1*. This is done with an if-statement. The rest of the
     instrument is not affected. If you use *timout*, you
     usually must seperate the reinitialized from the not reinitialized
     section by a *rireturn* statement.
@@ -1281,15 +1281,14 @@ to the *timout* feature:
 
 Perhaps both, the most simple and the most *Csoundish* way to perform time 
 loops is to use Csound's internal clock. As explained in 
-[chapter 03-a](03-a-initialization-and-control-pass.md),
+[chapter 03A](03-a-initialization-and-control-pass.md),
 each control cycle in Csound is equivalent to a certain time. This time
 is calculated as relation between the number of samples per control cycle 
 [ksmps](https://csound.com/docs/manual/ksmps.html) and the sample rate 
-[sr](https://csound.com/docs/manual/sr.html):
-$\frac{ksmps}{sr}$
+[sr](https://csound.com/docs/manual/sr.html): *ksmps*/*sr*.
 If, for instance, we have 32 samples per control cycle at a sample rate 
 of 44100, this would be the time for one control cycle:
-$\frac{32}{44100} = 0.0007256235827664399$
+32/44100 = 0.0007256235827664399.
 In other words: Less than one millisecond, so definitely precise enough in
 the context we are discussing here.
 
@@ -1298,11 +1297,11 @@ of samples per control cycle as *control rate* or
 [kr](https://csound.com/docs/manual/kr.html), rather than *ksmps/sr* we can 
 also write *1/kr*. This is a bit shorter and more intuitive.
 
-The idea for using this internal time as measurement for time loops is this:
-1. We set a variable, say *kTime*, to the desired duration of the time loop.
-2. in each control cycle we subtract the internal time from this variable.
-3. Once zero has reached, we perform the event we want to perform,
-   and reset the *kTime* variable to the next desired time.
+The idea for using this internal time as measurement for time loops is this:  
+1.   We set a variable, say *kTime*, to the desired duration of the time loop.
+2.   in each control cycle we subtract the internal time from this variable.
+3.   Once zero has reached, we perform the event we want to perform,
+     and reset the *kTime* variable to the next desired time.
 
 The next example does exactly the same as example 03C21 with the help of
 the *metro* opcode did, but now by using the internal clock.[^3]
@@ -1311,7 +1310,7 @@ the *metro* opcode did, but now by using the internal clock.[^3]
       for live situations for which this approach is mainly meant to be used.
 
 
-**EXAMPLE 03C23_Timeloop_Internal_Clock.csd** 
+   ***EXAMPLE 03C23_Timeloop_Internal_Clock.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1357,7 +1356,7 @@ So the *trigger events* example which has been showed in using
 *timout* (03C19) and *trigger* (03C22) is here again using
 the internal clock approach.
 
-**EXAMPLE 03C24_Internal_clock_trigger_events.csd**_
+   ***EXAMPLE 03C24_Internal_clock_trigger_events.csd***
 
 ~~~
 <CsoundSynthesizer>
