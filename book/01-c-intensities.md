@@ -16,9 +16,13 @@ with another, a logarithmic scale is used. The unit *Bel* describes the
 relation of one intensity $I$ to a reference
 intensity $I_0$ as follows:
 
-$\log_{10} \frac{I}{I_0} \text{Sound Intensity Level in Bel}$
+$\log_{10} \frac{I}{I_0} \text{  Sound Intensity Level in Bel}$
+
+$\log_{10} \frac{I}{I_0} \text{\hspace{20pt}  Sound Intensity Level in Bel}$
 
 $\gamma = \frac{1}{\sqrt{1 - v^2/c^2}}$
+
+$$\log_{10} \frac{I}{I_0} \text{  Sound Intensity Level in Bel}$$
 
 If, for example, the ratio I/I_0 is 10, this is 1 Bel. If the ratio is 100, this is 2 Bel.
 
