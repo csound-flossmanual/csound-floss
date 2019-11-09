@@ -16,19 +16,21 @@ with another, a logarithmic scale is used. The unit *Bel* describes the
 relation of one intensity $I$ to a reference
 intensity $I_0$ as follows:
 
-$$\log_{10} \frac{I}{I_0} \text{\: Sound Intensity Level in Bel}$$
+$$\log_{10} \frac{I}{I_0}$$ 
+$$\textit{Sound Intensity Level in Bel}$$
 
-If, for example, the ratio $\frac{I}{I_0}$ is 10, this is 1 Bel. 
+If, for example, the ratio I/I~0~ is 10, this is 1 Bel. 
 If the ratio is 100, this is 2 Bel.
 
-For real world sounds, it makes sense to set the reference value $I_0$
+For real world sounds, it makes sense to set the reference value I~0~
 to the threshold of hearing which has been fixed as 10⁻¹² W/m²
 at 1000 Hertz. So the range of human hearing covers about 12 Bel.
 Usually 1 Bel is divided into 10 decibel, so the common formula for
 measuring a sound intensity is:
 
-$$10 \log_{10} \frac{I}{I_0} \text{\parbox{2cm}{Sound Intensity Level
-(SIL) in deci Bel (dB) with} I_0 = 10 ^ {-12} \frac{W}{m^2}$$ 
+$$10 \log_{10} \frac{I}{I_0}$$
+
+$$\textit{Sound Intensity Level (SIL) in deci Bel (dB) with } I_0 = 10 ^ {-12} \frac{W}{m^2}$$ 
 
 While the sound intensity level is useful in describing the way in which
 human hearing works, the measurement of sound is more closely related to
