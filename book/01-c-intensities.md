@@ -6,30 +6,30 @@ Real World Intensities and Amplitudes
 
 There are many ways to describe a sound physically. One of the most
 common is the sound intensity level (SIL). It describes the amount of
-power on a certain surface, so its unit is Watts per square meter W/m².
+power on a certain surface, so its unit is Watts per square meter $W/m^2$.
 
-The range of human hearing is about 10⁻¹² W/m²
-at the threshold of hearing to 10⁰ W/m²
+The range of human hearing is about $10^{-12} W/m^2$
+at the threshold of hearing to $10^0 W/m^2$
 at the threshold of pain. For ordering this immense range, and to
 facilitate the measurement of one sound intensity based upon its ratio
-with another, a logarithmic scale is used. The unit *Bel* describes the
+with another, a logarithmic scale is used. The unit $Bel$ describes the
 relation of one intensity $I$ to a reference
 intensity $I_0$ as follows:
 
 $$\log_{10} \frac{I}{I_0}$$ 
-$$\textit{\small {Sound Intensity Level in Bel}}$$
+$$\textit{Sound Intensity Level in Bel}$$
 
-If, for example, the ratio I/I~0~ is 10, this is 1 Bel. 
+If, for example, the ratio $I/I_0$ is 10, this is 1 Bel. 
 If the ratio is 100, this is 2 Bel.
 
-For real world sounds, it makes sense to set the reference value I~0~
-to the threshold of hearing which has been fixed as 10⁻¹² W/m²
+For real world sounds, it makes sense to set the reference value $I_0$
+to the threshold of hearing which has been fixed as $10^{-12} W/m^2$
 at 1000 Hertz. So the range of human hearing covers about 12 Bel.
 Usually 1 Bel is divided into 10 decibel, so the common formula for
 measuring a sound intensity is:
 
 $$10 \log_{10} \frac{I}{I_0}$$
-$$\textit{\small Sound Intensity Level (SIL) in deci Bel (dB) with } 
+$$\textit{Sound Intensity Level (SIL) in deci Bel (dB) with } 
 I_0 = 10 ^ {-12} \frac{W}{m^2}$$ 
 
 While the sound intensity level is useful in describing the way in which
@@ -42,49 +42,49 @@ deviations and the sound intensity? The answer is: sound intensity
 changes $I$ are proportional to the *square* of the sound pressure changes 
 $P$. As a formula:
 
-$$I \approx P ^ 2$$
-$$\textit{\small Relation between Sound Intensity and Sound Pressure}$$
+$$I \propto P^2$$
+$$\textit{Relation between Sound Intensity and Sound Pressure}$$
 
 Let us take an example to see what this means. The sound pressure at the
-threshold of hearing can be fixed at 2*10^-5 Pa. 
+threshold of hearing can be fixed at $2*10^{-5} Pa$. 
 This value is the reference value of the Sound Pressure Level (SPL).
-If we now have a value of 
-2*10^-4 Pa, 
+If we now have a value of $2*10^{-4} Pa$, 
 the corresponding sound intensity relationship can be calculated as:
-((2*10^4)/(2*10^5))^2 = 10^2 = 100
+$\left(\frac{2*10^4)}{2*10^5}\right)^2 = 10^2 = 100$.
 
 Therefore a factor of 10 in a pressure relationship yields a factor of
 100 in the intensity relationship. In general, the dB scale for the
-pressure related to the pressure P_0 is:
+pressure $P$ related to the pressure $P_0$ is:
 
-10 * log_10 (P/P_0)^2 = 2 * 10 * log_10 P/P_0 = 20 * log_10 P/P_0  
-*Sound pressure level (SPL) in decibels (dB)*
-with
-P_0=2*10^-5 Pa
+$$10 * log_10 (P/P_0)^2 = 2 * 10 * log_10 P/P_0 = 20 * log_10 P/P_0$$
+$$\textit{Sound pressure level (SPL) in decibels (dB) with } P_0=2*10^{-5} Pa$$
 
 Working with digital audio means working with *amplitudes*. Any audio
-signal is a sequence of amplitudes. What you generate in Csound and write
+signal is a sequence of amplitudes. What we generate in Csound and write
 either to the DAC in realtime or to a sound file, are again nothing but
 a sequence of amplitudes. As amplitudes are directly related to the
 sound pressure deviations, all the relationships between sound intensity
 and sound pressure can be transferred to relationships between sound
 intensity and amplitudes:
 
-I~~A^2  
-*Relationship between intensity and amplitudes*
+$$I \propto A^2$$
+$$Relationship between intensity and amplitudes$$
 
-20*log_10 A/A_0  
-*Decibel (dB) scale of amplitudes*  
-with any amplitude A related to another amplitude A_0
+This yields to the same transformation as described above for the 
+sound pressure; so finally the relation in Decibel of any amplitude $A$ to a reference 
+amplitude $A_0$ is:
 
-If you drive an oscillator with an amplitude of 1, and another
-oscillator with an amplitude of 0.5 and you want to know the difference
-in dB, you can calculate this as follows:
+$$20*\log_10 \frac{A}{A_0}$$
+$$\textit{Decibel (dB) scale of amplitudes}$$
 
-20*log_10 1/0.5 = 20 * log_10 2 = 20 * 0.30103 = 6.0206 dB  
+If we drive an oscillator with an amplitude of 1, and another
+oscillator with an amplitude of 0.5 and we want to know the difference
+in dB, this is the calculation:
 
-The most useful thing to bear in mind is that when you double an
-amplitude this will provide a change of +6 dB, or when you have halve an
+$$20*\log_10 \frac{1}{0.5} = 20 * log_10 2 = 20 * 0.30103 = 6.0206 dB§§
+
+The most useful thing to bear in mind is that when we double an
+amplitude this will provide a change of +6 dB, or when we halve an
 amplitude this will provide a change in of -6 dB.
 
  
