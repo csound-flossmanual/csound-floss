@@ -50,14 +50,14 @@ threshold of hearing can be fixed at $2*10^{-5} Pa$.
 This value is the reference value of the Sound Pressure Level (SPL).
 If we now have a value of $2*10^{-4} Pa$, 
 the corresponding sound intensity relationship can be calculated as
-$\left(\frac{2*10^4}{2*10^5}\right)^2 = 10^2 = 100$.
+$\left(\frac{2*10^{-4}}{2*10^{-5}}\right)^2 = 10^2 = 100$.
 
 Therefore a factor of 10 in a pressure relationship yields a factor of
 100 in the intensity relationship. In general, the dB scale for the
 pressure $P$ related to the pressure $P_0$ is:
 
 $$10 * log_{10} \left(\frac{P}{P_0}\right)^2 = 2 * 10 * log_{10} \frac{P}{P_0}
- = 20 * log_{10} {P}{P_0}$$
+ = 20 * log_{10} \frac{P}{P_0}$$
 $$\textit{Sound Pressure Level (SPL) in Decibels (dB) with } P_0=2*10^{-5} Pa$$
 
 Working with digital audio means working with *amplitudes*. Any audio
@@ -82,7 +82,7 @@ If we drive an oscillator with an amplitude of 1, and another
 oscillator with an amplitude of 0.5 and we want to know the difference
 in dB, this is the calculation:
 
-$$20*\log_{10} \frac{1}{0.5} = 20 * log_{10} 2 = 20 * 0.30103 = 6.0206 dB$$
+$$20*\log_{10} \frac{1}{0.5} = 20 * log_{10} 2 = 20 * 0.30103 = 6.0206 \square dB$$
 
 The most useful thing to bear in mind is that when we double an
 amplitude this will provide a change of +6 dB, or when we halve an
