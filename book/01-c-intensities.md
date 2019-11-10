@@ -197,11 +197,11 @@ Let us consider a simple example and then look how to derive rms values
 within Csound. Assuming we have a sine wave which consists of 16
 samples, we get these amplitudes:
 
-![*<small>16 times sampled Sine Wave</small>*](../resources/images/01-c-sine-16points-v2.png){width=60%}
+![*<small>16 times sampled Sine Wave</small>*](../resources/images/01-c-sine-16points-v2.png){width=70%}
 
 These are the squared amplitudes:
 
-![*<small>Squared Amplitudes of Sine</small>*](../resources/images/01-c-sine-16points-rms-v2.png){width=50%}
+![*<small>Squared Amplitudes of Sine</small>*](../resources/images/01-c-sine-16points-rms-v2.png){width=70%}
 
 The mean of these values is:
 
