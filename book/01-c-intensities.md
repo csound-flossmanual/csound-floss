@@ -49,15 +49,16 @@ Let us take an example to see what this means. The sound pressure at the
 threshold of hearing can be fixed at $2*10^{-5} Pa$. 
 This value is the reference value of the Sound Pressure Level (SPL).
 If we now have a value of $2*10^{-4} Pa$, 
-the corresponding sound intensity relationship can be calculated as:
-$\left(\frac{2*10^4)}{2*10^5}\right)^2 = 10^2 = 100$.
+the corresponding sound intensity relationship can be calculated as
+$\left(\frac{2*10^4}{2*10^5}\right)^2 = 10^2 = 100$.
 
 Therefore a factor of 10 in a pressure relationship yields a factor of
 100 in the intensity relationship. In general, the dB scale for the
 pressure $P$ related to the pressure $P_0$ is:
 
-$$10 * log_10 (P/P_0)^2 = 2 * 10 * log_10 P/P_0 = 20 * log_10 P/P_0$$
-$$\textit{Sound pressure level (SPL) in decibels (dB) with } P_0=2*10^{-5} Pa$$
+$$10 * log_{10} \left(\frac{P}{P_0}\right)^2 = 2 * 10 * log_{10} \frac{P}{P_0}
+ = 20 * log_{10} {P}{P_0}$$
+$$\textit{Sound Pressure Level (SPL) in Decibels (dB) with } P_0=2*10^{-5} Pa$$
 
 Working with digital audio means working with *amplitudes*. Any audio
 signal is a sequence of amplitudes. What we generate in Csound and write
@@ -68,20 +69,20 @@ and sound pressure can be transferred to relationships between sound
 intensity and amplitudes:
 
 $$I \propto A^2$$
-$$Relationship between intensity and amplitudes$$
+$$\textit{Relationship between Intensity and Amplitudes}$$
 
 This yields to the same transformation as described above for the 
 sound pressure; so finally the relation in Decibel of any amplitude $A$ to a reference 
 amplitude $A_0$ is:
 
-$$20*\log_10 \frac{A}{A_0}$$
-$$\textit{Decibel (dB) scale of amplitudes}$$
+$$20*\log_{10} \frac{A}{A_0}$$
+$$\textit{Decibel (dB) Scale of Amplitudes}$$
 
 If we drive an oscillator with an amplitude of 1, and another
 oscillator with an amplitude of 0.5 and we want to know the difference
 in dB, this is the calculation:
 
-$$20*\log_10 \frac{1}{0.5} = 20 * log_10 2 = 20 * 0.30103 = 6.0206 dB§§
+$$20*\log_{10} \frac{1}{0.5} = 20 * log_{10} 2 = 20 * 0.30103 = 6.0206 dB$$
 
 The most useful thing to bear in mind is that when we double an
 amplitude this will provide a change of +6 dB, or when we halve an
@@ -97,7 +98,7 @@ pressures or amplitudes - is just a way to describe a *relationship*. To
 have any sort of quantitative measurement you will need to know the
 reference value referred to as *0 dB*. For real world sounds, it makes
 sense to set this level to the threshold of hearing. This is done, as we
-saw, by setting the SIL to 10^-12 W//m^2, and the SPL to 2*10^-5 Pa.
+saw, by setting the SIL to $10^{-12} W/m^2$, and the SPL to $2*10^{-5} Pa$.
 
 When working with digital sound within a computer, this method for
 defining 0dB will not make any sense. The loudness of the sound produced
@@ -204,11 +205,11 @@ These are the squared amplitudes:
 
 The mean of these values is:
 
-0+0.146+0.5+0.854+1+0.854+0.5+0.146+0+0.146+0.5+0.854+1+0.854+0.5+0.146)/16=8/16=0.5
+$$\frac{0+0.146+0.5+0.854+1+0.854+0.5+0.146+0+0.146+0.5+0.854+1+0.854+0.5+0.146}{16}=\frac{8}{16}=0.5$$
 
-And the resulting RMS value is sqrt([0.5) = 0.707. 
+And the resulting RMS value is $\sqrt{0.5} = 0.707$. 
 
-The [rms](http://www.csounds.com/manual/html/rms.html) opcode in Csound
+The [rms](http://www.csound.com/docs/manual/rms.html) opcode in Csound
 calculates the RMS power in a certain time span, and smoothes the values
 in time according to the *ihp* parameter: the higher this value is (the
 default is 10 Hz), the quicker this measurement will respond to changes,
@@ -217,7 +218,7 @@ system, in which the rms opcode prevents the system from exploding. Each
 time the rms value exceeds a certain value, the amount of feedback is
 reduced. This is an example[^1]\:
 
-   ***EXAMPLE 01C02\_rms\_feedback\_system.csd***  
+   ***EXAMPLE 01C02_rms_feedback_system.csd***  
 
 ~~~
 <CsoundSynthesizer>
@@ -292,7 +293,7 @@ this test will also depend upon the quality of your speaker hardware. If
 your speakers do not provide adequate low frequency response, you will
 not hear anything in the bass region.
 
-   ***EXAMPLE 01C03\_FletcherMunson.csd***   
+   ***EXAMPLE 01C03_FletcherMunson.csd***   
 
 ~~~
 <CsoundSynthesizer>
