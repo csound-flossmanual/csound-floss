@@ -69,7 +69,7 @@ and sound pressure can be transferred to relationships between sound
 intensity and amplitudes:
 
 $$I \propto A^2$$
-$$\textit{Relationship between Intensity and Amplitudes}$$
+$$\textit{Relationship between Intensity and Amplitude}$$
 
 This yields to the same transformation as described above for the 
 sound pressure; so finally the relation in Decibel of any amplitude $A$ to a reference 
@@ -82,7 +82,7 @@ If we drive an oscillator with an amplitude of 1, and another
 oscillator with an amplitude of 0.5 and we want to know the difference
 in dB, this is the calculation:
 
-$$20*\log_{10} \frac{1}{0.5} = 20 * log_{10} 2 = 20 * 0.30103 = 6.0206 \square dB$$
+$$20*\log_{10} \frac{1}{0.5} = 20 * log_{10} 2 = 20 * 0.30103 = 6.0206 \textit{ dB}$$
 
 The most useful thing to bear in mind is that when we double an
 amplitude this will provide a change of +6 dB, or when we halve an
@@ -197,15 +197,15 @@ Let us consider a simple example and then look how to derive rms values
 within Csound. Assuming we have a sine wave which consists of 16
 samples, we get these amplitudes:
 
-![16 times sampled sine wave](../resources/images/01-c-sine-16points-v2.png){width=50%}
+![*<small>16 times sampled Sine Wave</small>*](../resources/images/01-c-sine-16points-v2.png){width=60%}
 
 These are the squared amplitudes:
 
-![](../resources/images/01-c-sine-16points-rms-v2.png){width=50%}
+![*<small>Squared Amplitudes of Sine</small>*](../resources/images/01-c-sine-16points-rms-v2.png){width=50%}
 
 The mean of these values is:
 
-$$\frac{0+0.146+0.5+0.854+1+0.854+0.5+0.146+0+0.146+0.5+0.854+1+0.854+0.5+0.146}{16}=\frac{8}{16}=0.5$$
+$\frac{0+0.146+0.5+0.854+1+0.854+0.5+0.146+0+0.146+0.5+0.854+1+0.854+0.5+0.146}{16}=\frac{8}{16}=0.5$
 
 And the resulting RMS value is $\sqrt{0.5} = 0.707$. 
 
