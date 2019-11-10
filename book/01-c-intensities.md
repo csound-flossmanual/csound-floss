@@ -17,7 +17,7 @@ relation of one intensity $I$ to a reference
 intensity $I_0$ as follows:
 
 $$\log_{10} \frac{I}{I_0}$$ 
-$$\textit{\small Sound Intensity Level in Bel}$$
+$$\textit{\small {Sound Intensity Level in Bel}}$$
 
 If, for example, the ratio I/I~0~ is 10, this is 1 Bel. 
 If the ratio is 100, this is 2 Bel.
