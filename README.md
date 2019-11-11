@@ -57,3 +57,7 @@ This may take a while the first time, but subsequent build should be faster
 ## Further Read
 - [Pandoc Official Manual](https://pandoc.org/MANUAL.html)
 - [Pandoc alternative manual](https://rmarkdown.rstudio.com/authoring_pandoc_markdown.html%23raw-tex)
+
+## Travis and Firebaseapp Build
+<https://travis-ci.com/csound-flossmanual/csound-floss>  
+<https://csound-floss.firebaseapp.com>
