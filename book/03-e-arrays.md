@@ -127,9 +127,9 @@ Like any other variable in Csound, an array usually has a local scope -
 this means that it is only recognized within the scope of the instrument
 in which it has been defined. If you want to use arrays in a globally
 (across instruments), then you have to prefix the variable name with the
-character g, (as is done with other types of global variable in Csound).
-The next example demonstrates local and global arrays at both i- and
-k-rate.
+character ***g***, (as is done with other types of global variable in Csound).
+The next example demonstrates local and global arrays at both *i*- and
+*k*-rate.
 
    ***EXAMPLE 03E02_Local_vs_global_arrays.csd***
 
@@ -212,7 +212,7 @@ example first, followed by a more extended one.
        array, but you can convert a string to a number with the strtod
        opcode
 
-   ***EXAMPLE 03E03_Strin\_arrays.csd***
+   ***EXAMPLE 03E03_String_arrays.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -405,6 +405,7 @@ channels, as one of many possible cases of use. Here are two simple
 examples, one for local audio arrays and the other for global audio
 arrays.
 
+
    ***EXAMPLE 03E05_Local_audio_array.csd***
 
 ~~~
@@ -510,23 +511,24 @@ it is i-rate or k-rate or a-rate. But for arrays, we have actually two
 signifiers: the array variable name, and the index type. If both
 coincide, it is easy:
 
--   i\_array\[i\_index\] reads and writes at i-time
--   k\_array\[k\_index\] reads and writes at k-time
--   a\_array\[a\_index\] reads and writes at a-time
+-   ***i**array*[***i**index*] reads and writes at i-time
+-   ***k**array*[***k**index*] reads and writes at k-time
+-   ***a**array*[***a**index*] reads and writes at a-time
 
 But what to do if array type and index type do not coincide? In general,
 the index type will then determine whether the array is read or written
 only once (at init-time) or at each k-cycle. This is valid in particular
-for S\_arrays (containing strings) and f\_arrays (containing f-data).
+for *S* arrays (containing strings) and *f* arrays (containing f-data).
 Other cases are:
 
--   i\_array\[k\_index\] reads at k-time; writing is not possible
+-   ***i**array*[***k**index*] reads at k-time; writing is not possible
     (yields a runtime error)
--   k\_array\[i\_index\] reads and writes at k-rate
--   a\_array\[i\_index\] reads and writes at a-rate
+-   ***k**array*[***i**index*] reads and writes at k-rate
+-   ***a**array*[***i**index*] reads and writes at a-rate
 
-For usual k-variables, you can get the value at init-time via the
-expression i(kVar), for instance:
+In case we want to retrieve the value of a k array at init time,
+a special version of the *i()* feature must be used.
+For usual k-variables, a simple *i(kVar)* is used, for instance:
 
     instr 1
      gkLine linseg 1, 1, 2
@@ -537,7 +539,7 @@ expression i(kVar), for instance:
      print iLine
     endin
 
-will print: iLine = 1.499.
+will print: *iLine = 1.499*.
 
 This expression can **not** be used for arrays:
 
@@ -545,15 +547,15 @@ This expression can **not** be used for arrays:
     iFirst = i(kArray[0])
     print iFirst 
 
-will print: iFirst = 0.000, which is obviously not what could be
-expected. For this purpose, the i() expression can be used to pass the
-index as second argument:
+will print: *iFirst = 0.000*, which is obviously not what could be
+expected. For this purpose, the i() expression gets a second argument
+which signifies the index:
 
     kArray[] fillarray 1, 2, 3
     iFirst = i(kArray, 0)
     print iFirst
 
-will print: iFirst = 1.000.
+will print: *iFirst = 1.000*.
 
 
 Naming Conventions
@@ -592,7 +594,7 @@ An array can be created by different methods: with the
 [init](https://csound.com/docs/manual/init.html) opcode,
 with [fillarray](https://csound.com/docs/manual/fillarray.html), 
 with [genarray](https://csound.com/docs/manual/fillarray.html), 
-or as a copy of an already existing array with the $=§ operator.
+or as a copy of an already existing array with the $=$ operator.
 
 ### init
 
@@ -725,7 +727,10 @@ Basic Operations: len, slice
 The opcode [lenarray](https://csound.com/docs/manual/lenarray.html) 
 reports the length of an i- or k-array. As with many
 opcodes now in Csound 6, it can be used either in the traditional way
-(Left-hand-side \<- Opcode \<- Right-hand-side), or as a function. The
+
+    Left-hand-side <- Opcode <- Right-hand-side
+
+or as a function. The
 next example shows both usages, for i- and k-arrays. For
 multidimensional arrays, lenarray returns the length of the first
 dimension (instr 5).
@@ -813,7 +818,7 @@ takes a slice of a (one-dimensional) array:
 
       slicearray kArr, iStart, iEnd 
 
-returns a slice of kArr from index iStart to index iEnd (included).
+returns a slice of *kArr* from index iStart to index iEnd (included).
 
 The array for receiving the slice must have been created in advance:
 
@@ -1012,26 +1017,26 @@ copies the content of an array to a f-signal.
 
 Some care is needed to use these opcodes correctly:
 
--   The array kArr must be declared in advance to its usage in these
-    opcodes, usually with init.
+-   The array *kArr* must be declared in advance to its usage in these
+    opcodes, usually with *init*.
 -   The size of this array depends on the FFT size of the f-signal
-    fSigIn. If the FFT size is N, the f-signal will contain N/2+1
+    *fSigIn*. If the FFT size is N, the f-signal will contain N/2+1
     amplitude-frequency pairs. For instance, if the FFT size is 1024,
     the FFT will write out 513 bins, each bin containing one value for
     amplitude and one value for frequency. So to store all these values,
     the array must have a size of 1026. In general, the size of kArr
     equals FFT-size plus two.
--   The indices 0, 2, 4, ... of kArr will contain the amplitudes; the
+-   The indices 0, 2, 4, ... of *kArr* will contain the amplitudes; the
     indices 1, 3, 5, ... will contain the frequencies of the bins of a
     specific frame.
--   The number of this frame is reported in the kFrame output of
-    pvs2array. By this parameter you know when pvs2array writes new
-    values to the array kArr.
--   On the way back, the FFT size of fSigOut, which is written by
-    pvsfromarray, depends on the size of kArr. If the size of kArr is
+-   The number of this frame is reported in the *kFrame* output of
+    *pvs2array*. By this parameter you know when *pvs2array* writes new
+    values to the array *kArr*.
+-   On the way back, the FFT size of *fSigOut*, which is written by
+    *pvsfromarray*, depends on the size of *kArr*. If the size of *kArr* is
     1026, the FFT size will be 1024.
--   The default value for ihopsize is 4 (= fftsize/4); the default value
-    for inwinsize is the fftsize; and the default value for iwintype is
+-   The default value for *ihopsize* is 4 (= fftsize/4); the default value
+    for *inwinsize* is the fftsize; and the default value for *iwintype* is
     1, which means a hanning window.
 
 Here is an example that implements a spectral high-pass filter. The
@@ -1769,8 +1774,8 @@ Arrays in UDOs
 
 The dimension of an input array must be declared in two places:
 
--   as k[] or k[][] in the type input list
--   as kName[], kName[][] etc in the xin list.
+-   as *k[]* or *k[][]* in the type input list
+-   as *kName[]*, *kName[][]* etc in the *xin* list.
 
 For Instance:
 
