@@ -33,9 +33,11 @@ The outline of this chapter is as follows:
 
 -   Arrays in UDOs
 
-### Types of Arrays
 
-#### Dimensions
+Types of Arrays
+---------------
+
+### Dimensions
 
 One-dimensional arrays - also called vectors - are the most commonly
 used type of array, but in Csound6 you can also use arrays with two or
@@ -43,7 +45,7 @@ more dimensions. The way in which the number of dimensions is designated
 is very similar to how it is done in other programming languages.
 
 The code below denotes the second element of a one-dimensional array (as
-usual, indexing an element starts at zero, so kArr\[0\] would be the
+usual, indexing an element starts at zero, so kArr[0] or kArr\[0\] would be the
 first element):
 
     kArr[1]
@@ -56,7 +58,7 @@ two-dimensional array:
 Note that the square brackets are not used everywhere. This is explained
 in more detail below under \'Naming Conventions\'.
 
-#### i- or k-Rate
+### i- or k-Rate
 
 Like most other variables in Csound, arrays can be either i-rate or
 k-rate. An i-array can only be modified at init-time, and any operation
@@ -117,7 +119,7 @@ around every 1/1000 second. A good opportunity to throw off rendering
 power for useless repetitions, or to produce errors if you intentionally
 wanted to operate something only once \...
 
-#### Local or Global
+### Local or Global
 
 Like any other variable in Csound, an array usually has a local scope -
 this means that it is only recognized within the scope of the instrument
@@ -195,7 +197,7 @@ k-rate.
     </CsoundSynthesizer>
     ;example by joachim heintz
 
-#### Arrays of Strings
+### Arrays of Strings
 
 So far we have discussed only arrays of numbers. It is also possible to
 have arrays of strings, which can be very useful in many situations, for
@@ -382,7 +384,7 @@ Modifying gSArr\[\] in instr 6 at k-cycle 3!\
 Printing gSArr\[\] in instr 7 at k-cycle 3:\
 \[b K c \" h \]
 
-#### Arrays of Audio Signals
+### Arrays of Audio Signals
 
 Collecting audio signals in an array simplifies working with multiple
 channels, as one of many possible cases of use. Here are two simple
@@ -483,7 +485,7 @@ size which fits to the number of channels in the input file:
 will create an audio array of size 7 according to the seven channel
 input file.
 
-#### More on Array Rates
+### More on Array Rates
 
 Usually the first character of a variable name in Csound shows whether
 it is i-rate or k-rate or a-rate. But for arrays, we have actually two
@@ -535,7 +537,8 @@ index as second argument:
 
 will print: iFirst = 1.000.
 
-### Naming Conventions
+Naming Conventions
+------------------
 
 An array must be created (via init or array / fillarray^2^) as
 kMyArrayName *plus* ending brackets. The brackets determine the
@@ -579,7 +582,7 @@ for the array:
 
  
 
-#### fillarray
+### fillarray
 
 If you want to fill an array with distinct values, you can use the
 fillarray opcode. This line creates a vector with length 4 and puts in
@@ -674,7 +677,7 @@ k\_Row2\[0\] = 4\
 k\_Row2\[1\] = 5\
 k\_Row2\[2\] = 6
 
-#### genarray
+### genarray
 
 This opcode creates an array which is filled by a series of numbers from
 a starting value to an (included) ending value. Here are some examples:
@@ -685,7 +688,8 @@ a starting value to an (included) ending value. Here are some examples:
     iArr[] genarray   1, -1, -0.5 ; [1, 0.5, 0, -0.5, -1]
     iArr[] genarray   -1, 1, 0.6 ; [-1, -0.4, 0.2, 0.8]  
 
-### Basic Operations: len, slice
+Basic Operations: len, slice
+----------------------------
 
 The opcode lenarray reports the length of an i- or k-array. As with many
 opcodes now in Csound 6, it can be used either in the traditional way
@@ -840,7 +844,8 @@ The array for receiving the slice must have been created in advance:
     </CsoundSynthesizer>
     ;example by joachim heintz
 
-### Copy Arrays from/to Tables
+Copy Arrays from/to Tables
+--------------------------
 
 As function tables have been the classical way of working with arrays in
 Csound, switching between them and the new array facility in Csound is a
@@ -949,7 +954,9 @@ The following presents a simple example of each operation.
     </CsoundSynthesizer>
     ;example by joachim heintz
 
-### Copy Arrays from/to FFT Data
+
+Copy Arrays from/to FFT Data
+----------------------------
 
 You can copy the data of an f-signal - which contains the results of a
 Fast Fourier Transform - into an array with the opcode pvs2array. The
@@ -1117,9 +1124,10 @@ then triggers another instrument.
 
  
 
-### Math Operations
+Math Operations
+---------------
 
-#### +, -, \*, / on a Number
+### +, -, \*, / on a Number
 
 If the four basic math operators are used between an array and a scalar
 (number), the operation is applied to each element. The safest way to do
@@ -1270,7 +1278,7 @@ kArr\[7\] = 13.000000\
 kArr\[8\] = 14.000000\
 kArr\[9\] = 15.000000
 
-#### +, -, \*, / on a Second Array
+### +, -, \*, / on a Second Array
 
 If the four basic math operators are used between two arrays, their
 operation is applied element by element. The result can be easily stored
@@ -1367,7 +1375,7 @@ Here is an example of array-array operations.
     </CsoundSynthesizer>
     ;example by joachim heintz
 
-#### min, max, sum, scale
+### min, max, sum, scale
 
 minarray and maxarray return the smallest / largest value in an array,
 and optionally its index:
@@ -1539,7 +1547,7 @@ kArr\[7\] =   0.107244\
 kArr\[8\] =   0.224929\
 kArr\[9\] =   0.512423
 
-#### Function Mapping on an Array: maparray
+### Function Mapping on an Array: maparray
 
 maparray applies the function \"fun\" (which needs to have one input and
 one output argument) to each element of the vector kArrSrc and stores
@@ -1680,7 +1688,9 @@ kArrRes\[4\] = 0.080000\
 kArrRes\[5\] = 0.130000\
 kArrRes\[6\] = 0.210000
 
-### Arrays in UDOs
+
+Arrays in UDOs
+--------------
 
 The dimension of an input array must be declared in two places:
 
@@ -1874,6 +1884,3 @@ Printing with precision=5 and 4 elements per row:\
     which are lower than bin 40 which is centered at 40 \* 21.533 =
     861.328 Hz.]{#endnote-c2211456-bbae-4423-b3ae-18b6f31fbb8a}
 
-::: {#yass_bottom_edge}
- 
-:::

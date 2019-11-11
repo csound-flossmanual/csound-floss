@@ -1111,7 +1111,7 @@ Such a *staircase-envelope* is what you hear in the next example as
 zipper noise. The transeg opcode produces a non-linear envelope with a
 sharp peak:
 
-![](../resources/images/03-a-peak.png){width=50%} 
+![](../resources/images/03-a-peak.png){width=30%} 
 
 The rise and the decay are each 1/100 seconds long. If this envelope is
 produced at k-rate with a blocksize of 128 (instr 1), the noise is
