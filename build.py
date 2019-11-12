@@ -76,7 +76,6 @@ METADATA_YAML              = os.path.join(BOOK_SRC_DIR, "metadata.yaml")
 metadata                   = load_metadata(METADATA_YAML)
 uses_references            = os.path.exists(REFERENCES_YAML)
 use_weasyprint             = metadata.get("use_weasyprint", False)
-uses_plantuml              = metadata.get("use_plantuml", False)
 
 # COVER_IMAGE                = os.path.join(BOOK_SRC_DIR, "cover.png")
 # COVER_IMAGE_PDF            = os.path.join(BOOK_SRC_DIR, "cover-pdf.png")
@@ -108,7 +107,6 @@ HTML_PDF_CSS       = os.path.join(RESOURCES_DIR, "styles", "html-pdf.css")
 LATEX_TEMPLATE     = os.path.join(RESOURCES_DIR, "latex.template")
 # REF_DOCX           = os.path.join(RESOURCES_DIR, "custom-reference.docx")
 PANDOC_FILTER      = os.path.join("scripts", "pandoc-filter.py")
-PLANTUML_FILTER    = os.path.join("scripts", "plantuml-filter.py")
 
 # Lists of dependencies, for ease of reference.
 BUILD_FILE_DEPS = [BUILD_FILE, BUILD_LIB]
@@ -157,7 +155,6 @@ INPUT_FORMAT = "markdown+{}".format("+".join(PANDOC_EXTENSIONS))
 COMMON_PANDOC_OPTS = (
     f"-f {INPUT_FORMAT} {HASKELL_OPTS} -F {PANDOC_FILTER}" +
     (" -F pandoc-citeproc" if uses_references else "") +
-    (f" -F {PLANTUML_FILTER}" if uses_plantuml else "") +
     (" --standalone --mathjax")
 )
 NON_LATEX_PANDOC_OPTS = f"{COMMON_PANDOC_OPTS} "

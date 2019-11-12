@@ -9,7 +9,6 @@ in stdenv.mkDerivation {
   name = "csound-floss";
   buildInputs = with pkgs; [
     pandoc
-    plantuml
     python3
     python37Packages.pip
     python37Packages.pyyaml

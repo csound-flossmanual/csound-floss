@@ -7,14 +7,7 @@ subtitle: "Release 7 (work in progress)"
 
 publisher: "CC BY"
 
-# Whether or not to enable PlantUML. You must install PlantUML, and the
-# "plantuml" command must be in your path, if you enable this feature.
-#
-# Default, if not specified: false
-use_plantuml: true
-
-# Whether PDF generation uses Weasy Print (true) or LaTeX (false). Defaults to
-# false (LaTeX).
+use_plantuml: false
 use_weasyprint: true
 
 # Set to the language in which the book is written. This is especially

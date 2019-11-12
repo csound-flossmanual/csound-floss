@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-VERSION="1.0.0"
+VERSION="1.0.1"
 
 if ! which docker >/dev/null; then
     echo "Error: docker is not installed" >&2
