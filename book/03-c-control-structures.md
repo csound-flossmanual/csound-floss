@@ -1306,11 +1306,9 @@ The idea for using this internal time as measurement for time loops is this:
 The next example does exactly the same as example 03C21 with the help of
 the *metro* opcode did, but now by using the internal clock.[^3]
 
-[^3]: To say the truth, *metro* is more precise. But this can be neglected
-      for live situations for which this approach is mainly meant to be used.
 
 
-    ***EXAMPLE 03C23_Timeloop_Internal_Clock.csd***
+   ***EXAMPLE 03C23_Timeloop_Internal_Clock.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1411,4 +1409,6 @@ Steven Yi: Control Flow
       usage of the i-rate if branching.
 [^2]:  Since the release of the new parser (Csound 5.14), the expression
       can also be written without parentheses.
+[^3]: To say the truth, *metro* is more precise. But this can be neglected
+      for live situations for which this approach is mainly meant to be used.
 
