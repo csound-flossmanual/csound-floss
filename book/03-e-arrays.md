@@ -511,9 +511,9 @@ it is i-rate or k-rate or a-rate. But for arrays, we have actually two
 signifiers: the array variable name, and the index type. If both
 coincide, it is easy:
 
--   ***i**array*[***i**index*] reads and writes at i-time
--   ***k**array*[***k**index*] reads and writes at k-time
--   ***a**array*[***a**index*] reads and writes at a-time
+-   ***i**_array*[***i_**index*] reads and writes at i-time
+-   ***k**_array*[***k_**index*] reads and writes at k-time
+-   ***a**_array*[***a_**index*] reads and writes at a-time
 
 But what to do if array type and index type do not coincide? In general,
 the index type will then determine whether the array is read or written
@@ -521,10 +521,10 @@ only once (at init-time) or at each k-cycle. This is valid in particular
 for *S* arrays (containing strings) and *f* arrays (containing f-data).
 Other cases are:
 
--   ***i**array*[***k**index*] reads at k-time; writing is not possible
+-   ***i**_array*[***k**_index*] reads at k-time; writing is not possible
     (yields a runtime error)
--   ***k**array*[***i**index*] reads and writes at k-rate
--   ***a**array*[***i**index*] reads and writes at a-rate
+-   ***k**_array*[***i**_index*] reads and writes at k-rate
+-   ***a**_array*[***i**_index*] reads and writes at a-rate
 
 In case we want to retrieve the value of a k array at init time,
 a special version of the *i()* feature must be used.
