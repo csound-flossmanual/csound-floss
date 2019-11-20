@@ -15,7 +15,7 @@ envelopes found on hardware and commercial software synthesizers. A
 selection of these opcodes types shall be introduced here.
 
 The simplest opcode for defining an envelope is
-[line](http://www.csounds.com/manual/html/line.html). *line* describes a
+[line](https://csound.com/docs/manual/line.html). *line* describes a
 single envelope segment as a straight line between a start value and an
 end value which has a given duration.
 
@@ -116,7 +116,7 @@ can occur if they output a k-rate variable, particularly when the
 control rate is low, which in the case of amplitude envelopes can lead
 to clicking artefacts or distortion.
 
-[linseg](http://www.csounds.com/manual/html/linseg.html) is an
+[linseg](https://csound.com/docs/manual/linseg.html) is an
 elaboration of *line* and allows us to add an arbitrary number of
 segments by adding further pairs of time durations followed envelope
 values. Provided we always end with a value and not a duration we can
@@ -267,8 +267,8 @@ example.
 
  
 
-[expon](http://www.csounds.com/manual/html/expon.html) and
-[expseg](http://www.csounds.com/manual/html/expseg.html) are versions of
+[expon](https://csound.com/docs/manual/expon.html) and
+[expseg](https://csound.com/docs/manual/expseg.html) are versions of
 *line* and *linseg* that instead produce envelope segments with concave
 exponential shapes rather than linear shapes. *expon* and *expseg* can
 often be more musically useful for envelopes that define amplitude or
@@ -378,12 +378,12 @@ negative p3 value), we do not have the option of using p3 in a
 meaningful way. Instead we can use one of Csound\'s envelopes that sense
 the ending of a note when it arrives and adjust their behaviour
 according to this. The opcodes in question are
-*[linenr](http://www.csounds.com/manual/html/linenr.html),
-[linsegr](http://www.csounds.com/manual/html/linsegr.html),
-[expsegr](http://www.csounds.com/manual/html/expsegr.html),
-[madsr](http://www.csounds.com/manual/html/madsr.html),
-[mxadsr](http://www.csounds.com/manual/html/mxadsr.html)* and
-*[envlpxr](http://www.csounds.com/manual/html/envlpxr.html).* These
+*[linenr](https://csound.com/docs/manual/linenr.html),
+[linsegr](https://csound.com/docs/manual/linsegr.html),
+[expsegr](https://csound.com/docs/manual/expsegr.html),
+[madsr](https://csound.com/docs/manual/madsr.html),
+[mxadsr](https://csound.com/docs/manual/mxadsr.html)* and
+*[envlpxr](https://csound.com/docs/manual/envlpxr.html).* These
 opcodes wait until a held note is turned off before executing their
 final envelope segment. To facilitate this mechanism they extend the
 duration of the note so that this final envelope segment can complete.
@@ -494,7 +494,7 @@ sounds, are fantastically adept at sensing those subtleties. Csound\'s
 original envelope generating opcode linseg, whilst capable of emulating
 the envelope generators of vintage electronic synthesisers, may not
 produce convincing results in the emulation of acoustic instruments and
-natural sound. [linseg](http://www.csounds.com/manual/html/linseg.html)
+natural sound. [linseg](https://csound.com/docs/manual/linseg.html)
 has, since Csound\'s creation, been augmented with a number of other
 envelope generators whose usage is similar to that of linseg but whose
 output function is subtly different in shape.
@@ -520,7 +520,7 @@ fashion and finally arrive at its sustain portion with abrupt stop in
 the crescendo. Similar critcism could be levelled at the latter part of
 the envelope going from sustain to ramping down.
 
-The [expseg](http://www.csounds.com/manual/html/expseg.html) opcode,
+The [expseg](https://csound.com/docs/manual/expseg.html) opcode,
 introduced sometime after linseg, attempted to address the issue of
 dynamic response when mapping an envelope to amplitude. Two caveats
 exist in regard to the use of expseg: firstly a single expseg definition
@@ -580,7 +580,7 @@ will provide a quick ramp down at the note conclusion if multiplied to
 the previously created envelope.
 
 A more recently introduced alternative is the
-[cosseg](http://www.csounds.com/manual/html/cosseg.html) opcode which
+[cosseg](https://csound.com/docs/manual/cosseg.html) opcode which
 applies a cosine transfer function to each segment of the envelope.
 Using the following code:
 
@@ -601,7 +601,7 @@ through zero.
 
 Another alternative that offers enhanced user control and that might in
 many situations provide more natural results is the
-[transeg](http://www.csounds.com/manual/html/transeg.html) opcode.
+[transeg](https://csound.com/docs/manual/transeg.html) opcode.
 transeg allows us to specify the curvature of each segment but it should
 be noted that the curvature is dependent upon whether the segment is
 rising or falling. For example a positive curvature will result in a
@@ -635,18 +635,18 @@ lpshold, loopseg and looptseg - A Csound TB303
 ----------------------------------------------
 
 The next example introduces three of Csound\'s looping opcodes,
-[lpshold](http://www.csounds.com/manual/html/lpshold.html),
-[loopseg](http://www.csounds.com/manual/html/loopseg.html) and
-[looptseg](http://www.csounds.com/manual/html/looptseg.html)*.*
+[lpshold](https://csound.com/docs/manual/lpshold.html),
+[loopseg](https://csound.com/docs/manual/loopseg.html) and
+[looptseg](https://csound.com/docs/manual/looptseg.html)*.*
 
 These opcodes generate envelopes which are looped at a rate
 corresponding to a defined frequency. What they each do could also be
 accomplished using the \'envelope from table\' technique outlined in an
 earlier example but these opcodes provide the added convenience of
 encapsulating all the required code in one line without the need for
-[phasors](http://www.csounds.com/manual/html/phasor.html),
-[tables](http://www.csounds.com/manual/html/tablei.html) and
-[ftgens](http://www.csounds.com/manual/html/ftgen.html). Furthermore all
+[phasors](https://csound.com/docs/manual/phasor.html),
+[tables](https://csound.com/docs/manual/tablei.html) and
+[ftgens](https://csound.com/docs/manual/ftgen.html). Furthermore all
 of the input arguments for these opcodes can be modulated at k-rate.
 
 *lpshold* generates an envelope in which each break point is held
@@ -690,7 +690,7 @@ Other crucial features of this instrument, such as \'note on/off\' and
 
 A number of the input parameters of this example are modulated
 automatically using the
-[randomi](http://www.csounds.com/manual/html/randomi.html) opcodes in
+[randomi](https://csound.com/docs/manual/randomi.html) opcodes in
 order to keep it interesting. It is suggested that these modulations
 could be replaced by linkages to other controls such as CsoundQt
 widgets, FLTK widgets or MIDI controllers. Suggested ranges for each of

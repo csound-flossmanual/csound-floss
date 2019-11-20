@@ -175,9 +175,9 @@ pitch across a four octave range.
     </CsoundSynthesizer>
 
 Communication from Pd into Csound is established using the
-[invalue](http://www.csounds.com/manual/html/invalue.html "Wiring")
+[invalue](https://csound.com/docs/manual/invalue.html "Wiring")
 opcodes and audio is passed back to Pd from Csound using
-[outs](http://www.csounds.com/manual/html/outs.html "Wiring"). Note that
+[outs](https://csound.com/docs/manual/outs.html "Wiring"). Note that
 Csound does not address the computer\'s audio hardware itself but merely
 passes audio signals back to Pd. Greater detail about using Csound
 within Pd can be found in the chapter [Csound in
@@ -336,7 +336,7 @@ pin 0 could be done using the following code:
     }
 
 Data from the Arduino can now be read using Csound\'s
-[ctrl7](http://www.csounds.com/manual/html/ctrl7.html "Wiring") opcodes
+[ctrl7](https://csound.com/docs/manual/ctrl7.html "Wiring") opcodes
 for reading MIDI controller data.
 
 The Serial Opcodes
@@ -344,9 +344,9 @@ The Serial Opcodes
 
 Serial data can also be read directly from the Arduino by Csound by
 using Matt Ingalls\' opcodes for serial communication:
-[serialBegin](http://www.csounds.com/manual/html/serialBegin.html "Wiring")
+[serialBegin](https://csound.com/docs/manual/serialBegin.html "Wiring")
 and
-[serialRead.](http://www.csounds.com/manual/html/serialRead.html "Wiring")
+[serialRead.](https://csound.com/docs/manual/serialRead.html "Wiring")
 
 An example Arduino sketch for serial communication could be as simple as
 this:

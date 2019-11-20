@@ -54,7 +54,7 @@ below.
            outs  aSigL, aSigR
 
 (Note that \'\$M\_PI\_2\' is one of [Csound\'s built in
-macros](http://www.csounds.com/manual/html/define.html "Ambisonic UDOs")
+macros](https://csound.com/docs/manual/define.html "Ambisonic UDOs")
 and is equivalent to pi/2.)
 
 A fourth method, devised by Michael Gogins, places the point of maximum
@@ -146,13 +146,13 @@ input sound is filtered pink noise.
  
 
 An opcode called
-[pan2](http://www.csounds.com/manual/html/pan2.html "Ambisonic UDOs")
+[pan2](https://csound.com/docs/manual/pan2.html "Ambisonic UDOs")
 exists which makes it slightly easier for us to implement various
 methods of panning. The following example demonstrates the three methods
 that this opcode offers one after the other. The first is the \'equal
 power\' method, the second \'square root\' and the third is simple
 linear. The [Csound
-Manual](http://www.csounds.com/manual/html/index.html "Ambisonic UDOs")
+Manual](https://csound.com/docs/manual/index.html "Ambisonic UDOs")
 describes a fourth method but this one does not seem to function
 currently.
 
@@ -259,12 +259,12 @@ time.
 use of spectral data files that provide information about the filtering
 and inter-aural delay effects of the human head. The oldest one of these
 is
-[hrtfer](http://www.csounds.com/manual/html/hrtfer.html "Ambisonic UDOs").
+[hrtfer](https://csound.com/docs/manual/hrtfer.html "Ambisonic UDOs").
 Newer ones are
-[hrtfmove](http://www.csounds.com/manual/html/hrtfmove.html "Ambisonic UDOs"),
-[hrtfmove2](http://www.csounds.com/manual/html/hrtfmove2.html "Ambisonic UDOs")
+[hrtfmove](https://csound.com/docs/manual/hrtfmove.html "Ambisonic UDOs"),
+[hrtfmove2](https://csound.com/docs/manual/hrtfmove2.html "Ambisonic UDOs")
 and
-[hrtfstat](http://www.csounds.com/manual/html/hrtfstat.html "Ambisonic UDOs").
+[hrtfstat](https://csound.com/docs/manual/hrtfstat.html "Ambisonic UDOs").
 The main parameters for control of the opcodes are azimuth (the
 horizontal direction of the source expressed as an angle formed from the
 direction in which we are facing) and elevation (the angle by which the
@@ -284,7 +284,7 @@ files hrtf-44100-left.dat and hrtf-44100-right.dat ([a place to download
 them may be
 here](https://github.com/audiokit/AudioKit/tree/master/AudioKit/Resources/AKSoundFiles.bundle/Sounds "Ambisonic UDOs"))
 and place them in your SADIR (see [setting environment
-variables](http://www.csounds.com/manual/html/CommandEnvironment.html "Ambisonic UDOs"))
+variables](https://csound.com/docs/manual/CommandEnvironment.html "Ambisonic UDOs"))
 or in the same directory as the .csd.
 
  
@@ -352,18 +352,18 @@ Sending Multichannel Sound to the Loudspeakers
 
 In order to send multichannel audio we must use opcodes designed for
 that task. So far we have used
-[outs](http://www.csounds.com/manual/html/outs.html "Ambisonic UDOs") to
+[outs](https://csound.com/docs/manual/outs.html "Ambisonic UDOs") to
 send stereo sound to a pair of loudspeakers. (The \'s\' actually stands
 for \'stereo\'). Correspondingly there exist opcodes for quadophonic
-([outq](http://www.csounds.com/manual/html/outq.html "Ambisonic UDOs")),
+([outq](https://csound.com/docs/manual/outq.html "Ambisonic UDOs")),
 hexaphonic
-([outh](http://www.csounds.com/manual/html/outh.html "Ambisonic UDOs")),
+([outh](https://csound.com/docs/manual/outh.html "Ambisonic UDOs")),
 octophonic
-([outo](http://www.csounds.com/manual/html/outo.html "Ambisonic UDOs")),
+([outo](https://csound.com/docs/manual/outo.html "Ambisonic UDOs")),
 16-channel sound
-([outx](http://www.csounds.com/manual/html/outx.html "Ambisonic UDOs"))
+([outx](https://csound.com/docs/manual/outx.html "Ambisonic UDOs"))
 and 32-channel sound
-([out32](http://www.csounds.com/manual/html/out32.html "Ambisonic UDOs")).
+([out32](https://csound.com/docs/manual/out32.html "Ambisonic UDOs")).
 
 For example:
 
@@ -386,7 +386,7 @@ These opcodes only address very specific loudspeaker arrangements
 extent, by newer opcodes that allow greater flexibility in the number
 and routing of audio to a multichannel output.
 
-[outc](http://www.csounds.com/manual/html/outc.html "Ambisonic UDOs")
+[outc](https://csound.com/docs/manual/outc.html "Ambisonic UDOs")
 allows us to address any number of output audio channels, but they still
 need to be addressed sequentially. For example our 5-channel audio could
 be design as follows:
@@ -397,7 +397,7 @@ be design as follows:
 
         outc a1, a2, a3, a4, a5
 
-[outch](http://www.csounds.com/manual/html/outch.html "Ambisonic UDOs")
+[outch](https://csound.com/docs/manual/outch.html "Ambisonic UDOs")
 allows us to direct audio to a specific channel or list of channels and
 takes the form:
 
@@ -454,7 +454,7 @@ sound file using -oSoundFile.wav. Provided a file type that supports
 multichannel interleaved data is chosen (\".wav\" will work), a
 multichannel file will be created that can be used in some other audio
 applications or can be re-read by Csound later on by using, for example,
-[diskin2](http://www.csounds.com/manual/html/diskin2.html "Ambisonic UDOs").
+[diskin2](https://csound.com/docs/manual/diskin2.html "Ambisonic UDOs").
 This method is useful for rendering audio that is too complex to be
 monitored in real-time. Only single interleaved sound files can be
 created, separate mono files cannot be created using this method.
@@ -464,7 +464,7 @@ other.
 
 An alternative method of rendering audio in Csound, and one that will
 allow simulatenous monitoring in real-time, is to use the
-[fout](http://www.csounds.com/manual/html/fout.html "Ambisonic UDOs")
+[fout](https://csound.com/docs/manual/fout.html "Ambisonic UDOs")
 opcode. For example:
 
     fout  "FileName.wav", 8, a1, a2, a3, a4
@@ -509,7 +509,7 @@ below (M = middle/centre):
 
 \
 The opcode
-[vbaplsinit](http://www.csounds.com/manual/html/vbaplsinit.html "Ambisonic UDOs"),
+[vbaplsinit](https://csound.com/docs/manual/vbaplsinit.html "Ambisonic UDOs"),
 which is usually placed in the header of a Csound orchestra, defines
 these positions as follows:
 
@@ -709,7 +709,7 @@ The first parameter (the number of dimensions) now has an additional
 fractional part, with a range from .01 to .99, specifying the number of
 the speaker layout. So *2.01* means: two dimensions, layout number one,
 *2.02* is layout number two, and *2.03* is layout number three. The new
-[vbap](http://www.csounds.com/manual/html/vbap.html "Ambisonic UDOs")
+[vbap](https://csound.com/docs/manual/vbap.html "Ambisonic UDOs")
 opcode has now these parameters:
 
     ar1[, ar2...] vbap asig, kazim [, kelev] [, kspread] [, ilayout]
@@ -722,9 +722,9 @@ all seven speakers, instrument 2 only to the first two, and instrument 3
 goes to speaker 3, 5, and 7.
 
 In addition to the new
-[vbap](http://www.csounds.com/manual/html/vbap.html "Ambisonic UDOs")
+[vbap](https://csound.com/docs/manual/vbap.html "Ambisonic UDOs")
 opcode,
-[vbapg](http://www.csounds.com/manual/html/vbapg.html "Ambisonic UDOs")
+[vbapg](https://csound.com/docs/manual/vbapg.html "Ambisonic UDOs")
 has been written. The idea is to have an opcode which returns the gains
 (amplitudes) of the speakers instead of the audio signal:
 
@@ -809,7 +809,7 @@ parameter. Currently the Csound decoder only works with some standard
 setups for the speaker: *iSetup = 4* refers to an octogon.^4^ So the
 final eight audio signals *a1, \..., a8* are being produced using this
 decoder, and are then sent to the speakers in the same way using the
-[outch](http://www.csounds.com/manual/html/outch.html "Ambisonic UDOs")
+[outch](https://csound.com/docs/manual/outch.html "Ambisonic UDOs")
 opcode.
 
 ### Different Orders
@@ -1553,7 +1553,7 @@ are performed before the encoding. In instrument 1 the movement of the
 sound source is defined in Cartesian coordinates. The UDO xy\_to\_ad
 transforms them into polar coordinates. The B-format channels can be
 written to a sound file with the opcode
-[fout](http://www.csounds.com/manual/html/fout.html "Ambisonic UDOs").
+[fout](https://csound.com/docs/manual/fout.html "Ambisonic UDOs").
 The UDO write\_ambi2D\_2 writes the channels up to second order into a
 sound file. 
 

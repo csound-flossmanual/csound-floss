@@ -43,7 +43,7 @@ in the future as it provides us with the opportunity to clear many
 variables simultaneously.
 
 This example uses the
-[freeverb](http://www.csounds.com/manual/html/freeverb.html) opcode and
+[freeverb](https://csound.com/docs/manual/freeverb.html) opcode and
 is based on a plugin of the same name. Freeverb has a smooth reverberant
 tail and is perhaps similar in sound to a plate reverb. It provides us
 with two main parameters of control: \'room size\' which is essentially
@@ -110,7 +110,7 @@ example will be very simple in that we will only be using one zak audio
 channel. Before using any of the zak opcodes for reading and writing
 data we must initialize zak storage space. This is done in the orchestra
 header area using the
-[zakinit](http://www.csounds.com/manual/html/zakinit.html) opcode. This
+[zakinit](https://csound.com/docs/manual/zakinit.html) opcode. This
 opcode initializes both a and k rate channels; we must intialize at
 least one of each even if we don\'t require both.
 
@@ -119,13 +119,13 @@ least one of each even if we don\'t require both.
  
 
 The audio from the sound generating instrument is mixed into a zak audio
-channel the [zawm](http://www.csounds.com/manual/html/zawm.html) opcode
+channel the [zawm](https://csound.com/docs/manual/zawm.html) opcode
 like this:
 
     zawm    aSig * iRvbSendAmt, 1
 
 This channel is read from in the reverb instrument using the
-[zar](http://www.csounds.com/manual/html/zar.html) opcode like this:
+[zar](https://csound.com/docs/manual/zar.html) opcode like this:
 
     aInSig  zar   1
 
@@ -135,14 +135,14 @@ Because audio is begin mixed into our zak channel but it is never
 redefined (only mixed into) it needs to be cleared after we have
 finished with it. This is accomplished at the bottom of the reverb
 instrument using the
-[zacl](http://www.csounds.com/manual/html/zacl.html) opcode like this:
+[zacl](https://csound.com/docs/manual/zacl.html) opcode like this:
 
     zacl      0, 1
 
  
 
 This example uses the
-[reverbsc](http://www.csounds.com/manual/html/reverbsc.html) opcode. It
+[reverbsc](https://csound.com/docs/manual/reverbsc.html) opcode. It
 too has a stereo input and output. The arguments that define its
 character are feedback level and cutoff frequency. Feedback level should
 be in the range zero to 1 and controls reverb time. Cutoff frequency

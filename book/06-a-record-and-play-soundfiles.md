@@ -5,7 +5,7 @@ Playing Soundfiles From Disk - diskin2^1^ 
 ------------------------------------------
 
 The simplest way of playing a sound file from Csound is to use the
-[diskin2](http://www.csounds.com/manual/html/diskin2.html) opcode. This
+[diskin2](https://csound.com/docs/manual/diskin2.html) opcode. This
 opcode reads audio directly from the hard drive location where it is
 stored, i.e. it does not pre-load the sound file at initialisation time.
 This method of sound file playback is therefore good for playing back
@@ -14,7 +14,7 @@ suited to playing back sound files where dense polyphony, multiple
 iterations and rapid random access to the file is required. In these
 situations reading from a function table or buffer is preferable.
 
-[diskin2](http://www.csounds.com/manual/html/diskin2.html) has
+[diskin2](https://csound.com/docs/manual/diskin2.html) has
 additional parameters for speed of playback, and interpolation.
 
    ***EXAMPLE 06A01\_Play\_soundfile.csd***  
@@ -110,8 +110,8 @@ Writing Audio to Disk with Simultaneous Real-time Audio Output - fout and monito
 
 Recording audio output to disk whilst simultaneously monitoring in
 real-time is best achieved through combining the opcodes
-[monitor](http://www.csounds.com/manual/html/monitor.html) and
-[fout](http://www.csounds.com/manual/html/fout.html). \'monitor\' can be
+[monitor](https://csound.com/docs/manual/monitor.html) and
+[fout](https://csound.com/docs/manual/fout.html). \'monitor\' can be
 used to create an audio signal that consists of a mix of all audio
 output from all instruments. This audio signal can then be rendered to a
 sound file on disk using \'fout\'. \'monitor\' can read multi-channel

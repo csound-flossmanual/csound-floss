@@ -53,28 +53,28 @@ Many commercial, often expensive, implementations of convolution exist
 both in the form of software and hardware but fortunately Csound
 provides easy access to convolution for free. Csound currently lists six
 different opcodes for convolution, [convolve
-(convle)](http://www.csounds.com/manual/html/convolve.html),
-[cross2](http://www.csounds.com/manual/html/cross2.html),
-[dconv](http://www.csounds.com/manual/html/dconv.html),
-[ftconv](http://www.csounds.com/manual/html/ftconv.html),
-[ftmorf](http://www.csounds.com/manual/html/ftmorf.html) and
-[pconvolve](http://www.csounds.com/manual/html/pconvolve.html).
-[convolve (convle)](http://www.csounds.com/manual/html/convolve.html)
-and [dconv](http://www.csounds.com/manual/html/dconv.html) are earlier
+(convle)](https://csound.com/docs/manual/convolve.html),
+[cross2](https://csound.com/docs/manual/cross2.html),
+[dconv](https://csound.com/docs/manual/dconv.html),
+[ftconv](https://csound.com/docs/manual/ftconv.html),
+[ftmorf](https://csound.com/docs/manual/ftmorf.html) and
+[pconvolve](https://csound.com/docs/manual/pconvolve.html).
+[convolve (convle)](https://csound.com/docs/manual/convolve.html)
+and [dconv](https://csound.com/docs/manual/dconv.html) are earlier
 implementations and are less suited to realtime operation,
-[cross2](http://www.csounds.com/manual/html/cross2.html) relates to
+[cross2](https://csound.com/docs/manual/cross2.html) relates to
 FFT-based cross synthesis and
-[ftmorf](http://www.csounds.com/manual/html/ftmorf.html) is used to
+[ftmorf](https://csound.com/docs/manual/ftmorf.html) is used to
 morph between similar sized function table and is less related to what
 has been discussed so far, therefore in this chapter we shall focus upon
 just two opcodes,
-[pconvolve](http://www.csounds.com/manual/html/pconvolve.html) and
-[ftconv.](http://www.csounds.com/manual/html/ftconv.html)
+[pconvolve](https://csound.com/docs/manual/pconvolve.html) and
+[ftconv.](https://csound.com/docs/manual/ftconv.html)
 
 pconvolve
 ---------
 
-[pconvolve](http://www.csounds.com/manual/html/pconvolve.html) is
+[pconvolve](https://csound.com/docs/manual/pconvolve.html) is
 perhaps the easiest of Csound\'s convolution opcodes to use and the most
 useful in a realtime application. It uses the uniformly partitioned
 (hence the \'p\') overlap-save algorithm which permits convolution with
@@ -83,10 +83,10 @@ file that it uses is referenced directly, i.e. it does not have to be
 previously loaded into a function table, and multichannel files are
 permitted. The impulse response file can be any standard sound file
 acceptable to Csound and does not need to be pre-analysed as is required
-by [convolve](http://www.csounds.com/manual/html/convolve.html).
+by [convolve](https://csound.com/docs/manual/convolve.html).
 Convolution procedures through their very nature introduce a delay in
 the output signal but
-[pconvolve](http://www.csounds.com/manual/html/pconvolve.html) minimises
+[pconvolve](https://csound.com/docs/manual/pconvolve.html) minimises
 this using the algorithm mentioned above. It will still introduce some
 delay but we can control this using the opcode\'s \'ipartitionsize\'
 input argument. What value we give this will require some consideration
@@ -108,7 +108,7 @@ resulting from the convolution procedure will be 512/sr (sample rate).
 
 In the following example a monophonic drum loop sample undergoes
 processing through a convolution reverb implemented using
-[pconvolve](http://www.csounds.com/manual/html/pconvolve.html) which in
+[pconvolve](https://csound.com/docs/manual/pconvolve.html) which in
 turn uses two different impulse files. The first file is a more
 conventional reverb impulse file taken in a stairwell whereas the second
 is a recording of the resonance created by striking a terracota bowl
@@ -178,17 +178,17 @@ mindful of mono/stereo/multichannel integrity.
 ftconv
 ------
 
-[ftconv](http://www.csounds.com/manual/html/ftconv.html) (abbreviated
+[ftconv](https://csound.com/docs/manual/ftconv.html) (abbreviated
 from \'function table convolution) is perhaps slightly more complicated
 to use than
-[pconvolve](http://www.csounds.com/manual/html/pconvolve.html) but
+[pconvolve](https://csound.com/docs/manual/pconvolve.html) but
 offers additional options. The fact that
-[ftconv](http://www.csounds.com/manual/html/ftconv.html) utilises an
+[ftconv](https://csound.com/docs/manual/ftconv.html) utilises an
 impulse response that we must first store in a function table rather
 than directly referencing a sound file stored on disk means that we have
 the option of performing transformations upon the audio stored in the
 function table before it is employed by
-[ftconv](http://www.csounds.com/manual/html/ftconv.html) for
+[ftconv](https://csound.com/docs/manual/ftconv.html) for
 convolution. This example begins just as the previous example: a mono
 drum loop sample is convolved first with a typical reverb impulse
 response and then with an impulse response derived from a terracotta
@@ -206,8 +206,8 @@ the cost of CPU efficiency. ftconv\'s documentation refers to this
 partition size as \'iplen\' (partition length). ftconv offers further
 facilities to work with multichannel files beyond stereo. When doing
 this it is suggested that you use
-[GEN52](http://www.csounds.com/manual/html/GEN52.html) which is designed
-for this purpose. [GEN01](http://www.csounds.com/manual/html/GEN01.html)
+[GEN52](https://csound.com/docs/manual/GEN52.html) which is designed
+for this purpose. [GEN01](https://csound.com/docs/manual/GEN01.html)
 seems to work fine, at least up to stereo, provided that you do not
 defer the table size definition (size=0). With ftconv we can specify the
 actual length of the impulse response - it will probably be shorter than

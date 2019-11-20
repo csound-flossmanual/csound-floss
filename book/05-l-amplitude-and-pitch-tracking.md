@@ -85,13 +85,13 @@ behaviour.
 
 In practice it is not necessary for us to build our own amplitude
 tracker as Csound already offers several opcodes for the task.
-[rms](http://www.csounds.com/manual/html/rms.html) outputs a k-rate
+[rms](https://csound.com/docs/manual/rms.html) outputs a k-rate
 amplitude tracking signal by employing mathematics similar to those
 described above.
-[follow](http://www.csounds.com/manual/html/follow.html) outputs at
+[follow](https://csound.com/docs/manual/follow.html) outputs at
 a-rate and uses a sample and hold method as it outputs data, probably
 necessitating some sort of low-pass filtering of the output signal.
-[follow2](http://www.csounds.com/manual/html/follow2.html) also outputs
+[follow2](https://csound.com/docs/manual/follow2.html) also outputs
 at a-rate but smooths the output signal by different amounts depending
 on whether the amplitude is rising or falling.
 
@@ -128,7 +128,7 @@ discussed earlier, reducing the size of the array will improve response
 at the risk of introducing ripple. Another approach to dealing with the
 issue of ripple is to low-pass filter the signal output by the amplitude
 follower. This is an approach employed by the
-[follow2](http://www.csounds.com/manual/html/follow2.html) opcode. The
+[follow2](https://csound.com/docs/manual/follow2.html) opcode. The
 second thing that is apparent is that the amplitude following signal
 does not attain the peak value of the input signal. At its peaks, the
 amplitude following signal is roughly 1/3 of the absolute peak value of
@@ -137,7 +137,7 @@ depends somewhat on the dynamic nature of the input signal. If an input
 signal sustains a peak amplitude for some time then the amplitude
 following signal will tend to this peak value.
 
-The [rms](http://www.csounds.com/manual/html/rms.html) opcode employs a
+The [rms](https://csound.com/docs/manual/rms.html) opcode employs a
 method similar to that used in the previous example but with the
 convenience of an encapsulated opcode. Its output superimposed upon the
 waveform is shown below:
@@ -156,7 +156,7 @@ waveform is shown below:
 
 Its method of averaging uses filtering rather than simply taking a mean
 of a buffer of amplitude values.
-[rms](http://www.csounds.com/manual/html/rms.html) allows us to set the
+[rms](https://csound.com/docs/manual/rms.html) allows us to set the
 cutoff frequency (kCf) of its internal filter:
 
     kRms  rms  aSig, kCf
@@ -169,7 +169,7 @@ percussive input audio might demand faster response whereas audio that
 dynamically evolves gradually might demand greater smoothing.
 
 \
-The [follow](http://www.csounds.com/manual/html/follow.html) opcode uses
+The [follow](https://csound.com/docs/manual/follow.html) opcode uses
 a sample-and-hold mechanism when outputting the tracked amplitude. This
 can result in a stepped output that might require addition lowpass
 filtering before use. We actually defined the period, the duration for
@@ -190,10 +190,10 @@ amplitude tracked using the following line:
 The hump over the word spoken during the third and fourth time divisions
 initially seem erroneous but it is a result of greater amplitude
 excursion into the negative domain.
-[follow](http://www.csounds.com/manual/html/follow.html) provides a
+[follow](https://csound.com/docs/manual/follow.html) provides a
 better reflection of absolute peak amplitude. 
 
-[follow2](http://www.csounds.com/manual/html/follow2.html) uses a
+[follow2](https://csound.com/docs/manual/follow2.html) uses a
 different algorithm with smoothing on both upward and downward slopes of
 the tracked amplitude. We can define different values for attack and
 decay time. In the following example the decay time is much longer than
@@ -389,11 +389,11 @@ Pitch Tracking
 
 Csound currently provides five opcode options for pitch tracking. In
 ascending order of newness they are:
-[pitch](http://www.csounds.com/manual/html/pitch.html),
-[pitchamdf](http://www.csounds.com/manual/html/pitchamdf.html),
-[pvspitch](http://www.csounds.com/manual/html/pvspitch.html),
-[ptrack](http://www.csounds.com/manual/html/ptrack.html) and
-[plltrack](http://www.csounds.com/manual/html/plltrack.html). Related to
+[pitch](https://csound.com/docs/manual/pitch.html),
+[pitchamdf](https://csound.com/docs/manual/pitchamdf.html),
+[pvspitch](https://csound.com/docs/manual/pvspitch.html),
+[ptrack](https://csound.com/docs/manual/ptrack.html) and
+[plltrack](https://csound.com/docs/manual/plltrack.html). Related to
 these opcodes are pvscent and centroid but rather than track the
 harmonic fundamental, they track the spectral centroid of a signal. An
 example and suggested application for centroid is given a little later
@@ -492,8 +492,8 @@ purpose pitch tracker, pitchamdf is also a good choice. pvspitch, ptrack
 and plltrack all work well in real-time but might demand additional
 processing to remove errors.
 
-[pvscent](http://www.csounds.com/manual/html/pvscent.html) and
-[centroid](http://www.csounds.com/manual/html/centroid.html) are a
+[pvscent](https://csound.com/docs/manual/pvscent.html) and
+[centroid](https://csound.com/docs/manual/centroid.html) are a
 little different to the other pitch trackers in that, rather than try to
 discern the fundemental of a harmonic tone, they assess what the centre
 of gravity of a spectrum is. An application for this is in the

@@ -189,7 +189,7 @@ meaningful sentence and a nice music can regarded as noise \...
 
 Instead of using the \"self-built\" method which has been described
 here, you can use the Csound opcode
-[distort](http://www.csounds.com/manual/html/distort.html). It performs
+[distort](https://csound.com/docs/manual/distort.html). It performs
 the actual waveshaping process and gives a nice control about the amount
 of distortion in the *kdist* parameter. Here is a simple example:^2^ 
 

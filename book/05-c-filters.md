@@ -9,9 +9,9 @@ characteristics of a sound to ones that dramatically remove whole
 portions of a sound spectrum to create new sounds. Csound includes
 several versions of each of the commonest types of filters and some more
 esoteric ones also. The full list of Csound\'s standard filters can be
-found [here](http://www.csounds.com/manual/html/SigmodStandard.html). A
+found [here](https://csound.com/docs/manual/SigmodStandard.html). A
 list of the more specialised filters can be found
-[here](http://www.csounds.com/manual/html/SigmodSpeciali.html).
+[here](https://csound.com/docs/manual/SigmodSpeciali.html).
 
 ### Lowpass Filters
 
@@ -27,9 +27,9 @@ that might emerge at the cutoff point. If this is exaggerated
 intentionally it is referred to as resonance or \'Q\'.\
 \
 In the following example, three lowpass filters filters are
-demonstrated: [tone](http://www.csounds.com/manual/html/tone.html),
-[butlp](http://www.csounds.com/manual/html/butterlp.html) and
-[moogladder](http://www.csounds.com/manual/html/moogladder.html). *tone*
+demonstrated: [tone](https://csound.com/docs/manual/tone.html),
+[butlp](https://csound.com/docs/manual/butterlp.html) and
+[moogladder](https://csound.com/docs/manual/moogladder.html). *tone*
 offers a quite gentle cutoff slope and therefore is better suited to
 subtle spectral enhancement tasks. *butlp* is based on the Butterworth
 filter design and produces a much sharper cutoff slope at the expense of
@@ -102,11 +102,11 @@ spectral richness.
 
 A highpass filter is the converse of a lowpass filter; frequencies
 higher than the cutoff point are allowed to pass whilst those lower are
-attenuated. [atone](http://www.csounds.com/manual/html/atone.html) and
-[buthp](http://www.csounds.com/manual/html/butterhp.html) are the
+attenuated. [atone](https://csound.com/docs/manual/atone.html) and
+[buthp](https://csound.com/docs/manual/butterhp.html) are the
 analogues of *tone* and *butlp*. Resonant highpass filters are harder to
 find but Csound has one in
-[bqrez](http://www.csounds.com/manual/html/bqrez.html). *bqrez* is
+[bqrez](https://csound.com/docs/manual/bqrez.html). *bqrez* is
 actually a multi-mode filter and could also be used as a resonant
 lowpass filter amongst other things. We can choose which mode we want by
 setting one of its input arguments appropriately. Resonant highpass is
@@ -178,8 +178,8 @@ frequencies allowed to pass through, or \'bandwidth\'.\
 In the next example cutoff frequency and bandwidth are demonstrated
 independently for two different bandpass filters offered by Csound.
 First of all a sawtooth waveform is passed through a
-[reson](http://www.csounds.com/manual/html/reson.html) filter and a
-[butbp](http://www.csounds.com/manual/html/butterbp.html) filter in turn
+[reson](https://csound.com/docs/manual/reson.html) filter and a
+[butbp](https://csound.com/docs/manual/butterbp.html) filter in turn
 while the cutoff frequency rises (bandwidth remains static). Then pink
 noise is passed through *reson* and *butbp* in turn again but this time
 the cutoff frequency remains static at 5000Hz while the bandwidth
@@ -263,7 +263,7 @@ related stack of resonance peaks on an input sound file. A comb filter
 is really just a very short delay effect with feedback. Typically the
 delay times involved would be less than 0.05 seconds. Many of the comb
 filters documented in [the Csound
-Manual](http://www.csounds.com/manual/html/) term this delay time,
+Manual](https://csound.com/docs/manual/) term this delay time,
 \'loop time\'. The fundamental of the harmonic stack of resonances
 produced will be 1/loop time. Loop time and the frequencies of the
 resonance peaks will be inversely proportional -- as loop time gets
@@ -277,7 +277,7 @@ times will result in only the odd numbered partials of the harmonic
 stack being present.
 
 The following example demonstrates a comb filter using the
-[vcomb](http://www.csounds.com/manual/html/vcomb.html) opcode. This
+[vcomb](https://csound.com/docs/manual/vcomb.html) opcode. This
 opcode allows for performance time modulation of the loop time
 parameter. For the first 5 seconds of the demonstration the reverb time
 increases from 0.1 seconds to 2 while the loop time remains constant at
@@ -329,48 +329,48 @@ to best demonstrate the qualities of a comb filter.
 
 In addition to a wealth of low and highpass filters, Csound offers
 several more unique filters. Multimode such as
-[bqrez](http://www.csounds.com/manual/html/bqrez.html) provide several
+[bqrez](https://csound.com/docs/manual/bqrez.html) provide several
 different filter types within a single opcode. Filter type is normally
 chosen using an i-rate input argument that functions like a switch.
 Another multimode filter,
-[clfilt](http://www.csounds.com/manual/html/clfilt.html), offers
+[clfilt](https://csound.com/docs/manual/clfilt.html), offers
 additional filter controls such as \'filter design\' and \'number of
 poles\' to create unusual sound filters. unfortunately some parts of
 this opcode are not implemented yet.
 
-[eqfil](http://www.csounds.com/manual/html/eqfil.html) is essentially a
+[eqfil](https://csound.com/docs/manual/eqfil.html) is essentially a
 parametric equaliser but multiple iterations could be used as modules in
 a graphic equaliser bank. In addition to the capabilities of eqfil,
-[pareq](http://www.csounds.com/manual/html/pareq.html) adds the
+[pareq](https://csound.com/docs/manual/pareq.html) adds the
 possibility of creating low and high shelving filtering which might
 prove useful in mastering or in spectral adjustment of more developed
 sounds.
 
-[rbjeq](http://www.csounds.com/manual/html/rbjeq.html) offers a quite
+[rbjeq](https://csound.com/docs/manual/rbjeq.html) offers a quite
 comprehensive multimode filter including highpass, lowpass, bandpass,
 bandreject, peaking, low-shelving and high-shelving, all in a single
 opcode
 
-[statevar](http://www.csounds.com/manual/html/statevar.html) offers the
+[statevar](https://csound.com/docs/manual/statevar.html) offers the
 outputs from four filter types - highpass, lowpass, bandpass and
 bandreject - simultaneously so that the user can morph between them
-smoothly. [svfilter](http://www.csounds.com/manual/html/svfilter.html)
+smoothly. [svfilter](https://csound.com/docs/manual/svfilter.html)
 does a similar thing but with just highpass, lowpass and bandpass filter
 types. 
 
-[phaser1](http://www.csounds.com/manual/html/phaser1.html) and
-[phaser2](http://www.csounds.com/manual/html/phaser2.html) offer
+[phaser1](https://csound.com/docs/manual/phaser1.html) and
+[phaser2](https://csound.com/docs/manual/phaser2.html) offer
 algorithms containing chains of first order and second order allpass
 filters respectively. These algorithms could conceivably be built from
 individual allpass filters, but these ready-made versions provide
 convenience and added efficiency.
 
-[hilbert](http://www.csounds.com/manual/html/hilbert.html) is a
+[hilbert](https://csound.com/docs/manual/hilbert.html) is a
 specialist IIR filter that implements the Hilbert transformer.
 
 For those wishing to devise their own filter using coefficients Csound
-offers [filter2](http://www.csounds.com/manual/html/filter2.html) and
-[zfilter2](http://www.csounds.com/manual/html/zfilter2.html).
+offers [filter2](https://csound.com/docs/manual/filter2.html) and
+[zfilter2](https://csound.com/docs/manual/zfilter2.html).
 
 ### Filter Comparision
 

@@ -10,7 +10,7 @@ Some of these offer higher quality at the expense of computation speed;
 some are simpler and less fully featured.
 
 One of the newer and easier to use opcodes for this task is
-[flooper2](http://www.csounds.com/manual/html/flooper2.html). As its
+[flooper2](https://csound.com/docs/manual/flooper2.html). As its
 name might suggest it is intended for the playback of files with
 looping. \'flooper2\' can also apply a cross-fade between the end and
 the beginning of the loop in order to smooth the transition where
@@ -115,7 +115,7 @@ Csound\'s Built-in Record-Play Buffer - sndloop
 -----------------------------------------------
 
 Csound has an opcode called
-[sndloop](http://www.csounds.com/manual/html/sndloop.html) which
+[sndloop](https://csound.com/docs/manual/sndloop.html) which
 provides a simple method of recording some audio into a buffer and then
 playing it back immediately. The duration of audio storage required is
 defined when the opcode is initialized. In the following example two
@@ -193,19 +193,19 @@ instruments are used for recording to the table and for playing back
 from the table. Another instrument which runs constantly scans for
 activity on the computer keyboard and activates the record or playback
 instruments accordingly. For writing to the table we will use the
-[tablew](http://www.csounds.com/manual/html/tablew.html) opcode and for
+[tablew](https://csound.com/docs/manual/tablew.html) opcode and for
 reading from the table we will use the
-[table](http://www.csounds.com/manual/html/table.html) opcode (if we
+[table](https://csound.com/docs/manual/table.html) opcode (if we
 were to modulate the playback speed it would be better to use one of
 Csound\'s interpolating variations of \'table\' such as
-[tablei](http://www.csounds.com/manual/html/tablei.html) or
-[table3](http://www.csounds.com/manual/html/table3.html). Csound writes
+[tablei](https://csound.com/docs/manual/tablei.html) or
+[table3](https://csound.com/docs/manual/table3.html). Csound writes
 individual values to table locations, the exact table locations being
 defined by an \'index\'. For writing continuous audio to a table this
 index will need to be continuously moving 1 location for every sample.
 This moving index (or \'pointer\') can be created with an a-rate
-[line](http://www.csounds.com/manual/html/line.html) or a
-[phasor](http://www.csounds.com/manual/html/phasor.html). The next
+[line](https://csound.com/docs/manual/line.html) or a
+[phasor](https://csound.com/docs/manual/phasor.html). The next
 example uses \'line\'. When using Csound\'s table operation opcodes we
 first need to create that table, either in the orchestra header or in
 the score. The duration of the audio buffer can be calculated from the
@@ -287,7 +287,7 @@ Encapsulating Record and Play Buffer Functionality to a UDO
 Recording and playing back of buffers can also be encapsulated into a
 User Defined Opcode. This time the *tabw* opcode will be used for
 writing audio data to a buffer. *tabw* is slightly faster than
-[tablew](http://www.csounds.com/manual/html/tablew.html) but doesn\'t
+[tablew](https://csound.com/docs/manual/tablew.html) but doesn\'t
 offer the same number of protections for out of range index values.\
 An empty table (buffer) of any size can be created with a negative
 number as size. A table for recording 10 seconds of audio data can be
@@ -495,7 +495,7 @@ For higher or lower speed values than the original record speed,
 interpolation must be used in between certain sample values if the
 original shape of the wave is to be reproduced as accurately as
 possible. This job is performed with high quality by
-[table3](http://www.csounds.com/manual/html/table3.html) which employs
+[table3](https://csound.com/docs/manual/table3.html) which employs
 cubic interpolation.
 
 In a typical application of recording and playing buffer buffers, the
@@ -725,8 +725,8 @@ Further Opcodes for Investigation
 Csound contains a wide range of opcodes that offer a variety of
 \'ready-made\' methods of playing back audio held in a function table.
 The oldest group of these opcodes are
-[loscil](http://www.csounds.com/manual/html/loscil.html) and
-[loscil3](http://www.csounds.com/manual/html/loscil3.html). Despite
+[loscil](https://csound.com/docs/manual/loscil.html) and
+[loscil3](https://csound.com/docs/manual/loscil3.html). Despite
 their age they offer some unique features such as the ability implement
 both sustain and release stage looping (in a variety of looping modes),
 their ability to read from stereo as well as mono function tables and
@@ -735,27 +735,27 @@ file stored in the function table. loscil and loscil3 were originally
 intended as the kernel mechanism for building a sampler.
 
 For reading multichannel files  of more than two channels, the more
-recent [loscilx](http://www.csounds.com/manual/html/loscilx.html) exists
+recent [loscilx](https://csound.com/docs/manual/loscilx.html) exists
 as an option.
 
 loscil and loscil3 will only allow looping points to be defined at
-i-time. [lposcil](http://www.csounds.com/manual/html/lposcil.html),
-[lposcil3](http://www.csounds.com/manual/html/lposcil3.html),
-[lposcila](http://www.csounds.com/manual/html/lposcila.html),
-[lposcilsa](http://www.csounds.com/manual/html/lposcilsa.html) and
-[lposcilsa2](http://www.csounds.com/manual/html/lposcilsa2.html) will
+i-time. [lposcil](https://csound.com/docs/manual/lposcil.html),
+[lposcil3](https://csound.com/docs/manual/lposcil3.html),
+[lposcila](https://csound.com/docs/manual/lposcila.html),
+[lposcilsa](https://csound.com/docs/manual/lposcilsa.html) and
+[lposcilsa2](https://csound.com/docs/manual/lposcilsa2.html) will
 allow looping points to be changed a k-rate, while the note is playing.
 
 It is worth not forgetting Csound\'s more exotic methods of playback of
 sample stored in function tables.
-[mincer](http://www.csounds.com/manual/html/mincer.html) and
-[temposcal](http://www.csounds.com/manual/html/temposcal.html) use
+[mincer](https://csound.com/docs/manual/mincer.html) and
+[temposcal](https://csound.com/docs/manual/temposcal.html) use
 streaming vocoder techniques to faciliate independent pitch and
 time-stretch control during playback (this area is covered more fully in
 the chapter [FOURIER ANALYSIS / SPECTRAL
 PROCESSING](http://en.flossmanuals.net/csound/i-fourier-analysis-spectral-processing/).
-[sndwarp](http://www.csounds.com/manual/html/sndwarp.html) and
-[sndwarpst](http://www.csounds.com/manual/html/sndwarpst.html)
+[sndwarp](https://csound.com/docs/manual/sndwarp.html) and
+[sndwarpst](https://csound.com/docs/manual/sndwarpst.html)
 similiarly faciliate independent pitch and playback speed control but
 through the technique of granular synthesis this area is covered in
 detail in the chapter [GRANULAR

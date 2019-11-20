@@ -96,7 +96,7 @@ Using massign to Map MIDI Channels to Instruments
 -------------------------------------------------
 
 We can use the
-[massign](http://www.csounds.com/manual/html/massign.html) opcode, which
+[massign](https://csound.com/docs/manual/massign.html) opcode, which
 is used just after the header statement, to explicitly map midi channels
 to specific instruments and thereby overrule Csound\'s default mappings.
 *massign* takes two input arguments, the first defines the midi channel
@@ -193,14 +193,14 @@ notes received on all channels.
 
 The above feature is useful when we want to scan midi data from an
 already active instrument using the
-[midiin](http://www.csounds.com/manual/html/midiin.html) opcode, as we
+[midiin](https://csound.com/docs/manual/midiin.html) opcode, as we
 did in EXAMPLE 0701.csd.
 
 Using Multiple Triggering
 -------------------------
 
 Csound\'s
-[event](http://www.csounds.com/manual/html/event.html)/[event\_i](http://www.csounds.com/manual/html/event_i.html)
+[event](https://csound.com/docs/manual/event.html)/[event\_i](https://csound.com/docs/manual/event_i.html)
 opcode (see the [Triggering Instrument Events
 chapter](http://en.flossmanuals.net/bin/view/Csound/TriggeringInstrumentEvents))
 makes it possible to trigger any other instrument from a midi-triggered

@@ -16,8 +16,8 @@ varying degrees of quality - often balanced against varying degrees of
 efficiency whilst some are for quite specialized purposes.
 
 To begin with, this section is going to focus upon a pair of opcodes,
-[delayr](http://www.csounds.com/manual/html/delayr.html) and
-[delayw](http://www.csounds.com/manual/html/delayw.html)*.* Whilst not
+[delayr](https://csound.com/docs/manual/delayr.html) and
+[delayw](https://csound.com/docs/manual/delayw.html)*.* Whilst not
 the most efficient to use in terms of the number of lines of code
 required, the use of *delayr* and *delayw* helps to clearly illustrate
 how a delay buffer works. Besides this, *delayr* and *delayw* actually

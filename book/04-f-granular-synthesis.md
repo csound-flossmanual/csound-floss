@@ -30,12 +30,13 @@ waveform will be perceived as a resonance peak (sometimes referred to as
 a formant); therefore transposition of the source material will result
 in the shifting of this resonance peak.
 
+
 Granular Synthesis Demonstrated Using First Principles
 ------------------------------------------------------
 
 The following example exemplifies the concepts discussed above. None of
-Csound\'s built-in granular synthesis opcodes are used, instead
-[schedkwhen](http://www.csounds.com/manual/html/schedkwhen.html) in
+Csound's built-in granular synthesis opcodes are used, instead
+[schedkwhen](https://csound.com/docs/manual/schedkwhen.html) in
 instrument 1 is used to precisely control the triggering of grains in
 instrument 2. Three notes in instrument 1 are called from the score one
 after the other which in turn generate three streams of grains in
@@ -131,12 +132,12 @@ sound. 
 
 Csound has a number of opcodes that make working with FOF synthesis
 easier. We will be using
-[fof](http://www.csounds.com/manual/html/fof.html).
+[fof](https://csound.com/docs/manual/fof.html).
 
 Information regarding frequency, bandwidth and intensity values that
 will produce various vowel sounds for different voice types can be found
 in the appendix of the Csound manual
-[here](http://www.csounds.com/manual/html/MiscFormants.html). These
+[here](https://csound.com/docs/manual/MiscFormants.html). These
 values are stored in function tables in the FOF synthesis example.
 GEN07, which produces linear break point envelopes, is chosen as we will
 then be able to morph continuously between vowels.
@@ -418,7 +419,7 @@ synthesis opcodes to demonstrate the range of dynamic sound spectra that
 are possible with granular synthesis.
 
 Several parameters are modulated slowly using Csound\'s random spline
-generator [rspline](http://www.csounds.com/manual/html/rspline.html).
+generator [rspline](https://csound.com/docs/manual/rspline.html).
 These parameters are formant frequency, grain duration and grain density
 (rate of grain generation). The waveform used in generating the content
 for each grain is randomly chosen using a slow [sample and
@@ -559,8 +560,8 @@ Conclusion
 This chapter has introduced some of the concepts behind the synthesis of
 new sounds based on simple waveforms by using granular synthesis
 techniques. Only two of Csound\'s built-in opcodes for granular
-synthesis, [fof](http://www.csounds.com/manual/html/fof.html) and
-[grain3](http://www.csounds.com/manual/html/grain3.html), have been
+synthesis, [fof](https://csound.com/docs/manual/fof.html) and
+[grain3](https://csound.com/docs/manual/grain3.html), have been
 used; it is beyond the scope of this work to cover all of the many
 opcodes for granulation that Csound provides. This chapter has focused
 mainly on synchronous granular synthesis; chapter 05G, which introduces

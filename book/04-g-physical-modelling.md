@@ -70,7 +70,7 @@ mass so that for a factor of c=0.4 the next position will be:
 
 Csound can easily calculate the values by simply applying the formulae.
 For the first k-cycle^2^ , they are set via the
-[init](http://www.csounds.com/manual/html/init.html) opcode. After
+[init](https://csound.com/docs/manual/init.html) opcode. After
 calculating the new state, *a1* becomes *a0* and *a2* becomes *a1* for
 the next k-cycle. In the next csd the new values will be printed five
 times per second (the states are named here as *k0/k1/k2* instead of
@@ -168,7 +168,7 @@ Here is the audible proof:
     ;example by joachim heintz, after martin neukom
 
 As the next sample is calculated in the next control cycle,
-[ksmps](http://www.csounds.com/manual/html/ksmps.html) has to be set to
+[ksmps](https://csound.com/docs/manual/ksmps.html) has to be set to
 1.^3^ The resulting frequency depends on the spring constant: the higher
 the constant, the higher the frequency. The resulting amplitude depends
 on both, the starting value and the spring constant.
@@ -864,23 +864,23 @@ wgbow - A Waveguide Emulation of a Bowed String by Perry Cook
 
 Perry Cook is a prolific author of physical models and a lot of his work
 has been converted into Csound opcodes. A number of these models
-[wgbow](http://www.csounds.com/manual/html/wgbow.html),
-[wgflute](http://www.csounds.com/manual/html/wgflute.html),
-[wgclar](http://www.csounds.com/manual/html/wgclar.html)
-[wgbowedbar](http://www.csounds.com/manual/html/wgbowedbar.html) and
-[wgbrass](http://www.csounds.com/manual/html/wgbrass.html) are based on
+[wgbow](https://csound.com/docs/manual/wgbow.html),
+[wgflute](https://csound.com/docs/manual/wgflute.html),
+[wgclar](https://csound.com/docs/manual/wgclar.html)
+[wgbowedbar](https://csound.com/docs/manual/wgbowedbar.html) and
+[wgbrass](https://csound.com/docs/manual/wgbrass.html) are based on
 waveguides. A waveguide, in its broadest sense, is some sort of
 mechanism that limits the extend of oscillations, such as a vibrating
 string fixed at both ends or a pipe. In these sorts of physical model a
 delay is used to emulate these limits. One of these,
-[wgbow](http://www.csounds.com/manual/html/wgbow.html), implements an
+[wgbow](https://csound.com/docs/manual/wgbow.html), implements an
 emulation of a bowed string. Perhaps the most interesting aspect of many
 physical models in not specifically whether they emulate the target
 instrument played in a conventional way accurately but the facilities
 they provide for extending the physical limits of the instrument and how
 it is played - there are already vast sample libraries and software
 samplers for emulating conventional instruments played conventionally.
-[wgbow](http://www.csounds.com/manual/html/wgbow.html) offers several
+[wgbow](https://csound.com/docs/manual/wgbow.html) offers several
 interesting options for experimentation including the ability to
 modulate the bow pressure and the bowing position at k-rate. Varying bow
 pressure will change the tone of the sound produced by changing the
@@ -971,8 +971,8 @@ This time a stack of eight sustaining notes, each separated by an
 octave, vary their \'bowing position\' randomly and independently. You
 will hear how different bowing positions accentuates and attenuates
 different partials of the bowing tone. To enhance the sound produced
-some filtering with [tone](http://www.csounds.com/manual/html/tone.html)
-and [pareq](http://www.csounds.com/manual/html/pareq.html) is employed
+some filtering with [tone](https://csound.com/docs/manual/tone.html)
+and [pareq](https://csound.com/docs/manual/pareq.html) is employed
 and some reverb is added.
 
 ***EXAMPLE 04G10\_wgbow\_enhanced.csd***
@@ -1040,7 +1040,7 @@ All of the wg- family of opcodes are worth exploring and often the
 approach taken here - exploring each input parameter in isolation whilst
 the others retain constant values - sets the path to understanding the
 model better. Tone production with
-[wgbrass](http://www.csounds.com/manual/html/wgbrass.html) is very much
+[wgbrass](https://csound.com/docs/manual/wgbrass.html) is very much
 dependent upon the relationship between intended pitch and lip tension,
 random experimentation with this opcode is as likely to result in
 silence as it is in sound and in this way is perhaps a reflection of the
@@ -1049,23 +1049,23 @@ time push air silently through the instrument. With patience it is
 capable of some interesting sounds however. In its case, I would
 recommend building a realtime GUI and exploring the interaction of its
 input arguments that way.
-[wgbowedbar](http://www.csounds.com/manual/html/wgbowedbar.html), like a
+[wgbowedbar](https://csound.com/docs/manual/wgbowedbar.html), like a
 number of physical modelling algorithms, is rather unstable. This is not
 necessary a design flaw in the algorithm but instead perhaps an
 indication that the algorithm has been left quite open for out
 experimentation - or abuse. In these situation caution is advised in
 order to protect ears and loudspeakers. Positive feedback within the
 model can result in signals of enormous amplitude very quickly.
-Employment of the [clip](http://www.csounds.com/manual/html/clip.html)
+Employment of the [clip](https://csound.com/docs/manual/clip.html)
 opcode as a means of some protection is recommended when experimenting
 in realtime.
 
 barmodel - a Model of a Struck Metal Bar by Stefan Bilbao
 ---------------------------------------------------------
 
-[barmodel](http://www.csounds.com/manual/html/barmodel.html) can also
+[barmodel](https://csound.com/docs/manual/barmodel.html) can also
 imitate wooden bars, tubular bells, chimes and other resonant inharmonic
-objects. [barmodel](http://www.csounds.com/manual/html/barmodel.html) is
+objects. [barmodel](https://csound.com/docs/manual/barmodel.html) is
 a model that can easily be abused to produce ear shreddingly loud sounds
 therefore precautions are advised when experimenting with it in
 realtime. We are presented with a wealth of input arguments such as
@@ -1186,9 +1186,9 @@ PhISEM - Physically Inspired Stochastic Event Modeling
 The PhiSEM set of models in Csound, again based on the work of Perry
 Cook, imitate instruments that rely on collisions between smaller sound
 producing object to produce their sounds. These models include a
-[tambourine](http://www.csounds.com/manual/html/tambourine.html), a set
-of [bamboo](http://www.csounds.com/manual/html/bamboo.html) windchimes
-and [sleighbells.](http://www.csounds.com/manual/html/sleighbells.html)
+[tambourine](https://csound.com/docs/manual/tambourine.html), a set
+of [bamboo](https://csound.com/docs/manual/bamboo.html) windchimes
+and [sleighbells.](https://csound.com/docs/manual/sleighbells.html)
 These models algorithmically mimic these multiple collisions internally
 so that we only need to define elements such as the number of internal
 elements (timbrels, beans, bells etc.) internal damping and resonances.
@@ -1197,9 +1197,9 @@ stretch the physical limits so that we can hear the results from, for
 example, a maraca with an impossible number of beans, a tambourine with
 so little internal damping that it never decays. In the following
 example I explore
-[tambourine](http://www.csounds.com/manual/html/tambourine.html),
-[bamboo](http://www.csounds.com/manual/html/bamboo.html) and
-[sleighbells](http://www.csounds.com/manual/html/sleighbells.html) each
+[tambourine](https://csound.com/docs/manual/tambourine.html),
+[bamboo](https://csound.com/docs/manual/bamboo.html) and
+[sleighbells](https://csound.com/docs/manual/sleighbells.html) each
 in turn, first in a state that mimics the source instrument and then
 with some more extreme conditions.
 
@@ -1315,11 +1315,11 @@ parameters. Csound offers a wealth of other opcodes for physical
 modelling which cannot all be introduced here so the user is encouraged
 to explore based on the approaches exemplified here. You can find lists
 in the chapters [Models and
-Emulations](http://www.csounds.com/manual/html/SiggenModels.html),
+Emulations](https://csound.com/docs/manual/SiggenModels.html),
 [Scanned
-Synthesis](http://www.csounds.com/manual/html/SiggenScanTop.html) and
+Synthesis](https://csound.com/docs/manual/SiggenScanTop.html) and
 [Waveguide Physical
-Modeling](http://www.csounds.com/manual/html/SiggenWavguide.html) of the
+Modeling](https://csound.com/docs/manual/SiggenWavguide.html) of the
 Csound Manual.
 
  
@@ -1331,7 +1331,7 @@ Csound Manual.
 3.  [If defining this as a UDO, a local ksmps=1 could be set without
     affecting the general ksmps. See chapter 03F USER DEFINED OPCODES
     and the Csound Manual for
-    [setksmps](http://www.csounds.com/manual/html/setksmps.html) for
+    [setksmps](https://csound.com/docs/manual/setksmps.html) for
     more information.]{#InsertNoteID_20}
 
 ::: {#yass_bottom_edge}

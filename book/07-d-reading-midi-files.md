@@ -6,7 +6,7 @@ input for a orchestra Csound can read a midi file and use the data
 contained within it as if it were a live midi input.
 
 The command line flag to instigate reading from a midi file is
-\'[-F](http://www.csounds.com/manual/html/CommandFlags.html#FlagsMinusUpperF)\'
+\'[-F](https://csound.com/docs/manual/CommandFlags.html#FlagsMinusUpperF)\'
 followed by the name of the file or the complete path to the file if it
 is not in the same directory as the .csd file. Midi channels will be
 mapped to instrument according to the rules and options discussed in
@@ -36,7 +36,7 @@ The following example plays back a midi file using Csound\'s
 \'fluidsynth\' family of opcodes to facilitate playing soundfonts
 (sample libraries). For more information on these opcodes please consult
 the [Csound Reference
-Manual](http://www.csounds.com/manual/html/index.html). In order to run
+Manual](https://csound.com/docs/manual/index.html). In order to run
 the example you will need to download a midi file and two (ideally
 contrasting) soundfonts. Adjust the references to these files in the
 example accordingly. Free midi files and soundfonts are readily
@@ -128,13 +128,13 @@ file as input and outputs standard Csound .sco files of the events
 contained therein. For convenience each midi channel is output to a
 separate .sco file, therefore up to 16 .sco files will be created.
 Multiple .sco files can be later recombined by using
-[\#include](http://www.csounds.com/manual/html/include.html)\...
+[\#include](https://csound.com/docs/manual/include.html)\...
 statements or simply by using copy and paste.
 
 The only tricky aspect of this example is that note-ons followed by
 note-offs need to be sensed and calculated as p3 duration values. This
 is implemented by sensing the note-off by using the
-[release](http://www.csounds.com/manual/html/release.html) opcode and at
+[release](https://csound.com/docs/manual/release.html) opcode and at
 that moment triggering a note in another instrument with the required
 score data. It is this second instrument that is responsible for writing
 this data to a score file. Midi channels are rendered as p1 values, midi
@@ -193,6 +193,6 @@ note numbers as p4 and velocity values as p5.
 
 The example above ignores continuous controller data, pitch bend and
 aftertouch. The second example on the page in the [Csound
-Manual](http://www.csounds.com/manual/html/index.html) for the opcode
-[fprintks](http://www.csounds.com/manual/html/fprintks.html) renders all
+Manual](https://csound.com/docs/manual/index.html) for the opcode
+[fprintks](https://csound.com/docs/manual/fprintks.html) renders all
 midi data to a score file.

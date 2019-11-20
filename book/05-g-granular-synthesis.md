@@ -10,8 +10,8 @@ granular synthesis using simple waveforms please refer to chapter 04F.
 Csound offers a wide range of opcodes for sound granulation. Each has
 its own strengths and weaknesses and suitability for a particular task.
 Some are easier to use than others, some, such as
-[granule](http://www.csounds.com/manual/html/granule.html) and
-[partikkel](http://www.csounds.com/manual/html/partikkel.html), are
+[granule](https://csound.com/docs/manual/granule.html) and
+[partikkel](https://csound.com/docs/manual/partikkel.html), are
 extremely complex and are, at least in terms of the number of input
 arguments they demand, amongst Csound\'s most complex opcodes.
 
@@ -142,7 +142,7 @@ played from the score for 1 hour so this entire process will last that
 length of time. Many of the parameters of granulation are chosen
 randomly when a note begins so that each note will have unique
 characteristics. The timestretch is created by a
-[line](http://www.csounds.com/manual/html/line.html) function: the start
+[line](https://csound.com/docs/manual/line.html) function: the start
 and end points of which are defined randomly when the note begins.
 Grain/window size and window size randomization are defined randomly
 when a note begins - notes with smaller window sizes will have a fuzzy
@@ -242,14 +242,14 @@ slightly
 granule - Clouds of Sound
 -------------------------
 
-The [granule](http://www.csounds.com/manual/html/granule.html) opcode is
+The [granule](https://csound.com/docs/manual/granule.html) opcode is
 one of Csound\'s most complex opcodes requiring up to 22 input arguments
 in order to function. Only a few of these arguments are available during
 performance (k-rate) so it is less well suited for real-time modulation,
 for real-time a more nimble implementation such as
-[syncgrain](http://www.csounds.com/manual/html/syncgrain.html),
-[fog](http://www.csounds.com/manual/html/fog.html), or
-[grain3](http://www.csounds.com/manual/html/grain3.html) would be
+[syncgrain](https://csound.com/docs/manual/syncgrain.html),
+[fog](https://csound.com/docs/manual/fog.html), or
+[grain3](https://csound.com/docs/manual/grain3.html) would be
 recommended. For more complex realtime granular techniques, the
 [partikkel](http://csounds.com/manual/html/partikkel.html "partikkel")
 opcode can be used. The granule opcode as used here, proves itself
@@ -261,7 +261,7 @@ grain gap - effectively density - and grain size which will affect the
 clarity of the texture - textures with smaller grains will sound fuzzier
 and airier, textures with larger grains will sound clearer. In the
 following example
-[transeg](http://www.csounds.com/manual/html/transeg.html) envelopes
+[transeg](https://csound.com/docs/manual/transeg.html) envelopes
 move the grain gap and grain size parameters through a variety of
 different states across the duration of each note.
 
@@ -481,10 +481,10 @@ purpose here. 
     </CsoundSynthesizer>
 
 In the last example we will use the
-[grain](http://www.csounds.com/manual/html/grain.html) opcode. This
+[grain](https://csound.com/docs/manual/grain.html) opcode. This
 opcode is part of a little group of opcodes which also includes
-[grain2](http://www.csounds.com/manual/html/grain2.html) and
-[grain3](http://www.csounds.com/manual/html/grain3.html). **Grain** is
+[grain2](https://csound.com/docs/manual/grain2.html) and
+[grain3](https://csound.com/docs/manual/grain3.html). **Grain** is
 the oldest opcode, **Grain2** is a more easy-to-use opcode, while
 **Grain3** offers more control.
 
@@ -552,15 +552,15 @@ Several opcodes for granular synthesis have been considered in this
 chapter but this is in no way meant to suggest that these are the best,
 in fact it is strongly recommended to explore all of Csound\'s other
 opcodes as they each have their own unique character. The
-[syncgrain](http://www.csounds.com/manual/html/syncgrain.html) family of
+[syncgrain](https://csound.com/docs/manual/syncgrain.html) family of
 opcodes (including also
-[syncloop](http://www.csounds.com/manual/html/syncloop.html) and
-[diskgrain](http://www.csounds.com/manual/html/diskgrain.html)) are
+[syncloop](https://csound.com/docs/manual/syncloop.html) and
+[diskgrain](https://csound.com/docs/manual/diskgrain.html)) are
 deceptively simple as their k-rate controls encourages further
 abstractions of grain manipulation,
-[fog](http://www.csounds.com/manual/html/fog.html) is designed for FOF
+[fog](https://csound.com/docs/manual/fog.html) is designed for FOF
 synthesis type synchronous granulation but with sound files and
-[partikkel](http://www.csounds.com/manual/html/partikkel.html) offers a
+[partikkel](https://csound.com/docs/manual/partikkel.html) offers a
 comprehensive control of grain characteristics on a grain-by-grain basis
 inspired by Curtis Roads\' encyclopedic book on granular synthesis
 \'Microsound\'.

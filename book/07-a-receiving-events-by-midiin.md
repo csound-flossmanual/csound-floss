@@ -2,9 +2,9 @@
 ================================
 
 Csound provides a variety of opcodes, such as
-[cpsmidi](http://www.csounds.com/manual/html/cpsmidi.html "cpsmidi"),
-[ampmidi](http://www.csounds.com/manual/html/ampmidi.html "ampmidi") and
-[ctrl7](http://www.csounds.com/manual/html/ctrl7.html "ctrl7"), which
+[cpsmidi](https://csound.com/docs/manual/cpsmidi.html "cpsmidi"),
+[ampmidi](https://csound.com/docs/manual/ampmidi.html "ampmidi") and
+[ctrl7](https://csound.com/docs/manual/ctrl7.html "ctrl7"), which
 facilitate the reading of incoming midi data into Csound with minimal
 fuss. These opcodes allow us to read in midi information without us
 having to worry about parsing status bytes and so on. Occasionally
@@ -26,11 +26,11 @@ just after the header statement (sometimes referred to as instrument 0).
 
 For this example to work you will need to ensure that you have activated
 live midi input within Csound, either by using the [-M
-flag](http://www.csounds.com/manual/html/CommandFlagsCategory.html#FlagsCatMinusUpperM)
+flag](https://csound.com/docs/manual/CommandFlagsCategory.html#FlagsCatMinusUpperM)
 or from within the QuteCsound configuration menu. You will also need to
 make sure that you have a midi keyboard or controller connected. You may
 also want to include the [-m0
-flag](http://www.csounds.com/manual/html/CommandFlags.html#FlagsMinusLowerM)
+flag](https://csound.com/docs/manual/CommandFlags.html#FlagsMinusLowerM)
 which will disable some of Csound\'s additional messaging output and
 therefore allow our midi printout to be presented more clearly.
 

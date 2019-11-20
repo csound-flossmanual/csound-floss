@@ -51,7 +51,7 @@ As usual, there is not just one way to work with FFT and spectral
 processing in Csound. There are several families of opcodes. Each family
 can be very useful for a specific approach to working in the frequency
 domain. Have a look at the [\"Spectral
-Processing\"](http://www.csounds.com/manual/html/SpectralTop.html)
+Processing\"](https://csound.com/docs/manual/SpectralTop.html)
 overview in the Csound Manual. This introduction will focus on the
 so-called \"Phase Vocoder Streaming\" opcodes. All of these opcodes
 begin with the characters \"pvs\". These opcodes became part of Csound
@@ -134,12 +134,12 @@ tolerable latency.
 
 What happens in the example above? Firstly, the audio signal (*asig,
 ain*) is being analyzed and transformed to an f-signal. This is done via
-the opcode [pvsanal](http://www.csounds.com/manual/html/pvsanal.html).
+the opcode [pvsanal](https://csound.com/docs/manual/pvsanal.html).
 Then nothing more happens than the f-signal being transformed from the
 frequency domain signal back into the time domain (an audio signal).
 This is called inverse Fourier transformation (IFT or IFFT) and is
 carried out by the opcode
-[pvsynth](http://www.csounds.com/manual/html/pvsynth.html).^2^  In this
+[pvsynth](https://csound.com/docs/manual/pvsynth.html).^2^  In this
 case, it is just a test: to see if everything works, to hear the results
 of different window sizes and to check the latency, but potentially you
 can insert any other pvs opcode(s) in between this analysis and
@@ -158,12 +158,12 @@ resynthesis:
 ### Pitch shifting
 
 Simple pitch shifting can be carried out by the opcode
-[pvscale](http://www.csounds.com/manual/html/pvscale.html). All the
+[pvscale](https://csound.com/docs/manual/pvscale.html). All the
 frequency data in the f-signal are scaled by a certain value.
 Multiplying by 2 results in transposing by an octave upwards;
 multiplying by 0.5 in transposing by an octave downwards. For accepting
 cent values instead of ratios as input, the
-[cent](http://www.csounds.com/manual/html/cent.html) opcode can be used.
+[cent](https://csound.com/docs/manual/cent.html) opcode can be used.
 
 ***EXAMPLE 05I02\_pvscale.csd***
 
@@ -230,7 +230,7 @@ changing the time without changing the pitch: time-stretching or
 time-compression.
 
 The simplest way to alter the speed of a sampled sound is using
-[pvstanal](http://www.csounds.com/manual/html/pvstanal.html) (new in
+[pvstanal](https://csound.com/docs/manual/pvstanal.html) (new in
 Csound 5.13). This opcode transforms a sound stored in a function table
 (transformation to an f-signal is carried out internally by the opcode)
 with time manipulations simply being done by altering its *ktimescal*
@@ -304,14 +304,14 @@ synthesis. The most common methods are:
     This is the classical phase vocoder approach. If the frequencies are
     not completely from sound B, but represent an interpolation between
     A and B, the cross synthesis is more flexible and adjustable. This
-    is what [pvsvoc](http://www.csounds.com/manual/html/pvsvoc.html)
+    is what [pvsvoc](https://csound.com/docs/manual/pvsvoc.html)
     does. 
 -   Combine the frequencies of sound A with the amplitudes of sound B.
     Give user flexibility by scaling the amplitudes between A and B:
-    [pvscross](http://www.csounds.com/manual/html/pvscross.html).
+    [pvscross](https://csound.com/docs/manual/pvscross.html).
 -   Get the frequencies from sound A. Multiply the amplitudes of A
     and B. This can be described as spectral filtering.
-    [pvsfilter](http://www.csounds.com/manual/html/pvsfilter.html) gives
+    [pvsfilter](https://csound.com/docs/manual/pvsfilter.html) gives
     a flexible portion of this filtering effect.
 
 This is an example of phase vocoding. It is nice to have speech as sound
