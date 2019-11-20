@@ -8,7 +8,7 @@ package manager.
 ### Requirements
 - Python 3.6+
 - pip
-- pandoc
+- pandoc 2.3+
 - pandoc-citeproc
 - pyyaml
 - weasyprint
