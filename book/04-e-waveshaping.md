@@ -168,7 +168,6 @@ techniques. Raising the sampling rate can provide additional headroom
 before aliasing manifests but ultimately subtlety in waveshaping's use
 is paramount.
 
-[TODO: Add csd example for what has been described.]
 
 Distort
 -------

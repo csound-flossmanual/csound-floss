@@ -19,6 +19,8 @@ Edits
 
 - 01-d III explain fourth parameter for randomh and randomi.
   new figures then for 01-d-randomh and 01-d-randomi
+- 04-e in Powershape section add csd example for what has been described
+- 04-f perhaps start with some basic example like curtis roads
 
 General Layout
 --------------
