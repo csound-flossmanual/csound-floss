@@ -149,7 +149,7 @@ resynthesis:
 
 ::: {.group_img}
 ::: {.image}
-![](../resources/images/04ischema_1.png){width="600" height="104"}
+![](../resources/images/05-i-schema-1.png){width="600" height="104"}
 :::
 :::
 
