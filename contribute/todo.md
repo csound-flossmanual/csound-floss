@@ -1,11 +1,7 @@
 TO DO
 =====
 
-- replace formulas (mainly chapter 01-c)
-- resize images
-- make formatting consistent:
-    - replace single quotations by italics
-    - make upper/lower case in headings consistent
+- replace formulas in chapter 04-g
 - explain write process
 - explain pandoc markdown
 - go through all examples and
@@ -13,6 +9,7 @@ TO DO
     - introduce some functional style
     - format 
 - insert navigation for each chapter
+- ask martin neukom for image sources and about the mathematica license
 
 Edits
 -----
