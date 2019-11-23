@@ -18,6 +18,7 @@ Edits
   new figures then for 01-d-randomh and 01-d-randomi
 - 04-e in Powershape section add csd example for what has been described
 - 04-f perhaps start with some basic example like curtis roads
+- 04-h should be revised
 
 General Layout
 --------------
