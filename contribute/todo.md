@@ -19,6 +19,8 @@ Edits
 - 04-e in Powershape section add csd example for what has been described
 - 04-f perhaps start with some basic example like curtis roads
 - 04-h should be revised
+- add figures before and after example 05A05 (line/linseg and line/expon)
+- also before 05A07
 
 General Layout
 --------------
