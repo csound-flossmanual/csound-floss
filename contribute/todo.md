@@ -1,9 +1,10 @@
 TO DO
 =====
 
-- replace formulas in chapter 04-g
+- replace formulas in chapter 04-g and 05-b
 - explain write process
 - explain pandoc markdown
+- test all examples
 - go through all examples and
     - replace some instrument numbers by names
     - introduce some functional style
@@ -21,6 +22,7 @@ Edits
 - 04-h should be revised
 - add figures before and after example 05A05 (line/linseg and line/expon)
 - also before 05A07
+- better sound for 05B01
 
 General Layout
 --------------
