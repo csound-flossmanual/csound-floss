@@ -438,7 +438,7 @@ At first the VBAP system needs to know where the loudspeakers are positioned. Th
 Let us assume we have seven speakers in the positions and numberings outlined
 below (M = middle/centre):
 
-![](../resources/images/05-b-vbap-ls-konfig.jpg)
+![](../resources/images/05-b-vbap-ls-konfig.jpg){width=70%}
 
 The *vbaplsinit* opcode which is usually placed in the header of a Csound orchestra, defines these positions as follows:
 
@@ -727,7 +727,7 @@ setups for the speaker: *iSetup = 4* refers to an octogon.[^4] So the
 final eight audio signals *a1, ..., a8* are being produced using this
 decoder, and are then sent to the speakers.
 
-[^4] See www.csound.com/docs/manual/bformdec1.html for more details.
+[^4]: See www.csound.com/docs/manual/bformdec1.html for more details.
 
 
 ### Different Orders
