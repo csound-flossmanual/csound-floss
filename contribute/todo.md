@@ -12,6 +12,7 @@ TO DO
 - insert navigation for each chapter
 - ask martin neukom for image sources and about the mathematica license
 
+
 Edits
 -----
 
@@ -23,6 +24,11 @@ Edits
 - add figures before and after example 05A05 (line/linseg and line/expon)
 - also before 05A07
 - better sound for 05B01
+- 05-c 
+    - perhaps add notch, shelf filter and equilizers
+    - add figures
+    - go deeper in the implementation of filters, perhaps with steven's udos
+- 05-d add vdelay opcodes etc
 
 General Layout
 --------------
