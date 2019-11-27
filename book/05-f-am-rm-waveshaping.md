@@ -2,27 +2,27 @@
 ===========================
 
 An introduction as well as some background theory of amplitude
-modulation, ring modulation and waveshaping is given in the fourth
-chapter entitled \"sound-synthesis\". As all of these techniques merely
+modulation, ring modulation and waveshaping is given in chapters
+[04 C](04-c-amplitude-and-ring-modulation.md) and
+[04 E](04-e-waveshaping.md). As all of these techniques merely
 modulate the amplitude of a signal in a variety of ways, they can also
 be used for the modification of non-synthesized sound. In this chapter
 we will explore amplitude modulation, ring modulation and waveshaping as
-applied to non-synthesized sound.^1^ 
+applied to non-synthesized sound.[^1]
 
-AMPLITUDE MODULATION
---------------------
+[1]:  This is the same for Granular Synthesis which can either be
+      "pure" synthesis or applied on sampled sound.
 
-With \"sound-synthesis\", the principle  of AM was shown as a amplitude
-multiplication of two sine oscillators. Later we\'ve used a more complex
-modulators, to generate more complex spectrums. The principle also works
-very well with sound-files (samples) or live-audio-input.
 
-Karlheinz Stockhausens *\"Mixtur für Orchester, vier Sinusgeneratoren
-und vier Ringmodulatoren*" (1964) was the first piece which used analog
-ringmodulation (AM without DC-offset) to alter the acoustic instruments
-pitch in realtime during a live-performance. The word ringmodulation
-inherites from the analog *four-diode circuit* which was arranged in a
-\"ring\".
+
+AMPLITUDE AND RING MODULATION
+-----------------------------
+
+As shown in chapter [04 C](04-c-amplitude-and-ring-modulation.md), ring modulation in digital domain can be implemented as multiplication of a carrier audio signal with a modulator signal. If adapted to the modification of samples or live input, the carrier signal now changes to a playback unit or a microphone. The modulator usually remains a sine oscillator.
+
+![](../resources/images/05-f-RM.png){width=60%}
+
+For amplitude modulation, a constant part - the *DC offset* - is added to the modulating signal. This signal flow can also be applied to sampled sounds. In this case, the carrier audio signal derives from reading a sample or from live input.
 
 In the following example shows how this can be done digitally in Csound.
 In this case a sound-file works as the *carrier* which is modulated by a
@@ -37,7 +37,7 @@ pitch-shifters from the 1960\'s.
     </CsOptions>
     <CsInstruments>
 
-    sr = 48000
+    sr = 44100
     ksmps = 32
     nchnls = 1
     0dbfs = 1
@@ -241,9 +241,6 @@ of distortion in the *kdist* parameter. Here is a simple example:^2^ 
 
  
 
-1.  [This is the same for Granular Synthesis which can either be
-    \"pure\" synthesis or applied so sampled
-    sound.]{#endnote-e24221b6-a525-4a6a-8aa9-42071e49246d}
 2.  [Have a look at Iain McCurdy\'s Realtime example (which has also
     been ported to CsoundQt by René Jopi) for \'distort\' for a more
     interactive exploration of the
