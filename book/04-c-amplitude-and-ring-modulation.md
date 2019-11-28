@@ -56,10 +56,10 @@ The sidebands appear on both sides of the carrier frequency $f_c$.
 The frequency of the side bands is the sum and the difference between the carrier frequency and the modulator frequency: $f_c - f_m$ and $f_c + f_m$. The amplitude of each sideband is half of the modulator's amplitude.
 
 So the sounding result of the following example can be calculated as this:
-$f_c$ = 440 Hz, $f_m$ = 40 Hz -\> The result is a sound with 400, 440, and
+$f_c$ = 440 Hz, $f_m$ = 40 Hz, so the result is a sound with 400, 440, and
 480 Hz. The sidebands have an amplitude of 0.2. The amplitude of the carrier frequency starts with 0.2, moves to 0.4, and finally moves to 0. Note that we use an alternative way of applying AM here, shown in the *AM2* instrument:
 
-![<small>*Alternative Model of Amplitude Modulation*</small>](../resources/images/04-c-am.png){width=50%}
+![<small>*Alternative Model of Amplitude Modulation*</small>](../resources/images/04-c-am2.png){width=80%}
 
 It is equivalent to the signal flow in the first flow chart (*AM1* here). It takes one more line, but now you can substitute any audio signal as carrier, not only an oscillator. So this is the bridge to using AM for the modification of sampled sound as shown in [05F](05-f-am-rm-waveshaping.md).
 

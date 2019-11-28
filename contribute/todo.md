@@ -29,6 +29,7 @@ Edits
     - add figures
     - go deeper in the implementation of filters, perhaps with steven's udos
 - 05-d add vdelay opcodes etc
+- 05-e add figures showing function table contents in the last example 05F04
 
 General Layout
 --------------
