@@ -11,6 +11,7 @@ TO DO
     - format 
 - insert navigation for each chapter
 - ask martin neukom for image sources and about the mathematica license
+- explain math symbols
 
 
 Edits
@@ -31,6 +32,7 @@ Edits
 - 05-d add vdelay opcodes etc
 - 05-e add figures showing function table contents in the last example 05F04
 - 05-g a step-by-step description can be added at the end
+- 05-h oeyvind's new live convolution opcode should be added here
 
 General Layout
 --------------
