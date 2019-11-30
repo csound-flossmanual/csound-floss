@@ -1,129 +1,173 @@
 05 I. FOURIER ANALYSIS / SPECTRAL PROCESSING
 ============================================
 
-FOURIER TRANSFORMATION / SPECTRAL PROCESSING
---------------------------------------------
+An audio signal can be described as continuous changes of amplitudes in time.[^1] This is what we call *time-domain*. With a Fourier Transform (FT), we can transfer this time-domain signal to the *frequency domain*. This can, for instance, be used to analyze and visualize the spectrum of the signal. Fourier transform and subsequent manipulations in the frequency domain open a wide area of far-reaching sound transformations, like time stretching, pitch shifting, cross synthesis and any kind of spectral modification.
 
-A Fourier Transformation (FT) is used to transfer an audio-signal from
-the time-domain to the frequency-domain. This can, for instance, be used
-to analyze and visualize the spectrum of the signal appearing in a
-certain time span. Fourier transform and subsequent manipulations in the
-frequency domain open a wide area of interesting sound transformations,
-like time stretching, pitch shifting and much more.
+[^1]: *Silence* in the digital domain is not only when the ampltitudes are
+      always zero. Silence is any constant amplitude, it be 0 or 1 or -0.2.
 
-### **How does it work?**
 
-The mathematician J.B. Fourier (1768-1830) developed a method to
-approximate periodic functions by using sums of trigonometric functions.
-The advantage of this was that the properties of the trigonometric
-functions (sin & cos) were well-known and helped to describe the
-properties of the unknown function.
+### FT, STFT, DFT and FFT
 
-In audio DSP, a fourier transformed signal is decomposed into its sum of
-sinoids. Put simply, Fourier transform is the opposite of additive
-synthesis. Ideally, a sound can be dissected by Fourier transformation
-into its partial components, and resynthesized again by adding these
-components back together again.
+As described in chapter [04 A](04-a-additive-synthesis.md), the mathematician J.B. Fourier (1768-1830) developed a method to approximate periodic functions by weighted sums of the trigonometric functions *sine* and *cosine*. As many sounds, for instance a violin or a flute tone, can be described as *periodic functions*,[^2] we should be able to analyse their spectral components by means of the Fourier Transform.
 
-On account of the fact that sound is represented as discrete samples in
-the computer, the computer implementation of the FT calculates a
-discrete Fourier transform (DFT). As each transformation needs a certain
-number of samples, one key decision in performing DFT is about the
-number of samples used. The analysis of the frequency components will be
-more accurate if more samples are used, but as samples represent a
-progression of time, a caveat must be found for each FT between either
-better time resolution (fewer samples) or better frequency resolution
-(more samples). A typical value for FT in music is to have about 20-100
-\"snapshots\" per second (which can be compared to the single frames in
-a film or video).
+[^2]: To put this simply: If we *zoom* into recordings of any pitched sound,
+      we will see periodic repetitions. If a flute is playing a 440 Hz (A4) 
+      tone, we will see every 2.27 milliseconds (1/440 second) the same shape.
+      
+As continuous changes are inherent to sounds, the FT used in musical applications follows a principle which is well known from film or video. The continuous flow of time is divided into a number of fixed *frames*. If this number is big enough (at least 20 frames per second), the continuous flow can reasonably be divided to this sequence of FT *snapshots*. This is called the *Short Time Fourier Transform (STFT)*.
 
-At a sample rate of 48000 samples per second, these are about 500-2500
-samples for one frame or window. It is normal in DFT in computer music
-to use window sizes which are a power-of-two in size, such as 512, 1024
-or 2048 samples. The reason for this restriction is that DFT for these
-power-of-two sized frames can be calculated much faster. This is called
-Fast Fourier Transform (FFT), and this is the standard implementation of
-the Fourier transform in audio applications.
+Some care has to be taken to minimise the side effects of cutting the time into snippets. Firstly an *envelope* for the analysis frame is applied. As one analysis frame is often called *window*, the envelope shapes are called *window function*, *window shape* or *window type*. Most common are the *Hamming* and the *von Hann* (or *Hanning*) window functions:
 
-### **How is FFT done in Csound?**
+![Hamming and Hanning window (1024 samples)](../resources/images/05-i-fft-wins.png){width=70%}
 
-As usual, there is not just one way to work with FFT and spectral
-processing in Csound. There are several families of opcodes. Each family
-can be very useful for a specific approach to working in the frequency
-domain. Have a look at the [\"Spectral
-Processing\"](https://csound.com/docs/manual/SpectralTop.html)
-overview in the Csound Manual. This introduction will focus on the
-so-called \"Phase Vocoder Streaming\" opcodes. All of these opcodes
-begin with the characters \"pvs\". These opcodes became part of Csound
-through the work of Richard Dobson, Victor Lazzarini and others. They
-are designed to work in realtime in the frequency domain in Csound and
-indeed they are not just very fast but also easier to use than FFT
-implementations in many other applications.
+Secondly the analysis windows are not put side by side but as *overlapping* each other. The minimal overlap would be to start the next window at the middle of the previous one. More common is to have four overlaps which would result in this image:[^3]
 
-### Changing from Time-domain to Frequency-domain
+![Four overlapping Hanning windows (each of size=1024 samples)](../resources/images/05-i-overlap.png)
 
-For dealing with signals in the frequency domain, the pvs opcodes
-implement a new signal type, the **f-signals**. Csound shows the type of
-a variable in the first letter of its name. Each audio signal starts
-with an **a**, each control signal with a **k**, and so each signal in
-the frequency domain used by the pvs-opcodes starts with an **f**.
+[^3]: It can be a good choice to have 8 overlaps if CPU speed allows it.
 
-There are several ways to create an f-signal. The most common way is to
-convert an audio signal to a frequency signal. The first example covers
-two typical situations:
+We already measured the size of the analysis window in these figures in samples rather than in milliseconds. As we are dealing with *digital* audio, the Fourier Transform has become a *Digital Fourier Transform* (*DFT*). It offers some simplifications compared to the analogue FT as the number of amplitudes in one frame is finite. And moreover, there is a considerable gain of speed in the calculation if the window size is a power of two. This version of the DFT is called *Fast Fourier Transform* (*FFT*) and is implemented in all audio programming languages.
 
+
+### Window Size, Bins and Time-Frequency-Tradeoff
+
+Given that one FFT analysis window size should last about 10-50 ms and that a power-of-two number of samples must be matched, for *sr=44100* the sizes 512, 1024 or 2048 samples would be most suitable for one FFT window, thus resulting in a window length of about 11, 23 and 46 milliseconds respectively. Whether a smaller or lager window size is better, depends on different decisions.
+
+First thing to know about this is that the frequency resolution in a FFT analysis window directly relates to its size. This is based on two aspects: the fundamental frequency and the number of potenial harmonics which are analysed and weighted via the Fourier Transform.
+
+The *fundamental frequency* of one given FFT window is the inverse of its size in seconds related to the sample rate. For *sr=44100* Hz, the fundamental frequencies are:
+
+- 86.13 Hz for a window size of 512 samples
+- 43.07 Hz for a window size of 1024 samples
+- 21.53 Hz for a window size of 2048 sample.
+
+It is obvious that a larger window is better for frequency analysis at least for low frequencies. This is even more the case as the estimated harmonics which are scanned by the Fourier Transform are *integer multiples* of the fundamental frequency.[^3] These estimated harmonics or partials are usually called *bins* in FT terminology. So, again for *sr=44100* Hz, the bins are:
+
+[³3]: Remember that FT is based on the assumption that the signal to be 
+      analysed is a periodic function.
+
+- bin 1 = 86.13 Hz, bin 2 = 172.26 Hz, bin 3 = 258.40 Hz for size=512
+- bin 1 = 43.07 Hz, bin 2 = 86.13 Hz, bin 3 = 129.20 Hz for size=1024
+- bin 1 = 21.53 Hz, bin 2 = 43.07 Hz, bin 3 = 64.60 Hz for size=2048
+
+This means that a larger window is not only better to analyse low frequencies, it also has a better frequency resolution in general. In fact, the window of size 2048 samples has 1024 analysis bins from the fundamental frequency 21.53 Hz to the Nyquist frequency 22050 Hz, each of them covering a frequency range of 21.53 Hz, whilst the window of size 512 samples has 256 analysis bins from the fundamental frequency 86.13 Hz to the Nyquist frequency 22050 Hz, each of them covering a frequency range of 86.13 Hz.[^4]
+
+[^4]: For both, the *bin 0* is to be added which analyses the energy at 0 Hz.
+      So in general the number of bins is half of the window size plus one:
+      257 bins for size 512, 513 bins for size 1924, 1025 bins for size 2048.
+
+![Bins up to 1000 Hz for different window sizes](../resources/images/05-i-bins.png)
+
+Why then not always use the larger window? — Because a larger window needs more time, or in other words: the time resolution is worse for a window size of 2048, is fair for a window size of 1024 and is better for a window size of 512.
+
+This dilemma is known as *time-frequency tradeoff*. We must decide for each FFT situation whether the frequency resolution or the time resolution is more important. If, for instance, we have long piano chords with low frequencies, we may use the bigger window size. If we analyse spoken words of a female voice, we may use the smaller window size. Or to put it very pragmatic: We will use the medium FFT size (1024 samples) first, and in case we experience unsatisfying results (bad frequency response or smearing time resolution) we will change the window size.
+
+
+### FFT in Csound
+
+The raw output of a Fourier Transform is a number of *amplitude-phase* pairs per analysis window frame. Most Csound opcodes use another format which transforms the *phase* values to *frequencies*. This format is related to the *phase vocoder* implementation, so the Csound opcodes of this class are called *phase vocoder opcodes* and start with *pv* or *pvs*.
+
+The *pv* opcodes belong to the early implementation of FFT in Csound. This group comprises the opcodes
+[pvadd](https://csound.com/docs/manual/pvadd.html),
+[pvbufread](https://csound.com/docs/manual/pvbufread.html),
+[pvcross](https://csound.com/docs/manual/pvcross.html),
+[pvinterp](https://csound.com/docs/manual/pvinterp.html),
+[pvoc](https://csound.com/docs/manual/pvov.html),
+[pvread](https://csound.com/docs/manual/pvread.html) and
+[vpvoc](https://csound.com/docs/manual/vpvoc.html).
+Note that these **pv** opcodes are ***not designed to work in real-time**.
+
+The opcodes which **are** designed *for real-time spectral processing* are called *phase vocoder streaming* opcodes. They all start with **pvs**; a rather complete list can be found on the 
+[Spectral Processing](https://csound.com/docs/manual/SpectralTop.html)
+site in the Csound Manual. They are fast and easy to use. Because of their power and diversity they are one of the biggest strengths in using Csound.
+
+We will focus on these *pvs* opcodes here, which for most use cases offer all what is desirable to work in the spectral domain. There is, however, a group of opcodes which allow to go back to the *raw* FFT output (without the phase vocoder format). They are listed as 
+[array-based spectral opcodes](https://csound.com/docs/manual/arraysfft.html)
+in the Csound Manual.
+
+
+From Time Domain to Frequency Domain: *pvsanal*
+-----------------------------------------------
+
+For dealing with signals in the frequency domain, the *pvs* opcodes
+implement a new signal type, the *frequency-* or *f-signal*. If we start with an audio signal in time-domain as *aSig*, it will become *fSig* as result of the Fourier Transform.
+
+There are several opcodes to perform this transform. The most simple one is 
+[pvsanal](https://csound.com/docs/manual/pvsanal.html). It performs on-the-fly transformation of an input audio signal *aSig* to a frequency signal *fSig*. In addition to the audio signal input it requires some basic FFT settings:
+
+- *ifftsize* is the size of the FFT. As explained above, 512, 1024 or 2048 
+  samples are reasonable values here.
+- *ioverlap* is the number of samples after which the next (overlapping)
+  FFT frame starts (often refered to as *hop size*). Usually it is 1/4
+  of the FFT size, so for instance 256 samples for a FFT size of 1024.
+  Below is a figure for these settings.
+- *iwinsize* is the size of the analysis window. Usually this is set to
+  the same size as *ifftsize*.[^4]
+- *iwintype* is the shape of the analysis window. 0 will use a Hamming
+  window, 1 will use a von-Hann (or Hanning) window.
+
+[^4]: It can be an integral multiple of *ifftsize*, so a window twice as 
+      large as the FFT size would be possible and may improve the quality
+      of the anaylysis. But it also induces more latency which usually
+      is not desirable.
+
+The first example covers two typical situations:
 -   the audio signal derives from playing back a soundfile from the hard
-    disc (instr 1)
+    disk (instr 1)
 -   the audio signal is the live input (instr 2)
 
 (Caution - this example can quickly start feeding back. Best results are
 with headphones.)
 
-***EXAMPLE 05I01\_pvsanal.csd*** ^1^ 
+   ***EXAMPLE 05I01_pvsanal.csd*** 
 
-    <CsoundSynthesizer>
-    <CsOptions>
-    -i adc -o dac
-    </CsOptions>
-    <CsInstruments>
-    ;Example by Joachim Heintz
-    ;uses the file "fox.wav" (distributed with the Csound Manual)
-    sr = 44100
-    ksmps = 32
-    nchnls = 2
-    0dbfs = 1
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-i adc -o dac
+--env:SSDIR+=../resources/SourceMaterials
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
 
-    ;general values for fourier transform
-    gifftsiz  =         1024
-    gioverlap =         256
-    giwintyp  =         1 ;von hann window
+;general values for fourier transform
+gifftsiz  =         1024
+gioverlap =         256
+giwintyp  =         1 ;von hann window
 
-    instr 1 ;soundfile to fsig
-    asig      soundin   "fox.wav"
-    fsig      pvsanal   asig, gifftsiz, gioverlap, gifftsiz*2, giwintyp
-    aback     pvsynth   fsig
-              outs      aback, aback
-    endin
+instr 1 ;soundfile to fsig
+asig      soundin   "fox.wav"
+fsig      pvsanal   asig, gifftsiz, gioverlap, gifftsiz*2, giwintyp
+aback     pvsynth   fsig
+          outs      aback, aback
+endin
 
-    instr 2 ;live input to fsig
-              prints    "LIVE INPUT NOW!%n"
-    ain       inch      1 ;live input from channel 1
-    fsig      pvsanal   ain, gifftsiz, gioverlap, gifftsiz, giwintyp
-    alisten   pvsynth   fsig
-              outs      alisten, alisten
-    endin
+instr 2 ;live input to fsig
+          prints    "LIVE INPUT NOW!%n"
+ain       inch      1 ;live input from channel 1
+fsig      pvsanal   ain, gifftsiz, gioverlap, gifftsiz, giwintyp
+alisten   pvsynth   fsig
+          outs      alisten, alisten
+endin
 
-    </CsInstruments>
-    <CsScore>
-    i 1 0 3
-    i 2 3 10
-    </CsScore>
-    </CsoundSynthesizer>
+</CsInstruments>
+<CsScore>
+i 1 0 3
+i 2 3 10
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+~~~
 
-You should hear first the \"fox.wav\" sample, and then the slightly
+You should hear first the *fox.wav* sample, and then the slightly
 delayed live input signal. The delay (or latency) that you will observe
 will depend first of all on the general settings for realtime input
-(ksmps, -b and -B: see chapter 2D), but it will also be added to by the
+(ksmps, -b and -B: see chapter [02 D](02-d-live-audio.md)), 
+but it will also be added to by the
 FFT process. The window size here is 1024 samples, so the additional
 delay is 1024/44100 = 0.023 seconds. If you change the window size
 *gifftsiz* to 2048 or to 512 samples, you should notice a larger or
@@ -132,28 +176,24 @@ size is not only a question of better time resolution versus better
 frequency resolution, but it will also be a question concerning
 tolerable latency.
 
-What happens in the example above? Firstly, the audio signal (*asig,
-ain*) is being analyzed and transformed to an f-signal. This is done via
+What happens in the example above? Firstly, the audio signal (*asig* or
+*ain*) is being analyzed and transformed to an f-signal. This is done via
 the opcode [pvsanal](https://csound.com/docs/manual/pvsanal.html).
 Then nothing more happens than the f-signal being transformed from the
 frequency domain signal back into the time domain (an audio signal).
 This is called inverse Fourier transformation (IFT or IFFT) and is
 carried out by the opcode
-[pvsynth](https://csound.com/docs/manual/pvsynth.html).^2^  In this
+[pvsynth](https://csound.com/docs/manual/pvsynth.html). In this
 case, it is just a test: to see if everything works, to hear the results
 of different window sizes and to check the latency, but potentially you
 can insert any other pvs opcode(s) in between this analysis and
 resynthesis:
 
- 
+![](../resources/images/05-i-schema-1.png)
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/05-i-schema-1.png){width="600" height="104"}
-:::
-:::
 
- 
+### Alternatives: pvstanal, pvsbufread
+
 
 ### Pitch shifting
 

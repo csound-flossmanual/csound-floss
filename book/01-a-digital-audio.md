@@ -278,8 +278,8 @@ into 0's and 1's in the binary system. If you think of binary numbers
 in terms of switches. With one switch you can represent up to two
 different numbers.
 
-0 (OFF) = Decimal 0
-1 (ON) = Decimal 1
+    0 (OFF) = Decimal 0
+    1 (ON) = Decimal 1
 
 Thus, a single bit represents 2 numbers, two bits can represent 4
 numbers, three bits represent 8 numbers, four bits represent 16 numbers,
