@@ -41,6 +41,8 @@ Edits
     - add a section about pvsbin and pvstrace
     - pvshift should be added to the pitch shifting section
     - pvsosc?
+- 05-k coding of the examples might be up to modernize
+- 05-l should go to miscellaneous
 
 
 General Layout

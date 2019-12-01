@@ -17,7 +17,7 @@ the signal has decayed to silence as our brain perceives it. Some sort
 of averaging will be required so that a tracked amplitude of close to
 zero will only be output when the signal has settled close to zero for
 some time. Sampling a set of values and outputting their mean will
-produce a more acceptable sequence of values over time for a signal\'s
+produce a more acceptable sequence of values over time for a signal's
 change in amplitude. Sample group size will be important: too small a
 sample group may result in some residual ripple in the output signal,
 particularly in signals with only low frequency content, whereas too
@@ -38,50 +38,49 @@ the size of the array. Changing control rate (kr) or number of audio
 samples in a control period (ksmps) will then no longer alter response
 behaviour.
 
-***EXAMPLE 05L01\_Amplitude\_Tracking\_First\_Principles.csd*** 
 
-    <CsoundSynthesizer>
+   ***EXAMPLE 05L01_Amplitude_Tracking_First_Principles.csd*** 
 
-    <CsOptions>
-    -dm0 -odac
-    </CsOptions>
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-dm128 -odac
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 16
+nchnls = 2
+0dbfs = 1
 
-    <CsInstruments>
+; a rich waveform
+giwave ftgen 1,0, 512, 10, 1,1/2,1/3,1/4,1/5
 
-    sr = 44100
-    ksmps = 16
-    nchnls = 1
-    0dbfs = 1
+instr   1
+ ; create an audio signal
+ aenv    linseg     0,p3/2,1,p3/2,0  ; triangle shaped envelope
+ aSig    poscil     aenv,300,giwave  ; audio oscillator
+         out        aSig, aSig       ; send audio to output
 
-    ; a rich waveform
-    giwave ftgen 1,0, 512, 10, 1,1/2,1/3,1/4,1/5
+ ; track amplitude
+ kArr[]   init  500 / ksmps     ; initialise an array
+ kNdx     init  0               ; initialise index for writing to array
+ kSig     downsamp        aSig  ; create k-rate version of audio signal
+ kSq      =     kSig ^ 2        ; square it (negatives become positive)
+ kRoot    =     kSq ^ 0.5       ; square root it (restore absolute values)
+ kArr[kNdx] =   kRoot           ; write result to array
+ kMean      =   sumarray(kArr) / lenarray(kArr) ; calculate mean of array
+                printk  0.1,kMean   ; print mean to console
+; increment index and wrap-around if end of the array is met
+ kNdx           wrap    kNdx+1, 0, lenarray(kArr)
+endin
 
-    instr   1
-     ; create an audio signal
-     aenv    linseg     0,p3/2,1,p3/2,0  ; triangle shaped envelope
-     aSig    poscil     aenv,300,giwave  ; audio oscillator
-             out        aSig             ; send audio to output
-
-     ; track amplitude
-     kArr[]   init  500 / ksmps     ; initialise an array
-     kNdx     init  0               ; initialise index for writing to array
-     kSig     downsamp        aSig  ; create k-rate version of audio signal
-     kSq      =     kSig ^ 2        ; square it (negatives become positive)
-     kRoot    =     kSq ^ 0.5       ; square root it (restore absolute values)
-     kArr[kNdx] =   kRoot           ; write result to array
-     kMean      =   sumarray(kArr) / lenarray(kArr) ; calculate mean of array
-                    printk  0.1,kMean   ; print mean to console
-    ; increment index and wrap-around if end of the array is met
-     kNdx           wrap    kNdx+1, 0, lenarray(kArr)
-    endin
-
-    </CsInstruments>
-
-    <CsScore>
-    i 1 0 5
-    </CsScore>
-
-    </CsoundSynthesizer>
+</CsInstruments>
+<CsScore>
+i 1 0 5
+</CsScore>
+</CsoundSynthesizer>
+;example by Iain McCurdy
+~~~
 
 In practice it is not necessary for us to build our own amplitude
 tracker as Csound already offers several opcodes for the task.
@@ -98,27 +97,17 @@ on whether the amplitude is rising or falling.
 A quick comparison of these three opcodes and the original method from
 first principles is given below:
 
-The sound file used in all three comparisons is \'fox.wav\' which can be
+The sound file used in all three comparisons is *fox.wav* which can be
 found as part of the Csound HTML Manual download. This sound is someone
 saying: "the quick brown fox jumps over the lazy dog".
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/fox.png)
-:::
-:::
+![](../resources/images/05-l-fox.png)
 
-First of all by employing the the technique exemplified in example
-05L01, the amplitude following signal is overlaid upon the source
+First of all by employing the technique exemplified in example
+*05L01*, the amplitude following signal is overlaid upon the source
 signal:
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/homebrew.png)
-:::
-:::
-
- 
+![](../resources/images/05-l-homebrew.png)
 
 It can be observed that the amplitude tracking signal follows the
 amplitudes of the input signal reasonably well. A slight delay in
@@ -142,17 +131,7 @@ method similar to that used in the previous example but with the
 convenience of an encapsulated opcode. Its output superimposed upon the
 waveform is shown below:
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/rms.png)
-:::
-:::
-
- 
-
- 
-
- 
+![](../resources/images/05-l-rms.png)
 
 Its method of averaging uses filtering rather than simply taking a mean
 of a buffer of amplitude values.
@@ -168,7 +147,6 @@ be made based on some foreknowledge of the input audio signal: dynamic
 percussive input audio might demand faster response whereas audio that
 dynamically evolves gradually might demand greater smoothing.
 
-\
 The [follow](https://csound.com/docs/manual/follow.html) opcode uses
 a sample-and-hold mechanism when outputting the tracked amplitude. This
 can result in a stepped output that might require addition lowpass
@@ -181,11 +159,7 @@ amplitude tracked using the following line:
 
  with the following result:
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/follow.png)
-:::
-:::
+![](../resources/images/05-l-follow.png)
 
 The hump over the word spoken during the third and fourth time divisions
 initially seem erroneous but it is a result of greater amplitude
@@ -205,11 +179,7 @@ the attack time. The relevant line of code is:
 
 and the result of amplitude tracking is:
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/follow2.png)
-:::
-:::
+![](../resources/images/05-l-follow2.png)
 
 This technique can be used to extend the duration of short input sound
 events or triggers. Note that the attack and release times for follow2
@@ -227,59 +197,56 @@ define a threshold above which one thing happens and below which
 something else happens. A crude dynamic gating of the signal above could
 be implemented thus:
 
-***EXAMPLE 05L02\_Simple\_Dynamic\_Gate.csd***
+   ***EXAMPLE 05L02_Simple_Dynamic_Gate.csd***
 
-    <CsoundSynthesizer>
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-dm128 -odac
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
+; this is a necessary definition,
+;         otherwise amplitude will be -32768 to 32767
 
-    <CsOptions>
-    -dm0 -odac
-    </CsOptions>
+instr    1
+ aSig    diskin  "fox.wav", 1        ; read sound file
+ kRms    rms     aSig                ; scan rms
+ iThreshold =    0.1                 ; rms threshold
+ kGate   =       kRms > iThreshold ? 1 : 0  ; gate either 1 or zero
+ aGate   interp  kGate   ; interpolate to create smoother on->off->on switching
+ aSig    =       aSig * aGate        ; multiply signal by gate
+         out     aSig, aSig          ; send to output
+endin
 
-    <CsInstruments>
-
-    ksmps = 32
-    0dbfs = 1
-    ; this is a necessary definition,
-    ;         otherwise amplitude will be -32768 to 32767
-
-    instr    1
-     aSig    diskin  "fox.wav", 1        ; read sound file
-     kRms    rms     aSig                ; scan rms
-     iThreshold =    0.1                 ; rms threshold
-     kGate   =       kRms > iThreshold ? 1 : 0  ; gate either 1 or zero
-     aGate   interp  kGate   ; interpolate to create smoother on->off->on switching
-     aSig    =       aSig * aGate        ; multiply signal by gate
-             out     aSig                ; send to output
-    endin
-
-    </CsInstruments>
-
-    <CsScore>
-    i 1 0 10
-    </CsScore>
-
-    </CsoundSynthesizer>
+</CsInstruments>
+<CsScore>
+i 1 0 10
+</CsScore>
+</CsoundSynthesizer>
+;example by Iain McCurdy
+~~~
 
 Once a dynamic threshold has been defined, in this case 0.1, the RMS
 value is interrogated every k-cycle as to whether it is above or below
 this value. If it is above, then the variable kGate adopts a value of
-\'1\' (open) or if below, kGate is zero (closed). This on/off switch
+*1* (open) or if below, kGate is zero (closed). This on/off switch
 could just be multiplied to the audio signal to turn it on or off
 according to the status of the gate but clicks would manifest each time
 the gates opens or closes so some sort of smoothing or ramping of the
 gate signal is required. In this example I have simply interpolated it
-using the \'interp\' opcode to create an a-rate signal which is then
+using the *interp* opcode to create an a-rate signal which is then
 multiplied to the original audio signal. This means that a linear ramp
 with be added across the duration of a k-cycle in audio samples -- in
 this case 32 samples. A more elaborate approach might involve portamento
-and low-pass filtering.\
+and low-pass filtering.
+
 The results of this dynamic gate are shown below:
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/gate.png)
-:::
-:::
+![](../resources/images/05-l-gate.png)
 
 The threshold is depicted as a red line. It can be seen that each time
 the RMS value (the black line) drops below the threshold the audio
@@ -299,35 +266,25 @@ sole trigger is illustrated by the vertical black line.) Raising the
 threshold might seem to be remedial action but is not ideal as this will
 prevent quietly played notes from generating triggers.
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/thresholdtriggering.png)
-:::
-:::
-
- 
+![](../resources/images/05-l-thresholdtriggering.png)
 
 It will often be more successful to use magnitudes of amplitude increase
 to decide whether to generate a trigger or not. The two critical values
 in implementing such a mechanism are the time across which a change will
-be judged (\'iSampTim\' in the example) and the amount of amplitude
-increase that will be required to generate a trigger (iThresh). An
+be judged (*iSampTim* in the example) and the amount of amplitude
+increase that will be required to generate a trigger (*iThresh*). An
 additional mechanism to prevent double triggerings if an amplitude
 continues to increase beyond the time span of a single sample period
 will also be necessary. What this mechanism will do is to bypass the
 amplitude change interrogation code for a user-definable time period
 immediately after a trigger has been generated (iWait). A timer which
-counts elapsed audio samples (kTimer) is used to time how long to wait
+counts elapsed audio samples (*kTimer*) is used to time how long to wait
 before retesting amplitude changes.
 
 If we pass our piano sound file through this instrument, the results
 look like this:
 
-::: {.group_img}
-::: {.image}
-<!-- FIXME: ![](../resources/images/DynamicTrigger.png) -->
-:::
-:::
+![](../resources/images/05-l-dynamictrigger.png)
 
 This time we correctly receive two triggers, one at the onset of each
 note.
@@ -335,53 +292,52 @@ note.
 The example below tracks audio from the sound-card input channel 1 using
 this mechanism.
 
-***EXAMPLE 05L03\_Dynamic\_Trigger.csd***
 
-    <CsoundSynthesizer>
+   ***EXAMPLE 05L03_Dynamic_Trigger.csd***
 
-    <CsOptions>
-    -dm0 -iadc -odac
-    </CsOptions>
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-dm0 -iadc -odac
+</CsOptions>
+<CsInstruments>
+sr     =  44100
+ksmps  =  32
+nchnls =  2
+0dbfs  =  1
 
-    <CsInstruments>
+instr   1
+ iThresh  =       0.1                ; change threshold
+ aSig     inch    1                  ; live audio in
+ iWait    =       1000              ; prevent repeats wait time (in samples)
+ kTimer   init    1001               ; initial timer value
+ kRms     rms     aSig, 20           ; track amplitude
+ iSampTim =       0.01    ; time across which change in RMS will be measured
+ kRmsPrev delayk  kRms, iSampTim     ; delayed RMS (previous)
+ kChange  =       kRms - kRmsPrev    ; change
+ if(kTimer>iWait) then               ; if we are beyond the wait time...
+  kTrig   =       kChange > iThresh ? 1 : 0 ; trigger if threshold exceeded
+  kTimer  =       kTrig == 1 ? 0 : kTimer ; reset timer when a trigger generated
+ else                     ; otherwise (we are within the wait time buffer)
+  kTimer  +=      ksmps              ; increment timer
+  kTrig   =       0                  ; cancel trigger
+ endif
+          schedkwhen kTrig,0,0,2,0,0.1 ; trigger a note event
+endin
 
-    sr     =  44100
-    ksmps  =  32
-    nchnls =  2
-    0dbfs  =  1
+instr   2
+ aEnv     transeg   0.2, p3, -4, 0     ; decay envelope
+ aSig     poscil    aEnv, 400          ; 'ping' sound indicator
+          out       aSig               ; send audio to output
+endin
 
-    instr   1
-     iThresh  =       0.1                ; change threshold
-     aSig     inch    1                  ; live audio in
-     iWait    =       1000              ; prevent repeats wait time (in samples)
-     kTimer   init    1001               ; initial timer value
-     kRms     rms     aSig, 20           ; track amplitude
-     iSampTim =       0.01    ; time across which change in RMS will be measured
-     kRmsPrev delayk  kRms, iSampTim     ; delayed RMS (previous)
-     kChange  =       kRms - kRmsPrev    ; change
-     if(kTimer>iWait) then               ; if we are beyond the wait time...
-      kTrig   =       kChange > iThresh ? 1 : 0 ; trigger if threshold exceeded
-      kTimer  =       kTrig == 1 ? 0 : kTimer ; reset timer when a trigger generated
-     else                     ; otherwise (we are within the wait time buffer)
-      kTimer  +=      ksmps              ; increment timer
-      kTrig   =       0                  ; cancel trigger
-     endif
-              schedkwhen kTrig,0,0,2,0,0.1 ; trigger a note event
-    endin
-
-    instr   2
-     aEnv     transeg   0.2, p3, -4, 0     ; decay envelope
-     aSig     poscil    aEnv, 400          ; 'ping' sound indicator
-              out       aSig               ; send audio to output
-    endin
-
-    </CsInstruments>
-
-    <CsScore>
-    i 1 0 [3600*24*7]
-    </CsScore>
-    </CsoundSynthesizer>
-
+</CsInstruments>
+<CsScore>
+i 1 0 [3600*24*7]
+</CsScore>
+</CsoundSynthesizer>
+;example by Iain McCurdy
+~~~
  
 
 Pitch Tracking
@@ -428,11 +384,11 @@ instrument and from note to note. In general lower notes will have a
 longer attack. However we do not really want to overestimate the
 duration of this attack stage as this will result in a sluggish pitch
 tracker. Another specialised situation is the tracking of pitch in
-singing -- we may want to gate sibilant elements (\'sss\', \'t\' etc.).
+singing -- we may want to gate sibilant elements (*sss*, *t* etc.).
 pvscent can be useful in detecting the difference between vowels and
 sibilants.
 
-\'pitch\' is the oldest of the pitch tracking opcodes on offer and
+*pitch* is the oldest of the pitch tracking opcodes on offer and
 provides the widest range of input parameters.
 
     koct, kamp pitch asig, iupdte, ilo, ihi, idbthresh [, ifrqs] [, iconf] \
@@ -441,24 +397,24 @@ provides the widest range of input parameters.
 This makes it somewhat more awkward to use initially (although many of
 its input parameters are optional) but some of its options facilitate
 quite specialised effects. Firstly it outputs its tracking signal in
-\'oct\' format. This might prove to be a useful format but conversion to
+*oct* format. This might prove to be a useful format but conversion to
 other formats is easy anyway. Apart from a number of parameters intended
 to fine tune the production of an accurate signal it allows us to
 specify the number of octave divisions used in quantising the output.
 For example if we give this a value of 12 we have created the basis of a
-simple chromatic \'autotune\' device. We can also quantise the procedure
-in the time domain using its \'update period\' input. Material with
+simple chromatic *autotune* device. We can also quantise the procedure
+in the time domain using its *update period* input. Material with
 quickly changing pitch or vibrato will require a shorter update period
 (which will demand more from the CPU). It has an input control for
-\'threshold of detection\' which can be used to filter out and disregard
+*threshold of detection* which can be used to filter out and disregard
 pitch and amplitude tracking data beneath this limit. Pitch is capable
 of very good pitch and amplitude tracking results in real-time.
 
-pitchamdf uses the so-called \'Average Magnitude Difference Function\'
+*pitchamdf* uses the so-called *Average Magnitude Difference Function*
 method. It is perhaps slightly more accurate than pitch as a general
 purpose pitch tracker but its CPU demand is higher.
 
-pvspitch uses streaming FFT technology to track pitch. It takes an
+*pvspitch* uses streaming FFT technology to track pitch. It takes an
 f-signal as input which will have to be created using the pvsanal
 opcode. At this step the choice of FFT size will have a bearing upon the
 performance of the pvspitch pitch tracker. Smaller FFT sizes will allow
@@ -470,7 +426,7 @@ tries to discern pitch. pvspitch works well in real-time but it does
 have a tendency to jump its output to the wrong octave -- an octave too
 high -- particularly when encountering vibrato.
 
-ptrack also makes uses of streaming FFT but takes an normal audio signal
+*ptrack* also makes uses of streaming FFT but takes an normal audio signal
 as input, performing the FFT analysis internally. We still have to
 provide a value for FFT size with the same considerations mentioned
 above. ptrack is based on an algorithm by Miller Puckette, the
@@ -480,16 +436,16 @@ tracking values when pitch is changing quickly or when encountering
 vibrato. Median filtering (using the mediank opcode) and filtering of
 outlying values might improve the results.
 
-plltrack uses a phase-locked loop algorithm in detecting pitch. plltrack
+*plltrack* uses a phase-locked loop algorithm in detecting pitch. plltrack
 is another efficient real-time option for pitch tracking. It has a
 tendency to gliss up and down from very low frequency values at the
 start and end of notes, i.e. when encountering silence. This effect can
-be minimised by increasing its \'feedback\' parameter but this can also
+be minimised by increasing its *feedback* parameter but this can also
 make pitch tracking unstable over sustained notes.
 
-In conclusion, pitch is probably still the best choice as a general
-purpose pitch tracker, pitchamdf is also a good choice. pvspitch, ptrack
-and plltrack all work well in real-time but might demand additional
+In conclusion, *pitch* is probably still the best choice as a general
+purpose pitch tracker, *pitchamdf* is also a good choice. *pvspitch*, *ptrack*
+and *plltrack* all work well in real-time but might demand additional
 processing to remove errors.
 
 [pvscent](https://csound.com/docs/manual/pvscent.html) and
@@ -517,114 +473,119 @@ sounds. The drum loop used is beats.wav which can be found with the
 download of the Csound HTML manual (and within the Csound download
 itself). This loop is not ideal as some of the instruments coincide with
 one another -- for example, the first consists of a bass drum and a
-snare drum played together. The \'beat replacer\' will inevitably make a
+snare drum played together. The *beat replacer* will inevitably make a
 decision one way or the other but is not advanced enough to detect both
 instruments playing simultaneously. The critical stage is the series of
-if\... elseifs\... at the bottom of instrument 1 where decisions are
-made about instruments\' identities according to what centroid band they
+*if ... elseifs ...* at the bottom of instrument 1 where decisions are
+made about instruments' identities according to what centroid band they
 fall into. The user can fine tune the boundary division values to modify
 the decision making process. centroid values are also printed to the
 terminal when onsets are detected which might assist in this fine
 tuning.
 
-***EXAMPLE 05L04\_Drum\_Replacement.csd***
 
-    <CsoundSynthesizer>
-    <CsOptions>
-    -dm0 -odac
-    </CsOptions>
-    <CsInstruments>
+   ***EXAMPLE 05L04_Drum_Replacement.csd***
 
-    sr = 44100
-    ksmps = 32
-    nchnls = 1
-    0dbfs = 1
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-dm0 -odac
+</CsOptions>
+<CsInstruments>
 
-    instr   1
-     asig   diskin  "beats.wav",1
+sr = 44100
+ksmps = 32
+nchnls = 1
+0dbfs = 1
 
-     iThreshold = 0.05
-     iWait      = 0.1*sr
-     kTimer     init iWait+1
-     iSampTim =       0.02                ; time across which RMS change is measured
-     kRms   rms     asig ,20
-     kRmsPrev       delayk  kRms,iSampTim ; rms from earlier
-     kChange =      kRms - kRmsPrev       ; change (+ve or -ve)
+instr   1
+ asig   diskin  "beats.wav",1
 
-     if kTimer > iWait then               ; prevent double triggerings
-      ; generate a trigger
-      kTrigger   =  kChange > iThreshold ? 1 : 0
-      ; if trigger is generated, reset timer
-      kTimer  =   kTrigger == 1 ? 0 : kTimer
-     else
-      kTimer  +=  ksmps                   ; increment timer
-      kTrigger = 0                        ; clear trigger
-     endif
+ iThreshold = 0.05
+ iWait      = 0.1*sr
+ kTimer     init iWait+1
+ iSampTim =       0.02                ; time across which RMS change is measured
+ kRms   rms     asig ,20
+ kRmsPrev       delayk  kRms,iSampTim ; rms from earlier
+ kChange =      kRms - kRmsPrev       ; change (+ve or -ve)
 
-     ifftsize = 1024
-     ; centroid triggered 0.02 after sound onset to avoid noisy attack
-     kDelTrig delayk kTrigger,0.02
-     kcent  centroid asig, kDelTrig, ifftsize  ; scan centroid
-            printk2  kcent            ; print centroid values
-     if kDelTrig==1 then
-      if kcent>0 && kcent<2500 then   ; first freq. band
-       event "i","Cowbell",0,0.1
-      elseif kcent<8000 then          ; second freq. band
-       event "i","Clap",0,0.1
-      else                            ; third freq. band
-       event "i","Tambourine",0,0.5
-      endif
-     endif
-    endin
+ if kTimer > iWait then               ; prevent double triggerings
+  ; generate a trigger
+  kTrigger   =  kChange > iThreshold ? 1 : 0
+  ; if trigger is generated, reset timer
+  kTimer  =   kTrigger == 1 ? 0 : kTimer
+ else
+  kTimer  +=  ksmps                   ; increment timer
+  kTrigger = 0                        ; clear trigger
+ endif
 
-    instr   Cowbell
-     kenv1  transeg 1,p3*0.3,-30,0.2, p3*0.7,-30,0.2
-     kenv2  expon   1,p3,0.0005
-     kenv   =       kenv1*kenv2
-     ipw    =       0.5
-     a1     vco2    0.65,562,2,0.5
-     a2     vco2    0.65,845,2,0.5
-     amix   =       a1+a2
-     iLPF2  =       10000
-     kcf    expseg  12000,0.07,iLPF2,1,iLPF2
-     alpf   butlp   amix,kcf
-     abpf   reson   amix, 845, 25
-     amix   dcblock2        (abpf*0.06*kenv1)+(alpf*0.5)+(amix*0.9)
-     amix   buthp   amix,700
-     amix   =       amix*0.5*kenv
-            out     amix
-    endin
+ ifftsize = 1024
+ ; centroid triggered 0.02 after sound onset to avoid noisy attack
+ kDelTrig delayk kTrigger,0.02
+ kcent  centroid asig, kDelTrig, ifftsize  ; scan centroid
+        printk2  kcent            ; print centroid values
+ if kDelTrig==1 then
+  if kcent>0 && kcent<2500 then   ; first freq. band
+   event "i","Cowbell",0,0.1
+  elseif kcent<8000 then          ; second freq. band
+   event "i","Clap",0,0.1
+  else                            ; third freq. band
+   event "i","Tambourine",0,0.5
+  endif
+ endif
+endin
 
-    instr   Clap
-     if frac(p1)==0 then
-      event_i       "i", p1+0.1, 0,     0.02
-      event_i       "i", p1+0.1, 0.01,  0.02
-      event_i       "i", p1+0.1, 0.02,  0.02
-      event_i       "i", p1+0.1, 0.03,  2
-     else
-      kenv  transeg 1,p3,-25,0
-      iamp  random  0.7,1
-      anoise        dust2   kenv*iamp, 8000
-      iBPF          =       1100
-      ibw           =       2000
-      iHPF          =       1000
-      iLPF          =       1
-      kcf   expseg  8000,0.07,1700,1,800,2,500,1,500
-      asig  butlp   anoise,kcf*iLPF
-      asig  buthp   asig,iHPF
-      ares  reson   asig,iBPF,ibw,1
-      asig  dcblock2        (asig*0.5)+ares
-            out     asig
-     endif
-    endin
+instr   Cowbell
+ kenv1  transeg 1,p3*0.3,-30,0.2, p3*0.7,-30,0.2
+ kenv2  expon   1,p3,0.0005
+ kenv   =       kenv1*kenv2
+ ipw    =       0.5
+ a1     vco2    0.65,562,2,0.5
+ a2     vco2    0.65,845,2,0.5
+ amix   =       a1+a2
+ iLPF2  =       10000
+ kcf    expseg  12000,0.07,iLPF2,1,iLPF2
+ alpf   butlp   amix,kcf
+ abpf   reson   amix, 845, 25
+ amix   dcblock2        (abpf*0.06*kenv1)+(alpf*0.5)+(amix*0.9)
+ amix   buthp   amix,700
+ amix   =       amix*0.5*kenv
+        out     amix
+endin
 
-    instr   Tambourine
-            asig    tambourine      0.3,0.01 ,32, 0.47, 0, 2300 , 5600, 8000
-                    out     asig    ;SEND AUDIO TO OUTPUTS
-    endin
+instr   Clap
+ if frac(p1)==0 then
+  event_i       "i", p1+0.1, 0,     0.02
+  event_i       "i", p1+0.1, 0.01,  0.02
+  event_i       "i", p1+0.1, 0.02,  0.02
+  event_i       "i", p1+0.1, 0.03,  2
+ else
+  kenv  transeg 1,p3,-25,0
+  iamp  random  0.7,1
+  anoise        dust2   kenv*iamp, 8000
+  iBPF          =       1100
+  ibw           =       2000
+  iHPF          =       1000
+  iLPF          =       1
+  kcf   expseg  8000,0.07,1700,1,800,2,500,1,500
+  asig  butlp   anoise,kcf*iLPF
+  asig  buthp   asig,iHPF
+  ares  reson   asig,iBPF,ibw,1
+  asig  dcblock2        (asig*0.5)+ares
+        out     asig
+ endif
+endin
 
-    </CsInstruments>
-    <CsScore>
-    i 1 0 10
-    </CsScore>
-    </CsoundSynthesizer>
+instr   Tambourine
+        asig    tambourine      0.3,0.01 ,32, 0.47, 0, 2300 , 5600, 8000
+                out     asig    ;SEND AUDIO TO OUTPUTS
+endin
+
+</CsInstruments>
+<CsScore>
+i 1 0 10
+</CsScore>
+</CsoundSynthesizer>
+;example by Iain McCurdy
+~~~
+
