@@ -7,7 +7,8 @@ An audio signal can be described as continuous changes of amplitudes in time.[^1
       always zero. Silence is any constant amplitude, it be 0 or 1 or -0.2.
 
 
-### FT, STFT, DFT and FFT
+FT, STFT, DFT and FFT
+---------------------
 
 As described in chapter [04 A](04-a-additive-synthesis.md), the mathematician J.B. Fourier (1768-1830) developed a method to approximate periodic functions by weighted sums of the trigonometric functions *sine* and *cosine*. As many sounds, for instance a violin or a flute tone, can be described as *periodic functions*,[^2] we should be able to analyse their spectral components by means of the Fourier Transform.
 
@@ -30,7 +31,8 @@ Secondly the analysis windows are not put side by side but as *overlapping* each
 We already measured the size of the analysis window in these figures in samples rather than in milliseconds. As we are dealing with *digital* audio, the Fourier Transform has become a *Digital Fourier Transform* (*DFT*). It offers some simplifications compared to the analogue FT as the number of amplitudes in one frame is finite. And moreover, there is a considerable gain of speed in the calculation if the window size is a power of two. This version of the DFT is called *Fast Fourier Transform* (*FFT*) and is implemented in all audio programming languages.
 
 
-### Window Size, Bins and Time-Frequency-Tradeoff
+Window Size, Bins and Time-Frequency-Tradeoff
+---------------------------------------------
 
 Given that one FFT analysis window size should last about 10-50 ms and that a power-of-two number of samples must be matched, for *sr=44100* the sizes 512, 1024 or 2048 samples would be most suitable for one FFT window, thus resulting in a window length of about 11, 23 and 46 milliseconds respectively. Whether a smaller or lager window size is better, depends on different decisions.
 
@@ -42,18 +44,18 @@ The *fundamental frequency* of one given FFT window is the inverse of its size i
 - 43.07 Hz for a window size of 1024 samples
 - 21.53 Hz for a window size of 2048 sample.
 
-It is obvious that a larger window is better for frequency analysis at least for low frequencies. This is even more the case as the estimated harmonics which are scanned by the Fourier Transform are *integer multiples* of the fundamental frequency.[^3] These estimated harmonics or partials are usually called *bins* in FT terminology. So, again for *sr=44100* Hz, the bins are:
+It is obvious that a larger window is better for frequency analysis at least for low frequencies. This is even more the case as the estimated harmonics which are scanned by the Fourier Transform are *integer multiples* of the fundamental frequency.[^4] These estimated harmonics or partials are usually called *bins* in FT terminology. So, again for *sr=44100* Hz, the bins are:
 
-[³3]: Remember that FT is based on the assumption that the signal to be 
+[^4]: Remember that FT is based on the assumption that the signal to be 
       analysed is a periodic function.
 
 - bin 1 = 86.13 Hz, bin 2 = 172.26 Hz, bin 3 = 258.40 Hz for size=512
 - bin 1 = 43.07 Hz, bin 2 = 86.13 Hz, bin 3 = 129.20 Hz for size=1024
 - bin 1 = 21.53 Hz, bin 2 = 43.07 Hz, bin 3 = 64.60 Hz for size=2048
 
-This means that a larger window is not only better to analyse low frequencies, it also has a better frequency resolution in general. In fact, the window of size 2048 samples has 1024 analysis bins from the fundamental frequency 21.53 Hz to the Nyquist frequency 22050 Hz, each of them covering a frequency range of 21.53 Hz, whilst the window of size 512 samples has 256 analysis bins from the fundamental frequency 86.13 Hz to the Nyquist frequency 22050 Hz, each of them covering a frequency range of 86.13 Hz.[^4]
+This means that a larger window is not only better to analyse low frequencies, it also has a better frequency resolution in general. In fact, the window of size 2048 samples has 1024 analysis bins from the fundamental frequency 21.53 Hz to the Nyquist frequency 22050 Hz, each of them covering a frequency range of 21.53 Hz, whilst the window of size 512 samples has 256 analysis bins from the fundamental frequency 86.13 Hz to the Nyquist frequency 22050 Hz, each of them covering a frequency range of 86.13 Hz.[^5]
 
-[^4]: For both, the *bin 0* is to be added which analyses the energy at 0 Hz.
+[^5]: For both, the *bin 0* is to be added which analyses the energy at 0 Hz.
       So in general the number of bins is half of the window size plus one:
       257 bins for size 512, 513 bins for size 1924, 1025 bins for size 2048.
 
@@ -64,7 +66,8 @@ Why then not always use the larger window? — Because a larger window needs mor
 This dilemma is known as *time-frequency tradeoff*. We must decide for each FFT situation whether the frequency resolution or the time resolution is more important. If, for instance, we have long piano chords with low frequencies, we may use the bigger window size. If we analyse spoken words of a female voice, we may use the smaller window size. Or to put it very pragmatic: We will use the medium FFT size (1024 samples) first, and in case we experience unsatisfying results (bad frequency response or smearing time resolution) we will change the window size.
 
 
-### FFT in Csound
+FFT in Csound
+-------------
 
 The raw output of a Fourier Transform is a number of *amplitude-phase* pairs per analysis window frame. Most Csound opcodes use another format which transforms the *phase* values to *frequencies*. This format is related to the *phase vocoder* implementation, so the Csound opcodes of this class are called *phase vocoder opcodes* and start with *pv* or *pvs*.
 
@@ -76,7 +79,7 @@ The *pv* opcodes belong to the early implementation of FFT in Csound. This group
 [pvoc](https://csound.com/docs/manual/pvov.html),
 [pvread](https://csound.com/docs/manual/pvread.html) and
 [vpvoc](https://csound.com/docs/manual/vpvoc.html).
-Note that these **pv** opcodes are ***not designed to work in real-time**.
+Note that these **pv** opcodes are **not designed to work in real-time**.
 
 The opcodes which **are** designed *for real-time spectral processing* are called *phase vocoder streaming* opcodes. They all start with **pvs**; a rather complete list can be found on the 
 [Spectral Processing](https://csound.com/docs/manual/SpectralTop.html)
@@ -101,21 +104,21 @@ There are several opcodes to perform this transform. The most simple one is
 - *ioverlap* is the number of samples after which the next (overlapping)
   FFT frame starts (often refered to as *hop size*). Usually it is 1/4
   of the FFT size, so for instance 256 samples for a FFT size of 1024.
-  Below is a figure for these settings.
 - *iwinsize* is the size of the analysis window. Usually this is set to
-  the same size as *ifftsize*.[^4]
+  the same size as *ifftsize*.[^6]
 - *iwintype* is the shape of the analysis window. 0 will use a Hamming
   window, 1 will use a von-Hann (or Hanning) window.
 
-[^4]: It can be an integral multiple of *ifftsize*, so a window twice as 
+[^6]: It can be an integral multiple of *ifftsize*, so a window twice as 
       large as the FFT size would be possible and may improve the quality
       of the anaylysis. But it also induces more latency which usually
       is not desirable.
 
 The first example covers two typical situations:
--   the audio signal derives from playing back a soundfile from the hard
-    disk (instr 1)
--   the audio signal is the live input (instr 2)
+
+-   The audio signal derives from playing back a soundfile from the hard
+    disk (instr 1).
+-   The audio signal is the live input (instr 2).
 
 (Caution - this example can quickly start feeding back. Best results are
 with headphones.)
@@ -166,10 +169,7 @@ i 2 3 10
 You should hear first the *fox.wav* sample, and then the slightly
 delayed live input signal. The delay (or latency) that you will observe
 will depend first of all on the general settings for realtime input
-(ksmps, -b and -B: see chapter [02 D](02-d-live-audio.md)), 
-but it will also be added to by the
-FFT process. The window size here is 1024 samples, so the additional
-delay is 1024/44100 = 0.023 seconds. If you change the window size
+(ksmps, -b and -B: see chapter [02 D](02-d-live-audio.md)), but it will also be added to by the FFT process. The window size here is 1024 samples, so the additional delay is 1024/44100 = 0.023 seconds. If you change the window size
 *gifftsiz* to 2048 or to 512 samples, you should notice a larger or
 shorter delay. For realtime applications, the decision about the FFT
 size is not only a question of better time resolution versus better
@@ -192,10 +192,133 @@ resynthesis:
 ![](../resources/images/05-i-schema-1.png)
 
 
-### Alternatives: pvstanal, pvsbufread
+### Alternatives and Time Stretching: *pvstanal* / *pvsbufread*
+
+Working with *pvsanal* to create an f-signal is easy and straightforward. But if we are using an already existing sound file, we are missing one of the interesting possibilities in working with FFT: time stretching. This we can obtain most simple when we use 
+[pvstanal](https://csound.com/docs/manual/pvstanal.html) instead. The *t* in *pvs**t**anal* stands for *table*. This opcode performs FFT on a sound which has been loaded in a table.[^7] These are the main parameters:
+
+[^7]: The table can also be recorded in live performance.
+
+- *ktimescal* is the time scaling ratio. 1 means normal speed, 0.5 means half
+  speed, 2 means double speed.
+- *kpitch* is the pitch scaling ratio. We will keep this here at 1 which means
+  that the pitch is not altered.
+- *ktab* is the function table which is being read.
+
+*pvstanal* offers some more and quite interesting parameters but we will use it here only a simple way to demonstrate time stretching.
 
 
-### Pitch shifting
+   ***EXAMPLE 05I02_pvstanal.csd***
+
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-o dac
+</CsOptions>
+<CsInstruments>
+
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs  = 1
+
+gifil     ftgen     0, 0, 0, 1, "fox.wav", 0, 0, 1
+
+instr 1
+iTimeScal =         p4
+fsig      pvstanal  iTimeScal, 1, 1, gifil
+aout      pvsynth   fsig
+          outs      aout, aout
+endin
+
+</CsInstruments>
+<CsScore>
+i 1 0 2.7 1 ;normal speed
+i 1 3 1.3 2 ;double speed
+i 1 6 4.5 0.5 ; half speed
+i 1 12 17 0.1 ; 1/10 speed
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+~~~
+
+We hear that for extreme time stretching artifacts arise. This is expected and a result of the FFT resynthesis. Later in this chapter we will discuss how to avoid these artifacts.
+
+The other possibility to work with a table (buffer) and get the f-signal by reading it is to use 
+[pvsbufread](https://csound.com/docs/manual/pvsbufread.html). This opcode does not read from an audio buffer but needs a buffer which is filled with FFT data already. This job is done by the related opcode 
+[pvsbuffer](https://csound.com/docs/manual/pvsbuffer.html). In the next example, we wrap this procedure in the User Defined Opcode *FileToPvsBuf*. This *UDO* is called at the first control cycle of instrument *simple_time_stretch*, when *timeinstk()* (which counts the control cycles in an instrument) outputs 1. After this job is done, the pvs-buffer is ready and stored in the global variable *gibuffer*. 
+
+Time stretching is then done in the first instrument in a similar way we performed above with *pvstanal*; only that we do not control directly the speed of reading but the real time position (in seconds) in the buffer. In the example, we start in the middle of the sound file and read the words "over the lazy dog" with a time stretch factor of about 10.
+
+The second instrument can still use the buffer. Here a time stretch line is superimposed by a *trembling* random movement. It changes 10 times a second and interpolates to a point which is between - 0.2 seconds and + 0.2 seconds from the current position of the slow moving time pointer created by the expression *linseg:k(0,p3,gilen)*. 
+
+So although a bit harder to use, *pvsbufread* offers some nice possibilities. And it is reported to have a very good performance, for instance when playing back a lot of files triggered by a MIDI keyboard.
+
+
+   ***EXAMPLE 05I03_pvsbufread.csd***
+
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-o dac  --env:SSDIR+=../SourceMaterials
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
+
+opcode FileToPvsBuf, iik, kSooop
+ ;writes an audio file to a fft-buffer if trigger is 1
+ kTrig, Sfile, iFFTsize, iOverlap, iWinsize, iWinshape xin
+  ;default values
+ iFFTsize = (iFFTsize == 0) ? 1024 : iFFTsize
+ iOverlap = (iOverlap == 0) ? 256 : iOverlap
+ iWinsize = (iWinsize == 0) ? iFFTsize : iWinsize
+  ;fill buffer
+ if kTrig == 1 then
+  ilen 	filelen Sfile
+  kNumCycles	= ilen * kr
+  kcycle		init		0
+  while kcycle < kNumCycles do
+   ain soundin Sfile
+   fftin pvsanal ain, iFFTsize, iOverlap, iWinsize, iWinshape
+   ibuf, ktim pvsbuffer fftin, ilen + (iFFTsize / sr)
+   kcycle += 1
+  od
+ endif
+ xout ibuf, ilen, ktim
+endop
+
+instr simple_time_stretch
+ gibuffer, gilen, k0 FileToPvsBuf timeinstk(), "fox.wav"
+ ktmpnt linseg 1.6, p3, gilen
+ fread pvsbufread ktmpnt, gibuffer
+ aout pvsynth fread
+ out aout, aout
+endin
+
+instr tremor_time_stretch
+ ktmpnt = linseg:k(0,p3,gilen) + randi:k(1/5,10)
+ fread pvsbufread ktmpnt, gibuffer
+ aout pvsynth fread
+ out aout, aout
+endin
+
+</CsInstruments>
+<CsScore>
+i 1 0 10
+i 2 11 20
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+~~~
+
+The [mincer](https://csound.com/docs/manual/mincer.html) opcode also provides a high-quality time- and pitch-shifting algorithm. Other than *pvstanal* and *pvsbufread* it already transforms the f-signal back to time domain, thus outputting an audio signal.
+
+
+Pitch shifting
+--------------
 
 Simple pitch shifting can be carried out by the opcode
 [pvscale](https://csound.com/docs/manual/pvscale.html). All the
@@ -205,139 +328,76 @@ multiplying by 0.5 in transposing by an octave downwards. For accepting
 cent values instead of ratios as input, the
 [cent](https://csound.com/docs/manual/cent.html) opcode can be used.
 
-***EXAMPLE 05I02\_pvscale.csd***
 
-    <CsoundSynthesizer>
-    <CsOptions>
-    -odac
-    </CsOptions>
-    <CsInstruments>
-    ;example by joachim heintz
-    sr = 44100
-    ksmps = 32
-    nchnls = 1
-    0dbfs = 1
+   ***EXAMPLE 05I04_pvscale.csd***
 
-    gifftsize =         1024
-    gioverlap =         gifftsize / 4
-    giwinsize =         gifftsize
-    giwinshape =        1; von-Hann window
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-odac --env:SSDIR+=../SourceMaterials
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 1
+0dbfs = 1
 
-    instr 1 ;scaling by a factor
-    ain       soundin  "fox.wav"
-    fftin     pvsanal  ain, gifftsize, gioverlap, giwinsize, giwinshape
-    fftscal   pvscale  fftin, p4
-    aout      pvsynth  fftscal
-              out      aout
-    endin
+gifftsize =         1024
+gioverlap =         gifftsize / 4
+giwinsize =         gifftsize
+giwinshape =        1; von-Hann window
 
-    instr 2 ;scaling by a cent value
-    ain       soundin  "fox.wav"
-    fftin     pvsanal  ain, gifftsize, gioverlap, giwinsize, giwinshape
-    fftscal   pvscale  fftin, cent(p4)
-    aout      pvsynth  fftscal
-              out      aout/3
-    endin
+instr 1 ;scaling by a factor
+ain       soundin  "fox.wav"
+fftin     pvsanal  ain, gifftsize, gioverlap, giwinsize, giwinshape
+fftscal   pvscale  fftin, p4
+aout      pvsynth  fftscal
+          out      aout
+endin
 
-    </CsInstruments>
-    <CsScore>
-    i 1 0 3 1; original pitch
-    i 1 3 3 .5; octave lower
-    i 1 6 3 2 ;octave higher
-    i 2 9 3 0
-    i 2 9 3 400 ;major third
-    i 2 9 3 700 ;fifth
-    e
-    </CsScore>
-    </CsoundSynthesizer>
+instr 2 ;scaling by a cent value
+ain       soundin  "fox.wav"
+fftin     pvsanal  ain, gifftsize, gioverlap, giwinsize, giwinshape
+fftscal   pvscale  fftin, cent(p4)
+aout      pvsynth  fftscal
+          out      aout/3
+endin
+
+</CsInstruments>
+<CsScore>
+i 1 0 3 1; original pitch
+i 1 3 3 .5; octave lower
+i 1 6 3 2 ;octave higher
+i 2 9 3 0
+i 2 9 3 400 ;major third
+i 2 9 3 700 ;fifth
+e
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+~~~
 
 Pitch shifting via FFT resynthesis is very simple in general, but rather
 more complicated in detail. With speech for instance, there is a problem
-because of the formants. If you simply scale the frequencies, the
-formants are shifted, too, and the sound gets the typical \'helium
-voice\' effect. There are some parameters in the *pvscale* opcode, and
+because of the formants. If we simply scale the frequencies, the
+formants are shifted, too, and the sound gets the typical *helium
+voice* effect. There are some parameters in the *pvscale* opcode, and
 some other pvs-opcodes which can help to avoid this, but the quality of
 the results will always depend to an extend upon the nature of the input
 sound.
 
-### Time-stretch/compress
-
-As the Fourier transformation separates the spectral information from
-its progression in time, both elements can be varied independently.
-Pitch shifting via the *pvscale* opcode, as in the previous example, is
-independent of the speed of reading the audio data. The complement is
-changing the time without changing the pitch: time-stretching or
-time-compression.
-
-The simplest way to alter the speed of a sampled sound is using
-[pvstanal](https://csound.com/docs/manual/pvstanal.html) (new in
-Csound 5.13). This opcode transforms a sound stored in a function table
-(transformation to an f-signal is carried out internally by the opcode)
-with time manipulations simply being done by altering its *ktimescal*
-parameter.
-
-***EXAMPLE 05I03\_pvstanal.csd***
-
-    <CsoundSynthesizer>
-    <CsOptions>
-    -odac
-    </CsOptions>
-    <CsInstruments>
-    ;example by joachim heintz
-    sr = 44100
-    ksmps = 32
-    nchnls = 1
-    0dbfs = 1
-
-    ;store the sample "fox.wav" in a function table (buffer)
-    gifil     ftgen     0, 0, 0, 1, "fox.wav", 0, 0, 1
-
-    ;general values for the pvstanal opcode
-    giamp     =         1 ;amplitude scaling
-    gipitch   =         1 ;pitch scaling
-    gidet     =         0 ;onset detection
-    giwrap    =         0 ;no loop reading
-    giskip    =         0 ;start at the beginning
-    gifftsiz  =         1024 ;fft size
-    giovlp    =         gifftsiz/8 ;overlap size
-    githresh  =         0 ;threshold
-
-    instr 1 ;simple time stretching / compressing
-    fsig      pvstanal  p4, giamp, gipitch, gifil, gidet, giwrap, giskip,
-                        gifftsiz, giovlp, githresh
-    aout      pvsynth   fsig
-              out       aout
-    endin
-
-    instr 2 ;automatic scratching
-    kspeed    randi     2, 2, 2 ;speed randomly between -2 and 2
-    kpitch    randi     p4, 2, 2 ;pitch between 2 octaves lower or higher
-    fsig      pvstanal  kspeed, 1, octave(kpitch), gifil
-    aout      pvsynth   fsig
-    aenv      linen     aout, .003, p3, .1
-              out       aenv
-    endin
-
-    </CsInstruments>
-    <CsScore>
-    ;         speed
-    i 1 0 3   1
-    i . + 10   .33
-    i . + 2   3
-    s
-    i 2 0 10 0;random scratching without ...
-    i . 11 10 2 ;... and with pitch changes
-    </CsScore>
-    </CsoundSynthesizer>
-
+As mentioned above, simple pitch shifting can also be performed via
+[pvstanal](https://csound.com/docs/manual/pvstanal.html) or
+[mincer](https://csound.com/docs/manual/mincer.html).
  
 
-### Cross Synthesis 
+Cross Synthesis 
+---------------
 
 Working in the frequency domain makes it possible to combine or
-\'cross\' the spectra of two sounds. As the Fourier transform of an
+*cross* the spectra of two sounds. As the Fourier transform of an
 analysis frame results in a frequency and an amplitude value for each
-frequency \'bin\', there are many different ways of performing cross
+frequency *bin*, there are many different ways of performing cross
 synthesis. The most common methods are:
 
 -   Combine the amplitudes of sound A with the frequencies of sound B.
@@ -355,163 +415,165 @@ synthesis. The most common methods are:
     a flexible portion of this filtering effect.
 
 This is an example of phase vocoding. It is nice to have speech as sound
-A, and a rich sound, like classical music, as sound B. Here the \"fox\"
-sample is being played at half speed and \'sings\' through the music of
+A, and a rich sound, like classical music, as sound B. Here the *fox*
+sample is being played at half speed and *sings* through the music of
 sound B: 
 
-***EXAMPLE 05I04\_phase\_vocoder.csd***
 
-    <CsoundSynthesizer>
-    <CsOptions>
-    -odac
-    </CsOptions>
-    <CsInstruments>
-    ;example by joachim heintz
-    sr = 44100
-    ksmps = 32
-    nchnls = 1
-    0dbfs = 1
+   ***EXAMPLE 05I05_phase_vocoder.csd***
 
-    ;store the samples in function tables (buffers)
-    gifilA    ftgen     0, 0, 0, 1, "fox.wav", 0, 0, 1
-    gifilB    ftgen     0, 0, 0, 1, "ClassGuit.wav", 0, 0, 1
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-odac --env:SSDIR+=../SourceMaterials
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 1
+0dbfs = 1
+
+;store the samples in function tables (buffers)
+gifilA    ftgen     0, 0, 0, 1, "fox.wav", 0, 0, 1
+gifilB    ftgen     0, 0, 0, 1, "ClassGuit.wav", 0, 0, 1
 
 
-    ;general values for the pvstanal opcode
-    giamp     =         1 ;amplitude scaling
-    gipitch   =         1 ;pitch scaling
-    gidet     =         0 ;onset detection
-    giwrap    =         1 ;loop reading
-    giskip    =         0 ;start at the beginning
-    gifftsiz  =         1024 ;fft size
-    giovlp    =         gifftsiz/8 ;overlap size
-    githresh  =         0 ;threshold
+;general values for the pvstanal opcode
+giamp     =         1 ;amplitude scaling
+gipitch   =         1 ;pitch scaling
+gidet     =         0 ;onset detection
+giwrap    =         1 ;loop reading
+giskip    =         0 ;start at the beginning
+gifftsiz  =         1024 ;fft size
+giovlp    =         gifftsiz/8 ;overlap size
+githresh  =         0 ;threshold
 
-    instr 1
-    ;read "fox.wav" in half speed and cross with classical guitar sample
-    fsigA     pvstanal  .5, giamp, gipitch, gifilA, gidet, giwrap, giskip,\
-                         gifftsiz, giovlp, githresh
-    fsigB     pvstanal  1, giamp, gipitch, gifilB, gidet, giwrap, giskip,\
-                         gifftsiz, giovlp, githresh
-    fvoc      pvsvoc    fsigA, fsigB, 1, 1
-    aout      pvsynth   fvoc
-    aenv      linen     aout, .1, p3, .5
-              out       aenv
-    endin
+instr 1
+;read "fox.wav" in half speed and cross with classical guitar sample
+fsigA     pvstanal  .5, giamp, gipitch, gifilA, gidet, giwrap, giskip,\
+                     gifftsiz, giovlp, githresh
+fsigB     pvstanal  1, giamp, gipitch, gifilB, gidet, giwrap, giskip,\
+                     gifftsiz, giovlp, githresh
+fvoc      pvsvoc    fsigA, fsigB, 1, 1
+aout      pvsynth   fvoc
+aenv      linen     aout, .1, p3, .5
+          out       aenv
+endin
 
-    </CsInstruments>
-    <CsScore>
-    i 1 0 11
-    </CsScore>
-    </CsoundSynthesizer>
-
+</CsInstruments>
+<CsScore>
+i 1 0 11
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+~~~
  
 
 The next example introduces *pvscross*:
 
-***EXAMPLE 05I05\_pvscross.csd***
 
-    <CsoundSynthesizer>
-    <CsOptions>
-    -odac
-    </CsOptions>
-    <CsInstruments>
-    ;example by joachim heintz
-    sr = 44100
-    ksmps = 32
-    nchnls = 1
-    0dbfs = 1
+   ***EXAMPLE 05I05_pvscross.csd***
 
-    ;store the samples in function tables (buffers)
-    gifilA    ftgen     0, 0, 0, 1, "BratscheMono.wav", 0, 0, 1
-    gifilB    ftgen     0, 0, 0, 1, "fox.wav", 0, 0, 1
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-odac --env:SSDIR+=../SourceMaterials
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 1
+0dbfs = 1
 
-    ;general values for the pvstanal opcode
-    giamp     =         1 ;amplitude scaling
-    gipitch   =         1 ;pitch scaling
-    gidet     =         0 ;onset detection
-    giwrap    =         1 ;loop reading
-    giskip    =         0 ;start at the beginning
-    gifftsiz  =         1024 ;fft size
-    giovlp    =         gifftsiz/8 ;overlap size
-    githresh  =         0 ;threshold
+;store the samples in function tables (buffers)
+gifilA    ftgen     0, 0, 0, 1, "BratscheMono.wav", 0, 0, 1
+gifilB    ftgen     0, 0, 0, 1, "fox.wav", 0, 0, 1
 
-    instr 1
-    ;cross viola with "fox.wav" in half speed
-    fsigA     pvstanal  1, giamp, gipitch, gifilA, gidet, giwrap, giskip,\
-                        gifftsiz, giovlp, githresh
-    fsigB     pvstanal  .5, giamp, gipitch, gifilB, gidet, giwrap, giskip,\
-                         gifftsiz, giovlp, githresh
-    fcross    pvscross  fsigA, fsigB, 0, 1
-    aout      pvsynth   fcross
-    aenv      linen     aout, .1, p3, .5
-              out       aenv
-    endin
+;general values for the pvstanal opcode
+giamp     =         1 ;amplitude scaling
+gipitch   =         1 ;pitch scaling
+gidet     =         0 ;onset detection
+giwrap    =         1 ;loop reading
+giskip    =         0 ;start at the beginning
+gifftsiz  =         1024 ;fft size
+giovlp    =         gifftsiz/8 ;overlap size
+githresh  =         0 ;threshold
 
-    </CsInstruments>
-    <CsScore>
-    i 1 0 11
-    </CsScore>
-    </CsoundSynthesizer>
+instr 1
+;cross viola with "fox.wav" in half speed
+fsigA     pvstanal  1, giamp, gipitch, gifilA, gidet, giwrap, giskip,\
+                    gifftsiz, giovlp, githresh
+fsigB     pvstanal  .5, giamp, gipitch, gifilB, gidet, giwrap, giskip,\
+                     gifftsiz, giovlp, githresh
+fcross    pvscross  fsigA, fsigB, 0, 1
+aout      pvsynth   fcross
+aenv      linen     aout, .1, p3, .5
+          out       aenv
+endin
+
+</CsInstruments>
+<CsScore>
+i 1 0 11
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+~~~
 
 The last example shows spectral filtering via *pvsfilter*. The
-well-known \"fox\" (sound A) is now filtered by the viola (sound B). Its
+well-known *fox* (sound A) is now filtered by the viola (sound B). Its
 resulting intensity is dependent upon the amplitudes of sound B, and if
 the amplitudes are strong enough, you will hear a resonating effect:
 
-***EXAMPLE 05I06\_pvsfilter.csd***
 
-    <CsoundSynthesizer>
-    <CsOptions>
-    -odac
-    </CsOptions>
-    <CsInstruments>
-    ;example by joachim heintz
-    sr = 44100
-    ksmps = 32
-    nchnls = 1
-    0dbfs = 1
+   ***EXAMPLE 05I06_pvsfilter.csd***
 
-    ;store the samples in function tables (buffers)
-    gifilA    ftgen     0, 0, 0, 1, "fox.wav", 0, 0, 1
-    gifilB    ftgen     0, 0, 0, 1, "BratscheMono.wav", 0, 0, 1
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-odac --env:SSDIR+=../SourceMaterials
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 1
+0dbfs = 1
 
-    ;general values for the pvstanal opcode
-    giamp     =         1 ;amplitude scaling
-    gipitch   =         1 ;pitch scaling
-    gidet     =         0 ;onset detection
-    giwrap    =         1 ;loop reading
-    giskip    =         0 ;start at the beginning
-    gifftsiz  =         1024 ;fft size
-    giovlp    =         gifftsiz/4 ;overlap size
-    githresh  =         0 ;threshold
+;store the samples in function tables (buffers)
+gifilA    ftgen     0, 0, 0, 1, "fox.wav", 0, 0, 1
+gifilB    ftgen     0, 0, 0, 1, "BratscheMono.wav", 0, 0, 1
 
-    instr 1
-    ;filters "fox.wav" (half speed) by the spectrum of the viola (double speed)
-    fsigA     pvstanal  .5, giamp, gipitch, gifilA, gidet, giwrap, giskip,\
-                         gifftsiz, giovlp, githresh
-    fsigB     pvstanal  2, 5, gipitch, gifilB, gidet, giwrap, giskip,\
-                         gifftsiz, giovlp, githresh
-    ffilt     pvsfilter fsigA, fsigB, 1
-    aout      pvsynth   ffilt
-    aenv      linen     aout, .1, p3, .5
-              out       aenv
-    endin
+;general values for the pvstanal opcode
+giamp     =         1 ;amplitude scaling
+gipitch   =         1 ;pitch scaling
+gidet     =         0 ;onset detection
+giwrap    =         1 ;loop reading
+giskip    =         0 ;start at the beginning
+gifftsiz  =         1024 ;fft size
+giovlp    =         gifftsiz/4 ;overlap size
+githresh  =         0 ;threshold
 
-    </CsInstruments>
-    <CsScore>
-    i 1 0 11
-    </CsScore>
-    </CsoundSynthesizer>
+instr 1
+;filters "fox.wav" (half speed) by the spectrum of the viola (double speed)
+fsigA     pvstanal  .5, giamp, gipitch, gifilA, gidet, giwrap, giskip,\
+                     gifftsiz, giovlp, githresh
+fsigB     pvstanal  2, 5, gipitch, gifilB, gidet, giwrap, giskip,\
+                     gifftsiz, giovlp, githresh
+ffilt     pvsfilter fsigA, fsigB, 1
+aout      pvsynth   ffilt
+aenv      linen     aout, .1, p3, .5
+          out       aenv
+endin
 
-There are many more tools and opcodes for transforming FFT signals in
-Csound. Have a look at the *Signal Processing II* section of the
-*Opcodes Overview* for some hints.
+</CsInstruments>
+<CsScore>
+i 1 0 11
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+~~~
 
-1.  [All soundfiles used in this manual are free and can be downloaded
-    at
-    www.csound-tutorial.net]{#endnote-517035d8-f940-4d5a-a9aa-b45b872fa695}
-2.  [In some cases it might be interesting to use pvsadsyn instead of
-    pvsynth. It employs a bank of oscillators for resynthesis, the
-    details of which can be controlled by the
-    user.]{#endnote-204b82f4-5490-4878-afa0-2c2897b5306f}
+
+Tewaking FFT Signals
+--------------------
+
+(to be written ...)

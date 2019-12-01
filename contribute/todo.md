@@ -34,6 +34,14 @@ Edits
 - 05-e add figures showing function table contents in the last example 05F04
 - 05-g a step-by-step description can be added at the end
 - 05-h oeyvind's new live convolution opcode should be added here
+- 05-i 
+    - figure before example 05I03 to show the tremor time pointer would be nice
+    - add section at the end dedicated to pvsblur, pvsmooth and similar ways
+      to improve audio quality
+    - add a section about pvsbin and pvstrace
+    - pvshift should be added to the pitch shifting section
+    - pvsosc?
+
 
 General Layout
 --------------
