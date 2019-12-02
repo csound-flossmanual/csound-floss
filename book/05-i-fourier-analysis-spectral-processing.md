@@ -573,7 +573,7 @@ i 1 0 11
 ~~~
 
 
-Tewaking FFT Signals
---------------------
+Sound Quality in FFT Signals
+----------------------------
 
 (to be written ...)
