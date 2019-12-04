@@ -1,7 +1,7 @@
 07 E. MIDI OUTPUT
 =================
 
-Csound\'s ability to output midi data in real-time can open up many
+Csound's ability to output midi data in real-time can open up many
 possibilities. We can relay the Csound score to a hardware synthesizer
 so that *it* plays the notes in our score, instead of a Csound
 instrument. We can algorithmically generate streams of notes within the
@@ -12,35 +12,41 @@ transposing or arpeggiating incoming notes before they are output again.
 Midi output could also be used to preset faders on a motorized fader box
 to desired initial locations.
 
+
 Initiating Realtime MIDI Output
 -------------------------------
 
-The command line flag for realtime midi output is -Q. Just as when
+The command line flag for realtime midi output is 
+[-Q](https://csound.com/docs/manual/CommandFlags.html#FlagsMinusUpperQ). 
+Just as when
 setting up an audio input or output device or a midi input device we
 must define the desired device number after the flag. When in doubt what
-midi output devices we have on our system we can always specify an \'out
-of range\' device number (e.g. -Q999) in which case Csound will not run
+midi output devices we have on our system we can always specify an *out
+of range* device number (e.g. -Q999) in which case Csound will not run
 but will instead give an error and provide us with a list of available
 devices and their corresponding numbers. We can then insert an
 appropriate device number.
 
-midiout - Outputting Raw MIDI Data 
+
+*midiout* - Outputting Raw MIDI Data 
 -----------------------------------
 
 The analog of the opcode for the input of raw midi
 data, [midiin](https://csound.com/docs/manual/midiin.html),
-is [midiout](https://csound.com/docs/manual/midiout.html). midiout
-will output a midi message with its given input arguments once every k
-period - this could very quickly lead to clogging of incoming midi data
+is [midiout](https://csound.com/docs/manual/midiout.html). It
+will output a midi message with its given input arguments once every *k
+period* - this could very quickly lead to clogging of incoming midi data
 in the device to which midi is begin sent unless measures are taken to
 restrain its output. In the following example this is dealt with by
 turning off the instrument as soon as the *midiout* line has been
 executed just once by using
 the [turnoff](https://csound.com/docs/manual/turnoff.html) opcode.
 Alternative approaches would be to set the status byte to zero after the
-first k pass or to embed the *midiout* within a conditional
-(*if*\... *then*\...) so that its rate of execution can be controlled in
-some way. 
+first *k pass* or to embed the *midiout* within a conditional
+(*if - then*)[^1] so that its rate of execution can be controlled in
+some way.
+
+[^1]: See chapter [03 C](03-c-control-structures.md) for details.
 
 Another thing we need to be aware of is that midi notes do not contain
 any information about note duration; instead the device playing the note
@@ -63,46 +69,46 @@ we could respond to this data in a creative way however. 
 In order for the following example to work you must connect a midi sound
 module or keyboard receiving on channel 1 to the midi output of your
 computer. You will also need to set the appropriate device number after
-the \'-Q\' flag.
+the *-Q* flag.
 
 No use is made of audio so sample rate (sr), and number of channels
 (nchnls) are left undefined - nonetheless they will assume default
 values. 
 
-  ***EXAMPLE 07E01\_midiout.csd*** 
 
-    <CsoundSynthesizer>
+   ***EXAMPLE 07E01_midiout.csd*** 
 
-    <CsOptions>
-    ; amend device number accordingly
-    -Q999
-    </CsOptions>
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+; amend device number accordingly
+-Q999
+</CsOptions>
+<CsInstruments>
+ksmps = 32 ;no audio so sr and nchnls irrelevant
 
-    <CsInstruments>
-    ksmps = 32 ;no audio so sr and nchnls irrelevant
+  instr 1
+; arguments for midiout are read from p-fields
+istatus   init      p4
+ichan     init      p5
+idata1    init      p6
+idata2    init      p7
+          midiout   istatus, ichan, idata1, idata2; send raw midi data
+          turnoff   ; turn instrument off to prevent reiterations of midiout
+  endin
 
-      instr 1
-    ; arguments for midiout are read from p-fields
-    istatus   init      p4
-    ichan     init      p5
-    idata1    init      p6
-    idata2    init      p7
-              midiout   istatus, ichan, idata1, idata2; send raw midi data
-              turnoff   ; turn instrument off to prevent reiterations of midiout
-      endin
+</CsInstruments>
+<CsScore>
+;p1 p2 p3   p4 p5 p6 p7
+i 1 0 0.01 144 1  60 100 ; note on
+i 1 2 0.01 144 1  60   0 ; note off (using velocity zero)
 
-    </CsInstruments>
-
-    <CsScore>
-    ;p1 p2 p3   p4 p5 p6 p7
-    i 1 0 0.01 144 1  60 100 ; note on
-    i 1 2 0.01 144 1  60   0 ; note off (using velocity zero)
-
-    i 1 3 0.01 144 1  60 100 ; note on
-    i 1 5 0.01 128 1  60 100 ; note off (using 'note off' status byte)
-    </CsScore>
-
-    </CsoundSynthesizer>
+i 1 3 0.01 144 1  60 100 ; note on
+i 1 5 0.01 128 1  60 100 ; note off (using 'note off' status byte)
+</CsScore>
+</CsoundSynthesizer>
+;example by Iain McCurdy
+~~~
 
 The use of separate score events for note-ons and note-offs is rather
 cumbersome. It would be more sensible to use the Csound note duration
@@ -111,46 +117,46 @@ this by utilising a release flag generated by
 the [release](https://csound.com/docs/manual/release.html) opcode
 whenever a note ends and sending the note-off then. 
 
-  ***EXAMPLE 07E02\_score\_to\_midiout.csd***  
 
-    <CsoundSynthesizer>
+   ***EXAMPLE 07E02_score_to_midiout.csd***  
 
-    <CsOptions>
-    ; amend device number accordingly
-    -Q999
-    </CsOptions>
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+; amend device number accordingly
+-Q999
+</CsOptions>
+<CsInstruments>
+ksmps = 32 ;no audio so sr and nchnls omitted
 
-    <CsInstruments>
-    ksmps = 32 ;no audio so sr and nchnls omitted
+  instr 1
+;arguments for midiout are read from p-fields
+istatus   init      p4
+ichan     init      p5
+idata1    init      p6
+idata2    init      p7
+kskip     init      0
+ if kskip=0 then
+          midiout   istatus, ichan, idata1, idata2; send raw midi data (note on)
+kskip     =         1; ensure that the note on will only be executed once
+ endif
+krelease  release; normally output is zero, on final k pass output is 1
+ if krelease=1 then; i.e. if we are on the final k pass...
+       midiout   istatus, ichan, idata1, 0; send raw midi data (note off)
+ endif
+  endin
 
-      instr 1
-    ;arguments for midiout are read from p-fields
-    istatus   init      p4
-    ichan     init      p5
-    idata1    init      p6
-    idata2    init      p7
-    kskip     init      0
-     if kskip=0 then
-              midiout   istatus, ichan, idata1, idata2; send raw midi data (note on)
-    kskip     =         1; ensure that the note on will only be executed once
-     endif
-    krelease  release; normally output is zero, on final k pass output is 1
-     if krelease=1 then; i.e. if we are on the final k pass...
-           midiout   istatus, ichan, idata1, 0; send raw midi data (note off)
-     endif
-      endin
-
-    </CsInstruments>
-
-    <CsScore>
-    ;p1 p2 p3   p4 p5 p6 p7
-    i 1 0    4 144 1  60 100
-    i 1 1    3 144 1  64 100
-    i 1 2    2 144 1  67 100
-    f 0 5; extending performance time prevents note-offs from being lost
-    </CsScore>
-
-    </CsoundSynthesizer>
+</CsInstruments>
+<CsScore>
+;p1 p2 p3   p4 p5 p6 p7
+i 1 0    4 144 1  60 100
+i 1 1    3 144 1  64 100
+i 1 2    2 144 1  67 100
+f 0 5; extending performance time prevents note-offs from being lost
+</CsScore>
+</CsoundSynthesizer>
+;example by Iain McCurdy
+~~~
 
 Obviously *midiout *is not limited to only sending only midi note
 information but instead this information could include continuous
@@ -169,56 +175,57 @@ In practice it may be necessary to start sending the continuous
 controller data slightly before the note-on to allow the hardware time
 to respond. 
 
-  ***EXAMPLE 07E03\_midiout\_cc.csd***  
 
-    <CsoundSynthesizer>
+   ***EXAMPLE 07E03_midiout_cc.csd***  
 
-    <CsOptions>
-    ; amend device number accordingly
-    -Q999
-    </CsOptions>
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+; amend device number accordingly
+-Q999
+</CsOptions>
+<CsInstruments>
+ksmps = 32 ; no audio so sr and nchnls irrelevant
 
-    <CsInstruments>
-    ksmps = 32 ; no audio so sr and nchnls irrelevant
+  instr 1
+; play a midi note
+; read in values from p-fields
+ichan     init      p4
+inote     init      p5
+iveloc    init      p6
+kskip     init      0 ; 'skip' flag ensures that note-on is executed just once
+ if kskip=0 then
+          midiout   144, ichan, inote, iveloc; send raw midi data (note on)
+kskip     =         1   ; flip flag to prevent repeating the above line
+ endif
+krelease  release       ; normally zero, on final k pass this will output 1
+ if krelease=1 then     ; if we are on the final k pass...
+          midiout   144, ichan, inote, 0  ; send a note off
+ endif
 
-      instr 1
-    ; play a midi note
-    ; read in values from p-fields
-    ichan     init      p4
-    inote     init      p5
-    iveloc    init      p6
-    kskip     init      0 ; 'skip' flag ensures that note-on is executed just once
-     if kskip=0 then
-              midiout   144, ichan, inote, iveloc; send raw midi data (note on)
-    kskip     =         1   ; flip flag to prevent repeating the above line
-     endif
-    krelease  release       ; normally zero, on final k pass this will output 1
-     if krelease=1 then     ; if we are on the final k pass...
-              midiout   144, ichan, inote, 0  ; send a note off
-     endif
+; send continuous controller data
+iCCnum    =         p7
+kCCval    line      0, p3, 127.1  ; continuous controller data function
+kCCval    =         int(kCCval)   ; convert data function to integers
+ktrig     changed   kCCval        ; generate a trigger each time kCCval changes
+ if ktrig=1 then                  ; if kCCval has changed...
+          midiout   176, ichan, iCCnum, kCCval  ; ...send a controller message
+ endif
+  endin
 
-    ; send continuous controller data
-    iCCnum    =         p7
-    kCCval    line      0, p3, 127.1  ; continuous controller data function
-    kCCval    =         int(kCCval)   ; convert data function to integers
-    ktrig     changed   kCCval        ; generate a trigger each time kCCval changes
-     if ktrig=1 then                  ; if kCCval has changed...
-              midiout   176, ichan, iCCnum, kCCval  ; ...send a controller message
-     endif
-      endin
+</CsInstruments>
+<CsScore>
+;p1 p2 p3   p4 p5 p6  p7
+i 1 0  5    1  60 100 1
+f 0 7 ; extending performance time prevents note-offs from being lost
+</CsScore>
+</CsoundSynthesizer>
+;example by Iain McCurdy
+~~~
 
-    </CsInstruments>
 
-    <CsScore>
-    ;p1 p2 p3   p4 p5 p6  p7
-    i 1 0  5    1  60 100 1
-    f 0 7 ; extending performance time prevents note-offs from being lost
-    </CsScore>
-
-    </CsoundSynthesizer>
-
-midion - Outputting MIDI Notes Made Easier
-------------------------------------------
+*midion* - Outputting MIDI Notes Made Easier
+--------------------------------------------
 
 *midiout *is the most powerful opcode for midi output but if we are only
 interested in sending out midi notes from an instrument then
@@ -226,139 +233,139 @@ the [midion](https://csound.com/docs/manual/midion.html) opcode
 simplifies the procedure as the following example demonstrates by
 playing a simple major arpeggio.
 
-  ***EXAMPLE 07E04\_midion.csd***
 
-    <CsoundSynthesizer>
+   ***EXAMPLE 07E04_midion.csd***
 
-    <CsOptions>
-    ; amend device number accordingly
-    -Q999
-    </CsOptions>
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+; amend device number accordingly
+-Q999
+</CsOptions>
+<CsInstruments>
 
-    <CsInstruments>
-    ; Example by Iain McCurdy
+ksmps = 32 ;no audio so sr and nchnls irrelevant
 
-    ksmps = 32 ;no audio so sr and nchnls irrelevant
+  instr 1
+; read values in from p-fields
+kchn    =       p4
+knum    =       p5
+kvel    =       p6
+        midion  kchn, knum, kvel ; send a midi note
+  endin
 
-      instr 1
-    ; read values in from p-fields
-    kchn    =       p4
-    knum    =       p5
-    kvel    =       p6
-            midion  kchn, knum, kvel ; send a midi note
-      endin
+</CsInstruments>
+<CsScore>
+;p1 p2  p3  p4 p5 p6
+i 1 0   2.5 1 60  100
+i 1 0.5 2   1 64  100
+i 1 1   1.5 1 67  100
+i 1 1.5 1   1 72  100
+f 0 30 ; extending performance time prevents note-offs from being missed
+</CsScore>
+</CsoundSynthesizer>
+;example by Iain McCurdy
+~~~
 
-    </CsInstruments>
-
-    <CsScore>
-    ;p1 p2  p3  p4 p5 p6
-    i 1 0   2.5 1 60  100
-    i 1 0.5 2   1 64  100
-    i 1 1   1.5 1 67  100
-    i 1 1.5 1   1 72  100
-    f 0 30 ; extending performance time prevents note-offs from being missed
-    </CsScore>
-
-    </CsoundSynthesizer>
-
-Changing any of midion\'s k-rate input arguments in realtime will force
+Changing any of midion's k-rate input arguments in realtime will force
 it to stop the current midi note and send out a new one with the new
 parameters.
 
 [midion2](https://csound.com/docs/manual/midion2.html) allows us to
 control when new notes are sent (and the current note is stopped)
-through the use of a trigger input. The next example uses \'midion2\' to
+through the use of a trigger input. The next example uses *midion2* to
 algorithmically generate a melodic line. New note generation is
 controlled by a [metro](https://csound.com/docs/manual/metro.html),
 the rate of which undulates slowly through the use of
 a [randomi](https://csound.com/docs/manual/randomi.html) function.
 
-  ***EXAMPLE 07E05\_midion2.csd***
 
-    <CsoundSynthesizer>
+   ***EXAMPLE 07E05_midion2.csd***
 
-    <CsOptions>
-    ; amend device number accordingly
-    -Q999
-    </CsOptions>
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+; amend device number accordingly
+-Q999
+</CsOptions>
+<CsInstruments>
 
-    <CsInstruments>
-    ; Example by Iain McCurdy
+ksmps = 32 ; no audio so sr and nchnls irrelevant
 
-    ksmps = 32 ; no audio so sr and nchnls irrelevant
+  instr 1
+; read values in from p-fields
+kchn    =        p4
+knum    random   48,72.99  ; note numbers chosen randomly across a 2 octaves
+kvel    random   40, 115   ; velocities are chosen randomly
+krate   randomi  1,2,1     ; rate at which new notes will be output
+ktrig   metro    krate^2   ; 'new note' trigger
+        midion2  kchn, int(knum), int(kvel), ktrig ; send midi note if ktrig=1
+  endin
 
-      instr 1
-    ; read values in from p-fields
-    kchn    =        p4
-    knum    random   48,72.99  ; note numbers chosen randomly across a 2 octaves
-    kvel    random   40, 115   ; velocities are chosen randomly
-    krate   randomi  1,2,1     ; rate at which new notes will be output
-    ktrig   metro    krate^2   ; 'new note' trigger
-            midion2  kchn, int(knum), int(kvel), ktrig ; send midi note if ktrig=1
-      endin
+</CsInstruments>
+<CsScore>
+i 1 0 20 1
+f 0 21 ; extending performance time prevents the final note-off being lost
+</CsScore>
+</CsoundSynthesizer>
+;example by Iain McCurdy
+~~~
 
-    </CsInstruments>
 
-    <CsScore>
-    i 1 0 20 1
-    f 0 21 ; extending performance time prevents the final note-off being lost
-    </CsScore>
-
-    </CsoundSynthesizer>
-
-\'midion\' and \'midion2\' generate monophonic melody lines with no gaps
+*midion* and *midion2* generate monophonic melody lines with no gaps
 between notes.
 
 [moscil](https://csound.com/docs/manual/moscil.html) works in a
 slightly different way and allows us to explicitly define note durations
 as well as the pauses between notes thereby permitting the generation of
-more staccato melodic lines. Like \'midion\' and \'midion2\', \'moscil\'
+more staccato melodic lines. Like *midion* and *midion2*, *moscil*
 will not generate overlapping notes (unless two or more instances of it
 are concurrent). The next example algorithmically generates a melodic
-line using \'moscil\'.
+line using *moscil*.
 
-  ***EXAMPLE 07E06\_moscil.csd***
 
-    <CsoundSynthesizer>
+   ***EXAMPLE 07E06_moscil.csd***
 
-    <CsOptions>
-    ; amend device number accordingly
-    -Q999
-    </CsOptions>
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+; amend device number accordingly
+-Q999
+</CsOptions>
+<CsInstruments>
+; Example by Iain McCurdy
 
-    <CsInstruments>
-    ; Example by Iain McCurdy
+ksmps = 32 ;no audio so sr and nchnls omitted
 
-    ksmps = 32 ;no audio so sr and nchnls omitted
+seed 0; random number generators seeded by system clock
 
-    seed 0; random number generators seeded by system clock
+  instr 1
+; read value in from p-field
+kchn    =         p4
+knum    random    48,72.99  ; note numbers chosen randomly across a 2 octaves
+kvel    random    40, 115   ; velocities are chosen randomly
+kdur    random    0.2, 1    ; note durations chosen randomly from 0.2 to 1
+kpause  random    0, 0.4    ; pauses betw. notes chosen randomly from 0 to 0.4
+        moscil    kchn, knum, kvel, kdur, kpause ; send a stream of midi notes
+  endin
 
-      instr 1
-    ; read value in from p-field
-    kchn    =         p4
-    knum    random    48,72.99  ; note numbers chosen randomly across a 2 octaves
-    kvel    random    40, 115   ; velocities are chosen randomly
-    kdur    random    0.2, 1    ; note durations chosen randomly from 0.2 to 1
-    kpause  random    0, 0.4    ; pauses betw. notes chosen randomly from 0 to 0.4
-            moscil    kchn, knum, kvel, kdur, kpause ; send a stream of midi notes
-      endin
+</CsInstruments>
+<CsScore>
+;p1 p2 p3 p4
+i 1 0  20 1
+f 0 21 ; extending performance time prevents final note-off from being lost
+</CsScore>
+</CsoundSynthesizer>
+;example by Iain McCurdy
+~~~
 
-    </CsInstruments>
-
-    <CsScore>
-    ;p1 p2 p3 p4
-    i 1 0  20 1
-    f 0 21 ; extending performance time prevents final note-off from being lost
-    </CsScore>
-
-    </CsoundSynthesizer>
 
 MIDI File Output
 ----------------
 
 As well as (or instead of) outputting midi in realtime, Csound can
 render data from all of its midi output opcodes to a midi file. To do
-this we use the \'\--midioutfile=\' flag followed by the desired name
+this we use the *--midioutfile=* flag followed by the desired name
 for our file. For example:
 
     <CsOptions>
@@ -366,5 +373,5 @@ for our file. For example:
     </CsOptions>
 
 will simultaneously stream realtime midi to midi output device number 2
-and render to a file named \'midiout.mid\' which will be saved in our
+and render to a file named *midiout.mid* which will be saved in our
 home directory.

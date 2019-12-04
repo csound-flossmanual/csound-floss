@@ -18,10 +18,10 @@ As such it is impossible to specifically define its function here. An
 Arduino is normally programmed using its own development environment
 (IDE). A program is written on a computer which is then uploaded to the
 Arduino; the Arduino then runs this program, independent of the computer
-if necessary. Arduino\'s IDE is based on that used by
-[Processing](https://processing.org "Wiring") and
-[Wiring](http://wiring.org.co/ "Wiring"). Arduino programs are often
-referred to as \"sketches\". There now exists a plethora of Arduino
+if necessary. Arduino's IDE is based on that used by
+[Processing](https://processing.org) and
+[Wiring](http://wiring.org.co). Arduino programs are often
+referred to as *sketches*. There now exists a plethora of Arduino
 variants and even a number of derivatives and clones but all function in
 more or less the same way.
 
@@ -30,16 +30,17 @@ communication and as such a number of possible solutions exist. This
 chapter will suggest several possibilities and it will then be up to the
 user to choose the one most suitable for their requirements. Most
 Arduino boards communicate using serial communication (normally via a
-USB cable). A number of Arduino programs, called \"Firmata\", exist that
+USB cable). A number of Arduino programs, called *Firmata*, exist that
 are intended to simplify and standardise communication between Arduinos
-and software. Through the use of a Firmata the complexity of Arduino\'s
+and software. Through the use of a Firmata the complexity of Arduino's
 serial communication is shielded from the user and a number of simpler
 objects, ugens or opcodes (depending on what the secondary software is)
 can instead be used to establish communication. Unfortunately Csound is
-rather poorly served with facilities to communicate using the Firmata
+rather poorly served with facilities to communicate using the *Firmata*
 (although this will hopefully improve in the future) so it might prove
 easiest to use another program (such as Pd or Processing) as an
 intermediary between the Arduino and Csound.
+
 
 Arduino - Pd - Csound
 ---------------------
@@ -48,15 +49,15 @@ First we will consider communication between an Arduino (running a
 Standard Firmata) and Pd. Later we can consider the options for further
 communication from Pd to Csound.
 
-Assuming that the [Arduino
-IDE](https://www.arduino.cc/en/main/software "Wiring") (integrated
+Assuming that the 
+[Arduino IDE](https://www.arduino.cc/en/main/software) (integrated
 development environment) has been installed and that the Arduino has
 been connected, we should then open and upload a Firmata sketch. One can
-normally be found by going to File -\> Examples -\> Firmata -\> \...
+normally be found by going to *File -> Examples -> Firmata -> ...*
 There will be a variety of flavours from which to choose but
-\"StandardFirmata\" should be a good place to start. Choose the
-appropriate Arduino board type under Tools -\> Board -\> \... and then
-choose the relevant serial port under Tools -\> Serial Port -\> \...
+*StandardFirmata* should be a good place to start. Choose the
+appropriate Arduino board type under *Tools -> Board -> ...* and then
+choose the relevant serial port under *Tools -> Serial Port -> ...*
 Choosing the appropriate serial port may require some trial and error
 but if you have chosen the wrong one this will become apparent when you
 attempt to upload the sketch. Once you have established the correct
@@ -65,123 +66,99 @@ list (counting from zero) this corresponds to as this number will be
 used by Pd to communicate with the Arduino. Finally upload the sketch by
 clicking on the right-pointing arrow button.
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/arduinoide.png)
-:::
-:::
+![](../resources/images/08-b-arduinoide.png)
 
-Assuming that [Pd](http://puredata.info/downloads "Wiring") is already
+Assuming that [Pd](http://puredata.info/downloads) is already
 installed, it will also be necessary to install an add-on library for Pd
-called [Pduino](http://puredata.info/downloads/pduino "Wiring"). Follow
+called [Pduino](http://puredata.info/downloads/pduino). Follow
 its included instructions about where to place this library on your
 platform and then reopen Pd. You will now have access to a set of Pd
 objects for communicating with your Arduino. The Pduino download will
-also have included a number of examples Pd. \"arduino-test.pd\" will
+also have included a number of examples Pd. *arduino-test.pd* will
 probably be the best patch to start. First set the appropriate serial
 port number to establish communication and then set Arduino pins as
-\"input\", \"output\" etc. as you desire. It is beyond the scope of this
+*input*, *output* etc. as you desire. It is beyond the scope of this
 chapter to go into further detail regarding setting up an Arduino with
 sensors and auxiliary components, suffice to say that communication to
-an Arduino is normally tested by \'blinking\' digital pin 13 and
+an Arduino is normally tested by *blinking* digital pin 13 and
 communication from an Arduino is normally tested by connecting a 10
 kilo-ohm (10k) potentiometer to analog pin zero. For the sake of
 argument, we shall assume in this tutorial that we are setting the
 Arduino as a hardware controller and have a potentiometer connected to
 pin 0.
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/poton0.png) 
-:::
-:::
+![](../resources/images/08-b-poton0.png) 
 
-This picture below demonstrates a simple Pd patch that uses Pduino\'s
-objects to receive communication from Arduino\'s analog and digital
+This picture below demonstrates a simple Pd patch that uses Pduino's
+objects to receive communication from Arduino's analog and digital
 inputs. (Note that digital pins 0 and 1 are normally reserved for serial
 communication if the USB serial communication is unavailable.) In this
-example serial port \'5\' has been chosen. Once the analogIns enable box
+example serial port *5* has been chosen. Once the analogIns enable box
 for pin 0 is checked, moving the potentiometer will change the values in
 the left-most number box (and move the slider connected to it).
-Arduino\'s analog inputs generate integers with 10-bit resolution (0 -
+Arduino's analog inputs generate integers with 10-bit resolution (0 -
 1023) but these values will often be rescaled as floats within the range
 0 - 1 in the host program for convenience.
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/arduinopd.tiff)
-:::
-:::
-
-::: {.group_img}
-::: {.image}
-![](../resources/images/arduinopd.png)
-:::
-:::
+![](../resources/images/08-b-arduinopd.png)
 
 Having established communication between the Arduino and Pd we can now
 consider the options available to us for communicating between Pd and
 Csound. The most obvious (but not necessarily the best or most flexible)
-method is to use Pd\'s csoundapi\~ object (csound6\~ in Csound6). The
-above example could be modified to employ csoundapi\~ as shown below.
+method is to use Pd's *csound6~* object). The
+above example could be modified to employ *csound6~* as shown below.
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/arduinopdcsound.png)
-:::
-:::
+![](../resources/images/08-b-arduinopdcsound.png)
 
 The outputs from the first two Arduino analog controls are passed into
 Csound using its API. Note that we should use the unpegged (not
-quantised in time) values directly from the \'route\' object. The Csound
-.csd file \'control.csd\' is called upon by Pd and it should reside in
+quantised in time) values directly from the *route* object. The Csound
+file *control.csd* is called upon by Pd and it should reside in
 the same directory as the Pd patch. Establishing communication to and
 from Pd could employ code such as that shown below. Data from controller
 one (Arduino analog 0) is used to modulate the amplitude of an
 oscillator and data from controller two (Arduino analog 1) varies its
 pitch across a four octave range.
 
-***EXAMPLE 08B01\_Pd\_to\_Csound.csd***
 
-    <CsoundSynthesizer>
+   ***EXAMPLE 08B01Pd_to_Csound.csd***
 
-    <CsOptions>
-    </CsOptions>
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+</CsOptions>
+<CsInstruments>
+sr = 44100
+nchnls = 2
+0dbfs = 1
+ksmps = 32
 
-    <CsInstruments>
-
-    sr = 44100
-    nchnls = 2
-    0dbfs = 1
-    ksmps = 32
-
-     instr 1
-    ; read in controller data from Pd via the API using 'invalue'
-    kctrl1  invalue  "ctrl1"
-    kctrl2  invalue  "ctrl2"
-    ; re-range controller values from 0 - 1 to 7 - 11
-    koct    =        (kctrl2*4)+7
-    ; create an oscillator
-    a1      vco2     kctrl1,cpsoct(koct),4,0.1
-            outs     a1,a1
-     endin
-    </CsInstruments>
-
-    <CsScore>
-    i 1 0 10000
-    e
-    </CsScore>
-
-    </CsoundSynthesizer>
+ instr 1
+; read in controller data from Pd via the API using 'invalue'
+kctrl1  invalue  "ctrl1"
+kctrl2  invalue  "ctrl2"
+; re-range controller values from 0 - 1 to 7 - 11
+koct    =        (kctrl2*4)+7
+; create an oscillator
+a1      vco2     kctrl1,cpsoct(koct),4,0.1
+        outs     a1,a1
+ endin
+</CsInstruments>
+<CsScore>
+i 1 0 10000
+</CsScore>
+</CsoundSynthesizer>
+;example by Iain McCurdy
+~~~
 
 Communication from Pd into Csound is established using the
-[invalue](https://csound.com/docs/manual/invalue.html "Wiring")
+[invalue](https://csound.com/docs/manual/invalue.html)
 opcodes and audio is passed back to Pd from Csound using
-[outs](https://csound.com/docs/manual/outs.html "Wiring"). Note that
-Csound does not address the computer\'s audio hardware itself but merely
+[outs](https://csound.com/docs/manual/outs.html). Note that
+Csound does not address the computer's audio hardware itself but merely
 passes audio signals back to Pd. Greater detail about using Csound
-within Pd can be found in the chapter [Csound in
-Pd](http://en.flossmanuals.net/csound/csound-in-pd/ "Wiring").
+within Pd can be found in the chapter 
+[Csound in Pd](09-a-csound-in-pd.md).
 
 A disadvantage of using the method is that in order to modify the Csound
 patch it will require being edited in an external editor, re-saved, and
@@ -191,21 +168,23 @@ This workflow might be considered rather inefficient.
 Another method of data communication between PD and Csound could be to
 use MIDI. In this case some sort of MIDI connection node or virtual
 patchbay will need to be employed. On Mac this could be the IAC driver,
-on Windows this could be [MIDI Yoke](http://www.midiox.com/ "Wiring")
-and on Linux this could be Jack. This method will have the disadvantage
-that the Arduino\'s signal might have to be quantised in order to match
-the 7-bit MIDI controller format but the advantage is that Csound\'s
-audio engine will be used (not Pd\'s; in fact audio can be disabled in
-Pd) so that making modifications to the Csound .csd and hearing the
+on Windows this could be [MIDI Yoke](http://www.midiox.com)
+and on Linux this could be [Jack](https://jackaudio.org/). 
+This method will have the disadvantage
+that the Arduino's signal might have to be quantised in order to match
+the 7-bit MIDI controller format but the advantage is that Csound's
+audio engine will be used (not Pd's; in fact audio can be disabled in
+Pd) so that making modifications to the Csound file and hearing the
 changes should require fewer steps.
 
 A final method for communication between Pd and Csound is to use OSC.
 This method would have the advantage that analog 10 bit signal would not
 have to be quantised. Again workflow should be good with this method as
-Pd\'s interaction will effectively be transparent to the user and once
+Pd's interaction will effectively be transparent to the user and once
 started it can reside in the background during working. Communication
 using OSC is also used between Processing and Csound so is described in
 greater detail below.
+
 
 Arduino - Processing - Csound
 -----------------------------
@@ -214,21 +193,17 @@ It is easy to communicate with an Arduino using a Processing sketch and
 any data within Processing can be passed to Csound using OSC.
 
 The following method makes use of the
-[Arduino](http://playground.arduino.cc/interfacing/processing "Wiring")
-and [P5](http://www.sojamo.de/libraries/controlP5/ "Wiring") (glove)
+[Arduino](http://playground.arduino.cc/interfacing/processing)
+and [P5](http://www.sojamo.de/libraries/controlP5) (glove)
 libraries for processing. Again these need to be copied into the
 appropriate directory for your chosen platform in order for Processing
 to be able to use them. Once again there is no requirement to actually
 know very much about Processing beyond installing it and running a patch
 (sketch). The following
-[sketch](http://iainmccurdy.org/CsoundRealtimeExamples/ArduinoProcessingOSC/AllArduinoInputsToOSC.pde "Wiring")
+[sketch](../resources/SourceMaterials/AllArduinoInputsToOSC.pde)
 will read all Arduino inputs and output them as OSC.
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/arduinoprocessing.png)
-:::
-:::
+![](../resources/images/08-b-arduinoprocessing.png)
 
 Start the Processing sketch by simply clicking the triangle button at
 the top-left of the GUI. Processing is now reading serial data from the
@@ -236,72 +211,67 @@ Arduino and transmitting this as OSC data within the computer.
 
 The OSC data sent by Processing can be read by Csound using its own OSC
 opcodes. The following example simply reads in data transmitted by
-Arduino\'s analog pin 0 and prints changed values to the terminal. To
-read in data from all analog and digital inputs you can use [this
-example
-.csd](http://www.iainmccurdy.org/CsoundRealtimeExamples/ArduinoProcessingOSC/Arduino_Processing_OSC_Csound.csd "Wiring").
+Arduino's analog pin 0 and prints changed values to the terminal. To
+read in data from all analog and digital inputs you can use Iain McCurdy's 
+[Arduino_Processing_OSC_Csound.csd](../resources/SourceMaterials/Arduino_Processing_OSC_Csound.csd).
 
-***EXAMPLE 08B02\_Processing\_to\_Csound.csd***
+   ***EXAMPLE 08B02_Processing_to_Csound.csd***
 
-    <CsoundSynthesizer>
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-o dac
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 8
+nchnls = 1
+0dbfs = 1
 
-    <CsOptions>
-    -o dac
-    </CsOptions>
+; handle used to reference osc stream
+gihandle OSCinit 12001
 
-    <CsInstruments>
+ instr 1
+; initialise variable used for analog values
+gkana0      init       0
+; read in OSC channel '/analog/0'
+gktrigana0  OSClisten  gihandle, "/analog/0", "i", gkana0
+; print changed values to terminal
+            printk2    gkana0
+ endin
 
-    sr = 44100
-    ksmps = 8
-    nchnls = 1
-    0dbfs = 1
+</CsInstruments>
+<CsScore>
+i 1 0 3600
+</CsScore>
+</CsoundSynthesizer>
+;example by Iain McCurdy
+~~~
 
-    ; handle used to reference osc stream
-    gihandle OSCinit 12001
 
-     instr 1
-    ; initialise variable used for analog values
-    gkana0      init       0
-    ; read in OSC channel '/analog/0'
-    gktrigana0  OSClisten  gihandle, "/analog/0", "i", gkana0
-    ; print changed values to terminal
-                printk2    gkana0
-     endin
-
-    </CsInstruments>
-
-    <CsScore>
-    i 1 0 3600
-    e
-    </CsScore>
-
-    </CsoundSynthesizer>
-
-Also worth in investigating is Jacob Joaquin\'s
-[Csoundo](https://github.com/jacobjoaquin/Csoundo "Wiring") - a Csound
+Also worth in investigating is Jacob Joaquin's
+[Csoundo](https://github.com/rorywalsh/Csoundo) - a Csound
 library for Processing. This library will allow closer interaction
-between Processing and Csound in the manner of the csoundapi\~ object in
+between Processing and Csound in the manner of the *csound6~* object in
 Pd. This project has more recently been developed by Rory Walsh.
+
 
 Arduino as a MIDI Device
 ------------------------
 
 Some users might find it most useful to simply set the Arduino up as a
 MIDI device and to use that protocol for communication. In order to do
-this all that is required is to connect MIDI pin 4 to the Arduino\'s 5v
-via a 200k resistor, to connect MIDI pin 5 to the Arduino\'s TX (serial
+this all that is required is to connect MIDI pin 4 to the Arduino's 5v
+via a 200k resistor, to connect MIDI pin 5 to the Arduino's TX (serial
 transmit) pin/pin 1 and to connect MIDI pin 2 to ground, as shown below.
 In order to program the Arduino it will be necessary to install
-Arduino\'s [MIDI
-library](http://playground.arduino.cc/Main/MIDILibrary "Wiring").
+Arduino's 
+[MIDI library](http://playground.arduino.cc/Main/MIDILibrary).
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/midi_bb.png)
-:::
-:::
+![](../resources/images/08-b-midi-bb.png)
 
-Programming an Arduino to generate a MIDI controller signal  from analog
+
+Programming an Arduino to generate a MIDI controller signal from analog
 pin 0 could be done using the following code:
 
     // example written by Iain McCurdy
@@ -335,18 +305,19 @@ pin 0 could be done using the following code:
       delay(10);
     }
 
-Data from the Arduino can now be read using Csound\'s
-[ctrl7](https://csound.com/docs/manual/ctrl7.html "Wiring") opcodes
+Data from the Arduino can now be read using Csound's
+[ctrl7](https://csound.com/docs/manual/ctrl7.html) opcodes
 for reading MIDI controller data.
+
 
 The Serial Opcodes
 ------------------
 
 Serial data can also be read directly from the Arduino by Csound by
-using Matt Ingalls\' opcodes for serial communication:
-[serialBegin](https://csound.com/docs/manual/serialBegin.html "Wiring")
+using Matt Ingalls' opcodes for serial communication:
+[serialBegin](https://csound.com/docs/manual/serialBegin.html)
 and
-[serialRead.](https://csound.com/docs/manual/serialRead.html "Wiring")
+[serialRead.](https://csound.com/docs/manual/serialRead.html)
 
 An example Arduino sketch for serial communication could be as simple as
 this:
@@ -364,62 +335,62 @@ this:
 
     void loop()
     {
-      // only do something if we received something (this should be at csound's k-rate)
+      // only do something if we received something 
+      // (this should be at csound's k-rate)
       if (Serial.available())
       {
 
-             // set the brightness of LED (connected to pin 9) to our input value
-           int brightness = Serial.read();
-           analogWrite(9, brightness);
+         // set the brightness of LED (connected to pin 9) to our input value
+         int brightness = Serial.read();
+         analogWrite(9, brightness);
 
-           // while we are here, get our knob value and send it to csound
-           int sensorValue = analogRead(A0);
-           Serial.write(sensorValue/4); // scale to 1-byte range (0-255)
+         // while we are here, get our knob value and send it to csound
+         int sensorValue = analogRead(A0);
+         Serial.write(sensorValue/4); // scale to 1-byte range (0-255)
       }
     }
 
 It will be necessary to provide the correct address of the serial port
 to which the Arduino is connected (in the given example the Windows
-platform was being used and the port address was /COM4).
+platform was being used and the port address was */COM4*).
 
 It will be necessary to scale the value to correspond to the range
-provided by a single byte (0-255) so therefore the Arduino\'s 10 bit
+provided by a single byte (0-255) so therefore the Arduino's 10 bit
 analog input range (0-1023) will have to be divided by four.
 
-***EXAMPLE 08B03\_Serial\_Read.csd***
 
-    ; Example written by Matt Ingalls
-    ; CSOUND CODE:
-    ; run with a commandline something like:
-    ; csound --opcode-lib=serialOpcodes.dylib serialdemo.csd -odac -iadc
+   ***EXAMPLE 08B03_Serial_Read.csd***
 
-    <CsoundSynthesizer>
+~~~
+; Example written by Matt Ingalls
+; CSOUND CODE:
+; run with a commandline something like:
+; csound --opcode-lib=serialOpcodes.dylib serialdemo.csd -odac -iadc
 
-    <CsOptions>
+<CsoundSynthesizer>
+<CsOptions>
+</CsOptions>
+;--opcode-lib=serialOpcodes.dylib -odac
+<CsInstruments>
 
-    </CsOptions>
-    ;--opcode-lib=serialOpcodes.dylib -odac
-    <CsInstruments>
+ksmps = 500 ; the default krate can be too fast for the arduino to handle
+0dbfs = 1
 
-    ksmps = 500 ; the default krate can be too fast for the arduino to handle
-    0dbfs = 1
+instr 1
+        iPort   serialBegin     "/COM4", 9600
+        kVal    serialRead      iPort
+                printk2         kVal
+endin
 
-    instr 1
-            iPort   serialBegin     "/COM4", 9600
-            kVal    serialRead      iPort
-                    printk2         kVal
-    endin
-
-
-    </CsInstruments>
-    <CsScore>
-    i 1 0 3600
-    e
-    </CsScore>
-    </CsoundSynthesizer>
+</CsInstruments>
+<CsScore>
+i 1 0 3600
+</CsScore>
+</CsoundSynthesizer>
+~~~
 
 This example will read serial data from the Arduino and print it to the
-terminal. Reading output streams from several of Arduino\'s sensor
+terminal. Reading output streams from several of Arduino's sensor
 inputs simultaneously will require more complex parsing of data within
 Csound as well as more complex packaging of data from the Arduino. This
 is demonstrated in the following example which also shows how to handle
@@ -513,100 +484,103 @@ that clearly marks the beginning of a message received by Csound. The
 remaining bytes of the message will all have a most significant bit
 equal to zero (value \< 128). The sensor values are transmitted as ID,
 length (number of data bytes), and the data itself. The recursive
-function *serial\_send\_recursive* counts the number of data bytes
+function *serial_send_recursive* counts the number of data bytes
 necessary and sends the bytes in the correct order. Only one sensor
 value is transmitted for each run through the Arduino loop.
 
 The Csound code receives the values with the ID first. Of course you
 have to make sure that the IDs in the Csound code matches the ones in
-the Arduino sketch. Here\'s an example of a Csound orchestra that
+the Arduino sketch. Here's an example of a Csound orchestra that
 handles the messages sent from the Arduino sketch:
 
-***EXAMPLE 08B04\_Serial\_Read\_multiple.csd***
 
-    ; Example written by Sigurd Saue
-    ; CSOUND CODE:
-    <CsoundSynthesizer>
-    <CsOptions>
-    -d -odac
-    </CsOptions>
-    <CsInstruments>
+   ***EXAMPLE 08B04_Serial_Read_multiple.csd***
 
-    sr  = 44100
-    ksmps = 500 ; the default krate can be too fast for the arduino to handle
-    nchnls = 2
-    0dbfs  = 1
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-d -odac
+</CsOptions>
+<CsInstruments>
 
-    giSaw  ftgen 0, 0, 4096, 10, 1, 1/2, 1/3, 1/4, 1/5, 1/6, 1/7, 1/8
+sr  = 44100
+ksmps = 500 ; the default krate can be too fast for the arduino to handle
+nchnls = 2
+0dbfs  = 1
 
-    instr 1
+giSaw  ftgen 0, 0, 4096, 10, 1, 1/2, 1/3, 1/4, 1/5, 1/6, 1/7, 1/8
 
-    ; Initialize the three variables to read
-    kPot    init 0
-    kLight  init 0
-    kButton init 0
+instr 1
 
-    iPort   serialBegin "/COM5", 9600 ;connect to the arduino with baudrate = 9600
-            serialWrite iPort, 1    ;Triggering the Arduino (k-rate)
+; Initialize the three variables to read
+kPot    init 0
+kLight  init 0
+kButton init 0
 
-    kValue  = 0
-    kType   serialRead iPort        ; Read type of data (pot, light, button)
+iPort   serialBegin "/COM5", 9600 ;connect to the arduino with baudrate = 9600
+        serialWrite iPort, 1    ;Triggering the Arduino (k-rate)
 
-    if (kType >= 128) then
+kValue  = 0
+kType   serialRead iPort        ; Read type of data (pot, light, button)
 
-            kIndex = 0
-            kSize  serialRead iPort
+if (kType >= 128) then
 
-            loopStart:
-                kValue      = kValue << 7
-                kByte       serialRead iPort
-                kValue      = kValue + kByte
-                loop_lt kIndex, 1, kSize, loopStart
-    endif
+        kIndex = 0
+        kSize  serialRead iPort
 
-    if (kValue < 0) kgoto continue
+        loopStart:
+            kValue      = kValue << 7
+            kByte       serialRead iPort
+            kValue      = kValue + kByte
+            loop_lt kIndex, 1, kSize, loopStart
+endif
 
-    if (kType == 128) then          ; This is the potmeter
-            kPot    = kValue
-    elseif (kType == 129) then      ; This is the light
-            kLight  = kValue
-    elseif (kType == 130) then      ; This is the button (on/off)
-            kButton = kValue
-    endif
+if (kValue < 0) kgoto continue
 
-    continue:
+if (kType == 128) then          ; This is the potmeter
+        kPot    = kValue
+elseif (kType == 129) then      ; This is the light
+        kLight  = kValue
+elseif (kType == 130) then      ; This is the button (on/off)
+        kButton = kValue
+endif
 
-    ; Here you can do something with the variables kPot, kLight and kButton
-    ; printks "Pot %f\n", 1, kPot
-    ; printks "Light %f\n", 1, kLight
-    ; printks "Button %d\n", 1, kButton
+continue:
 
-    ; Example: A simple oscillater controlled by the three parameters
-    kAmp    port    kPot/1024, 0.1
-    kFreq   port    (kLight > 100 ? kLight : 100), 0.1
-    aOut    oscil   kAmp, kFreq, giSaw
+; Here you can do something with the variables kPot, kLight and kButton
+; printks "Pot %f\n", 1, kPot
+; printks "Light %f\n", 1, kLight
+; printks "Button %d\n", 1, kButton
 
-    if (kButton == 0) then
-            out     aOut
-    endif
+; Example: A simple oscillater controlled by the three parameters
+kAmp    port    kPot/1024, 0.1
+kFreq   port    (kLight > 100 ? kLight : 100), 0.1
+aOut    oscil   kAmp, kFreq, giSaw
 
-    endin
+if (kButton == 0) then
+        out     aOut
+endif
 
-    </CsInstruments>
-    <CsScore>
-    i 1 0 60        ; Duration one minute
-    e
-    </CsScore>
-    </CsoundSynthesizer>
+endin
+
+</CsInstruments>
+<CsScore>
+i 1 0 60        ; Duration one minute
+e
+</CsScore>
+</CsoundSynthesizer>
+;example written by Sigurd Saue
+~~~
 
 Remember to provide the correct address of the serial port to which the
-Arduino is connected (the example uses \"/COM5\").
+Arduino is connected (the example uses */COM5*).
+
 
 HID
 ---
 
 Another option for communication has been made available by a new
-Arduino board called \"Leonardo\". It pairs with a computer as if it
+Arduino board called *Leonardo*. It pairs with a computer as if it
 were an HID (Human Interface Device) such as a mouse, keyboard or a
 gamepad. Sensor data can therefore be used to imitate the actions of a
 mouse connected to the computer or keystrokes on a keyboard. Csound is
@@ -614,5 +588,5 @@ already equipped with opcodes to make use of this data. Gamepad-like
 data is perhaps the most useful option though and there exist opcodes
 (at least in the Linux version) for reading gamepad data. It is also
 possible to read in data from a gamepad using
-[pygame](http://www.pygame.org/news.html "Wiring") and Csound\'s python
+[pygame](http://www.pygame.org/news.html) and Csound's python
 opcodes.

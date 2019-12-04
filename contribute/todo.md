@@ -43,6 +43,11 @@ Edits
     - pvsosc?
 - 05-k coding of the examples might be up to modernize
 - 05-l should go to miscellaneous
+- 07-d 
+    - can we include the midi file and the sound fonts for example 07D01?
+    - add hint for any script or application for midi2score
+- 08-a could be more extended; perhaps take some of my chapter for the
+  csound book here
 
 
 General Layout

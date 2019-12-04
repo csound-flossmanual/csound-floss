@@ -2,22 +2,22 @@
 ================================
 
 Csound provides a variety of opcodes, such as
-[cpsmidi](https://csound.com/docs/manual/cpsmidi.html "cpsmidi"),
-[ampmidi](https://csound.com/docs/manual/ampmidi.html "ampmidi") and
-[ctrl7](https://csound.com/docs/manual/ctrl7.html "ctrl7"), which
+[cpsmidi](https://csound.com/docs/manual/cpsmidi.html),
+[ampmidi](https://csound.com/docs/manual/ampmidi.html) and
+[ctrl7](https://csound.com/docs/manual/ctrl7.html), which
 facilitate the reading of incoming midi data into Csound with minimal
 fuss. These opcodes allow us to read in midi information without us
 having to worry about parsing status bytes and so on. Occasionally
 though when more complex midi interaction is required, it might be
 advantageous for us to scan all raw midi information that is coming into
 Csound. The
-[midiin](file:///C:/Program%20Files/Csound/doc/manual/midiin.html "midiin")
+[midiin](file:///C:/Program%20Files/Csound/doc/manual/midiin.html)
 opcode allows us to do this.
 
 In the next example a simple midi monitor is constructed. Incoming midi
 events are printed to the terminal with some formatting to make them
-readable. We can disable Csound\'s default instrument triggering
-mechanism (which in this example we don\'t want to use) by writing the
+readable. We can disable Csound's default instrument triggering
+mechanism (which in this example we don't want to use) by writing the
 line:
 
     massign 0,0 
@@ -25,13 +25,12 @@ line:
 just after the header statement (sometimes referred to as instrument 0).
 
 For this example to work you will need to ensure that you have activated
-live midi input within Csound, either by using the [-M
-flag](https://csound.com/docs/manual/CommandFlagsCategory.html#FlagsCatMinusUpperM)
-or from within the QuteCsound configuration menu. You will also need to
+live midi input within Csound, either by using the 
+[-M flag](https://csound.com/docs/manual/CommandFlagsCategory.html#FlagsCatMinusUpperM). You will also need to
 make sure that you have a midi keyboard or controller connected. You may
-also want to include the [-m0
-flag](https://csound.com/docs/manual/CommandFlags.html#FlagsMinusLowerM)
-which will disable some of Csound\'s additional messaging output and
+also want to include the 
+[-m128 flag](https://csound.com/docs/manual/CommandFlags.html#FlagsMinusLowerM)
+which will disable some of Csound's additional messaging output and
 therefore allow our midi printout to be presented more clearly.
 
 The status byte tells us what sort of midi information has been
@@ -47,42 +46,43 @@ note number. If a midi controller event has been received then data byte
 1 gives us the controller number and data byte 2 gives us the controller
 value. 
 
-**   *EXAMPLE 07A01\_midiin\_print.csd***
 
-    <CsoundSynthesizer>
-    <CsOptions>
-    -Ma -m0
-    ; activates all midi devices, suppress note printings
-    </CsOptions>
+   ***EXAMPLE 07A01_midiin_print.csd***
 
-    <CsInstruments>
-    ; Example by Iain McCurdy
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-Ma -m128
+; activates all midi devices, suppress note printings
+</CsOptions>
+<CsInstruments>
+; no audio so 'sr' or 'nchnls' aren't relevant
+ksmps = 32
 
-    ; no audio so 'sr' or 'nchnls' aren't relevant
-    ksmps = 32
+; using massign with these arguments disables default instrument triggering
+massign 0,0
 
-    ; using massign with these arguments disables default instrument triggering
-    massign 0,0
+  instr 1
+kstatus, kchan, kdata1, kdata2  midiin            ;read in midi
+ktrigger  changed  kstatus, kchan, kdata1, kdata2 ;trigger if midi data changes
+ if ktrigger=1 && kstatus!=0 then          ;if status byte is non-zero...
+; -- print midi data to the terminal with formatting --
+ printks "status:%d%tchannel:%d%tdata1:%d%tdata2:%d%n"\
+                                    ,0,kstatus,kchan,kdata1,kdata2
+ endif
+  endin
 
-      instr 1
-    kstatus, kchan, kdata1, kdata2  midiin            ;read in midi
-    ktrigger  changed  kstatus, kchan, kdata1, kdata2 ;trigger if midi data changes
-     if ktrigger=1 && kstatus!=0 then          ;if status byte is non-zero...
-    ; -- print midi data to the terminal with formatting --
-     printks "status:%d%tchannel:%d%tdata1:%d%tdata2:%d%n"\
-                                        ,0,kstatus,kchan,kdata1,kdata2
-     endif
-      endin
-
-    </CsInstruments>
-    <CsScore>
-    i 1 0 3600 ; instr 1 plays for 1 hour
-    </CsScore>
-    </CsoundSynthesizer>
+</CsInstruments>
+<CsScore>
+i 1 0 3600 ; instr 1 plays for 1 hour
+</CsScore>
+</CsoundSynthesizer>
+;example by Iain McCurdy
+~~~
 
 The principle advantage of using the *midiin* opcode is that, unlike
 opcodes such as *cpsmidi*, *ampmidi* and *ctrl7* which only receive
-specific midi data types on a specific channel, *midiin* \'listens\' to
+specific midi data types on a specific channel, *midiin* "listens" to
 all incoming data including system exclusive messages. In situations
 where elaborate Csound instrument triggering mappings that are beyond
 the capabilities of the default triggering mechanism are required, then
