@@ -71,8 +71,7 @@
 ## 09 CSOUND IN OTHER APPLICATIONS
 ### [A. CSOUND IN PD](09-a-csound-in-pd.md)
 ### [B. CSOUND IN MAXMSP](09-b-csound-in-maxmsp.md)
-### [C. CSOUND IN ABLETON LIVE](09-c-csound-in-ableton-live.md)
-### [D. CSOUND AS A VST PLUGIN](09-d-csound-as-a-vst-plugin.md)
+### [C. CSOUND AS A VST PLUGIN](09-c-csound-as-a-vst-plugin.md)
 
 ## 10 CSOUND FRONTENDS
 ### [A. CSOUNDQT](10-a-csoundqt.md)
