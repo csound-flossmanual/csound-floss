@@ -48,6 +48,7 @@ Edits
     - add hint for any script or application for midi2score
 - 08-a could be more extended; perhaps take some of my chapter for the
   csound book here
+- 09-b (csound in maxmsp) needs to be updated
 
 
 General Layout
