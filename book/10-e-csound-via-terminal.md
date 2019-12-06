@@ -10,7 +10,7 @@ command](https://csound.com/docs/manual/CommandTop.html). In fact we
 must still run Csound in this way but front-ends do this for us usually
 via some toolbar button or widget. Many people still prefer to interact
 with Csound from a terminal window and feel this provides a more
-\'naked\' and honest interfacing with the program. Very often these
+"naked" and honest interfacing with the program. Very often these
 people come from the group of users who have been using Csound for many
 years, form the time before front-ends. It is still important for all
 users to be aware of how to run Csound from the terminal as it provides
@@ -23,9 +23,9 @@ The Csound command follows the format:
 
     csound [performance_flags] [input_orc/sco/csd]
 
-Executing \'csound\' with no additional arguments will run the program
+Executing *csound* with no additional arguments will run the program
 but after a variety of configuration information is printed to the
-terminal we will be informed that we provided \"insufficient arguments\"
+terminal we will be informed that we provided "insufficient arguments"
 for Csound to do anything useful. This action can still be valid for
 first testing if Csound is installed and configured for terminal use,
 for checking what version is installed and for finding out what
@@ -38,14 +38,14 @@ the amount of information that Csound displays for us while running,
 activating a MIDI device for input, or altering buffer sizes for fine
 tuning realtime audio performance. Even if you are using a front-end,
 command line flags can be manipulated in a familiar format usually in
-\'settings\' or \'preferences\' menu. Adding flags here will have the
+*settings* or *preferences* menu. Adding flags here will have the
 same effect as adding them as part of the Csound command. To learn more
 about Csound\'s command line flags it is best to start on the page in
-the reference manual where they are listed and described [by
-category](https://csound.com/docs/manual/CommandFlagsCategory.html).
+the reference manual where they are listed and described 
+[by category](https://csound.com/docs/manual/CommandFlagsCategory.html).
 
-Command line flags can also be defined within the \<CsOptions\>
-\</CsOptions\> part of a .csd file and also in a file called .csoundrc
+Command line flags can also be defined within the \<CsOptions\> ... 
+\</CsOptions\> part of a *.csd* file and also in a file called *.csoundrc*
 which can be located in the Csound home program directory and/or in the
 current working directory. Having all these different options for where
 esentially the same information is stored might seem excessive but it is
@@ -57,12 +57,12 @@ does Csound know which one to choose? There is an order of precedence
 that allows us to find out.
 
 Beginning from its own defaults the first place Csound looks for
-additional flag options is in the .csoundrc file in Csound\'s home
+additional flag options is in the .csoundrc file in Csound's home
 directory, the next is in a .csoundrc file in the current working
-directory (if it exists), the next is in the \<CsOptions\> of the .csd
+directory (if it exists), the next is in the *\<CsOptions\>* of the .csd
 and finally the Csound command itself. Flags that are read later in this
 list will overwrite earlier ones. Where flags have been set within a
-front-end\'s options, these will normally overwrite any previous
+front-end's options, these will normally overwrite any previous
 instructions for that flag as they form part of the Csound command.
 Often a front-end will incorporate a check-box for disabling its own
 inclusion of flag (without actually having to delete them from the
@@ -79,13 +79,12 @@ For example:
 
     Csound -d -W -osoundoutput.wav inputfile.csd
 
-will run Csound and render the input .csd \'inputfile.csd\' as a wav
-file (\'-W\' flag) to the file \'soundoutput.wav\' (\'-o\' flag).
-Additionally displays will be suppressed as dictated by the \'-d\' flag.
-The input .csd file will need to be in the current working directory as
+will run Csound and render the input .csd *inputfile.csd* as a wav
+file (*-W* flag) to the file *soundoutput.wav* (*-o* flag).
+Additionally displays will be suppressed as dictated by the *-d* flag.
+The input *.csd* file will need to be in the current working directory as
 no full path has been provided. the output file will be written to the
 current working directory of
 [SFDIR](https://csound.com/docs/manual/CommandEnvironment.html) if
-specified.\
+specified.
 
-\

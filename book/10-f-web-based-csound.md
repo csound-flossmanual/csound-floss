@@ -1,10 +1,10 @@
 10 F. WEB BASED CSOUND
 ======================
 
-Using Csound via UDP with the \--port Option
---------------------------------------------
+Using Csound via UDP with the *--port* Option
+---------------------------------------------
 
-The \--port=N option allows users to send orchestras to be compiled
+The *--port=N* option allows users to send orchestras to be compiled
 on-the-fly by Csound via UDP connection. This way, Csound can be started
 with no instruments, and will listen to messages sent to it. Many
 programs are capable of sending UDP messages, and scripting languages,
@@ -12,13 +12,13 @@ such as Python, can also be used for this purpose. The simplest way of
 trying out this option is via the netcat program, which can be used in
 the terminal via the nc command.
 
-Let\'s explore this as an example of the \--port option. First, Csound
+Let's explore this as an example of the *--port* option. First, Csound
 is started with the following command:
 
     $ csound -odac --port=1234
 
 Alternatively, if using a frontend such as CsoundQT, it is possible run
-an empty CSD, with the \--port in its CsOptions field:
+an empty CSD, with the *--port* in its CsOptions field:
 
     <CsoundSynthesizer>
     <CsOptions>
@@ -52,226 +52,19 @@ the following command (orch is the name of our file):
     $ nc -u 127.0.0.1 1234 < orch
 
 Csound performance can be stopped in the usual way via ctl-c in the
-terminal, or through the dedicated\
-transport controls in a frontend. We can also close the server it via a
-special UDP message:
+terminal, or through the dedicated transport controls in a frontend. We can also close the server it via a special UDP message:
 
     ERROR WITH MACRO close
 
 However, this will not close Csound, but just stop the UDP server.
 
-\
 
-pNaCl - Csound for Portable Native Client
------------------------------------------
 
-Native Client (NaCl) is a sandboxing technology developed by Google that
-allows C/C++ modules to extend the support provided by HTML5. Portable
-Native Client (pNaCl) is one of the toolchains in the NaCl SDK (the
-others are newlib and glibc). The advantage of pNaCl over the other
-options is that it only requires a single module to be built for all
-supported architectures.
-
-The other major advantage is that pNaCl is, as of Google Chrome 31,
-enabled by default in the browser. This means that users just need to
-load a page containing the pNaCl application and it will work. pNaCl
-modules are compiled to llvm bytecode that is translated to a native
-binary by the browser. To check whether your version of Chrome supports
-pNaCl, use the following address: 
-
-    chrome://nacl
-
-The pNaCl Csound implementation allows users to embed the system in web
-pages. With a minimal use of Javascript, it is possible to create
-applications and frontends for Csound, to be run inside a web browser
-(Chrome, Chromium). 
-
-A binary package for pNaCl-Csound can be found in the Csound releases
-[http://sourceforge.net/projects/csound/files/csound6](http://sourceforge.net/projects/csound/files/csound6)
-
-Running the example application\
-
-NaCl pages need to be served over http, which means they will not work
-when opened as local files. For this you will need a http server. A
-minimal one, written in Python, can be found in the NaCl SDK
-[https://developer.chrome.com/native-client/sdk/download](https://developer.chrome.com/native-client/sdk/download). 
-
-### Csound pNaCl module reference
-
-The interface to Csound is found in the csound.js javascript file.
-Csound is ready on module load, and can accept control messages from
-then on. 
-
-#### Control functions
-
-The following control functions can be used to interact with Csound:
-
--   **csound.Play()** - starts performance
--   **csound.PlayCsd(s)** - starts performance from a CSD file s, which
-    can be in ./http/ (ORIGIN server) or ./local/ (local sandbox).
--   **csound.RenderCsd(s)** - renders a CSD file s, which can be in
-    ./http/ (ORIGIN server) or ./local/ (local sandbox), with no RT
-    audio output. The "finished render" message is issued on completion.
--   **csound.Pause()** - pauses performance
--   **csound.StartAudioInput()** - switches on audio input (available in
-    Chrome version 36 onwards)
--   **csound.CompileOrc(s)** - compiles the Csound code in the string s
--   **csound.ReadScore(s)** - reads the score in the string s (with
-    preprocessing support)
--   **csound.Event(s)** - sends in the line events contained in the
-    string s (no preprocessing)
--   **csound.SetChannel(name, value)** - sends the control channel name
-    the value value.
--   **csound.SetStringChannel(name, string)** - sends the string channel
-    name the string string.
--   **csound.SetTable(num, pos, value)** - sets the table name at index
-    pos the value value.
--   **csound.RequestTable(num)** - requests the table data for table
-    num. The "Table::Complete" message is issued on completion.
--   **csound.GetTableData()** - returns the most recently requested
-    table data as an ArrayObject.
--   **MIDIin(byte1, byte2, byte3)** - sends a MIDI in message to Csound.
--   **NoteOn(channel,number,velocity)** - sends a Note ON message to
-    Csound.
--   **NoteOff(channel,number,velocity)** - sends a Note OFF message to
-    Csound.
--   **PolyAftertouch(channel,number,aftertouch)** - sends a polyphonic
-    aftertouch message to Csound.
--   **ControlChange(channel,control,amount)** - sends a control change
-    message to Csound.
--   **ProgramChange(channel,control)** - sends a program change message
-    to Csound.
--   **Aftertouch(channel,amount)** - sends a mono aftertouch message to
-    Csound.
--   **PitchBend(channel,fine,coarse)** - sends a pitchbend message to
-    Csound
-
-#### Filesystem functions 
-
-In order to facilitate access to files, the following filesystem
-functions can be used: 
-
--   **csound.CopyToLocal(src, dest)** - copies the file src in the
-    ORIGIN directory to the local file dest, which can be accessed at
-    ./local/dest. The "Complete" message is issued on completion.
--   **csound.CopyUrlToLocal(url,dest)** - copies the url url to the
-    local file dest, which can be accessed at ./local/dest. Currently
-    only ORIGIN and CORS urls are allowed remotely, but local files can
-    also be passed if encoded as urls with the
-    webkitURL.createObjectURL() javascript method. The "Complete"
-    message is issued on completion.
--   **csound.RequestFileFromLocal(src)** - requests the data from the
-    local file src. The "Complete" message is issued on completion.
--   **csound.GetFileData()** - returns the most recently requested file
-    data as an ArrayObject.\
-
-#### Callbacks
-
-The csound.js module will call the following window functions when it
-starts:
-
--   **function moduleDidLoad()**: this is called as soon as the module
-    is loaded
--   **function handleMessage(message)**: called when there are messages
-    from Csound (pnacl module). The string message.data contains the
-    message.
--   **function attachListeners()**: this is called when listeners for
-    different events are to be attached.\
-
-You should implement these functions in your HTML page script, in order
-to use the Csound javascript interface. In addition to the above, Csound
-javascript module messages are always sent to the HTML element with
-id='console', which is normally of type \<div\> or \<textarea\>. 
-
-### Example
-
-Here is a minimal HTML example showing the use of Csound.
-
-    <!DOCTYPE html>
-    <html>
-    <!--
-     Csound pnacl minimal example
-     Copyright (C) 2013 V Lazzarini
-    -->
-    <head>
-     <title>Minimal Csound Example</title>
-     <script type="text/javascript" src="csound.js"></script>
-     <script type="text/javascript">
-     // called by csound.js
-    function moduleDidLoad() {
-      csound.Play();
-      csound.CompileOrc(
-      "instr 1 \n" +
-      "icps = 440+rnd(440) \n" +
-      "chnset icps, \"freq\" \n" +
-      "a1 oscili 0.1, icps\n" +
-      "outs a1,a1 \n" +
-      "endin");
-      document.getElementById("tit").innerHTML = "Click on the page below to play";
-     }
-     function attachListeners() {
-       document.getElementById("mess").
-           addEventListener("click",Play);
-     }
-     function handleMessage(message) {
-       var mess = message.data;
-       if(mess.slice(0,11) == "::control::") {
-       var messField = document.getElementById("console")
-       messField.innerText = mess.slice(11);
-       }
-       else {
-       var messField = document.getElementById("mess")
-       messField.innerText += mess;
-       csound.RequestChannel("freq");
-      }
-     }
-
-     // click handler
-     function Play() {
-       csound.Event("i 1 0 5");
-     }
-     </script>
-    </head>
-    <body>
-      <div id="console"></div>
-       <h3 id="tit"> </h3>
-      <div id="mess">
-
-      </div>
-      <!--pNaCl csound module-->
-      <div id="engine"></div>
-    </body>
-    </html>
-
-### Limitations
-
-The following limitations apply:
-
--   MIDI is implemented so that Csound MIDI opcodes can be used. MIDI
-    hardware interface needs to be provided in Javascript by another
-    library (e.g. WebMIDI).
--   no plugins, as pNaCl does not support dlopen() and friends. This
-    means some opcodes are not available as they reside in plugin
-    libraries. It might be possible to add some of these opcodes
-    statically to the Csound pNaCl library in the future.\
-
-More information on Csound for pNaCl can be found
-<http://vlazzarini.github.io/>.
-
-::: {.group_img}
-::: {.image}
-![](../resources/images/pnacl.png)
-:::
-:::
-
- 
-
-libcsound.js - Csound as a Javascript Library {#csoundemscripten-a-javascript-library-for-csound-on-the-web}
+libcsound.js - Csound as a Javascript Library
 ---------------------------------------------
 
-### Introduction
+The javascript build of Csound allows any standards compliant web browser to run an instance of Csound in a web page without the need for plugins or add ons. This is made possible by using [Emscripten](http://Emscripten.org), a program that can convert software written in C (such as Csound) into Javascript, allowing it to be run natively within any web browser that supports modern web standards.
 
-### The javascript build of Csound allows any standards compliant web browser to run an instance of Csound in a web page without the need for plugins or add ons. This is made possible by using [Emscripten](http://Emscripten.org), a program that can convert software written in C (such as Csound) into Javascript, allowing it to be run natively within any web browser that supports modern web standards. {#introduction}
 
 ### Caveats
 
@@ -280,7 +73,7 @@ development and therefore there are a number of caveats and limitations
 with its current implementation which should be noted.
 
 -   Emscripten generates a highly optimisable subset of Javascript
-    called [*asm.js*](http://asmjs.org). This allows Javascript engines
+    called [asm.js](http://asmjs.org). This allows Javascript engines
     which have been optimised for this subset to achieve substantial
     performance increases over other Javascript engines. At this time
     the only Javascript engine that supports asm.js optimisations is the
@@ -300,19 +93,22 @@ with its current implementation which should be noted.
     perform a .csd file. Additional routines will be added over time as
     the project matures.
 
-### Getting libcsound.js {#getting-csoundemscripten}
+
+### Getting libcsound.js
 
 The javascript build of Csound now comes as part of the regular
 distribution of the Csound source code. It can be found in the
 *emscripten* folder which also contains a markdown file that gives the
 instructions on how to compile the javascript library. 
 
-### Using libcsound.js {#using-csoundemscripten}
+
+### Using libcsound.js
 
 In order to demonstrate how to use the Csound javascript library, what
 follows is a tutorial which shows the steps necessary to create a simple
 website that can open .csd files, compile them, and play them back from
 the browser.
+
 
 #### Create a simple website
 
@@ -329,6 +125,7 @@ code:
     <body>
     </body>
     </html>
+
 
 #### Instantiate Csound
 
@@ -352,6 +149,7 @@ within the body tags ad new script tags and insert the following code:
     </body>
     </html>
 
+
 The *Module* functions within this code are related to how emscripten
 built javascript libraries execute when a webpage is loaded. The
 *noExitRuntime* variable sets whether the emscripten runtime environment
@@ -366,7 +164,8 @@ The Javascript console of the web browser should now show some messages
 that give the version number of Csound, the build date and the version
 of libsndfile being used by Csound.
 
- **Upload .csd file to Javascript File System**
+
+#### Upload .csd file to Javascript File System
 
 In order to run a .csd file from the Csound javascript library, we first
 need to upload the file from the local file system to the javascript
@@ -414,7 +213,8 @@ If the web page is reloaded now, the file *test.csd* will be uploaded to
 the javascript file system and csound will compile it making it ready
 for performance.
 
-### **Running Csound **
+
+### Running Csound
 
 Once the .csd file has been compiled csound can execute a performance.
 In the following code we will create an html button and add some code to
@@ -461,11 +261,12 @@ simply calls the *start* method from *CsoundObj.* The button is then
 added to the DOM using *document.body.appendChild*. 
 
 If the page is reloaded there should now be a button present that is
-labelled with the text \"Start Csound\". When the button is pressed
+labelled with the text *Start Csound*. When the button is pressed
 csound should perform the .csd file which was uploaded to the javascript
 file system. 
 
-#### CsoundObj.js Reference {#implement-file-upload-facility}
+
+#### CsoundObj.js Reference
 
 ***CsoundObj.compileCSD(fileName)***
 

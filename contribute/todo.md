@@ -51,6 +51,8 @@ Edits
 - 09-b (csound in maxmsp) needs to be updated
 - 10-a (csoundqt) describe some use cases here. perhaps more links to 
   csoundqt's website
+- 10-f (web csound) must certainly be updated
+- ask luis and hlodver to add vim and emacs mode in section 10
 
 
 General Layout
