@@ -30,22 +30,22 @@ File Conversion Utilities
 -------------------------
 
 The next group of utilities,
-[het\_import](http://www.csounds.com/manual/html/het_import.html),
-[het\_export](http://www.csounds.com/manual/html/het_export.html),
-[pvlook](http://www.csounds.com/manual/html/pvlook.html),
-[pv\_export](http://www.csounds.com/manual/html/pv_export.html),
-[pv\_import](http://www.csounds.com/manual/html/pv_import.html),
-[sdif2ad](http://www.csounds.com/manual/html/sdif2ad.html) and
-[srconv](http://www.csounds.com/manual/html/srconv.html) facilitate file
+[het\_import](https://csound.com/docs/manual/het_import.html),
+[het\_export](https://csound.com/docs/manual/het_export.html),
+[pvlook](https://csound.com/docs/manual/pvlook.html),
+[pv\_export](https://csound.com/docs/manual/pv_export.html),
+[pv\_import](https://csound.com/docs/manual/pv_import.html),
+[sdif2ad](https://csound.com/docs/manual/sdif2ad.html) and
+[srconv](https://csound.com/docs/manual/srconv.html) facilitate file
 conversions between various types. Perhaps the most interesting of these
-are [pvlook](http://www.csounds.com/manual/html/pvlook.html), which
+are [pvlook](https://csound.com/docs/manual/pvlook.html), which
 prints to the terminal a formatted text version of a
-[pvanal](http://www.csounds.com/manual/html/pvanal.html) file - useful
+[pvanal](https://csound.com/docs/manual/pvanal.html) file - useful
 to finding out exactly what is going on inside individual analysis bins,
 something that may be of use when working with the more advanced
 resynthesis opcodes such as
-[pvadd](http://www.csounds.com/manual/html/pvadd.html) or
-[pvsbin](http://www.csounds.com/manual/html/pvsbin.html).
-[srconv](http://www.csounds.com/manual/html/srconv.html) can be used to
+[pvadd](https://csound.com/docs/manual/pvadd.html) or
+[pvsbin](https://csound.com/docs/manual/pvsbin.html).
+[srconv](https://csound.com/docs/manual/srconv.html) can be used to
 convert the sample rate of a sound file.
 

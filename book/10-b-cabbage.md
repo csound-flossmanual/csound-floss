@@ -1,25 +1,15 @@
 10 B. CABBAGE
 =============
 
-<div>
-
-::: {.group_img}
-::: {.image}
-![](../resources/images/hlogo_blue_text.png){width="420" height="114"}
-:::
-:::
-
-\
-
-</div>
+![](../resources/images/10-b-hlogo.png)
 
 Cabbage is a Csound frontend that provides users with the means to work
 with Csound, to develop audio plugins and standalone software across the
 three major operating systems. Whilst Cabbage makes use of underlying
-plugin technologies, such as Steinberg\'s VST SDK, ASIO, etc, Csound is
+plugin technologies, such as Steinberg's VST SDK, ASIO, etc, Csound is
 used to process all incoming and outgoing audio, therefore existing
 Csound instruments can be adapted to work with Cabbage with relative
-ease. Cabbage also provides a growing palette of GUI widgets ranging
+ease. Cabbage also provides a big palette of GUI widgets ranging
 from simple sliders to XY-pads and graph tables. All GUI widgets in a
 Cabbage plugin can be controlled via host automation in a plugin host,
 thereby providing a quick and effective means of automating Csound
@@ -27,10 +17,11 @@ instrument parameters in both commercial and non-commercial DAWs. A
 user-forum exists at
 [www.thecabbagefoundation.org](http://www.thecabbagefoundation.org), and
 users are invited to discuss, contribute, and share instruments and
-music.\
+music.
 
-The Cabbage Standalone Host.
-----------------------------
+
+The Cabbage Standalone Host
+---------------------------
 
 The main Cabbage application that launches when you open Cabbage is
 known as the standalone host. This simple application \'hosts\' Cabbage
@@ -95,8 +86,8 @@ below. This instrument uses the MIDI interop command line flags to pipe
 MIDI data directly to p-fields in instrument 1. In this case all MIDI
 pitch data is sent directly to p4, and all MIDI amplitude data is sent
 to p5. (An alternative approach is to use Csounds opcodes
-[cpsmidi](http://www.csounds.com/manual/html/cpsmidi.html),
-[ampmidi](http://www.csounds.com/manual/html/ampmidi.html) etc. to read
+[cpsmidi](https://csound.com/docs/manual/cpsmidi.html),
+[ampmidi](https://csound.com/docs/manual/ampmidi.html) etc. to read
 midi data into an instrument.) MIDI data sent on channel 1 will cause
 instrument 1 to play. Data sent on channel 2 will cause instrument 2 to
 play. If one prefers they may use the massign opcode rather than the
@@ -215,14 +206,14 @@ In the example above we use a
 control which is a horizontal slider. The bounds() identifier sets up
 the position and size of the widget. The most important identifier is
 channel(). It is passed a string \"gain\". This is the same string we
-pass to [chnget](http://www.csounds.com/manual/html/chnget.html) in our
+pass to [chnget](https://csound.com/docs/manual/chnget.html) in our
 Csound code. When a user moves the slider, the current position of the
 slider is sent to Csound on a channel named \"gain\". Without the
 channel() identifier no communication would take place between the
 Cabbage control and Csound. The keyboard widget can be used en lieu of a
 real MIDI keyboard when testing plugins. It is also possible to move
 Cabbage widgets from within the Csound orchestra using the
-[chnset](http://www.csounds.com/manual/html/chnset.html) opcode.\
+[chnset](https://csound.com/docs/manual/chnset.html) opcode.\
 \
 \
 

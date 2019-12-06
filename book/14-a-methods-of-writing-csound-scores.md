@@ -96,7 +96,7 @@ beginning of a score:
 \"At time (beat) zero set tempo to 60 beats per minute\"; but this could
 easily be anything else or evena string of tempo change events following
 the format of a
-[linsegb](http://www.csounds.com/manual/html/linsegb.html) statement.
+[linsegb](https://csound.com/docs/manual/linsegb.html) statement.
 
     t 0 120 5 120 5 90 10 60
 
@@ -128,7 +128,7 @@ section definition and \'n\' recalls this section three more times.
 
 Just a selection of the techniques and shortcuts available for
 hand-writing scores have been introduced here (refer to the [Csound
-Reference Manual](http://www.csounds.com/manual/html/index.html) for a
+Reference Manual](https://csound.com/docs/manual/index.html) for a
 more encyclopedic overview). It has hopefully become clear however that
 with a full knowledge and implementation of these techniques the user
 can adeptly and efficiently write and manipulate scores by hand.
@@ -211,7 +211,7 @@ And again a complaint about the invalid score file:
 Csbeats
 
 As an alternative to the classical Csound score,
-[Csbeats](http://www.csounds.com/manual/html/CsBeats.html) is included
+[Csbeats](https://csound.com/docs/manual/CsBeats.html) is included
 with Csound. This is a domain specific language tailored to the concepts
 of beats, rhythm and standard western notation. To use Csbeat, specify
 \"csbeats\" as the CsScore bin option in a Csound unified score file.
@@ -219,7 +219,7 @@ of beats, rhythm and standard western notation. To use Csbeat, specify
     <CsScore bin="csbeats">
 
 For more information, refer to the [Csound
-Manual](http://www.csounds.com/manual/html/CsBeats.html). Csbeats is
+Manual](https://csound.com/docs/manual/CsBeats.html). Csbeats is
 written by Brian Baugn. 
 
 ### Scripting Language Examples

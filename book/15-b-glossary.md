@@ -6,7 +6,7 @@
 **control cycle**, **control period** or **k-loop** is a pass during the
 performance of an instrument, in which all k- and a-variables are
 renewed. The time for one control cycle is measured in samples and
-determined by the [ksmps](http://www.csounds.com/manual/html/ksmps.html)
+determined by the [ksmps](https://csound.com/docs/manual/ksmps.html)
 constant in the orchestra header. If your sample rate is 44100 and your
 ksmps value is 10, the time for one control cycle is 1/4410 = 0.000227
 seconds. See the chapter about [Initialization And Performance
@@ -16,11 +16,11 @@ more information.
  
 
 **control rate** or **k-rate**
-([kr](http://www.csounds.com/manual/html/kr.html)) is the number of
+([kr](https://csound.com/docs/manual/kr.html)) is the number of
 control cycles per second. It can be calculated as the relationship of
-the sample rate [sr](http://www.csounds.com/manual/html/sr.html) and the
+the sample rate [sr](https://csound.com/docs/manual/sr.html) and the
 number of samples in one control period
-[ksmps](http://www.csounds.com/manual/html/ksmps.html). If your sample
+[ksmps](https://csound.com/docs/manual/ksmps.html). If your sample
 rate is 44100 and your ksmps value is 10, your control rate is 4410, so
 you have 4410 control cycles per second.
 
@@ -137,12 +137,12 @@ combine these two sections, along with other optional sections in a .csd
  
 
 **time stretching** can be done in various ways in Csound. See
-[sndwarp](http://www.csounds.com/manual/html/sndwarp.html),
-[waveset](http://www.csounds.com/manual/html/waveset.html),
-[pvstanal](http://www.csounds.com/manual/html/pvstanal.html)
-[mincer](http://www.csounds.com/manual/html/mincer.html),
-[pvsfread](http://www.csounds.com/manual/html/pvsfread.html),
-[pvsdiskin](http://www.csounds.com/manual/html/pvsdiskin.html) and the
+[sndwarp](https://csound.com/docs/manual/sndwarp.html),
+[waveset](https://csound.com/docs/manual/waveset.html),
+[pvstanal](https://csound.com/docs/manual/pvstanal.html)
+[mincer](https://csound.com/docs/manual/mincer.html),
+[pvsfread](https://csound.com/docs/manual/pvsfread.html),
+[pvsdiskin](https://csound.com/docs/manual/pvsdiskin.html) and the
 Granular Synthesis opcodes.
 
  

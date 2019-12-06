@@ -37,15 +37,15 @@ Although many of Csound\'s opcodes already operate upon commonly
 encountered sound file formats such as \'wav\' and \'aiff\', a number of
 them require sound information in more specialised and pre-analysed
 formats, and for this Csound provides the sound analysis utilities
-[atsa](http://www.csounds.com/manual/html/UtilityAtsa.html),
-[cvanal,](http://www.csounds.com/manual/html/cvanal.html)
-[hetro](http://www.csounds.com/manual/html/hetro.html),
-[lpanal](http://www.csounds.com/manual/html/lpanal.html) and
-[pvanal.](http://www.csounds.com/manual/html/pvanal.html) By far the
+[atsa](https://csound.com/docs/manual/UtilityAtsa.html),
+[cvanal,](https://csound.com/docs/manual/cvanal.html)
+[hetro](https://csound.com/docs/manual/hetro.html),
+[lpanal](https://csound.com/docs/manual/lpanal.html) and
+[pvanal.](https://csound.com/docs/manual/pvanal.html) By far the
 most commonly used of these is
-[pvanal](http://www.csounds.com/manual/html/pvanal.html) which, although
+[pvanal](https://csound.com/docs/manual/pvanal.html) which, although
 originally written to provide analysis files for
-[pvoc](http://www.csounds.com/manual/html/pvoc.html) and its generation
+[pvoc](https://csound.com/docs/manual/pvoc.html) and its generation
 of opcodes, has now been extended to be able to generate files in the
 pvoc-ex (.pvx) format for use with the newer \'pvs\' streaming pvoc
 opcodes.
@@ -63,20 +63,20 @@ most situations.
 
      pvanal -s1 mysound.wav myanalysis.pvx
 
-[pvanal](http://www.csounds.com/manual/html/pvanal.html) will analyse
+[pvanal](https://csound.com/docs/manual/pvanal.html) will analyse
 the first (left if stereo) channel of the input sound file
 \'mysound.wav\' (and in this case as no full address has been provided
 it will need to be in either the current working directory or
-[SSDIR](http://www.csounds.com/manual/html/CommandEnvironment.html)),
+[SSDIR](https://csound.com/docs/manual/CommandEnvironment.html)),
 and a name has been provided for the output file \'myanalysis.pvx\',
 which, as no full address has been given, will be placed in the current
 working directory. While
-[pvanal](http://www.csounds.com/manual/html/pvanal.html) is running it
+[pvanal](https://csound.com/docs/manual/pvanal.html) is running it
 will print a running momentary and finally inform us once the process is
 complete.
 
 If you use CsoundQT you can have direct access to
-[pvanal](http://www.csounds.com/manual/html/pvanal.html) with all its
+[pvanal](https://csound.com/docs/manual/pvanal.html) with all its
 options through the \'utilities\' button in the toolbar. Once opened it
 will reveal a dialogue window looking something like this:
 
@@ -87,5 +87,5 @@ will reveal a dialogue window looking something like this:
 :::
 
 Especially helpful is the fact that we are also automatically provided
-with [pvanal](http://www.csounds.com/manual/html/pvanal.html)\'s manual
+with [pvanal](https://csound.com/docs/manual/pvanal.html)\'s manual
 page.

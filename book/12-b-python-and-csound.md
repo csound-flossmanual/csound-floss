@@ -25,12 +25,12 @@ Starting the Python Interpreter and Running Python Code at i-Time: pyinit and py
 
 To use the Python opcodes inside Csound, you must first start the Python
 interpreter. This is done using the
-[pyinit](http://www.csounds.com/manual/html/pyinit.html "http://csoundjournal.com/issue6/pythonOpcodes.html")
+[pyinit](https://csound.com/docs/manual/pyinit.html "http://csoundjournal.com/issue6/pythonOpcodes.html")
 opcode. The pyinit opcode must be put in the header before any other
 Python opcode is used, otherwise, since the interpreter is not running,
 all Python opcodes will return an error. You can run any Python code by
 placing it within quotes as argument to the opcode
-[pyruni](http://www.csounds.com/manual/html/pyruni.html "http://csoundjournal.com/issue6/pythonOpcodes.html").
+[pyruni](https://csound.com/docs/manual/pyruni.html "http://csoundjournal.com/issue6/pythonOpcodes.html").
 This opcode executes the Python code at init time and can be put in the
 heade. The example below, shows a simple csd file which prints the text
 \"Hello Csound world!\" to the terminal.^2^  Note that a dummy

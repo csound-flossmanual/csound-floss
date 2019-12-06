@@ -6,7 +6,7 @@ front-ends which provide us with an experience more akin the that of
 mainstream software, new-comers to Csound should bear in mind that there
 was a time when the only way running Csound was from the command line
 using the [Csound
-command](http://www.csounds.com/manual/html/CommandTop.html). In fact we
+command](https://csound.com/docs/manual/CommandTop.html). In fact we
 must still run Csound in this way but front-ends do this for us usually
 via some toolbar button or widget. Many people still prefer to interact
 with Csound from a terminal window and feel this provides a more
@@ -42,7 +42,7 @@ command line flags can be manipulated in a familiar format usually in
 same effect as adding them as part of the Csound command. To learn more
 about Csound\'s command line flags it is best to start on the page in
 the reference manual where they are listed and described [by
-category](http://www.csounds.com/manual/html/CommandFlagsCategory.html).
+category](https://csound.com/docs/manual/CommandFlagsCategory.html).
 
 Command line flags can also be defined within the \<CsOptions\>
 \</CsOptions\> part of a .csd file and also in a file called .csoundrc
@@ -85,7 +85,7 @@ Additionally displays will be suppressed as dictated by the \'-d\' flag.
 The input .csd file will need to be in the current working directory as
 no full path has been provided. the output file will be written to the
 current working directory of
-[SFDIR](http://www.csounds.com/manual/html/CommandEnvironment.html) if
+[SFDIR](https://csound.com/docs/manual/CommandEnvironment.html) if
 specified.\
 
 \

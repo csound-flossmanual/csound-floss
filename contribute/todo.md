@@ -17,7 +17,7 @@ TO DO
 Edits
 -----
 
-- 01-a swap red and blue colors
+- 01-a swap red and blue colors for aliasing figures
 - 01-d III explain fourth parameter for randomh and randomi.
   new figures then for 01-d-randomh and 01-d-randomi
 - 04-e in Powershape section add csd example for what has been described
@@ -49,6 +49,8 @@ Edits
 - 08-a could be more extended; perhaps take some of my chapter for the
   csound book here
 - 09-b (csound in maxmsp) needs to be updated
+- 10-a (csoundqt) describe some use cases here. perhaps more links to 
+  csoundqt's website
 
 
 General Layout
