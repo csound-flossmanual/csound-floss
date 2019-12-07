@@ -53,6 +53,10 @@ Edits
   csoundqt's website
 - 10-f (web csound) must certainly be updated
 - ask luis and hlodver to add vim and emacs mode in section 10
+- 11-a certainly add short description about atsa etc
+- 11-b and 11-c also more explanation
+- 12-b write about ctcsound
+- 12-c must be filled (philipp)
 
 
 General Layout

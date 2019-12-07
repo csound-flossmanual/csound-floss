@@ -15,6 +15,8 @@ some catchwords here for later elaboration:
 
 try to find a balance between no presuppositions for reading (so as basic as possible) and interesting also for advanced users (so as elaborated as possible)
 
+point to iain's collection
+
 Previous releases can be found at
 <http://files.csound-tutorial.net/floss_manual>,
 as well as the current csd files and audio samples.

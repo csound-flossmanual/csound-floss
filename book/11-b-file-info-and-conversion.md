@@ -4,27 +4,25 @@
 sndinfo
 -------
 
-As an example of invoking one of these utilities from the command line
-we shall look at the utility \'sndinfo\' (sound information) which
-provides the user with some information about one or more sound files.
-\'sndinfo\' is invoked and provided with a file name:
+The utility *sndinfo* (sound information) provides the user with some information about one or more sound files. *sndinfo* is invoked and provided with a file name:
 
-    sndinfo /Users/iainmccurdy/sounds/mysound.wav
+    sndinfo ../SourceMaterials/fox.wav
 
 If you are unsure of the file address of your sound file you can always
 just drag and drop it into the terminal window. The output should be
 something like:
 
     util sndinfo:
-    /Users/iainmccurdy/sounds/mysound.wav:
-            srate 44100, stereo, 24 bit WAV, 3.335 seconds
-            (147078 sample frames)
+    ../SourceMaterials/fox.wav:
+	    srate 44100, monaural, 16 bit WAV, 2.757 seconds
+	    (121569 sample frames)
 
-\'sndinfo\' will accept a list of file names and provide information on
+*sndinfo* will accept a list of file names and provide information on
 all of them in one go so it may prove more efficient gleaning the same
 information from a GUI based sample editor. We also have the advantage
 of being able to copy and paste from the terminal window into a .csd
 file.
+
 
 File Conversion Utilities
 -------------------------

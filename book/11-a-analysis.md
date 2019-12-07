@@ -18,27 +18,28 @@ the sound file upon which the utility will operate.
 
     utility_name [flag(s)] [file_name(s)]
 
-If we require some help or information about a utility and don\'t want
+If we require some help or information about a utility and don't want
 to be bothered hunting through the Csound Manual we can just type the
-the utility\'s name with no additional arguments, hit enter and the
+the utility's name with no additional arguments, hit enter and the
 commmand line response will give us some information about that utility
 and what command line flags it offers. We can also run the utility
 through Csound - perhaps useful if there are problems running the
-utility directly - by calling Csound with the -U flag. The -U flag will
+utility directly - by calling Csound with the *-U* flag. The *-U* flag will
 instruct Csound to run the utility and to interpret subsequent flags as
 those of the utility and not its own.
 
     Csound -U utility_name [flag(s)] [file_name(s)]
 
+
 Analysis Utilities
 ------------------
 
-Although many of Csound\'s opcodes already operate upon commonly
-encountered sound file formats such as \'wav\' and \'aiff\', a number of
+Although many of Csound's opcodes already operate upon commonly
+encountered sound file formats such as *wav* and *aiff*, a number of
 them require sound information in more specialised and pre-analysed
 formats, and for this Csound provides the sound analysis utilities
 [atsa](https://csound.com/docs/manual/UtilityAtsa.html),
-[cvanal,](https://csound.com/docs/manual/cvanal.html)
+[cvanal](https://csound.com/docs/manual/cvanal.html),
 [hetro](https://csound.com/docs/manual/hetro.html),
 [lpanal](https://csound.com/docs/manual/lpanal.html) and
 [pvanal.](https://csound.com/docs/manual/pvanal.html) By far the
@@ -47,12 +48,15 @@ most commonly used of these is
 originally written to provide analysis files for
 [pvoc](https://csound.com/docs/manual/pvoc.html) and its generation
 of opcodes, has now been extended to be able to generate files in the
-pvoc-ex (.pvx) format for use with the newer \'pvs\' streaming pvoc
-opcodes.
+pvoc-ex (.pvx) format for use with the newer *pvs* streaming phase vocoder
+opcodes.[^1]
+
+[^1]: See chapter [05 I](05-i-fourier-analysis-spectral-processing.md)
+      for more information about these opcodes.
 
 This time as well as requiring an input sound file for analysis we will
 need to provide a name (and optionally the full address) for the output
-file. Using pvanal\'s command flags we can have full control over
+file. Using *pvanal's* command flags we can have full control over
 typical FFT conversion parameters such as FFT size, overlap, window type
 etc. as well as additional options that may prove useful such as the
 ability to select a fragment of a larger sound file for the analysis. In
@@ -63,29 +67,18 @@ most situations.
 
      pvanal -s1 mysound.wav myanalysis.pvx
 
-[pvanal](https://csound.com/docs/manual/pvanal.html) will analyse
-the first (left if stereo) channel of the input sound file
-\'mysound.wav\' (and in this case as no full address has been provided
+*pvanal* will analyse the first (left if stereo) channel of the input sound file *mysound.wav* (and in this case as no full address has been provided
 it will need to be in either the current working directory or
 [SSDIR](https://csound.com/docs/manual/CommandEnvironment.html)),
-and a name has been provided for the output file \'myanalysis.pvx\',
+and a name has been provided for the output file *myanalysis.pvx*,
 which, as no full address has been given, will be placed in the current
-working directory. While
-[pvanal](https://csound.com/docs/manual/pvanal.html) is running it
-will print a running momentary and finally inform us once the process is
-complete.
+working directory. While *pvanal* is running it will print a running momentary and finally inform us once the process is complete.
 
-If you use CsoundQT you can have direct access to
-[pvanal](https://csound.com/docs/manual/pvanal.html) with all its
-options through the \'utilities\' button in the toolbar. Once opened it
+If you use CsoundQt you can have direct access to *pvanal* with all its
+options through the *utilities* button in the toolbar. Once opened it
 will reveal a dialogue window looking something like this:
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/csoundqtpvanal_1.jpg)
-:::
-:::
+![](../resources/images/11-a-csoundqtpvanal.jpg)
 
 Especially helpful is the fact that we are also automatically provided
-with [pvanal](https://csound.com/docs/manual/pvanal.html)\'s manual
-page.
+with *pvanal*'s manual page.

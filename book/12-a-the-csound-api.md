@@ -863,24 +863,30 @@ The FFI package of the Google Go programming language is called cgo. Here is a v
 	    csound.Destroy()
     }
 
-A complete wrapper to the Csound API written in Go is available at <https://github.com/fggp/go-csnd>.
+A complete wrapper to the Csound API written in Go is available at the 
+[Go-Csnd projekt](https://github.com/fggp/go-csnd) on github.
 
 The different examples in this section are written for Linux. For other operating systems, some adaptations are needed: for example, for Windows the library name suffix is .dll instead of .so.
 
 The advantage of FFI over Builtin Wrappers is that as long as the signatures of the functions in the interface are the same than the ones in the API, it will work without caring about the version number of the foreign programming language used to write the host program. Moreover, one needs to include in the interface only the functions used in the host program. However a good understanding of the C language low level features is needed to write the helper functions needed to adapt the foreign language data structures to the C pointer system.
 
+
 ## References & Links
 
-Rory Walsh 2006, "Developing standalone applications using the Csound Host API and wxWidgets", Csound Journal Volume 1 Issue 4 - Summer 2006, [http://csoundjournal.com/2006summer/wxCsound.html](http://csoundjournal.com/2006summer/wxCsound.html)
+[Csound API Docs](https://csound.com/docs/api/index.html)
 
-Rory Walsh 2010, "Developing Audio Software with the Csound Host API",  The Audio Programming Book, DVD Chapter 35, The MIT Press
+[Csound API Examples](https://github.com/csound/csoundAPI_examples)
 
-François Pinot 2011, "Real-time Coding Using the Python API: Score Events", Csound Journal Issue 14 - Winter 2011, [http://csoundjournal.com/issue14/realtimeCsoundPython.html](http://csoundjournal.com/issue14/realtimeCsoundPython.html)
+[ctcsound Docs](https://csound.com/docs/ctcsound)
 
-François Pinot 2014, "Go Binding for Csound6", [https://github.com/fggp/go-csnd](https://github.com/fggp/go-csnd)
+Rory Walsh 2006, Developing standalone applications using the Csound Host API and wxWidgets, 
+[Csound Journal Volume 1 Issue 4 - Summer 2006](http://csoundjournal.com/2006summer/wxCsound.html)
 
-Note: A collection of examples in different languages can be found at [http://github.com/csound/csoundAPI_examples](http://github.com/csound/csoundAPI_examples).
+Rory Walsh 2010, Developing Audio Software with the Csound Host API,  The Audio Programming Book, DVD Chapter 35, The MIT Press
 
- A comprehensive documentation for ctcsound.py can be found on the Csound site: [https://csound.com/docs/ctcsound/](https://csound.com/docs/ctcsound/).
+François Pinot 2011, Real-time Coding Using the Python API: Score Events, [Csound Journal Issue 14 - Winter 2011](http://csoundjournal.com/issue14/realtimeCsoundPython.html)
+
+François Pinot 2014, "Go Binding for Csound6", 
+<https://github.com/fggp/go-csnd>
 
 

@@ -18,13 +18,3 @@ write to a new file,
 together any number of sound files and with gain control over each file
 and [scale](http://www.csounds.com/manual/html/scaleutility.html) which
 will scale the amplitude of an individual sound file.
-
-Conclusion
-----------
-
-It has been seen that the Csound utilities offer a wealth of useful, but
-often overlooked, tools to augment our work with Csound. Whilst some of
-these utilities may seem redundant now that most of us have access to
-fully featured 3rd-party sound editing software, it should be borne in
-mind that many of these utilities were written in the 1980s and early
-90s when such tools were less readily available.
