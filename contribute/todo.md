@@ -12,6 +12,8 @@ TO DO
 - insert navigation for each chapter
 - ask martin neukom for image sources and about the mathematica license
 - explain math symbols
+- add more figures or even gifs
+- more consistency in either *myVar* or `myVar` 
 
 
 Edits
@@ -20,6 +22,7 @@ Edits
 - 01-a swap red and blue colors for aliasing figures
 - 01-d III explain fourth parameter for randomh and randomi.
   new figures then for 01-d-randomh and 01-d-randomi
+- 03-b (variables) give more space to f-sigs (local and global)
 - 04-e in Powershape section add csd example for what has been described
 - 04-f perhaps start with some basic example like curtis roads
 - 04-h should be revised
@@ -57,6 +60,7 @@ Edits
 - 11-b and 11-c also more explanation
 - 12-b write about ctcsound
 - 12-c must be filled (philipp)
+- 12-d ask nikhil about the code examples (why double slashes?)
 
 
 General Layout
