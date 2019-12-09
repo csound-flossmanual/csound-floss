@@ -7,7 +7,7 @@ Introduction 
 Certain Csound front ends, currently including CsoundQt and Csound for
 Android, have the ability to use HTML to define user interfaces, to
 control Csound, and to generate Csound scores and even orchestras. The
-HTML code is embedded in the optional \<html\> element of the Csound
+HTML code is embedded in the optional `<html>` element of the Csound
 Structured Data (CSD) file. This element essentially defines a Web page
 that contains Csound. 
 
@@ -15,7 +15,7 @@ This chapter is organized as follows:
 
 1.  Introduction (this section)
 2.  Installation
-3.  Tutorial User\'s Guide
+3.  Tutorial User's Guide
 4.  Conclusion
 
 HTML must be understood here to represent not only Hyper Text Markup
@@ -26,15 +26,17 @@ graphics canvas visible in the page, producing animated 3-dimensional
 graphics with WebGL including shaders and GPU acceleration, Web Audio,
 various forms of local data storage, Web Sockets, and so on and so on.
 This whole conglomeration of standards is currently defined and
-maintained under the non-governmental leadership of the [World Wide Web
-Consortium](http://www.w3.org/standards/) (W3C) which in turn is
-primarily driven by commercial interests belonging to the [Web Hypertext
-Application Technology Working Group](https://whatwg.org/) (WHATWG).
+maintained under the non-governmental leadership of the 
+[World Wide Web Consortium](http://www.w3.org/standards/) (W3C) 
+which in turn is
+primarily driven by commercial interests belonging to the 
+[Web Hypertext Application Technology Working Group](https://whatwg.org/) (WHATWG).
 Most modern Web browsers implement almost all of the W3C standards up to
 and including HTML5 at an impressive level of performance and
 consistency. To see what features are available in your own Web browser,
 go to this [test page](https://html5test.com/). All of this stuff is now
-usable in Csound pieces\....
+usable in Csound pieces.
+
 
 ### Examples of Use 
 
@@ -43,57 +45,38 @@ take a look at the following screen shots. Both of these examples are
 included in the Windows installer for Csound, which also includes the
 HTML-enabled version of CsoundQt.
 
- 
+![](../resources/images/12-g-gameoflife3d.png)
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/gameoflife3d.png){width="100%"}Figure 1. GameOfLife3d.csd.
-:::
-:::
-
- 
-
-In Figure 1, GameOfLife3d.csd demonstrates the following features of
+In this figure, *GameOfLife3d.csd* demonstrates the following features of
 HTML: style sheets for formatting the legend, WebGL for displaying a
-rotating 3-dimensional form of John Conway\'s Game of Life with shifting
-lighting, animation which \"tweens\" the cubes from one state of the
+rotating 3-dimensional form of John Conway's *Game of Life* with shifting
+lighting, animation which "tweens" the cubes from one state of the
 game to the next, and the Csound API. The JavaScript code that generates
 the display also builds up a chunk of Csound score that is sent to
 Csound. Thus, each new state of the game plays a chord using Csound
 instruments.  The user can interact with the game, rotating it and
 zooming it.
 
-::: {.group_img}
-::: {.image}
-![](../resources/images/lindenmayercanvas.png){width="100%"}Figure 2.
-LindenmayerCanvas.csd.
-:::
-:::
-
+![](../resources/images/12-g-lindenmayercanvas.png)
  
-
-In Figure 2, LindenmayerCanvas.csd, the HTML code is used to do these
+In the *LindenmayerCanvas.csd* shown here, the HTML code is used to do these
 things:
-
- 
 
 1.  Define slider widgets for controlling Csound with the channel API,
     using HTML input elements with JavaScript event handlers.
 2.  Style the sliders and the table containing them with a Custom Style
     Sheet (CSS).
-3.  Save the positions of the widgets when the \'Save control values\'
+3.  Save the positions of the widgets when the *Save control values*
     button is clicked, and restore the positions of the widgets when the
-    \'Restore control values\' button is clicked, using the Local
+    *Restore control values* button is clicked, using the Local
     Storage feature of HTML5. These values are retrieved whenever the
     piece is loaded. 
 4.  Use JavaScript to define a context-free Lindenmayer system for
     generating not only the tree image drawn on the HTML Canvas at the
     bottom of the screen, but also a Csound score representing the tree,
-    when the \'Generate score\' button is clicked. Being able to see
+    when the *Generate score* button is clicked. Being able to see
     some sort of graphical representation of a score is very useful when
     doing algorithmic composition.
-
- 
 
 It is true that LaTeX can do a better job of typesetting than HTML and
 CSS. It is true that game engines can do a better job for interactive,
@@ -115,25 +98,26 @@ So I believe HTML as a front end for Csound should be quite stable and
 remain backwardly compatible, just as Csound itself remains backwardly
 compatible with old pieces. 
 
+
 ### How it Works 
 
-The Web browser embedded into CsoundQt is the [Chromium Embedded
-Framework](https://bitbucket.org/chromiumembedded/cef). The Web browser
-embedded into Csound for Android is the
+The Web browser embedded into CsoundQt is the 
+[Chromium Embedded Framework](https://bitbucket.org/chromiumembedded/cef). 
+The Web browser embedded into Csound for Android is the
 [WebView](http://developer.android.com/reference/android/webkit/WebView.html)
-available in the [Android
-SDK](https://developer.android.com/index.html).
+available in the 
+[Android SDK](https://developer.android.com/index.html).
 
-The front end parses the \<html\> element out of the CSD file and simply
+The front end parses the `<html>` element out of the CSD file and simply
 saves it as an HTML file, in other words, as a Web page. For example,
-MyCsoundPiece.csd will produce
+*MyCsoundPiece.csd* will produce
 [MyCsoundPiece.csd.html.](http://MyCsoundPiece.csd.html) The front
-end\'s embedded browser then loads this Web page, compiles it, displays
+end's embedded browser then loads this Web page, compiles it, displays
 it, executes any scripts contained in it, and lets the user interact
 with it.
 
 It is important to understand that *any* valid HTML code can be used in
-Csound\'s \<html\> element. It is just a Web page like any other Web
+Csound\'s `<html>` element. It is just a Web page like any other Web
 page. 
 
 In general, the different Web standards are either defined as JavaScript
@@ -150,30 +134,22 @@ functional programming language not that dissimilar in concept from
 Scheme. JavaScript also allows classes to be defined by prototypes.
 
 The JavaScript execution context of a Csound Web page contains Csound
-itself as a \"csound\" JavaScript object that has the following methods:
+itself as a *csound* JavaScript object that has the following methods:
 
     getVersion() [returns a number]
-
-    compileOrc(orchestra_code)evalCode(orchestra_code) [returns the numeric result of the evaluation]
-
+    compileOrc(orchestra_code) and
+    evalCode(orchestra_code) [returns the numeric result of the evaluation]
     readScore(score_lines)
-
     setControlChannel(channel_name,number)
-
     getControlChannel(channel_name) [returns a number representing the channel value]
-
     message(text)
-
     getSr() [returns a number]
-
     getKsmps() [returns a number]
-
     getNchnls() [returns a number]
-
     isPlaying() [returns 1 if Csound is playing, 0 if not]
 
 The front end contains a mechanism for forwarding JavaScript calls in
-the Web page\'s JavaScript context to native functions that are defined
+the Web page's JavaScript context to native functions that are defined
 in the front end, which passes them on to Csound. This involves a small
 amount of C++ glue code that the user does not need to know about. In
 CsoundQt, the glue code uses asynchronous IPC because the Chromium
@@ -193,6 +169,7 @@ Also in the future, there will be a native Node extension for the NW.js
 HTML5 desktop application framework, providing the same JavaScript
 interface to Csound.
 
+
 Installation
 ------------
 
@@ -209,11 +186,12 @@ version of Android.
 Currently, WebGL may or may not be enabled on Android, depending on your
 versions of hardware and software.
 
+
 Tutorial User Guide 
 --------------------
 
-Let\'s get started and do a few things in the simplest possible way, in
-a series of \"toots.\" These pieces also are included in the
+Let's get started and do a few things in the simplest possible way, in
+a series of *toots*. These pieces also are included in the
 examples/html directory of the Windows installation and can be found in
 the Csound Git repository as well.
 
@@ -228,38 +206,43 @@ the Csound Git repository as well.
 
  
 
-### 01\_HelloWorld.csd
+   ***EXAMPLE 12G01_HelloWorld.csd***
 
 This is the bare minimum CSD that shows some HTML output. In its
 entirety it is: 
 
-    <CsoundSynthesizer>
-    <CsOptions>
-    </CsOptions>
-    <CsInstruments>
-    sr = 44100
-    ksmps = 128
-    nchnls = 2
-    0dbfs = 1.0
-    </CsInstruments>
-    <html>
-    Hello, World, this is Csound!
-    </html>
-    <CsScore>
-    </CsScore>
-    </CsoundSynthesizer>
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 128
+nchnls = 2
+0dbfs = 1.0
+</CsInstruments>
+<html>
+Hello, World, this is Csound!
+</html>
+<CsScore>
+</CsScore>
+</CsoundSynthesizer>
+;example by Michael Gogins
+~~~
+
 
 Not much to it. HTML is full of graceful defaults. In HTML, plain text
 without any tags is imply printed as plain text. 
 
-### 02\_ScoreGenerator.csd
+
+### 02_ScoreGenerator.csd
 
 Here I have introduced a simple Csound orchestra consisting of a single
 frequency modulation instrument feeding first into a reverberation
 effect, and then into a master output unit. These are connected using
 the signal flow graph opcodes. The actual orchestra is of little
 interest here. And this piece has no score, because the score will be
-generated at run time. In the \<html\> element, I also have added this
+generated at run time. In the `<html>` element, I also have added this
 button:
 
     <button onclick="generate()"> Generate score </button>
@@ -270,8 +253,8 @@ generate a Csound score from a chaotic attractor of the system. This
 function also is quite simple. Its main job, aside from iterating the
 logistic equation a few hundred times, is to translate each iteration of
 the system into a musical note and send that note to Csound to be played
-using the Csound API function readScore(). So the following \<script\>
-element is added to the body of the \<html\> element:
+using the Csound API function readScore(). So the following `<script>`
+element is added to the body of the `<html>` element:
 
     <script>
     var c = 0.99;
@@ -289,7 +272,8 @@ element is added to the body of the \<html\> element:
     };
     </script>
 
-### 03\_Sliders.csd
+
+### 03_Sliders.csd
 
 The next step is to add more user control to this piece. We will enable
 the user to control the attractor of the piece by varying the constant
@@ -302,23 +286,23 @@ details and understand exactly what is going on. A real piece would most
 likely be written at a higher level of abstraction, for example by using
 a third party widget toolkit, such as jQuery UI.
 
-A slider in HTML is just an \'input\' element like this:
+A slider in HTML is just an `input` element like this:
 
     <input type=range min=0 max=1 value=.5 id=sliderC step=0.001 oninput="on_sliderC(value)">
 
 This element has attributes of minimum value 0, maximum value 1, which
-normalizes the user\'s possible values between 0 and 1. This could be
+normalizes the user's possible values between 0 and 1. This could be
 anything, but in many musical contexts, for example VST plugins, user
-control values are always normalized between 0 and 1. The tiny \'step\'
+control values are always normalized between 0 and 1. The tiny `step`
 attribute simply approximates a continuous range of values. 
 
-The most important thing is the \'oninput\' attribute, which sets the
-value of a JavaScript event handler for the \'oninput\' event. This
+The most important thing is the `oninput` attribute, which sets the
+value of a JavaScript event handler for the `oninput` event. This
 function is called whenever the user changes the value of the slider.
 
 For ease of understanding, a naming convention is used here, with
-\'sliderC\' being the basic name and other names of objects associated
-with this slider taking names  built up by adding prefixes or suffixes
+*sliderC* being the basic name and other names of objects associated
+with this slider taking names built up by adding prefixes or suffixes
 to this basic name.
 
 Normally a slider has a label, and it is convenient to show the actual
@@ -346,12 +330,12 @@ to line up.
 For this slider, the JavaScript handler is:
 
     function on_sliderC(value) {
-            c = parseFloat(value);
-            document.querySelector('#sliderCOutput').value = c;
+        c = parseFloat(value);
+        document.querySelector('#sliderCOutput').value = c;
     }
 
 The variable *c* was declared at global scope just above the generate()
-function, so that variable is accessible within the on\_sliderC
+function, so that variable is accessible within the *on_sliderC*
 function.
 
 Keep in mind, if you are playing with this code, that a new value of *c*
@@ -362,9 +346,9 @@ orchestra. The value of the slider has to be sent to Csound using the
 channel API, like this:
 
     function on_sliderFmIndex(value) {
-            var numberValue = parseFloat(value);
-            document.querySelector('#sliderFmIndexOutput').value = numberValue;
-            csound.setControlChannel('gk_FmIndex', numberValue);
+        var numberValue = parseFloat(value);
+        document.querySelector('#sliderFmIndexOutput').value = numberValue;
+        csound.setControlChannel('gk_FmIndex', numberValue);
     }
 
 Then, in the Csound orchestra, that value has to be retrieved using the
@@ -374,12 +358,12 @@ variables declared just above their respective instrument definitions.
 The normalized values can be rescaled as required in the Csound
 instrument code.
 
-    gk_FmIndex                      init                    0.5
-                                    instr                   ModerateFM
+    gk_FmIndex init 0.5
+    instr ModerateFM
     ...
-    kindex                          =                       gk_FmIndex * 20
+    kindex = gk_FmIndex * 20
     ...
-                                    endin
+    endin
 
 Also for the sake of efficiency, a global, always-on instrument can be
 used to read the control channels and assign their values to these
@@ -407,7 +391,8 @@ global variables:
 Note that each actual global variable has a default value, which is only
 overridden if the user actually operates its slider.
 
-### 04\_CustomStyle.csd
+
+### 04_CustomStyle.csd
 
 The default appearance of HTML elements is brutally simple. But each
 element has attributes that can be used to change its appearance, and
@@ -415,7 +400,7 @@ these offer a great deal of control.
 
 Of course, setting for example the font attribute for each label on a
 complex HTML layout is tedious. Therefore, this example shows how to use
-a style sheet. We don\'t need much style to get a much improved
+a style sheet. We don't need much style to get a much improved
 appearance:
 
     <style type="text/css">
@@ -450,11 +435,12 @@ appearance:
     </style>
 
 This little style sheet is generic, that is, it applies to every element
-on the HTML page. It says, for example, that \'table td\' (table cells)
+on the HTML page. It says, for example, that *table td* (table cells)
 are to have a yellow sans-serif font on a teal background, and this will
 apply to every table cell on the page. Style sheets can be made more
 specialized by giving them names. But for this kind of application, that
 is not usually necessary.
+
 
 Conclusion 
 -----------

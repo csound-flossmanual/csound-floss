@@ -912,8 +912,6 @@ UITextView for a simulated Csound console output.
 Csound-iOS and MIDI
 -------------------
 
-### CsoundObj and MIDI
-
 The Csound iOS API provides two possible ways of passing MIDI
 information to Csound. CsoundObj can receive MIDI events from CoreMIDI
 directly. By default, this functionality is disabled, but setting
