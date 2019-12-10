@@ -25,11 +25,16 @@ Code examples
 -------------
 
 *Full* .csd examples must be enclosed by three tildes:  
+
 `~~~`  
+
 and *not* indented.  
+
 They must be preceded by a number and a title of the example,
 starting with the word **EXAMPLE**.
 
 *Small* example snippets must be *indented by four spaces*.
+
+Make sure that the examples marked as **full** are **executable out of the box**. If not, format them as *small* examples. (For instance, the example at the end of chapter 13A is formatted as *small* because it requires to build the plugin opcode first.)
 
 See [writing-in-markdown.txt](writing-in-markdown.txt) for more details.
