@@ -58,7 +58,7 @@ Edits
 - ask luis and hlodver to add vim and emacs mode in section 10
 - 11-a certainly add short description about atsa etc
 - 11-b and 11-c also more explanation
-- 12-b write about ctcsound
+- 12-b write about ctcsound and also point to score methods.
 - 12-c must be filled (philipp)
 - 12-d ask nikhil about the code examples (why double slashes?)
 
