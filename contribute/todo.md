@@ -61,6 +61,7 @@ Edits
 - 12-b write about ctcsound and also point to score methods.
 - 12-c must be filled (philipp)
 - 12-d ask nikhil about the code examples (why double slashes?)
+- 14-a perhaps mark Cmask etc as historical tools
 
 
 General Layout
