@@ -49,7 +49,7 @@ For example, to create a 400 Hz sine oscillator with an amplitude of
 0.2, this is the signal flow:
 
 
-![](../resources/images/00-a-signal-flow.png){ width=50% }
+![](../resources/images/00-a-signal-flow.png){width=25%}
 
 Here is a possible transformation of the signal graph into Csound code:
 

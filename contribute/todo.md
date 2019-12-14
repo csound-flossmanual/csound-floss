@@ -81,6 +81,14 @@ General Layout
 - relative links should work
 
 
+In Process
+----------
+
+- Martin written about his chapters (20191125)
+- Nikhil about Csound iOS (20191208)
+- Michael about this chapters (20191209)
+
+
 [1] (mailing list dec 11, 2019)
 
 instr CustomDelayLine
