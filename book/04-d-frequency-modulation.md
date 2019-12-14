@@ -9,7 +9,7 @@ modulated by the signal from another oscillator (called the modulator).
 The output of the modulating oscillator is added to the frequency input
 of the carrier oscillator.
 
-![<small>*Basic Model of Frequency Modulation*</small>](../resources/images/fm_191009.png){width=50%}
+![<small>*Basic Model of Frequency Modulation*</small>](../resources/images/04-d-fm.png){width=50%}
 
 The amplitude of the modulator determines the amount of modulation, or
 the frequency deviation from the fundamental carrier frequency. The
@@ -28,9 +28,9 @@ is vibrato. When the modulator's frequency rises in the audio range, we
 hear it as a change in the timbre of the carrier.
 
 
-***EXAMPLE 04D01\_Frequency\_modulation.csd***
+   ***EXAMPLE 04D01_Frequency_modulation.csd***
 
-``` {style=""}
+~~~
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -66,7 +66,8 @@ i "FM_timbr" 10 10
 </CsScore>
 </CsoundSynthesizer>
 ;example by marijana janevska
-```
+~~~
+
 
 Carrier/Modulator Ratio
 -----------------------
@@ -81,11 +82,10 @@ CarFreq/ModFreq is not a simple integer ratio, such as 8:2.1 (as in the
 case of two signals at 800 and 210 Hz), FM generates inharmonic spectra
 (noninteger multiplies of the carrier and modulator).
 
-\
 
-***EXAMPLE 04D02\_Ratio.csd***
+   ***EXAMPLE 04D02_Ratio.csd***
 
-``` {style=""}
+~~~
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -114,7 +114,8 @@ i . + . 2.1
 </CsScore>
 </CsoundSynthesizer>
 ;example written by marijana janevska
-```
+~~~
+
 
 Index of Modulation
 -------------------
@@ -123,21 +124,13 @@ FM of two sinusoids generates a series of sidebands around the carrier
 frequency (CarFreq). Each sideband spreads out at a distance equal to a
 multiple of the modulating amplitude (ModAmp).
 
-::: {.group_img style="text-align: start;"}
-::: {.image .bk-image-editor style="width: 656.512px; height: 312.575px;"}
-![](../resources/images/fm_2pic.png)
-:::
-:::
+![](../resources/images/04-d-fm2.png)
 
 The bandwidth of the FM spectrum (the number of sidebands) is controlled
-by the index of modulation (**I)**. The Index is defined mathematically
+by the index of modulation $I$. The Index is defined mathematically
 according to the following relation:
 
-\
-
- I = ModAmp/ModFreq
-
-\
+    $$I = ModAmp/ModFreq$$
 
 where ModAmp is the amount of frequency deviation (in Hz) from the
 carrier frequency. Hence, ModAmp is a way of expressing the depth or
@@ -163,11 +156,10 @@ when one waveform with a large number of spectral components frequency
 modulates another, the resulting sound can be so dense that it sounds
 harsh and undefined. Aliasing can occur easily.
 
-\
 
-***EXAMPLE 04D03\_Index.csd***
+   ***EXAMPLE 04D03_Index.csd***
 
-``` {style=""}
+~~~
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -195,10 +187,11 @@ i "Rising_index" 0 10
 </CsScore>
 </CsoundSynthesizer>
 ;example by marijana janevska and joachim heintz
-```
+~~~
 
-Standard FM with Ratio and Index  {#standard-fm-with-ratio-and-index style=""}
----------------------------------
+
+Standard FM with Ratio and Index
+--------------------------------
 
 In the basic FM model three variables are given: the frequency of the
 carrier (CarFreq or simply C), the frequency of the modulator (ModFreq
@@ -211,15 +204,13 @@ characteristic of the timbre, I yields the emergence of the side bands.
 The three musically meaningful input values can easily be transformed
 into the basic model:
 
-if R = C / M then M = C / R and
+    if R = C / M then M = C / R and
+    if I = D / M then D = I · M.
 
-if I = D / M then D = I · M.
 
-\
+   ***EXAMPLE 04D04_Standard.csd***
 
-***EXAMPLE 04D04\_Standard.csd***
-
-``` {style=""}
+~~~
 <CsoundSynthesizer>
 <CsOptions>
 -odac  -m128
@@ -288,13 +279,11 @@ i "PlayMess" 0 30
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-```
+~~~
 
-  {#section style=""}
 
-------------------------------------------------------------------------
+___
 
-\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\
 
 The John Chowning FM Model of a Trumpet
 ---------------------------------------
@@ -308,80 +297,85 @@ enormous spectral variations. Chowning showed these possibilities in his
 pieces, where he let the sounds transform. In the piece *Sabelithe* a
 drum sound morphes over the time into a trumpet tone.
 
-***EXAMPLE 04D05\_Trumpet\_FM.csd*** 
+   ***EXAMPLE 04D05_Trumpet_FM.csd*** 
 
-    <CsoundSynthesizer>
-    <CsOptions>
-    -o dac
-    </CsOptions>
-    <CsInstruments>
-    sr = 48000
-    ksmps = 32
-    nchnls = 2
-    0dbfs = 1
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-o dac
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
 
-    instr 1  ; simple way to generate a trumpet-like sound
-    kCarFreq = 440
-    kModFreq = 440
-    kIndex = 5
-    kIndexM = 0
-    kMaxDev = kIndex*kModFreq
-    kMinDev = kIndexM * kModFreq
-    kVarDev = kMaxDev-kMinDev
-    aEnv expseg .001, 0.2, 1, p3-0.3, 1, 0.2, 0.001
-    aModAmp = kMinDev+kVarDev*aEnv
-    aModulator poscil aModAmp, kModFreq, 1
-    aCarrier poscil 0.3*aEnv, kCarFreq+aModulator, 1
-    outs aCarrier, aCarrier
-    endin
+instr 1  ; simple way to generate a trumpet-like sound
+kCarFreq = 440
+kModFreq = 440
+kIndex = 5
+kIndexM = 0
+kMaxDev = kIndex*kModFreq
+kMinDev = kIndexM * kModFreq
+kVarDev = kMaxDev-kMinDev
+aEnv expseg .001, 0.2, 1, p3-0.3, 1, 0.2, 0.001
+aModAmp = kMinDev+kVarDev*aEnv
+aModulator poscil aModAmp, kModFreq, 1
+aCarrier poscil 0.3*aEnv, kCarFreq+aModulator, 1
+outs aCarrier, aCarrier
+endin
 
-    </CsInstruments>
-    <CsScore>
-    f 1 0 1024 10 1                 ;Sine wave for table 1
-    i 1 0 2
-    </CsScore>
-    </CsoundSynthesizer>
-    ; written by Alex Hofmann (Mar. 2011)
-
+</CsInstruments>
+<CsScore>
+f 1 0 1024 10 1                 ;Sine wave for table 1
+i 1 0 2
+</CsScore>
+</CsoundSynthesizer>
+; written by Alex Hofmann (Mar. 2011)
+~~~
  
 
 The following example uses the same instrument, with different settings
 to generate a bell-like sound:
 
-***EXAMPLE 04D06\_Bell\_FM.csd***
 
-    <CsoundSynthesizer>
-    <CsOptions>
-    -o dac
-    </CsOptions>
-    <CsInstruments>
-    sr = 48000
-    ksmps = 32
-    nchnls = 2
-    0dbfs = 1
+   ***EXAMPLE 04D06_Bell_FM.csd***
 
-    instr 1  ; bell-like sound
-    kCarFreq = 200  ; 200/280 = 5:7 -> inharmonic spectrum
-    kModFreq = 280
-    kIndex = 12
-    kIndexM = 0
-    kMaxDev = kIndex*kModFreq
-    kMinDev = kIndexM * kModFreq
-    kVarDev = kMaxDev-kMinDev
-    aEnv expseg .001, 0.001, 1, 0.3, 0.5, 8.5, .001
-    aModAmp = kMinDev+kVarDev*aEnv
-    aModulator poscil aModAmp, kModFreq, 1
-    aCarrier poscil 0.3*aEnv, kCarFreq+aModulator, 1
-    outs aCarrier, aCarrier
-    endin
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-o dac
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
 
-    </CsInstruments>
-    <CsScore>
-    f 1 0 1024 10 1                 ;Sine wave for table 1
-    i 1 0 9
-    </CsScore>
-    </CsoundSynthesizer>
-    ; written by Alex Hofmann (Mar. 2011)
+instr 1  ; bell-like sound
+kCarFreq = 200  ; 200/280 = 5:7 -> inharmonic spectrum
+kModFreq = 280
+kIndex = 12
+kIndexM = 0
+kMaxDev = kIndex*kModFreq
+kMinDev = kIndexM * kModFreq
+kVarDev = kMaxDev-kMinDev
+aEnv expseg .001, 0.001, 1, 0.3, 0.5, 8.5, .001
+aModAmp = kMinDev+kVarDev*aEnv
+aModulator poscil aModAmp, kModFreq, 1
+aCarrier poscil 0.3*aEnv, kCarFreq+aModulator, 1
+outs aCarrier, aCarrier
+endin
+
+</CsInstruments>
+<CsScore>
+f 1 0 1024 10 1                 ;Sine wave for table 1
+i 1 0 9
+</CsScore>
+</CsoundSynthesizer>
+; written by Alex Hofmann (Mar. 2011)
+~~~
+
 
 More Complex FM Algorithms
 --------------------------
@@ -389,85 +383,90 @@ More Complex FM Algorithms
 Combining more than two oscillators (operators) is called complex FM
 synthesis. Operators can be connected in different combinations; often
 4-6 operators are used. The carrier is always the last operator in the
-row. Changing it\'s pitch shifts the whole sound. All other operators
+row. Changing it's pitch shifts the whole sound. All other operators
 are modulators, changing their pitch alters the sound-spectrum.
 
-#### Two into One: M1+M2 -\> C
+### Two into One: M1+M2 -\> C
 
 The principle here is, that (M1:C) and (M2:C) will be separate
 modulations and later added together. 
 
-***EXAMPLE 04D07\_Added\_FM.csd*** 
+   ***EXAMPLE 04D07_Added_FM.csd*** 
 
-    <CsoundSynthesizer>
-    <CsOptions>
-    -o dac
-    </CsOptions>
-    <CsInstruments>
-    sr = 48000
-    ksmps = 32
-    nchnls = 2
-    0dbfs = 1
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-o dac
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
 
-    instr 1
-    aMod1 poscil 200, 700, 1
-    aMod2 poscil 1800, 290, 1
-    aSig poscil 0.3, 440+aMod1+aMod2, 1
-    outs aSig, aSig
-    endin
+instr 1
+aMod1 poscil 200, 700, 1
+aMod2 poscil 1800, 290, 1
+aSig poscil 0.3, 440+aMod1+aMod2, 1
+outs aSig, aSig
+endin
 
 
-    </CsInstruments>
-    <CsScore>
-    f 1 0 1024 10 1                 ;Sine wave for table 1
-    i 1 0 3
-    </CsScore>
-    </CsoundSynthesizer>
-    ; written by Alex Hofmann (Mar. 2011)
+</CsInstruments>
+<CsScore>
+f 1 0 1024 10 1                 ;Sine wave for table 1
+i 1 0 3
+</CsScore>
+</CsoundSynthesizer>
+; written by Alex Hofmann (Mar. 2011)
+~~~
 
-#### In series: M1-\>M2-\>C
+
+### In series: M1-\>M2-\>C
 
 This is much more complicated to calculate and sound-timbre becomes
 harder to predict, because M1:M2 produces a complex spectrum (W), which
 then modulates the carrier (W:C).
 
-***EXAMPLE 04D08\_Serial\_FM.csd*** 
 
-    <CsoundSynthesizer>
-    <CsOptions>
-    -o dac
-    </CsOptions>
-    <CsInstruments>
-    sr = 48000
-    ksmps = 32
-    nchnls = 2
-    0dbfs = 1
+   ***EXAMPLE 04D08_Serial_FM.csd*** 
 
-    instr 1
-    aMod1 poscil 200, 700, 1
-    aMod2 poscil 1800, 290+aMod1, 1
-    aSig poscil 0.3, 440+aMod2, 1
-    outs aSig, aSig
-    endin
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-o dac
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
 
-    </CsInstruments>
-    <CsScore>
-    f 1 0 1024 10 1                 ;Sine wave for table 1
-    i 1 0 3
-    </CsScore>
-    </CsoundSynthesizer>
-    ; written by Alex Hofmann (Mar. 2011)
+instr 1
+aMod1 poscil 200, 700, 1
+aMod2 poscil 1800, 290+aMod1, 1
+aSig poscil 0.3, 440+aMod2, 1
+outs aSig, aSig
+endin
 
+</CsInstruments>
+<CsScore>
+f 1 0 1024 10 1                 ;Sine wave for table 1
+i 1 0 3
+</CsScore>
+</CsoundSynthesizer>
+; written by Alex Hofmann (Mar. 2011)
+~~~
  
 
 Phase Modulation - the Yamaha DX7 and Feedback FM
 -------------------------------------------------
 
 There is a strong relation between frequency modulation and phase
-modulation, as both techniques influence the oscillator\'s pitch, and
+modulation, as both techniques influence the oscillator's pitch, and
 the resulting timbre modifications are the same.
 
-If you\'d like to build a feedbacking FM system, it will happen that the
+If you'd like to build a feedbacking FM system, it will happen that the
 self-modulation comes to a zero point, which stops the oscillator
 forever. To avoid this, it is more practical to modulate the carriers
 table-lookup phase, instead of its pitch.
@@ -481,52 +480,57 @@ To build a PM-synth in Csound *tablei* opcode needs to be used as
 oscillator. In order to step through the f-table, a *phasor* will output
 the necessary steps.
 
-***EXAMPLE 04D09\_PhaseMod.csd*** 
 
-    <CsoundSynthesizer>
-    <CsOptions>
-    -o dac
-    </CsOptions>
-    <CsInstruments>
-    sr = 48000
-    ksmps = 32
-    nchnls = 2
-    0dbfs = 1
+   ***EXAMPLE 04D09_PhaseMod.csd*** 
 
-    instr 1  ; simple PM-Synth
-    kCarFreq = 200
-    kModFreq = 280
-    kModFactor = kCarFreq/kModFreq
-    kIndex = 12/6.28   ;  12/2pi to convert from radians to norm. table index
-    aEnv expseg .001, 0.001, 1, 0.3, 0.5, 8.5, .001
-    aModulator poscil kIndex*aEnv, kModFreq, 1
-    aPhase phasor kCarFreq
-    aCarrier tablei aPhase+aModulator, 1, 1, 0, 1
-    outs (aCarrier*aEnv), (aCarrier*aEnv)
-    endin
-
-    </CsInstruments>
-    <CsScore>
-    f 1 0 1024 10 1                 ;Sine wave for table 1
-    i 1 0 9
-    </CsScore>
-    </CsoundSynthesizer>
-    ; written by Alex Hofmann (Mar. 2011)
-
-Let\'s use the possibilities of self-modulation (feedback-modulation) of
-the oscillator. So in the following example, the oscillator is both
-*modulator* and *carrier*. To control the amount of modulation, an
-envelope scales the feedback.
-
-***EXAMPLE 04D10\_Feedback\_modulation.csd***
-
-``` {style=""}
+~~~
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
 </CsOptions>
 <CsInstruments>
-sr = 48000
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
+
+instr 1  ; simple PM-Synth
+kCarFreq = 200
+kModFreq = 280
+kModFactor = kCarFreq/kModFreq
+kIndex = 12/6.28   ;  12/2pi to convert from radians to norm. table index
+aEnv expseg .001, 0.001, 1, 0.3, 0.5, 8.5, .001
+aModulator poscil kIndex*aEnv, kModFreq, 1
+aPhase phasor kCarFreq
+aCarrier tablei aPhase+aModulator, 1, 1, 0, 1
+outs (aCarrier*aEnv), (aCarrier*aEnv)
+endin
+
+</CsInstruments>
+<CsScore>
+f 1 0 1024 10 1                 ;Sine wave for table 1
+i 1 0 9
+</CsScore>
+</CsoundSynthesizer>
+; written by Alex Hofmann (Mar. 2011)
+~~~
+
+
+Let's use the possibilities of self-modulation (feedback-modulation) of
+the oscillator. So in the following example, the oscillator is both
+*modulator* and *carrier*. To control the amount of modulation, an
+envelope scales the feedback.
+
+
+   ***EXAMPLE 04D10_Feedback_modulation.csd***
+
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-o dac
+</CsOptions>
+<CsInstruments>
+sr = 44100
 ksmps = 32
 nchnls = 2
 0dbfs = 1
@@ -548,19 +552,8 @@ i 1 0 9
 </CsScore>
 </CsoundSynthesizer>
 ; written by Alex Hofmann (Mar. 2011)
-```
+~~~
 
-\
-
-\
-
-\
-
-::: {.group_img style="text-align: start;"}
-::: {.image .bk-image-editor style="width: 656.231px; height: 312.938px;"}
-![](../resources/images/fm_2pic.png)
-:::
-:::
 
 Multiple carriers (MC FM)
 -------------------------
@@ -569,11 +562,10 @@ By multiple carrier frequency modulation, we mean an FM instrument in
 which one oscillator simultaneously modulates two or more carrier
 oscillators.
 
-\
 
-***EXAMPLE 04D15\_Multiple\_Carrier\_FM.csd***\
+   ***EXAMPLE 04D15_Multiple_Carrier_FM.csd***
 
-``` {style=""}
+~~~
 <CsoundSynthesizer>
 <CsOptions>
 </CsOptions>
@@ -600,7 +592,9 @@ i1 0 10
 
 </CsScore>
 </CsoundSynthesizer>
-```
+;example by marijana janevska
+~~~
+
 
 Multiple modulators (MM FM)
 ---------------------------
@@ -614,11 +608,10 @@ In series MM FM, the output of the first modulator is added to the
 second modulator, which then is applied to the frequency input of the
 carrier.
 
-\
 
-***EXAMPLE 04D16\_Multiple\_Modulator\_FM.csd***\
+   ***EXAMPLE 04D16_Multiple_Modulator_FM.csd***
 
-``` {style=""}
+~~~
 <CsoundSynthesizer>
 <CsOptions>
 -odac -d
@@ -656,16 +649,19 @@ i1 0 80
 
 </CsScore>
 </CsoundSynthesizer>
-```
+;example by marijana janevska
+~~~
+
 
 When one carrier and one modulator is used, the FM synthesis can also be
 implemented by using the foscil code. This opcode models a pair of
 oscillators configured as a carrier and a modulator, producing a single
 output signal from the carrier.
 
-***EXAMPLE 04D17\_FM\_with\_Foscil.csd***
 
-``` {style=""}
+   ***EXAMPLE 04D17_FM_with_Foscil.csd***
+
+~~~
 <CsoundSynthesizer>
 <CsOptions>
 </CsOptions>
@@ -692,4 +688,5 @@ i1 0 99
 
 </CsScore>
 </CsoundSynthesizer>
-```
+;example by marijana janevska
+~~~

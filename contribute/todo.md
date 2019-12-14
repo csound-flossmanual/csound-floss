@@ -23,6 +23,9 @@ Edits
 - 01-d III explain fourth parameter for randomh and randomi.
   new figures then for 01-d-randomh and 01-d-randomi
 - 03-b (variables) give more space to f-sigs (local and global)
+- 04-d (fm) 
+    - review second part of this chapter
+    - make formula formatting consistent
 - 04-e in Powershape section add csd example for what has been described
 - 04-f perhaps start with some basic example like curtis roads
 - 04-h should be revised
@@ -33,7 +36,9 @@ Edits
     - perhaps add notch, shelf filter and equilizers
     - add figures
     - go deeper in the implementation of filters, perhaps with steven's udos
-- 05-d add vdelay opcodes etc
+- 05-d 
+    - add vdelay opcodes etc
+    - add steven's basic implementation [1]
 - 05-e add figures showing function table contents in the last example 05F04
 - 05-g a step-by-step description can be added at the end
 - 05-h oeyvind's new live convolution opcode should be added here
@@ -62,6 +67,10 @@ Edits
 - 12-c must be filled (philipp)
 - 12-d ask nikhil about the code examples (why double slashes?)
 - 14-a perhaps mark Cmask etc as historical tools
+- 14-b should perhaps go to csoundqt website. instead point to it in the
+  new csoundqt chapter (10-a) describing use cases
+- 15-a (opcode guide) must be reviewed
+- 15-b review or remove
 
 
 General Layout
@@ -70,3 +79,35 @@ General Layout
 - more space between text and examples
 - footnotes should be at bottom of each chapter seperately
 - relative links should work
+
+
+[1] (mailing list dec 11, 2019)
+
+instr CustomDelayLine
+
+  ;; 0.25 second delay
+  idel_size = 0.25 * sr
+  kdelay_line[] init idel_size
+  kread_ptr init 1
+  kwrite_ptr init 0
+
+  asig = vco2(0.5, 220 * (1 + int(lfo:k(3, 2, 2))) * expon(1, p3, 4), 10)
+  asig = zdf_ladder(asig, 2000, 4)
+
+  kindx = 0
+  while (kindx < ksmps) do
+    kdelay_line[kwrite_ptr] = asig[kindx]
+    asig[kindx] = asig[kindx] + kdelay_line[kread_ptr]
+
+    kwrite_ptr = (kwrite_ptr + 1) % idel_size
+    kread_ptr = (kread_ptr + 1) % idel_size
+
+    kindx += 1
+  od
+
+  out(asig, asig)
+
+endin
+
+schedule("CustomDelayLine", 0, 10)
+

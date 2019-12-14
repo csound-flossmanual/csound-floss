@@ -9,30 +9,28 @@ Csound FLOSS Manual Files:
 
 Csound: <http://csound.com/download.html>
 
-Csound source code:
-[http://github.com/csound/csound](http://github.com/csound/csound%20 "http://forum.cabbageaudio.com/")
+Csound source code: <http://github.com/csound/csound>
 
-Csound\'s User Defined Opcodes: <http://www.csounds.com/udo/>  and
+User Defined Opcodes for Csound: <http://www.csounds.com/udo/>  and
 <http://github.com/csudo/csudo>
 
-CsoundQt:
-[http://github.com/CsoundQt/CsoundQt/releases](https://github.com/CsoundQt/CsoundQt/releases "http://forum.cabbageaudio.com/")
+CsoundQt: <http://github.com/CsoundQt/CsoundQt/releases>
 
-WinXound: <http://mnt.conts.it/winxound/>
+Cabbage: <http://cabbageaudio.com/>
 
 Blue: <http://blue.kunstmusik.com/> 
 
-Cabbage: <http://cabbageaudio.com/>
+WinXound: <http://mnt.conts.it/winxound/>
+
 
 Community
 ---------
 
-[Csound\'s](http://csound.github.io/index.html "http://forum.cabbageaudio.com/")
-info page on github is a good collection of links and basic infos.
+The [Csound commuity how page](http://csound.com) is the main place for news,  basic infos, links and more.
 
-The [Csound
-Journal](http://csoundjournal.com/index.html "http://forum.cabbageaudio.com/")
+The [Csound Journal](http://csoundjournal.com/index.html)
 is a main source for different aspects of working with Csound.
+
 
 Mailing Lists and Bug Tracker
 -----------------------------
@@ -42,12 +40,14 @@ subscribe to the **Csound User** Discussion List, go to
 <https://listserv.heanet.ie/cgi-bin/wa?A0=CSOUND>. After subscribing,
 put questions at csound\@listserv.heanet.ie. You can search in the list
 archive at
-[nabble.com](http://old.nabble.com/Csound-f480.html "http://forum.cabbageaudio.com/").
+[nabble.com](http://old.nabble.com/Csound-f480.html).
+
+There is a **Csound slack** at <https://csound.slack.com>. Users can subscribe at <https://csound-slack.herokuapp.com>.
 
 To subscribe to the **CsoundQt User** Discussion List, go to
 <https://lists.sourceforge.net/lists/listinfo/qutecsound-users>. You can
 browse the list archive
-[here](http://sourceforge.net/mailarchive/forum.php?forum_name=qutecsound-users "http://forum.cabbageaudio.com/").
+[here](http://sourceforge.net/mailarchive/forum.php?forum_name=qutecsound-users).
 
 **Csound Developer** Discussions:
 <https://listserv.heanet.ie/cgi-bin/wa?A0=CSOUND-DEV>
@@ -62,30 +62,27 @@ at
 <http://sourceforge.net/tracker/?func=browse&group_id=227265&atid=1070588>.
 Every bug report is an important contribution.
 
+
 Tutorials
 ---------
 
-[A Beginning
-Tutorial](http://www.csounds.com/tootsother/vercoetut/Vercoe.html "http://forum.cabbageaudio.com/")
-is a short introduction from Barry Vercoe, the \"father of Csound\".
+[A Beginning Tutorial](http://www.csounds.com/tootsother/vercoetut/Vercoe.html)
+is a short introduction from Barry Vercoe, the "father of Csound".
 
-[An Instrument Design
-TOOTorial](http://www.csounds.com/toots/index.html "http://forum.cabbageaudio.com/")
+[An Instrument Design TOOTorial](http://www.csounds.com/toots/index.html)
 by Richard Boulanger (1991) is another classical introduction, still
 very worth to read.
 
-[Introduction to Sound Design in
-Csound](http://www.csounds.com/chapter1/index.html "http://forum.cabbageaudio.com/")
+[Introduction to Sound Design in Csound](http://www.csounds.com/chapter1/index.html)
 also by Richard Boulanger, is the first chapter of the famous Csound
 Book (2000).
 
-[Virtual
-Sound](http://www.virtual-sound.com/sv/index.php?option=com_content&view=article&id=46&Itemid=56 "http://forum.cabbageaudio.com/")
+[Virtual Sound](http://www.virtual-sound.com/sv/index.php?option=com_content&view=article&id=46&Itemid=56)
 by Alessandro Cipriani and Maurizio Giri (2000)
 
-[A Csound
-Tutorial](http://michael-gogins.com/archives/tutorial.pdf "http://forum.cabbageaudio.com/")
+[A Csound Tutorial](http://michael-gogins.com/archives/tutorial.pdf)
 by Michael Gogins (2009), one of the main Csound Developers.
+
 
 Video Tutorials
 ---------------
@@ -132,7 +129,7 @@ New features in 0.9.2:\
 
 ### Open Sound Control in Csound
 
-[http://www.youtube.com/watch?v=JX1C3TqP\_9Y](http://csoundblog.com/2010/08/csound-processing-experiment-i/ "http://forum.cabbageaudio.com/")
+[http://www.youtube.com/watch?v=JX1C3TqP\_9Y](http://csoundblog.com/2010/08/csound-processing-experiment-i/)
 
 ### Csound and Inscore
 
@@ -142,50 +139,54 @@ german versions:\
 <http://vimeo.com/54159567> (installation)\
 <http://vimeo.com/54159964> (beispiele) 
 
+
 Csound Conferences
 ------------------
 
-See the list at <http://csound.com/community.html>
+See the list at <https://csound.com/conferences.html>
+
 
 Example Collections
 -------------------
 
-[Csound Realtime
-Examples](http://iainmccurdy.org/csound.html "http://forum.cabbageaudio.com/")
-by Iain McCurdy is one of the most inspiring and up-to-date collections.
+[Csound Realtime Examples](http://iainmccurdy.org/csound.html)
+by Iain McCurdy is certainly the most extended, approved and up-to-date collection.
 
-The [Amsterdam
-Catalog](http://www.codemist.co.uk/AmsterdamCatalog/ "http://forum.cabbageaudio.com/")
+The [Amsterdam Catalog](http://www.codemist.co.uk/AmsterdamCatalog/)
 by John-Philipp Gather is particularily interesting because of the
-adaption of Jean-Claude Risset\'s famous \"Introductory Catalogue of
-Computer Synthesized Sounds\" from 1969.
+adaption of Jean-Claude Risset's famous "Introductory Catalogue of
+Computer Synthesized Sounds" from 1969.
+
 
 Books
 -----
 
-[The Csound
-Book](https://mitpress.mit.edu/books/csound-book "http://forum.cabbageaudio.com/")
-(2000) edited by Richard Boulanger is still the compendium for anyone
-who really wants to go in depth with Csound.
+Victor Lazzarini's 
+[Computer Music Instruments](https://www.springer.com/gp/book/9783319635033)
+(2017) has a lot of Csound examples, in conjunction with Python and Faust.
 
-[Virtual
-Sound](https://www.contemponet.com/shop/virtual-sound/ "http://forum.cabbageaudio.com/")
-by Alessandro Cipriani and Maurizio Giri (2000)
+[Csound --- A Sound and Music Computing System](http://www.springer.com/de/book/9783319453682) (2016) by Victor Lazzarini and others is the new Csound Standard Book, covering all parts of the Csound audio programming language in depth.
 
-[Signale, Systeme, und
-Klangsysteme](http://www.peterlang.com/index.cfm?event=cmp.ccc.seitenstruktur.detailseiten&seitentyp=produkt&pk=13446&CFID=709575&CFTOKEN=84330415 "http://forum.cabbageaudio.com/")
-by Martin Neukom (2003, german) has many interesting examples in Csound.
+Martin Neukom's 
+[Signals, Systems and Sound Synthesis](https://www.peterlang.com/view/9783035106091/9783035106091.00001.xml) (2013)
+is a comprehensive computer music tutorial with a lot of Csound in it.
 
-[The Audio Programming
-Book](http://mitpress.mit.edu/9780262014465 "http://forum.cabbageaudio.com/")
+[Csound Power!](https://www.ebooks.com/845813/csound-power/aikin-jim/)
+by Jim Aikin (2012) is a perfect up-to-date introduction for beginners.
+
+[The Audio Programming Book](http://mitpress.mit.edu/9780262014465)
 edited by Richard Boulanger and Victor Lazzarini (2011) is a major
 source with many references to Csound.
 
-[Csound
-Power!](https://www.ebooks.com/845813/csound-power/aikin-jim/ "http://forum.cabbageaudio.com/")
-by Jim Aikin (2012) is a perfect up-to-date introduction for beginners.
+[Virtual Sound](https://www.contemponet.com/shop/virtual-sound/)
+by Alessandro Cipriani and Maurizio Giri (2000)
 
-[Csound --- A Sound and Music Computing
-System](http://www.springer.com/de/book/9783319453682 "http://forum.cabbageaudio.com/")
-(2016) by Victor Lazzarini and others is the new Csound Book, covering
-all parts of the Csound audio programming language in depth.
+[The Csound Book](https://mitpress.mit.edu/books/csound-book)
+(2000) edited by Richard Boulanger is still the compendium for anyone
+who really wants to go in depth with Csound.
+
+
+
+
+
+
