@@ -88,7 +88,7 @@ LATEX_HEADER               = os.path.join(RESOURCES_DIR, "header.latex")
 
 BOOK_MD_FILES = [];
 
-for file in glob("book/01*.md"):
+for file in glob("book/*.md"):
     BOOK_MD_FILES.append(file)
 
 BOOK_MD_FILES.sort()
