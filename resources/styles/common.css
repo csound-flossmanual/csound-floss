@@ -101,7 +101,8 @@ figure figcaption {
 }
 
 p > img {
-    text-align: center;
+    display: block;
+    margin: 24px auto;
 }
 
 div#cover-image {
