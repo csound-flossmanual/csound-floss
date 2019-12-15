@@ -147,7 +147,8 @@ In Process
 - Nikhil about Csound iOS (20191208)
 - Michael about this chapters (20191209)
 - Hlodver will contribute Live Coding Chapter (14 C) (20191215)
-- Asked Luis and Hlodver (20191215)
+- Asked Luis and Hlodver about Csound in vim and Emacs (20191215)
+- Asekd Anton about new version of Haskell chapter (20191215)
 
 
 [1] (mailing list dec 11, 2019)
