@@ -301,7 +301,7 @@ def preprocess_markdown(
 
                 # Added classes to each section. Can be used in CSS.
                 if divs and ext == ".md":
-                    t.write(f'<div class="book_section" id="{basefile}">\n')
+                    t.write(f'<section class="book_section" id="{basefile}">\n')
                 with open_file(f, mode='r') as input_file:
                     for line in input_file.readlines():
                         # TOC hack - hlolli
@@ -318,7 +318,7 @@ def preprocess_markdown(
                 # Force a newline after each file.
                 t.write("\n")
                 if divs and ext == ".md":
-                    t.write('</div>\n')
+                    t.write('</section>\n')
                 t.close()
         yield generated
 

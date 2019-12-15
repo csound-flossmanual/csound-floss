@@ -35,7 +35,6 @@ from lib import *
 # ---------------------------------------------------------------------------
 
 VERSION = "0.8.0"
-
 BOOK_SRC_DIR = "book"
 TMP_DIR  = "tmp"
 TMP_DEV_DIR  = os.path.join(TMP_DIR, "dev")
@@ -43,6 +42,9 @@ RESOURCES_DIR = "resources"
 
 BUILD_FILE = "build.py"
 BUILD_LIB  = "lib/__init__.py"
+
+PDF_CODE_HIGHLIGHT_THEME = "pyments"
+HTML_CODE_HIGHLIGHT_THEME = "haddock"
 
 # Generated files
 
@@ -86,7 +88,7 @@ LATEX_HEADER               = os.path.join(RESOURCES_DIR, "header.latex")
 
 BOOK_MD_FILES = [];
 
-for file in glob("book/*.md"):
+for file in glob("book/01*.md"):
     BOOK_MD_FILES.append(file)
 
 BOOK_MD_FILES.sort()
@@ -100,6 +102,7 @@ BOOK_FILE_LIST = (
 LOCAL_IMAGES       = find_local_images(BOOK_FILE_LIST)
 
 FONTS_CSS          = os.path.join(RESOURCES_DIR, "styles", "fonts.css")
+COMMON_CSS         = os.path.join(RESOURCES_DIR, "styles", "common.css")
 HTML_CSS           = os.path.join(RESOURCES_DIR, "styles", "html.css")
 EPUB_CSS           = os.path.join(RESOURCES_DIR, "styles", "epub.css")
 # When generating PDF from HTML via weasyprint.
@@ -118,13 +121,11 @@ METADATA_DEPS = (
 DEPS          = (BOOK_FILE_LIST + BUILD_FILE_DEPS + LOCAL_IMAGES +
                  [PANDOC_FILTER, COMBINED_METADATA])
 
-EPUB_DEPS     = DEPS + [EPUB_METADATA, EPUB_CSS, FONTS_CSS]
-HTML_DEPS     = DEPS + [HTML_CSS, FONTS_CSS]
+EPUB_DEPS     = DEPS + [EPUB_METADATA, COMMON_CSS, FONTS_CSS, EPUB_CSS]
+HTML_DEPS     = DEPS + [COMMON_CSS, FONTS_CSS, HTML_CSS]
 LATEX_DEPS    = DEPS + [LATEX_COVER_PAGE, LATEX_TEMPLATE,
                         LATEX_HEADER, LATEX_METADATA_YAML]
-# DOCX_DEPS     = DEPS + [REF_DOCX]
-HTML_PDF_DEPS = DEPS + [HTML_PDF_CSS, FONTS_CSS]
-
+HTML_PDF_DEPS = DEPS + [COMMON_CSS, FONTS_CSS, HTML_PDF_CSS]
 PANDOC        = find_in_path("pandoc")
 
 # +RTS and -RTS delimit Haskell runtime options. See
@@ -134,20 +135,23 @@ PANDOC        = find_in_path("pandoc")
 # default size is 8M.
 
 HASKELL_OPTS = "+RTS -K4096m -RTS"
-# HASKELL_OPTS = ""
 
 PANDOC_EXTENSIONS = (
     "line_blocks",
     "escaped_line_breaks",
     "smart",
     "fenced_code_blocks",
+    "backtick_code_blocks",
     "fenced_code_attributes",
     "backtick_code_blocks",
     "yaml_metadata_block",
     "implicit_figures",
     "tex_math_dollars",
     "implicit_figures",
-    "link_attributes"
+    "link_attributes",
+    "inline_notes",
+    "citations",
+    "footnotes"
 )
 
 INPUT_FORMAT = "markdown+{}".format("+".join(PANDOC_EXTENSIONS))
@@ -161,20 +165,24 @@ NON_LATEX_PANDOC_OPTS = f"{COMMON_PANDOC_OPTS} "
 LATEX_PANDOC_OPTS = (f"{COMMON_PANDOC_OPTS} --template={LATEX_TEMPLATE} " +
                      f"-t latex -H {LATEX_HEADER} -B {LATEX_COVER_PAGE} " +
                      "--toc")
-HTML_PANDOC_OPTS = (f"{NON_LATEX_PANDOC_OPTS} -t html " +
-                    f"--css={FONTS_CSS} --css={HTML_CSS} " +
+HTML_PANDOC_OPTS = (f"{NON_LATEX_PANDOC_OPTS} -s -t html " +
+                    f"--css={COMMON_CSS} --css={FONTS_CSS} --css={HTML_CSS} " +
+                    f"--highlight-style={HTML_CODE_HIGHLIGHT_THEME} " +
                     f"-H {HTML_HEAD_INCLUDE} " +
-                    f"-B {HTML_BODY_INCLUDE}")
+                    f"-B {HTML_BODY_INCLUDE}" +
+                    f" --epub-chapter-level=1"
+)
 EPUB_PANDOC_OPTS = (f"{NON_LATEX_PANDOC_OPTS} -t epub --toc " +
                     "--epub-embed-font=resources/styles/fonts/*.ttf " +
-                    f"--epub-chapter-level=1 --css={EPUB_CSS} " +
+                    f"--epub-chapter-level=1 --css={COMMON_CSS} --css={EPUB_CSS} " +
                     f"--epub-metadata={EPUB_METADATA} "
                     # f"--epub-cover-image={COVER_IMAGE}"
 )
 # DOCX_PANDOC_OPTS = f"{NON_LATEX_PANDOC_OPTS} -t docx --reference-doc={REF_DOCX}"
 
 HTML_PDF_PANDOC_OPTS = (f"{NON_LATEX_PANDOC_OPTS} -t html " +
-                        f"--css={HTML_PDF_CSS} --pdf-engine=weasyprint")
+                        f" --highlight={PDF_CODE_HIGHLIGHT_THEME} " +
+                        f"--css={COMMON_CSS} --css={HTML_PDF_CSS} --pdf-engine=weasyprint")
 
 # ---------------------------------------------------------------------------
 # Tasks
@@ -182,7 +190,7 @@ HTML_PDF_PANDOC_OPTS = (f"{NON_LATEX_PANDOC_OPTS} -t html " +
 
 DOIT_DB = "doit-db.json"
 
-DEFAULT_TASKS = ["html", "pdf", "epub"] # "docx"
+DEFAULT_TASKS = ["html", "pdf", "epub" ] # "docx"
 
 DOIT_CONFIG = {
     "default_tasks": DEFAULT_TASKS,

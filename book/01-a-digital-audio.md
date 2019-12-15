@@ -53,7 +53,7 @@ of a sound in any given medium we can use the following equation:
 Humans can hear frequencies from 20Hz to 20000Hz (although this can
 differ dramatically from individual to individual and the upper limit
 will decay with age). You can read more about frequency in the [next
-chapter](01-b-pitch-and-frequency).
+chapter](01-b-pitch-and-frequency.html).
 
 -   **Phase:** This is the starting point of a waveform. The starting
     point along the Y-axis of our plotted waveform is not always zero.
@@ -123,7 +123,7 @@ Csound one can process the incoming audio samples in real time and
 output a new stream of samples or write them to disk in the form of a
 sound file.
 
-![<small>*Sampling of an analog signal*</small>](../resources/images/01-a-sampling.png)
+![Sampling of an analog signal](../resources/images/01-a-sampling.png)
 
 It is important to remember that each sample represents the amount of
 voltage, positive or negative, that was present in the signal at the
@@ -177,7 +177,7 @@ Aliasing
 
 Here is a graphical representation of aliasing.
 
-![<small>*Aliasing (red) of a high frequency (blue)*</small>](../resources/images/01-a-aliasing-1.png){width=50%}
+![Aliasing (red) of a high frequency (blue)](../resources/images/01-a-aliasing-1.png){width=50%}
 
 The sinusoidal waveform in blue is being sampled at the vertical black
 lines. The line that joins the red circles together is the captured
@@ -186,7 +186,7 @@ waveform express different frequencies.
 
 Here is another example:
 
-![<small>*Aliasing of a 30 kHz sine at 40 kHz sample rate*</small>](../resources/images/01-a-aliasing-2.png){width=80%}
+![Aliasing of a 30 kHz sine at 40 kHz sample rate](../resources/images/01-a-aliasing-2.png){width=80%}
 
 We can see that if the sample rate is 40,000 there is no problem with
 sampling a signal that is 10KHz. On the other hand, in the second

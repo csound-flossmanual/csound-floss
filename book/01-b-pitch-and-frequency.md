@@ -11,7 +11,7 @@ Given a tone\'s frequency, one can easily calculate the period of any
 sound. Mathematically, the period is the reciprocal of the frequency and
 vice versa. In equation form, this is expressed as follows.
 
-     Frequency = 1/Period         Period = 1/Frequency 
+     Frequency = 1/Period         Period = 1/Frequency
 
  
 

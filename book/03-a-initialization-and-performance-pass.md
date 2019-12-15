@@ -463,10 +463,10 @@ instance of the same instrument turned off.
 The following example shows this behaviour.  Instrument *Call* simply
 calls the instrument *Called* once a second, and sends the number of
 the call to it.  Instrument *Called* generates the variable kRndVal by
-a random generator, and reports both:  
-- the value of kRndVal at initialization, and  
+a random generator, and reports both:
+- the value of kRndVal at initialization, and
 - the value of kRndVal at performance time, i.e. the first control
-cycle.  
+cycle.
 (After the first k-cycle, the instrument is turned off immediately.)
 
    ***EXAMPLE 03A08\_k-inits\_in\_multiple\_calls\_1.csd***

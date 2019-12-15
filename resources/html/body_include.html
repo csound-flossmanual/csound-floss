@@ -1,2 +1,72 @@
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<script>
+    function docReady(fn) {
+        // see if DOM is already available
+        if (
+            typeof window.Prism !== "undefined" &&
+            (document.readyState === "complete" ||
+                document.readyState === "interactive")
+        ) {
+            // call on next available tick
+            setTimeout(fn, 1);
+        } else {
+            document.addEventListener("DOMContentLoaded", fn);
+        }
+    }
+
+    docReady(function() {
+        window.Prism.languages.csound = {
+            comment: [
+                {
+                    pattern: /(^|[^\\])\/\*[\s\S]*?(?:\*\/|$)/,
+                    lookbehind: true
+                },
+                { pattern: /;.*/ },
+                {
+                    pattern: /(^|[^\\:])\/\/.*/,
+                    lookbehind: true,
+                    greedy: true
+                }
+            ],
+            string: {
+                pattern: /(["'])(?:\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/,
+                greedy: true
+            },
+            "class-name": {
+                pattern: /((?:\b(?:class|interface|extends|implements|trait|instanceof|new)\s+)|(?:catch\s+\())[\w.\\]+/i,
+                lookbehind: true,
+                inside: {
+                    punctuation: /[.\\]/
+                }
+            },
+            keyword: {
+                lookbehind: true,
+                pattern: /\b(?:if|else|while|do|od|then|endif|elseif|sr|ksmps|nchnls|nchnls_i|kr|0dbfs)\b|(^|[^.])<\/?\w+(?:\s+[^\s>\/=]+=("|')(?:\\\1|\\?(?!\1)[\w\W])*\2)*\s*\/?>/
+            },
+            boolean: /\b(?:instr|endin|opcode|endop|macro)\b/,
+            function: /\w+(?=\()/,
+            number: /\b0x[\da-f]+\b|(?:\b\d+\.?\d*|\B\.\d+)(?:e[+-]?\d+)?/i,
+            operator: [
+                { pattern: /(?:::|[:|'])\b[a-z][\w*+!?-]*\b/i },
+                { pattern: /\bp[0-9]+/ }
+            ],
+            // operator: /--?|\+\+?|!=?=?|<=?|>=?|==?=?|&&?|\|\|?|\?|\*|\/|~|\^|%/,
+            punctuation: /[{}[\];(),.:]/
+        };
+        var codeElements = document.getElementsByTagName("code");
+        for (var i = 0; i < (codeElements || []).length; i++) {
+            var codeElement = codeElements[i];
+            if ((codeElement.innerHTML || "").match("CsoundSynthesizer")) {
+                codeElement.classList.add("language-csound");
+                window.Prism.highlightElement(
+                    codeElements[i],
+                    false,
+                    function() {}
+                );
+            }
+        }
+    });
+</script>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/prism.js"
+    data-manual="true"
+></script>
