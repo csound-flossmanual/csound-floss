@@ -1,6 +1,8 @@
 02 B. CSOUND SYNTAX
 ===================
 
+This chapter is a brief introduction about how to write Csound code. For a detailed discussion of Csound Syntax see section 3 of this manual.
+
 Orchestra and Score
 -------------------
 

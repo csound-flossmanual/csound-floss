@@ -1,6 +1,8 @@
 02 C. CONFIGURING MIDI
 ======================
 
+This is a brief description of Csound's MIDI configuration. More details can be found in section 7.
+
 Csound can receive MIDI events (like MIDI notes and MIDI control
 changes) from an external MIDI interface or from another program via a
 virtual MIDI cable. This information can be used to control any aspect
