@@ -86,12 +86,12 @@ providing users with knowledge of most of the important aspects of
 Csound whilst also remaining concise and simple enough to avoid
 overwhelming the reader through the shear number of possibilities
 offered by Csound. Frequently this manual will link to other more
-detailed resources such as the 
+detailed resources such as the
 [Canonical Csound Reference Manual](http://csound.com/docs/manual/index.html), the main support documentation provided by the Csound developers and associated
-community over the years, and the 
+community over the years, and the
 [Csound Journal](http://csoundjournal.com/index.html) (edited by James Hearon
 and Iain McCurdy), a roughly quarterly online publication with many
-great Csound-related articles. The 
+great Csound-related articles. The
 [Csound Community Home Page](https://csound.com/) points to a lot of additional resources of learning Csound and informs about recent developments. Other resources (books, mailing lists, social media, videos) are listed in the [Links](15-c-links.md) section of this manual.
 
 We hope you enjoy reading this textbook and wish you happy Csounding!

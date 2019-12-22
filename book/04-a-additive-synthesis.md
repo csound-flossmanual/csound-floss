@@ -1,7 +1,7 @@
 04 A. ADDITIVE SYNTHESIS
 ========================
 
-Jean Baptiste Joseph Fourier (1768-1830) claimed in this treatise *Théorie analytique de la chaleur* (1822) that any periodic function can be described perfectly as a sum of weighted sine waves. The frequencies of these *harmonics* are integer multiples of the fundamental frequency.
+Jean Baptiste Joseph Fourier (1768-1830) claimed in this treatise *Théorie analytique de la chaleur* (1822) that any periodic function can be described perfectly as a sum of weighted sine waves. The frequencies of these *harmonics* are integer multiples of the fundamental frequency.
 
 As we can easily produce sine waves of different amplitudes in digital sound synthesis, the *Fourier Synthesis* or *Additive Synthesis* may sound the universal key for creating interesting sounds. But first, not all sounds are periodic. *Noise* as very important part of the sounding world represents the other pole which is essentially non-periodic. And dealing with single sine waves means dealing with a lot of data and reqirements.
 
@@ -181,8 +181,8 @@ score as *p-fields*.
 The next version of the previous instrument, simplifies the instrument
 code and defines the variable values as score parameters:
 
-   ***EXAMPLE 04A02_AddSynth_score.csd*** 
- 
+   ***EXAMPLE 04A02_AddSynth_score.csd***
+
 ~~~
 <CsoundSynthesizer>
 <CsOptions>
@@ -571,7 +571,7 @@ giAmps[] fillarray 1, 2/3, 1, 1.8, 8/3, 5/3, 1.46, 4/3, 4/3, 1, 4/3
 gSComments[] fillarray "unchanged sound", "slight variations in frequency",
       "slight variations in amplitude", "slight variations in duration",
       "slight variations combined", "heavy variations"
-giCommentsIndx[] fillarray 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 
+giCommentsIndx[] fillarray 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3,
        4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5
 giCommentsCounter init 0
 
@@ -731,7 +731,7 @@ endin
 ~~~
 
 Whether you can play examples like this in realtime will depend on the
-power of your computer. Have a look at chapter 
+power of your computer. Have a look at chapter
 [2D](02-d-live-audio.md) (Live Audio) for tips
 on getting the best possible performance from your Csound orchestra.  
  
@@ -894,10 +894,10 @@ e
 </CsoundSynthesizer>
 ;example by Iain McCurdy
 ~~~
- 
+
 ![](../resources/images/04-a-gbuzz3.png)
 
- 
+
 [buzz](http://www.csound.com/docs/manual/buzz.html) is a simplified
 version of *gbuzz* with
 fewer parameters -- it does not provide for modulation of the lowest
@@ -947,7 +947,7 @@ which adds a frequency value to all partials thereby warping the
 interval between partials. Instrument 3 employs a more complex waveform
 (pseudo-inharmonic) as the source waveform for the partials.
 
-   ***EXAMPLE 04A12_hsboscil.csd***  
+   ***EXAMPLE 04A12_hsboscil.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -976,7 +976,7 @@ iBasFreq = 200 ; base frequency
 iOctCnt = 3 ; width of masking window
 aSig hsboscil kAmp, kTone, kBrite, iBasFreq, giSine, giWindow, iOctCnt
 out aSig, aSig
-endin 
+endin
 
 instr 2 ; frequency shifting added
 kAmp = 0.3
@@ -1017,6 +1017,4 @@ i 3 30 14
 Additive synthesis can still be an exciting way of producing sounds. It
 offers the user a level of control that other methods of synthesis
 simply cannot match. It also provides an essential workbench for
-learning about acoustics and spectral theory as related to sound. 
-
-
+learning about acoustics and spectral theory as related to sound.

@@ -53,7 +53,7 @@ of a sound in any given medium we can use the following equation:
 Humans can hear frequencies from 20Hz to 20000Hz (although this can
 differ dramatically from individual to individual and the upper limit
 will decay with age). You can read more about frequency in the [next
-chapter](01-b-pitch-and-frequency.html).
+chapter](01-b-pitch-and-frequency.md).
 
 -   **Phase:** This is the starting point of a waveform. The starting
     point along the Y-axis of our plotted waveform is not always zero.

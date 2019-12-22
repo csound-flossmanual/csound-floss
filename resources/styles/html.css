@@ -1,36 +1,45 @@
 body {
-    margin: 0;
-    padding: 48px 0;
-    color: #333;
-    background-color: #ebebeb;
-    font-size: 17px;
-    font-family: "roboto";
-    font-weight: normal;
-    line-height: 145%;
-    min-width: 360px;
-    overflow-x: hidden;
+  margin: 0;
+  padding: 48px 0;
+  color: #333;
+  background-color: #ebebeb;
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 17px;
+  font-weight: normal;
+  line-height: 145%;
+  min-width: 360px;
+  overflow-x: hidden;
 }
 
 /* Hacky way to hide the coverpage */
 #cover-image,
 #title-block-header,
 #section_copyright {
-    display: none;
+  display: none;
+}
+
+.CodeMirror-code {
+}
+
+code,
+.CodeMirror,
+pre {
+  font-family: "Fira Mono", monospace !important;
 }
 
 pre {
-    color: #000;
-    background: #f5f2f0;
-    font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
-    text-shadow: 0 1px #fff;
-    hyphens: none;
-    -webkit-hyphens: none;
-    -moz-hyphens: none;
-    -ms-hyphens: none;
-    tab-size: 4;
+  color: #000;
+  background: #f5f2f0;
+  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+  text-shadow: 0 1px #fff;
+  hyphens: none;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  tab-size: 4;
 }
 
 pre > code {
-    font-size: 16px !important;
-    line-height: 19px !important;
+  font-size: 16px !important;
+  line-height: 19px !important;
 }

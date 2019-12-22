@@ -1,0 +1,46 @@
+[
+  { "chapter": 0, "name": "Introduction", "url_prefix": "/introduction" },
+  { "chapter": 1, "name": "Basics", "url_prefix": "/basics" },
+  { "chapter": 2, "name": "Quick Start", "url_prefix": "/quick-start" },
+  { "chapter": 3, "name": "Csound Language", "url_prefix": "/csound-language" },
+  { "chapter": 4, "name": "Sound Synthesis", "url_prefix": "/sound-synthesis" },
+  {
+    "chapter": 5,
+    "name": "Sound Modification",
+    "url_prefix": "/sound-modification"
+  },
+  { "chapter": 6, "name": "Samples", "url_prefix": "/samples" },
+  { "chapter": 7, "name": "Midi", "url_prefix": "/midi" },
+  {
+    "chapter": 8,
+    "name": "Other Communication",
+    "url_prefix": "/other-communication"
+  },
+  {
+    "chapter": 9,
+    "name": "Csound in other applications",
+    "url_prefix": "/csound-in-other-applications"
+  },
+  {
+    "chapter": 10,
+    "name": "Csound frontends",
+    "url_prefix": "/csound-frontends"
+  },
+  {
+    "chapter": 11,
+    "name": "Csound utilities",
+    "url_prefix": "/csound-utilities"
+  },
+  {
+    "chapter": 12,
+    "name": "Csound and other programming languages",
+    "url_prefix": "/csound-and-other-programming-languages"
+  },
+  {
+    "chapter": 13,
+    "name": "Extending Csound",
+    "url_prefix": "/extending-csound"
+  },
+  { "chapter": 14, "name": "Miscellanea", "url_prefix": "/miscellanea" },
+  { "chapter": 15, "name": "Appendix", "url_prefix": "/appendix" }
+]

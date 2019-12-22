@@ -13,10 +13,9 @@ before_install:
   - sudo sysctl vm.swappiness=10
 install:
 - sudo mount -o remount,exec,size=4G,mode=755 /run/user || true
-- nix-shell nix/shell.nix --run 'exit 0' # just install and exit to prevent filling memory
+- nix-shell -p yarn nodejs pandoc python
 script:
-- nix-shell nix/shell.nix --run 'python3 build.py html'
-- mkdir -p dist && cp -r resources dist && cp csound-floss-export.html dist/index.html
+- nix-shell -p yarn nodejs pandoc python --run 'yarn build'
 
 deploy:
   skip_cleanup: true
