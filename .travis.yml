@@ -8,6 +8,7 @@ env:
 install:
 - nix-shell shell.nix --run 'exit 0' # just install and exit to prevent filling memory
 script:
+- nix-shell
 - yarn
 - yarn build
 
