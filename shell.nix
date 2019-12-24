@@ -1,7 +1,7 @@
 # A shellfile for nixos users
 with import <nixpkgs> {};
 
-in stdenv.mkDerivation {
+stdenv.mkDerivation {
   name = "csound-floss";
   buildInputs = with pkgs; [
     # build deps
@@ -9,6 +9,4 @@ in stdenv.mkDerivation {
     nodejs
     yarn
   ];
-  propagatedBuildInputs = builtins.attrValues py.packages;
-  # shellHook = '' '';
 }
