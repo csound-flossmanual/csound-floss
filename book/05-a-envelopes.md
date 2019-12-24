@@ -53,7 +53,7 @@ i 1 0 2 ; instrument 1 plays a note for 2 seconds
 </CsoundSynthesizer>
 ;example by Iain McCurdy
 ~~~
- 
+
 
 The envelope in the above example assumes that all notes played by this
 instrument will be 2 seconds long. In practice it is often beneficial to
@@ -215,8 +215,8 @@ and *line* envelopes of instruments 1 and 2 appear to be the same but
 the difference in their behaviour as described above when they continue
 beyond the end of their final segment is clear. The *linseg* envelope stays at zero, whilst the *line* envelope continues through zero to negative range, thus ending at -0.2.[^1]
 
-[^1]: Negative values for the envelope have the same loudness. 
-      Only the phase of the signal is inverted. 
+[^1]: Negative values for the envelope have the same loudness.
+      Only the phase of the signal is inverted.
 
 
    ***EXAMPLE 05A05_line_vs_linseg.csd***
@@ -252,7 +252,7 @@ i 2 5 4 ; line envelope
 </CsoundSynthesizer>
 ;example by Iain McCurdy and joachim heintz
 ~~~
- 
+
 
 [expon](https://csound.com/docs/manual/expon.html) and
 [expseg](https://csound.com/docs/manual/expseg.html) are versions of
@@ -306,7 +306,7 @@ i 2 2 1 ; expon envelope
 </CsoundSynthesizer>
 ;example by Iain McCurdy
 ~~~
- 
+
 
 The nearer our *near-zero* values are to zero the quicker the curve
 will appear to reach zero. In the next example smaller and smaller
@@ -378,7 +378,7 @@ final envelope segment to decay to zero.
 
 
    ***EXAMPLE 05A08_linsegr.csd***
- 
+
 ~~~
 <CsoundSynthesizer>
 <CsOptions>
@@ -419,7 +419,7 @@ The following example generates an amplitude envelope which uses the
 shape of the first half of a sine wave.
 
 
-   ***EXAMPLE 05A09_sine_env.csd*** 
+   ***EXAMPLE 05A09_sine_env.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -465,7 +465,7 @@ The precise shape of the envelope of a sound, whether that envelope
 refers to its amplitude, its pitch or any other parameter, can be
 incredibly subtle and our ears, in identifying and characterising
 sounds, are fantastically adept at sensing those subtleties. Csound's
-original envelope generating opcode 
+original envelope generating opcode
 [linseg](https://csound.com/docs/manual/linseg.html), whilst capable of emulating the envelope generators of vintage electronic synthesisers, may not
 produce convincing results in the emulation of acoustic instruments and
 natural sound. Thus it has, since Csound's creation, been augmented with a number of other envelope generators whose usage is similar to that of linseg but whose output function is subtly different in shape.
@@ -575,7 +575,7 @@ exponentially as reflected in the envelope also. Similar attack and
 release characteristics can be observed in the slight pitch envelopes
 expressed by wind instruments.
 
- 
+
 
 *lpshold*, *loopseg* and *looptseg* - A Csound TB303
 ----------------------------------------------------
@@ -719,5 +719,3 @@ i 1 0 3600 ; instr 1 plays for 1 hour
 Hopefully this final example has provided some idea as to the extend of
 parameters that can be controlled using envelopes and also an allusion
 to their importance in the generation of musical *gesture*.
-
- 

@@ -170,11 +170,13 @@ function Footer({ routeIndex }) {
       onFooterStateChange={setIsBottomReached}
       bottomThreshold={50}
       normalStyles={{
+        zIndex: 1000,
         backgroundColor: "rgba(255,255,255,.8)",
         padding: "2rem",
         width: "100%"
       }}
       stickyStyles={{
+        zIndex: 1000,
         backgroundColor: "rgba(255,255,255,.8)",
         padding: "2rem",
         width: "100vw"

@@ -30,10 +30,10 @@ function App() {
           flex: 1 0 auto;
           padding: 0 32px;
           & > div {
+            background-color: #fff !important;
             margin-right: auto;
             margin-left: auto;
             padding: 50px !important;
-            background-color: #fff !important;
             margin-bottom: 20px;
             border: 1px solid #d9d9d9;
             border-radius: 2px;
@@ -59,24 +59,25 @@ function App() {
         `}
       >
         <Suspense fallback={<div style={{ height: "80vh" }} />}>
-          <Switch>
-            {map(
-              route => (
-                <Route
-                  onChange={chng => console.log("XXX", chng)}
-                  path={route.url}
-                  key={route.module}
-                  component={lazy(() =>
-                    import(`./book_fragments/${route.module}`)
-                  )}
-                />
-              ),
-              routes
-            )}
-            <Route path={"/"}>
-              <TOC />
-            </Route>
-          </Switch>
+          <div>
+            <Switch>
+              {map(
+                route => (
+                  <Route
+                    path={route.url}
+                    key={route.module}
+                    component={lazy(() =>
+                      import(`./book_fragments/${route.module}`)
+                    )}
+                  />
+                ),
+                routes
+              )}
+              <Route path={"/"}>
+                <TOC />
+              </Route>
+            </Switch>
+          </div>
         </Suspense>
       </div>
       <Footer routeIndex={routeIndex} />
