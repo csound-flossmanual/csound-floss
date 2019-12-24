@@ -4,19 +4,11 @@ os:
 - linux
 env:
   global:
-    - NIX_PATH=nixpkgs=https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz
-before_install:
-  - sudo fallocate -l 4G /swapfile
-  - sudo chmod 600 /swapfile
-  - sudo mkswap /swapfile
-  - sudo swapon /swapfile
-  - sudo sysctl vm.swappiness=10
+    - NIX_PATH=nixpkgs=https://github.com/NixOS/nixpkgs-channels/archive/nixos-19.09.tar.gz
 install:
-- sudo mount -o remount,exec,size=4G,mode=755 /run/user || true
-- nix-shell nix/shell.nix --run 'exit 0' # just install and exit to prevent filling memory
+- nix-shell shell.nix --run 'exit 0' # just install and exit to prevent filling memory
 script:
-- nix-shell nix/shell.nix --run 'python3 build.py html'
-- mkdir -p dist && cp -r resources dist && cp csound-floss-export.html dist/index.html
+- nix-shell --run 'yarn && yarn build'
 
 deploy:
   skip_cleanup: true

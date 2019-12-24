@@ -16,10 +16,10 @@ with another, a logarithmic scale is used. The unit $Bel$ describes the
 relation of one intensity $I$ to a reference
 intensity $I_0$ as follows:
 
-$$\log_{10} \frac{I}{I_0}$$ 
+$$\log_{10} \frac{I}{I_0}$$
 $$\textit{Sound Intensity Level in Bel}$$
 
-If, for example, the ratio $I/I_0$ is 10, this is 1 Bel. 
+If, for example, the ratio $I/I_0$ is 10, this is 1 Bel.
 If the ratio is 100, this is 2 Bel.
 
 For real world sounds, it makes sense to set the reference value $I_0$
@@ -29,8 +29,8 @@ Usually 1 Bel is divided into 10 decibel, so the common formula for
 measuring a sound intensity is:
 
 $$10 \log_{10} \frac{I}{I_0}$$
-$$\textit{Sound Intensity Level (SIL) in deci Bel (dB) with } 
-I_0 = 10 ^ {-12} \frac{W}{m^2}$$ 
+$$\textit{Sound Intensity Level (SIL) in deci Bel (dB) with }
+I_0 = 10 ^ {-12} \frac{W}{m^2}$$
 
 While the sound intensity level is useful in describing the way in which
 human hearing works, the measurement of sound is more closely related to
@@ -39,16 +39,16 @@ particles and by this they increase and decrease the localized air
 pressure. These deviations are measured and transformed by a microphone.
 The question arises: what is the relationship between the sound pressure
 deviations and the sound intensity? The answer is: sound intensity
-changes $I$ are proportional to the *square* of the sound pressure changes 
+changes $I$ are proportional to the *square* of the sound pressure changes
 $P$. As a formula:
 
 $$I \propto P^2$$
 $$\textit{Relation between Sound Intensity and Sound Pressure}$$
 
 Let us take an example to see what this means. The sound pressure at the
-threshold of hearing can be fixed at $2*10^{-5} Pa$. 
+threshold of hearing can be fixed at $2*10^{-5} Pa$.
 This value is the reference value of the Sound Pressure Level (SPL).
-If we now have a value of $2*10^{-4} Pa$, 
+If we now have a value of $2*10^{-4} Pa$,
 the corresponding sound intensity relationship can be calculated as
 $\left(\frac{2*10^{-4}}{2*10^{-5}}\right)^2 = 10^2 = 100$.
 
@@ -71,8 +71,8 @@ intensity and amplitudes:
 $$I \propto A^2$$
 $$\textit{Relationship between Intensity and Amplitude}$$
 
-This yields to the same transformation as described above for the 
-sound pressure; so finally the relation in Decibel of any amplitude $A$ to a reference 
+This yields to the same transformation as described above for the
+sound pressure; so finally the relation in Decibel of any amplitude $A$ to a reference
 amplitude $A_0$ is:
 
 $$20*\log_{10} \frac{A}{A_0}$$
@@ -205,7 +205,7 @@ These are the squared amplitudes:
 
 The mean of these values is:
 
-$\frac{0+0.146+0.5+0.854+1+0.854+0.5+0.146+0+0.146+0.5+0.854+1+0.854+0.5+0.146}{16} = \frac{8}{16} = 0.5$
+\[frac{0+0.146+0.5+0.854+1+0.854+0.5+0.146+0+0.146+0.5+0.854+1+0.854+0.5+0.146}{16} = \frac{8}{16} = 0.5\]
 
 And the resulting RMS value is $\sqrt{0.5} = 0.707$. 
 
@@ -216,7 +216,7 @@ default is 10 Hz), the quicker this measurement will respond to changes,
 and vice versa. This opcode can be used to implement a self-regulating
 system, in which the rms opcode prevents the system from exploding. Each
 time the rms value exceeds a certain value, the amount of feedback is
-reduced. This is an example[^1]\:
+reduced. This is an example^[cf Martin Neukom, Signale Systeme Klangsynthese, Zürich 2003, p.383]\:
 
    ***EXAMPLE 01C02_rms_feedback_system.csd***  
 
@@ -329,5 +329,3 @@ amplitude will be perceived differently to a 3000 Hz sine at the same
 amplitude; the latter will sound much louder.  
 
  
-
-[^1]:  cf Martin Neukom, Signale Systeme Klangsynthese, Zürich 2003, p.383

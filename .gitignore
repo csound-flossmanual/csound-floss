@@ -3,14 +3,13 @@
 /tmp
 csound-floss-export*
 html2pdf*.html
-doit-db.json
 __pycache__
 /.direnv
 .envrc
 .mypy_cache
 *~
 *#
-dist
+build
 .firebase
-result
-python-env
+node_modules
+src/book_fragments/*
