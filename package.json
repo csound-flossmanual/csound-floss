@@ -25,6 +25,9 @@
     "react-side-effect": "^2.1.0",
     "react-sticky-footer": "^0.1.0-rc3"
   },
+  "resolutions": {
+    "html-to-jsx/cheerio/lodash": "^4.17.15"
+  },
   "scripts": {
     "start": "node pandoc/development.js",
     "build": "node pandoc/build.js"
