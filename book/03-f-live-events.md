@@ -2,7 +2,7 @@
 =================
 
 The basic concept of Csound from the early days of the program is still
-valid and useful because it is a musically familiar one: you create a
+valid and useful because it is a musically familiar one: you create a
 set of instruments and instruct them to play at various times. These
 calls of instrument instances, and their execution, are called
 *instrument events*.
@@ -46,7 +46,7 @@ if you trigger an instrument from inside another instrument. The first
 example shows the result when instrument 2 triggers instrument 1 and
 instrument 3 **at init-time**.
 
-   ***EXAMPLE 03F01_OrderOfExc_event_i.csd***  
+   ***EXAMPLE 03F01_OrderOfExc_event_i.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -107,7 +107,7 @@ executed by their order.
 Let us compare now what is happening when instrument 2 calls instrument
 1 and 3 **during the performance** (= at k-time):
 
-   ***EXAMPLE 03F02_OrderOfExc_event_k.csd***  
+   ***EXAMPLE 03F02_OrderOfExc_event_k.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -202,7 +202,7 @@ features can be found in the
 section of the Canonical Csound Reference Manual. Here are some
 examples:
 
-   ***EXAMPLE 03F03_Score_tricks.csd***   
+   ***EXAMPLE 03F03_Score_tricks.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -292,7 +292,7 @@ in the MIDI section of
 this manual. Here, just a small example is shown. Simply connect your
 MIDI keyboard and it should work.
 
-   ***EXAMPLE 03F04_Midi_triggered_events.csd***   
+   ***EXAMPLE 03F04_Midi_triggered_events.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -341,7 +341,7 @@ using an [FLTK button](http://www.csound.com/docs/manual/FLbutton.html).
 A more extended example can be found
 [here](http://www.csound.com/docs/manual/examples/FLbutton.csd).
 
-   ***EXAMPLE 03F05\_FLTK\_triggered\_events.csd***   
+   ***EXAMPLE 03F05\_FLTK\_triggered\_events.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -426,7 +426,7 @@ for realtime output), you can type any score line in realtime (sorry,
 this does not work for Windows). For instance, save this .csd anywhere
 and run it from the command line:
 
-   ***EXAMPLE 03F06_Commandline_rt_events.csd***   
+   ***EXAMPLE 03F06_Commandline_rt_events.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -503,7 +503,7 @@ high to low. If it crosses the threshold from low to high the second
 instrument is triggered, if it crosses from high to low the third
 instrument is triggered.
 
-   ***EXAMPLE 03F07_Event_by_condition.csd***   
+   ***EXAMPLE 03F07_Event_by_condition.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -587,7 +587,7 @@ has two major benefits:
 Let\'s look at a simple example for executing score events from an
 instrument using the scoreline opcode:
 
-   ***EXAMPLE 03F08_Generate_event_pool.csd***
+   ***EXAMPLE 03F08_Generate_event_pool.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -633,7 +633,7 @@ execute them. This can be done with the
 produces the string for scoreline in an i-time loop (see the chapter
 about control structures).
 
-   ***EXAMPLE 03F09_Events_sprintf.csd***   
+   ***EXAMPLE 03F09_Events_sprintf.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -699,7 +699,7 @@ alternative version of the previous one by adding the instrument events
 one by one in the i-time loop, either with event\_i (instr 1) or with
 scoreline\_i (instr 2):
 
-   ***EXAMPLE 03F10_Events_collected.csd***
+   ***EXAMPLE 03F10_Events_collected.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -785,7 +785,7 @@ loop and triggers several instances of a sub-subinstrument (instr 100).
 Each instance performs a partial with an independent envelope for a
 bell-like additive synthesis.
 
-   ***EXAMPLE 03F11_Events_time_loop.csd***
+   ***EXAMPLE 03F11_Events_time_loop.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -865,7 +865,7 @@ i 1 0 300 ;try this, or the next line (or both)
 ;example by joachim heintz
 ~~~
 
-Which Opcode Should I Use? 
+Which Opcode Should I Use?
 ---------------------------
 
 Csound users are often confused about the variety of opcodes available
@@ -885,7 +885,7 @@ is a very simple example:
        detailed discussion.
 
 
-   ***EXAMPLE 03F12_event_i_vs_event.csd***
+   ***EXAMPLE 03F12_event_i_vs_event.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1062,7 +1062,7 @@ instead of four:
 
 Only, you cannot pass strings as p-fields via schedkwhen (and event).
 So, very much similar as described above for i-rate opcodes, scoreline
-fills this gap. Usually we will use it with a condition,  as we did for
+fills this gap. Usually we will use it with a condition,  as we did for
 the event opcode:
 
     kTrigger  metro    1 ;"ticks" once a second
@@ -1097,7 +1097,7 @@ this text in a simple text (ASCII) format as "to_recompile.orc":
 
 Then save this csd in the same directory:
 
-   ***EXAMPLE 03F13\_compileorc.csd***
+   ***EXAMPLE 03F13\_compileorc.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1159,7 +1159,7 @@ in a string. As this will be a string with several lines, you will
 usually use the *{{* delimiter for the start and *}}* for the end of
 the string. This is a basic example:
 
-   ***EXAMPLE 03F14\_compilestr.csd***   
+   ***EXAMPLE 03F14\_compilestr.csd***
 
 ~~~
 <CsoundSynthesizer>

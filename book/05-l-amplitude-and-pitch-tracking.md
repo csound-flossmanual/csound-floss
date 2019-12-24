@@ -39,7 +39,7 @@ samples in a control period (ksmps) will then no longer alter response
 behaviour.
 
 
-   ***EXAMPLE 05L01_Amplitude_Tracking_First_Principles.csd*** 
+   ***EXAMPLE 05L01_Amplitude_Tracking_First_Principles.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -90,7 +90,7 @@ described above.
 [follow](https://csound.com/docs/manual/follow.html) outputs at
 a-rate and uses a sample and hold method as it outputs data, probably
 necessitating some sort of low-pass filtering of the output signal.
-[follow2](https://csound.com/docs/manual/follow2.html) also outputs
+[follow2](https://csound.com/docs/manual/follow2.html) also outputs
 at a-rate but smooths the output signal by different amounts depending
 on whether the amplitude is rising or falling.
 
@@ -152,12 +152,12 @@ a sample-and-hold mechanism when outputting the tracked amplitude. This
 can result in a stepped output that might require addition lowpass
 filtering before use. We actually defined the period, the duration for
 which values are held, using its second input argument. The update rate
-will be one over the period.  In the following example the audio is
+will be one over the period.  In the following example the audio is
 amplitude tracked using the following line:
 
     aRms    follow    aSig, 0.01
 
- with the following result:
+ with the following result:
 
 ![](../resources/images/05-l-follow.png)
 
@@ -165,7 +165,7 @@ The hump over the word spoken during the third and fourth time divisions
 initially seem erroneous but it is a result of greater amplitude
 excursion into the negative domain.
 [follow](https://csound.com/docs/manual/follow.html) provides a
-better reflection of absolute peak amplitude. 
+better reflection of absolute peak amplitude.
 
 [follow2](https://csound.com/docs/manual/follow2.html) uses a
 different algorithm with smoothing on both upward and downward slopes of
@@ -183,9 +183,9 @@ and the result of amplitude tracking is:
 
 This technique can be used to extend the duration of short input sound
 events or triggers. Note that the attack and release times for follow2
-can also be modulated at k-rate. 
+can also be modulated at k-rate.
 
- 
+
 
 Dynamic Gating and Amplitude Triggering
 ---------------------------------------
@@ -338,7 +338,7 @@ i 1 0 [3600*24*7]
 </CsoundSynthesizer>
 ;example by Iain McCurdy
 ~~~
- 
+
 
 Pitch Tracking
 --------------

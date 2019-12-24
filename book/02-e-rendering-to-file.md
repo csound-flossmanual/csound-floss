@@ -9,7 +9,7 @@ hard drive instead of as live audio sent to the audio hardware. This
 gives you the possibility to hear the results of very complex processes
 which your computer can't produce in realtime. Or you want to render
 something in Csound to import it in an audio editor, or as the final
-result of a "tape" piece.[^1] 
+result of a "tape" piece.[^1]
 
 Csound can render to formats like wav, aiff or ogg (and other less
 popular ones), but not mp3 due to its patent and licencing problems.
@@ -20,7 +20,7 @@ Rendering to File
 
 Save the following code as Render.csd:
 
-   ***EXAMPLE 02E01\_Render.csd*** 
+   ***EXAMPLE 02E01\_Render.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -62,7 +62,7 @@ directory. Something like this for Windows \...
 
     <CsOptions>
     -o /Users/JSB/organ/tatata.wav
-    </CsOptions>  
+    </CsOptions>
 
 
 ### Rendering Options
@@ -98,7 +98,7 @@ creates a random frequency and panning movement of a sine wave, and
 writes it to the file \"live\_record.wav\" (in the same directory as
 your .csd file):
 
-   ***EXAMPLE 02E02\_RecordRT.csd***
+   ***EXAMPLE 02E02\_RecordRT.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -126,7 +126,7 @@ aL, aR    pan2      aSig, kPan ;stereo output signal
 <CsScore>
 i 1 0 10
 </CsScore>
-</CsoundSynthesizer> 
+</CsoundSynthesizer>
 ;example by joachim heintz
 ~~~
 

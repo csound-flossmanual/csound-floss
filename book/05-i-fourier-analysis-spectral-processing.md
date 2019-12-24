@@ -13,9 +13,9 @@ FT, STFT, DFT and FFT
 As described in chapter [04 A](04-a-additive-synthesis.md), the mathematician J.B. Fourier (1768-1830) developed a method to approximate periodic functions by weighted sums of the trigonometric functions *sine* and *cosine*. As many sounds, for instance a violin or a flute tone, can be described as *periodic functions*,[^2] we should be able to analyse their spectral components by means of the Fourier Transform.
 
 [^2]: To put this simply: If we *zoom* into recordings of any pitched sound,
-      we will see periodic repetitions. If a flute is playing a 440 Hz (A4) 
+      we will see periodic repetitions. If a flute is playing a 440 Hz (A4)
       tone, we will see every 2.27 milliseconds (1/440 second) the same shape.
-      
+
 As continuous changes are inherent to sounds, the FT used in musical applications follows a principle which is well known from film or video. The continuous flow of time is divided into a number of fixed *frames*. If this number is big enough (at least 20 frames per second), the continuous flow can reasonably be divided to this sequence of FT *snapshots*. This is called the *Short Time Fourier Transform (STFT)*.
 
 Some care has to be taken to minimise the side effects of cutting the time into snippets. Firstly an *envelope* for the analysis frame is applied. As one analysis frame is often called *window*, the envelope shapes are called *window function*, *window shape* or *window type*. Most common are the *Hamming* and the *von Hann* (or *Hanning*) window functions:
@@ -46,7 +46,7 @@ The *fundamental frequency* of one given FFT window is the inverse of its size i
 
 It is obvious that a larger window is better for frequency analysis at least for low frequencies. This is even more the case as the estimated harmonics which are scanned by the Fourier Transform are *integer multiples* of the fundamental frequency.[^4] These estimated harmonics or partials are usually called *bins* in FT terminology. So, again for *sr=44100* Hz, the bins are:
 
-[^4]: Remember that FT is based on the assumption that the signal to be 
+[^4]: Remember that FT is based on the assumption that the signal to be
       analysed is a periodic function.
 
 - bin 1 = 86.13 Hz, bin 2 = 172.26 Hz, bin 3 = 258.40 Hz for size=512
@@ -81,11 +81,11 @@ The *pv* opcodes belong to the early implementation of FFT in Csound. This group
 [vpvoc](https://csound.com/docs/manual/vpvoc.html).
 Note that these **pv** opcodes are **not designed to work in real-time**.
 
-The opcodes which **are** designed *for real-time spectral processing* are called *phase vocoder streaming* opcodes. They all start with **pvs**; a rather complete list can be found on the 
+The opcodes which **are** designed *for real-time spectral processing* are called *phase vocoder streaming* opcodes. They all start with **pvs**; a rather complete list can be found on the
 [Spectral Processing](https://csound.com/docs/manual/SpectralTop.html)
 site in the Csound Manual. They are fast and easy to use. Because of their power and diversity they are one of the biggest strengths in using Csound.
 
-We will focus on these *pvs* opcodes here, which for most use cases offer all what is desirable to work in the spectral domain. There is, however, a group of opcodes which allow to go back to the *raw* FFT output (without the phase vocoder format). They are listed as 
+We will focus on these *pvs* opcodes here, which for most use cases offer all what is desirable to work in the spectral domain. There is, however, a group of opcodes which allow to go back to the *raw* FFT output (without the phase vocoder format). They are listed as
 [array-based spectral opcodes](https://csound.com/docs/manual/arraysfft.html)
 in the Csound Manual.
 
@@ -96,10 +96,10 @@ From Time Domain to Frequency Domain: *pvsanal*
 For dealing with signals in the frequency domain, the *pvs* opcodes
 implement a new signal type, the *frequency-* or *f-signal*. If we start with an audio signal in time-domain as *aSig*, it will become *fSig* as result of the Fourier Transform.
 
-There are several opcodes to perform this transform. The most simple one is 
+There are several opcodes to perform this transform. The most simple one is
 [pvsanal](https://csound.com/docs/manual/pvsanal.html). It performs on-the-fly transformation of an input audio signal *aSig* to a frequency signal *fSig*. In addition to the audio signal input it requires some basic FFT settings:
 
-- *ifftsize* is the size of the FFT. As explained above, 512, 1024 or 2048 
+- *ifftsize* is the size of the FFT. As explained above, 512, 1024 or 2048
   samples are reasonable values here.
 - *ioverlap* is the number of samples after which the next (overlapping)
   FFT frame starts (often refered to as *hop size*). Usually it is 1/4
@@ -109,7 +109,7 @@ There are several opcodes to perform this transform. The most simple one is
 - *iwintype* is the shape of the analysis window. 0 will use a Hamming
   window, 1 will use a von-Hann (or Hanning) window.
 
-[^6]: It can be an integral multiple of *ifftsize*, so a window twice as 
+[^6]: It can be an integral multiple of *ifftsize*, so a window twice as
       large as the FFT size would be possible and may improve the quality
       of the anaylysis. But it also induces more latency which usually
       is not desirable.
@@ -123,7 +123,7 @@ The first example covers two typical situations:
 (Caution - this example can quickly start feeding back. Best results are
 with headphones.)
 
-   ***EXAMPLE 05I01_pvsanal.csd*** 
+   ***EXAMPLE 05I01_pvsanal.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -194,7 +194,7 @@ resynthesis:
 
 ### Alternatives and Time Stretching: *pvstanal* / *pvsbufread*
 
-Working with *pvsanal* to create an f-signal is easy and straightforward. But if we are using an already existing sound file, we are missing one of the interesting possibilities in working with FFT: time stretching. This we can obtain most simple when we use 
+Working with *pvsanal* to create an f-signal is easy and straightforward. But if we are using an already existing sound file, we are missing one of the interesting possibilities in working with FFT: time stretching. This we can obtain most simple when we use
 [pvstanal](https://csound.com/docs/manual/pvstanal.html) instead. The *t* in *pvs**t**anal* stands for *table*. This opcode performs FFT on a sound which has been loaded in a table.[^7] These are the main parameters:
 
 [^7]: The table can also be recorded in live performance.
@@ -244,13 +244,13 @@ i 1 12 17 0.1 ; 1/10 speed
 
 We hear that for extreme time stretching artifacts arise. This is expected and a result of the FFT resynthesis. Later in this chapter we will discuss how to avoid these artifacts.
 
-The other possibility to work with a table (buffer) and get the f-signal by reading it is to use 
-[pvsbufread](https://csound.com/docs/manual/pvsbufread.html). This opcode does not read from an audio buffer but needs a buffer which is filled with FFT data already. This job is done by the related opcode 
-[pvsbuffer](https://csound.com/docs/manual/pvsbuffer.html). In the next example, we wrap this procedure in the User Defined Opcode *FileToPvsBuf*. This *UDO* is called at the first control cycle of instrument *simple_time_stretch*, when *timeinstk()* (which counts the control cycles in an instrument) outputs 1. After this job is done, the pvs-buffer is ready and stored in the global variable *gibuffer*. 
+The other possibility to work with a table (buffer) and get the f-signal by reading it is to use
+[pvsbufread](https://csound.com/docs/manual/pvsbufread.html). This opcode does not read from an audio buffer but needs a buffer which is filled with FFT data already. This job is done by the related opcode
+[pvsbuffer](https://csound.com/docs/manual/pvsbuffer.html). In the next example, we wrap this procedure in the User Defined Opcode *FileToPvsBuf*. This *UDO* is called at the first control cycle of instrument *simple_time_stretch*, when *timeinstk()* (which counts the control cycles in an instrument) outputs 1. After this job is done, the pvs-buffer is ready and stored in the global variable *gibuffer*.
 
 Time stretching is then done in the first instrument in a similar way we performed above with *pvstanal*; only that we do not control directly the speed of reading but the real time position (in seconds) in the buffer. In the example, we start in the middle of the sound file and read the words "over the lazy dog" with a time stretch factor of about 10.
 
-The second instrument can still use the buffer. Here a time stretch line is superimposed by a *trembling* random movement. It changes 10 times a second and interpolates to a point which is between - 0.2 seconds and + 0.2 seconds from the current position of the slow moving time pointer created by the expression *linseg:k(0,p3,gilen)*. 
+The second instrument can still use the buffer. Here a time stretch line is superimposed by a *trembling* random movement. It changes 10 times a second and interpolates to a point which is between - 0.2 seconds and + 0.2 seconds from the current position of the slow moving time pointer created by the expression *linseg:k(0,p3,gilen)*.
 
 So although a bit harder to use, *pvsbufread* offers some nice possibilities. And it is reported to have a very good performance, for instance when playing back a lot of files triggered by a MIDI keyboard.
 
@@ -389,9 +389,9 @@ sound.
 As mentioned above, simple pitch shifting can also be performed via
 [pvstanal](https://csound.com/docs/manual/pvstanal.html) or
 [mincer](https://csound.com/docs/manual/mincer.html).
- 
 
-Cross Synthesis 
+
+Cross Synthesis
 ---------------
 
 Working in the frequency domain makes it possible to combine or
@@ -405,7 +405,7 @@ synthesis. The most common methods are:
     not completely from sound B, but represent an interpolation between
     A and B, the cross synthesis is more flexible and adjustable. This
     is what [pvsvoc](https://csound.com/docs/manual/pvsvoc.html)
-    does. 
+    does.
 -   Combine the frequencies of sound A with the amplitudes of sound B.
     Give user flexibility by scaling the amplitudes between A and B:
     [pvscross](https://csound.com/docs/manual/pvscross.html).
@@ -417,7 +417,7 @@ synthesis. The most common methods are:
 This is an example of phase vocoding. It is nice to have speech as sound
 A, and a rich sound, like classical music, as sound B. Here the *fox*
 sample is being played at half speed and *sings* through the music of
-sound B: 
+sound B:
 
 
    ***EXAMPLE 05I05_phase_vocoder.csd***
@@ -467,7 +467,7 @@ i 1 0 11
 </CsoundSynthesizer>
 ;example by joachim heintz
 ~~~
- 
+
 
 The next example introduces *pvscross*:
 

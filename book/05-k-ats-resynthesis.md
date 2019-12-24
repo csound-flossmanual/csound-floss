@@ -13,12 +13,12 @@ represents two aspects of the analyzed signal: the deterministic part
 and the stochastic or residual part. This model was initially conceived
 by Julius Orion Smith and Xavier Serra,[^2] but *ATS* refines certain
 aspects of it, such as the weighting of the spectral components on the
-basis of their *Signal-to-Mask-Ratio (SMR)*.[^3] 
+basis of their *Signal-to-Mask-Ratio (SMR)*.[^3]
 
 [^1]: Juan Pampin, 2011, [ATS_theory](http://wiki.dxarts.washington.edu/groups/general/wiki/39f07/attachments/55bd6/ATS_theory.pdf)
 
 [^2]: Xavier Serra and Julius O. Smith III, 1990, A Sound Analysis/Synthesis
-      System Based on a Deterministic plus Stochastic Decomposition, 
+      System Based on a Deterministic plus Stochastic Decomposition,
       Computer Music Journal, Vol.14, 4, MIT Press, USA
 
 [^3]: Eberhard Zwicker and Hugo Fastl, 1990, Psychoacoustics, Facts and
@@ -88,23 +88,23 @@ The header of the ATS files contains the following information:
 
 The ATS frame type may be, at present, one of the four following:
 
-Type 1: only sinusoidal trajectories with amplitude and frequency data.  
+Type 1: only sinusoidal trajectories with amplitude and frequency data.
 Type 2: only sinusoidal trajectories with amplitude, frequency and phase
-data.  
+data.
 Type 3: sinusoidal trajectories with amplitude, and frequency data as
-well as residual data.  
+well as residual data.
 Type 4: sinusoidal trajectories with amplitude, frequency and phase data
-as well as residual data. 
+as well as residual data.
 
-So, after the header, an ATS file with frame type 4,  *np* number of
+So, after the header, an ATS file with frame type 4,  *np* number of
 partials and *nf* frames will have:
 
     Frame 1:
         Amp.of partial 1,   Freq. of partial 1, Phase of partial 1
         ..................................................................
         ..................................................................
-        Amp.of partial np,   Freq. of partial np, Phase of partial np        
-        
+        Amp.of partial np,   Freq. of partial np, Phase of partial np
+
         Residual energy  value for  critical band 1
         ..................................................................
         ..................................................................
@@ -116,8 +116,8 @@ partials and *nf* frames will have:
         Amp.of partial 1,   Freq. of partial 1, Phase of partial 1
         ..................................................................
         ..................................................................
-        Amp.of partial np,   Freq. of partial np, Phase of partial np        
-        
+        Amp.of partial np,   Freq. of partial np, Phase of partial np
+
         Residual energy  value for  critical band 1
         ..................................................................
         ..................................................................
@@ -134,7 +134,7 @@ critical bands along 100 frames.
 
         Header:                10 * 8     =       80 bytes
         Deterministic data:  3000 * 8     =    24000 bytes
-        Residual data:       2500 * 8     =    20000 bytes   
+        Residual data:       2500 * 8     =    20000 bytes
 
         Total:       80 + 24000 + 20000   =    44080 bytes
 
@@ -165,7 +165,7 @@ nchnls = 1
 #define ATS_DU  # 7 #   ;duration       (seconds)
 #define ATS_TY  # 8 #   ;ATS file Type
 
-instr 1 
+instr 1
 iats_file=p4
 ;instr1 just reads the file header and loads its data into several variables
 ;and prints the result in the Csound prompt.
@@ -231,7 +231,7 @@ at <http://sourceforge.net/apps/trac/speed-dreams/browser/subprojects/soundedito
 ### Parameters Explanation and Proper Analysis Settings
 
 The analysis parameters are somewhat numerous, and must be carefully
-tuned in order to obtain good results.  A detailed explanation of the
+tuned in order to obtain good results.  A detailed explanation of the
 meaning of these parameters can be found at <http://musica.unq.edu.ar/personales/odiliscia/software/ATSH-doc.htm%20>
 
 In order to get a good analysis, the sound to be analysed should meet
@@ -252,15 +252,15 @@ A good ATS analysis should meet the following requirements:
     spectral analysis.
 2.  The Deterministic and Stochastic (also termed *residual) data
     must be reasonably separated in their respective ways of
-    representation. This means that, if a sound  has both, deterministic
+    representation. This means that, if a sound  has both, deterministic
     and stochastic data, the former must be represented by sinusoidal
     trajectories, whilst the latter must be represented by energy values
     among the 25 critical bands. This allows a more effective treatment
     of both types of data in the synthesis and transformation processes.
 3.  If the analysed sound is pitched, the sinusoidal trajectories
-    (Deterministic) should  be as stable as possible and ordered
+    (Deterministic) should  be as stable as possible and ordered
     according the original sound harmonics. This means that the first
-    trajectory should represent the first (fundamental) harmonic, 
+    trajectory should represent the first (fundamental) harmonic,
     the second trajectory should represent the second harmonic, and so
     on. This allow to perform easily further transformation processes
     during resynthesis (such as, for example, selecting the odd
@@ -271,7 +271,7 @@ analysis, the second and third ones are sometimes almost impossible to
 meet in full and their accomplishment depends often on the user
 objectives.
 
- 
+
 
 Synthesizing ATS Analysis Files
 -------------------------------
@@ -343,7 +343,7 @@ ksmps = 32
 nchnls = 1
 0dbfs = 1
 
-instr 1 
+instr 1
 iamp = p4                       ;amplitude scaler
 ifreq = p5                      ;frequency scaler
 ipar = p6                       ;partial required
@@ -358,7 +358,7 @@ kfreq, kamp ATSread ktime, iatsfile, ipar        ;get frequency and amplitude va
 aamp        interp  kamp                         ;interpolate amplitude values
 afreq       interp  kfreq                        ;interpolate frequency values
 aout        oscil3  aamp*iamp, afreq*ifreq, itab ;synthesize with amp and freq scaling
-        
+
             out     aout
 endin
 
@@ -369,7 +369,7 @@ f 1 0 16384 10 1
 #define atsfile #"../SourceMaterials/flute-A5.ats"#
 
 ;       start   dur     amp     freq    par     tab     atsfile
-i1      0       3       1       1       1       1       $atsfile        
+i1      0       3       1       1       1       1       $atsfile
 i1      0       .       .1      .       2       .       $atsfile
 i1      0       .       1       .       3       .       $atsfile
 i1      0       .       .1      .       4       .       $atsfile
@@ -480,9 +480,9 @@ plus Stochastic data representation of ATS: the stochastic ("noisy")
 part of a signal may be stretched in the resynthesis without the
 artifacts that arise commonly when the same data is represented by
 cosine components (as in the FFT based resynthesis). Note that, because
-the Stochastic noise values correspond to energy (i.e., intensity),  in
-order to get the proper amplitude values, the square root of  them must
-be computed. 
+the Stochastic noise values correspond to energy (i.e., intensity),  in
+order to get the proper amplitude values, the square root of  them must
+be computed.
 
 
    ***EXAMPLE 05K04_atsreadnz.csd***
@@ -498,14 +498,14 @@ ksmps = 32
 nchnls = 1
 0dbfs = 1
 
-instr 1 
+instr 1
 itabc = p7                      ;table with the 25 critical band frequency edges
-iscal = 1                       ;reson filter scaling factor            
+iscal = 1                       ;reson filter scaling factor
 iamp = p4                       ;amplitude scaler
 iband = p5                      ;energy band required
 if1     table   iband-1, itabc  ;lower edge
 if2     table   iband, itabc    ;upper edge
-idif    = if2-if1               
+idif    = if2-if1
 icf     = if1 + idif*.5         ;center frequency value
 ibw     = icf*p6                ;bandwidth
 iatsfile = p8                   ;ats file name
@@ -535,7 +535,7 @@ f2 0 32 -2 0 100 200 300 400 510 630 770 920 1080 1270 1480 1720 2000 2320 \
 ;a macro that synthesize the noise data along all the 25 critical bands
 #define all_bands(start'dur'amp'bw'file)
 #
-i1      $start  $dur    $amp    1       $bw     2       $file   
+i1      $start  $dur    $amp    1       $bw     2       $file
 i1      .       .       .       2       .       .       $file
 i1      .       .       .       3       .       .       .
 i1      .       .       .       4       .       .       .
@@ -577,10 +577,10 @@ e
 The [ATSbufread](https://csound.com/docs/manual/ATSbufread.html)
 opcode reads an ATS file and stores its frequency and amplitude data
 into an internal table. The first and third input arguments are the same
-as in the *ATSread* and the  *ATSreadnz* Opcodes: a time pointer and an
+as in the *ATSread* and the  *ATSreadnz* Opcodes: a time pointer and an
 ATS file name. The second input argument is a frequency scaler. The
 fourth argument is the number of partials to be stored. Finally, this
-Opcode may take two optional arguments: the  first partial and the
+Opcode may take two optional arguments: the  first partial and the
 increment of partials to be read, which default to 0 and 1 respectively.
 
 Although this opcode does not have any output, the ATS frequency and
@@ -588,7 +588,7 @@ amplitude data is available to be used by other opcode. In this case,
 two examples are provided, the first one uses the *ATSinterpread* opcode
 and the second one uses the *ATSpartialtap* opcode.
 
-The 
+The
 [ATSinterpread](https://csound.com/docs/manual/ATSinterpread.html)
 opcode reads an ATS table generated by the *ATSbufread* opcode and
 outputs amplitude values interpolating them between the two amplitude
@@ -605,7 +605,7 @@ frequencies that are in-between the ones of the first and second
 partials of the ATS file, and their amplitudes are scaled by an
 interpolation between the amplitudes of the first and second partials.
 The more the frequency requested approaches the one of a partial, the
-more the amplitude envelope rendered by  ATSinterpread is similar to the
+more the amplitude envelope rendered by  ATSinterpread is similar to the
 one of this partial. So, the example shows a gradual morphing beween
 the amplitude envelope of the first partial to the amplitude envelope of
 the second according to their frequency values.
@@ -624,7 +624,7 @@ ksmps = 32
 nchnls = 1
 0dbfs = 1
 
-instr 1 
+instr 1
 
 iamp =      p4                  ;amplitude scaler
 ifreq =     p5                  ;frequency scaler
@@ -635,11 +635,11 @@ ipars   ATSinfo iatsfile, 3     ;how many partials
 idur    ATSinfo iatsfile, 7     ;get duration
 ktime   line    0, p3, idur     ;time pointer
 
-        ATSbufread ktime, ifreqscal, iatsfile, ipars ;reads an ATS buffer               
+        ATSbufread ktime, ifreqscal, iatsfile, ipars ;reads an ATS buffer
 kamp    ATSinterpread ifreq         ;get the amp values according to freq
 aamp    interp kamp                               ;interpolate amp values
 aout    oscil3 aamp, ifreq, itab                  ;synthesize
-        
+
         out aout*iamp
 endin
 
@@ -661,14 +661,14 @@ e
 ;example by Oscar Pablo Di Liscia
 ~~~
 
-The 
+The
 [ATSpartialtap](https://csound.com/docs/manual/ATSpartialtap.html)
 Opcode reads an ATS table generated by the *ATSbufread* Opcode and
 outputs the frequency and amplitude k-rate values of a specific partial
 number. The example presented here uses four of these opcodes that read
 from a single ATS buffer obtained using *ATSbufread* in order to drive
 the frequency and amplitude of four oscillators. This allows the mixing
-of  different combinations of partials, as shown by the three notes
+of  different combinations of partials, as shown by the three notes
 triggered by the designed instrument.
 
 
@@ -685,7 +685,7 @@ ksmps = 32
 nchnls = 1
 0dbfs = 1
 
-instr 1 
+instr 1
 iamp =  p4/4            ;amplitude scaler
 ifreq = p5              ;frequency scaler
 itab =  p6              ;audio table
@@ -700,26 +700,26 @@ idur    ATSinfo iatsfile, 7     ;get duration
 
 ktime   line    0, p3, idur     ;time pointer
 
-        ATSbufread ktime, ifreq, iatsfile, ipars ;reads an ATS buffer           
+        ATSbufread ktime, ifreq, iatsfile, ipars ;reads an ATS buffer
 
 kf1,ka1 ATSpartialtap ip1       ;get the amp values according each partial number
 af1     interp kf1
-aa1     interp ka1                      
+aa1     interp ka1
 kf2,ka2 ATSpartialtap ip2       ;ditto
 af2     interp kf2
-aa2     interp ka2                      
+aa2     interp ka2
 kf3,ka3 ATSpartialtap ip3       ;ditto
 af3     interp kf3
-aa3     interp ka3                      
+aa3     interp ka3
 kf4,ka4 ATSpartialtap ip4       ;ditto
 af4     interp kf4
-aa4     interp ka4                      
+aa4     interp ka4
 
 a1      oscil3  aa1, af1*ifreq, itab    ;synthesize each partial
 a2      oscil3  aa2, af2*ifreq, itab    ;ditto
 a3      oscil3  aa3, af3*ifreq, itab    ;ditto
-a4      oscil3  aa4, af4*ifreq, itab    ;ditto  
-        
+a4      oscil3  aa4, af4*ifreq, itab    ;ditto
+
         out (a1+a2+a3+a4)*iamp
 endin
 
@@ -730,10 +730,10 @@ f 1 0 16384 10 1
 #define atsfile #"../SourceMaterials/oboe-A5.ats"#
 
 ;   start dur amp freq atab part#1 part#2 part#3 part#4 atsfile
-i1  0     3   10  1    1    1      5      11     13     $atsfile                
+i1  0     3   10  1    1    1      5      11     13     $atsfile
 i1  +     3   7   1    1    1      6      14     17     $atsfile
 i1  +     3   400 1    1    15     16     17     18     $atsfile
-        
+
 e
 </CsScore>
 </CsoundSynthesizer>
@@ -741,7 +741,7 @@ e
 ~~~
 
 
-### Synthesizing ATS data: ATSadd, ATSaddnz,  ATSsinnoi. ATScross.
+### Synthesizing ATS data: ATSadd, ATSaddnz,  ATSsinnoi. ATScross.
 
 The four opcodes that will be presented in this section synthesize ATS
 analysis data internally and allow for some modifications of these data
@@ -759,12 +759,12 @@ allowing shifting and/or frequency modulation. An ATS file, a time
 pointer and a function table are required. The table is supposed to
 contain either a cosine or a sine function, but nothing prevents the
 user from experimenting with other functions. Some care must be taken in
-the last case, so as not to produce foldover (frequency aliasing).  The
+the last case, so as not to produce foldover (frequency aliasing).  The
 user may also request a number of partials smaller than the number of
 partials of the ATS file (by means of the *inpars* variable in the
 example below). There are also two optional arguments: a partial offset
 (i.e., the first partial that will be taken into account for the
-synthesis, by means of the *ipofst* variable  in the example below) and
+synthesis, by means of the *ipofst* variable  in the example below) and
 a step to select the partials (by means of the *inpincr* variable in the
 example below). Default values for these arguments are 0 and 1
 respectively. Finally, the user may define a final optional argument
@@ -773,7 +773,7 @@ amplitude values during the resynthesis. The amplitude values of all the
 partials along all the frames are rescaled to the table length and used
 as indexes to lookup a scaling amplitude value in the table. For
 example, in a table of size 1024, the scaling amplitude of all the 0.5
-amplitude values  (-6 dBFS)  that are found in the ATS file is in the
+amplitude values  (-6 dBFS)  that are found in the ATS file is in the
 position 512 (1024/2). Very complex filtering effects can be obtained
 by carefully setting these gating tables according to the amplitude
 values of a particular ATS analysis.
@@ -798,7 +798,7 @@ nchnls = 1
 #define ATS_NP # 3 #    ;number of Partials
 #define ATS_DU # 7 #    ;duration
 
-instr 1 
+instr 1
 
 /*read some ATS data from the file header*/
 iatsfile = p11
@@ -815,7 +815,7 @@ ipofst  =       (p8 < 0 ? 0 : p8)                       ;partial offset can not 
 ipincr  =       (p9 < 1 ? 1 : p9)                       ;partial increment can not be <= 0
 imax    =       ipofst + inpars*ipincr                  ;max. partials allowed
 
-if imax <= i_number_of_partials igoto OK     
+if imax <= i_number_of_partials igoto OK
 ;if we are here, something is wrong!
 ;set npars to zero, so as the output will be zero and the user knows
 print imax, i_number_of_partials
@@ -843,7 +843,7 @@ f1      0       16384   10      1
 ;some tables to test amplitude gating
 ;f2 reduce progressively partials with amplitudes from 0.5 to 1 (-6dBFs to 0 dBFs)
 ;and eliminate partials with amplitudes below 0.5 (-6dBFs)
-f2      0       1024     7      0 512 0 512 1           
+f2      0       1024     7      0 512 0 512 1
 ;f3 boost partials with amplitudes from 0 to 0.125 (-12dBFs)
 ;and attenuate partials with amplitudes from 0.125 to 1 (-12dBFs to 0dBFs)
 f3      0       1024     -5     8 128 8 896 .001
@@ -867,7 +867,7 @@ permitted and the maximum number of noise bands will always be 25 (the
 25 critical bands, see Zwicker/Fastl, footnote 3). The optional arguments
 *offset* and *increment* work in a similar fashion to that in ATSadd.
 The *ATSaddnz* opcode allows the synthesis of several combinations of
-noise bands, but individual amplitude scaling of them is not possible. 
+noise bands, but individual amplitude scaling of them is not possible.
 
 
    ***EXAMPLE 05K08_atsaddnz.csd***
@@ -888,7 +888,7 @@ nchnls = 1
 #define NB      # 25 #  ;number noise bands
 #define ATS_DU  # 7 #   ;duration
 
-instr 1 
+instr 1
 /*read some ATS data from the file header*/
 iatsfile = p8
 i_duration ATSinfo iatsfile, $ATS_DU
@@ -901,7 +901,7 @@ ibofst  =       (p6 < 0 ? 0 : p6)       ;band offset cannot be < 0
 ibincr  =       (p7 < 1 ? 1 : p7)       ;band increment cannot be <= 0
 imax    =       ibofst + inb*ibincr     ;max. bands allowed
 
-if imax <= $NB igoto OK      
+if imax <= $NB igoto OK
 ;if we are here, something is wrong!
 ;set nb to zero, so as the output will be zero and the user knows
 print imax, $NB
@@ -922,12 +922,12 @@ endin
 ;change to put any ATS file you like
 #define ats_file #"../SourceMaterials/female-speech.ats"#
 
-;   start dur  amp nbands bands_offset bands_incr atsfile       
+;   start dur  amp nbands bands_offset bands_incr atsfile
 i1  0     7.32 1   25     0            1          $ats_file     ;all bands
 i1  +     .    .   15     10           1          $ats_file     ;from 10 to 25 step 1
 i1  +     .    .   8      1            3          $ats_file     ;from 1 to 24 step 3
 i1  +     .    .   5      15           1          $ats_file     ;from 15 to 20 step 1
-        
+
 e
 </CsScore>
 </CsoundSynthesizer>
@@ -943,7 +943,7 @@ deterministic and residual parts. All the arguments of *ATSsinnoi* are
 the same as those for the two previous opcodes, except for the two
 k-rate variables *ksinlev* and *knoislev* that allow individual, and
 possibly time-changing, scaling of the deterministic and residual parts
-of the synthesis. 
+of the synthesis.
 
 
    ***EXAMPLE 05K09_atssinnoi.csd***
@@ -964,7 +964,7 @@ nchnls = 1
 #define ATS_NP  # 3 #   ;number of Partials
 #define ATS_DU  # 7 #   ;duration
 
-instr 1 
+instr 1
 iatsfile = p11
 /*read some ATS data from the file header*/
 i_number_of_partials    ATSinfo iatsfile, $ATS_NP
@@ -982,7 +982,7 @@ ipofst   =      (p9 < 0 ? 0 : p9)                    ;partial offset can not be 
 ipincr   =      (p10 < 1 ? 1 : p10)                  ;partial increment can not be <= 0
 imax     =      ipofst + inpars*ipincr               ;max. partials allowed
 
-if imax <= i_number_of_partials igoto OK     
+if imax <= i_number_of_partials igoto OK
 ;if we are here, something is wrong!
 ;set npars to zero, so as the output will be zero and the user knows
 prints "wrong number of partials requested", imax, i_number_of_partials
@@ -1003,14 +1003,14 @@ endin
 ;change to put any ATS file you like
 #define ats_file #"../SourceMaterials/female-speech.ats"#
 
-;       start   dur     amp     freqdev sinlev  noislev npars   offset  pincr   atsfile 
+;       start   dur     amp     freqdev sinlev  noislev npars   offset  pincr   atsfile
 i1      0       3.66    .79     0       1       0       0       0       1       $ats_file
 ;deterministic only
-i1      +       3.66    .79     0       0       1       0       0       1       $ats_file       
+i1      +       3.66    .79     0       0       1       0       0       1       $ats_file
 ;residual only
-i1      +       3.66    .79     0       1       1       0       0       1       $ats_file       
+i1      +       3.66    .79     0       1       1       0       0       1       $ats_file
 ;deterministic and residual
-;       start   dur     amp     freqdev sinlev  noislev npars   offset  pincr   atsfile 
+;       start   dur     amp     freqdev sinlev  noislev npars   offset  pincr   atsfile
 i1      +       3.66    2.5     0       1       0       80      60      1       $ats_file
 ;from partial 60 to partial 140, deterministic only
 i1      +       3.66    2.5     0       0       1       80      60      1       $ats_file
@@ -1020,7 +1020,7 @@ i1      +       3.66    2.5     0       1       1       80      60      1       
 e
 </CsScore>
 </CsoundSynthesizer>
-;example by Oscar Pablo Di Liscia 
+;example by Oscar Pablo Di Liscia
 ~~~
 
 [ATScross](https://csound.com/docs/manual/ATScross.html) is an
@@ -1034,9 +1034,9 @@ same way as usages in previously described opcodes. Using the arguments
 *kmylev* and *kbuflev* the user may define how much of the amplitude
 values of the file read by *ATSbufread* is to be used to scale the
 amplitude values corresponding to the frequency values of the analysis
-read by  *ATScross*. So, a value of 0 for *kbuflev* and 1 for  *kmylev*
+read by  *ATScross*. So, a value of 0 for *kbuflev* and 1 for  *kmylev*
 will retain the original ATS analysis read by *ATScross* unchanged
-whilst the converse (*kbuflev* =1 and  *kmylev*=0) will retain the
+whilst the converse (*kbuflev* =1 and  *kmylev*=0) will retain the
 frequency values of the ATScross analysis but scaled by the amplitude
 values of the *ATSbufread* analysis. As the time pointers of both units
 need not be the same, and frequency warping and number of partials may
@@ -1063,14 +1063,14 @@ nchnls = 1
 #define ats2 #"../SourceMaterials/oboe-A5.ats"#
 
 
-instr 1 
+instr 1
 iamp    = p4            ;general amplitude scaler
 
 ilev1   = p5            ;level of iats1 partials
 ifd1    = 2^(p6/12)     ;frequency deviation for iats1 partials
 
 ilev2   = p7            ;level of ats2 partials
-ifd2    = 2^(p8/12)     ;frequency deviation for iats2 partials 
+ifd2    = 2^(p8/12)     ;frequency deviation for iats2 partials
 
 itau    = p9            ;audio table
 
@@ -1097,7 +1097,7 @@ endin
 f1      0       16384   10      1
 
 ;  start dur amp lev1 f1  lev2 f2 table
-i1 0     2.3 .75 0    0   1    0  1     ;original oboe  
+i1 0     2.3 .75 0    0   1    0  1     ;original oboe
 i1 +     .   .   0.25 .   .75  .  .     ;oboe 75%, flute 25%
 i1 +     .   .   0.5  .   0.5  .  .     ;oboe 50%, flute 50%
 i1 +     .   .   .75  .   .25  .  .     ;oboe 25%, flute 75%
@@ -1106,6 +1106,6 @@ i1 +     .   .   1    .   0    .  .     ;oboe partials with flute's amplitudes
 e
 </CsScore>
 </CsoundSynthesizer>
-;example by Oscar Pablo Di Liscia  
+;example by Oscar Pablo Di Liscia
 ~~~
 

@@ -1,7 +1,7 @@
 12 F. CSOUND AND HASKELL
 ========================
 
-Csound-expression 
+Csound-expression
 ------------------
 
 *Csound-expression* is a framework for creation of computer music. It is a Haskell library to make Csound much more friendly. It generates Csound files out of Haskell code.
@@ -47,14 +47,14 @@ Here is an overview of the features and principles:
 -   Remove score/instrument barrier. Let instrument play a score within
     a note and trigger other instruments. Triggering the instrument is
     just an application of the function. It produces the signal as
-    output which can be used in another instrument and so on. 
+    output which can be used in another instrument and so on.
 -   Set Csound flags with meaningful (well-typed) values. Derive as much
     as you can from the context. This principle let us start for very
     simple expressions. We can create our audio signal apply the
     function dac to it and we are ready to hear the result in the
     speakers. No need for XML copy and paste form. It's as easy as
     typing the line\
-        `> dac (osc 440)`\
+        `> dac (osc 440)`\
     in the interpreter.
 -   The standard functions for musical needs. We often need standard
     waveforms and filters and adsrs. Some functions are not so easy to
@@ -62,7 +62,7 @@ Here is an overview of the features and principles:
     capture lots of musical ideas. the library strives to defines audio
     DSP primitives in the most basic easiest form.
 -   -   There are audio waves: osc, saw, tri, sqr, pw, ramp, and their
-        unipolar friends (usefull for LFOs). 
+        unipolar friends (usefull for LFOs).
     -   There are filters: lp, hp, bp, br, mlp (moog low pass), filt
         (for packing several filters in chain), formant filters with
         ppredefined vowels.
@@ -99,7 +99,7 @@ Here is an overview of the features and principles:
 -   There is a library that greatly simplifies the creation of the music
     that is based on samples. It's called csound-sampler. With it we
     can easily create patterns out of wav-files, we can reverse files or
-    play random segments of files. 
+    play random segments of files.
 -   There is a novel model for composition predefined in the library.
     It's based on the assumption that we can delay a signal with an
     event stream and stop it with an event stream. There is a tiny set
@@ -111,7 +111,7 @@ Here is an overview of the features and principles:
     - *spar*  -- it plays a list of segments at the same time
     - *sloop* -- it plays a segment over and over again.
 -   With the library we can create our own libraries. We can create a
-    palette  of instruments and use it as a library. It means we can
+    palette  of instruments and use it as a library. It means we can
     just import the instruments o need for copy and paste and worry for
     collision of names while pasting. In fact there is a library on
     hackage that is called csound-catalog. It defines some instruments

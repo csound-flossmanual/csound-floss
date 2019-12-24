@@ -16,7 +16,7 @@ years, form the time before front-ends. It is still important for all
 users to be aware of how to run Csound from the terminal as it provides
 a useful backup if problems develop with a preferred front-end.
 
-The Csound Command 
+The Csound Command
 -------------------
 
 The Csound command follows the format:
@@ -41,10 +41,10 @@ command line flags can be manipulated in a familiar format usually in
 *settings* or *preferences* menu. Adding flags here will have the
 same effect as adding them as part of the Csound command. To learn more
 about Csound\'s command line flags it is best to start on the page in
-the reference manual where they are listed and described 
+the reference manual where they are listed and described
 [by category](https://csound.com/docs/manual/CommandFlagsCategory.html).
 
-Command line flags can also be defined within the \<CsOptions\> ... 
+Command line flags can also be defined within the \<CsOptions\> ...
 \</CsOptions\> part of a *.csd* file and also in a file called *.csoundrc*
 which can be located in the Csound home program directory and/or in the
 current working directory. Having all these different options for where

@@ -20,8 +20,8 @@ If i-Time then not k-Time!
 --------------------------
 
 The fundamental difference in Csound between i-time and k-time which has
-been explained in chapter [03A](03-a-initialization-and-performance-pass.md), 
-must be regarded very carefully when working with control structures. 
+been explained in chapter [03A](03-a-initialization-and-performance-pass.md),
+must be regarded very carefully when working with control structures.
 If a conditional branch at
 **i-time** is performed, the condition will be tested **just once for each note**, at
 the initialization pass. If a conditional branch at **k-time** is performed,
@@ -95,7 +95,7 @@ means: use [diskin](https://csound.com/docs/manual/diskin.html)
 mono ones it means: use it with one
 output argument, and throw it to both output channels:[^1]
 
-   ***EXAMPLE 03C01\_IfThen\_i.csd*** 
+   ***EXAMPLE 03C01\_IfThen\_i.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -133,10 +133,10 @@ i 1 0 5
 ### k-Rate Examples
 
 The following example establishes a moving gate between 0 and 1. If the
-gate is above 0.5, the gate opens and you hear a tone.  If the gate is
+gate is above 0.5, the gate opens and you hear a tone.  If the gate is
 equal or below 0.5, the gate closes, and you hear nothing.
 
-   ***EXAMPLE 03C02\_IfThen\_k.csd*** 
+   ***EXAMPLE 03C02\_IfThen\_k.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -184,11 +184,11 @@ i 1 0 30
 
 If you need an if-statement to give a value to an (i- or k-) variable,
 you can also use a traditional short form in parentheses: [(a v b ? x :
-y)](http://www.csound.com/docs/manual/equals.html).[^2]  It asks whether
+y)](http://www.csound.com/docs/manual/equals.html).[^2]  It asks whether
 the condition a or b is true. If a, the value is set to x; if b, to y.
 For instance, the last example could be written in this way:
 
-   ***EXAMPLE 03C03\_IfThen\_short\_form.csd*** 
+   ***EXAMPLE 03C03\_IfThen\_short\_form.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -270,7 +270,7 @@ branch depending on a mono or stereo file. If you just want to know
 whether a file is mono or stereo, you can use the *pure* if-igoto
 statement:
 
-   ***EXAMPLE 03C04\_IfGoto\_i.csd*** 
+   ***EXAMPLE 03C04\_IfGoto\_i.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -310,7 +310,7 @@ soundin opcode) but also at k-time (producing an audio signal). So the
 code in this case is much more cumbersome, or obfuscated, than the
 previous if-then-else example.
 
-   ***EXAMPLE 03C05\_IfGoto\_ik.csd*** 
+   ***EXAMPLE 03C05\_IfGoto\_ik.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -354,7 +354,7 @@ i 1 0 5
 This is the same example as above (03C02) in the if-then-else syntax for
 a moving gate between 0 and 1:
 
-   ***EXAMPLE 03C06\_IfGoto\_k.csd*** 
+   ***EXAMPLE 03C06\_IfGoto\_k.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -406,7 +406,7 @@ Loops can be built either at i-time or at k-time just with the *if*
 facility. The following example shows an i-rate and a k-rate loop
 created using the if-i/kgoto facility:
 
-   ***EXAMPLE 03C07\_Loops\_with\_if.csd*** 
+   ***EXAMPLE 03C07\_Loops\_with\_if.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -474,7 +474,7 @@ k-time loops.
 
 The following .csd provides a simple example for all four loop opcodes:
 
-   ***EXAMPLE 03C08\_Loop\_opcodes\_i.csd*** 
+   ***EXAMPLE 03C08\_Loop\_opcodes\_i.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -529,7 +529,7 @@ i 4 0 0
 The next example produces a random string of 10 characters and prints it
 out:
 
-   ***EXAMPLE 03C09\_Random\_string.csd*** 
+   ***EXAMPLE 03C09\_Random\_string.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -567,7 +567,7 @@ be read again. In the next example, a function table with 20 positions
 values by instrument 2.
 
 
-   ***EXAMPLE 03C10\_Random\_ftable\_fill.csd*** 
+   ***EXAMPLE 03C10\_Random\_ftable\_fill.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -614,7 +614,7 @@ Though there are some vectorial opcodes for this task (and in Csound 6
 probably array), it can also be done by a k-rate loop like the one shown
 here:
 
-   ***EXAMPLE 03C11\_Table\_random\_dev.csd*** 
+   ***EXAMPLE 03C11\_Table\_random\_dev.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -654,7 +654,7 @@ i 1 0 10
 </CsoundSynthesizer>
 ;example by joachim heintz
 ~~~
-  
+
 
 While / Until
 -------------
@@ -675,7 +675,7 @@ long as \<condition\> is **true**. The body of the **until** loop will
 be performed, as long as \<condition\> is **false** (not true). This is
 a simple example at i-rate:
 
-   ***EXAMPLE 03C12\_while\_until\_i-rate.csd*** 
+   ***EXAMPLE 03C12\_while\_until\_i-rate.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -713,17 +713,17 @@ i 2 .1 .1
 
 Prints:
 
-    instr 1:  iprint = 0.000
-    instr 1:  iprint = 1.000
-    instr 1:  iprint = 2.000
-    instr 1:  iprint = 3.000
-    instr 1:  iprint = 4.000
-    
-    instr 2:  iprint = 0.000
-    instr 2:  iprint = 1.000
-    instr 2:  iprint = 2.000
-    instr 2:  iprint = 3.000
-    instr 2:  iprint = 4.000
+    instr 1:  iprint = 0.000
+    instr 1:  iprint = 1.000
+    instr 1:  iprint = 2.000
+    instr 1:  iprint = 3.000
+    instr 1:  iprint = 4.000
+
+    instr 2:  iprint = 0.000
+    instr 2:  iprint = 1.000
+    instr 2:  iprint = 2.000
+    instr 2:  iprint = 3.000
+    instr 2:  iprint = 4.000
 
 The most important thing in using the while/until loop is to
 **increment** the variable you are using in the loop (here: *iCounter*).
@@ -743,7 +743,7 @@ to print the values of an array, and also set new values. As this
 procedure is repeated in each control cycle, the instrument is being
 turned off after the third cycle.
 
-   ***EXAMPLE 03C13\_while\_until\_k-rate.csd***  
+   ***EXAMPLE 03C13\_while\_until\_k-rate.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -788,23 +788,23 @@ i 1 0 1
 Prints:
 
     kCycle = 1
-      gkArray[0] = 1
-      gkArray[1] = 2
-      gkArray[2] = 3
-      gkArray[3] = 4
-      gkArray[4] = 5
+      gkArray[0] = 1
+      gkArray[1] = 2
+      gkArray[2] = 3
+      gkArray[3] = 4
+      gkArray[4] = 5
     kCycle = 2
-      gkArray[0] = 1
-      gkArray[1] = 4
-      gkArray[2] = 9
-      gkArray[3] = 16
-      gkArray[4] = 25
+      gkArray[0] = 1
+      gkArray[1] = 4
+      gkArray[2] = 9
+      gkArray[3] = 16
+      gkArray[4] = 25
     kCycle = 3
-      gkArray[0] = 1
-      gkArray[1] = 16
-      gkArray[2] = 81
-      gkArray[3] = 256
-      gkArray[4] = 625
+      gkArray[0] = 1
+      gkArray[1] = 16
+      gkArray[2] = 81
+      gkArray[3] = 256
+      gkArray[4] = 625
 
 Time Loops
 ----------
@@ -841,7 +841,7 @@ Let's see an example. This is a sine tone with a moving frequency,
 starting at 400 Hz and ending at 600 Hz. The duration of this movement
 is 3 seconds for the first note, and 5 seconds for the second note:
 
-   ***EXAMPLE 03C14\_Timout\_pre.csd*** 
+   ***EXAMPLE 03C14\_Timout\_pre.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -875,7 +875,7 @@ Now we perform a time loop with *timout* which is 1
 second long. So, for the first note, it will be repeated three times,
 and five times for the second note:
 
-   ***EXAMPLE 03C15\_Timout\_basics.csd*** 
+   ***EXAMPLE 03C15\_Timout\_basics.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -926,7 +926,7 @@ argument for timout defines for how many seconds the *second\_label*
 section is to be executed before the time loop begins again. Note that
 the *reinit first\_label* is necessary to start the second loop after
 *idur* seconds with a resetting of all the values. (See the
-explanations about reinitialization in the chapter 
+explanations about reinitialization in the chapter
 [Initialization and Performance Pass](03-a-initialization-and-performance-pass.md).
 
 As usual when you work with the
@@ -936,7 +936,7 @@ statement to constrain the reinit-pass. In this way you can have both,
 the timeloop section and the non-timeloop section in the body of an
 instrument:
 
-   ***EXAMPLE 03C16\_Timeloop\_and\_not.csd*** 
+   ***EXAMPLE 03C16\_Timeloop\_and\_not.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -980,7 +980,7 @@ In a time loop, it is very important to change the duration of the loop.
 This can be done either by referring to the duration of this note (p3)
 \...
 
-   ***EXAMPLE 03C17\_Timout\_different\_durations.csd*** 
+   ***EXAMPLE 03C17\_Timout\_different\_durations.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1017,7 +1017,7 @@ i 1 4 5
 \... or by calculating new values for the loop duration on each reinit
 pass, for instance by random values:
 
-   ***EXAMPLE 03C18\_Timout\_random\_durations.csd*** 
+   ***EXAMPLE 03C18\_Timout\_random\_durations.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1056,7 +1056,7 @@ signals inside the time loop must definitely be finished or interrupted,
 when the next loop begins. In this way it is not possible to have any
 overlapping of events. To achieve this, the time loop can be used to
 simply **trigger an event**. This can be done with
-[schedule](https://csound.com/docs/manual/schedule.html), 
+[schedule](https://csound.com/docs/manual/schedule.html),
 [event\_i](https://csound.com/docs/manual/event_i.html) or
 [scoreline\_i](https://csound.com/docs/manual/scoreline_i.html). In
 the following example, the time loop in instrument 1 triggers a new
@@ -1066,7 +1066,7 @@ still be playing when the new instance is triggered. Random calculations
 are executed in instrument 2 so that each note will have a different
 pitch,creating a glissando effect:
 
-   ***EXAMPLE 03C19\_Timout\_trigger\_events.csd*** 
+   ***EXAMPLE 03C19\_Timout\_trigger\_events.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1120,7 +1120,7 @@ given starting value to a new evaluated final value. Then, in the next
 loop, the previous final value must be set as the new starting value,
 and so on. Here is a possible solution:
 
-   ***EXAMPLE 03C20\_Timout\_random\_envelope.csd*** 
+   ***EXAMPLE 03C20\_Timout\_random\_envelope.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1177,7 +1177,7 @@ a simple and intuitive method for controlling time loops, if you use it
 to trigger a separate instrument which then carries out another job.
 Below is a simple example for calling a subinstrument twice per second:
 
-   ***EXAMPLE 03C21\_Timeloop\_metro.csd*** 
+   ***EXAMPLE 03C21\_Timeloop\_metro.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1215,7 +1215,7 @@ The example which is given above (03C19_Timout_trigger_events.csd) as
 a flexible time loop by *timout*, can be done
 with the *metro* opcode in this way:
 
-   ***EXAMPLE 03C22_Metro_trigger_events.csd***
+   ***EXAMPLE 03C22_Metro_trigger_events.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1279,25 +1279,25 @@ to the *timout* feature:
 
 ### Time Loops by Using a Clock Variable
 
-Perhaps both, the most simple and the most *Csoundish* way to perform time 
-loops is to use Csound's internal clock. As explained in 
+Perhaps both, the most simple and the most *Csoundish* way to perform time
+loops is to use Csound's internal clock. As explained in
 [chapter 03A](03-a-initialization-and-control-pass.md),
 each control cycle in Csound is equivalent to a certain time. This time
-is calculated as relation between the number of samples per control cycle 
-[ksmps](https://csound.com/docs/manual/ksmps.html) and the sample rate 
+is calculated as relation between the number of samples per control cycle
+[ksmps](https://csound.com/docs/manual/ksmps.html) and the sample rate
 [sr](https://csound.com/docs/manual/sr.html): *ksmps*/*sr*.
-If, for instance, we have 32 samples per control cycle at a sample rate 
+If, for instance, we have 32 samples per control cycle at a sample rate
 of 44100, this would be the time for one control cycle:
 32/44100 = 0.0007256235827664399.
 In other words: Less than one millisecond, so definitely precise enough in
 the context we are discussing here.
 
-As Csound internally calculates the relation between sample rate and number 
-of samples per control cycle as *control rate* or 
-[kr](https://csound.com/docs/manual/kr.html), rather than *ksmps/sr* we can 
+As Csound internally calculates the relation between sample rate and number
+of samples per control cycle as *control rate* or
+[kr](https://csound.com/docs/manual/kr.html), rather than *ksmps/sr* we can
 also write *1/kr*. This is a bit shorter and more intuitive.
 
-The idea for using this internal time as measurement for time loops is this:  
+The idea for using this internal time as measurement for time loops is this:
 1.   We set a variable, say *kTime*, to the desired duration of the time loop.
 2.   in each control cycle we subtract the internal time from this variable.
 3.   Once zero has reached, we perform the event we want to perform,
@@ -1350,7 +1350,7 @@ i "TimeLoop" 0 10
 ;example by joachim heintz
 ~~~
 
-So the *trigger events* example which has been showed in using 
+So the *trigger events* example which has been showed in using
 *timout* (03C19) and *trigger* (03C22) is here again using
 the internal clock approach.
 
@@ -1400,11 +1400,11 @@ i "TimeLoop" 0 30
 Links
 -----
 
-Steven Yi: Control Flow  
+Steven Yi: Control Flow
 [Part I](http://csoundjournal.com/2006spring/controlFlow.html)
 [Part II](http://csoundjournal.com/2006summer/controlFlow_part2.html)
- 
-[^1]: The modern way to solve this is to work with an audio array as 
+
+[^1]: The modern way to solve this is to work with an audio array as
       output of diskin. But nevertheless the example shows a typical
       usage of the i-rate if branching.
 [^2]:  Since the release of the new parser (Csound 5.14), the expression

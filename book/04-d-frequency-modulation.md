@@ -130,7 +130,7 @@ The bandwidth of the FM spectrum (the number of sidebands) is controlled
 by the index of modulation $I$. The Index is defined mathematically
 according to the following relation:
 
-    $$I = ModAmp/ModFreq$$
+    $$I = ModAmp/ModFreq$$
 
 where ModAmp is the amount of frequency deviation (in Hz) from the
 carrier frequency. Hence, ModAmp is a way of expressing the depth or
@@ -213,7 +213,7 @@ into the basic model:
 ~~~
 <CsoundSynthesizer>
 <CsOptions>
--odac  -m128
+-odac  -m128
 </CsOptions>
 <CsInstruments>
 
@@ -297,7 +297,7 @@ enormous spectral variations. Chowning showed these possibilities in his
 pieces, where he let the sounds transform. In the piece *Sabelithe* a
 drum sound morphes over the time into a trumpet tone.
 
-   ***EXAMPLE 04D05_Trumpet_FM.csd*** 
+   ***EXAMPLE 04D05_Trumpet_FM.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -333,7 +333,7 @@ i 1 0 2
 </CsoundSynthesizer>
 ; written by Alex Hofmann (Mar. 2011)
 ~~~
- 
+
 
 The following example uses the same instrument, with different settings
 to generate a bell-like sound:
@@ -389,9 +389,9 @@ are modulators, changing their pitch alters the sound-spectrum.
 ### Two into One: M1+M2 -\> C
 
 The principle here is, that (M1:C) and (M2:C) will be separate
-modulations and later added together. 
+modulations and later added together.
 
-   ***EXAMPLE 04D07_Added_FM.csd*** 
+   ***EXAMPLE 04D07_Added_FM.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -429,7 +429,7 @@ harder to predict, because M1:M2 produces a complex spectrum (W), which
 then modulates the carrier (W:C).
 
 
-   ***EXAMPLE 04D08_Serial_FM.csd*** 
+   ***EXAMPLE 04D08_Serial_FM.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -457,7 +457,7 @@ i 1 0 3
 </CsoundSynthesizer>
 ; written by Alex Hofmann (Mar. 2011)
 ~~~
- 
+
 
 Phase Modulation - the Yamaha DX7 and Feedback FM
 -------------------------------------------------
@@ -481,7 +481,7 @@ oscillator. In order to step through the f-table, a *phasor* will output
 the necessary steps.
 
 
-   ***EXAMPLE 04D09_PhaseMod.csd*** 
+   ***EXAMPLE 04D09_PhaseMod.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -582,7 +582,7 @@ aModulator poscil 100, 14
 aCarrier1 poscil 0.3, 700 + aModulator
 aCarrier2 poscil 0.1, 701 + aModulator
 outs aCarrier1+aCarrier2, aCarrier1+aCarrier2
- 
+
 endin
 
 </CsInstruments>
@@ -674,7 +674,7 @@ nchnls = 2
 
 giSine ftgen 0, 0, 8192, 10, 1
 
-instr 1 
+instr 1
 
 aCarMod foscil 0.3, 110, 1, 2, 5, giSine
 outs aCarMod, aCarMod

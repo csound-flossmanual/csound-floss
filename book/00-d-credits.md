@@ -210,7 +210,7 @@ Stefano Bonetti, Menno Knevel
 *E. CSOUND VIA TERMINAL*
 Iain McCurdy
 
-*F. WEB BASED CSOUND *
+*F. WEB BASED CSOUND *
 Victor Lazzarini, Iain McCurdy, Ed Costello
 
 

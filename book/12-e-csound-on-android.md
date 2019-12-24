@@ -2,7 +2,7 @@
 =======================
 
 
-There is no essential difference between running Csound on a computer and
+There is no essential difference between running Csound on a computer and
 running it on a smartphone. Csound has been available on the Android platform since 2012 (Csound 5.19), thanks to the work of Victor Lazzarini and Steven Yi. Csound 6 was ported to Android, and enhanced, by Michael Gogins and Steven Yi in the summer of 2013. This chapter is about Csound 6 for Android, or just
 Csound for Android.
 
@@ -14,14 +14,14 @@ The following packages are available for Android:
     editing, debugging, and performing Csound pieces on Android. The app
     includes a number of built-in example pieces.
 
-These packages are available for download at 
-[Csound's download page](https://csound.com/download.html). 
+These packages are available for download at
+[Csound's download page](https://csound.com/download.html).
 
 For more information about these packages, download them and consult the
 documentation contained therein.
 
 
-The Csound6 app 
+The Csound6 app
 ----------------
 
 The Csound6 app (or Csound for Android) permits the user, on any Android
@@ -44,8 +44,8 @@ most features of the HTML5 standard. Selected commonly used functions
 from the Csound API are available from JavaScript embedded in this
 \<html\> code, and can be used to control Csound from HTML user
 interfaces, generate scores, and do many other things. For a more
-complete introduction to the use of HTML with Csound, see chapter 
-[12 G](12-g-csound-and-html.md). 
+complete introduction to the use of HTML with Csound, see chapter
+[12 G](12-g-csound-and-html.md).
 On Android, if the \<html\> element is
 present in the CSD file, the built-in widgets will be replaced by a Web
 page that will be constructed from the code in the \<html\> element of
@@ -57,14 +57,14 @@ longer-established platforms. These include:
 1.  There is no real-time MIDI input or output.
 2.  Audio input is not accurately synchronized with audio output.
 3.  Many plugin opcodes are missing, including most opcodes involved
-    with using other plugin formats or inter-process communications. 
+    with using other plugin formats or inter-process communications.
 
 However, some of the more useful plugins are indeed available on
 Android:
 
 1.  The signal flow graph opcodes for routing audio from instruments to
     effects, etc.
-2.  The FluidSynth opcodes for playing SoundFonts. 
+2.  The FluidSynth opcodes for playing SoundFonts.
 3.  The Lua opcodes for running Lua code in Csound and even defining new
     Csound opcodes in Lua.
 4.  The Open Sound Control (OSC) opcodes.
@@ -81,7 +81,7 @@ your device, or you can download it to a computer and transfer it to
 your device. These methods are presented below.
 
 
-### Preparing Your Device 
+### Preparing Your Device
 
 Using the *Csound6 app* is similar to using an application on a regular
 computer. You need to be able to browse the file system, and you need to
@@ -127,7 +127,7 @@ space, up to 32 or 64 gigabytes or even more.
 
 To download the Csound6 app to your device, go online using Google
 Search or a Web browser. You can find the application package file,
-Csound6.apk, on the 
+Csound6.apk, on the
 [Csound project site](https://csound.com/download.html)
 (you may first have to allow your android to install an app which is not
 in Google Play).
@@ -197,7 +197,7 @@ read into Csound during performance using the *chnget* opcode, like this:
 The area below the trackpad prints messages output by Csound as it runs.
 
 
-### The Settings Menu 
+### The Settings Menu
 
 The Settings menu on your device offers the following choices:
 
@@ -214,7 +214,7 @@ The Settings menu on your device offers the following choices:
     by Android app settings.
 
 
-### Configuring Default Directories 
+### Configuring Default Directories
 
 Run the *Csound6 app*, invoke the menu button, and choose *Settings*.
 You will be given choices for specifying an (additional) *Plugins*
@@ -223,13 +223,13 @@ directory, a soundfile *Output* directory, a *Samples* directory, an
 files to be *#included* by a Csound piece.
 
 These settings are not required, but they can make using Csound easier
-and faster to use. 
+and faster to use.
 
 
-Loading and Performing a Piece 
+Loading and Performing a Piece
 -------------------------------
 
-### Example Pieces 
+### Example Pieces
 
 From the app's menu, select the *Examples* command, then select one
 of the listed examples, for example *Xanadu* by Joseph Kung. You may
@@ -240,7 +240,7 @@ save a copy on your device's file system under a different name. You
 can then edit the piece and save your changes.
 
 
-### Running an Existing Piece 
+### Running an Existing Piece
 
 If you have access to a mixer and monitor speakers, or even a home
 stereo system, or even a boom box, you can hook up your device's
@@ -254,7 +254,7 @@ example, and it will be loaded into Csound. Then click on the *Start*
 button. Its name should change to *Stop*, and Csound's runtime messages
 should begin to scroll down the black pane at the bottom of the screen.
 At the same time, you should hear the piece play. You can stop the
-performance at any time by selecting the *Stop* button, or you can let
+performance at any time by selecting the *Stop* button, or you can let
 the performance complete on its own.
 
 That's all there is to it. You can scroll up and down in the messages
@@ -262,7 +262,7 @@ pane if you need to find a particular message, such as an error or
 warning.
 
 If you want to look at the text of the piece, or edit it, select the
-*Edit* button. If you have installed Jota, that editor should open with
+*Edit* button. If you have installed Jota, that editor should open with
 the text of the piece, which you can save, or not. You can edit the
 piece with the this editor, and any changes you make and save will be
 performed the next time you start the piece.
@@ -335,9 +335,9 @@ Using the Widgets
 This section shows how to use the built-in widgets of the Csound for
 Android app for controlling Csound in performance. For instructions on
 how to use the \<html\> element of the CSD file to create custom user
-interfaces, see the 
+interfaces, see the
 [Csound and HTML](12-g-csound-and-html.md)
- chapter of this book. 
+ chapter of this book.
 
 The Csound for Android app provides access to a set of predefined
 on-screen widgets, as well as to the accelerometer on the device. All of
@@ -352,7 +352,7 @@ the controllers. For an example of this approach in action, look at the
 source code for the *Gogins/Drone-IV.csd* example.
 
 You should be able to cut and paste this code into your own pieces
-without many changes. 
+without many changes.
 
 The first step is to declare one global variable for each of the control
 channels, with the same name as the control channel, at the top of the
@@ -380,7 +380,7 @@ orchestra header:
 
     alwayson "Controls"
 
-As the next to last instrument in your orchestra: 
+As the next to last instrument in your orchestra:
 
     instr Controls
      gkslider1 chnget "slider1"
@@ -491,7 +491,7 @@ performance to performance.
     khertz = ihertz
     ifunction1 = isine
     ifunction2 = isine
-    a1,a2 crosspm gkratio1, gkratio2, gkindex1, gkindex2, 
+    a1,a2 crosspm gkratio1, gkratio2, gkindex1, gkindex2,
                   khertz, ifunction1, ifunction2
     aleft, aright pan2 a1+a2, ipan
     adamping linseg 0, 0.03, 1, p3 - 0.1, 1, 0.07, 0

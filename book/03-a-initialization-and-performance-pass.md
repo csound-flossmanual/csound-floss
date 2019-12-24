@@ -17,7 +17,7 @@ explicate very carefully the difference between stones and waves, and
 how you can profit from them, after you understood and accepted both
 qualities.
 
- 
+
 
 The Init Pass
 -------------
@@ -31,7 +31,7 @@ are local (= only considered inside an instrument), or with a **gi** if
 they are global (= considered overall in the orchestra). This is a
 simple example:
 
-   ***EXAMPLE 03A01\_Init-pass.csd***
+   ***EXAMPLE 03A01\_Init-pass.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -62,9 +62,9 @@ The output should include these lines:
 
     SECTION 1:
     new alloc for instr 1:
-    instr 1:  giGlobal = 0.500  iLocal = 0.250
+    instr 1:  giGlobal = 0.500  iLocal = 0.250
     new alloc for instr 2:
-    instr 2:  giGlobal = 0.500  iLocal = 0.200
+    instr 2:  giGlobal = 0.500  iLocal = 0.200
 
 As you see, the local variables *iLocal* do have different meanings in
 the context of their instrument, whereas *giGlobal* is known everywhere
@@ -76,10 +76,10 @@ The Performance Pass
 --------------------
 
 After having assigned initial values to all variables, Csound starts the
-actual performance. As music is a variation of values in time,[^2]  audio
+actual performance. As music is a variation of values in time,[^2]  audio
 signals are producing values which vary in time. In all digital audio,
 the time unit is given by the sample rate, and one sample is the
-smallest possible time atom. For a sample rate of 44100 Hz,[^3]  one
+smallest possible time atom. For a sample rate of 44100 Hz,[^3]  one
 sample comes up to the duration of 1/44100 = 0.0000227 seconds.
 
 So, performance for an audio application means basically: calculate all
@@ -108,7 +108,7 @@ control cycle has been finished at 0.000227 seconds, the second one at
 ![](../resources/images/03-a-sr-kr-time3.png){width=70%}
 
 The rate (frequency) of these ticks is called the control rate in
-Csound. By historical reason,[^5]  it is called *kontrol rate* instead
+Csound. By historical reason,[^5]  it is called *kontrol rate* instead
 of control rate, and abbreviated as *kr* instead of cr. Each of the
 calculation cycles is called a *k-cycle*. The block size or vector
 size is given by the *ksmps* parameter, which means: how many samples
@@ -118,7 +118,7 @@ Let us see some code examples to illustrate these basic contexts.
 
 ### Implicit Incrementation
 
-   ***EXAMPLE 03A02\_Perf-pass\_incr.csd***
+   ***EXAMPLE 03A02\_Perf-pass\_incr.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -142,23 +142,23 @@ i 1 0 1
 
 Your output should contain the lines:
 
-    i   1 time     0.10000:     1.00000
-    i   1 time     0.20000:     2.00000
-    i   1 time     0.30000:     3.00000
-    i   1 time     0.40000:     4.00000
-    i   1 time     0.50000:     5.00000
-    i   1 time     0.60000:     6.00000
-    i   1 time     0.70000:     7.00000
-    i   1 time     0.80000:     8.00000
-    i   1 time     0.90000:     9.00000
-    i   1 time     1.00000:    10.00000
+    i   1 time     0.10000:     1.00000
+    i   1 time     0.20000:     2.00000
+    i   1 time     0.30000:     3.00000
+    i   1 time     0.40000:     4.00000
+    i   1 time     0.50000:     5.00000
+    i   1 time     0.60000:     6.00000
+    i   1 time     0.70000:     7.00000
+    i   1 time     0.80000:     8.00000
+    i   1 time     0.90000:     9.00000
+    i   1 time     1.00000:    10.00000
 
 A counter (kCount) is set here to zero as initial value. Then, in each
 control cycle, the counter is increased by one. What we see here, is the
 typical behaviour of a loop. The loop has not been set explicitely, but
 works implicitely because of the continuous recalculation of all
 k-variables. So we can also speak about the k-cycles as an implicit (and
-time-triggered) k-loop.[^7]  Try changing the ksmps value from 4410 to
+time-triggered) k-loop.[^7]  Try changing the ksmps value from 4410 to
 8820 and to 2205 and observe the difference.
 
 The next example reads the incrementation of *kCount* as rising
@@ -166,7 +166,7 @@ frequency. The first instrument, called Rise, sets the k-rate frequency
 *kFreq* to the initial value of 100 Hz, and then adds 10 Hz in every new
 k-cycle. As ksmps=441, one k-cycle takes 1/100 second to perform. So in
 3 seconds, the frequency rises from 100 to 3100 Hz. At the last k-cycle,
-the final frequency value is printed out.[^8]  - The second instrument,
+the final frequency value is printed out.[^8]  - The second instrument,
 Partials, increments the counter by one for each k-cycle, but only sets
 this as new frequency for every 100 steps. So the frequency stays at 100
 Hz for one second, then at 200 Hz for one second, and so on. As the
@@ -175,7 +175,7 @@ based on a 100 Hz fundamental, from the first partial up to the 31st.
 The opcode printk2 prints out the frequency value whenever it has
 changed.
 
-   ***EXAMPLE 03A03\_Perf-pass\_incr\_listen.csd***
+   ***EXAMPLE 03A03\_Perf-pass\_incr\_listen.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -237,7 +237,7 @@ during the performance pass. kCount = 1 sets the value for kCount to
 zero again and again, in each performance cycle. So the increment always
 starts from the same point, and nothing really happens:
 
-   ***EXAMPLE 03A04\_Perf-pass\_no\_incr.csd***
+   ***EXAMPLE 03A04\_Perf-pass\_no\_incr.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -261,16 +261,16 @@ i 1 0 1
 
 Outputs:
 
-     i   1 time     0.10000:     1.00000
-     i   1 time     0.20000:     1.00000
-     i   1 time     0.30000:     1.00000
-     i   1 time     0.40000:     1.00000
-     i   1 time     0.50000:     1.00000
-     i   1 time     0.60000:     1.00000
-     i   1 time     0.70000:     1.00000
-     i   1 time     0.80000:     1.00000
-     i   1 time     0.90000:     1.00000
-     i   1 time     1.00000:     1.00000
+     i   1 time     0.10000:     1.00000
+     i   1 time     0.20000:     1.00000
+     i   1 time     0.30000:     1.00000
+     i   1 time     0.40000:     1.00000
+     i   1 time     0.50000:     1.00000
+     i   1 time     0.60000:     1.00000
+     i   1 time     0.70000:     1.00000
+     i   1 time     0.80000:     1.00000
+     i   1 time     0.90000:     1.00000
+     i   1 time     1.00000:     1.00000
 
 ### A Look at the Audio Vector
 
@@ -279,7 +279,7 @@ opcode in Csound to print out the audio vector directly, but you can use
 the *vaget* opcode to see what is happening inside one control cycle
 with the audio samples.
 
-   ***EXAMPLE 03A05\_Audio\_vector.csd***
+   ***EXAMPLE 03A05\_Audio\_vector.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -308,10 +308,10 @@ i 1 0 [1/2205]
 
 The output shows these lines:
 
-    kVec1 =  0.000000, kVec2 =  0.309017, kVec3 =  0.587785, kVec4 = 
-        0.809017, kVec5 =  0.951057
-    kVec1 =  1.000000, kVec2 =  0.951057, kVec3 =  0.809017, kVec4 = 
-        0.587785, kVec5 =  0.309017
+    kVec1 =  0.000000, kVec2 =  0.309017, kVec3 =  0.587785, kVec4 =
+        0.809017, kVec5 =  0.951057
+    kVec1 =  1.000000, kVec2 =  0.951057, kVec3 =  0.809017, kVec4 =
+        0.587785, kVec5 =  0.309017
     kVec1 = -0.000000, kVec2 = -0.309017, kVec3 = -0.587785, kVec4 =
         -0.809017, kVec5 = -0.951057
     kVec1 = -1.000000, kVec2 = -0.951057, kVec3 = -0.809017, kVec4 =
@@ -338,9 +338,9 @@ After having put so much attention to the different single aspects of
 initialization, performance and audio vectors, the next example tries to
 summarize and illustrate all the aspects in their practical mixture.
 
- 
 
-   ***EXAMPLE 03A06\_Init\_perf\_audio.csd*** 
+
+   ***EXAMPLE 03A06\_Init\_perf\_audio.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -389,9 +389,9 @@ a-variables explicitely. On the other hand, you can get the initial
 value of a k-variable which has not been set explicitely, by the *i()*
 facility. This is a simple example:
 
- 
 
-   ***EXAMPLE 03A07\_Init-values\_of\_k-variables.csd*** 
+
+   ***EXAMPLE 03A07\_Init-values\_of\_k-variables.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -423,13 +423,13 @@ i 3 4 0
 Outputs:
 
     new alloc for instr 1:
-    B  0.000 ..  2.000 T  2.000 TT  2.000 M:      0.0
+    B  0.000 ..  2.000 T  2.000 TT  2.000 M:      0.0
     new alloc for instr 2:
-    instr 2:  iInstr2LineValue = 0.400
-    B  2.000 ..  4.000 T  4.000 TT  4.000 M:      0.0
+    instr 2:  iInstr2LineValue = 0.400
+    B  2.000 ..  4.000 T  4.000 TT  4.000 M:      0.0
     new alloc for instr 3:
-    instr 3:  iInstr3LineValue = 0.800
-    B  4.000 ..  5.000 T  5.000 TT  5.000 M:      0.0
+    instr 3:  iInstr3LineValue = 0.800
+    B  4.000 ..  5.000 T  5.000 TT  5.000 M:      0.0
 
 Instrument 1 produces a rising k-signal, starting at zero and ending at
 one, over a time of five seconds. The values of this line rise are
@@ -460,16 +460,16 @@ call of an instrument is zero, as usual. But, for the next calls, the
 k-variable is initialized to the value which was left when the previous
 instance of the same instrument turned off.
 
-The following example shows this behaviour.  Instrument *Call* simply
+The following example shows this behaviour.  Instrument *Call* simply
 calls the instrument *Called* once a second, and sends the number of
-the call to it.  Instrument *Called* generates the variable kRndVal by
+the call to it.  Instrument *Called* generates the variable kRndVal by
 a random generator, and reports both:
 - the value of kRndVal at initialization, and
 - the value of kRndVal at performance time, i.e. the first control
 cycle.
 (After the first k-cycle, the instrument is turned off immediately.)
 
-   ***EXAMPLE 03A08\_k-inits\_in\_multiple\_calls\_1.csd***
+   ***EXAMPLE 03A08\_k-inits\_in\_multiple\_calls\_1.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -507,25 +507,25 @@ i "Call" 0 3
 The output should show this:
 
     Initialization value of kRnd in call 1 = 0.000
-      New random value of kRnd generated in call 1 = 8.829
+      New random value of kRnd generated in call 1 = 8.829
     Initialization value of kRnd in call 2 = 8.829
-      New random value of kRnd generated in call 2 = 2.913
+      New random value of kRnd generated in call 2 = 2.913
     Initialization value of kRnd in call 3 = 2.913
-      New random value of kRnd generated in call 3 = 9.257
+      New random value of kRnd generated in call 3 = 9.257
 
 The printout shows what was stated before: If there is no previous value
-of a k-variable, this variable is initialized to zero.  If there is a
+of a k-variable, this variable is initialized to zero.  If there is a
 previous value, it serves as initialization value.
 
-But is this init-value of a k-variable of any relevance?  Actually, we
+But is this init-value of a k-variable of any relevance?  Actually, we
 choose a k-value because we want to use it at performance-time, not at
-init-time.  ---  Well, the problem is that Csound *will* perform the
+init-time.  ---  Well, the problem is that Csound *will* perform the
 init-pass for all k- (and a-) variables, unless you prevent it from
-doing this explicitely.  And if you, for example, generate an array
+doing this explicitely.  And if you, for example, generate an array
 index in the previous instance of the same instrument, which is out of
 range at initialization, Csound will report an error, or even crash:
 
-   ***EXAMPLE 03A09\_k-inits\_in\_multiple\_calls\_2.csd*** 
+   ***EXAMPLE 03A09\_k-inits\_in\_multiple\_calls\_2.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -573,8 +573,8 @@ i "Call" 0 1 ;change performance time to 2 to get an error!
 ~~~
 
 When you change the performance time to 2 instead of 1, you will get an
-error, because the array will be asked for index=5.  (But, as the length
-of this array is 5, the last index is 4.)  This will be the output in
+error, because the array will be asked for index=5.  (But, as the length
+of this array is 5, the last index is 4.)  This will be the output in
 this case:
 
     Initialization value of kIndx in call 1 = 0
@@ -583,19 +583,19 @@ this case:
     Index 2 of gkArray has value 3
     Index 3 of gkArray has value 5
     Index 4 of gkArray has value 8
-      Last value of kIndex in call 1 = 5
+      Last value of kIndex in call 1 = 5
     Initialization value of kIndx in call 2 = 5
     PERF ERROR in instr 2: Array index 5 out of range (0,4) for dimension 1
-       note aborted
+       note aborted
 
 The problem is that the expression *gkArray\[kIndex\]* is performed *at
-init-time*.  And, that the expression kIndex=0 has no effect at all to
-the value of kIndex *at init-time*.  If we want to be sure that kIndex
+init-time*.  And, that the expression kIndex=0 has no effect at all to
+the value of kIndex *at init-time*.  If we want to be sure that kIndex
 is zero also at init-time, we must write this explicitely by
 
     kIndex init 0
 
-Note that this is *exactly* the same for User-Defined Opcodes!  If you
+Note that this is *exactly* the same for User-Defined Opcodes!  If you
 call a UDO twice, it will have the current value of a k-Variable of the
 first call as init-value of the second call, unless you initialize the
 k-variable explicitely by an init statement.
@@ -603,7 +603,7 @@ k-variable explicitely by an init statement.
 The final example shows both possibilities, using explicit
 initialization or not, and the resulting effect.
 
-   ***EXAMPLE 03A10\_k-inits\_in\_multiple\_calls\_3.csd***
+   ***EXAMPLE 03A10\_k-inits\_in\_multiple\_calls\_3.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -646,17 +646,17 @@ i "with_init" + .1 2
 This is the output:
 
     instr without\_init, call 1:
-      Value of kVal at initialization = 0
-      Value of kVal at first k-cycle = 1
+      Value of kVal at initialization = 0
+      Value of kVal at first k-cycle = 1
     instr without\_init, call 2:
-      Value of kVal at initialization = 2
-      Value of kVal at first k-cycle = 1
+      Value of kVal at initialization = 2
+      Value of kVal at first k-cycle = 1
     instr with\_init, call 1:
-      Value of kVal at initialization = 1
-      Value of kVal at first k-cycle = 1
+      Value of kVal at initialization = 1
+      Value of kVal at first k-cycle = 1
     instr with\_init, call 2:
-      Value of kVal at initialization = 1
-      Value of kVal at first k-cycle = 1
+      Value of kVal at initialization = 1
+      Value of kVal at first k-cycle = 1
 
 Note that this characteristics of using *leftovers* from previous
 instances which may lead to undesired effects, does also occur for audio
@@ -671,10 +671,10 @@ third call (start=2), the previous values for the *a1* audio vector will
 be used, because this variable is not set explicitely. This means,
 though, that 32 amplitudes are repeated in a frequency of sr/ksmps, in
 this case 44100/32 = 1378.125 Hz. The same happens at start=4 with audio
-variable *a2.* Instrument 2 initializes *a1* and *a2* in the cases they
+variable *a2.* Instrument 2 initializes *a1* and *a2* in the cases they
 need to be, so that the inadvertend tone disappears.
 
-   ***EXAMPLE 03A11\_a\_inits\_in\_multiple\_calls.csd***
+   ***EXAMPLE 03A11\_a\_inits\_in\_multiple\_calls.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -742,7 +742,7 @@ Reinitialization
 As we saw above, an i-value is not affected by the performance loop. So
 you cannot expect this to work as an incrementation:
 
-   ***EXAMPLE 03A12\_Init\_no\_incr.csd*** 
+   ***EXAMPLE 03A12\_Init\_no\_incr.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -766,14 +766,14 @@ i 1 0 1
 
 The output is nothing but:
 
-    instr 1:  iCount = 1.000
+    instr 1:  iCount = 1.000
 
 But you can advise Csound to repeat the initialization of an i-variable.
 This is done with the [reinit](https://csound.com/docs/manual/reinit.html) opcode. You must mark a section by a
 label (any name followed by a colon). Then the reinit statement will
 cause the i-variable to refresh. Use rireturn to end the reinit section.
 
-   ***EXAMPLE 03A13\_Re-init.csd*** 
+   ***EXAMPLE 03A13\_Re-init.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -800,17 +800,17 @@ i 1 0 1
 
 Outputs:
 
-    instr 1:  iCount = 1.000
-    instr 1:  iCount = 2.000
-    instr 1:  iCount = 3.000
-    instr 1:  iCount = 4.000
-    instr 1:  iCount = 5.000
-    instr 1:  iCount = 6.000
-    instr 1:  iCount = 7.000
-    instr 1:  iCount = 8.000
-    instr 1:  iCount = 9.000
-    instr 1:  iCount = 10.000
-    instr 1:  iCount = 11.000
+    instr 1:  iCount = 1.000
+    instr 1:  iCount = 2.000
+    instr 1:  iCount = 3.000
+    instr 1:  iCount = 4.000
+    instr 1:  iCount = 5.000
+    instr 1:  iCount = 6.000
+    instr 1:  iCount = 7.000
+    instr 1:  iCount = 8.000
+    instr 1:  iCount = 9.000
+    instr 1:  iCount = 10.000
+    instr 1:  iCount = 11.000
 
 What happens here more in detail, is the following. In the actual
 init-pass, *iCount* is set to zero via *iCount init 0*. Still in this
@@ -834,7 +834,7 @@ another instrument, you must not give this instrument the number 11 or
 higher. In the following example, first instrument 10 uses a value of
 instrument 1, then a value of instrument 100.
 
-   ***EXAMPLE 03A14\_Order\_of\_calc.csd*** 
+   ***EXAMPLE 03A14\_Order\_of\_calc.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -873,29 +873,29 @@ i 10 1 1
 The output shows the difference:
     new alloc for instr 1:
     new alloc for instr 10:
-     i  10 time     0.10000:     1.00000
-     i  10 time     0.20000:     2.00000
-     i  10 time     0.30000:     3.00000
-     i  10 time     0.40000:     4.00000
-     i  10 time     0.50000:     5.00000
-     i  10 time     0.60000:     6.00000
-     i  10 time     0.70000:     7.00000
-     i  10 time     0.80000:     8.00000
-     i  10 time     0.90000:     9.00000
-     i  10 time     1.00000:    10.00000
-    B  0.000 ..  1.000 T  1.000 TT  1.000 M:      0.0
+     i  10 time     0.10000:     1.00000
+     i  10 time     0.20000:     2.00000
+     i  10 time     0.30000:     3.00000
+     i  10 time     0.40000:     4.00000
+     i  10 time     0.50000:     5.00000
+     i  10 time     0.60000:     6.00000
+     i  10 time     0.70000:     7.00000
+     i  10 time     0.80000:     8.00000
+     i  10 time     0.90000:     9.00000
+     i  10 time     1.00000:    10.00000
+    B  0.000 ..  1.000 T  1.000 TT  1.000 M:      0.0
     new alloc for instr 100:
-     i  10 time     1.10000:     0.00000
-     i  10 time     1.20000:     1.00000
-     i  10 time     1.30000:     2.00000
-     i  10 time     1.40000:     3.00000
-     i  10 time     1.50000:     4.00000
-     i  10 time     1.60000:     5.00000
-     i  10 time     1.70000:     6.00000
-     i  10 time     1.80000:     7.00000
-     i  10 time     1.90000:     8.00000
-     i  10 time     2.00000:     9.00000
-    B  1.000 ..  2.000 T  2.000 TT  2.000 M:      0.0
+     i  10 time     1.10000:     0.00000
+     i  10 time     1.20000:     1.00000
+     i  10 time     1.30000:     2.00000
+     i  10 time     1.40000:     3.00000
+     i  10 time     1.50000:     4.00000
+     i  10 time     1.60000:     5.00000
+     i  10 time     1.70000:     6.00000
+     i  10 time     1.80000:     7.00000
+     i  10 time     1.90000:     8.00000
+     i  10 time     2.00000:     9.00000
+    B  1.000 ..  2.000 T  2.000 TT  2.000 M:      0.0
 
 Instrument 10 can use the values which instrument 1 has produced in the
 same control cycle, but it can only refer to values of instrument 100
@@ -914,7 +914,7 @@ The answer is simple: Csound calculates them in the same order as they
 are written in the orchestra. So if your instrument collection is like
 this ...
 
-   ***EXAMPLE 03A15\_Order\_of\_calc\_named.csd*** 
+   ***EXAMPLE 03A15\_Order\_of\_calc\_named.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -953,13 +953,13 @@ i "Fantastic_FM" 0 1
 ... you can count on this output:
 
     new alloc for instr Grain_machine:
-     Grain_machine
+     Grain_machine
     new alloc for instr Fantastic_FM:
-      Fantastic_FM
+      Fantastic_FM
     new alloc for instr Random_Filter:
-       Random_Filter
+       Random_Filter
     new alloc for instr Final_Reverb:
-        Final_Reverb
+        Final_Reverb
 
 Note that the score has not the same order. But internally, Csound
 transforms all names to numbers, in the order they are written from top
@@ -1033,7 +1033,7 @@ If you use the a-rate random generator, you will get as many new values
 per second as your sample rate is. If you use it in the range of your 0
 dB amplitude, you produce white noise.
 
-   ***EXAMPLE 03A16\_Random\_at\_ika.csd***  
+   ***EXAMPLE 03A16\_Random\_at\_ika.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1111,7 +1111,7 @@ Such a *staircase-envelope* is what you hear in the next example as
 zipper noise. The transeg opcode produces a non-linear envelope with a
 sharp peak:
 
-![](../resources/images/03-a-peak.png){width=30%} 
+![](../resources/images/03-a-peak.png){width=30%}
 
 The rise and the decay are each 1/100 seconds long. If this envelope is
 produced at k-rate with a blocksize of 128 (instr 1), the noise is
@@ -1120,7 +1120,7 @@ amount of zipper noise. - Instrument 2 uses an envelope at audio-rate
 instead. Regardless the blocksize, each sample is calculated seperately,
 so the envelope will always be smooth.
 
-   ***EXAMPLE 03A17\_Zipper.csd***   
+   ***EXAMPLE 03A17\_Zipper.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1173,7 +1173,7 @@ control cycles, nor end.
 The next example chooses an extreme small control rate (only 10 k-cycles
 per second) to illustrate this.
 
-   ***EXAMPLE 03A18\_Time\_Impossible.csd***   
+   ***EXAMPLE 03A18\_Time\_Impossible.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1205,7 +1205,7 @@ call starts at a possible time, but the duration of 0.15 again does not
 coincident with the control rate. So the result starts the first call at
 time 0.1 and extends the second call to 0.2 seconds:
 
-![](../resources/images/03-a-wrong-times.png){width=60%} 
+![](../resources/images/03-a-wrong-times.png){width=60%}
 
 With Csound6, the possibilities of these *in between* are enlarged via
 the *--sample-accurate* option. The next image shows how a 0.01 second
@@ -1223,7 +1223,7 @@ cases:
 3.  ksmps=1
 4.  ksmps=128 and *--sample-accurate* enabled
 
-![](../resources/images/03-a-ksmps.png){width=50%} 
+![](../resources/images/03-a-ksmps.png){width=50%}
 
 This is the effect:
 
@@ -1275,7 +1275,7 @@ but here not for printing rather than playing out only the samples
 whichs values are between 0 and 1/10000. They are then multiplied by
 10000 so that not only rhythm is irregular but also volume.
 
-***EXAMPLE 03A19\_Sample\_by\_sample\_processing.csd***   
+***EXAMPLE 03A19\_Sample\_by\_sample\_processing.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1392,7 +1392,7 @@ The first case is easy to understand, although some results may be
 unexpected. Any k-variable which is not explicitly initialized is set to
 zero as initial value.
 
-***EXAMPLE 03A20\_Init\_explcit\_implicit.csd***   
+***EXAMPLE 03A20\_Init\_explcit\_implicit.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1452,7 +1452,7 @@ Usually the second one overwrites the first. But if a k-value is
 explicitely set via the *init* opcode, the implicit initialization will
 not take place.
 
-***EXAMPLE 03A21\_Init\_overwrite.csd***   
+***EXAMPLE 03A21\_Init\_overwrite.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1498,7 +1498,7 @@ The output is:
 Both pairs of lines in the code look similar, but do something quite
 different. For *k\_var* the line *k\_var linseg 10, 1, 0* will not
 initialize *k\_var* to zero, as this happens only if no init value is
-assigned. The line *S\_var strcpyk \"world\"* instead does an explicit
+assigned. The line *S\_var strcpyk \"world\"* instead does an explicit
 initialization, and this initialization will overwrite the preceding
 one. If the lines were swapped, the result would be *goodbye* rather
 than *world*.
@@ -1512,7 +1512,7 @@ if-condition will never become true. But regardless it is true or false,
 any k-rate if-clause initializes its expressions, in this case the
 *String* variable.
 
-***EXAMPLE 03A22\_Init\_hidden\_in\_if.csd***   
+***EXAMPLE 03A22\_Init\_hidden\_in\_if.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1571,11 +1571,11 @@ Returns:
 If you want to skip the initialization at this point, you can use an
 *igoto* statement:
 
-     if kBla == 1 then
-      igoto skip
-      String strcpyk "no!\n"
-      skip:
-     endif
+     if kBla == 1 then
+      igoto skip
+      String strcpyk "no!\n"
+      skip:
+     endif
 
 ### Hidden initialization via UDOs
 
@@ -1584,7 +1584,7 @@ opcode, but in terms of implicit initialization it is not the case. In
 the following example, we may expect that instrument 2 has the same
 output as instrument 1.
 
-***EXAMPLE 03A23\_Init\_hidden\_in\_udo.csd***   
+***EXAMPLE 03A23\_Init\_hidden\_in\_udo.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1651,7 +1651,7 @@ But the output is:
 The reason that instrument 2 does implicit initialization of *kBla* is
 written in the manual page for xin / xout: *These opcodes actually run
 only at i-time.* In this case, *kBla* is initialized to zero, because
-the *kRnd *variable inside the UDO is implicitly zero at init-time. 
+the *kRnd *variable inside the UDO is implicitly zero at init-time.
 
 Instrument 3, on the other hand, uses the **=** operator. It works as
 other native opcodes: if a k-variable has an explicit init value, it

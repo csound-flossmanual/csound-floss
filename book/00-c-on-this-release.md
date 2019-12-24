@@ -21,5 +21,5 @@ Previous releases can be found at
 <http://files.csound-tutorial.net/floss_manual>,
 as well as the current csd files and audio samples.
 
- 
+
 

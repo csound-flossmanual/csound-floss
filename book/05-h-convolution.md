@@ -52,7 +52,7 @@ approach will normally be beyond the means of a beginner.
 Many commercial, often expensive, implementations of convolution exist
 both in the form of software and hardware but fortunately Csound
 provides easy access to convolution for free. Csound currently lists six
-different opcodes for convolution, 
+different opcodes for convolution,
 [convolve (convle)](https://csound.com/docs/manual/convolve.html),
 [cross2](https://csound.com/docs/manual/cross2.html),
 [dconv](https://csound.com/docs/manual/dconv.html),
@@ -94,7 +94,7 @@ whereas very low partition sizes demand more from the CPU and too low a
 size may result in buffer under-runs and interrupted realtime audio.
 Bear in mind still that realtime CPU performance will depend heavily on
 the length of the impulse response file. The partition size argument is actually an optional argument and if omitted it will default to whatever the
-software buffer size is as defined by the *-b* 
+software buffer size is as defined by the *-b*
 [command line flag](https://csound.com/docs/manual/CommandFlags.html). If we
 specify the partition size explicitly however, we can use this
 information to delay the input audio (after it has been used by

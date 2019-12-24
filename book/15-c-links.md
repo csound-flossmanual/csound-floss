@@ -11,14 +11,14 @@ Csound: <http://csound.com/download.html>
 
 Csound source code: <http://github.com/csound/csound>
 
-User Defined Opcodes for Csound: <http://www.csounds.com/udo/>  and
+User Defined Opcodes for Csound: <http://www.csounds.com/udo/>  and
 <http://github.com/csudo/csudo>
 
 CsoundQt: <http://github.com/CsoundQt/CsoundQt/releases>
 
 Cabbage: <http://cabbageaudio.com/>
 
-Blue: <http://blue.kunstmusik.com/> 
+Blue: <http://blue.kunstmusik.com/>
 
 WinXound: <http://mnt.conts.it/winxound/>
 
@@ -137,7 +137,7 @@ New features in 0.9.2:\
 <http://vimeo.com/54160405> (examples)\
 german versions:\
 <http://vimeo.com/54159567> (installation)\
-<http://vimeo.com/54159964> (beispiele) 
+<http://vimeo.com/54159964> (beispiele)
 
 
 Csound Conferences
@@ -161,13 +161,13 @@ Computer Synthesized Sounds" from 1969.
 Books
 -----
 
-Victor Lazzarini's 
+Victor Lazzarini's
 [Computer Music Instruments](https://www.springer.com/gp/book/9783319635033)
 (2017) has a lot of Csound examples, in conjunction with Python and Faust.
 
 [Csound --- A Sound and Music Computing System](http://www.springer.com/de/book/9783319453682) (2016) by Victor Lazzarini and others is the new Csound Standard Book, covering all parts of the Csound audio programming language in depth.
 
-Martin Neukom's 
+Martin Neukom's
 [Signals, Systems and Sound Synthesis](https://www.peterlang.com/view/9783035106091/9783035106091.00001.xml) (2013)
 is a comprehensive computer music tutorial with a lot of Csound in it.
 

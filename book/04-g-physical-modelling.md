@@ -33,7 +33,7 @@ to implement two classical models from first principles and then
 introduce a number of Csound's ready made physical modelling opcodes.
 
 
-The Mass-Spring Model[^1] 
+The Mass-Spring Model[^1]
 -------------------------
 
 [^1]:  The explanation here follows chapter 8.1.1 of Martin Neukom's
@@ -73,8 +73,8 @@ times per second (the states are named here as *k0/k1/k2* instead of
 *a0/a1/a2*, because k-rate values are needed for printing instead of
 audio samples).
 
-[^2]:  See chapter 
-       [03A](03-a-initialization-and-performance-pass.md) 
+[^2]:  See chapter
+       [03A](03-a-initialization-and-performance-pass.md)
        for more information about Csound's performance loops.
 
 
@@ -128,7 +128,7 @@ The output starts with:
     State=11: k0 =  0.595,  k1 =  0.826,  k2 =  0.727
     State=12: k0 =  0.826,  k1 =  0.727,  k2 =  0.337
 
-![](../resources/images/04-g-01bild4a.png) 
+![](../resources/images/04-g-01bild4a.png)
 
 So, a sine wave has been created, without the use of any of Csound's
 oscillators...
@@ -170,7 +170,7 @@ i "MassSpring" 0 10
 
 As the next sample is calculated in the next control cycle, either
 [ksmps](https://csound.com/docs/manual/ksmps.html) has to be set to
-1, or a 
+1, or a
 [setksmps](https://csound.com/docs/manual/setksmps.html)
 statement must be set in the instrument, with the same effect.
 The resulting frequency depends on the spring constant: the higher
@@ -248,17 +248,17 @@ the Runge--Kutta methods).
 Velocity $v$ is the difference of positions $x$ per time unit $T$,
 acceleration $a$ the difference of velocities $v$ per time unit $T$:
 
-v~t~ = (x~t ~--~ ~x~t-1~)/T, a~t~ = (v~t~ -- v~t-1~)/T. 
+v~t~ = (x~t ~--~ ~x~t-1~)/T, a~t~ = (v~t~ -- v~t-1~)/T.
 
 Putting T = 1 we get
 
-v~t~ = x~t ~-- x~t-1~, a~t~ = v~t ~-- v~t-1~.
+v~t~ = x~t ~-- x~t-1~, a~t~ = v~t ~-- v~t-1~.
 
 If we know the position and velocity of a point at time *t* -- 1 and are
 able to calculate its acceleration at time *t* we can calculate the
 velocity v~t~ and the position x~t~ at time *t*:
 
-v~t~ = v~t-1 ~+ a~t~ andx~t~ = x~t-1~ + v~t~
+v~t~ = v~t-1 ~+ a~t~ andx~t~ = x~t-1~ + v~t~
 
 With the following algorithm we calculate a sequence of successive
 positions *x*:
@@ -270,18 +270,18 @@ positions *x*:
 
 Example 1: The acceleration of gravity is constant (*g* = --9.81ms^-2^).
 For a mass with initial position *x* = 300m (above ground) and velocity
-*v* = 70ms^-1^ (upwards) we get the following trajectory (path) 
+*v* = 70ms^-1^ (upwards) we get the following trajectory (path)
 
     g = -9.81; x = 300; v = 70; Table[v += g; x += v, {16}];
-      
+
 ![](../resources/images/04-g-physical-model-1.gif)
 
 Example 2: The acceleration *a* of a mass on a spring is proportional
-(with factor --*c*) to its position (deflection) *x*.  
+(with factor --*c*) to its position (deflection) *x*.
 
     x = 0; v = 1; c = .3; Table[a = -c*x; v += a; x += v, {22}];
 
-      
+
 ![](../resources/images/04-g-physical-model-2.gif)
 
 
@@ -292,7 +292,7 @@ every time step by a certain amount *d*:
 
     v *= (1 - d)
 
-Example 3: Spring with damping (see *lin_reson.csd* below): 
+Example 3: Spring with damping (see *lin_reson.csd* below):
 
     d = 0.2; c = .3; x = 0; v = 1;
     Table[a = -c*x; v += a; v *= (1 - d); x += v, {22}];
@@ -301,7 +301,7 @@ Example 3: Spring with damping (see *lin_reson.csd* below): 
 
 The factor *c* can be calculated from the frequency *f*:
 
-    *c* = 2 -- sqrt(4 -- d^2^) cos(2π *f/sr*) 
+    *c* = 2 -- sqrt(4 -- d^2^) cos(2π *f/sr*)
 
 ### Introducing excitation
 
@@ -319,7 +319,7 @@ input)
 
 ![](../resources/images/04-g-physical-model-4.gif)
 
-   ***EXAMPLE 04G04_lin_reson.csd***  
+   ***EXAMPLE 04G04_lin_reson.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -360,7 +360,7 @@ i1 0 5          .0001           440     .0001
 </CsoundSynthesizer>
 ;example by martin neukom
 ~~~
- 
+
 
 ### Introducing nonlinear acceleration
 
@@ -369,7 +369,7 @@ Example 5: The acceleration of a pendulum depends on its deflection
 
     a = c*sin(x)
 
-This figure shows the function --.3sin(*x*)   
+This figure shows the function --.3sin(*x*)
 
 ![](../resources/images/04-g-physical-model-5.gif)
 
@@ -385,7 +385,7 @@ encreasing amplitude and that the pendulum can turn around.
 We can implement systems with accelerations that are arbitrary functions
 of position *x*.
 
-Example 6: *a* = *f*(*x*) = -- *c*~1~x + *c*~2~sin(*c*~3~x) 
+Example 6: *a* = *f*(*x*) = -- *c*~1~x + *c*~2~sin(*c*~3~x)
 
 ![](../resources/images/04-g-physical-model-7.gif)
 
@@ -448,17 +448,17 @@ While attempting to explain the nonlinear dynamics of vacuum tube
 circuits, the Dutch electrical engineer Balthasar van der Pol derived
 the differential equation
 
-    d^2^*x*/d*t*^2 ^= --ω^2^*x* + μ(1 -- x^2^)d*x*/d*t*.
-    (where d^2^*x*/d*t*^2^ = acelleration and d*x*/d*t* = velocity)
+    d^2^*x*/d*t*^2 ^= --ω^2^*x* + μ(1 -- x^2^)d*x*/d*t*.
+    (where d^2^*x*/d*t*^2^ = acelleration and d*x*/d*t* = velocity)
 
-The equation describes a linear oscillator d^2^*x*/d*t*^2 ^=
---ω^2^*x* with an additional nonlinear term μ(1 -- x^2^)d*x*/d*t*. When
+The equation describes a linear oscillator d^2^*x*/d*t*^2 ^=
+--ω^2^*x* with an additional nonlinear term μ(1 -- x^2^)d*x*/d*t*. When
 \|*x*\| \> 1, the nonlinear term results in damping, but when \|*x*\| \<
 1, negative damping results, which means that energy is introduced into
-the system. 
+the system.
 
 Such oscillators compensating for energy loss by an inner energy source
-are called *self-sustained oscillators*. 
+are called *self-sustained oscillators*.
 
     v = 0; x = .001; ω = 0.1; μ = 0.25;
     snd = Table[v += (-ω^2*x + μ*(1 - x^2)*v); x += v, {200}];
@@ -473,24 +473,24 @@ The constant ω is the angular frequency of the linear oscillator (μ =
 
 Since the simulation is only an approximation of the oscillation this
 formula gives good results only for low frequencies. The exact frequency
-of the simulation is  
+of the simulation is
 
-    *f* = arccos(1 -- ω^2^/2)*sr*·/2π.
+    *f* = arccos(1 -- ω^2^/2)*sr*·/2π.
 
-We get ω^2 ^from frequency *f* as
+We get ω^2 ^from frequency *f* as
 
-    2 -- 2cos(*f*·2π/*sr*). 
+    2 -- 2cos(*f*·2π/*sr*).
 
 With increasing μ the oscillations nonlinearity becomes stronger and
 more overtones arise (and at the same time the frequency becomes lower).
 The following figure shows the spectrum of the oscillation for various
-values of μ. 
+values of μ.
 
-![](../resources/images/04-g-physical-model-11.gif)  
+![](../resources/images/04-g-physical-model-11.gif)
 
-![](../resources/images/04-g-physical-model-12.gif)  
+![](../resources/images/04-g-physical-model-12.gif)
 
-![](../resources/images/04-g-physical-model-13.gif) 
+![](../resources/images/04-g-physical-model-13.gif)
 
 Certain oscillators can be synchronized either by an external force or
 by mutual influence. Examples of synchronization by an external force
@@ -498,13 +498,13 @@ are the control of cardiac activity by a pace maker and the adjusting of
 a clock by radio signals. An example for the mutual synchronization of
 oscillating systems is the coordinated clapping of an audience. These
 systems have in common that they are not linear and that they oscillate
-without external excitation (*self-sustained* oscillators). 
+without external excitation (*self-sustained* oscillators).
 
 The UDO *v_d_p* represents a Van der Pol oscillator with a natural
 frequency *kfr* and a nonlinearity factor *kmu*. It can be excited by a
 sine wave of frequency *kfex* and amplitude *kaex*. The range of
 frequency within which the oscillator is synchronized to the exciting
-frequency increases as *kmu* and *kaex* increase.  
+frequency increases as *kmu* and *kaex* increase.
 
    ***EXAMPLE 04G06_van_der_pol.csd***
 
@@ -521,7 +521,7 @@ nchnls = 2
 0dbfs = 1
 
 ;Van der Pol Oscillator ;outputs a nonliniear oscillation
-;inputs: a_excitation, k_frequency in Hz (of the linear part), 
+;inputs: a_excitation, k_frequency in Hz (of the linear part),
 ;nonlinearity (0 < mu < ca. 0.7)
 opcode v_d_p, a, akk
  setksmps 1
@@ -573,17 +573,17 @@ proportion between the natural frequency of the oscillator *kfr* and the
 excitation frequency kfex is approximately simple (*kfex*/kfr ≅
 *m*/*n*), then within a certain range the frequency of the Van der Pol
 oscillator is synchronized so that *kfex*/kfr = *m*/*n*. Here one speaks
-of higher order synchronization (figure d). 
+of higher order synchronization (figure d).
 
 ![](../resources/images/04-g-physical-model-21.gif)
 
 ![](../resources/images/04-g-physical-model-22.gif)
 
-![](../resources/images/04-g-physical-model-23.gif)   
+![](../resources/images/04-g-physical-model-23.gif)
 
 ![](../resources/images/04-g-physical-model-24.gif)
 
- 
+
 
 The Karplus-Strong Algorithm: Plucked String
 --------------------------------------------
@@ -594,18 +594,18 @@ buffer is filled with random values of either +1 or -1. At the end of
 the buffer, the mean of the first and the second value to come out of
 the buffer is calculated. This value is then put back at the beginning
 of the buffer, and all the values in the buffer are shifted by one
-position. 
+position.
 
 This is what happens for a buffer of five values, for the first five
 steps:
 
   ---------------- ------ ---- ---- ---- ----
-   initial state    1     -1   1    1    -1
-   step 1           0      1   -1   1    1
-   step 2           1      0   1    -1   1
-   step 3           0      1   0    1    -1
-   step 4           0      0   1    0    1
-   step 5           0.5    0   0    1    0
+   initial state    1     -1   1    1    -1
+   step 1           0      1   -1   1    1
+   step 2           1      0   1    -1   1
+   step 3           0      1   0    1    -1
+   step 4           0      0   1    0    1
+   step 5           0.5    0   0    1    0
   ---------------- ------ ---- ---- ---- ----
 
 The next Csound example represents the content of the buffer in a
@@ -699,7 +699,7 @@ to come to a constant level; in this case 0.333. But for larger buffer
 sizes, after some cycles the buffer content has the effect of a period
 which is repeated with a slight loss of amplitude. This is how it
 sounds, if the buffer size is 1/100 second (or 441 samples at sr=44100):
- 
+
 
    ***EXAMPLE 04G08_Plucked.csd***
 
@@ -741,7 +741,7 @@ i 1 0 60
 </CsoundSynthesizer>
 ;example by joachim heintz, after martin neukom
 ~~~
- 
+
 
 This sound resembles a plucked string: at the beginning the sound is
 noisy but after a short period of time it exhibits periodicity. As can
@@ -1214,10 +1214,10 @@ manipulation usually abstracted to a small number of descriptive
 parameters. Csound offers a wealth of other opcodes for physical
 modelling which cannot all be introduced here so the user is encouraged
 to explore based on the approaches exemplified here. You can find lists
-in the chapters 
+in the chapters
 [Models and Emulations](https://csound.com/docs/manual/SiggenModels.html),
 [Scanned Synthesis](https://csound.com/docs/manual/SiggenScanTop.html) and
 [Waveguide Physical Modeling](https://csound.com/docs/manual/SiggenWavguide.html) of the [Csound Manual](https://csound.com/docs/manual/index.html).
 
- 
+
 

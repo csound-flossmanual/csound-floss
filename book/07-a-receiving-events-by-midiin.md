@@ -20,15 +20,15 @@ readable. We can disable Csound's default instrument triggering
 mechanism (which in this example we don't want to use) by writing the
 line:
 
-    massign 0,0 
+    massign 0,0
 
 just after the header statement (sometimes referred to as instrument 0).
 
 For this example to work you will need to ensure that you have activated
-live midi input within Csound, either by using the 
+live midi input within Csound, either by using the
 [-M flag](https://csound.com/docs/manual/CommandFlagsCategory.html#FlagsCatMinusUpperM). You will also need to
 make sure that you have a midi keyboard or controller connected. You may
-also want to include the 
+also want to include the
 [-m128 flag](https://csound.com/docs/manual/CommandFlags.html#FlagsMinusLowerM)
 which will disable some of Csound's additional messaging output and
 therefore allow our midi printout to be presented more clearly.
@@ -44,7 +44,7 @@ has been received. For example if a midi note event has been received
 then data byte 1 gives us the note velocity and data byte 2 gives us the
 note number. If a midi controller event has been received then data byte
 1 gives us the controller number and data byte 2 gives us the controller
-value. 
+value.
 
 
    ***EXAMPLE 07A01_midiin_print.csd***
@@ -83,7 +83,7 @@ i 1 0 3600 ; instr 1 plays for 1 hour
 The principle advantage of using the *midiin* opcode is that, unlike
 opcodes such as *cpsmidi*, *ampmidi* and *ctrl7* which only receive
 specific midi data types on a specific channel, *midiin* "listens" to
-all incoming data including system exclusive messages. In situations
+all incoming data including system exclusive messages. In situations
 where elaborate Csound instrument triggering mappings that are beyond
 the capabilities of the default triggering mechanism are required, then
-the use of *midiin* might be beneficial.
+the use of *midiin* might be beneficial.

@@ -53,19 +53,19 @@ installation process. This will invoke 8 simple steps:
 1.  A welcome screen advises you to close other programs.
 2.  After reading and accepting the licence agreement click *Next*.
 3.  Select the destination for the Csound program files. The default
-    is C:\\Program Files (x86)\\Csound6.
+    is C:\\Program Files (x86)\\Csound6.
 4.  Choose the components to be installed. Currently (ver. 6.13) there
     are only 3 items: **Core Csound** is obligatory. **Python features**
     are optional but will be required if you intend to use CsoundQt as a
     frontend for Csound. You will also need to install [Python
     2.7](http://www.python.org/getit/).
-    **Pure data Csound6\~ object** will allow you to run Csound from
+    **Pure data Csound6\~ object** will allow you to run Csound from
     within Pure Data. To do this will require installing [Pure
     Data](https://puredata.info/downloads).
 5.  **Select Start Menu Folder** allows you to define a folder name
     other than the default *Csound 6* for the folder containing the
     various Csound components. Alternatively you can choose not to
-    create a start menu folder. 
+    create a start menu folder.
 6.  Next there is an option to add the Csoound application directory to
     your PATH variable. Adding this will allow you to run Csound from
     the command line from any directory location.
@@ -77,14 +77,14 @@ installation process. This will invoke 8 simple steps:
 
 This installer will also automatically install CsoundQt which can be
 used as a frontend for your work with Csound (Csound is not run by
-double-clicking Csound.exe). 
+double-clicking Csound.exe).
 
 You can create addional shorcuts to the CsoundQt executable by locating
 it in its default location, C:\\Program Files (x86)\\Csound6\\bin, and
 right-clicking it and selecting \'Pin to Start\' or \'Pin to Taskbar\'
 as desired. You can create a desktop shortcut by right-clicking and
 dragging the CsoundQt executable onto the desktop and selecting *Create
-Shortcuts Here* from the menu that pops up.   
+Shortcuts Here* from the menu that pops up.
 
 Other frontends for Csound, such as Cabbage and WinXound, need to be
 downloaded and installed separately.
@@ -109,19 +109,19 @@ Gentoo. If there are no binary packages for your platform, or you need a
 more recent version, you can get the sources from the [Github
 page](https://github.com/csound/csound/tree/develop)
 and build from source. You will find the most recent build instructions
-in the [Build.md](http://github.com/csound/csound/blob/develop/BUILD.md)
+in the [Build.md](http://github.com/csound/csound/blob/develop/BUILD.md)
 file in the Csound sources or in the [Github Csound
 Wiki](https://github.com/csound/csound/wiki).
 
 ### iOS
 
 If you would just like to run Csound on your iPad, there is an app for
-iOS called CsoundPad:  
+iOS called CsoundPad:
 http://itunes.apple.com/app/csoundpad/id861008380?mt=8\#
 
 If you are a developer, Csound can be run in an iOS app that you are
 programming by including the Csound-for-iOS files in your Xcode project.
-For example for version 6.09 of Csound, the files are in this archive:  
+For example for version 6.09 of Csound, the files are in this archive:
 <http://github.com/csound/csound/releases/download/6.09.1/csound-iOS-6.09.1.zip>
 The *csound-iOS-6.09.1.zip* file contains an archive of an example
 project and PDF manual.
@@ -138,7 +138,7 @@ Some sample projects:
 -   Portable Dandy, an innovative sampler synthesiser for iOS (see
     <http://www.barefoot-coders.com>).
 -   iPulsaret, an impressive synthesizer app (see
-    <http://www.densitytigs.com>). 
+    <http://www.densitytigs.com>).
 
 ### Android
 
@@ -148,7 +148,7 @@ leads you to the Google Play Store from which you can install it for
 free. Chapter [12E](12-e-csound-on-android)
 in this manual describes how to use Csound on Android.
 
-If you are a developer, download the Android SDK, for instance:  
+If you are a developer, download the Android SDK, for instance:
 <http://github.com/csound/csound/releases/download/6.09.1/csound-android-6.09.1.zip>
 
 On Google\'s Play Store there are some apps that use Csound. Below is a
@@ -209,7 +209,7 @@ executed as an independent process. The result should be the same - the
 1\. Save the following code in any plain text editor as HelloWorld.csd.
 
 
-   ***EXAMPLE 02A01\_HelloWorld.csd*** 
+   ***EXAMPLE 02A01\_HelloWorld.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -288,7 +288,7 @@ such as *rslider* (a rotary slider). For additional information on
 Cabbage please consult the chapter on
 [Cabbage](http://flossmanuals.net/csound/cabbage/).
 
-   ***EXAMPLE 02A02\_HelloCabbage.csd*** 
+   ***EXAMPLE 02A02\_HelloCabbage.csd***
 
 ~~~
 <Cabbage>

@@ -12,14 +12,14 @@ is not in the same directory as the *.csd* file. Midi channels will be
 mapped to instrument according to the rules and options discussed in
 [Triggering Instrument Instances](07-b-triggering-instrument-instances.md)
 and all controllers can be interpretted as desired using the techniques
-discussed in 
+discussed in
 [Working with Controllers](07-c-working-with-controllers.md).
 
 The following example plays back a midi file using Csound's
 *fluidsynth* family of opcodes to facilitate playing soundfonts
 (sample libraries). For more information on these opcodes please consult
-the 
-[Csound Reference Manual](https://csound.com/docs/manual/index.html). 
+the
+[Csound Reference Manual](https://csound.com/docs/manual/index.html).
 In order to run
 the example you will need to download a midi file and two (ideally
 contrasting) soundfonts. Adjust the references to these files in the
@@ -167,7 +167,7 @@ f 0 480 ; ensure this duration is as long or longer that duration of midi file
 ~~~
 
 The example above ignores continuous controller data, pitch bend and
-aftertouch. The second example on the page in the 
+aftertouch. The second example on the page in the
 [Csound Manual](https://csound.com/docs/manual/index.html) for the opcode
 [fprintks](https://csound.com/docs/manual/fprintks.html) renders all
 midi data to a score file.

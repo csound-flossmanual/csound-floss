@@ -5,7 +5,7 @@ Playing Soundfiles from Disk - *diskin*
 ---------------------------------------
 
 The simplest way of playing a sound file from Csound is to use the
-[diskin](https://csound.com/docs/manual/diskin.html) opcode. This
+[diskin](https://csound.com/docs/manual/diskin.html) opcode. This
 opcode reads audio directly from the hard drive location where it is
 stored, i.e. it does not pre-load the sound file at initialisation time.
 This method of sound file playback is therefore good for playing back
@@ -18,12 +18,12 @@ situations reading from a function table (buffer) is preferable.[^1]
       the csound file(s) you are running, and the speed of the hard disk.
       A Solid State Disk is much faster than a traditional HDD, so a Csound
       file with a lot of *diskin* processes may run fine on a SSD which
-      did not run on a HDD. 
+      did not run on a HDD.
 
 
 ### Sound File Name, Absolute or Relative Path
 
-The first input argument for *diskin* denotes the file which is to me read. It is called *ifilcod* which stems from old Csound times where a sound file should be named "soundin.1" and could then be read by the opcode 
+The first input argument for *diskin* denotes the file which is to me read. It is called *ifilcod* which stems from old Csound times where a sound file should be named "soundin.1" and could then be read by the opcode
 [soundin](https://csound.com/docs/manual/soundin.html) as *1* for *ifilcod*. For now we usually give a string here as input, so *Sfilcod* would be a better name for the variable. The string can be either a *name* like "loop.wav", or it can contain the full *path* to the sound file like "/home/me/Desktop/loop.wav". Usually we will prefer to give a name instead of full path -- not only because it is shorter, but also because it makes our csd more portable. Csound will recognize a sound file by its *name* in these cases:
 
 1. The *csd* file and the sound file are in the same directory (folder).
@@ -79,7 +79,7 @@ In the [Csound Manual](https://csound.com/docs/manual/diskin.html) we see two di
 
 The first line is the traditional way. We will output here as many audio signals as the sound file has channels. Many Csound user will have read this message:
 
-    INIT ERROR in instr 1 line 17: diskin2: 
+    INIT ERROR in instr 1 line 17: diskin2:
     number of output args inconsistent with number of file channels
 
 This *inconsistency* of the *number of output arguments* and the *number of file channels* happens, if we use the *stereo* file "magic.wav" but write:
@@ -107,21 +107,21 @@ This is a very convenient method to avoid the mismatch error between output argu
 After the mandatory file name or path string, we can pass some optional input arguments:
 
 - *kpitch* specifies the speed of reading the sound file. The *default* is *1*
-  here, which means normal speed. *2* would result in double speed (octave 
+  here, which means normal speed. *2* would result in double speed (octave
   higher and half time to read through the sound file), *0.5* would result
   in half speed (octave lower and twice as much time needed for reading).
   Negative values read backwards. As this is a *k-rate* parameter, it
   offers a lot of possibilities for modification already.
-- *iskiptim* specifies the point in the sound file where reading starts. 
+- *iskiptim* specifies the point in the sound file where reading starts.
   The default is *0* (= from the beginning); *2* would mean to skip the first
   two seconds of the sound file.
-- *iwraparound* answers the question what *diskin* will do when reading 
-  reaches the end of the file. The default is here *0* which means that 
+- *iwraparound* answers the question what *diskin* will do when reading
+  reaches the end of the file. The default is here *0* which means that
   reading stops. If we put *1* here, diskin will loop the sound file.
 
 
 
-   ***EXAMPLE 06A01_Play_soundfile.csd***  
+   ***EXAMPLE 06A01_Play_soundfile.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -148,7 +148,7 @@ endin
 instr Scratch
  kSpeed randomi -1, 1.5, 5, 3
  aRead[] diskin gS_file, kSpeed, 1, 1
- out aRead[0], aRead[0] 
+ out aRead[0], aRead[0]
 endin
 </CsInstruments>
 <CsScore>
@@ -162,7 +162,7 @@ i 2 20 20
 </CsoundSynthesizer>
 ;example written by Iain McCurdy and joachim heintz
 ~~~
- 
+
 
 Writing Audio to Disk
 ---------------------
@@ -178,7 +178,7 @@ orchestra header using *nchnls*. The disadvantage of this method is
 that we cannot simultaneously listen to the audio in real-time.
 
 
-   ***EXAMPLE 06A02_Write_soundfile.csd***   
+   ***EXAMPLE 06A02_Write_soundfile.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -191,7 +191,7 @@ that we cannot simultaneously listen to the audio in real-time.
 <CsInstruments>
 sr     =  44100
 ksmps  =  32
-nchnls =  1     
+nchnls =  1
 0dbfs  =  1
 
   instr 1 ; a simple tone generator
@@ -216,7 +216,7 @@ i 1 3.3 5 78
 </CsoundSynthesizer>
 ; example written by Iain McCurdy
 ~~~
- 
+
 
 Both Audio to Disk and Real-time Audio Output - *fout* with *monitor*
 ---------------------------------------------------------------------------------
@@ -231,10 +231,10 @@ sound file on disk using *fout*. *monitor* can read multi-channel
 outputs but its number of outputs should correspond to the number of
 channels defined in the header using *nchnls*. In this example it is
 read just in mono. *fout* can write audio in a number of formats and
-bit depths and it can also write multi-channel sound files. 
+bit depths and it can also write multi-channel sound files.
 
 
-   ***EXAMPLE 06A03_Write_RT.csd***   
+   ***EXAMPLE 06A03_Write_RT.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -244,7 +244,7 @@ bit depths and it can also write multi-channel sound files. 
 <CsInstruments>
 sr      =       44100
 ksmps   =       32
-nchnls  =       1       
+nchnls  =       1
 0dbfs   =       1
 
 gaSig   init   0; set initial value for global audio variable (silence)
@@ -279,4 +279,4 @@ i 1 3.3 5 78
 </CsoundSynthesizer
 ;example written by Iain McCurdy
 ~~~
- 
+

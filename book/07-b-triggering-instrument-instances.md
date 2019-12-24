@@ -6,8 +6,8 @@ Csound's Default System of Instrument Triggering Via Midi
 
 Csound has a default system for instrument triggering via midi. Provided
 a midi keyboard has been connected and the appropriate command line
-flags for midi input have been set (see 
-[configuring midi](02-c-configuring-midi.md) for further information), 
+flags for midi input have been set (see
+[configuring midi](02-c-configuring-midi.md) for further information),
 then midi notes received on midi
 channel 1 will trigger instrument 1, notes on channel 2 will trigger
 instrument 2 and so on. Instruments will turn on and off in sympathy
@@ -205,7 +205,7 @@ Using Multiple Triggering
 Csound's
 [event](https://csound.com/docs/manual/event.html)/
 [event\_i](https://csound.com/docs/manual/event_i.html)
-opcode (see the 
+opcode (see the
 [Triggering Instrument Events](03-f-live-events.md) chapter)
 makes it possible to trigger any other instrument from a midi-triggered
 one. As you can assign a fractional number to an instrument, you can
@@ -227,7 +227,7 @@ nchnls = 1
 0dbfs = 1
 
           massign   0, 1 ;assign all incoming midi to instr 1
-instr 1 ;global midi instrument, calling instr 2.cc.nnn 
+instr 1 ;global midi instrument, calling instr 2.cc.nnn
           ;(c=channel, n=note number)
 inote     notnum    ;get midi note number
 ichn      midichn   ;get midi channel
@@ -266,7 +266,7 @@ the line:
 
 to this:
 
-    if inote < 48 then
+    if inote < 48 then
      instrnum = 2
     elseif inote < 72 then
      instrnum = 3

@@ -59,7 +59,7 @@ Each of these sections is opened with a \<xyz\> tag and closed with a
 tag, and ends with \</CsoundSynthesizer\>. Only the text in-between will
 be used by Csound.
 
-   ***EXAMPLE 02B01\_DocStruct.csd*** 
+   ***EXAMPLE 02B01\_DocStruct.csd***
 
 ~~~
 <CsoundSynthesizer>; START OF A CSOUND FILE
@@ -89,8 +89,8 @@ i 1 0 1
 ~~~
 
 Comments, which are lines of text that Csound will ignore, are started
-with the \";\" character or two slashes \"//\". Multi-line comments can 
-be made by encasing them between \"/\*\" and  \"\*/\".
+with the \";\" character or two slashes \"//\". Multi-line comments can
+be made by encasing them between \"/\*\" and  \"\*/\".
 
 Opcodes
 -------
@@ -103,7 +103,7 @@ outputs. Each input or output is called, in programming terms, an
 *argument*. Opcodes always take input arguments on the right and
 output their results on the left, like this:
 
-    output    OPCODE    input1, input2, input3, .., inputN 
+    output    OPCODE    input1, input2, input3, .., inputN
 
 For example the
 [poscil](http://csound.github.io/docs/manual/html/poscil.html)
@@ -142,7 +142,7 @@ with variables when getting to know Csound is to imagine them as cables.
 
 If you want to patch this together:
 
-  Sound Generator -\> Filter -\> Output,
+  Sound Generator -\> Filter -\> Output,
 
 you need two cables, one going out from the generator into the filter
 and one from the filter to the output. The cables carry audio signals,
@@ -166,7 +166,7 @@ Other common variable types are **k** variables which store control
 signals, which are updated less frequently than audio signals, and **i**
 variables which are constants within each instrument note.
 
-You can find more information about variable types in chapter 
+You can find more information about variable types in chapter
 [03 B](03-b-local-and-global-variables.md) in this manual, or
 [here](http://csoundjournal.com/issue10/CsoundRates.html) in the
 Csound Journal.

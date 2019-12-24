@@ -24,11 +24,11 @@ Download and Install
 --------------------
 
 Cabbage is hosted on GitHub, and **pre-compiled binaries** for **Windows** and
-**OSX** can be found on the 
+**OSX** can be found on the
 [release](https://github.com/cabbageaudio/cabbage/releases)
 section of Cabbage's home page.
 If you run **Linux** you will need to build Cabbage yourself, but
-instructions are included with the source code. 
+instructions are included with the source code.
 You will **need to have Csound installed**.
 
 
@@ -72,7 +72,7 @@ interface will look but recent innovations facilitate the modification
 of widget appearance from within the Csound orchestra. This opens up
 interesting possibilities including dynamically hiding and showing parts
 of the GUI and moving and resizing widgets during performance
-time. Instruments can be exported as either effects or synths. Effects
+time. Instruments can be exported as either effects or synths. Effects
 process incoming audio, while synths won't produce any sound until they
 are triggered via the MIDI widget, or a MIDI keyboard. Cabbage makes no
 differentiation between synths and effects, but VST hosts do, so one
@@ -259,7 +259,7 @@ min, max and starting value of the sliders. If you compare the two score
 sections in the above instruments you will notice that the synth
 instrument does not use any i-statement. Instead it uses an f0 3600.
 This tells Csound to wait for 3600 seconds before exiting. (In recent
-versions of Csound this step is no longer necessary to sustain
+versions of Csound this step is no longer necessary to sustain
 performance.) Because synth instruments are controlled via MIDI we don't
 need to use an i-statement in the score. In the audio effect example we
 use an i-statement with a long duration so that the effect runs without
@@ -288,7 +288,7 @@ normal value channel).
 It is also possible to modify the contents of a some function tables
 that are represented using *gentable* by clicking and dragging upon their
 GUI representations. This feature is a work in progress and is currently
-only available with *GEN 02*, *05* and *07*. 
+only available with *GEN 02*, *05* and *07*.
 
 
 ### Soundfiler Widget
@@ -336,7 +336,7 @@ this is to type in score events in real time (exemplified in the example
 RealTimeScoreEvents in the the *Instructional* subsection in
 Cabbage's built-in examples.)
 
-### Plants and Popups 
+### Plants and Popups
 
 Cabbage *plants* provides a convenient mechanism with which GUI
 elements which belong together in some way can be grouped. An example of
@@ -366,9 +366,9 @@ Reserved channels in Cabbage provide a means of reading in a variety of
 data beyond that of the Cabbage GUI widgets. This includes providing a
 means of reading in mouse position and mouse button activations and also
 tempo, song position and start/stop/record status (if used as a plugin
-within a host). These channels are read using the chnset opcode. 
+within a host). These channels are read using the chnset opcode.
 
 More information on any of these features can be found in the Cabbage
 reference manual which comes built into Cabbage or can be found
-[here](http://thecabbagefoundation.org/documentation.php).  
+[here](http://thecabbagefoundation.org/documentation.php).
 

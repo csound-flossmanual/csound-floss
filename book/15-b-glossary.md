@@ -1,7 +1,7 @@
 15 B. GLOSSARY
 ==============
 
- 
+
 
 **control cycle**, **control period** or **k-loop** is a pass during the
 performance of an instrument, in which all k- and a-variables are
@@ -13,7 +13,7 @@ seconds. See the chapter about [Initialization And Performance
 Pass](http://en.flossmanuals.net/bin/view/Csound/InitAndPerfPass) for
 more information.
 
- 
+
 
 **control rate** or **k-rate**
 ([kr](https://csound.com/docs/manual/kr.html)) is the number of
@@ -24,11 +24,11 @@ number of samples in one control period
 rate is 44100 and your ksmps value is 10, your control rate is 4410, so
 you have 4410 control cycles per second.
 
- 
+
 
 **dummy f-statement** see **f-statement**
 
- 
+
 
 **f-statement** or **function table statement** is a score line which
 starts with a \"f\" and generates a function table. See the chapter
@@ -39,9 +39,9 @@ more information. A **dummy f-statement** is a statement like \"f 0
 generating any table, it serves just for running Csound for a certain
 time (here 3600 seconds = 1 hour).
 
- 
 
- 
+
+
 
 **FFT** Fast Fourier Transform is a system whereby audio data is stored
 or represented in the frequency domain as opposed to the time domain as
@@ -49,9 +49,9 @@ amplitude values as is more typical. Working with FFT data facilitates
 transformations and manipulations that are not possible, or are at least
 more difficult, with audio data stored in other formats.
 
- 
 
- 
+
+
 
 **GEN rountine** a GEN (generation) routine is a mechanism within Csound
 used to create function tables of data that will be held in RAM for all
@@ -61,13 +61,13 @@ special musical scale or an amplitude envelope. In the past function
 tables could only be created only in the Csound score but now they can
 also be created (and deleted and over-written) within the orchestra.
 
- 
+
 
 **GUI** Graphical User Interface refers to a system of on-screen
 sliders, buttons etc. used to interact with Csound, normally in
 realtime.
 
- 
+
 
 **i-time** or **init-time** or **i-rate** signify the time in which all
 the variables starting with an \"i\" get their values. These values are
@@ -76,11 +76,11 @@ just given once for an instrument call. See the chapter about
 Pass](http://en.flossmanuals.net/bin/view/Csound/InitAndPerfPass) for
 more information.
 
- 
+
 
 **k-loop** see **control cycle**
 
- 
+
 
 **k-time** is the time during the performance of an instrument, after
 the initialization. Variables starting with a \"k\" can alter their
@@ -89,13 +89,13 @@ And Performance
 Pass](http://en.flossmanuals.net/bin/view/Csound/InitAndPerfPass) for
 more information.
 
- 
+
 
 **k-rate** see **control rate**
 
- 
 
- 
+
+
 
 **opcode** the code word of a basic building block with which Csound
 code is written. As well as the opcode code word an opcode will commonly
@@ -103,7 +103,7 @@ provide output arguments (variables), listed to the left of the opcode,
 and input arguments (variables). listed to the right of the opcode. An
 opcode is equivalent to a \'ugen\' (unit generator) in other languages.
 
- 
+
 
 **orchestra** as in the Csound orchestra, is the section of Csound code
 where traditionally the instruments are written. In the past the
@@ -114,17 +114,17 @@ file. The orchestra will also normally contain header statements which
 will define global aspects of the Csound performance such as sampling
 rate.
 
- 
+
 
 **p-field** a \'p\' (parameter) field normally refers to a value
 contained within the list of values after an event item with the Csound
 score.
 
- 
+
 
 **performance pass** see **control cycle**
 
- 
+
 
 **score** as in the Csound score, is the section of Csound code where
 note events are written that will instruct instruments within the Csound
@@ -134,7 +134,7 @@ past the \'score\' was one of two text files along with the
 combine these two sections, along with other optional sections in a .csd
 (unified) Csound file.
 
- 
+
 
 **time stretching** can be done in various ways in Csound. See
 [sndwarp](https://csound.com/docs/manual/sndwarp.html),
@@ -145,9 +145,9 @@ combine these two sections, along with other optional sections in a .csd
 [pvsdiskin](https://csound.com/docs/manual/pvsdiskin.html) and the
 Granular Synthesis opcodes.
 
- 
 
- 
+
+
 
 **widget** normally refers to some sort of standard GUI element such as
 a slider or a button. GUI widgets normally permit some user
@@ -156,4 +156,4 @@ are available for the creation of widgets usable by Csound, from it own
 built-in FLTK widgets to those provided by front-ends such as CsoundQT,
 Cabbage and Blue.
 
- 
+

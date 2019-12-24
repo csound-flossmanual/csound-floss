@@ -205,7 +205,7 @@ i "k_global_read" 0 1
 
 So far we have discussed only arrays of numbers. It is also possible to
 have arrays of strings, which can be very useful in many situations, for
-instance while working with file paths.[^1]   Here is a very simple
+instance while working with file paths.[^1]   Here is a very simple
 example first, followed by a more extended one.
 
 [^1]:  You cannot currently have a mixture of numbers and strings in an
@@ -828,7 +828,7 @@ The array for receiving the slice must have been created in advance:
       kArr1   slicearray kArr, 0, 4        ;[1, 2, 3, 4, 5]
       kArr2   slicearray kArr, 5, 8        ;[6, 7, 8, 9]
 
- 
+
 
    ***EXAMPLE 03E09_slicearray.csd***
 
@@ -941,7 +941,7 @@ i 1 0 0.1
 ;example by joachim heintz
 ~~~
 
-   ***EXAMPLE 03E11_copya2ftab.csd*** 
+   ***EXAMPLE 03E11_copya2ftab.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1041,7 +1041,7 @@ Some care is needed to use these opcodes correctly:
 
 Here is an example that implements a spectral high-pass filter. The
 f-signal is written to an array and the amplitudes of the first 40 bins
-are then zeroed.[^4]  This is only done when a new frame writes its
+are then zeroed.[^4]  This is only done when a new frame writes its
 values to the array so as not to waste rendering power.
 
 [^4]:  As sample rate is here 44100, and fftsize is 2048, each bin has a
@@ -1107,7 +1107,7 @@ next example looks for the most prominent amplitudes in a frame, and
 then triggers another instrument.
 
 
-   ***EXAMPLE 03E13_fft_peaks_arpegg.csd***  
+   ***EXAMPLE 03E13_fft_peaks_arpegg.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1184,7 +1184,7 @@ i "getPeaks" 0 60
 </CsoundSynthesizer>
 ; Example by Tarmo Johannes
 ~~~
- 
+
 
 Math Operations
 ---------------
@@ -1200,7 +1200,7 @@ this is to store the result in a new array:
 
 Here is an example of array-scalar operations.
 
-   ***EXAMPLE 03E14_array_scalar_math.csd***  
+   ***EXAMPLE 03E14_array_scalar_math.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1355,7 +1355,7 @@ in a new array:
 
 Here is an example of array-array operations.
 
-   ***EXAMPLE 03E15_array_array_math.csd***   
+   ***EXAMPLE 03E15_array_array_math.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1454,7 +1454,7 @@ and optionally its index:
 
 Here is a simple example of these operations:
 
-   ***EXAMPLE 03E16_min_max_array.csd***   
+   ***EXAMPLE 03E16_min_max_array.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1513,7 +1513,7 @@ The opcode
 simply returns the sum of all values in an (numerical) array.
 Here is a simple example:
 
-   ***EXAMPLE 03E17_sumarray.csd***   
+   ***EXAMPLE 03E17_sumarray.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1559,7 +1559,7 @@ a minimum and a maximum value. These lines ...
 is a simple example:
 
 
-   ***EXAMPLE 03E18_scalearray.csd***   
+   ***EXAMPLE 03E18_scalearray.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1638,7 +1638,7 @@ Possible functions are for instance *abs*, *ceil*, *exp*, *floor*,
 *frac*, *int*, *log*, *log10*, *round*, *sqrt*. The following example
 applies different functions sequentially to the source array:
 
-   ***EXAMPLE 03E19_maparray.csd***   
+   ***EXAMPLE 03E19_maparray.csd***
 
 ~~~
 <CsoundSynthesizer>

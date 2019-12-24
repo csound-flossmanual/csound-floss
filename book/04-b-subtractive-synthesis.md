@@ -18,7 +18,7 @@ additive synthesis may not be as easy with subtractive synthesis but
 sounds can be created much more instinctively than is possible with
 additive or modulation synthesis.
 
- 
+
 
 A Csound Two-Oscillator Synthesizer
 -----------------------------------
@@ -30,7 +30,7 @@ been inspired by the design of the
 [Minimoog](http://en.wikipedia.org/wiki/Minimoog) synthesizer (1970) and
 other similar instruments.
 
-Each oscillator can describe either a sawtooth, 
+Each oscillator can describe either a sawtooth,
 [PWM](https://en.wikipedia.org/wiki/Pulse-width_modulation) waveform (i.e.
 square - pulse etc.) or white noise and each oscillator can be
 transposed in octaves or in cents with respect to a fundamental pitch.
@@ -213,7 +213,7 @@ e
 </CsoundSynthesizer>
 ;example by Iain McCurdy
 ~~~
- 
+
 
 Simulation of Timbres from a Noise Source
 -----------------------------------------
@@ -223,7 +223,7 @@ parallel to filter white noise. The bandpass filter bandwidths are
 narrowed to the point where almost pure tones are audible. The crucial
 difference is that the noise source always induces instability in the
 amplitude and frequency of tones produced - it is this quality that
-makes this sort of subtractive synthesis sound much more organic than a simple 
+makes this sort of subtractive synthesis sound much more organic than a simple
 additive synthesis equivalent.[^1] If the bandwidths are widened, then more
 of the characteristic of the noise source comes through and the tone
 becomes *airier* and less distinct; if the bandwidths are narrowed,
@@ -231,7 +231,7 @@ the resonating tones become clearer and steadier. By varying the
 bandwidths interesting metamorphoses of the resultant sound are
 possible.
 
-[^1]: It has been shown in the 
+[^1]: It has been shown in the
       [chapter about additive synthesis](04-a-additive-synthesis.md)
       how this quality can be applied to additive synthesis by
       slight random deviations.

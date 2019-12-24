@@ -18,7 +18,7 @@ A Quick Scanned Synth
 The quickest way to start using scanned synthesis is Matt Ingalls' opcode
 [scantable](https://csound.com/docs/manual/scantable.html).
 
-    a1 *scantable* iamp, kfrq, ipos, imass, istiff, idamp, ivel 
+    a1 *scantable* iamp, kfrq, ipos, imass, istiff, idamp, ivel
 
 The arguments *iamp* and *kfrq* should be familiar, amplitude and
 frequency respectively. The other arguments are f-table numbers
@@ -34,14 +34,14 @@ other with springs.
 In this example we will use 128 marbles in our system. To the Csound
 user, profiles are a series of f-tables that set up the
 [scantable](https://csound.com/docs/manual/scantable.html)
-opcode. To the opcode, these f-tables influence the dynamic behavior of
+opcode. To the opcode, these f-tables influence the dynamic behavior of
 the table read by a table-lookup oscillator.
 
-    gipos ftgen 1, 0, 128, 10, 1 ;Initial Shape: Sine wave range -1 to 1 
-    gimass ftgen 2, 0, 128, -7, 1, 1 ;Masses: Constant value 1 
-    gistiff ftgen 3, 0, 128, -7, 50, 64, 100, 64, 0 ;Stiffness: Unipolar triangle range to 100 
-    gidamp ftgen 4, 0, 128, -7, 1, 128, 1 ;Damping: Constant value 1 
-    givel ftgen 5, 0, 128, -7, 0, 128, 0 ;Initial Velocity: Constant value 0 
+    gipos ftgen 1, 0, 128, 10, 1 ;Initial Shape: Sine wave range -1 to 1
+    gimass ftgen 2, 0, 128, -7, 1, 1 ;Masses: Constant value 1
+    gistiff ftgen 3, 0, 128, -7, 50, 64, 100, 64, 0 ;Stiffness: Unipolar triangle range to 100
+    gidamp ftgen 4, 0, 128, -7, 1, 128, 1 ;Damping: Constant value 1
+    givel ftgen 5, 0, 128, -7, 0, 128, 0 ;Initial Velocity: Constant value 0
 
 These tables need to be the same size as each other or Csound will
 return an error.
@@ -207,7 +207,7 @@ e
 In this .csd, the score plays instrument 1, a normal buzz sound, and
 then the score plays instrument 2 -- the same buzz sound re-synthesized
 with amplitudes of each of the 128 frequency bands, controlled by a
-dynamic f-table. 
+dynamic f-table.
 
 
 A More Flexible Scanned Synth
@@ -228,9 +228,9 @@ table in ways a table-lookup oscillator cannot.
 
 *Scanu* takes 18 arguments and sets a table into motion.
 
-     *scanu* ipos, irate, ifnvel, ifnmass, ifnstif, ifncentr, ifndamp, kmass, kstif, kcentr, kdamp, ileft, iright, kpos, kstrngth, ain, idisp, id 
+     *scanu* ipos, irate, ifnvel, ifnmass, ifnstif, ifncentr, ifndamp, kmass, kstif, kcentr, kdamp, ileft, iright, kpos, kstrngth, ain, idisp, id
 
-For a detailed description of what each argument does, see the 
+For a detailed description of what each argument does, see the
 [Csound Reference Manual](https://csound.com/docs/manual/scanu.html);
 I will discuss the various types of arguments in the opcode.
 
@@ -277,7 +277,7 @@ uses a circular string.
 The matrix is described in a simple ASCII file, imported into Csound via
 a GEN23 generated f-table.
 
-    f3 0 16384 -23 "string-128" 
+    f3 0 16384 -23 "string-128"
 
 This text file **must** be located in the same directory as your .csd or
 csound will give you this error
@@ -310,7 +310,7 @@ more information on this.
 ### The Hammer
 
 If the initial shape, an f-table specified by the *ipos* argument
-determines the shape of the initial contents in our dynamic table. 
+determines the shape of the initial contents in our dynamic table.
 What if we want to "reset" or "pluck" the
 table, perhaps with a shape of a square wave instead of a sine wave,
 while the instrument is playing?
@@ -363,14 +363,14 @@ f 1 7 128 21 6 5.745
 
 You'll get the warning
 
-    WARNING: replacing previous ftable 1 
+    WARNING: replacing previous ftable 1
 
 which means this method of hammering the string is
 working. In fact you could use this method to explore and hammer every
 possible GEN routine in Csound.
-[GEN10](https://csound.com/docs/manual/GEN10.html) (sines), 
-[GEN 21](https://csound.com/docs/manual/GEN21.html) (noise) and 
-[GEN 27](https://csound.com/docs/manual/GEN27.html) (breakpoint functions) 
+[GEN10](https://csound.com/docs/manual/GEN10.html) (sines),
+[GEN 21](https://csound.com/docs/manual/GEN21.html) (noise) and
+[GEN 27](https://csound.com/docs/manual/GEN27.html) (breakpoint functions)
 could keep you occupied for a while.
 
 Unipolar waves have a different sound but a loss in volume can occur.
@@ -378,7 +378,7 @@ There is a way to do this with
 [scanu](https://csound.com/docs/manual/scanu.html),
 but I do not use this feature and just use these values instead.
 
-     ileft = 0. iright = 1. kpos = 0. kstrngth = 0. 
+     ileft = 0. iright = 1. kpos = 0. kstrngth = 0.
 
 
 More on Profiles
@@ -434,7 +434,7 @@ this with a simple audio rate argument. Be careful with the amplitude again.
 To bypass audio injection all together, simply assign 0 to an a-rate
 variable.
 
-     ain = 0 
+     ain = 0
 
 and use this variable as the argument.
 
@@ -498,7 +498,7 @@ i 1 0 4
 </CsoundSynthesizer>
 ;example by Christopher Saunders
 ~~~
- 
+
 
 But what if we wanted to read the table indices back to front, or even
 "out of order"? Well we could do something like this:
@@ -533,7 +533,7 @@ i 1 0 4
 </CsoundSynthesizer>
 ;example by Christopher Saunders
 ~~~
- 
+
 
 We are still dealing with 2-dimensional arrays, or f-tables as we know
 them. But if we remember back to our conversation about the scanned
@@ -547,14 +547,14 @@ telling the phasor/table combination to read values non-consecutively.
 We could read these values, not left to right, but in a spiral order, by
 specifying a table to be the *ifntraj* argument of *scans*.
 
-    a3 *scans* iamp, kpch, ifntraj ,id , interp 
+    a3 *scans* iamp, kpch, ifntraj ,id , interp
 
 An f-table for the spiral method can generated by reading the ASCII file
 *spiral-8,16,128,2,1over2* by GEN23
 
-    f2 0 128 -23 "spiral-8,16,128,2,1over2" 
+    f2 0 128 -23 "spiral-8,16,128,2,1over2"
 
- 
+
 
 The following .csd requires that the files *circularstring-128* and
 *spiral-8,16, 128,2,1over2* be located in the same directory as the
@@ -612,7 +612,7 @@ i 1 10 5
 </CsoundSynthesizer>
 ;example by Christopher Saunders
 ~~~
- 
+
 
 Notice that the scan trajectory has an FM-like effect on the sound.
 
@@ -669,7 +669,7 @@ istrngth = 0.
 ain = 0
 idisp = 0
 id = 8
-        
+
 scanu 1, irate, ifnvel, ifnmass, ifnstif, ifncentr, ifndamp, imass, istif, icentr, idamp, ileft, iright, ipos, istrngth, ain, idisp, id
 scanu 1,.007,6,2,3,4,5, 2, 1.10 ,.10 ,0 ,.1 ,.5, 0, 0,ain,1,2;
 iamp = .2
@@ -691,7 +691,7 @@ i 1 10 5
 </CsoundSynthesizer>
 ;example by Christopher Saunders
 ~~~
- 
+
 When using smaller size tables it may be necessary to use interpolation
 to avoid the artifacts of a small table. *scans* gives us this option as
 a fifth optional argument, *iorder,* detailed in the reference manual
@@ -775,7 +775,7 @@ i 1 0 5
 </CsoundSynthesizer>
 ;example by Christopher Saunders
 ~~~
- 
+
 
 The extreme volume of this .csd comes from a value given to scanu
 
@@ -856,7 +856,7 @@ i 1 0 5
 </CsoundSynthesizer>
 ;example by Christopher Saunders
 ~~~
- 
+
 
 It must be emphasized that this is merely a safeguard. We still get
 samples out of range when we run this .csd, but many less than if we had

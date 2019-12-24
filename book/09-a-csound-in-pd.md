@@ -1,7 +1,7 @@
 09 A. CSOUND IN PD
 ==================
 
-Installing 
+Installing
 ----------
 
 You can embed Csound in PD via the external object **csound6~**
@@ -13,8 +13,8 @@ repository you can also find all the .csd and .pd files of this chapter.
 On **Ubuntu Linux**, you can install the csound6~ via the Synaptic
 Package Manager. Just look for *csound6~* or *pd-csound*, check
 *install*, and your system will install the library at the appropriate
-location. If you build Csound from sources, go to the 
-[csound_pd repository](https://github.com/csound/csound_pd) 
+location. If you build Csound from sources, go to the
+[csound_pd repository](https://github.com/csound/csound_pd)
 and follow the build instructions.
 Once it is compiled, the object will appear as *csound6~.pd_linux* and
 should be copied (together with *csound6~-help.pd*) to */usr/lib/pd/extra*,
@@ -101,7 +101,7 @@ depend on the number of input channels used in the Csound orchestra. The
 following .csd uses two audio inputs:
 
 
-   ***EXAMPLE 09A02_pdcs_live_in.csd ***
+   ***EXAMPLE 09A02_pdcs_live_in.csd ***
 
 ~~~
 <CsoundSynthesizer>
@@ -159,7 +159,7 @@ therefore a greater number of stronger partials will be created. The
 ratio is calculated randomly between two limits, which can be adjusted.
 
 
-   ***EXAMPLE 09A03_pdcs_midi.csd ***
+   ***EXAMPLE 09A03_pdcs_midi.csd ***
 
 ~~~
 <CsOptions>
@@ -253,7 +253,7 @@ second element. You can get the values by a *route* object or by a
 ![](../resources/images/09-a-pd7.png)
 
 
-***EXAMPLE 09A05_pdcs_control_out.csd ***
+***EXAMPLE 09A05_pdcs_control_out.csd ***
 
 ~~~
 <CsoundSynthesizer>
@@ -279,14 +279,14 @@ i 1 0 30
 </CsoundSynthesizer>
 ;example by joachim heintz
 ~~~
- 
+
 
 Send/Receive Buffers from PD to Csound and back
 -----------------------------------------------
 
 A PD array can be sent directly to Csound, and a Csound function table
 to PD. The message *tabset array-name ftable-number* copies a
-PD array into a Csound function table. The message 
+PD array into a Csound function table. The message
 *tabget array-name ftable-number* copies a Csound function table into a PD
 array. The example below should explain everything. Just choose another
 soundfile instead of *stimme.wav*.

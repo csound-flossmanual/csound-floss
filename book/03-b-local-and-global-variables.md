@@ -12,7 +12,7 @@ understand the differences between these types. There are
     event. They start with the character **i**. To this group count also
     the score parameter fields, which always starts with a **p**,
     followed by any number: *p1* refers to the first parameter field in
-    the score, *p2* to the second one, and so on. 
+    the score, *p2* to the second one, and so on.
 -   **control** variables, which are updated at each control cycle
     during the performance of an instrument. They start with the
     character **k**.
@@ -37,7 +37,7 @@ which are used for spectral processing:
 The following example exemplifies all the variable types (except the
 w-type):
 
-   ***EXAMPLE 03B01\_Variable\_types.csd***   
+   ***EXAMPLE 03B01\_Variable\_types.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -114,11 +114,11 @@ connect the output from an opcode to the input of another. The type of
 connector (audio, control, etc.) is determined by the first letter of
 its name.
 
-For a more detailed discussion, see the article 
-[An overview Of Csound Variable Types](http://csoundjournal.com/issue10/CsoundRates.html) 
-by Andrés Cabrera in the 
+For a more detailed discussion, see the article
+[An overview Of Csound Variable Types](http://csoundjournal.com/issue10/CsoundRates.html)
+by Andrés Cabrera in the
 [Csound Journal](http://csoundjournal.com/index.html), and the
-page about 
+page about
 [Types, Constants and Variables](https://csound.com/docs/manual/OrchKvar.html) in the
 [Canonical Csound Manual](https://csound.com/docs/manual/index.html).
 
@@ -130,7 +130,7 @@ they are defined. They are **local** variables. In the following
 example, the variables in instrument 1 and instrument 2 have the same
 names, but different values.
 
-   ***EXAMPLE 03B02\_Local\_scope.csd***    
+   ***EXAMPLE 03B02\_Local\_scope.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -200,31 +200,31 @@ This is the output (first the output at init-time by the print opcode,
 then at each k-cycle the output of printk and the two printf opcodes):
 
     new alloc for instr 1:
-    instr 1:  iMyVar = 1.000
-     i   1 time     0.10000:     1.00000
+    instr 1:  iMyVar = 1.000
+     i   1 time     0.10000:     1.00000
     This string is updated just at init-time: kMyVar = 0
     This string is updated at k-time: kMyVar = 1
-     i   1 time     0.20000:     2.00000
+     i   1 time     0.20000:     2.00000
     This string is updated just at init-time: kMyVar = 0
     This string is updated at k-time: kMyVar = 2
-     i   1 time     0.30000:     3.00000
+     i   1 time     0.30000:     3.00000
     This string is updated just at init-time: kMyVar = 0
     This string is updated at k-time: kMyVar = 3
-     B  0.000 ..  1.000 T  1.000 TT  1.000 M:  0.20000  0.20000
+     B  0.000 ..  1.000 T  1.000 TT  1.000 M:  0.20000  0.20000
     new alloc for instr 2:
-    instr 2:  iMyVar = 101.000
-     i   2 time     1.10000:   101.00000
+    instr 2:  iMyVar = 101.000
+     i   2 time     1.10000:   101.00000
     This string is updated just at init-time: kMyVar = 100
     This string is updated at k-time: kMyVar = 101
-     i   2 time     1.20000:   102.00000
+     i   2 time     1.20000:   102.00000
     This string is updated just at init-time: kMyVar = 100
     This string is updated at k-time: kMyVar = 102
-     i   2 time     1.30000:   103.00000
+     i   2 time     1.30000:   103.00000
     This string is updated just at init-time: kMyVar = 100
     This string is updated at k-time: kMyVar = 103
-    B  1.000 ..  1.300 T  1.300 TT  1.300 M:  0.29998  0.29998
+    B  1.000 ..  1.300 T  1.300 TT  1.300 M:  0.29998  0.29998
 
- 
+
 
 Global Scope
 ------------
@@ -234,7 +234,7 @@ instrument, you must define them as **global**. This is done by
 prefixing the character **g** before the types i, k, a or S. See the
 following example:
 
-   ***EXAMPLE 03B03\_Global\_scope.csd***    
+   ***EXAMPLE 03B03\_Global\_scope.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -291,25 +291,25 @@ The output shows the global scope, as instrument 2 uses the values which
 have been changed by instrument 1 in the same control cycle:
 
     new alloc for instr 1:
-    instr 1:  giMyVar = 1.000
+    instr 1:  giMyVar = 1.000
     new alloc for instr 2:
-    instr 2:  giMyVar = 2.000
-     i   1 time     0.10000:     1.00000
+    instr 2:  giMyVar = 2.000
+     i   1 time     0.10000:     1.00000
     This string is updated just at init-time: gkMyVar = 0
     This string is updated at k-time: gkMyVar = 1
-     i   2 time     0.10000:     2.00000
+     i   2 time     0.10000:     2.00000
     Instr 1 tells: 'This string is updated just at init-time: gkMyVar = 0'
     Instr 1 tells: 'This string is updated at k-time: gkMyVar = 1'
-     i   1 time     0.20000:     3.00000
+     i   1 time     0.20000:     3.00000
     This string is updated just at init-time: gkMyVar = 0
     This string is updated at k-time: gkMyVar = 3
-     i   2 time     0.20000:     4.00000
+     i   2 time     0.20000:     4.00000
     Instr 1 tells: 'This string is updated just at init-time: gkMyVar = 0'
     Instr 1 tells: 'This string is updated at k-time: gkMyVar = 3'
-     i   1 time     0.30000:     5.00000
+     i   1 time     0.30000:     5.00000
     This string is updated just at init-time: gkMyVar = 0
     This string is updated at k-time: gkMyVar = 5
-     i   2 time     0.30000:     6.00000
+     i   2 time     0.30000:     6.00000
     Instr 1 tells: 'This string is updated just at init-time: gkMyVar = 0'
     Instr 1 tells: 'This string is updated at k-time: gkMyVar = 5'
 
@@ -330,7 +330,7 @@ the next examples and just go to the last one of this section.
 It should be understood first that a global audio variable is treated
 the same by Csound if it is applied like a local audio signal:
 
-   ***EXAMPLE 03B04\_Global\_audio\_intro.csd***     
+   ***EXAMPLE 03B04\_Global\_audio\_intro.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -366,7 +366,7 @@ higher number using the same variable name. In the following example,
 you will just hear a 600 Hz sine tone, because the 400 Hz sine of
 instrument 1 is overwritten by the 600 Hz sine of instrument 2:
 
-   ***EXAMPLE 03B05\_Global\_audio\_overwritten.csd***      
+   ***EXAMPLE 03B05\_Global\_audio\_overwritten.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -407,7 +407,7 @@ global audio signal to its previous state which can cause some trouble.
 Let's first see a simple example of a control signal to understand what
 is happening:
 
-   ***EXAMPLE 03B06\_Global\_audio\_added.csd***       
+   ***EXAMPLE 03B06\_Global\_audio\_added.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -437,7 +437,7 @@ because it adds the kAdd signal (which is always 1) in each k-pass to
 its previous state. It is no different if this is done by a local
 k-signal, like here, or by a global k-signal, like in the next example:
 
-   ***EXAMPLE 03B07\_Global\_control\_added.csd***        
+   ***EXAMPLE 03B07\_Global\_control\_added.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -477,16 +477,16 @@ sample.
 
 So, if you add an audio signal to its previous state, different things
 can happen, depending on the vector's present and previous states. If
-both previous and present states (with ksmps=9) are 
-\[0 0.1 0.2 0.1 0 -0.1 -0.2 -0.1 0\] 
-you will get a signal which is twice as strong: 
+both previous and present states (with ksmps=9) are
+\[0 0.1 0.2 0.1 0 -0.1 -0.2 -0.1 0\]
+you will get a signal which is twice as strong:
 \[0 0.2 0.4 0.2 0 -0.2 -0.4 -0.2 0\]. But if the present state is opposite
 \[0 -0.1 -0.2 -0.1 0 0.1 0.2 0.1 0\], you will only get zeros when you
 add them. This is shown in the next example with a local audio variable,
 and then in the following example with a global audio variable.
 
-   ***EXAMPLE 03B08\_Local\_audio\_add.csd***     
-    
+   ***EXAMPLE 03B08\_Local\_audio\_add.csd***
+
 ~~~
 <CsoundSynthesizer>
 <CsOptions>
@@ -519,21 +519,21 @@ i 1 0 1
 ;example by joachim heintz
 ~~~
 
- prints:
+ prints:
 
-     i   1 time     0.10000:     0.10000
-     i   1 time     0.20000:     0.20000
-     i   1 time     0.30000:     0.30000
-     i   1 time     0.40000:     0.40000
-     i   1 time     0.50000:     0.50000
-     i   1 time     0.60000:     0.60000
-     i   1 time     0.70000:     0.70000
-     i   1 time     0.80000:     0.79999
-     i   1 time     0.90000:     0.89999
-     i   1 time     1.00000:     0.99999
+     i   1 time     0.10000:     0.10000
+     i   1 time     0.20000:     0.20000
+     i   1 time     0.30000:     0.30000
+     i   1 time     0.40000:     0.40000
+     i   1 time     0.50000:     0.50000
+     i   1 time     0.60000:     0.60000
+     i   1 time     0.70000:     0.70000
+     i   1 time     0.80000:     0.79999
+     i   1 time     0.90000:     0.89999
+     i   1 time     1.00000:     0.99999
 
 
-   ***EXAMPLE 03B09\_Global\_audio\_add.csd***         
+   ***EXAMPLE 03B09\_Global\_audio\_add.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -602,9 +602,9 @@ first, and then clear them in an \"always on\" instrument with the
 highest number of all the instruments used. This is an example of a
 typical situation:
 
- 
 
-   ***EXAMPLE 03B10\_Global\_with\_clear.csd***
+
+   ***EXAMPLE 03B10\_Global\_with\_clear.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -679,13 +679,13 @@ i 100 0 20
 </CsoundSynthesizer>
 ;example by joachim heintz
 ~~~
- 
+
 
 The *chn* Opcodes for Global Variables
 ----------------------------------------
 
 Instead of using the traditional g-variables for any values or signals
-which are to transfer between several instruments, many users prefer 
+which are to transfer between several instruments, many users prefer
 to use the [chn](https://csound.com/docs/manual/chn.html) opcodes.
 An i-, k-, a- or S-value or signal can be set by
 [chnset](https://csound.com/docs/manual/chnset.html) and received by
@@ -698,7 +698,7 @@ clearing an audio variable, the
 [chnclear](https://csound.com/docs/manual/chnclear.html) opcode can
 be used.
 
-   ***EXAMPLE 03B11\_Chn\_demo.csd*** 
+   ***EXAMPLE 03B11\_Chn\_demo.csd***
 
 ~~~
 <CsoundSynthesizer>

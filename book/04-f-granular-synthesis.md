@@ -59,7 +59,7 @@ beginning and ending of each grain.
 Granular synthesis in which grain generation occurs with perceivable
 periodicity is referred to as synchronous granular synthesis. Granular
 synthesis in which this periodicity is not evident is referred to as
-asynchronous granular synthesis. 
+asynchronous granular synthesis.
 
    ***EXAMPLE 04F01_GranSynth_basic.csd***
 
@@ -127,7 +127,7 @@ crucial element in defining a vowel imitation is the degree to which the
 source material within each of the five grain streams is transposed.
 Bandwidth (essentially grain duration) and intensity (loudness) of each
 grain stream are also important indicators in defining the resultant
-sound. 
+sound.
 
 Csound has a number of opcodes that make working with FOF synthesis
 easier. We will be using
@@ -278,7 +278,7 @@ instr 1
   kBW4     tablei    kVow*5,giBF1+(iVoice*15)+13
   kBW5     tablei    kVow*5,giBF1+(iVoice*15)+14
   ; create resonant formants using fof opcode
-  koct     =         1  
+  koct     =         1
   aForm1   fof       ampdb(kDB1),kFund,kForm1,0,kBW1,0.003,0.02,0.007,\
                        1000,gisine,giexp,3600
   aForm2   fof       ampdb(kDB2),kFund,kForm2,0,kBW2,0.003,0.02,0.007,\
@@ -419,15 +419,15 @@ Several parameters are modulated slowly using Csound's random spline
 generator [rspline](https://csound.com/docs/manual/rspline.html).
 These parameters are formant frequency, grain duration and grain density
 (rate of grain generation). The waveform used in generating the content
-for each grain is randomly chosen using a slow 
-[sample and hold](http://en.wikipedia.org/wiki/Sample_and_hold) 
+for each grain is randomly chosen using a slow
+[sample and hold](http://en.wikipedia.org/wiki/Sample_and_hold)
 random function - a
 new waveform will be selected every 10 seconds. Five waveforms are
 provided: a sawtooth, a square wave, a triangle wave, a pulse wave and a
 band limited buzz-like waveform. Some of these waveforms, particularly
 the sawtooth, square and pulse waveforms, can generate very high
 overtones, for this reason a high sample rate is recommended to reduce
-the risk of aliasing (see chapter 
+the risk of aliasing (see chapter
 [01A](01-a-digital-audio.md)).
 
 Current values for formant (cps), grain duration, density and waveform
@@ -558,7 +558,7 @@ synthesis, [fof](https://csound.com/docs/manual/fof.html) and
 [grain3](https://csound.com/docs/manual/grain3.html), have been
 used; it is beyond the scope of this work to cover all of the many
 opcodes for granulation that Csound provides. This chapter has focused
-mainly on synchronous granular synthesis; chapter 
+mainly on synchronous granular synthesis; chapter
 [05G](05-g-granular-synthesis.md), which introduces
 granulation of recorded sound files, makes greater use of asynchronous
 granular synthesis for time-stretching and pitch shifting. This chapter

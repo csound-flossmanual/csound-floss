@@ -49,7 +49,7 @@ First we will consider communication between an Arduino (running a
 Standard Firmata) and Pd. Later we can consider the options for further
 communication from Pd to Csound.
 
-Assuming that the 
+Assuming that the
 [Arduino IDE](https://www.arduino.cc/en/main/software) (integrated
 development environment) has been installed and that the Arduino has
 been connected, we should then open and upload a Firmata sketch. One can
@@ -87,7 +87,7 @@ argument, we shall assume in this tutorial that we are setting the
 Arduino as a hardware controller and have a potentiometer connected to
 pin 0.
 
-![](../resources/images/08-b-poton0.png) 
+![](../resources/images/08-b-poton0.png)
 
 This picture below demonstrates a simple Pd patch that uses Pduino's
 objects to receive communication from Arduino's analog and digital
@@ -157,7 +157,7 @@ opcodes and audio is passed back to Pd from Csound using
 [outs](https://csound.com/docs/manual/outs.html). Note that
 Csound does not address the computer's audio hardware itself but merely
 passes audio signals back to Pd. Greater detail about using Csound
-within Pd can be found in the chapter 
+within Pd can be found in the chapter
 [Csound in Pd](09-a-csound-in-pd.md).
 
 A disadvantage of using the method is that in order to modify the Csound
@@ -169,7 +169,7 @@ Another method of data communication between PD and Csound could be to
 use MIDI. In this case some sort of MIDI connection node or virtual
 patchbay will need to be employed. On Mac this could be the IAC driver,
 on Windows this could be [MIDI Yoke](http://www.midiox.com)
-and on Linux this could be [Jack](https://jackaudio.org/). 
+and on Linux this could be [Jack](https://jackaudio.org/).
 This method will have the disadvantage
 that the Arduino's signal might have to be quantised in order to match
 the 7-bit MIDI controller format but the advantage is that Csound's
@@ -212,7 +212,7 @@ Arduino and transmitting this as OSC data within the computer.
 The OSC data sent by Processing can be read by Csound using its own OSC
 opcodes. The following example simply reads in data transmitted by
 Arduino's analog pin 0 and prints changed values to the terminal. To
-read in data from all analog and digital inputs you can use Iain McCurdy's 
+read in data from all analog and digital inputs you can use Iain McCurdy's
 [Arduino_Processing_OSC_Csound.csd](../resources/SourceMaterials/Arduino_Processing_OSC_Csound.csd).
 
    ***EXAMPLE 08B02_Processing_to_Csound.csd***
@@ -265,13 +265,13 @@ this all that is required is to connect MIDI pin 4 to the Arduino's 5v
 via a 200k resistor, to connect MIDI pin 5 to the Arduino's TX (serial
 transmit) pin/pin 1 and to connect MIDI pin 2 to ground, as shown below.
 In order to program the Arduino it will be necessary to install
-Arduino's 
+Arduino's
 [MIDI library](http://playground.arduino.cc/Main/MIDILibrary).
 
 ![](../resources/images/08-b-midi-bb.png)
 
 
-Programming an Arduino to generate a MIDI controller signal from analog
+Programming an Arduino to generate a MIDI controller signal from analog
 pin 0 could be done using the following code:
 
     // example written by Iain McCurdy
@@ -335,7 +335,7 @@ this:
 
     void loop()
     {
-      // only do something if we received something 
+      // only do something if we received something
       // (this should be at csound's k-rate)
       if (Serial.available())
       {
@@ -484,7 +484,7 @@ that clearly marks the beginning of a message received by Csound. The
 remaining bytes of the message will all have a most significant bit
 equal to zero (value \< 128). The sensor values are transmitted as ID,
 length (number of data bytes), and the data itself. The recursive
-function *serial_send_recursive* counts the number of data bytes
+function *serial_send_recursive* counts the number of data bytes
 necessary and sends the bytes in the correct order. Only one sensor
 value is transmitted for each run through the Arduino loop.
 

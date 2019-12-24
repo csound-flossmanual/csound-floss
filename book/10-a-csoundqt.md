@@ -49,18 +49,18 @@ See chapter [Csound and Html](12-g-csound-and-html.md) for more information.
 
 CsoundQt also offers convenient facilities for score editing in a
 spreadsheet like environment which can be transformed using Python
-scripting (see also the chapter about 
+scripting (see also the chapter about
 [Python in CsoundQt](14-b-python-in-csoundqt.md)).
 
 ![](../resources/images/10-a-snapshot3.png)
 
-You will find more detailed information at 
+You will find more detailed information at
 [CsoundQt's home page](https://csoundqt.github.io).
 
 
-### Configuring CsoundQt 
+### Configuring CsoundQt
 
-CsoundQt gives easy access to the most important 
+CsoundQt gives easy access to the most important
 [Csound options](https://csound.com/docs/manual/CommandFlags.html) and to
 many specific CsoundQt settings via its Configuration Panel. In
 particular the *Run* tab offers many choices which have to be

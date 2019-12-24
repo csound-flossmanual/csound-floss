@@ -19,7 +19,7 @@ intensity $I_0$ as follows:
 $$\log_{10} \frac{I}{I_0}$$
 $$\textit{Sound Intensity Level in Bel}$$
 
-If, for example, the ratio $I/I_0$ is 10, this is 1 Bel.
+If, for example, the ratio $I/I_0$ is 10, this is 1 Bel.
 If the ratio is 100, this is 2 Bel.
 
 For real world sounds, it makes sense to set the reference value $I_0$
@@ -88,7 +88,7 @@ The most useful thing to bear in mind is that when we double an
 amplitude this will provide a change of +6 dB, or when we halve an
 amplitude this will provide a change in of -6 dB.
 
- 
+
 
 What is 0 dB?
 -------------
@@ -126,7 +126,7 @@ not 1 but 32768. So you must have this *0dbfs=1* statement in your
 header if you want to use the amplitude convention used by most modern
 audio programming environments.
 
- 
+
 
 dB Scale Versus Linear Amplitude
 --------------------------------
@@ -139,7 +139,7 @@ equivalent. The following example shows a linear rise of the amplitudes
 from 0 to 1, and then a linear rise of the dB's from -80 to 0 dB, both
 over 10 seconds.
 
-   ***EXAMPLE 01C01\_db\_vs\_linear.csd*** 
+   ***EXAMPLE 01C01\_db\_vs\_linear.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -181,7 +181,7 @@ as rising quickly in intensity with the rate of increase slowing
 quickly. The second note, which employs a linear rise in decibels, is
 perceived as a more constant rise in intensity.
 
- 
+
 
 RMS Measurement
 ---------------
@@ -207,7 +207,7 @@ The mean of these values is:
 
 \[frac{0+0.146+0.5+0.854+1+0.854+0.5+0.146+0+0.146+0.5+0.854+1+0.854+0.5+0.146}{16} = \frac{8}{16} = 0.5\]
 
-And the resulting RMS value is $\sqrt{0.5} = 0.707$. 
+And the resulting RMS value is $\sqrt{0.5} = 0.707$.
 
 The [rms](http://www.csound.com/docs/manual/rms.html) opcode in Csound
 calculates the RMS power in a certain time span, and smoothes the values
@@ -218,7 +218,7 @@ system, in which the rms opcode prevents the system from exploding. Each
 time the rms value exceeds a certain value, the amount of feedback is
 reduced. This is an example^[cf Martin Neukom, Signale Systeme Klangsynthese, Zürich 2003, p.383]\:
 
-   ***EXAMPLE 01C02_rms_feedback_system.csd***  
+   ***EXAMPLE 01C02_rms_feedback_system.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -263,7 +263,7 @@ i 1 61 . 2          ;two random movements of delay with feedback
 ~~~
 
 
- 
+
 
 Fletcher-Munson Curves
 ----------------------
@@ -272,7 +272,7 @@ The range of human hearing is roughly from 20 to 20000 Hz, but within
 this range, the hearing is not equally sensitive to intensity. The most
 sensitive region is around 3000 Hz. If a sound is operating in the upper
 or lower limits of this range, it will need greater intensity in order
-to be perceived as equally loud. 
+to be perceived as equally loud.
 
 These curves of equal loudness are mostly called *Fletcher-Munson
 Curves* because of the paper of H. Fletcher and W. A. Munson in 1933.
@@ -293,7 +293,7 @@ this test will also depend upon the quality of your speaker hardware. If
 your speakers do not provide adequate low frequency response, you will
 not hear anything in the bass region.
 
-   ***EXAMPLE 01C03_FletcherMunson.csd***   
+   ***EXAMPLE 01C03_FletcherMunson.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -325,7 +325,7 @@ i 1 6 20 20  20000
 It is very important to bear in mind when designing instruments that the
 perceived loudness of a sound will depend upon its frequency content.
 You must remain aware that projecting a 30 Hz sine at a certain
-amplitude will be perceived differently to a 3000 Hz sine at the same
-amplitude; the latter will sound much louder.  
+amplitude will be perceived differently to a 3000 Hz sine at the same
+amplitude; the latter will sound much louder.
 
- 
+

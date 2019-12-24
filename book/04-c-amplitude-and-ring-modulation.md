@@ -9,13 +9,13 @@ In *Amplitude Modulation* (AM) the amplitude of a *Carrier* oscillator is modula
 ![<small>*Basic Model of Amplitude Modulation*</small>](../resources/images/04-c-am.png){width=50%}
 
 If this modulation is in the sub-audio range (less than 15 Hz), it is perceived
-as periodic volume modification.[^1] 
+as periodic volume modification.[^1]
 Volume-modulation above approximately 15 Hz are perceived as timbre changes. So called *sidebands* appear. This transition is showed in the following example. The modulation frequency starts at 2 Hz and moves over 20 seconds to 100 Hz.
 
-[^1]: For classical string instruments there is a *bow vibrato* which 
+[^1]: For classical string instruments there is a *bow vibrato* which
       resembles this effect. If the *DC Offset* is weak in comparison
       to the modulation output, the comparison in classical music is
-      the *tremolo* effect. Also *pulsation* is often used to describe 
+      the *tremolo* effect. Also *pulsation* is often used to describe
       AM with low frequencies.
 
 
@@ -52,7 +52,7 @@ i 1 0 25
 Theory, Mathematics and Sidebands
 ---------------------------------
 
-The sidebands appear on both sides of the carrier frequency $f_c$. 
+The sidebands appear on both sides of the carrier frequency $f_c$.
 The frequency of the side bands is the sum and the difference between the carrier frequency and the modulator frequency: $f_c - f_m$ and $f_c + f_m$. The amplitude of each sideband is half of the modulator's amplitude.
 
 So the sounding result of the following example can be calculated as this:
@@ -112,7 +112,7 @@ At the end of this example, when the *DC Offset* was zero, we reached Ring Modul
 
 If Ring Modulation happens in the sub-audio domain (less than 10 Hz), it will be perceived as *tremolo*.[^3] If it happens in the audio-domain, we get a sound with *only* the sidebands.
 
-[^3]: Note that the frequency of this tremolo in RM will be perceived twice as 
+[^3]: Note that the frequency of this tremolo in RM will be perceived twice as
       much as the frequency in AM because every half sine in the modulating
       signal is perceived as an own period.
 

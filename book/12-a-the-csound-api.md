@@ -54,17 +54,17 @@ Here, we get a pointer to a Csound object instead of the csound opaque pointer. 
 
 Before we begin to look at how to control Csound in real time we need to look at threads. Threads are used so that a program can split itself into two or more simultaneously running tasks. Multiple threads can be executed in parallel on many computer systems. The advantage of running threads is that you do not have to wait for one part of your software to finish executing before you start another.
 
-In order to control aspects of your instruments in real time your will need to employ the use of threads. If you run the first example found on this page you will see that the host will run for as long as `csoundPerform()` returns 0. As soon as it returns non-zero it will exit the loop and cause the application to quit. Once called, `csoundPerform()` will cause the program to hang until it is finished. In order to interact with Csound while it is performing you will need to call `csoundPerform()` in a separate unique thread. 
+In order to control aspects of your instruments in real time your will need to employ the use of threads. If you run the first example found on this page you will see that the host will run for as long as `csoundPerform()` returns 0. As soon as it returns non-zero it will exit the loop and cause the application to quit. Once called, `csoundPerform()` will cause the program to hang until it is finished. In order to interact with Csound while it is performing you will need to call `csoundPerform()` in a separate unique thread.
 
 When implementing threads using the Csound API, we must define a special performance-thread function. We then pass the name of this performance function to `csoundCreateThread()`, thus registering our performance-thread function with Csound. When defining a Csound performance-thread routine you must declare it to have a return type uintptr_t, hence it will need to return a value when called. The thread function will take only one parameter, a pointer to void. This pointer to void is quite important as it allows us to pass important data from the main thread to the performance thread. As several variables are needed in our thread function the best approach is to create a user defined data structure that will hold all the information your performance thread will need. For example:
 
-    typedef struct { 
-      int result;        /* result of csoundCompile() */ 
+    typedef struct {
+      int result;        /* result of csoundCompile() */
       CSOUND *csound;    /* instance of csound */
-      bool PERF_STATUS;  /* performance status */ 
-    } userData; 
+      bool PERF_STATUS;  /* performance status */
+    } userData;
 
-Below is a basic performance-thread routine. `*data` is cast as a userData data type so that we can access its members. 
+Below is a basic performance-thread routine. `*data` is cast as a userData data type so that we can access its members.
 
     uintptr_t csThread(void *data)
     {
@@ -81,79 +81,79 @@ Below is a basic performance-thread routine. `*data` is cast as a userData data 
 In order to start this thread we must call the `csoundCreateThread()` API function which is declared in csound.h as:
 
     void *csoundCreateThread(uintptr_t (*threadRoutine (void *),
-                             void *userdata);  
+                             void *userdata);
 
-If you are building a command line program you will need to use some kind of mechanism to prevent `int main()` from returning until after the performance has taken place. A simple while loop will suffice. 
+If you are building a command line program you will need to use some kind of mechanism to prevent `int main()` from returning until after the performance has taken place. A simple while loop will suffice.
 
 The first example presented above can now be rewritten to include a unique performance thread:
 
-    #include <stdio.h> 
-    #include <csound/csound.h> 
+    #include <stdio.h>
+    #include <csound/csound.h>
 
-    uintptr_t csThread(void *clientData); 
+    uintptr_t csThread(void *clientData);
 
-    typedef struct { 
-      int result; 
-      CSOUND *csound; 
-      int PERF_STATUS; 
-    } userData; 
+    typedef struct {
+      int result;
+      CSOUND *csound;
+      int PERF_STATUS;
+    } userData;
 
-    int main(int argc, char *argv[]) 
+    int main(int argc, char *argv[])
     {
       int finish;
-      void *ThreadID; 
-      userData *ud; 
+      void *ThreadID;
+      userData *ud;
       ud = (userData *)malloc(sizeof(userData));
-      MYFLT *pvalue; 
+      MYFLT *pvalue;
       ud->csound = csoundCreate(NULL);
-      ud->result = csoundCompile(ud->csound, argc, argv); 
+      ud->result = csoundCompile(ud->csound, argc, argv);
 
       if (!ud->result) {
-        ud->PERF_STATUS = 1; 
-        ThreadID = csoundCreateThread(csThread, (void *)ud); 
-      } 
-      else { 
-        return 1; 
+        ud->PERF_STATUS = 1;
+        ThreadID = csoundCreateThread(csThread, (void *)ud);
+      }
+      else {
+        return 1;
       }
 
       /* keep performing until user types a number and presses enter */
       scanf("%d", &finish);
-      ud->PERF_STATUS = 0; 
-      csoundDestroy(ud->csound); 
+      ud->PERF_STATUS = 0;
+      csoundDestroy(ud->csound);
       free(ud);
-      return 0; 
-    } 
+      return 0;
+    }
 
     /* performance thread function */
-    uintptr_t csThread(void *data) 
-    { 
-      userData *udata = (userData *)data; 
+    uintptr_t csThread(void *data)
+    {
+      userData *udata = (userData *)data;
       if (!udata->result) {
         while ((csoundPerformKsmps(udata->csound) == 0) &&
                (udata->PERF_STATUS == 1));
-        csoundDestroy(udata->csound); 
+        csoundDestroy(udata->csound);
       }
       udata->PERF_STATUS = 0;
-      return 1; 
+      return 1;
     }
 
 The application above might not appear all that interesting. In fact it's almost the exact same as the first example presented except that users can now stop Csound by hitting 'enter'.  The real worth of threads can only be appreciated when you start to control your instrument in real time.
 
- 
+
 
 ## Channel I/O
 
 The big advantage to using the API is that it allows a host to control your Csound instruments in real time. There are several mechanisms provided by the API that allow us to do this. The simplest mechanism makes use of a 'software bus'.
 
-The term bus is usually used to describe a means of communication between hardware components. Buses are used in mixing consoles to route signals out of the mixing desk into external devices. Signals get sent through the sends and are taken back into the console through the returns. The same thing happens in a software bus, only instead of sending analog signals to different hardware devices we send data to and from different software. 
+The term bus is usually used to describe a means of communication between hardware components. Buses are used in mixing consoles to route signals out of the mixing desk into external devices. Signals get sent through the sends and are taken back into the console through the returns. The same thing happens in a software bus, only instead of sending analog signals to different hardware devices we send data to and from different software.
 
 Using one of the software bus opcodes in Csound we can provide an interface for communication with a host application. An example of one such opcode is `chnget`. The `chnget` opcode reads data that is being sent from a host Csound API application on a particular named channel, and assigns it to an output variable. In the following example instrument 1 retrieves any data the host may be sending on a channel named "pitch":
 
-    instr 1 
-    kfreq chnget "pitch" 
-    asig  oscil  10000, kfreq, 1 
+    instr 1
+    kfreq chnget "pitch"
+    asig  oscil  10000, kfreq, 1
           out    asig
-    endin 
+    endin
 
 One way in which data can be sent from a host application to an instance of Csound is through the use of the `csoundGetChannelPtr()` API function which is defined in csound.h as:
 
@@ -161,19 +161,19 @@ One way in which data can be sent from a host application to an instance of Csou
 
 `CsoundGetChannelPtr()` stores a pointer to the specified channel of the bus in p. The channel pointer p is of type `MYFLT *`. The argument name is the name of the channel and the argument type is a bitwise OR of exactly one of the following values:
 
-    CSOUND_CONTROL_CHANNEL - control data (one MYFLT value) 
-    CSOUND_AUDIO_CHANNEL   - audio data (ksmps MYFLT values) 
+    CSOUND_CONTROL_CHANNEL - control data (one MYFLT value)
+    CSOUND_AUDIO_CHANNEL   - audio data (ksmps MYFLT values)
     CSOUND_STRING_CHANNEL  - string data (MYFLT values with enough space to store csoundGetChannelDatasize()
                                 characters, including the NULL character at the end of the string)
 
     and at least one of these:
 
     CSOUND_INPUT_CHANNEL   - when you need Csound to accept incoming values from a host
-    CSOUND_OUTPUT_CHANNEL  - when you need Csound to send outgoing values to a host 
+    CSOUND_OUTPUT_CHANNEL  - when you need Csound to send outgoing values to a host
 
 If the call to `csoundGetChannelPtr()` is successful the function will return zero. If not, it will return a negative error code. We can now modify our previous code in order to send data from our application on a named software bus to an instance of Csound using `csoundGetChannelPtr()`.
 
-    #include <stdio.h> 
+    #include <stdio.h>
     #include <csound/csound.h>
 
     /* performance thread function prototype */
@@ -235,7 +235,7 @@ If the call to `csoundGetChannelPtr()` is successful the function will return ze
       }
       udata->PERF_STATUS = 0;
       return 1;
-    } 
+    }
 
 There are several ways of sending data to and from Csound through software buses. They are divided in two categories:
 
@@ -251,7 +251,7 @@ This category uses `csoundGetChannelPtr()` to get a pointer to the data of the n
     void csoundGetStringChannel(CSOUND *csound, const char *name, char *string)
     void csoundSetStringChannel(CSOUND *csound, const char *name, char *string)
 
- 
+
 
 The opcodes concerned are `chani`, `chano`, `chnget` and `chnset`. When using numbered channels with `chani` and `chano`, the API sees those channels as named channels, the name being derived from the channel number (i.e. 1 gives "1", 17 gives "17", etc).
 
@@ -290,7 +290,7 @@ Each time a named channel with callback is used (opcodes `invalue`, `outvalue`, 
         replace csoundSetCallback() and csoundRemoveCallback().
 
 
-## Score Events 
+## Score Events
 
 Adding score events to the csound instance is easy to do. It requires that csound has its threading done, see the paragraph above on threading. To enter a score event into csound, one calls the following function:
 
@@ -306,7 +306,7 @@ Now we can call that function to insert Score events into a running csound insta
     const char *message = "i1        0      1          0.5  0.3  0.1";
     myInputMessageFunction((void*)udata, message);
 
- 
+
 
 ## Callbacks
 
@@ -678,7 +678,7 @@ The best source of information is the csound.h header file. Let us review some i
     csoundSetInputValueCallback()
     csoundSetOutputValueCallback()
     csoundSetChannelIOCallback()
-    csoundPerformKsmpsAbsolute() 
+    csoundPerformKsmpsAbsolute()
 
 are still in the header file but are now deprecated.
 
@@ -690,7 +690,7 @@ To use the Python Csound API wrapper, you have to import the ctcsound module. Th
 
     import sys
     import ctcsound
-    
+
     cs = ctcsound.Csound()
     result = cs.compile_(sys.argv)
     if result == 0:
@@ -863,7 +863,7 @@ The FFI package of the Google Go programming language is called cgo. Here is a v
 	    csound.Destroy()
     }
 
-A complete wrapper to the Csound API written in Go is available at the 
+A complete wrapper to the Csound API written in Go is available at the
 [Go-Csnd projekt](https://github.com/fggp/go-csnd) on github.
 
 The different examples in this section are written for Linux. For other operating systems, some adaptations are needed: for example, for Windows the library name suffix is .dll instead of .so.
@@ -879,14 +879,14 @@ The advantage of FFI over Builtin Wrappers is that as long as the signatures of 
 
 [ctcsound Docs](https://csound.com/docs/ctcsound)
 
-Rory Walsh 2006, Developing standalone applications using the Csound Host API and wxWidgets, 
+Rory Walsh 2006, Developing standalone applications using the Csound Host API and wxWidgets,
 [Csound Journal Volume 1 Issue 4 - Summer 2006](http://csoundjournal.com/2006summer/wxCsound.html)
 
 Rory Walsh 2010, Developing Audio Software with the Csound Host API,  The Audio Programming Book, DVD Chapter 35, The MIT Press
 
 François Pinot 2011, Real-time Coding Using the Python API: Score Events, [Csound Journal Issue 14 - Winter 2011](http://csoundjournal.com/issue14/realtimeCsoundPython.html)
 
-François Pinot 2014, "Go Binding for Csound6", 
+François Pinot 2014, "Go Binding for Csound6",
 <https://github.com/fggp/go-csnd>
 
 

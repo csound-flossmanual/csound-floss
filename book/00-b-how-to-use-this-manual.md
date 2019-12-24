@@ -58,5 +58,5 @@ sending requests for new topics or by joining as a writer. Just contact
 one of the maintainers (see ON THIS RELEASE).
 
 Some issues of this textbook can be ordered as a print-on-demand hard
-copy at [www.lulu.com](https://www.lulu.com/). Just use Lulu's search 
+copy at [www.lulu.com](https://www.lulu.com/). Just use Lulu's search
 utility and look for *Csound*.

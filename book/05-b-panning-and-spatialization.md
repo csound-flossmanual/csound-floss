@@ -23,7 +23,7 @@ seed 0
 instr Equal
  kTrig metro 80/60
  schedkwhen kTrig, 0, 0, "Perc", 0, 1, .4, 1
- schedkwhen kTrig, 0, 0, "Perc", 0, 1, .4, 2 
+ schedkwhen kTrig, 0, 0, "Perc", 0, 1, .4, 2
 endin
 
 instr Beat
@@ -61,7 +61,7 @@ i "Dialog" 22 9.5
 The spatialization technique used in this example is called *routing*. In routing we connect an audio signal directly to one speaker. This is a somehow brutal method which knows only black or white, only right or left. Usually we want to have a more refined way to locate sounds, with different positions between pure left and pure right. This is often compared to a *panorama* - a sound horizon on which certain sounds have a location between left and right. So we look first into this *panning* for a stereo setup. Then we will discuss the extension of panning in a multi-channl setup. The last part of this chapter is dedicated to the Ambisonics technique which offers a different way to locate sound sources.
 
 
-Simple Stereo Panning 
+Simple Stereo Panning
 ----------------------
 
 First we will look at some methods of panning a sound between two
@@ -84,7 +84,7 @@ signal can be continuously panned between the left and right channels.
 The problem with this method is that the overall power drops as the
 sound is panned to the middle.[^1]
 
-[^1]: The reason has been touched in chapter 
+[^1]: The reason has been touched in chapter
       [01C](01-c-intensities.md): The sound intensity is not proportional
       to the amplitude but to the squared amplitude.
 
@@ -109,7 +109,7 @@ below.
     aSigR  =     aSig * sin(kPan*$M_PI_2)
            outs  aSigL, aSigR
 
-(Note that *\$M_PI_2* is one of 
+(Note that *\$M_PI_2* is one of
 [Csound\'s built in macros](https://csound.com/docs/manual/define.html)
 and is equivalent to $\pi/2$.)
 
@@ -198,7 +198,7 @@ e
 </CsoundSynthesizer>
 ;example by Iain McCurdy
 ~~~
- 
+
 
 The opcode [pan2](https://csound.com/docs/manual/pan2.html)
 makes it easier for us to implement various
@@ -206,7 +206,7 @@ methods of panning. The following example demonstrates the three methods
 that this opcode offers one after the other. The first is the *equal
 power* method, the second *square root* and the third is simple
 linear.
- 
+
 
    ***EXAMPLE 05B03_pan2.csd***
 
@@ -253,7 +253,7 @@ e
 ~~~
 
 
-3D Binaural Encoding 
+3D Binaural Encoding
 ---------------------
 
 3D binaural encoding is available through a number of opcodes that make
@@ -280,10 +280,10 @@ The following example take a monophonic source sound of noise impulses
 and processes it using the *hrtfmove2* opcode. First of all the sound is
 rotated around us in the horizontal plane then it is raised above our
 head then dropped below us and finally returned to be level and directly
-in front of us. This example uses the files hrtf-44100-left.dat and hrtf-44100-right.dat. In case they are not loaded, they can be downloaded from the 
+in front of us. This example uses the files hrtf-44100-left.dat and hrtf-44100-right.dat. In case they are not loaded, they can be downloaded from the
 [Csound sources](https://github.com/csound/csound/tree/develop/samples).
 
- 
+
    ***EXAMPLE 05B04_hrtfmove.csd***
 
 ~~~
@@ -418,7 +418,7 @@ The *output section* will work as before, so it is a matter of some seconds to c
 VBAP
 ----
 
-Vector Base Amplitude Panning[^2]  can be described as a method which
+Vector Base Amplitude Panning[^2]  can be described as a method which
 extends stereo panning to more than two speakers. The number of speakers
 is, in general, arbitrary. Standard layouts such as quadrophonic, octophonic or 5.1 configuration can be used, but in fact any number
 of speakers can be positioned even in irregular distances from each
@@ -457,7 +457,7 @@ The following would be the Csound code to play the sound file
 
 
    ***EXAMPLE 05B05_VBAP_circle.csd***
- 
+
 ~~~
 <CsoundSynthesizer>
 <CsOptions>
@@ -493,16 +493,16 @@ Let us look closer to some parts of this program.
 - *-odac* enables realtime output. Choose *-o 05B04_out.wav* if
   you don't a multichannel audio card, and Csound will render the
   output to the file *05B04_out.wav*.
-- *--env:SSDIR+=../SourceMaterials* This statement will add the 
+- *--env:SSDIR+=../SourceMaterials* This statement will add the
   folder *SourceMaterials* which is placed in the top directory to
-  Csound's search path for this file. 
-- *nchnls = 8* sets the number of channels to 8. *nchnls = 7* would 
-  be more consistent as we only use 7 channels. I chose 8 channels 
+  Csound's search path for this file.
+- *nchnls = 8* sets the number of channels to 8. *nchnls = 7* would
+  be more consistent as we only use 7 channels. I chose 8 channels
   because some sound cards have problems to open 7 channels.
-- *p3 filelen Sfile* sets the duration of the instrument (p3) to the 
+- *p3 filelen Sfile* sets the duration of the instrument (p3) to the
   length of the soundfile *Sfile* which in turn has been set to the
   "ClassGuit.wav" sample (you can use any other file here).
-- *aSnd[] diskin Sfile* The opcode *diskin* reads the sound file 
+- *aSnd[] diskin Sfile* The opcode *diskin* reads the sound file
   *Sfile* and creates an audio array. The first channel of the file
   will be found in *aSnd[0]*, the second (if any) in *aSnd[1]*,
   and so on.
@@ -512,7 +512,7 @@ Let us look closer to some parts of this program.
 - *aVbap[] vbap aSnd[0],kAzim* The opcode *vbap* creates here an audio
   array which contains as many audio signals as are set with the
   *vbaplsinit* statement; in this case seven. These seven signals represent
-  the seven loud speakers. Right hand side, *vbap* gets two inputs: 
+  the seven loud speakers. Right hand side, *vbap* gets two inputs:
   the first channel of the aSnd array, and the kAzim signal which
   contains the location of the sound.
 - *out aVbap* Note that *aVbap* is an audio array here which contains
@@ -533,12 +533,12 @@ becomes unintentionally smaller and smaller.
 
 To alleviate this tendency, Ville Pulkki has introduced an additional
 parameter, called *spread*, which has a range of zero to hundred
-percent.[^3]  The "ascetic" form of VBAP we have seen in the previous
+percent.[^3]  The "ascetic" form of VBAP we have seen in the previous
 example, means: no spread (0%). A spread of 100% means that all speakers
 are active, and the information about where the sound comes from is
 nearly lost.
 
-[3]: Ville Pulkki, Uniform spreading of amplitude panned virtual sources, 
+[3]: Ville Pulkki, Uniform spreading of amplitude panned virtual sources,
      in: Proceedings of the 1999 IEEE Workshop on Applications of Signal
      Processing to Audio and Acoustics, Mohonk Montain House, New Paltz
 
@@ -639,7 +639,7 @@ i 3 12 6
 </CsoundSynthesizer>
 ;example by joachim heintz
 ~~~
- 
+
 
 In addition to the [vbap](https://csound.com/docs/manual/vbap.html) opcode,
 [vbapg](https://csound.com/docs/manual/vbapg.html) has been written. The idea is to have an opcode which returns the gains (amplitudes) of the speakers instead of the audio signal:
@@ -657,7 +657,7 @@ space. The main difference to VBAP is that Ambisonics is shaping a *sound field*
 There are excellent sources for the discussion of Ambisonics
 online which explain its background and parameters.[^3] These topice are also covered later in this chapter when Ambisoncs UDOs are introduced.
 We will focus here first on the basic practicalities of using
-the Ambisonics opcodes *bformenc1* and *bformdec1* in Csound. 
+the Ambisonics opcodes *bformenc1* and *bformdec1* in Csound.
 
 [^3]: For instance www.ambisonic.net or
       www.icst.net/research/projects/ambisonics-theory
@@ -714,7 +714,7 @@ encoding process is carried out in the line:
 Input arguments are the monophonic sound source *aSnd[0]*, the xy-angle
 *kAzim*, and the elevation angle which is set to zero. Output signals
 are the spatial information in x-, y- and z- direction (*ax, ay, az*),
-and also an omnidirectional signal called *aw*. 
+and also an omnidirectional signal called *aw*.
 
 Decoding is performed by the line:
 
@@ -768,7 +768,7 @@ aSnd[]     diskin     "ClassGuit.wav"
 kAzim      line       0, p3, 360
 iSetup     =          4 ;octogon
 aw, ax, ay, az, ar, as, at, au, av bformenc1 aSnd, kAzim, 0
-a1, a2, a3, a4, a5, a6, a7, a8 bformdec1 iSetup, 
+a1, a2, a3, a4, a5, a6, a7, a8 bformdec1 iSetup,
                       aw, ax, ay, az, ar, as, at, au, av
            out        a1, a2, a3, a4, a5, a6, a7, a8
   endin
@@ -778,7 +778,7 @@ aSnd[]     diskin     "ClassGuit.wav"
 kAzim      line       0, p3, 360
 iSetup     =          4 ;octogon
 aw, ax, ay, az, ar, as, at, au, av, ak, al, am, an, ao, ap, aq bformenc1 aSnd, kAzim, 0
-a1, a2, a3, a4, a5, a6, a7, a8 bformdec1 iSetup, 
+a1, a2, a3, a4, a5, a6, a7, a8 bformdec1 iSetup,
         aw, ax, ay, az, ar, as, at, au, av, ak, al, am, an, ao, ap, aq
            out        a1, a2, a3, a4, a5, a6, a7, a8
   endin
@@ -791,7 +791,7 @@ i 3 14 6
 </CsoundSynthesizer>
 ;example by joachim heintz
 ~~~
- 
+
 
 In theory, first-order ambisonics need at least 4 speakers to be
 projected correctly. Second-order ambisonics needs at least 6 speakers
@@ -814,7 +814,7 @@ The text files *ambisonics_udos.txt*, *ambisonics2D_udos.txt*,
 folder as the csd files or included with full path.[^5]
 
 [^5]: These files can be downloaded together with the entire examples (some of
-      them for CsoundQt) from 
+      them for CsoundQt) from
       <(https://www.zhdk.ch/index.php?id=icst_ambisonicsudo>
 
 
@@ -837,7 +837,7 @@ portions of the sound field in the three orthogonal directions x, y and
 z. These four channels constitute the so-called first-order B-format.
 When Ambisonics is used for artificial spatialisation of recorded or
 synthesized sound, the encoding can be of an arbitrarily high order. The
-higher orders cannot be interpreted as easily as orders zero and one. 
+higher orders cannot be interpreted as easily as orders zero and one.
 
 In a two-dimensional analogy to Ambisonics (called Ambisonics2D in what
 follows), only sound waves in the horizontal plane are encoded.
@@ -853,13 +853,13 @@ the Ambisonic encoding is computed using the sound's coordinates.
 Encoding $m$th order B-format requires $n = (m+1)^2$ channels ($n = 2m + 1$
 channels in Ambisonics2D). By decoding the B-format, one can obtain the
 signals for any number (\>= $n$) of loudspeakers in any arrangement. Best
-results are achieved with symmetrical speaker arrangements. 
+results are achieved with symmetrical speaker arrangements.
 
 If the B-format does not need to be recorded the speaker signals can be
 calculated at low cost and arbitrary order using so-called ambisonics
-equivalent panning (AEP). 
+equivalent panning (AEP).
 
- ![](../resources/images/05-b-ambi-fig1-intro.png)
+ ![](../resources/images/05-b-ambi-fig1-intro.png)
 
 
 
@@ -873,36 +873,36 @@ y-coordinate to the left. The position of the sound source can also be
 given in polar coordinates by the angle ψ between the line of vision of
 the listener (front) and the direction to the sound source, and by their
 distance r. Cartesian coordinates can be converted to polar coordinates
-by the formulae: 
+by the formulae:
 
-    r =    and  ψ = arctan(x, y), 
+    r =    and  ψ = arctan(x, y),
 
-polar to Cartesian coordinates by 
+polar to Cartesian coordinates by
 
-    x = r·cos(ψ) and y = r·sin(ψ).  
+    x = r·cos(ψ) and y = r·sin(ψ).
 
 ![](../resources/images/05-b-ambi-fig2-2d.png)
 
 The 0th order B-Format of a signal S of a sound source on the unit
 circle is just the mono signal: W0 = W = S. The first order B-Format
-contains two additional channels: W1,1 = X = S·cos(ψ) = S·x and W1,2 = Y
+contains two additional channels: W1,1 = X = S·cos(ψ) = S·x and W1,2 = Y
 = S·sin(ψ) = S·y, i.e. the product of the Signal S with the sine and the
 cosine of the direction ψ of the sound source. The B-Format higher order
 contains two additional channels per order m: Wm, 1 = S·cos(mψ) and Wm,
 2 = S·sin(mψ).
 
     W0 = S
-    W1,1 = X = S·cos(ψ) = S·x W1,2 = Y = S·sin(ψ) = S·y
-    W2,1 = S·cos(2ψ) W2,2 = S·sin(2ψ)
+    W1,1 = X = S·cos(ψ) = S·x W1,2 = Y = S·sin(ψ) = S·y
+    W2,1 = S·cos(2ψ) W2,2 = S·sin(2ψ)
     ...
-    Wm,1 = S·cos(mψ)    Wm,2 = S·sin(mψ) 
+    Wm,1 = S·cos(mψ)    Wm,2 = S·sin(mψ)
 
-From the n = 2m + 1 B-Format channels the loudspeaker signals pi of n
+From the n = 2m + 1 B-Format channels the loudspeaker signals pi of n
 loudspeakers which are set up symmetrically on a circle (with angle ϕi)
 are:
 
-    pi = 1/n(W0 + 2W1,1cos(ϕi) + 2W1,2sin(ϕi) + 2W2,1cos(2ϕi) + 2W2,2sin(2ϕi) + ...)
-    = 2/n(1/2 W0 + W1,1cos(ϕi) + W1,2sin(ϕi) + W2,1cos(2ϕi) + W2,2sin(2ϕi) + ...)
+    pi = 1/n(W0 + 2W1,1cos(ϕi) + 2W1,2sin(ϕi) + 2W2,1cos(2ϕi) + 2W2,2sin(2ϕi) + ...)
+    = 2/n(1/2 W0 + W1,1cos(ϕi) + W1,2sin(ϕi) + W2,1cos(2ϕi) + W2,2sin(2ϕi) + ...)
 
 (If more than n speakers are used, we can use the same formula.)
 
@@ -910,8 +910,8 @@ In the following Csound example *udo_ambisonics2D_1.csd* the UDO
 *ambi2D_encode_1a* produces the 3 channels W, X and Y (a0, a11, a12)
 from an input sound and the angle ψ (azmuth kaz), the UDO
 *ambi2D_decode_1_8* decodes them to 8 speaker signals *a1, a2, ..., a8*.
-The inputs of the decoder are the 3 channels a0, a11, a12 and the 8
-angles of the speakers. 
+The inputs of the decoder are the 3 channels a0, a11, a12 and the 8
+angles of the speakers.
 
 
    ***EXAMPLE 05B10_udo_ambisonics2D_1.csd***
@@ -979,7 +979,7 @@ i1 0 40
 </CsoundSynthesizer>
 ;example by martin neukom
 ~~~
- 
+
 
 The B-format of all events of all instruments can be summed before
 decoding. Thus in the next example we create a zak
@@ -992,10 +992,10 @@ zakinit 2(n+1), 1). The UDO *ambi2D_decode_basic* is an overloaded
 function i.e. it decodes to n speaker signals depending on the number of
 in- and outputs given (in this example only for 1 or 2 speakers). Any
 number of instruments can play arbitrary often. Instrument 10 decodes
-for the first 4 speakers of an 18 speaker setup. 
+for the first 4 speakers of an 18 speaker setup.
 
 
-   ***EXAMPLE 05B11_udo_ambisonics2D_2.csd*** 
+   ***EXAMPLE 05B11_udo_ambisonics2D_2.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1120,7 +1120,7 @@ i10 0 3
 </CsoundSynthesizer>
 ;example by martin neukom
 ~~~
- 
+
 
 ### In-phase Decoding
 
@@ -1138,9 +1138,9 @@ To avoid having loudspeaker sounds that are far away from the virtual
 sound source and to ensure that negative amplitudes (inverted phase) do
 not arise, the B-format channels can be weighted before being decoded.
 The weighting factors depend on the highest order used (M) and the order
-of the particular channel being decoded (m). 
+of the particular channel being decoded (m).
 
-    $$gm =  (M!)^2/((M + m)!·(M - m)!)$$
+    $$gm =  (M!)^2/((M + m)!·(M - m)!)$$
 
 ![](../resources/images/05-b-ambi-fig8-tab1.png)
 
@@ -1158,7 +1158,7 @@ corrected by weighting (so-called in-phase decoding, right).
 The following example shows in-phase decoding. The weights and norms up to 12th order are saved in the arrays *iWeight2D[][]* and *iNorm2D[]* respectively. Instrument 11 decodes third order for 4 speakers in a square.
 
 
-   ***EXAMPLE 05B12_udo_ambisonics2D_3.csd*** 
+   ***EXAMPLE 05B12_udo_ambisonics2D_3.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1250,7 +1250,7 @@ i11 0 3
 </CsoundSynthesizer>
 ;example by martin neukom
 ~~~
- 
+
 
 ### Distance
 
@@ -1273,7 +1273,7 @@ the gain of the channel W inside the unit circle to 1 (f1 in the figure
 below) and to fade out all other channels (f2). By fading out all
 channels except channel W the information about the direction of the
 sound source is lost and all speaker signals are the same and the sum of
-the speaker signals reaches its maximum when the distance is 0. 
+the speaker signals reaches its maximum when the distance is 0.
 
 ![](../resources/images/05-b-ambi-fig5-dist.png)
 
@@ -1292,10 +1292,10 @@ In the next example the UDO *ambi2D_enc_dist_n* encodes a
 sound at any order with distance correction. The inputs of the UDO are
 *asnd*, *iorder*, *kazimuth* and *kdistance*. If the distance becomes negative
 the azimuth angle is turned to its opposite (kaz += π) and the distance
-taken positive. 
+taken positive.
 
 
-   ***EXAMPLE 05B13_udo_ambisonics2D_4.csd*** 
+   ***EXAMPLE 05B13_udo_ambisonics2D_4.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1362,7 +1362,7 @@ i10 0 4
 </CsoundSynthesizer>
 ;example by martin neukom
 ~~~
- 
+
 
 In order to simulate the absorption of the air we introduce a very
 simple lowpass filter with a distance depending cutoff frequency. We
@@ -1376,10 +1376,10 @@ transforms them into polar coordinates. The B-format channels can be
 written to a sound file with the opcode
 [fout](https://csound.com/docs/manual/fout.html).
 The UDO *write_ambi2D_2* writes the channels up to second order into a
-sound file. 
+sound file.
 
 
-   ***EXAMPLE 05B14_udo_ambisonics2D_5.csd***  
+   ***EXAMPLE 05B14_udo_ambisonics2D_5.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1492,7 +1492,7 @@ and *ambi_decode* up to 8th order are saved in the text file
 *ambisonics_udos.txt*.
 
 
-   ***EXAMPLE 05B15_udo_ambisonics_1.csd***  
+   ***EXAMPLE 05B15_udo_ambisonics_1.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1638,10 +1638,10 @@ i1 0 100
 ~~~
 
 The next example shows in-phase decoding. The weights up
-to 8th order are stored in the array *iWeight3D[][]*. 
+to 8th order are stored in the array *iWeight3D[][]*.
 
 
-   ***EXAMPLE 05B16_udo_ambisonics_2.csd*** 
+   ***EXAMPLE 05B16_udo_ambisonics_2.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1763,16 +1763,16 @@ i1 0 100
 </CsoundSynthesizer>
 ;example by martin neukom
 ~~~
- 
+
 
 The weighting factors for in-phase decoding of Ambisonics (3D) are:
 
 ![](../resources/images/05-b-ambi-fig11-tab4.png)
 
-The following example shows distance encoding. 
+The following example shows distance encoding.
 
 
-   ***EXAMPLE 05B17_udo_ambisonics_3.csd*** 
+   ***EXAMPLE 05B17_udo_ambisonics_3.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1846,7 +1846,7 @@ trajectory shown below is encoded in third order and decoded for a
 speaker setup in a cube (f17).
 
 
-   ***EXAMPLE 05B18_udo_ambisonics_4.csd***  
+   ***EXAMPLE 05B18_udo_ambisonics_4.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1900,7 +1900,7 @@ where γ denotes the angle between a sound source and a speaker and m
 denotes the order. If the speakers are positioned on a unit sphere the
 cosine of the angle γ is calculated as the scalar product of the vector
 to the sound source (x, y, z) and the vector to the speaker (xs, ys,
-zs). 
+zs).
 
 In contrast to Ambisonics the order indicated in the function does not
 have to be an integer. This means that the order can be continuously
@@ -1924,7 +1924,7 @@ first parameter in the function table the maximal speaker distance must
 be given.
 
 
-   ***EXAMPLE 05B19_udo_AEP.csd***   
+   ***EXAMPLE 05B19_udo_AEP.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1941,7 +1941,7 @@ nchnls  =  4
 
 ; opcode AEP1 is the same as in udo_AEP_xyz.csd
 
-opcode  AEP1, a, akiiiikkkkkk 
+opcode  AEP1, a, akiiiikkkkkk
   ; soundin, order, ixs, iys, izs, idsmax, kx, ky, kz
 ain,korder,ixs,iys,izs,idsmax,kx,ky,kz,kdist,kfade,kgain xin
 idists = sqrt(ixs*ixs+iys*iys+izs*izs)
@@ -2024,25 +2024,25 @@ i1 0 2
 ;example by martin neukom
 ~~~
 
- 
+
 
 ### Summary of the Ambisonics UDOs
 
-    zakinit isizea, isizek    
-        (isizea = (order + 1)^2 in ambisonics (3D); 
+    zakinit isizea, isizek
+        (isizea = (order + 1)^2 in ambisonics (3D);
         isizea = 2·order + 1 in ambi2D; isizek = 1)
 
 **ambisonics_udos.txt**  (order <= 8)
 
-    ambi_encode asnd, iorder, kazimuth, kelevation 
+    ambi_encode asnd, iorder, kazimuth, kelevation
         (azimuth, elevation in degrees)
     ambi_enc_dist asnd, iorder, kazimuth, kelevation, kdistance
     a1 [, a2] ... [, a8]    ambi_decode     iorder, ifn
     a1 [, a2] ... [, a8]    ambi_dec_inph   iorder, ifn
-    f ifn  0  n  -2 p1 az1 el1 az2 el2 ... 
-        (n is a power of 2 greater than 3·number_of_spekers + 1) 
+    f ifn  0  n  -2 p1 az1 el1 az2 el2 ...
+        (n is a power of 2 greater than 3·number_of_spekers + 1)
         (p1 is not used)
-    ambi_write_B    "name", iorder, ifile_format    
+    ambi_write_B    "name", iorder, ifile_format
         (ifile_format see fout in the csound help)
     ambi_read_B     "name", iorder (only <= 5)
     kaz, kel, kdist xyz_to_aed      kx, ky, kz

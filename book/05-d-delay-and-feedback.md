@@ -57,7 +57,7 @@ referred to as the wet signal) are mixed and set to the output. The
 delayed signal is attenuated with respect to the input signal.
 
 
-   ***EXAMPLE 05D01_delay.csd*** 
+   ***EXAMPLE 05D01_delay.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -154,10 +154,10 @@ Constructing a delay effect in this way is rather limited as the delay
 time is static. If we want to change the delay time we need to
 reinitialise the code that implements the delay buffer. A more flexible
 approach is to read audio from within the buffer using one of Csounds
-opcodes for *tapping* a delay buffer, 
-[deltap](https://csound.com/docs/manual/deltap.html), 
-[deltapi](https://csound.com/docs/manual/deltapi.html), 
-[deltap3](https://csound.com/docs/manual/deltap3.html) or 
+opcodes for *tapping* a delay buffer,
+[deltap](https://csound.com/docs/manual/deltap.html),
+[deltapi](https://csound.com/docs/manual/deltapi.html),
+[deltap3](https://csound.com/docs/manual/deltap3.html) or
 [deltapx](https://csound.com/docs/manual/deltapx.html).
 The opcodes are listed in order of increasing quality
 which also reflects an increase in computational expense. In the next
@@ -235,7 +235,7 @@ but all three taps are mixed and sent to the output. There is no reason
 not to experiment with arrangements other than this, but this one is
 most typical.
 
-   ***EXAMPLE 05D04_multi-tap_delay.csd*** 
+   ***EXAMPLE 05D04_multi-tap_delay.csd***
 
 ~~~
 <CsoundSynthesizer>

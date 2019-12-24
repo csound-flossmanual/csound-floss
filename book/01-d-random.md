@@ -13,7 +13,7 @@ and distributions and demonstrates their use in musical examples.
 ### Random is Different
 
 The term *random* derives from the idea of a horse that is running so
-fast it becomes *out of control* or *beyond predictability*.[^1]  Yet
+fast it becomes *out of control* or *beyond predictability*.[^1]  Yet
 there are different ways in which to run fast and to be out of control;
 therefore there are different types of randomness.
 
@@ -61,7 +61,7 @@ chain each time) in contrast to a seed being taken from the system clock
 four notes will always be the same because of the use of the same seed
 whereas the last three groups should always have a different pitch.
 
-   ***EXAMPLE 01D01\_different\_seed.csd***
+   ***EXAMPLE 01D01\_different\_seed.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -114,10 +114,10 @@ after as many steps as are given by the size of the generator. If a
 steps. If you listen carefully to the following example, you will hear a
 repetition in the structure of the white noise (which is the result of
 uniformly distributed amplitudes) after about 1.5 seconds in the first
-note.[^2]  In the second note, there is no perceivable repetition as the
+note.[^2]  In the second note, there is no perceivable repetition as the
 random generator now works with a 31-bit number.
 
-   ***EXAMPLE 01D02\_white\_noises.csd*** 
+   ***EXAMPLE 01D02\_white\_noises.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -182,7 +182,7 @@ Two more general notes about this:
     has in size, and stored in the variable *ares*. Have a look at
     example *03A16\_Random\_at\_ika.csd* to see this at work. Chapter
     03A tries to explain the background of the different rates in depth,
-    and how to work with them.  
+    and how to work with them.
 
 ### Other Distributions
 
@@ -191,7 +191,7 @@ pseudo-random generator. But there are many situations you will not want
 a uniformly distributed random, but any other shape. Some of these
 shapes are quite common, but you can actually build your own shapes
 quite easily in Csound. The next examples demonstrate how to do this.
-They are based on the chapter in Dodge/Jerse[^3]  which also served as a
+They are based on the chapter in Dodge/Jerse[^3]  which also served as a
 model for many random number generator opcodes in Csound.[^4]
 
 #### Linear
@@ -200,7 +200,7 @@ A linear distribution means that either lower or higher values in a
 given range are more likely:
 
 ![](../resources/images/01-d-linear-distributiona2.png){ width=50% }
- 
+
 
 ![](../resources/images/01-d-linear-distributionb2.png){ width=50% }
 
@@ -213,7 +213,7 @@ distribution, then a linear distribution with precedence of lower
 pitches (but longer durations), at least a linear distribution with
 precedence of higher pitches (but shorter durations).
 
-   ***EXAMPLE 01D03\_linrand.csd***  
+   ***EXAMPLE 01D03\_linrand.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -365,7 +365,7 @@ Generate two uniform random numbers and take the mean of them. The next
 example shows the difference between uniform and triangular distribution
 in the same environment as the previous example.
 
-   ***EXAMPLE 01D04\_trirand.csd***   
+   ***EXAMPLE 01D04\_trirand.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -533,7 +533,7 @@ element in the array is being read. If the pointer has reached the end
 of the array, the instrument which exits Csound is called instead of a
 new instance of *notes*.
 
-   ***EXAMPLE 01D05\_more\_lin\_tri\_units.csd***    
+   ***EXAMPLE 01D05\_more\_lin\_tri\_units.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -710,7 +710,7 @@ e 99999 ;make possible to perform long (exit will be automatically)
 ~~~
 
 With this method we can build probability distributions which are very
-similar to exponential or gaussian distributions.[^5]  Their shape can
+similar to exponential or gaussian distributions.[^5]  Their shape can
 easily be formed by the number of sub-units used.
 
 ### Scalings
@@ -721,7 +721,7 @@ moving* are much more important than the fact that one single move is
 not predictable. What are the conditions of this randomness?
 
 -   *Which Way.* This is what has already been described: random with or
-    without history, which probability distribution, etc. 
+    without history, which probability distribution, etc.
 -   *Which Range.* This is a decision which comes from the
     composer/programmer. In the example above I have chosen pitches from
     Midi Note 36 to 84 (C2 to C6), and durations between 0.1 and 2
@@ -757,7 +757,7 @@ fixed possible values which are written into an array (from the longest
 to the shortest) by hand. The values in both arrays are then called
 according to their position in the array.
 
-   ***EXAMPLE 01D06\_scalings.csd***     
+   ***EXAMPLE 01D06\_scalings.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -946,7 +946,7 @@ e 99999 ;make possible to perform long (exit will be automatically)
 </CsoundSynthesizer>
 ;example by joachim heintz
 ~~~
- 
+
 
 ### Random With History
 
@@ -972,7 +972,7 @@ following example shows the basic algorithm which evaluates the first
 line of the Markov table above, in the case, the previous element has
 been *a*.
 
-   ***EXAMPLE 01D07\_markov\_basics.csd***      
+   ***EXAMPLE 01D07\_markov\_basics.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1033,7 +1033,7 @@ and three durations. Both are defined in two-dimensional arrays:
 *giProbNotes* and *giProbDurs*. Both Markov chains are running
 independently from each other.
 
-   ***EXAMPLE 01D08\_markov\_music.csd***
+   ***EXAMPLE 01D08\_markov\_music.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1150,7 +1150,7 @@ i "trigger_note" 0 100
 </CsoundSynthesizer>
 ;example by joachim heintz
 ~~~
- 
+
 
 #### Random Walk
 
@@ -1199,7 +1199,7 @@ produce a very rapid increase in speed. Similar to the pitch walk, the
 direction parameter changes from plus to minus if the upper border has
 crossed, and vice versa.
 
-   ***EXAMPLE 01D09\_random\_walk.csd***
+   ***EXAMPLE 01D09\_random\_walk.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1314,7 +1314,7 @@ i "walk" 0 999
 
 ## II. SOME MATHS PERSPECTIVES ON RANDOM
 
-### Random Processes  
+### Random Processes
 
 The relative frequency of occurrence of a random variable can be
 described by a probability function (for discrete random variables) or
@@ -1324,8 +1324,8 @@ When two dice are thrown simultaneously, the sum *x* of their numbers
 can be 2, 3, ...12. The following figure shows the probability function
 *p*(*x*) of these possible outcomes. *p*(*x*) is always less than or
 equal to 1. The sum of the probabilities of all possible outcomes is 1.
-    
-![](../resources/images/01-d-random1.gif) 
+
+![](../resources/images/01-d-random1.gif)
 
 For continuous random variables the probability of getting a specific
 value *x* is 0. But the probability of getting a value within a certain
@@ -1335,9 +1335,9 @@ density function. With the following density the chance of getting a
 number smaller than 0 is 0, to get a number between 0 and 0.5 is 0.5, to
 get a number between 0.5 and 1 is 0.5 etc. Density functions *f*(*x*)
 can reach values greater than 1 but the area under the function is 1.
-    
-![](../resources/images/01-d-random2.gif) 
- 
+
+![](../resources/images/01-d-random2.gif)
+
 
 #### Generating Random Numbers With a Given Probability or Density
 
@@ -1396,7 +1396,7 @@ endop
 ; kout  random number
 ; in: i_nr number of possible values
 ; i_fn1 function for random values
-; i_fn2 probability functionExponential: Generate a uniformly distributed 
+; i_fn2 probability functionExponential: Generate a uniformly distributed
 ; number between 0 and 1 and take its natural logarithm.
 
 opcode  rand_probability, k, iii
@@ -1441,7 +1441,7 @@ i2 0 10 4 5 6
 </CsoundSynthesizer>
 ;example by martin neukom
 ~~~
- 
+
 
 #### Random Walk
 
@@ -1450,33 +1450,33 @@ each other. Parameter (left figure) or paths in the room
 (two-dimensional trajectory in the right figure) created by random
 numbers wildly jump around.
 
-**Example 1 **
+**Example 1 **
 
     Table[RandomReal[{-1, 1}], {100}];
 
-![](../resources/images/01-d-random4a.gif)   
+![](../resources/images/01-d-random4a.gif)
 
-![](../resources/images/01-d-random5a.gif) 
+![](../resources/images/01-d-random5a.gif)
 
 We get a smoother path, a so-called random walk, by adding at every time
 step a random number *r* to the actual position *x* (*x* += *r*).
 
-**Example 2** 
+**Example 2**
 
     x = 0; walk = Table[x += RandomReal[{-.2, .2}], {300}];
 
-![](../resources/images/01-d-random6a.gif)   
+![](../resources/images/01-d-random6a.gif)
 
 ![](../resources/images/01-d-random7a.gif)
 
 The path becomes even smoother by adding a random number *r* to the
-actual velocity *v*. 
+actual velocity *v*.
 
     v += r
     x += v
 
 The path can be bounded to an area (figure to the right) by inverting
-the velocity if the path exceeds the limits (*min*, *max*): 
+the velocity if the path exceeds the limits (*min*, *max*):
 
     vif(x < min || x > max) v *= -1
 
@@ -1485,11 +1485,11 @@ by a small factor *d*
 
     v *= (1-d)
 
-**Example 3** 
+**Example 3**
 
     x = 0; v = 0; walk = Table[x += v += RandomReal[{-.01, .01}], {300}];
 
-![](../resources/images/01-d-random8a.gif)   
+![](../resources/images/01-d-random8a.gif)
 
 ![](../resources/images/01-d-random9a.gif)
 
@@ -1501,12 +1501,12 @@ actual acelleration *a*, the change of the aceleration, etc.
     v += a
     x += v
 
-**Example 4** 
+**Example 4**
 
     x = 0; v = 0; a = 0;
     Table[x += v += a += RandomReal[{-.0001, .0001}], {300}];
 
-![](../resources/images/01-d-random10a1.gif)  
+![](../resources/images/01-d-random10a1.gif)
 
 ![](../resources/images/01-d-random11a.gif)
 
@@ -1801,7 +1801,7 @@ e
 ~~~
 
 [^1]: <http://www.etymonline.com/index.php?term=random>
-[^2]: Because the sample rate is 44100 samples per second. So a 
+[^2]: Because the sample rate is 44100 samples per second. So a
       repetition after 65536 samples will lead to a repetition after
       65536/44100 = 1.486 seconds.
 [^3]: Charles Dodge and Thomas A. Jerse, Computer Music, New York 1985,

@@ -1,7 +1,7 @@
 10 C. BLUE
 ==========
 
-General Overview 
+General Overview
 -----------------
 
 Blue is a graphical computer music environment for composition, a
@@ -9,9 +9,9 @@ versatile front-end to Csound. It is written in Java,
 platform-independent, and uses Csound as its audio engine. It
 provides higher level abstractions such as a graphical timeline for
 composition, GUI-based instruments, score generating SoundObjects like
-PianoRolls, python scripting, Cmask, Jmask and more.  It is available at:
+PianoRolls, python scripting, Cmask, Jmask and more.  It is available at:
 <http://blue.kunstmusik.com>
- 
+
 
 Organization of Tabs and Windows
 --------------------------------
@@ -27,7 +27,7 @@ used in a composition are numbered, named and listed in the
 Orchestra-window.
 
 You will find the same for UDOs (User Defined Opcodes). From this list you may export or import Instruments and UDOs from a library to the piece and vice versa. You may also bind several UDOs to a particular Instrument and export this instrument along with the UDOs it needs.
-  
+
 
 ### Editor
 
@@ -37,7 +37,7 @@ Orchestra-window, the window to enter global score or the Tables-window
 to collect all the functions. There you may type in, import or paste
 text-based information. It gets displayed with syntax highlighting of
 Csound code.
- 
+
 ![The Orchestra-window](../resources/images/10-c-blue-generic-orc.png)
 
 
@@ -57,9 +57,9 @@ and more. These SoundObjects may be text based or GUI-based as well,
 depending on their facilities and purposes.
 
 ![Timeline holding several Sound Objects, one selected and opened in the SoundObject editor window](../resources/images/10-c-blue-timelinesoundobject.png)
- 
 
-SoundObjects 
+
+SoundObjects
 -------------
 
 To enable every kind of music production style and thus every kind of
@@ -87,7 +87,7 @@ of generating different things that Csound will use. Although most often
 they are used for generating Csound SCO text, SoundObjects may also
 generate ftables, instruments, user-defined opcodes, and everything else
 that would be needed to express a musical idea in Csound.
- 
+
 
 ### Modifying a SoundObject
 
@@ -113,7 +113,7 @@ Polyobject are objects, which hold other SoundObjects, and have
 timelines in themselves. Working within them on their timelines and
 outside of them on the parent timeline helps organize and understand the
 concepts of objective time and relative time between different objects.
- 
+
 
 Instruments with a graphical interface
 --------------------------------------
@@ -122,7 +122,7 @@ Instruments and effects with a graphical interface may help to increase
 musical workflow. Among the instruments with a graphical user interface
 there are *BlueSynthBuilder* (BSB)-Instruments, *BlueEffects* and the *Blue
 Mixer*.
- 
+
 
 ### BlueSynthBuilder (BSB)-Instruments
 
@@ -134,7 +134,7 @@ Instrument automatically to a BSB-Instrument and then add and design a
 GUI.
 
 ![The interface of a BSB-Instrument](../resources/images/10-c-blue-bsb-interface.png)
- 
+
 
 ### Blue Mixer
 
@@ -176,13 +176,13 @@ the Score.
 
 Thus the parameters of these instruments with a GUI may be automatized
 and controlled via an editable graph in the Score-window.
- 
+
 
 Libraries
 ---------
 
 blue features also *libraries for instruments*, *SoundObjects*,
-*UDO*s, *Effects* (for the blueMixer) and the *CodeRepository* for
+*UDO*s, *Effects* (for the blueMixer) and the *CodeRepository* for
 code snippets. All these libraries are organized as lists or trees.
 Items of the library may be imported to the current composition or
 exported from it to be used later in other pieces.
@@ -199,17 +199,17 @@ library.
 
 The Orchestra manager organizes instruments and functions as an
 instrument librarian. There is also an Effects Library and a Library for the UDOs.
- 
+
 
 Other Features
 --------------
 
--   **blueLive** - work with SoundObjects in realtime to experiment
+-   **blueLive** - work with SoundObjects in realtime to experiment
 with musical ideas or performance.
--   **SoundObject freezing** - frees up CPU cycles by pre-rendering
+-   **SoundObject freezing** - frees up CPU cycles by pre-rendering
 SoundObjects
--   **Microtonal support**using scales defined in the Scala scale
+-   **Microtonal support**using scales defined in the Scala scale
 format, including a microtonal PianoRoll, Tracker, NoteProcessors, and
 more.
 
- 
+

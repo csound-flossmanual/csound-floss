@@ -99,7 +99,7 @@ with its current implementation which should be noted.
 The javascript build of Csound now comes as part of the regular
 distribution of the Csound source code. It can be found in the
 *emscripten* folder which also contains a markdown file that gives the
-instructions on how to compile the javascript library. 
+instructions on how to compile the javascript library.
 
 
 ### Using libcsound.js
@@ -113,7 +113,7 @@ the browser.
 #### Create a simple website
 
 First create a new folder for the website and copy the libcsound.js and
-libcsound.js.mem  files from the emscripten/dist directory into the new
+libcsound.js.mem  files from the emscripten/dist directory into the new
 websites directory. Next, create an index.html file at the top level of
 the new websites directory that contains the following minimal html
 code:
@@ -150,13 +150,13 @@ within the body tags ad new script tags and insert the following code:
     </html>
 
 
-The *Module* functions within this code are related to how emscripten
+The *Module* functions within this code are related to how emscripten
 built javascript libraries execute when a webpage is loaded. The
-*noExitRuntime* variable sets whether the emscripten runtime environment
+*noExitRuntime* variable sets whether the emscripten runtime environment
 is exited once the main function has finished executing. The
-*\_main* variable is actually a function that is executed as soon as the
-webpage has finished loading. Csound itself is instantiated using a
-constructor for the *CsoundObj* object. This object provides all the
+*\_main* variable is actually a function that is executed as soon as the
+webpage has finished loading. Csound itself is instantiated using a
+constructor for the *CsoundObj* object. This object provides all the
 methods for directly interacting with the current running instance of
 csound.
 
@@ -170,7 +170,7 @@ of libsndfile being used by Csound.
 In order to run a .csd file from the Csound javascript library, we first
 need to upload the file from the local file system to the javascript
 virtual file system. In the emscripten/examples directory there is the
-*FileManager.js* file that provides an object which greatly simplifies
+*FileManager.js* file that provides an object which greatly simplifies
 the process of uploading files to the virtual file system. Copy
 *FileManager.js* to the root directory of the web page.
 
@@ -218,7 +218,7 @@ for performance.
 
 Once the .csd file has been compiled csound can execute a performance.
 In the following code we will create an html button and add some code to
-the button so that when pressed it will run a performance of csound. 
+the button so that when pressed it will run a performance of csound.
 
     <html>
     <head>
@@ -253,17 +253,17 @@ the button so that when pressed it will run a performance of csound. 
     </body>
     </html>
 
-Here we can see that the button *startButton* is instantiated using the
+Here we can see that the button *startButton* is instantiated using the
 *document.createElement* method. The buttons label is set using the
 *innerHTML* method, and we can set the buttons action by defining a
-function and assigning it to the buttons *onclick* method. The function
-simply calls the *start* method from *CsoundObj.* The button is then
-added to the DOM using *document.body.appendChild*. 
+function and assigning it to the buttons *onclick* method. The function
+simply calls the *start* method from *CsoundObj.* The button is then
+added to the DOM using *document.body.appendChild*.
 
 If the page is reloaded there should now be a button present that is
 labelled with the text *Start Csound*. When the button is pressed
 csound should perform the .csd file which was uploaded to the javascript
-file system. 
+file system.
 
 
 #### CsoundObj.js Reference
@@ -288,7 +288,7 @@ not be available to the running Csound instance
 This method enables audio input to the web browser. When called, it
 triggers a permissions dialogue in the host web browser requesting
 permission to allow audio input. If permission is granted, audio input
-is available for the running Csound instance. 
+is available for the running Csound instance.
 
 ------------------------------------------------------------------------
 
@@ -339,7 +339,7 @@ This method sets a named Csound control channel to a specified value.
 
 ***CsoundObj.setControlChannel()***
 
-This method gets the current value of a named Csound control channel. 
+This method gets the current value of a named Csound control channel.
 
 ------------------------------------------------------------------------
 

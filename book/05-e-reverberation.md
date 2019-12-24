@@ -55,10 +55,10 @@ reverb and a value of 1 results in a very long reverb. For high
 frequency damping a value of zero provides minimum damping of higher
 frequencies giving the impression of a space with hard walls, a value of
 1 provides maximum high frequency damping thereby giving the impression
-of a space with soft surfaces such as thick carpets and heavy curtains. 
+of a space with soft surfaces such as thick carpets and heavy curtains.
 
 
-   ***EXAMPLE 05E01_freeverb.csd*** 
+   ***EXAMPLE 05E01_freeverb.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -205,7 +205,7 @@ Csound is to use the *chn...* opcodes. These opcodes can also be used
 to allow Csound to interface with external programs using the software
 bus and the Csound API.
 
- 
+
    ***EXAMPLE 05E03_reverb_with_chn.csd***
 
 ~~~

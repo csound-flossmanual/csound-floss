@@ -20,14 +20,14 @@ according to a basic description. The sections on plugin opcodes will
 use the C language. For those interested in object-oriented programming,
 alternative C++ class implementations for the examples discussed in this text can be extrapolated from the original C code.
 
-You may find additional information and examples at Csound's 
+You may find additional information and examples at Csound's
 [Opcode SDK](https://github.com/csound/opcode_sdk) repository.
 
 
 ## Csound data types and signals
 
 The Csound language provides four basic data types: i-, k-, a- and
-f-types  (there is also a fifth type, w, which will not be discussed
+f-types  (there is also a fifth type, w, which will not be discussed
 here). These are used to pass the data between opcodes, each opcode
 input or output parameter relating to one of these types. The Csound
 i-type variable is used for initialisation variables, which will assume
@@ -37,7 +37,7 @@ reinitialisation pass. In a plugin opcode, parameters that receive
 i-type variables are set inside the initialisation part of the code,
 because they will not change during processing.
 
-The other types are used to hold scalar (k-type) , vectorial (a-type) 
+The other types are used to hold scalar (k-type) , vectorial (a-type)
 and spectral-frame (f) signal variables. These will change in
 performance, so parameters assigned to these variables are set and
 modified in the opcode processing function. Scalars will hold a single
@@ -110,11 +110,11 @@ what arguments it takes.
 
 The data structure will be organised in the following fashion:
 
-1.    The `OPDS` data structure, holding the common components of all
+1.    The `OPDS` data structure, holding the common components of all
       opcodes.\
-2.    The output pointers (one `MYFLT` pointer for each output)\
-3.    The input pointers (as above)\
-4.    Any other internal dataspace member.
+2.    The output pointers (one `MYFLT` pointer for each output)\
+3.    The input pointers (as above)\
+4.    Any other internal dataspace member.
 
 The Csound opcode API is defined by *csdl.h*, which should be included at
 the top of the source file. The example below shows a simple data
@@ -140,7 +140,7 @@ The initialisation function is only there to initialise any data, such
 as the internal variables, or allocate memory, if needed. The plugin
 opcode model in Csound 6 expects both the initialisation function and
 the perform function to return an int value, either `OK` or `NOTOK`. Both
-methods  take two arguments:  pointers to the `CSOUND` data structure and
+methods  take two arguments:  pointers to the `CSOUND` data structure and
 the opcode dataspace. The following example shows an example
 initialisation function. It initialises one of the variables to 0 and
 the other to the third opcode input parameter.
@@ -177,7 +177,7 @@ third input argument in the constructor above).
 For audio rate opcodes, because it will be generating audio signal
 vectors, it will require an internal loop to process the vector samples.
 This is not necessary with k-rate opcodes, because, as we are dealing
-with scalar inputs and outputs,  the function has to process only one
+with scalar inputs and outputs,  the function has to process only one
 sample at a time. If we were to make an audio version of the control
 opcode above (disregarding its usefulness), we would have to change the
 code slightly. The basic difference is that we have an audio rate output
@@ -186,7 +186,7 @@ instead of control rate. In this case, our output is a whole vector (a
 It is important to point out that the control rate and audio rate
 processing functions will produce exactly the same result. The
 difference here is that in the audio case, we will produce *ksmps*
-samples, instead of just one sample. However, all the vector samples
+samples, instead of just one sample. However, all the vector samples
 will have the same value (which actually makes the audio rate function
 redundant, but we will use it just to illustrate our point).
 
@@ -214,10 +214,10 @@ mode.
       }
 
       if(cnt > p->var2) cnt = (MYFLT) 0; /* check bounds */
-       
+
       /* processing loop    */
       for(i=offset; i < n; i++) aout[i] = *(p->in1) + cnt;
-       
+
        p->var1 = cnt; /* keep the value of cnt */
        return OK;
     }
@@ -247,11 +247,11 @@ The OENTRY structure defines the details of the new opcode:
     is for k-rate and 4 is for a-rate. The actual value is a combination
     of one or more of those. The value of 7 means active at i-time (1),
     k-rate (2) and a-rate (4). This means that the opcode has an init
-    function, plus a k-rate  and an a-rate processing functions.
+    function, plus a k-rate  and an a-rate processing functions.
 5.  String definition the output type(s): a, k, s (either a or k), i, m
-    (multiple output arguments), w or f (spectral signals).
+    (multiple output arguments), w or f (spectral signals).
 6.  Same as above, for input types: a, k, s, i, w, f, o (optional
-    i-rate, default to 0), p (opt, default to 1), q (opt, 10),  v(opt,
+    i-rate, default to 0), p (opt, default to 1), q (opt, 10),  v(opt,
     0.5), j(opt, -1), h(opt, 127), y (multiple inputs, a-type), z
     (multiple inputs, k-type), Z (multiple inputs, alternating k- and
     a-types), m (multiple inputs, i-type), M (multiple inputs, any type)

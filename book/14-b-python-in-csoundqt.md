@@ -1,12 +1,12 @@
 14 B. PYTHON IN CSOUNDQT
 ========================
 
-If CsoundQt is built with PythonQt support,[^1]  it enables a lot of new
+If CsoundQt is built with PythonQt support,[^1]  it enables a lot of new
 possibilities, mostly in three main fields: interaction with the
 CsoundQt interface, interaction with widgets and using classes from Qt
 libraries to build custom interfaces in python.
 
-[^1]: If not, have a look at the 
+[^1]: If not, have a look at the
       [releases](https://github.com/CsoundQt/CsoundQt/releases)
       page. Python 2.7 must be installed, too.
       For building CsoundQt with
@@ -34,7 +34,7 @@ It enables the control of a large part of CsoundQt's possibilities from
 the python interpreter, the python scratchpad, from scripts or from
 inside of a running Csound file via Csound's python opcodes.[^2]
 
-[^2]:  See chapter [12 B](12-b-python-and-csound.md) 
+[^2]:  See chapter [12 B](12-b-python-and-csound.md)
        for more information on the python opcodes and ctcsound.
 
 By default, a *PyQcsObject* is already available in the python
@@ -51,7 +51,7 @@ The methods can be divided into four groups:
 - interface with the running Csound engine
 
 
-File and Control Access 
+File and Control Access
 ------------------------
 
 If you have CsoundQt running on your computer, you should type the
@@ -98,7 +98,7 @@ immediately.
 For the next methods, we first need some more code in our csd. So let
 your *cs_floss_1.csd* look like this:
 
-   ***EXAMPLE 14B01_run_pause_stop.csd***
+   ***EXAMPLE 14B01_run_pause_stop.csd***
 
     <CsoundSynthesizer>
     <CsOptions>
@@ -183,7 +183,7 @@ this:
 
 ![](../resources/images/14-b-02.png)
 
-So in my case the indices are 3 and 4.[^4]  Now you can start, pause and
+So in my case the indices are 3 and 4.[^4]  Now you can start, pause and
 stop any of these files with tasks like these:
 
 [^4]:  If you have less or more csd tabs already while creating the new
@@ -205,7 +205,7 @@ running files, use:
     q.stopAll()
 
 To set a csd as active, use `setDocument(index)`. This will have the
-same effect as clicking on the tab. 
+same effect as clicking on the tab.
 
 
 ### Send Score Events
@@ -221,7 +221,7 @@ This should trigger instrument 1 for two seconds.
 
 ### Query File Name or Path
 
-In case you need to know the name[^5]  or the path of a csd file, you
+In case you need to know the name[^5]  or the path of a csd file, you
 have these functions:
 
 [^5]: Different to most usages, *name* means here the full path
@@ -440,7 +440,7 @@ widget at the same position and with the same name in the first tab:
 
 ### Setting the Specific Properties
 
-Each widget has a xy position and a channel name.[^7]  But the other
+Each widget has a xy position and a channel name.[^7]  But the other
 properties depend on the type of widget. A Display has name, width and
 height, but no resolution like a SpinBox. The function setWidgetProperty
 refers to a widget via its ID and sets a property. Let us try this for a
@@ -472,7 +472,7 @@ u\'{a71c0c67-3d54-4d4a-88e6-8df40070a7f5}\' as uuid, I can also write:
 
     q.setWidgetProperty(u'{a71c0c67-3d54-4d4a-88e6-8df40070a7f5}', "QCS_label", "Hey Joeboe!")
 
-For humans, referring to the channel name as ID is certainly preferable.[^9]  But as the *createNew...* method returns the uuid, you can
+For humans, referring to the channel name as ID is certainly preferable.[^9]  But as the *createNew...* method returns the uuid, you can
 use it implicitely, for instance in this command:
 
 [^9]: Note that two widgets can share the same channel name (for instance
@@ -534,7 +534,7 @@ Returns:
     QCS_objectName = disp_chan_01
 
 
-### Get the UUIDs of all Widgets 
+### Get the UUIDs of all Widgets
 
 For getting the uuid strings of all widgets in the active csd tab, type
 
@@ -634,7 +634,7 @@ display:
     py> q.createNewDisplay(50, 10, "message")
     u'{a51b438f-f671-4108-8cdb-982387074e4d}'
 
-Now we will ask for the values of these widgets[^11]  with the methods
+Now we will ask for the values of these widgets[^11]  with the methods
 *getChannelValue* and *getChannelString*:
 
 [^11]: Here again accessed by the channel name. Of course accessing by
@@ -853,7 +853,7 @@ Csound code. Here, Csound waits for the user input, and then prints out
 the entered value as the Csound variable giNumber:
 
 
-    ***EXAMPLE 14B04_dialog.csd***
+    ***EXAMPLE 14B04_dialog.csd***
 
     <CsoundSynthesizer>
     <CsOptions>

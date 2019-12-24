@@ -1,7 +1,7 @@
 09 B. CSOUND IN MAXMSP
 ======================
 
- 
+
 
 Csound can be embedded in a [Max](http://cycling74.com/products/max/)
 patch using the *csound~* object. This allows you to synthesize and
@@ -19,10 +19,10 @@ The *csound~* requires an installation of Csound. The external can be downloaded
 Creating a *csound~* Patch
 --------------------------
 
- 
+
 
 1.  Create the following patch:
-     
+
     ![](../resources/images/09-b-create.png)
 
 2.  Save as *helloworld.maxpat* and close it.
@@ -30,7 +30,7 @@ Creating a *csound~* Patch
     as your patch.
 4.  Add the following to the text file:\
 
-    ***EXAMPLE 09B01_maxcs_helloworld.csd ***
+    ***EXAMPLE 09B01_maxcs_helloworld.csd ***
 
         <CsoundSynthesizer>
         <CsInstruments>
@@ -56,7 +56,7 @@ Creating a *csound~* Patch
 
 5.  Open the patch, press the bang button, then press the speaker icon.
 
- 
+
 
 At this point, you should hear some noise. Congratulations! You created
 your first *csound~* patch.
@@ -104,7 +104,7 @@ the left of non-audio outlets. Let's create a patch called
 Here is the corresponding text file (let's call it *audio_io.csd*):
 
 
-   ***EXAMPLE 09B02_maxcs_audio_io.csd ***
+   ***EXAMPLE 09B02_maxcs_audio_io.csd ***
 
 ~~~
 <CsoundSynthesizer>
@@ -131,7 +131,7 @@ e
 </CsoundSynthesizer>
 ;example by Davis Pyon
 ~~~
- 
+
 
 In *audio_io.maxpat*, we are mixing three triangle waves into a stereo
 pair of outlets. In *audio_io.csd*, we us
@@ -166,7 +166,7 @@ The following patch and Csound file demonstrates control messages:
 ![](../resources/images/09-b-control.png)
 
 
-   ***EXAMPLE 09B03_maxcs_control_in.csd *** 
+   ***EXAMPLE 09B03_maxcs_control_in.csd ***
 
 ~~~
 <CsoundSynthesizer>
@@ -193,7 +193,7 @@ e
 </CsoundSynthesizer>
 ;example by Davis Pyon
 ~~~
- 
+
 
 In the patch, notice that we use two different methods to construct
 control messages. The *pak* method is a little faster than the message
@@ -219,9 +219,9 @@ messages, except for: sysex, time code, and sync. Let's look at a patch
 and text file that uses MIDI:
 
 ![](../resources/images/09-b-midi.png)
- 
 
-   ***EXAMPLE 09B04_maxcs_midi.csd ***
+
+   ***EXAMPLE 09B04_maxcs_midi.csd ***
 
 ~~~
 <CsoundSynthesizer>
@@ -248,7 +248,7 @@ endin
 </CsoundSynthesizer>
 ;example by Davis Pyon
 ~~~
- 
+
 
 In the patch, notice how we're using *midiformat* to format note and
 control change lists into raw MIDI bytes. The *1* argument for
@@ -266,7 +266,7 @@ the FM modulation factor, we use
 read the last known value of MIDI CC number one (mapped to the range
 \[0,10\]).[^1]
 
-[^1]: Csound's MIDI options and opcodes are described in detail in 
+[^1]: Csound's MIDI options and opcodes are described in detail in
       section 7 of this manual.
 
 Notice that in the score section of the Csound file, we no longer have the
@@ -283,7 +283,7 @@ The following patch and text file demonstrates how to send events:
 ![](../resources/images/09-b-events.png)
 
 
-   ***EXAMPLE 09B05_maxcs_events.csd ***
+   ***EXAMPLE 09B05_maxcs_events.csd ***
 
 ~~~
 <CsoundSynthesizer>

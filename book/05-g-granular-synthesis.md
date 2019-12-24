@@ -5,7 +5,7 @@ This chapter will focus upon granular synthesis used as a DSP technique
 upon recorded sound files and will introduce techniques including time
 stretching, time compressing and pitch shifting. The emphasis will be
 upon asynchronous granulation. For an introduction to synchronous
-granular synthesis using simple waveforms please refer to chapter 
+granular synthesis using simple waveforms please refer to chapter
 [04 F](04-f-granular-synthesis.md).
 
 Csound offers a wide range of opcodes for sound granulation. Each has
@@ -20,7 +20,7 @@ arguments they demand, amongst Csound's most complex opcodes.
 sndwarp - Time Stretching and Pitch Shifting
 --------------------------------------------
 
-[sndwarp](https://csound.com/docs/manual/sndwarp.html) 
+[sndwarp](https://csound.com/docs/manual/sndwarp.html)
 may not be Csound's newest or most advanced opcode for sound
 granulation but it is quite easy to use and is certainly up to the task
 of time stretching and pitch shifting. *sndwarp* has two modes by which we
@@ -37,11 +37,11 @@ You will need to make sure that a sound file is available to sndwarp via
 a GEN01 function table. You can replace the one used in this example
 with one of your own by replacing the reference to
 *ClassicalGuitar.wav*. This sound file is stereo therefore instrument
-1 uses the stereo version 
-[sndwarpst](https://csound.com/docs/manual/sndwarpst.html). 
+1 uses the stereo version
+[sndwarpst](https://csound.com/docs/manual/sndwarpst.html).
 A mismatch between the number
 of channels in the sound file and the version of sndwarp used will
-result in playback at an unexpected pitch. 
+result in playback at an unexpected pitch.
 
 sndwarp describes grain size as *window size* and it is defined in
 samples so therefore a window size of 44100 means that grains will last
@@ -397,7 +397,7 @@ grains from this buffer. We need a granular synthesizer that allows
 manual control over the read start point for each grain, since the
 relationship between the write position and the read position in the
 buffer determines the delay time. We've used the fof2 opcode for this
-purpose here. 
+purpose here.
 
 
    ***EXAMPLE 05G04_grain_delay.csd***
@@ -419,7 +419,7 @@ giTablen  = 131072
 giLive    ftgen 0,0,giTablen,2,0
 
 ; sigmoid rise/decay shape for fof2, half cycle from bottom to top
-giSigRise ftgen 0,0,8192,19,0.5,1,270,1         
+giSigRise ftgen 0,0,8192,19,0.5,1,270,1
 
 ; test sound
 giSample  ftgen 0,0,0,1,"fox.wav", 0,0,0

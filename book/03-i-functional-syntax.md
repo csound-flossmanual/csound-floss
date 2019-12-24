@@ -13,8 +13,8 @@ as *sqrt()*, *log()*, *int()*, *frac()*. For instance, the following code
 
 would print:
 
-    instr 1:  #i0 = 1.000
-    instr 1:  #i1 = 0.230
+    instr 1:  #i0 = 1.000
+    instr 1:  #i1 = 0.230
 
 Here the integer part and the fractional part of the number *1.234* are
 passed directly as an argument to the *print* opcode, without needing to
@@ -29,7 +29,7 @@ opcodes in Csound6.[^1] First we shall look at some examples.
 The traditional way of applying a fade and a sliding pitch (glissando)
 to a tone is something like this:
 
-   ***EXAMPLE 03I01_traditional_syntax.csd***
+   ***EXAMPLE 03I01_traditional_syntax.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -91,7 +91,7 @@ And the second line will look like this:
 
 So we can reduce our code from four lines to two lines:
 
-   ***EXAMPLE 03I02_functional_syntax_1.csd***
+   ***EXAMPLE 03I02_functional_syntax_1.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -122,7 +122,7 @@ Or if you prefer the "all-in-one" solution:[^2]
 [^2]: Please note that these two examples are not really correct,
       because the rates of the opcodes are not specified.
 
-   ***EXAMPLE 03I03_functional_syntax_2.csd***
+   ***EXAMPLE 03I03_functional_syntax_2.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -147,13 +147,13 @@ i 1 0 5
 ;example by joachim heintz
 ~~~
 
-Declare your color: i, k or a? 
+Declare your color: i, k or a?
 -------------------------------
 
 Most of the Csound opcodes work not only at one rate. You can, for
 instance, produce random numbers at i-, k- or a-rate:[^3]
 
-[^3]:  See chapter 
+[^3]:  See chapter
        [03A Initialization and Performance Pass]
        (03-a-initialization-and-performance-pass.md)
        for a more thorough explanation.
@@ -168,7 +168,7 @@ from 800 to a random value between 700 and 1400 Hz, so that we hear a
 different movement for each tone. In this case, we can simply write
 *random(700, 1400)*:
 
-   ***EXAMPLE 03I04_functional_syntax_rate_1.csd***
+   ***EXAMPLE 03I04_functional_syntax_rate_1.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -196,14 +196,14 @@ i 1 0 3
 
 But why is the *random* opcode here performing at i-rate, and not at k- or a-rate? This is, so to say, pure random --- it happens because in the Csound soruces the i-rate variant of this opcode is written first.[^4] If the k-rate variant were first, the above code failed.
 
-[^4]: See <https://github.com/csound/csound/blob/develop/Opcodes/uggab.c>, 
+[^4]: See <https://github.com/csound/csound/blob/develop/Opcodes/uggab.c>,
       line 2085
 
 
 So it is both, clearer and actually required, to explicitly declare at which rate a function is to be performed. This code claims that *poscil* runs at a-rate, *linseg* and *expseg* run at k-rate, and *random* runs at i-rate here:
 
 
-   ***EXAMPLE 03I05_functional_syntax_rate_2.csd***
+   ***EXAMPLE 03I05_functional_syntax_rate_2.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -234,13 +234,13 @@ the function. It would represent good practice to include it all the
 time, to be clear about what is happening.
 
 
-fun() with UDOs 
+fun() with UDOs
 ----------------
 
 It should be mentioned that you can use the functional style also with
 self created opcodes ("User Defined Opcodes"):
 
-   ***EXAMPLE 03I06_functional_syntax_udo.csd***
+   ***EXAMPLE 03I06_functional_syntax_udo.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -280,7 +280,7 @@ i 1 0 10
 
 Besides the ability of functional expressions to abbreviate code, this way of writing Csound code allows to conincide with a convention which is shared by many programming languages. This final example is doing exactly the same as the previous one, but for some programmers in a more clear and common way:
 
-   ***EXAMPLE 03I07_functional_syntax_udo_2.csd***
+   ***EXAMPLE 03I07_functional_syntax_udo_2.csd***
 
 ~~~
 <CsoundSynthesizer>

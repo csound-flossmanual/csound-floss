@@ -18,7 +18,7 @@ that is you can trick Csound into providing you with a list of available
 devices by trying to run Csound using an obviously out of range device
 number, like this:
 
-   ***EXAMPLE 02D01\_GetDeviceList.csd***
+   ***EXAMPLE 02D01\_GetDeviceList.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -35,7 +35,7 @@ endin
 </CsoundSynthesizer>
 ~~~
 
-The input (-i) and output (-o) devices will be listed seperately.[^1] 
+The input (-i) and output (-o) devices will be listed seperately.[^1]
 Specify your input device with the *-iadc* flag and the number of your
 input device, and your output device with the *-odac* flag and the
 number of your output device. For instance, if you select one of the
@@ -75,7 +75,7 @@ Tuning Performance and Latency
 Live performance and latency depend mainly on the sizes of the software
 and the hardware buffers. They can be set in the \<CsOptions\> using the
 -B flag for the hardware buffer, and the -b flag for the software
-buffer.[^2]  For instance, this statement sets the hardware buffer size
+buffer.[^2]  For instance, this statement sets the hardware buffer size
 to 512 samples and the software buffer size to 128 sample:
 
     -B512 -b128
@@ -86,7 +86,7 @@ value which is set in the header of the \<CsInstruments\> section. By
 this value, you define how many samples are processed every Csound
 control cycle.
 
-Try your realtime performance with -B512, -b128 and ksmps=32.[^3]  With a
+Try your realtime performance with -B512, -b128 and ksmps=32.[^3]  With a
 software buffer of 128 samples, a hardware buffer of 512 and a sample
 rate of 44100 you will have around 12ms latency, which is usable for
 live keyboard playing. If you have problems with either the latency or
@@ -139,7 +139,7 @@ gives you all necessary flexibility. The following example takes a live
 audio input and transforms its sound using ring modulation. The Csound
 Console should output five times per second the input amplitude level.
 
-   ***EXAMPLE 02D02\_LiveInput.csd***
+   ***EXAMPLE 02D02\_LiveInput.csd***
 
 ~~~
 <CsoundSynthesizer>

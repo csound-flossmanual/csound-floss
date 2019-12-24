@@ -16,7 +16,7 @@ Lowpass Filters
 
 The first type of filter encountered is normally the lowpass filter. As
 its name suggests it allows lower frequencies to pass through unimpeded
-and therefore filters higher frequencies. The crossover  frequency is
+and therefore filters higher frequencies. The crossover  frequency is
 normally referred to as the *cutoff* frequency. Filters of this type
 do not really cut frequencies off at the cutoff point like a brick wall
 but instead attenuate increasingly according to a cutoff slope.
@@ -46,7 +46,7 @@ would be a poor choice of source sound on account of its lack of
 spectral richness.
 
 
-   ***EXAMPLE 05C01_tone_butlp_moogladder.csd***
+   ***EXAMPLE 05C01_tone_butlp_moogladder.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -260,7 +260,7 @@ A comb filter is a special type of filter that creates a harmonically
 related stack of resonance peaks on an input sound file. A comb filter
 is really just a very short delay effect with feedback. Typically the
 delay times involved would be less than 0.05 seconds. Many of the comb
-filters documented in 
+filters documented in
 [the Csound Manual](https://csound.com/docs/manual/) term this delay time,
 *loop time*. The fundamental of the harmonic stack of resonances
 produced will be *1/loop* time. Loop time and the frequencies of the
@@ -354,7 +354,7 @@ outputs from four filter types - highpass, lowpass, bandpass and
 bandreject - simultaneously so that the user can morph between them
 smoothly. [svfilter](https://csound.com/docs/manual/svfilter.html)
 does a similar thing but with just highpass, lowpass and bandpass filter
-types. 
+types.
 
 [phaser1](https://csound.com/docs/manual/phaser1.html) and
 [phaser2](https://csound.com/docs/manual/phaser2.html) offer
@@ -397,14 +397,14 @@ giSpb init 0.45
 
 ; Filter types
 #define MOOG_LADDER #1#
-#define MOOG_VCF    #2# 
+#define MOOG_VCF    #2#
 #define LPF18       #3#
 #define BQREZ       #4#
 #define CLFILT      #5#
 #define BUTTERLP    #6#
 #define LOWRES      #7#
 #define REZZY       #8#
-#define SVFILTER    #9# 
+#define SVFILTER    #9#
 #define VLOWRES     #10#
 #define STATEVAR    #11#
 #define MVCLPF1     #12#
@@ -448,7 +448,7 @@ elseif iType == $MVCLPF2 then
     Echo "mvclpf2"
 elseif iType == $MVCLPF3 then
     Echo "mvclpf3"
-else    
+else
 endif
 endop
 
@@ -459,7 +459,7 @@ kType init iType
 if kType == $MOOG_LADDER then
     aout    moogladder ain, kcfq, kres
 elseif kType == $MOOG_VCF then
-    aout    moogvcf ain, kcfq, kres    
+    aout    moogvcf ain, kcfq, kres
 elseif kType == $LPF18 then
     aout    lpf18 ain, kcfq, kres, 0.5
 elseif kType == $BQREZ then
@@ -529,9 +529,9 @@ endop
 
 instr Bass
     iCoeff      = p4
-    iCps        = p5    
-    iFilterType = p6    
-    
+    iCps        = p5
+    iFilterType = p6
+
     aWave   Wave iCps
     aOut    Filter aWave, iFilterType, iCoeff, iCps
     aOut    linen aOut, .01, p3, .1
@@ -539,7 +539,7 @@ instr Bass
     gaOut   = gaOut + aOut
 endin
 
-opcode Note, 0, iiii   
+opcode Note, 0, iiii
     idt = 2 * giSpb
     iNum, iCoeff, iPch, iFilterType xin
     event_i "i", "Bass", idt * iNum, idt, iCoeff, cpspch(iPch), iFilterType
@@ -563,12 +563,12 @@ instr Notes
     Note 9, 1/3, 7.04, iFilterType
     Note 10, 2, 6.04, iFilterType
     Note 11, 1/1.5, 7.07, iFilterType
-    
+
     Note 12, 2, 6.09, iFilterType
     Note 13, 1, 7.09, iFilterType
     Note 14, 1/1.5, 6.11, iFilterType
     Note 15, 1/3, 6.07, iFilterType
-    
+
     Note 16, 2, 6.04, iFilterType
     Note 17, 1/3, 7.04, iFilterType
     Note 18, 2, 6.04, iFilterType
@@ -589,25 +589,25 @@ event_i "i", "Main", 0, (14 * 20), iMixLevel
 
 TrigNotes 0, $MOOG_LADDER
 TrigNotes 1, $MOOG_VCF
-TrigNotes 2, $LPF18 
+TrigNotes 2, $LPF18
 TrigNotes 3, $BQREZ
 TrigNotes 4, $CLFILT
 TrigNotes 5, $BUTTERLP
-TrigNotes 6, $LOWRES 
-TrigNotes 7, $REZZY  
+TrigNotes 6, $LOWRES
+TrigNotes 7, $REZZY
 TrigNotes 8, $SVFILTER
-TrigNotes 9, $VLOWRES 
+TrigNotes 9, $VLOWRES
 TrigNotes 10, $STATEVAR
-TrigNotes 11, $MVCLPF1 
-TrigNotes 12, $MVCLPF2 
-TrigNotes 13, $MVCLPF3 
+TrigNotes 11, $MVCLPF1
+TrigNotes 12, $MVCLPF2
+TrigNotes 13, $MVCLPF3
 
 turnoff
 endin
 
 opcode DumpNotes, 0, iiSi
 iNum, iFilterType, SFile, iMixLevel xin
-idt = 30   
+idt = 30
 Sstr    sprintf {{i "%s" %f %f "%s" %f}}, "Dump", idt * iNum, idt, SFile, iMixLevel
         scoreline_i Sstr
         event_i "i", "Notes", idt * iNum, 0, iFilterType

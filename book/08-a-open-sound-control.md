@@ -38,7 +38,7 @@ nchnls = 2
 
 turnon 1000  ; starts instrument 1000 immediately
 turnon 1001  ; starts instrument 1001 immediately
-        
+
 
 instr 1000  ; this instrument sends OSC-values
         kValue1 randomh 0, 0.8, 4
@@ -53,7 +53,7 @@ instr 1000  ; this instrument sends OSC-values
 endin
 
 
-instr 1001  ; this instrument receives OSC-values       
+instr 1001  ; this instrument receives OSC-values
         kValue1Received init 0.0
         kValue2Received init 0.0
         kValue3Received init 0.0
@@ -61,10 +61,10 @@ instr 1001  ; this instrument receives OSC-values
         ihandle OSCinit $R_PORT
         kAction  OSClisten      ihandle, "/QuteCsound", "fff",
                  kValue1Received, kValue2Received, kValue3Received
-                if (kAction == 1) then  
+                if (kAction == 1) then
                         printk2 kValue2Received
                         printk2 kValue1Received
-                        
+
                 endif
         aSine poscil3 kValue1Received, kValue2Received, 1
         ; a bit reverbration

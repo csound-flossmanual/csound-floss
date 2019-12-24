@@ -5,8 +5,8 @@
 This guide aims to introduce and illustrate some of the power that the
 Csound language offers to iOS Developers. It assumes that the reader has
 a rudimentary background in Csound, and some experience and
-understanding of iOS development with either Swift or Objective-C. The most recent Csound iOS SDK can be downloaded on Csound's  
-[download](http://csound.github.io/download) page. Older versions can be found 
+understanding of iOS development with either Swift or Objective-C. The most recent Csound iOS SDK can be downloaded on Csound's
+[download](http://csound.github.io/download) page. Older versions can be found
 [here](https://github.com/csound/csound/releases).
 
 The Csound for iOS Manual (Lazzarini, Yi, Boulanger) that ships with the
@@ -31,7 +31,7 @@ Xcode project to work with Csound from scratch.
 The Csound for iOS Examples project contains a number of simple examples
 (in both Objective-C and Swift) of how one might use Csound's synthesis
 and signal processing capabilities, and the communicative functionality
-of the API. It is available both in the download bundle or online in the 
+of the API. It is available both in the download bundle or online in the
 [Csound sources](https://github.com/csound/csound/tree/develop/iOS).
 
 In the *ViewControllers* group, a number of subgroups exist to organize
@@ -582,7 +582,7 @@ degrees of freedom. To enable it, use:
     [csoundMotion enableGyroscope];
 
     // Swift
-    csoundMotion.enableGyroscope() 
+    csoundMotion.enableGyroscope()
 
 
 ### Attitude Binding
@@ -668,7 +668,7 @@ method:
     [self.csound addBinding:self];
 
     // Swift
-    csound.addBinding(self) 
+    csound.addBinding(self)
 
 Note that you will need to conform to the CsoundBinding protocol, and
 implement. at minimum, the required setup method. The CsoundBinding
@@ -682,9 +682,9 @@ on any bindings that implement them.
 Named channels allow us to pass data to and from Csound while it is
 running. These channels refer to memory locations that we can write to
 and Csound can read from, and vice-versa. The two most common channel
-types are: `CSOUND_CONTROL_CHANNEL` refers to a floating point control
+types are: `CSOUND_CONTROL_CHANNEL` refers to a floating point control
 channel, normally associated with a k-rate variable in
-Csound. `CSOUND_AUDIO_CHANNEL` refers to an array of floating point
+Csound. `CSOUND_AUDIO_CHANNEL` refers to an array of floating point
 audio samples of length *ksmps*.
 
 Each of these can be an input or output channel depending on whether
@@ -805,7 +805,7 @@ protocol definition from CsoundObj is:
     @optional
     - (void)csoundObjStarted:(CsoundObj *)csoundObj;
     - (void)csoundObjCompleted:(CsoundObj *)csoundObj;
-    @end 
+    @end
 
 Note that there are no methods that an object is required to adopt in
 order to conform to this protocol. These methods simply allow an object
@@ -857,7 +857,7 @@ wrapper for a C struct of type Message. The definition for Message in
         int attr;
         const char *format;
         va_list valist;
-    } Message; 
+    } Message;
 
 The two fields of interest to us for the purposes of console output are
 format and valist. The former is a format string, and the latter
@@ -980,7 +980,7 @@ The `getAudioUnit` method returns a pointer to a CsoundObj instance's I/O
 AudioUnit, which provides audio input and output to Csound from iOS.
 
 This can have several potential purposes. As a simple example, you can
-use the AudioOutputUnitStop() function with the returned value's pointee
+use the AudioOutputUnitStop() function with the returned value's pointee
 to pause rendering, and AudioOutputUnitStart() to resume.
 
 

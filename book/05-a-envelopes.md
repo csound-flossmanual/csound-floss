@@ -369,7 +369,7 @@ opcodes wait until a held note is turned off before executing their
 final envelope segment. To facilitate this mechanism they extend the
 duration of the note so that this final envelope segment can complete.
 
-The following example uses midi input (either hardware or virtual) to
+The following example uses midi input (either hardware or virtual) to
 activate notes. The use of the *linsegr* envelope means that after the
 short attack stage lasting 0.1 seconds, the penultimate value of 1 will
 be held as long as the note is sustained but as soon as the note is
@@ -456,7 +456,7 @@ e 7.1
 </CsoundSynthesizer>
 ;example by Iain McCurdy
 ~~~
- 
+
 
 Comparison of the Standard Envelope Opcodes
 -------------------------------------------

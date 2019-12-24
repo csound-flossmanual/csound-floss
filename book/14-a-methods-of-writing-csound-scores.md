@@ -39,7 +39,7 @@ this:
 which would demand that instrument number 1 play a note at time zero
 (beats) for 5 beats. After time of constructing a score in this manner
 it quickly becomes apparent that certain patterns and repetitions recur.
-Frequently a single  instrument will be called repeatedly to play the
+Frequently a single  instrument will be called repeatedly to play the
 notes that form a longer phrase therefore diminishing the worth of
 repeatedly typing the same instrument number for p1, an instrument may
 play a long sequence of notes of the same duration as in a phrase of
@@ -57,7 +57,7 @@ simplify these kinds of tasks:
     i 1 3 1 63
     i 1 4 1 64
 
- could now be expressed as:
+ could now be expressed as:
 
     i 1 0 1 60
     i . + 1 >
@@ -128,14 +128,14 @@ section is also played at this stage). `s` marks the end of the
 section definition and `n` recalls this section three more times.
 
 Just a selection of the techniques and shortcuts available for
-hand-writing scores have been introduced here (refer to the 
+hand-writing scores have been introduced here (refer to the
 [Csound Reference Manual](https://csound.com/docs/manual/index.html) for a
 more encyclopedic overview). It has hopefully become clear however that
 with a full knowledge and implementation of these techniques the user
 can adeptly and efficiently write and manipulate scores by hand.
 
 
-Extension of the Score Language: *bin="..."* 
+Extension of the Score Language: *bin="..."*
 ----------------------------------------------
 
 It is possible to pass the score as written through a pre-processor
@@ -147,44 +147,44 @@ score as a result. This is done by the statement `bin="..."` in the
 1.  If just a binary is specified, this binary is called and two files
     are passed to it:
     1.  A copy of the user written score. This file has the suffix
-        *.ext* 
+        *.ext*
     2.  An empty file which will be read after the interpretation by
         Csound. This file has the usual score suffix *.sco*
 2.  If a binary and a script is specified, the binary calls the script
     and passes the two files to the script.
 
-If you have Python  installed on your computer, you should be able to
+If you have Python  installed on your computer, you should be able to
 run the following examples. They do actually nothing but print the
 arguments (= file names).
 
 
-### Calling a binary without a script 
+### Calling a binary without a script
 
    ***EXAMPLE 14A01_Score_bin.csd***
 
-    <CsoundSynthesizer> 
-    <CsInstruments> 
-    instr 1 
-    endin 
+    <CsoundSynthesizer>
+    <CsInstruments>
+    instr 1
+    endin
     </CsInstruments>
-    <CsScore bin="python3"> 
-    from sys import argv 
+    <CsScore bin="python3">
+    from sys import argv
     print("File to read = '%s'" % argv[0])
     print("File to write = '%s'" % argv[1])
-    </CsScore> 
+    </CsScore>
     </CsoundSynthesizer>
 
 
 When you execute this .csd file in the terminal, your output should
-include something like this: 
+include something like this:
 
-    File to read = '/tmp/csound-idWDwO.ext'
-    File to write = '/tmp/csound-EdvgYC.sco'
+    File to read = '/tmp/csound-idWDwO.ext'
+    File to write = '/tmp/csound-EdvgYC.sco'
 
 And there should be a complaint because the empty .sco file has not been
 written:
 
-    cannot open scorefile /tmp/csound-EdvgYC.sco
+    cannot open scorefile /tmp/csound-EdvgYC.sco
 
 
 ### Calling a binary and a script
@@ -212,13 +212,13 @@ Then run this csd:
 
 The output should include these lines:
 
-    Script = 'print.py'
-    File to read = '/tmp/csound-jwZ9Uy.ext'
-    File to write = '/tmp/csound-NbMTfJ.sco'
+    Script = 'print.py'
+    File to read = '/tmp/csound-jwZ9Uy.ext'
+    File to write = '/tmp/csound-NbMTfJ.sco'
 
 And again a complaint about the invalid score file:
 
-    cannot open scorefile /tmp/csound-NbMTfJ.sco
+    cannot open scorefile /tmp/csound-NbMTfJ.sco
 
 
 ### CsBeats
@@ -231,7 +231,7 @@ of beats, rhythm and standard western notation. To use Csbeat, specify
 
     <CsScore bin="csbeats">
 
-For more information, refer to the 
+For more information, refer to the
 [Csound Manual](https://csound.com/docs/manual/CsBeats.html).
 
 
@@ -244,7 +244,7 @@ different value for the first three random statements, while the last
 two statements will always generate the same values.
 
 
-   ***EXAMPLE 14A03_Score_perlscript.csd*** 
+   ***EXAMPLE 14A03_Score_perlscript.csd***
 
     <CsoundSynthesizer>
     <CsInstruments>
@@ -290,8 +290,8 @@ not force composers into any one particular compositional model;
 Composers design their own score frameworks by importing from existing
 Python libraries, or fabricate their own functions as needed. It fully
 supports the existing classical Csound score, and runs inside a unified
-CSD file. The sources are 
-[on github](https://github.com/jacobjoaquin/csd/tree/master/demo/pysco), 
+CSD file. The sources are
+[on github](https://github.com/jacobjoaquin/csd/tree/master/demo/pysco),
 so although the code is still using Python2, it can certainly serve as an example about the possibilities of using Python as score scripting language.
 
 Pysco is designed to be a giant leap forward from the classical Csound
@@ -306,7 +306,7 @@ compositional environment.
 
 ### Transitioning away from the Classical Csound Score
 
-Only two changes are necessary to get started. First, the optional *bin* argument for the CsScore tag needs to specify "python pysco.py" . Second, all existing classical Csound score code works when placed inside the *score()*
+Only two changes are necessary to get started. First, the optional *bin* argument for the CsScore tag needs to specify "python pysco.py" . Second, all existing classical Csound score code works when placed inside the *score()*
 function.
 
     <CsScore bin="python pysco.py">
@@ -334,7 +334,7 @@ handful.
 
 ### Managing Time with the *cue()*
 
-The *cue()* object is the Pysco 
+The *cue()* object is the Pysco
 [context manager](http://docs.python.org/2/reference/datamodel.html#context-managers)
 for controlling and manipulating time in a score. Time is a fundamental
 concept in music, and the *cue()* object elevates the role of time to that
@@ -393,7 +393,7 @@ Moving events in time, regardless of how many there are, is nearly
 effortless. In the classical score, this often involves manually
 recalculating entire columns of start times. Since the cue() supports
 nesting, it\'s possible and rather quite easy, to move these two
-measures any where in the score with a new *with cue()* statement. 
+measures any where in the score with a new *with cue()* statement.
 
     # Movement 2
     with cue(330):
@@ -413,7 +413,7 @@ measures any where in the score with a new *with cue()* statement. 
 
 These two measures now start at beat 330 in the piece. With the
 exception of adding an extra level of indentation, the score code for
-these two measures are unchanged. 
+these two measures are unchanged.
 
 
 ### Generating Events
@@ -427,16 +427,16 @@ example:
     event_i(1, 0, 1.5, 0.707 8.02)
 
 The *event_i()* function transforms the input, outputting the following
-Csound score code: 
+Csound score code:
 
     i 1 0 1.5 0.707 8.02
 
 These event score functions combined with Python's extensive set of
 features aid in generating multiple events. The following example uses
-three of these features: the 
-[for statement](http://docs.python.org/2/tutorial/controlflow.html#for-statements), 
+three of these features: the
+[for statement](http://docs.python.org/2/tutorial/controlflow.html#for-statements),
 [range()](http://docs.python.org/2/tutorial/controlflow.html#the-range-function),
-and [random()](http://docs.python.org/2/library/random.html#random.random).
+and [random()](http://docs.python.org/2/library/random.html#random.random).
 
     from random import random
 
@@ -447,18 +447,18 @@ and [random()](http://docs.python.org/2/library/random.html#random.random).
             frequency = 100 + random() * 900
             event_i(1, 0, 1, 0.707, frequency)
 
-Python's *for* statement combined with *range()* loops through the
+Python's *for* statement combined with *range()* loops through the
 proceeding code block eight times by iterating through the list of
-values created with the *range()* function. The list generated by *range(8)*
+values created with the *range()* function. The list generated by *range(8)*
 is:
 
     [0, 1, 2, 3, 4, 5, 6, 7]
 
-As the script iterates through the list, variable time assumes the next
-value in the list; The time variable is also the start time of each
+As the script iterates through the list, variable time assumes the next
+value in the list; The time variable is also the start time of each
 event. A hint of algorithmic flair is added by importing the
-*random()* function from Python's 
-[random library](http://docs.python.org/2/library/random.html) and using it to
+*random()* function from Python's
+[random library](http://docs.python.org/2/library/random.html) and using it to
 create a random frequency between 100 and 1000 Hz. The script produces
 this classical Csound score:
 
@@ -506,7 +506,7 @@ converting from decibels to standard amplitudes.
 
     pmap('i', 1, 4, dB)
 
- The final output is:
+ The final output is:
 
     f 1 0 8192 10 1
     t 0 120
@@ -546,33 +546,33 @@ span is called a field.
 
 ### A CMask example: creation of a dynamic texture
 
-    { 
+    {
     f1 0 8193 10 1 ;sine wave
     }
-    
+
     f 0 20 ;field duration: 20 secs
 
-    p1 const 1   
-    p2 ;decreasing density 
-    rnd uni ;from .03 - .08 sec to .5 - 1 sec 
-    mask [.03 .5 ipl 3] [.08 1 ipl 3] map 1 
-    prec 2   
-    p3 ;increasing duration 
-    rnd uni mask [.2 3 ipl 1] [.4 5 ipl 1] 
-    prec 2   
+    p1 const 1
+    p2 ;decreasing density
+    rnd uni ;from .03 - .08 sec to .5 - 1 sec
+    mask [.03 .5 ipl 3] [.08 1 ipl 3] map 1
+    prec 2
+    p3 ;increasing duration
+    rnd uni mask [.2 3 ipl 1] [.4 5 ipl 1]
+    prec 2
 
-    p4 ;narrowing frequency grid 
-    rnd uni mask [3000 90 ipl 1] [5000 150 ipl 1] map 1 
-    quant [400 50] .95 
-    prec 2   
-    p5 ;FM index gets higher from 2-4 to 4-7 
-    rnd uni mask [2 4] [4 7] 
-    prec 2   
+    p4 ;narrowing frequency grid
+    rnd uni mask [3000 90 ipl 1] [5000 150 ipl 1] map 1
+    quant [400 50] .95
+    prec 2
+    p5 ;FM index gets higher from 2-4 to 4-7
+    rnd uni mask [2 4] [4 7]
+    prec 2
 
-    p6 range 0 1 ;panorama position uniform distributed 
+    p6 range 0 1 ;panorama position uniform distributed
     prec 2 ;between left and right
 
- The output is:
+ The output is:
 
     f1 0 8193 10 1            ;sine wave
 
@@ -596,12 +596,12 @@ span is called a field.
     ; ------- end of field 1 --- number of events: 241 -------
 
 
-Cmask can be downloaded for 
+Cmask can be downloaded for
 [MacOS9, Win, Linux](http://www.bartetzki.de/en/software.html) (by
 André Bartetzki) and is ported to
 [OSX](http://www.anthonykozar.net/ports/cmask)(by Anthony Kozar).
 
- 
+
 
 nGen
 -----
@@ -720,7 +720,7 @@ The output is:
 
     e
 
- nGen for Mac, Windows and Linux can be downloaded
+ nGen for Mac, Windows and Linux can be downloaded
 [here](http://mikelkuehn.com/index.php/ng)
 
 
@@ -735,7 +735,7 @@ Musical Instrument Digital Interface (MIDI) files, and other specialized
 formats. Within athenaCL, Orchestra and Instrument models provide
 control of and integration with diverse OutputFormats. Orchestra models
 may include complete specification, at the code level, of external sound
-sources that are created in the process of OutputFormat generation. 
+sources that are created in the process of OutputFormat generation.
 
 ![](../resources/images/14-a-athenaclscreen.png)
 
@@ -791,7 +791,7 @@ Environment) a drag-and-drop, cross-platform app implemented in JUCE
 (C++) and S7 Scheme. In Grace musical algorithms can run in real time,
 or faster-than-real time when doing file-based composition. Grace
 provides two coding languages for designing musical algorithms: S7
-Scheme, and SAL, an easy-to-learn but expressive algol-like language. 
+Scheme, and SAL, an easy-to-learn but expressive algol-like language.
 
 ![](../resources/images/14-a-cm3.png)
 

@@ -58,7 +58,7 @@ play a note for this duration. Instrument 2 plays the sound file. The
 score as defined in the *\<CsScore\> ... \</CsScore\>* section only lasts for
 0.01 seconds but the *event_i* statement in instrument 1 will extend this
 for the required duration. The sound file is a mono file so you can
-replace it with any other mono file. 
+replace it with any other mono file.
 
    ***EXAMPLE 03H01_Macros_basic.csd***
 
@@ -104,7 +104,7 @@ defined as a list of sub-macro names within brackets after the name of
 the primary macro with each macro argument being separated using an
 apostrophe as shown below.
 
- 
+
 
     #define NAME(Arg1'Arg2'Arg3...) # replacement text #
 
@@ -261,7 +261,7 @@ e
 Score macros can themselves contain macros so that, for example, the
 above example could be further expanded so that a verse, chorus
 structure could be employed where verses and choruses, defined using
-macros, were themselves constructed from a series of riff macros. 
+macros, were themselves constructed from a series of riff macros.
 
 UDOs and macros can both be used to reduce code repetition and there are
 many situations where either could be used with equal justification but

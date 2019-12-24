@@ -13,21 +13,21 @@ is x, the outgoing value becomes y. This can be written as a table with
 two columns. Here is a simple example:
 
   -------------------------- --------------------------
-    **Incoming (x) Value**     **Outgoing (y) Value**
-  -0.5 or lower               -1
-   between -0.5 and 0.5       remain unchanged
-   0.5 or higher              1
+    **Incoming (x) Value**     **Outgoing (y) Value**
+  -0.5 or lower               -1
+   between -0.5 and 0.5       remain unchanged
+   0.5 or higher              1
   -------------------------- --------------------------
 
- 
 
- 
+
+
 
 Illustrating this in an x/y coordinate system results in the following
 graph:
 
 ![](../resources/images/04-e-bild1a.png){width=50%}
- 
+
 
 Basic Implementation Model
 --------------------------
@@ -37,8 +37,8 @@ waveshaping from first principles as Csound code is fairly
 straightforward. The x-axis is the amplitude of every single sample,
 which is in the range of -1 to +1. This number has to be used as index
 to a table which stores the transfer function. To create a table like
-the one above, you can use Csound's sub-routine 
-[GEN07](https://csound.com/docs/manual/GEN07.html). 
+the one above, you can use Csound's sub-routine
+[GEN07](https://csound.com/docs/manual/GEN07.html).
 This statement will create a table of 4096 points with the desired shape:
 
     giTrnsFnc ftgen 0, 0, 4096, -7, -0.5, 1024, -0.5, 2048, 0.5, 1024, 0.5
@@ -64,7 +64,7 @@ solution is to use an interpolating table reader. The opcode
 [tablei](https://csound.com/docs/manual/tablei.html) (instead of
 [table](https://csound.com/docs/manual/table.html)) does this job.
 This opcode then needs an extra point in the table for interpolating, so
-we give 4097 as the table size instead of 4096. 
+we give 4097 as the table size instead of 4096.
 
 This is the code for simple waveshaping using our transfer function
 which has been discussed previously:
@@ -129,21 +129,21 @@ of 1 leaves that value unchanged).
 A shaping amount of 2.5 will visibly "squeeze" the waveform as values
 less than 1 become increasingly biased towards the zero axis.
 
-![](../resources/images/04-e-powershape2-5.png) 
+![](../resources/images/04-e-powershape2-5.png)
 
 
 Much higher values will narrow the positive and negative peaks further.
 Below is the waveform resulting from a shaping amount of 50.
 
 ![](../resources/images/04-e-powershape50.png)
- 
+
 
 Shape amounts less than 1 (but greater than zero) will give the opposite
 effect of drawing values closer to -1 or 1. The waveform resulting from
 a shaping amount of 0.5 shown below is noticeably more rounded than the
 sine wave input.
 
-![](../resources/images/04-e-powershape0-5.png) 
+![](../resources/images/04-e-powershape0-5.png)
 
 Reducing shape amount even closer to zero will start to show squaring of
 the waveform. The result of a shape amount of 0.1 is shown below.
@@ -223,7 +223,7 @@ provided for *start* and *end* only alter the shape.
 In the following test example a sine wave at 200 hz is waveshaped using
 distort and the tanh function shown above.
 
-   ***EXAMPLE 04E02_Distort_1.csd*** 
+   ***EXAMPLE 04E02_Distort_1.csd***
 
 ~~~
 <CsoundSynthesizer>

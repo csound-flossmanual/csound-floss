@@ -147,7 +147,7 @@ probably most useful.
 
 In the following example a simple synthesizer is created. Midi
 controller 1 controls the output volume of this instrument but the
-*initc7* statement near the top of the orchestra ensures that this control
+*initc7* statement near the top of the orchestra ensures that this control
 does not default to its minimum setting. The arguments that *initc7* takes
 are for midi channel, controller number and initial value. Initial value
 is defined within the range 0-1, therefore a value of 1 will set this
@@ -197,7 +197,7 @@ aSig poscil  iAmp*kVol, iCps, giSine ; an audio oscillator
 
 You will maybe hear that this instrument produces *clicks* as notes
 begin and end. To find out how to prevent this see the section on
-envelopes with release sensing in chapter 
+envelopes with release sensing in chapter
 [05 A](05-a-envelopes.md).
 
 
@@ -329,7 +329,7 @@ aSig      gbuzz   iAmp*aVol*aEnv,cpsmidinn(iNum+kPchBnd),70,0,kMul,giCos
 ~~~
 
 
- RECORDING CONTROLLER DATA
+ RECORDING CONTROLLER DATA
 --------------------------
 
 Data performed on a controller or controllers can be recorded into GEN
@@ -509,8 +509,8 @@ i 1 0 3600
 </CsoundSynthesizer>
 ;example by Iain McCurdy
 ~~~
- 
 
- 
 
- 
+
+
+

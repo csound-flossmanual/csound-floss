@@ -13,7 +13,7 @@ vice versa. In equation form, this is expressed as follows.
 
      Frequency = 1/Period         Period = 1/Frequency
 
- 
+
 
 Therefore the frequency is the inverse of the period, so a wave of 100Hz
 frequency has a period of 1/100 or 0.01 seconds, likewise a frequency of
@@ -31,10 +31,10 @@ m/s) has a length of approximately 340/1000 m = 34 cm.
 It is generally stated that the human ear can hear sounds in the range
 20Hz to 20,000Hz (20kHz). This upper limit tends to decrease with age
 due to a condition known as presbyacusis, or age related hearing loss.
-Most adults can hear to about 16 kHz while most children can hear beyond
+Most adults can hear to about 16 kHz while most children can hear beyond
 this. At the lower end of the spectrum the human ear does not respond to
 frequencies below 20 Hz, with 40 of 50 Hz being the lowest most people
-can perceive. 
+can perceive.
 
 So, in the following example, you will not hear the first (10 Hz) tone,
 and probably not the last (20 kHz) one, but hopefully the other ones
@@ -120,7 +120,7 @@ the added frequency is the same. Second, the ratio 3/2 (perfect fifth)
 is applied to the same frequencies. This spacing sounds constant,
 although the frequency displacement is different each time.
 
-***EXAMPLE 01B02\_Adding\_vs\_ratio.csd*** 
+***EXAMPLE 01B02\_Adding\_vs\_ratio.csd***
 
     <CsoundSynthesizer>
     <CsOptions>
@@ -179,7 +179,7 @@ approximately 1.059463.
 So what about the reference to logarithms in the heading above? As
 stated previously, logarithms are shorthand for exponents. 2^(1/12)^=
 1.059463 can also be written as log2(1.059463)= 1/12. Therefore musical
-frequency works on a logarithmic scale. 
+frequency works on a logarithmic scale.
 
 ### MIDI Notes
 

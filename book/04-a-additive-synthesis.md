@@ -26,7 +26,7 @@ the parameters we use will operate on one of two different levels:
 -   -   The **frequency** will usually be a constant value, but it can
         be varied and in fact natural sounds typically exhibit slight
         modulations of partial frequencies.
-    -   The **amplitude** must have at least a simple envelope such as
+    -   The **amplitude** must have at least a simple envelope such as
         the well-known ADSR but more complex methods of continuously
         altering the amplitude will result in a livelier sound.
 
@@ -83,7 +83,7 @@ share the same amplitude multipliers: 1, 1/2, 1/3, 1/4, ... and receive
 the base frequency in Csound's pitch notation (octave.semitone) and the
 main amplitude in dB.
 
-   ***EXAMPLE 04A01_AddSynth_simple.csd*** 
+   ***EXAMPLE 04A01_AddSynth_simple.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -280,8 +280,8 @@ more complex and allows you to also control the frequency multiplier and
 the phase (0-360°) of each partial. Thus we are able to reproduce the
 first example in a shorter (and computationally faster) form:
 
-   ***EXAMPLE 04A03_AddSynth_GEN.csd*** 
- 
+   ***EXAMPLE 04A03_AddSynth_GEN.csd***
+
 ~~~
 <CsoundSynthesizer>
 <CsOptions>
@@ -339,21 +339,21 @@ multiplier to complete one period of the composite waveform. In other
 words, we have to create a table which contains respectively 100 and 102
 periods, instead of 1 and 1.02. Therefore the table frequencies will not
 be related to 1 as usual but instead to 100. This is the reason that we
-have to introduce a new parameter, *iTabFreq*, for this purpose. (N.B.
+have to introduce a new parameter, *iTabFreq*, for this purpose. (N.B.
 In this simple example we could actually reduce the ratios to 50 and 51
 as 100 and 102 share a common denominator of 2.)
 
 This method of composing waveforms can also be used for generating four
 standard waveform shapes typically encountered in vintage synthesizers.
 An **impulse** wave can be created by adding a number of harmonics of
-the same strength. A **sawtooth** wave has the amplitude multipliers 1,
-1/2, 1/3, ... for the harmonics. A **square** wave has the same
+the same strength. A **sawtooth** wave has the amplitude multipliers 1,
+1/2, 1/3, ... for the harmonics. A **square** wave has the same
 multipliers, but just for the odd harmonics. A **triangle** can be
 calculated as 1 divided by the square of the odd partials, with swapping
 positive and negative values. The next example creates function tables
 with just the first ten partials for each of these waveforms.
 
-   ***EXAMPLE 04A04_Standard_waveforms.csd*** 
+   ***EXAMPLE 04A04_Standard_waveforms.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -388,7 +388,7 @@ i 1 12 3 4
 ~~~
 
 
-Triggering Instrument Events for the Partials 
+Triggering Instrument Events for the Partials
 ----------------------------------------------
 
 Performing additive synthesis by designing partial strengths into
@@ -398,7 +398,7 @@ are various methods to circumvent the inflexibility of table-based
 additive synthesis such as morphing between several tables (for example
 by using the [ftmorf](http://www.csound.com/docs/manual/ftmorf.html)
 opcode) or by filtering the result. Next we shall consider another
-approach: triggering one instance of a sub-instrument[^1]  for each
+approach: triggering one instance of a sub-instrument[^1]  for each
 partial, and exploring the possibilities of creating a spectrally
 dynamic sound using this technique.
 
@@ -413,7 +413,7 @@ complete note in one score line, not just one partial. The first step is
 to assign the desired number of partials via a score parameter. The next
 example triggers any number of partials using this one value:
 
-   ***EXAMPLE 04A05_Flexible_number_of_partials.csd*** 
+   ***EXAMPLE 04A05_Flexible_number_of_partials.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -551,7 +551,7 @@ Catalogue*.[^2]
      Sounds (1969), cited after Dodge/Jerse, Computer Music, New York /
      London 1985, p.94
 
-   ***EXAMPLE 04A07_Risset_variations.csd***    
+   ***EXAMPLE 04A07_Risset_variations.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -652,7 +652,7 @@ according to the key velocity so that a key pressed softly plays the
 bell-like sound as described by Risset but as a key is struck with
 increasing force the sound produced will be increasingly altered.
 
-   ***EXAMPLE 04A08_Risset_played_by_Midi.csd***    
+   ***EXAMPLE 04A08_Risset_played_by_Midi.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -730,11 +730,11 @@ endin
 ;example by joachim heintz
 ~~~
 
-Whether you can play examples like this in realtime will depend on the
+Whether you can play examples like this in realtime will depend on the
 power of your computer. Have a look at chapter
 [2D](02-d-live-audio.md) (Live Audio) for tips
-on getting the best possible performance from your Csound orchestra.  
- 
+on getting the best possible performance from your Csound orchestra.
+
 
 gbuzz, buzz and GEN11
 ---------------------
@@ -800,16 +800,16 @@ e
 
 ![](../resources/images/04-a-gbuzz1.png)
 
- 
+
 The total number of partials only reaches 19 because the
 [line](http://www.csound.com/docs/manual/line.html) function only
-reaches 20 at the very conclusion of the note. 
+reaches 20 at the very conclusion of the note.
 
 In the next example the number of partials contained within the tone
 remains constant but the partial number of the lowest partial rises from
 1 to 20.
 
-   ***EXAMPLE 04A10_gbuzz_partials_rise.csd*** 
+   ***EXAMPLE 04A10_gbuzz_partials_rise.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -847,7 +847,7 @@ e
 ~~~
 
 ![](../resources/images/04-a-gbuzz2.png)
- 
+
 In the spectrogram it can be seen how, as lowermost partials are
 removed, additional partials are added at the top of the spectrum. This
 is because the total number of partials remains constant at 20.
@@ -907,7 +907,7 @@ partial number and amplitude coefficient multiplier.
 function table waveform using the same parameters as
 *gbuzz*. If a *gbuss* tone is required
 but no performance time modulation of its parameters is
-needed, *GEN11* may
+needed, *GEN11* may
 provide a more efficient option. *GEN11* also opens the
 possibility of using its waveforms in a variety of other opcodes.
 *gbuzz*, *buzz* and *GEN11* may also prove

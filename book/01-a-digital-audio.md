@@ -93,7 +93,7 @@ signal quality will result. When we talk of *noise* we are talking
 specifically about any unwanted signal captured during the transduction
 process. This normally manifests itself as an unwanted *hiss*.
 
- 
+
 
 Sampling
 --------
@@ -196,7 +196,7 @@ rather than 30kHz. This may seem like an academic proposition in that we
 will never be able to hear a 30KHz waveform anyway but some synthesis
 and DSP techniques procedures will produce these frequencies as
 unavoidable by-products and we need to ensure that they do not result in
-unwanted artifacts. 
+unwanted artifacts.
 
 The following Csound instrument plays a 1000 Hz tone first directly, and
 then because the frequency is 1000 Hz lower than the sample rate of
@@ -267,7 +267,7 @@ represents a single character of data in the computer. It\'s a little
 used term, but you might be interested in knowing that a nibble is half
 a byte (usually 4 bits).
 
- 
+
 
 The Binary System
 -----------------
@@ -288,7 +288,7 @@ Therefore each added bit doubles the amount of possible numbers that can
 be represented. Put simply, the more bits you have at your disposal the
 more information you can store.
 
- 
+
 
 Bit-depth Resolution
 --------------------

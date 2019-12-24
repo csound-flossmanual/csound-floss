@@ -6,18 +6,18 @@ Csound, An introduction to the Python opcodes*.[^1] Some
 basic knowledge of Python is required. For using Csound's Python
 opcodes, you must have Python installed.
 
-[^1]: Csound Journal Issue 6, Spring 2007: 
+[^1]: Csound Journal Issue 6, Spring 2007:
       <http://csoundjournal.com/issue6/pythonOpcodes.html>
 
 All examples below are to be executed in a Terminal. If using CsoundQt, choose *Run in Term* instead of *Run*.
 
-Note that currently this chapter is only focussing on Python **inside** Csound by using Csound's 
-[Python Opcodes](https://csound.com/docs/manual/py.html). The more versatile and flexible way to combine Python and Csound is using the Csound API. See chapter [12 A](12-a-the-csound-api.md) for background and the 
+Note that currently this chapter is only focussing on Python **inside** Csound by using Csound's
+[Python Opcodes](https://csound.com/docs/manual/py.html). The more versatile and flexible way to combine Python and Csound is using the Csound API. See chapter [12 A](12-a-the-csound-api.md) for background and the
 [ctcsound website](https://github.com/csound/ctcsound) for examples.
 
 
 
-Starting the Python Interpreter and Running Python Code at i-Time: *pyinit* and *pyruni* 
+Starting the Python Interpreter and Running Python Code at i-Time: *pyinit* and *pyruni*
 -------------------------------------------------------------------------------------
 
 To use the Python opcodes inside Csound, you must first start the Python
@@ -131,10 +131,10 @@ Prints:
 Running Python Code at k-Time
 -----------------------------
 
-Python scripts can also be executed at k-rate using 
+Python scripts can also be executed at k-rate using
 [pyrun](https://csound.com/docs/manual/pyrun.html). When *pyrun* is
 used, the script will be executed on every k-pass for the
-instrument, which means it will be executed 
+instrument, which means it will be executed
 [kr](https://csound.com/docs/manual/kr.html) times per second. The
 example below shows a simple example of *pyrun*. The number of control
 cycles per second is set here to 100 via the statement *kr=100*. After
@@ -205,8 +205,8 @@ Running External Python Scripts: *pyexec*
 -----------------------------------------
 
 Csound allows you to run Python script files that exist outside your *csd*
-file. This is done using 
-[pyexec](https://csound.com/docs/manual/pyexec.html). 
+file. This is done using
+[pyexec](https://csound.com/docs/manual/pyexec.html).
 The pyexec opcode will run the script indicated, like this:
 
     pyexec "/home/python/myscript.py"
@@ -293,12 +293,12 @@ Prints:
 
     a + b = 3
 
- 
+
 
 Passing Values from Csound to Python: *pyassign(i)*
 ---------------------------------------------------
 
-You can pass values from Csound to Python via the 
+You can pass values from Csound to Python via the
 [pyassign](https://csound.com/docs/manual/pyassign.html) opcodes. This
 is a very simple example which calculates the cent distance of the
 proportion 3/2:
@@ -346,7 +346,7 @@ Calling Python Functions with Csound Variables
 
 Apart from reading and setting variables directly with an opcode, you
 can also call Python functions from Csound and have the function return
-values directly to Csound. This is the purpose of the 
+values directly to Csound. This is the purpose of the
 [pycall](https://csound.com/docs/manual/pycall.html) opcodes.
 With these opcodes you specify the function to call and the function
 arguments as arguments to the opcode. You can have the function return
@@ -403,7 +403,7 @@ i 1 1 1  1000 2000
 ~~~
 
 This csd will print the following output:
-    
+
     a = 150
     a = 1500
 
@@ -608,5 +608,5 @@ i 1 15 15     1               8
 </CsoundSynthesizer>
 ;Example by Andrés Cabrera
 ~~~
- 
+
 

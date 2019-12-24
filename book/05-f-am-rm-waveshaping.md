@@ -70,7 +70,7 @@ i .           + .  100
 
 In instrument *RM_static*, the fourth parameter of the score line (p4) directly yields the frequency of the modulator. In instrument *RM_moving*, this frequency is a random movement between 400 and 1000 Hz, and p4 here yields the rate in which new random values are generated.
 
-For amplitude modulation, a constant part - the *DC offset* - is added to the modulating signal. The result is a mixture of unchanged and ring modulated sound, in different weights. The most simple way to implement this is to add a part of the source signal to the ring modulated signal. 
+For amplitude modulation, a constant part - the *DC offset* - is added to the modulating signal. The result is a mixture of unchanged and ring modulated sound, in different weights. The most simple way to implement this is to add a part of the source signal to the ring modulated signal.
 
 
 WAVESHAPING
@@ -199,7 +199,7 @@ of distortion in the *kdist* parameter. Here is a simple example:
 
 
    ***EXAMPLE 05F04_distort.csd***
- 
+
 ~~~
 <CsoundSynthesizer>
 <CsOptions>
@@ -243,4 +243,4 @@ i . + . 8 .02
 </CsoundSynthesizer>
 ;example by joachim heintz
 ~~~
- 
+

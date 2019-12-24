@@ -16,7 +16,7 @@ looping. *flooper2* can also apply a cross-fade between the end and
 the beginning of the loop in order to smooth the transition where
 looping takes place.
 
-In the following example a sound file that has been loaded into a 
+In the following example a sound file that has been loaded into a
 [GEN01](https://csound.com/docs/manual/GEN01.html)
 function table is played back using *flooper2*. The opcode also
 includes a parameter for modulating playback speed/pitch. There is
@@ -24,7 +24,7 @@ also the option of modulating the loop points at k-rate. In this example
 the entire file is simply played and looped. As always, you can replace the sound file with one of your own. Note that *GEN01* accepts mono or stereo files; the number of output arguments for *flooper2* must correspond with the mono or stereo table.
 
 
-   ***EXAMPLE 06B01_flooper2.csd***  
+   ***EXAMPLE 06B01_flooper2.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -63,7 +63,7 @@ e
 </CsoundSynthesizer>
 ; example written by Iain McCurdy
 ~~~
- 
+
 
 Csound's Built-in Record-Play Buffer - *sndloop*
 ------------------------------------------------
@@ -89,7 +89,7 @@ You will need to have a microphone connected to your computer in order
 to use this example.
 
 
-   ***EXAMPLE 06B02_sndloop.csd***  
+   ***EXAMPLE 06B02_sndloop.csd***
 
 ~~~
 <CsoundSynthesize>
@@ -164,7 +164,7 @@ first need to create that table, either in the orchestra header or in
 the score. The duration of the audio buffer in seconds is multiplied by the sample rate to calculate the proper table size.
 
 
-   ***EXAMPLE 06B03_RecPlayToTable.csd***     
+   ***EXAMPLE 06B03_RecPlayToTable.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -234,7 +234,7 @@ Encapsulating Record and Play Buffer Functionality to a UDO
 -----------------------------------------------------------
 
 Recording and playing back of buffers can also be encapsulated into a
-User Defined Opcode (UDO).[^1] We will show here a version which in a way *re-invents the wheel* as it creates an own sample-by-sample increment for reading and writing the buffer rather than using a pointer. This is mostly meant as example how open this field is for different user implementations, and how easy it is to create own applications based on the fundamental functionalities of table reading and writing. 
+User Defined Opcode (UDO).[^1] We will show here a version which in a way *re-invents the wheel* as it creates an own sample-by-sample increment for reading and writing the buffer rather than using a pointer. This is mostly meant as example how open this field is for different user implementations, and how easy it is to create own applications based on the fundamental functionalities of table reading and writing.
 
 [^1]: See Chapter [03 G](03-g-user-defined-opcodes.md) for more information
       about writing UDOs in Csound.
@@ -263,15 +263,15 @@ Step **2** is the only one which is a normal Csound code line, consisting of the
 
 Step **3** consists of two parts. We will write one UDO for both. The first UDO writes to a buffer if it gets a signal to do so. We choose here a very low-level way of writing an audio signal to a buffer. Instead of creating an index, we just increment the single index numbers. To continue the process at the end of the buffer, we apply the *modulo* operation to the incremented numbers.[^2]
 
-[^2]: The symbol for the 
-      [modulo operation](https://en.wikipedia.org/wiki/Modulo_operation) 
-      is *%*. The result is the *remainder* in a division: *1 % 3 = 1*, 
+[^2]: The symbol for the
+      [modulo operation](https://en.wikipedia.org/wiki/Modulo_operation)
+      is *%*. The result is the *remainder* in a division: *1 % 3 = 1*,
       *4 % 3 = 1*, *7 % 3 = 1* etc.
 
     opcode recordBuffer, 0, aik
      ain, ift, krec  xin
      setksmps  1 ;k=a here in this UDO
-     kndx init 0 ;initialize index 
+     kndx init 0 ;initialize index
      if krec == 1 then
       tablew ain, a(kndx), ift
       kndx = (kndx+1) % ftlen(ift)
@@ -281,7 +281,7 @@ Step **3** consists of two parts. We will write one UDO for both. The first UDO 
 The second UDO ouputs *1* as long as a key is pressed. Its input consists of the ASCII key which is selected, and of the output of the *sensekey* opcode.
 
     opcode keyPressed, k, kki
-     kKey, kDown, iAscii xin 
+     kKey, kDown, iAscii xin
      kPrev init 0 ;previous key value
      kOut = (kKey == iAscii || (kKey == -1 && kPrev == iAscii) ? 1 : 0)
      kPrev = (kKey > 0 ? kKey : kPrev)
@@ -289,12 +289,12 @@ The second UDO ouputs *1* as long as a key is pressed. Its input consists of the
      xout kOut
     endop
 
-The reading procedure in step **4** is in fact the same as was used for writing. We only have to replace the opcode for writing *tablew* with the opcode for reading *table*. 
+The reading procedure in step **4** is in fact the same as was used for writing. We only have to replace the opcode for writing *tablew* with the opcode for reading *table*.
 
     opcode playBuffer, a, ik
      ift, kplay  xin
      setksmps  1 ;k=a here in this UDO
-     kndx init 0 ;initialize index 
+     kndx init 0 ;initialize index
      if kplay == 1 then
       aRead table a(kndx), ift
       kndx = (kndx+1) % ftlen(ift)
@@ -305,7 +305,7 @@ The reading procedure in step **4** is in fact the same as was used for writing.
 Note that you must disable the key repeats on your computer keyboard for the following example (in CsoundQt, disable "Allow key repeats" in *Configuration -\> General*). Press the *r* key as long as you want to record, and the *p* key for playing back. Both, record and playback, is done circular.
 
 
-   ***EXAMPLE 06B04_BufRecPlay_UDO.csd*** 
+   ***EXAMPLE 06B04_BufRecPlay_UDO.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -327,14 +327,14 @@ endop
 opcode recordBuffer, 0, aik
  ain, ift, krec  xin
  setksmps  1 ;k=a here in this UDO
- kndx init 0 ;initialize index 
+ kndx init 0 ;initialize index
  if krec == 1 then
   tablew ain, a(kndx), ift
   kndx = (kndx+1) % ftlen(ift)
  endif
 endop
 opcode keyPressed, k, kki
- kKey, kDown, iAscii xin 
+ kKey, kDown, iAscii xin
  kPrev init 0 ;previous key value
  kOut = (kKey == iAscii || (kKey == -1 && kPrev == iAscii) ? 1 : 0)
  kPrev = (kKey > 0 ? kKey : kPrev)
@@ -344,7 +344,7 @@ endop
 opcode playBuffer, a, ik
  ift, kplay  xin
  setksmps  1 ;k=a here in this UDO
- kndx init 0 ;initialize index 
+ kndx init 0 ;initialize index
  if kplay == 1 then
   aRead table a(kndx), ift
   kndx = (kndx+1) % ftlen(ift)
@@ -394,7 +394,7 @@ their ability to read looping and base frequency data from the sound
 file stored in the function table. loscil and loscil3 were originally
 intended as the kernel mechanism for building a sampler.
 
-For reading multichannel files of more than two channels, the more
+For reading multichannel files of more than two channels, the more
 recent [loscilx](https://csound.com/docs/manual/loscilx.html) exists
 as an excellent option. It can also be used for mono or stereo, and it can — similar to diskin — write its output in an audio array.
 

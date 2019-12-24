@@ -100,7 +100,7 @@ On the following example, a simple instrument, which plays a sine wave,
 is defined in instrument 1. There are no score note events, so no sound
 will be produced unless a MIDI note is received on channel 1.
 
-   ***EXAMPLE 02C01\_Midi\_Keybd\_in.csd***
+   ***EXAMPLE 02C01\_Midi\_Keybd\_in.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -140,12 +140,12 @@ How to Use a MIDI Controller
 
 To receive MIDI controller events, opcodes like
 [ctrl7](http://csound.github.io/docs/manual/html/ctrl7.html) can
-be used.  In the following example instrument 1 is turned on for 60
+be used.  In the following example instrument 1 is turned on for 60
 seconds. It will receive controller \#1 (modulation wheel) on channel 1
 and convert MIDI range (0-127) to a range between 220 and 440. This
 value is used to set the frequency of a simple sine oscillator.
 
-   ***EXAMPLE 02C02\_Midi\_Ctl\_in.csd***
+   ***EXAMPLE 02C02\_Midi\_Ctl\_in.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -186,7 +186,7 @@ opcode. The example below prints to the console the data received via
 MIDI.
 
 
-   ***EXAMPLE 02C03\_Midi\_all\_in.csd***
+   ***EXAMPLE 02C03\_Midi\_all\_in.csd***
 
 ~~~
 <CsoundSynthesizer>
