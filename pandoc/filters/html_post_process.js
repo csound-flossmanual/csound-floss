@@ -2,7 +2,6 @@ const R = require("ramda");
 const { DomHandler, DomUtils, Parser } = require("htmlparser2");
 const mjAPI = require("mathjax-node");
 const { buildLink } = require("../utils");
-const he = require("he");
 
 const isAbsoluteUrl = url => /^https?:\/\//i.test(url);
 
@@ -61,9 +60,15 @@ const fixCodeTags = dom => {
       R.pathOr(false, ["parent", "name"], elem) === "div"
     ) {
       elem.name = "CodeElement";
-      elem.attribs.data = he
-        .decode(elem.children[0].data)
-        .replace(/\n/g, "\\n");
+      elem.attribs.data = elem.children[0].data
+        .replace(/\\n/g, "\\\\n")
+        .replace(/\\'/g, "\\\\'")
+        .replace(/\\"/g, '\\\\"')
+        .replace(/\\&/g, "\\\\&")
+        .replace(/\\r/g, "\\\\r")
+        .replace(/\\t/g, "\\\\t")
+        .replace(/\\b/g, "\\\\b")
+        .replace(/\\f/g, "\\\\f");
       elem.children[0].data = "";
     }
   });

@@ -101,7 +101,7 @@ i 2 1 1
 The output shows this:
 
     iArr[0] = 11
-    
+
     kArr[0] = 11
     kArr[0] = 21
     kArr[0] = 31
@@ -545,7 +545,7 @@ This expression can **not** be used for arrays:
 
     kArray[] fillarray 1, 2, 3
     iFirst = i(kArray[0])
-    print iFirst 
+    print iFirst
 
 will print: *iFirst = 0.000*, which is obviously not what could be
 expected. For this purpose, the i() expression gets a second argument
@@ -590,10 +590,10 @@ The same syntax is used for a simple copy via the $=$ operator:
 Creating an Array
 -----------------
 
-An array can be created by different methods: with the 
+An array can be created by different methods: with the
 [init](https://csound.com/docs/manual/init.html) opcode,
-with [fillarray](https://csound.com/docs/manual/fillarray.html), 
-with [genarray](https://csound.com/docs/manual/fillarray.html), 
+with [fillarray](https://csound.com/docs/manual/fillarray.html),
+with [genarray](https://csound.com/docs/manual/fillarray.html),
 or as a copy of an already existing array with the $=$ operator.
 
 ### init
@@ -605,7 +605,7 @@ for the array:
     kArr[]   init 10     ;creates a one-dimensional array with length 10
     kArr[][] init 8, 10 ;creates a two-dimensional array
 
- 
+
 ### fillarray
 
 If you want to fill an array with distinct values, you can use the
@@ -615,8 +615,8 @@ the numbers \[1, 2, 3, 4\]:
     kArr[] fillarray 1, 2, 3, 4
 
 You can also use this opcode for filling two-dimensional arrays.[^3] The
-example shows also the usage of the opcodes 
-[getrow](https://csound.com/docs/manual/getrow.html) and 
+example shows also the usage of the opcodes
+[getrow](https://csound.com/docs/manual/getrow.html) and
 [setrow](https://csound.com/docs/manual/setrow.html) to get or
 set one row of a two-dimensional array.
 
@@ -683,7 +683,7 @@ i "GetRow" .2 1
 </CsoundSynthesizer>
 ;example by joachim heintz
 ~~~
- 
+
 
 Prints:
 
@@ -724,7 +724,7 @@ a starting value to an (included) ending value. Here are some examples:
 Basic Operations: len, slice
 ----------------------------
 
-The opcode [lenarray](https://csound.com/docs/manual/lenarray.html) 
+The opcode [lenarray](https://csound.com/docs/manual/lenarray.html)
 reports the length of an i- or k-array. As with many
 opcodes now in Csound 6, it can be used either in the traditional way
 
@@ -813,10 +813,10 @@ Prints:
     lenarray(kArr) (2-dim) = 9
     lenarray(kArrr) (3-dim) = 7
 
-The opcode [slicearray](https://csound.com/docs/manual/slicearray.html) 
+The opcode [slicearray](https://csound.com/docs/manual/slicearray.html)
 takes a slice of a (one-dimensional) array:
 
-      slicearray kArr, iStart, iEnd 
+      slicearray kArr, iStart, iEnd
 
 returns a slice of *kArr* from index iStart to index iEnd (included).
 
@@ -1006,10 +1006,10 @@ Copy Arrays from/to FFT Data
 ----------------------------
 
 You can copy the data of an f-signal - which contains the results of a
-Fast Fourier Transform - into an array with the opcode 
+Fast Fourier Transform - into an array with the opcode
 [pvs2array](https://csound.com/docs/manual/pvs2tab.html). The
-counterpart 
-[pvsfromarray](https://csound.com/docs/manual/tab2pvs.html) 
+counterpart
+[pvsfromarray](https://csound.com/docs/manual/tab2pvs.html)
 copies the content of an array to a f-signal.
 
     kFrame  pvs2array    kArr, fSigIn ;from f-signal fSig to array kArr
@@ -1444,13 +1444,13 @@ i 1 0 .1
 
 ### min, max, sum, scale
 
-[minarray](https://csound.com/docs/manual/minarray.html) and 
-[maxarray](https://csound.com/docs/manual/maxarray.html) 
+[minarray](https://csound.com/docs/manual/minarray.html) and
+[maxarray](https://csound.com/docs/manual/maxarray.html)
 return the smallest / largest value in an array,
 and optionally its index:
 
     kMin [,kMinIndx] minarray kArr
-    kMax [,kMaxIndx] maxarray kArr 
+    kMax [,kMaxIndx] maxarray kArr
 
 Here is a simple example of these operations:
 
@@ -1489,7 +1489,7 @@ endin
 i1 0 0.1
 </CsScore>
 </CsoundSynthesizer>
-;example by joachim heintz 
+;example by joachim heintz
 ~~~
 
 This would create a different output each time you run it; for instance:
@@ -1508,8 +1508,8 @@ This would create a different output each time you run it; for instance:
     Maximum of kArr = 97.150272 at index 1
 
 
-The opcode 
-[sumarray](https://csound.com/docs/manual/sumarray.html) 
+The opcode
+[sumarray](https://csound.com/docs/manual/sumarray.html)
 simply returns the sum of all values in an (numerical) array.
 Here is a simple example:
 
@@ -1553,7 +1553,7 @@ Finally, scalearray scales the values of a given numerical array between
 a minimum and a maximum value. These lines ...
 
     kArr[] fillarray  1, 3, 9, 5, 6
-           scalearray kArr, 1, 3  
+           scalearray kArr, 1, 3
 
 ... change kArr from [1, 3, 9, 5, 6] to [1, 1.5, 3, 2, 2.25]. Here
 is a simple example:
@@ -1632,7 +1632,7 @@ maparray applies the function "fun" (which needs to have one input and
 one output argument) to each element of the vector kArrSrc and stores
 the result in kArrRes (which needs to have been created previously):
 
-    kArrRes  maparray kArrSrc, "fun" 
+    kArrRes  maparray kArrSrc, "fun"
 
 Possible functions are for instance *abs*, *ceil*, *exp*, *floor*,
 *frac*, *int*, *log*, *log10*, *round*, *sqrt*. The following example
@@ -1787,8 +1787,8 @@ For Instance:
 
 This is a simple example using this code:
 
-   ***EXAMPLE 03E20_array_UDO.csd*** 
-  
+   ***EXAMPLE 03E20_array_UDO.csd***
+
 ~~~
 <CsoundSynthesizer>
 <CsOptions>
@@ -1818,12 +1818,12 @@ i 1 0 .1
 ;example by joachim heintz
 ~~~
 
-Prior to the introduction of 
+Prior to the introduction of
 [printarray](https://csound.com/docs/manual/printarray.html)
  there were no built-in opcode for printing the contents of an array.
 So writing an UDO was the help:
 
-   ***EXAMPLE 03E21_print_array.csd***    
+   ***EXAMPLE 03E21_print_array.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1952,5 +1952,3 @@ Prints:
      -4.86597, -2.42907, -5.44999,  2.07420,
       1.00121,  7.33340, -7.53952,  3.23020,
       9.93770,  2.84713, -8.23949, -1.12326]
-
-

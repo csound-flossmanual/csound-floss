@@ -6,7 +6,7 @@ env:
   global:
     - NIX_PATH=nixpkgs=https://github.com/NixOS/nixpkgs-channels/archive/nixos-19.09.tar.gz
 install:
-- nix-shell nix/shell.nix --run 'exit 0' # just install and exit to prevent filling memory
+- nix-shell shell.nix --run 'exit 0' # just install and exit to prevent filling memory
 script:
 - yarn
 - yarn build

@@ -3,27 +3,31 @@ import { css, jsx } from "@emotion/core";
 // eslint-disable-next-line no-unused-vars
 import React, { lazy, Suspense, useEffect, useState } from "react";
 import TOC from "./book_fragments/00--aa-toc";
-// import DocumentTitle from "react-document-title";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch } from "react-router-dom";
+import Footer from "./Footer";
 import routes from "./book_fragments/routes.json";
-import { map } from "ramda";
-import { createBrowserHistory } from "history";
-
-const browserHistory = createBrowserHistory();
+import { findIndex, map, propEq } from "ramda";
+import { browserHistory } from "./history";
 
 function App() {
-  // const [currentRoute, setCurrentRoute] = useState(
-  // browserHistory.location.pathname
-  // );
+  const [currentRoute, setCurrentRoute] = useState(
+    browserHistory.location.pathname
+  );
   useEffect(() => {
     browserHistory.listen((location, action) => {
-      // console.log(action, location.pathname, location.state);
+      setCurrentRoute(location.pathname);
     });
   }, []);
+
+  const routeIndex = findIndex(
+    propEq("url", currentRoute === "/" ? "/introduction/-aa-toc" : currentRoute)
+  )(routes);
+
   return (
-    <BrowserRouter history={browserHistory}>
+    <Router history={browserHistory}>
       <div
         css={css`
+          flex: 1 0 auto;
           padding: 0 32px;
           & > div {
             margin-right: auto;
@@ -54,7 +58,7 @@ function App() {
           }
         `}
       >
-        <Suspense fallback={<div />}>
+        <Suspense fallback={<div style={{ height: "80vh" }} />}>
           <Switch>
             {map(
               route => (
@@ -75,7 +79,8 @@ function App() {
           </Switch>
         </Suspense>
       </div>
-    </BrowserRouter>
+      <Footer routeIndex={routeIndex} />
+    </Router>
   );
 }
 

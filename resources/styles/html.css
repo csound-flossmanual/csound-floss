@@ -1,13 +1,12 @@
 body {
   margin: 0;
-  padding: 48px 0;
+  padding: 0;
   color: #333;
   background-color: #ebebeb;
   font-family: "Roboto Condensed", sans-serif;
   font-size: 17px;
   font-weight: normal;
   line-height: 145%;
-  min-width: 360px;
   overflow-x: hidden;
 }
 

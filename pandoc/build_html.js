@@ -33,9 +33,22 @@ function execMarkdownToHtml(fileName) {
   const htmlString = readFileWithFallback(tmpDest);
   const escapedHtmlString = htmlString
     .replace(/{/g, "&#123;")
-    .replace(/}/g, "&#125;");
+    .replace(/}/g, "&#125;")
+    .replace(/\\n/g, "\\n")
+    .replace(/\\'/g, "\\'")
+    .replace(/\\"/g, '\\"')
+    .replace(/\\&/g, "\\&")
+    .replace(/\\r/g, "\\r")
+    .replace(/\\t/g, "\\t")
+    .replace(/\\b/g, "\\b")
+    .replace(/\\f/g, "\\f");
+
   const processedHtmlString = postProcessHtml(escapedHtmlString);
-  const jsxElements = html2jsx(processedHtmlString).replace(/&amp;/g, "&");
+  // evil and neccecary hack
+  const jsxElements = html2jsx(processedHtmlString)
+    .replace(/&amp;/g, "&")
+    .replace(/CodeElement data=\"/g, "CodeElement data={`")
+    .replace(/\"><\/CodeElement>/g, "`}></CodeElement>");
   const linkData = buildLink(path.basename(fileName));
   fs.writeFileSync(
     path.join(JSX_OUTPUT, `${chapterBasename}.jsx`),

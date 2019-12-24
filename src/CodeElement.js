@@ -2,13 +2,14 @@
 import { css, jsx } from "@emotion/core";
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from "react";
+import { decode } from "he";
 import { Controlled as CodeMirror } from "react-codemirror2";
 import "./code-mirror-csound-mode";
 require("codemirror/lib/codemirror.css");
 require("codemirror/theme/neo.css");
 
 export const CodeElement = ({ data }) => {
-  const [state, setState] = useState((data || "").replace(/\\n/g, "\n"));
+  const [state, setState] = useState(decode(data || ""));
 
   const onBeforeChange = (editor, data, value) => {
     setState(value);
@@ -19,6 +20,7 @@ export const CodeElement = ({ data }) => {
     <div
       css={css`
         margin-top: 12px;
+        white-space: pre-wrap;
         margin-bottom: 24px;
         & .CodeMirror-cursors {
           display: ${isCsd ? "inherit" : "none!important"};

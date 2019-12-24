@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { CodeElement } from "../CodeElement";
 import MathJax from "react-mathjax";
 import DocumentTitle from "react-document-title";
 
-const Chapter = () => (
+const Chapter = () => {
+useEffect(() => window.scroll({ top: 0, left: 0, behavior: "smooth" }), []);
+return (
 <DocumentTitle title={"CHANGEME - The Csound FLOSS Manual"}>
  <MathJax.Provider>

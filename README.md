@@ -3,6 +3,9 @@
 ## Building
 
 ```
+# first install npm dependencies
+yarn
+# then build with
 yarn build
 ```
 
@@ -15,6 +18,9 @@ yarn build
 ## Developing
 
 ```
+# first install npm dependencies
+yarn
+# then start writing the book (this will auto-reload any change in the browser)
 yarn start
 ```
 
