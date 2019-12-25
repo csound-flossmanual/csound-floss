@@ -2,61 +2,65 @@
 =======================
 
 
-There is no essential difference between running Csound on a computer and
-running it on a smartphone. Csound has been available on the Android platform since 2012 (Csound 5.19), thanks to the work of Victor Lazzarini and Steven Yi. Csound 6 was ported to Android, and enhanced, by Michael Gogins and Steven Yi in the summer of 2013. This chapter is about Csound 6 for Android, or just
-Csound for Android.
-
+There is no essential difference between running Csound on a computer and 
+running it on a smartphone. Csound has been available on the Android platform 
+since 2012 (Csound 5.19), thanks to the work of Victor Lazzarini and Steven 
+Yi. Csound 6 was ported to Android, and enhanced, by Michael Gogins and Steven 
+Yi in the summer of 2013.  
+  
 The following packages are available for Android:
 
 1.  The *CsoundAndroid library*, which is intended to be used by
-    developers for creating apps based on Csound.
-2.  The *Csound6 app*, which is a self-contained environment for creating,
-    editing, debugging, and performing Csound pieces on Android. The app
-    includes a number of built-in example pieces.
+    developers for creating apps based on Csound. This is available for 
+    download at [Csound's download page](https://csound.com/download.html).
 
-These packages are available for download at
-[Csound's download page](https://csound.com/download.html).
+2.  The *Csound for Android app*, which is a self-contained environment 
+    for creating, editing, debugging, and performing Csound pieces on Android. 
+    The app includes a number of built-in example pieces. This is available 
+    from the [Google Play store](https://play.google.com/store/apps/details?id=com.csounds.Csound6),
+    or for download from the [csound-extended](https://github.com/gogins/csound-extended) 
+    repository [releases page](https://github.com/gogins/csound-extended/releases).
 
 For more information about these packages, download them and consult the
 documentation contained therein.
 
+This chapter is about the Csound for Android app.
 
-The Csound6 app
-----------------
 
-The Csound6 app (or Csound for Android) permits the user, on any Android
+The Csound for Android app
+--------------------------
+
+The Csound for Android app permits the user, on any Android
 device that is powerful enough, including most tablets and the most
 powerful smartphones, to do most things that can be done with Csound on
-any other platform such as OS X, Windows, or Linux. This includes
-creating Csound pieces, editing them, debugging them, and performing
-them, either in real time to audio output or to a soundfile for later
-playback.
+any other platform such as OS X, Windows, or Linux. This includes creating 
+Csound pieces, editing them in a built-in text editor, debugging them, and 
+performing them, either in real time to audio output or to a soundfile for 
+later splayback.  
 
-The app has a built-in, pre-configured user interface with five sliders,
+The app has a built-in, pre-configured user interface with nine sliders,
 five push buttons, one trackpad, and a 3 dimensional accelerometer that
 are pre-assigned to control channels which can be read using Csound's
-[chnget](https://csound.com/docs/manual/chnget.html) opcode.
+[chnget](https://csound.com/docs/manual/chnget.html) opcode.  
 
 The app also contains an embedded Web browser, based on WebKit, that can
 parse, interpret, and present HTML and JavaScript code that is contained
 in the \<html\> element of the CSD file. The embedded browser implements
 most features of the HTML5 standard. Selected commonly used functions
-from the Csound API are available from JavaScript embedded in this
-\<html\> code, and can be used to control Csound from HTML user
-interfaces, generate scores, and do many other things. For a more
-complete introduction to the use of HTML with Csound, see chapter
-[12 G](12-g-csound-and-html.md).
-On Android, if the \<html\> element is
-present in the CSD file, the built-in widgets will be replaced by a Web
-page that will be constructed from the code in the \<html\> element of
-the CSD.
+from the Csound API are available from JavaScript embedded in this \<html\> 
+code, and can be used to control Csound from HTML user interfaces, generate 
+scores, and do many other things. For a more complete introduction to the use 
+of HTML with Csound, see chapter [12 G](12-g-csound-and-html.md). On Android, 
+if the \<html\> element is present in the CSD file, the HTML tab of the app 
+will display a Web page that has been constructed from the code in the \<html\> 
+element of the CSD.  
 
 The app also has some limitations and missing features compared with the
 longer-established platforms. These include:
 
 1.  There is no real-time MIDI input or output.
-2.  Audio input is not accurately synchronized with audio output.
-3.  Many plugin opcodes are missing, including most opcodes involved
+2.  Audio input is not always accurately synchronized with audio output.
+3.  Some plugin opcodes are missing, including most opcodes involved
     with using other plugin formats or inter-process communications.
 
 However, some of the more useful plugins are indeed available on
@@ -65,10 +69,8 @@ Android:
 1.  The signal flow graph opcodes for routing audio from instruments to
     effects, etc.
 2.  The FluidSynth opcodes for playing SoundFonts.
-3.  The Lua opcodes for running Lua code in Csound and even defining new
-    Csound opcodes in Lua.
-4.  The Open Sound Control (OSC) opcodes.
-5.  The libstdutil library, which enables Csound to be used for various
+3.  The Open Sound Control (OSC) opcodes.
+4.  The libstdutil library, which enables Csound to be used for various
     time/frequency analysis and resynthesis tasks, and for other
     purposes.
 
@@ -76,16 +78,14 @@ Android:
 Installing the App
 ------------------
 
-There are two ways to install the Csound6 app. You can download it using
+There are two ways to install the Csound for Android app. You can download it using
 your device, or you can download it to a computer and transfer it to
-your device. These methods are presented below.
-
+your device. These methods are presented below.  
 
 ### Preparing Your Device
 
-Using the *Csound6 app* is similar to using an application on a regular
-computer. You need to be able to browse the file system, and you need to
-be able to edit *csd* files.
+Using the *Csound for Android app* is similar to using an application on a regular
+computer. You need to be able to browse the file system.  
 
 There are a number of free and paid apps that give users the ability to
 browse the Linux file system that exists on all Android devices. If you
@@ -94,49 +94,35 @@ that provides access to as much as possible of the file system on your
 device, including system storage and external store such as an SD card.
 I have found that the free
 [AndroZip](https://play.google.com/store/apps/details?id=com.agilesoftresource&hl=en)
-app can do this.
-
-There also is an increasing number of free and paid text editors for
-Android. The one that I chose to use for developing, testing, and using
-the Csound6 app is the free version of the
-[Jota](https://play.google.com/store/apps/details?id=jp.sblo.pandora.jota&hl=en)
-text editor. There are also various enhanced paid versions of this app,
-and of course you may find some other editor more suitable to your
-purposes. Other editors should also be able to work with Csound,
-although they have only very lightly been tested.
-
-When you use Csound, the command for editing *csd* files will
-transparently invoke the editor, as though it was an integral part of
-the app. This kind of integration is an appealing feature of the Android
-operating system.
+app can do this.  
 
 If you render soundfiles, they take up a lot of space. For example,
 CD-quality stereo soundfiles (44.1 KHz, 16 bit) take up about 10
 megabytes per minute of sound. Higher quality or more channels take up
 even more room. But even without extra storage, a modern smartphone
 should have gigabytes, thousands of megabytes, of free storage. This is
-actually enough to make an entire album of pieces.
+actually enough to make an entire album of pieces.  
 
 On most devices, installing extra storage is easy and not very
 expensive. I recommend obtaining the largest possible SD card, if your
 device supports them. This will vastly expand the amount of available
-space, up to 32 or 64 gigabytes or even more.
+space, up to 32 or 64 gigabytes or even more.  
 
 
 ### Download to Device
 
-To download the Csound6 app to your device, go online using Google
+To download the Csound for Android app to your device, go online using Google
 Search or a Web browser. You can find the application package file,
 Csound6.apk, on the
 [Csound project site](https://csound.com/download.html)
 (you may first have to allow your android to install an app which is not
-in Google Play).
+in Google Play).  
 
 Click on the filename to download the package. The download will happen
 in the background. You can then go to the notifications bar of your
 device and click on the downloaded file. You will be presented with one
 or more options for how to install it. The installer will ask for
-certain permissions, which you need to grant.
+certain permissions, which you need to grant.  
 
 
 ### Transfer from a Computer
@@ -147,14 +133,14 @@ to the computer with a USB cable. The file system of the device should
 then automatically be mounted on the file system of the computer. Find
 the Csound6.apk in the computer's download directory, and copy the
 Csound6.apk file. Find your device's download directory, and paste the
-Csound.apk file there.
+Csound.apk file there.  
 
 Then you will need to use a file browser that is actually on your
 device, such as AndropZip. Browse to your Download directory, select the
 Csound6.apk file, and you should be presented with a choice of actions.
 Select the Install action. The installer will ask for certain
 permissions, which you should give.
-
+  
 
 User Interface
 --------------
@@ -210,13 +196,13 @@ The Settings menu on your device offers the following choices:
     a portal for all things concerning Csound.
 -   ***Settings*** opens a dialog for setting environment variables that
     specify default locations for soundfiles, samples, scores, and so
-    on. In the Csound6 app, these environment variables are configured
+    on. In the Csound for Android app, these environment variables are configured
     by Android app settings.
 
 
 ### Configuring Default Directories
 
-Run the *Csound6 app*, invoke the menu button, and choose *Settings*.
+Run the *Csound for Android app*, invoke the menu button, and choose *Settings*.
 You will be given choices for specifying an (additional) *Plugins*
 directory, a soundfile *Output* directory, a *Samples* directory, an
 *Analysis* directory, and an *Include* directory for score and orchestra
@@ -282,7 +268,7 @@ Before you get started, install the
 text editor on your device. Other text editors might work with the
 Csound app, but this one is known to work.
 
-Run the *Csound6 app* and select the *New* button. You should be presented with an input dialog asking you for a filename for your piece. Type in *toot.csd*, and select the *Ok* button. The file will be stored in the root
+Run the *Csound for Android app* and select the *New* button. You should be presented with an input dialog asking you for a filename for your piece. Type in *toot.csd*, and select the *Ok* button. The file will be stored in the root
 directory of your user storage on your device. You can save the file to
 another place using Jota's *File* menu, if you like.
 
@@ -461,7 +447,7 @@ particularly that, just above the instrument definition, in other words
 actually in the orchestra header, these global variables are initialized
 with values that will work in performance, in case the user does not set
 up the widgets in appropriate positions before starting Csound. This is
-necessary because the widgets in the Csound6 app, unlike say the widgets
+necessary because the widgets in the Csound for Android app, unlike say the widgets
 in CsoundQt, do not "remember" their positions and values from
 performance to performance.
 

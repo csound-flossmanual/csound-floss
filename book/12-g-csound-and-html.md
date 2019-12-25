@@ -28,8 +28,7 @@ various forms of local data storage, Web Sockets, and so on and so on.
 This whole conglomeration of standards is currently defined and
 maintained under the non-governmental leadership of the
 [World Wide Web Consortium](http://www.w3.org/standards/) (W3C)
-which in turn is
-primarily driven by commercial interests belonging to the
+which in turn is primarily driven by commercial interests belonging to the
 [Web Hypertext Application Technology Working Group](https://whatwg.org/) (WHATWG).
 Most modern Web browsers implement almost all of the W3C standards up to
 and including HTML5 at an impressive level of performance and
