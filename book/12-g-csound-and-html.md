@@ -4,12 +4,30 @@
 Introduction
 -------------
 
-Certain Csound front ends, currently including CsoundQt and Csound for
-Android, have the ability to use HTML to define user interfaces, to
-control Csound, and to generate Csound scores and even orchestras. The
-HTML code is embedded in the optional `<html>` element of the Csound
-Structured Data (CSD) file. This element essentially defines a Web page
-that contains Csound.
+Currently it is possible to use Csound together with HTML and JavaScript 
+in at least the following environments:
+
+1. [CsoundQt](https://csoundqt.github.io/), described in [10 A](10-a-csoundqt.md).
+2. The Csound for Android app, described in [12 E](12-e-csound-on-android.md).
+3. The [csound.node](https://github.com/gogins/csound-extended/tree/develop/csound.node) extension for [NW.js](https://nwjs.io/).
+4. Csound built for WebAssembly, which has two slightly different forms:
+
+   1. The canonical build, described in [10 F](10-f-web-based-csound.md).
+   2. [The csound-extended build](https://github.com/gogins/csound-extended/tree/develop/WebAssembly).
+
+All of these environments provide a JavaScript interface to Csound, 
+which appears as a global Csound object in the JavaScript context of a Web 
+page. Please note, there may be minor differences in the JavaScript interface 
+to Csound between these environments.
+
+With HTML and JavaScript it is possible to define user interfaces, to
+control Csound, and to generate Csound scores and even orchestras. 
+
+In some environments, the HTML code may be embedded in an optional `<html>` 
+element of the Csound Structured Data (CSD) file. This element essentially defines a Web page
+that contains Csound. 
+
+In other environments, Csound is embedded in a regular Web page (.html file). 
 
 This chapter is organized as follows:
 
@@ -28,8 +46,7 @@ various forms of local data storage, Web Sockets, and so on and so on.
 This whole conglomeration of standards is currently defined and
 maintained under the non-governmental leadership of the
 [World Wide Web Consortium](http://www.w3.org/standards/) (W3C)
-which in turn is
-primarily driven by commercial interests belonging to the
+which in turn is primarily driven by commercial interests belonging to the
 [Web Hypertext Application Technology Working Group](https://whatwg.org/) (WHATWG).
 Most modern Web browsers implement almost all of the W3C standards up to
 and including HTML5 at an impressive level of performance and
@@ -87,7 +104,7 @@ than JavaScript. It is true that MySQL is a more powerful database than
 HTML5 storage.
 
 But the fact is, there is no single program except for a Web browser
-that manages to be quite functional in all of these categories in a way
+that manages to be quite as functional in all of these categories in a way
 that beginning to intermediate programmers can use, and for which the
 only required runtime is the Web browser itself.
 
@@ -102,7 +119,7 @@ compatible with old pieces.
 ### How it Works
 
 The Web browser embedded into CsoundQt is the
-[Chromium Embedded Framework](https://bitbucket.org/chromiumembedded/cef).
+[Qt WebEngine](https://doc.qt.io/qt-5/qtwebengine-index.html).
 The Web browser embedded into Csound for Android is the
 [WebView](http://developer.android.com/reference/android/webkit/WebView.html)
 available in the
@@ -161,13 +178,6 @@ In the future, more functions from the Csound API will be added to this
 JavaScript interface, including, at least in some front ends, the
 ability for Csound to appear as a Node in a Web Audio graph (this
 already is possible in the Emscripten built of Csound).
-
-Also in the future, the JavaScript methods of Csound in Emscripten will
-be harmonized with these methods.
-
-Also in the future, there will be a native Node extension for the NW.js
-HTML5 desktop application framework, providing the same JavaScript
-interface to Csound.
 
 
 Installation
