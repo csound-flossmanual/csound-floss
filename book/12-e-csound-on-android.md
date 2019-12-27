@@ -41,18 +41,18 @@ five push buttons, one trackpad, and a 3-dimensional accelerometer that
 are pre-assigned to control channels which can be read using Csound's
 [chnget](https://csound.com/docs/manual/chnget.html) opcode.  
 
-The app also contains an embedded Web browser, based on WebKit, that can
-parse, interpret, and present HTML and JavaScript code that is contained
-in the `<html>` element of the CSD file. The embedded browser implements
-most features of the HTML5 standard. Selected commonly used functions
-from the Csound API are available from JavaScript embedded in this `<html>` 
-code, and can be used to control Csound from HTML user interfaces, generate 
-scores, and do many other things. For a more complete introduction to the use 
-of HTML with Csound, see chapter [12 G](12-g-csound-and-html.md). On Android, 
-if the `<html>` element is present in the CSD file, the HTML tab of the app 
-will display a Web page that has been constructed from the code in the `<html>` 
-element of the CSD. The app will also perform .html files that use the embedded 
-Csound object.
+The app also contains an embedded Web browser, based on WebKit, that 
+implements most features of the HTML5 standard. This embedded browser can
+run Csound pieces written as .html files. In addition, the app can render HTML 
+and JavaScript code that is contained in an optional `<html>` element of a 
+regular .csd file. 
+
+In both cases, the JavaScript context of the Web page will contain a global 
+Csound object with a JavaScript interface that implements useful functions 
+of the Csound API. This can be used to control Csound from JavaScript, handle 
+events from HTML user interfaces, generate scores, and do many other things. 
+For a more complete introduction to the use of HTML with Csound, see 
+[12 G](12-g-csound-and-html.md). 
 
 The app has some limitations and missing features compared with the
 longer-established platforms:
@@ -81,7 +81,14 @@ There are several ways to install the Csound for Android app. You can download i
 your device, or you can download it to a computer and transfer it to
 your device. These methods are presented below.  
 
-### Preparing Your Device
+### Google Play Store
+
+The most straightforward way to install the Csound for Android app is 
+to get it from the [Google Play Store](https://play.google.com/store/apps/details?id=com.csounds.Csound6).
+
+### Install from Another Source
+
+#### Preparing Your Device
 
 Using the *Csound for Android app* is similar to using an application on a regular
 computer. You need to be able to browse the file system.  
@@ -96,7 +103,7 @@ I have found that the free
 app can do this.  
 
 If you render soundfiles, they take up a lot of space. For example,
-CD-quality stereo soundfiles (44.1 KHz, 16 bit) take up about 10
+CD-quality stereo soundfiles (44.1 KHz, 16 bit) take up about 1
 megabytes per minute of sound. Higher quality or more channels take up
 even more room. But even without extra storage, a modern smartphone
 should have gigabytes, thousands of megabytes, of free storage. This is
@@ -107,19 +114,13 @@ expensive. I recommend obtaining the largest possible SD card, if your
 device supports them. This will vastly expand the amount of available
 space, up to 32 or 64 gigabytes or even more.  
 
-### Google Play Store
-
-The most straightforward way to install the Csound for Android app is 
-to get it from the [Google Play Store](https://play.google.com/store/apps/details?id=com.csounds.Csound6).
-
-
-### Download to Device
+#### Download to Device
 
 To download the Csound for Android app to your device, go online using Google
 Search or a Web browser. You can find the application package file,
 CsoundApplication-release.apk, on the
 [csound-extended releases page](https://github.com/gogins/csound-extended/releases)
-(you may first have to allow your android to install an app which is not
+(you may first have to allow your Android device to install an app which is not
 in Google Play).  
 
 Click on the filename to download the package. The download will happen
@@ -128,8 +129,7 @@ device and click on the downloaded file. You will be presented with one
 or more options for how to install it. The installer will ask for
 certain permissions, which you need to grant.  
 
-
-### Transfer from a Computer
+#### Transfer from a Computer
 
 It's also easy to download the CsoundApplication-release.apk file to a personal computer.
 Once you have downloaded the file from GitHub, connect your device
@@ -148,6 +148,8 @@ permissions, which you should give.
 
 User Interface
 --------------
+
+### Tabs
 
 The Csound for Android app has a tabbed user interface. The tabs include:
 
@@ -174,6 +176,8 @@ The Csound for Android app has a tabbed user interface. The tabs include:
                   
 -   ***ABOUT*** -- Displays the Csound home page in an embedded Web browser.
 
+### Main Menu
+
 The app also has a top-level menu with the following commands:
 
 -   ***NEW...*** -- creates a blank template CSD file in the root directory
@@ -188,7 +192,7 @@ The app also has a top-level menu with the following commands:
 
 -   ***RUN/STOP*** -- if a CSD file has been loaded, pushing the
     button starts running Csound; if Csound is running, pushing the
-    button stops Csound. If the \<CsOptions\> element of the CSD file
+    button stops Csound. If the `<CsOptions>` element of the CSD file
     contains `-odac`, Csound's audio output will go to the device audio
     output. If the element contains `-osoundfilename`, Csound\'s audio
     output will go to the file `soundfilename`, which should be a valid
@@ -216,7 +220,7 @@ read into Csound during performance using the *chnget* opcode, like this:
 The area below the trackpad prints messages output by Csound as it runs.
 
 
-### The Settings Menu
+### Settings Menu
 
 The Settings menu on your device offers the following choices:
 
@@ -258,8 +262,8 @@ headphone jack to your sound system with an adapter cable. Most devices
 have reasonably high quality audio playback capabilities, so this can
 work quite well.
 
-Just to prove that everything is working, start the *Csound for Android* app. Go to
-the app menu, select the *Examples* item, select the *Xanadu*
+Just to prove that everything is working, start the Csound for Android app. Go 
+to the app menu, select the *Examples* item, select the *Xanadu*
 example, and it will be loaded into Csound. Then click on the *RUN*
 command. Its name should change to *STOP*, and Csound's runtime messages
 should begin to scroll down the *MESSAGES* tab. At the same time, you should 
@@ -295,12 +299,12 @@ another place if you like.
 The text editor should open with a *template* CSD file. Your job is to
 fill out this template to hear something.
 
-Create a blank line between \<CsOptions\> and \</CsOptions\>, and type
-*-odac -d -m3*. This means send audio to the real-time output (*-odac*), do
-not display any function tables (*-d*), and log some informative messages
-during Csound's performance (*-m3*).
+Create a blank line between `<CsOptions>` and `</CsOptions>`, and type
+`-odac -d -m3`. This means send audio to the real-time output (`-odac`), do
+not display any function tables (`-d`), and log some informative messages
+during Csound's performance (`-m3`).
 
-Create a blank line between \<CsInstruments\> and \</CsInstruments\> and
+Create a blank line between `<CsInstruments>` and `</CsInstruments>` and
 type the following text:
 
     sr = 44100
@@ -318,7 +322,7 @@ second, with 32 audio frames per control signal sample, and one channel
 of audio output. The instrument is just a simple sine oscillator. It
 plays a tone at concert A.
 
-Create a blank line between \<CsScore\> and \</CsScore\> and type:
+Create a blank line between `<CsScore>` and `</CsScore>` and type:
 
     i1 0 5
 
@@ -330,8 +334,8 @@ Select the Csound app's *RUN* button. You should hear a loud sine
 tone for 5 seconds. If you don't hear anything, perhaps your device 
 doesn't support audio at 44100 Hertz, so try `sr = 48000` instead.  
 
-If you want to save your audio output to a soundfile named *test.wav*,
-change *-odac* above to, for example, *-o/storage/emulated/0/Music/test.wav*. Android is fussy about 
+If you want to save your audio output to a soundfile named `test.wav`,
+change `-odac` above to, for example, `-o/storage/emulated/0/Music/test.wav`. Android is fussy about 
 writing to device storage, so you may need to use exactly the directory printed 
 in the ***MESSAGES*** tab when the app starts.  
 
@@ -344,21 +348,14 @@ Using the Widgets
 This section shows how to use the built-in widgets of the Csound for
 Android app for controlling Csound in performance. For instructions on
 how to use the `<html>` element of the CSD file to create custom user
-interfaces, see the
-[Csound and HTML](12-g-csound-and-html.md)
- chapter of this book.
+interfaces, see the [Csound and HTML](12-g-csound-and-html.md) chapter of 
+this book.
 
 The Csound for Android app provides access to a set of predefined
 on-screen widgets, as well as to the accelerometer on the device. All of
 these controllers are permanently assigned to pre-defined control
 channels with pre-defined names, and mapped to a pre-defined range of
 values, from 0 to 1.
-
-All of this pre-definitions -- this is both good and bad. I have found,
-following the example of Iain McCurdy who has graciously contributed a
-number of the examples for the app, an approach that simplifies using
-the controllers. For an example of this approach in action, look at the
-source code for the *Gogins/Drone-IV.csd* example.
 
 You should be able to cut and paste this code into your own pieces
 without many changes.
