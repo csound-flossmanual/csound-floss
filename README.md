@@ -35,5 +35,5 @@ yarn start
 - [Pandoc alternative manual](https://rmarkdown.rstudio.com/authoring_pandoc_markdown.html%23raw-tex)
 
 ## Travis and Firebaseapp Build
-<https://travis-ci.com/csound-flossmanual/csound-floss>
+<https://travis-ci.com/csound-flossmanual/csound-floss>  
 <https://csound-floss.firebaseapp.com>

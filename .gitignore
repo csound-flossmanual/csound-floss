@@ -13,3 +13,4 @@ build
 .firebase
 node_modules
 src/book_fragments/*
+python-env
