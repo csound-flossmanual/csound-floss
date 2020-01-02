@@ -7,22 +7,84 @@ https://rmarkdown.rstudio.com/authoring_pandoc_markdown.html%23raw-tex#pandoc_ma
 
 For anyone who writes on this book, these features are in particular important:
 
-1. headings
-2. italics
-3. bold
-4. Code examples
-   a) full .csd examples
-   b) other code snippets
-5. images
-   a) links and sources
-   b) captions
-   c) size adaptions
-6. footnotes
-7. math formulars
+1. HEADINGS
+   
+level one heading
+=================
+is preferred but
+# level one heading
+is also possible.
 
-[desscribe more later]
+level two heading
+-----------------
+is preferred but
+## level two heading
+is also possible.
 
-tex math examples from https://github.com/kikofernandez/pandoc-examples/blob/master/math/math.tex#L1
+### level three heading
+
+#### level four heading
+
+
+2. ITALICS
+
+please use *this* not _that_
+
+3. BOLD
+
+please usw **this** not __that__
+
+4. CODE EXAMPLES
+
+a) full .csd examples
+
+MUST be written as fenced code: three ~~~ before and after:
+
+~~~
+<CsoundSynthesizer>
+...
+</CsoundSynthesizer>
+~~~
+
+NOTE that this is for examples which can be extracted and played
+as they are (no requirement except files in resources/SourceMaterials)
+
+b) other code snippets
+
+    are preceded by four spaces.
+
+c) code snippets inside normal text
+
+this is a `code snippet` which must by surronded by backticks.
+
+    
+5. IMAGES
+
+this is the way an image is specified with caption and resizing:
+
+![my caption](../resources/images/01-a-my-image.png){width=50%}
+
+- avoid underscore _, use minus - instead
+- alway start with the section-chapter 
+- caption and resizing are optional
+
+
+6. FOOTNOTES
+
+inside the text use [^1] for the first footnote in the chapter.
+    
+the footnote itself is then written below the paragraph preceded 
+by a newline as:
+
+[^1]: this is the footnote text
+      and this is the text continued
+
+
+7. MATH FORMULAS
+
+are written in tex math, surrounded by dollar signs $ in the text, or by two dollar signs $$ for paragraphs.
+
+here are some tex math examples from https://github.com/kikofernandez/pandoc-examples/blob/master/math/math.tex#L1
 
 $a^2 + b^2 = c^2$
 
