@@ -3,372 +3,522 @@
 
 ![](../resources/images/10-b-hlogo.png)
 
-Cabbage is a Csound frontend that provides users with the means to work
-with Csound, to develop audio plugins and standalone software across the
-three major operating systems. Whilst Cabbage makes use of underlying
-plugin technologies, such as Steinberg's VST SDK, ASIO, etc, Csound is
-used to process all incoming and outgoing audio, therefore existing
-Csound instruments can be adapted to work with Cabbage with relative
-ease. Cabbage also provides a big palette of GUI widgets ranging
-from simple sliders to XY-pads and graph tables. All GUI widgets in a
-Cabbage plugin can be controlled via host automation in a plugin host,
-thereby providing a quick and effective means of automating Csound
-instrument parameters in both commercial and non-commercial DAWs. A
-user-forum exists at
-[www.thecabbagefoundation.org](http://www.thecabbagefoundation.org), and
-users are invited to discuss, contribute, and share instruments and
-music.
+Cabbage is a software for prototyping and developing audio instruments with the Csound audio synthesis language. Instrument development and prototyping is carried out with the main Cabbage IDE. Users write and compile Csound code in a code editor. If one wishes, they can also create a graphical frontend, although this is not essential. Any Csound file can be run with Cabbage, regardless of whether or not it has a graphical interface. Cabbage is designed for realtime processing in mind. While it is possible to use Cabbage to run Csound in the more traditional score-driven way, but your success may vary.
 
+Cabbage is a 'host' application. It treats each and every Csound instruments as a unique native plugin, which gets added to a digital audio graph (DAG) once it is compiled. The graph can be opened and edited at any point during a performance. If one wishes to use one of their Csound instruments in another audio plugin host, such as Reaper, Live, Bitwig, Ardour, QTractor, etc, they can export the instrument through the 'Export instrument' option.
+
+[Download and Install](#DownloadInstall)
+
+[Using Cabbage](#UsingCabbage)
+
+[Simple Synth](#SimpleSynth)
+
+[Simple Effect](#SimpleEffect)
+
+[Learning More](#LearningMore)
+
+
+<a name="DownloadInstall"></a>
 
 Download and Install
 --------------------
 
-Cabbage is hosted on GitHub, and **pre-compiled binaries** for **Windows** and
-**OSX** can be found on the
-[release](https://github.com/cabbageaudio/cabbage/releases)
-section of Cabbage's home page.
-If you run **Linux** you will need to build Cabbage yourself, but
-instructions are included with the source code.
-You will **need to have Csound installed**.
+Cabbage is hosted on GitHub, and **pre-compiled binaries** for **Windows** and **OSX** can be found on the [release](https://github.com/cabbageaudio/cabbage/releases) section of Cabbage's home page. If you run **Linux** you will need to build Cabbage yourself, but instructions are included with the source code. The main platform installers for Cabbage inclue an option of installing the latest version of Csound. If you already have a version of Csound installed, you can skip this step. 
+Note that you will **need to have Csound installed** one way or another in order to run Cabbage. 
 
 
+<a name="UsingCabbage"></a>
 
-The Cabbage Standalone Host
----------------------------
+Using Cabbage
+-------------
 
-The main Cabbage application that launches when you open Cabbage is
-known as the standalone host. This simple application hosts Cabbage
-plugins in the same way any DAW hosts a plugin, but it is restricted to
-one plugin at a time (the host can be instantiated multiple times
-however). The host also features a source code editor for editing your
-code, and it also allows users to enter a GUI designer mode within which
-they can design interfaces using a simple drag-and-drop system. Access
-to the Csound output console and Reference Manual through the Cabbage
-host facilitate debugging and learning and the host also facilitates
-control of audio and MIDI settings used by Csound. If a user wishes to
-make their Cabbage patch available as a plugin for use within other
-software they can use the *Export* option which will prompt them to
-export their instrument as an audio plugin. In addition to interacting
-with hosts via audio and MIDI connections, Cabbage plugins can also
-respond to host controls such as tempo, song position and play/stop
-status. The plugin formats are currently restricted to VST and Linux
-Native VST. Whilst the main purpose of the Cabbage standalone host is
-for prototyping and development, it can also be used as a fully blown
-production environment depending on the complexity of the hosted
-instrument.
-
-![Example of the GUI and source code editor](../resources/images/10-b-slide-2.jpg)
+Instrument development and prototyping is carried out with the main Cabbage IDE. Users write and compile their Csound code in a code editor. Each Csound file opened with have a corresponding editor. If one wishes one can also create a graphical frontend, although this is no longer a requirement for Cabbage. Any Csound file can be run with Cabbage, regardless of whether or not it has a graphical interface. Each Csound files that is compiled by Cabbage will be added to an underlying digital audio graph. Through this graph users can manage and configure instrument to create patches of complex processing chains. 
 
 
-Cabbage Instruments.
---------------------
+[Opening Files](#OpeningFiles)
 
-Cabbage instruments are nothing more than Csound instruments with an
-additional \<Cabbage\> ... \</Cabbage\> section that exists outside of the
-\<CsoundSynthesizer\> tags. Each line of text in this section defines a
-GUI widget. Special identifiers can be used to control the look and
-behavior of each widget. This text ultimately defines how the graphical
-interface will look but recent innovations facilitate the modification
-of widget appearance from within the Csound orchestra. This opens up
-interesting possibilities including dynamically hiding and showing parts
-of the GUI and moving and resizing widgets during performance
-time. Instruments can be exported as either effects or synths. Effects
-process incoming audio, while synths won't produce any sound until they
-are triggered via the MIDI widget, or a MIDI keyboard. Cabbage makes no
-differentiation between synths and effects, but VST hosts do, so one
-must be careful when exporting instruments. A full list of available
-widgets, identifiers and parameters can be found in the Cabbage
-reference manual that comes with all Cabbage binaries.
+[Creating new files](#NewFiles) 
+
+[Building/exporting instruments](#Building) 
+
+[Creating GUI interfaces for instruments](#CreatingGUIs) 
+
+[Editing the audio graph](#AudioGraph) 
+
+[Navigating large source files](#Navigating) 
+
+[Using the code repository](#CodeRepo)
+
+[Settings](#Settings) 
 
 
-### A Basic Cabbage Synthesiser
+<a name="OpeningFiles"></a>
 
-Example code to create the most basic Cabbage synthesiser is presented
-below. This instrument uses the MIDI interop command line flags to pipe
-MIDI data directly to p-fields in instrument 1. In this case all MIDI
-pitch data is sent directly to p4, and all MIDI amplitude data is sent
-to p5. (An alternative approach is to use Csounds opcodes
-[cpsmidi](https://csound.com/docs/manual/cpsmidi.html),
-[ampmidi](https://csound.com/docs/manual/ampmidi.html) etc. to read
-midi data into an instrument.) MIDI data sent on channel 1 will cause
-instrument 1 to play. Data sent on channel 2 will cause instrument 2 to
-play. If one prefers they may use the massign opcode rather than the
-MIDI interop flags, but regardless of what mechanism is used, you still
-need to declare *-+RTMIDI=NULL -M0* in the CsOptions.
+## Opening files
+User can open any .csd files by clicking on the Open File menu command, or toolbar button. Users can also browse the Examples menu from the main File menu. Cabbage ships with over 100 high-end instruments that can be modified, hacked, and adapted in any way you wish. Note that if you wish to modify the examples, use the Save-as option first. Although this is only required on Windows, it's a good habit to form. You don't want to constantly overwrite the examples with your own code. 
+>Cabbage can load and perform non-Cabbage score-driven .csd files. However, it also uses its own audio IO, so it will overwrite any -odac options set in the CsOptions section of a .csd file. 
 
-~~~
-<Cabbage>
-form size(400, 120), caption("Simple Synth"), pluginID("plu1")
-keyboard bounds(0, 0, 380, 100)
-</Cabbage>
-<CsoundSynthesizer>
-<CsOptions>
--n -d -+rtmidi=NULL -M0 --midi-key-cps=4 --midi-velocity-amp=5
-</CsOptions>
-<CsInstruments>
-sr = 44100
-ksmps = 64
-nchnls = 2
-0dbfs=1
+<a name="NewFiles"></a>
 
+## Creating a new file
+News files can be created by clicking the New file button in the toolbar, or by clicking File->New Csound file from the main menu. When a new file is requested, Cabbage will give you the choice of 3 basic templates, as shown below. 
+
+![](../resources/images/10-b-cabbagenewfile.gif)
+
+The choices are:
+
+* A new synth. When this option is selected Cabbage will generate a simple synthesiser with an ADSR envelope and MIDI keyboard widget. In the world of VST, these instruments are referred to a VSTi's. 
+* A new effect. When this option is selected Cabbage will create a simple audio effect. It will generate a simple Csound instrument that provides access to an incoming audio stream. It also generates code that will control the gain of the output.  
+* A new Csound file. This will generate a basic Csound file without any graphical frontend. 
+
+>Note that these templates are provided for quickly creating new instruments. One can modify any of the template code to convert it from a synth to an effect or vice versa. 
+
+<a name="Building"></a>
+
+## Building/exporting instruments
+
+To run an instrument users can use the controls at the top of the file's editor. Alternatively one can go to the 'Tools' menu and hit 'Build Instrument'. If you wish to export a plugin go to 'Export' and choose the type of plugin you wish to export. To use the plugin in a host, you will need to let the host know where your plugin file is located. On Windows and Linux, the corresponding .csd should be located in the same directory as the plugin dll. The situation is different on MacOS as the .csd file is automatically packaged into the plugin bundle. 
+
+![](../resources/images/10-b-cabbagefirstsynth.gif)
+
+>Closing a file will not stop it from performing. To stop a file from performing you must hit the Stop button.  
+
+<a name="CreatingGUIs"></a>
+
+## Creating GUI interfaces for instruments
+
+
+To create a GUI for your instrument you must enter edit mode for that instrument. You can do this by hitting the Edit mode button at the top of the file's editor, or by hitting Ctrl+e when the editor for that instrument have focus. Once in edit mode, each widget will have a thin white border around it. you can move widgets around whilst in edit. You can also right-click and insert new widgets, as well as modify their appearance using the GUI properties editor on the right-hand side of the screen. 
+
+![](../resources/images/10-b-cabbageeditmode.gif)
+
+You will notice that when you select a widget whilst in edit mode, Cabbage will highlight the corresponding line of text in your source code. When updating GUI properties, hit 'Enter' when you are editing single line text or numeric properties, 'Tab' when you are editing multi-line text properties, and 'Escape' when you are editing colours. 
+
+<a name="AudioGraph"></a>
+
+## Editing the audio graph
+Each and every instrument that you compile in Cabbage will be added to an underlying audio graph. This is true for both Cabbage files, and traditional Csound files. To edit the graph one can launch the Cabbage patcher from the view menu. 
+
+![](../resources/images/10-b-cabbagesynthgraph.gif)
+
+Instruments can also be added directly through the graph by right-clicking and adding them from the context menu. The context menu will show all the examples files, along with a selection of files from a user-defined folder. See the section below on *Settings* to learn how to set this folder. 
+
+![](../resources/images/10-b-cabbageaudiographadd.gif)
+
+Instruments can also be deleted by right-clicking the instrument node. Users can delete/modify connections by clicking on the connections themselves. They can also connect node by clicking and dragging from an output to an input.
+
+![](../resources/images/10-b-cabbageaudiographmodify.gif) 
+
+Once an instrument node has been added, Cabbage will automatically open the corresponding code. Each time you update the corresponding source code, the node will also be updated. 
+
+>As mentioned above, closing a file will not stop it from performing. It is possible to have many instruments running even though their code is not showing. To stop an instrument you must hit the Stop button at the top of its editor, or delete the plugin from the graph.
+
+<a name="Navigating"></a>
+
+## Navigating large source files
+It can become quite tricky to navigate very long text files. For this reason Cabbage provides a means of quickly jumping to instrument definitions. It is also possible to create a special `;- Region:` tag. Any text that appears after this tag will be appended to the drop-down combo box in the Cabbage tool bar.
+![](../../images/docs/navigate_code.gif) 
+
+![](../resources/images/10-b-cabbagenavigatecode.gif)
+
+<a name="CodeRepo"></a>
+
+## Using the code repository
+Cabbage provides a quick way of saving and recalling blocks of code. To save code to the repository simple select the code you want, right-click and hit 'Add to code repository'. To insert code later from the repository, right-click the place you wish to insert the code and hit 'Add from code repository'.
+
+![](../resources/images/10-b-cabbagecoderepo.gif)
+
+Code can be modified, edited or deleted at a later stage in the Settings dialogue. 
+
+<a name="Settings"></a>
+# Settings
+
+The settings dialogue can be opened by going to the Edit->Setting menu command, or pressing the Settings cog in the main toolbar. 
+
+![](../resources/images/10-b-cabbagesettings.gif)
+
+## Audio and MIDI settings
+These settings are used to choose your audio/MIDI input/output devices. You can also select the sampling rate and audio buffer sizes. Small buffer sizes will reduce latency but might cause some clicks in the audio. Note te buffer sizes selected here are only relevant when using the Cabbage IDE. Plugins will have their buffer sizes set by the host. The last known audio and MIDI settings will automatically be saved and recalled for the next session.
+
+## Miscellaneous. 
+### Editor
+The following settings provide control for various aspects of Cabbage and how it runs its instruments.
+- Auto-load: Enabling this will cause Cabbage to automatically load the last files that were open. 
+- Plugin Window: Enable this checkbox to ensure that the plugin window is always on top and does not disappear behind the main editor when it loses focus.
+- Graph Window: Same as above only for the Cabbage patcher window. 
+- Auto-complete: provides a rough auto-complete of variable names
+Editor lines to scroll with MouseWheel: Sets the number of lines to jump on each movement of the mouse wheel.
+
+### Directories
+These directory fields are given default directories that rarely, if ever, need to be changed. 
+- Csound manual directory: Sets the path to index.html in the Csound help manual. The default directories will be the standard location of the Csound help manual after installing Csound.
+- Cabbage manual directory: Sets the path to index.html in the Cabbage help manual. 
+- Cabbage examples directory: Set the path to the Cabbage examples folder. This should never need to be modified. 
+- User files directory: Sets the path to a folder containing user files that can be inserted by right-clicking in the patcher. Only files stored in this, and the examples path will be accessible in the Cabbage patcher context menu. 
+
+### Colours
+- Interface: Allows user to set custom colours for various elements of the main graphical interface
+- Editor: Allows users to modify the syntax highlighting in the Csound editor
+- Console: Allows users to changes various colours in the Csound output console. 
+
+### Code Repository
+This tab shows the various blocks of code that have been saved to the repository. You can edit or delete any of the code blocks. Hit Save/Update to update any changes.   
+
+
+<a name="FirstSynth"></a>
+
+# First Synth
+
+As mentioned in the previous section, each Cabbage instrument is defined in a simple text file with a .csd extension. The syntax used to create GUI widgets is quite straightforward and should be provided within special xml-style tags <Cabbage> and </Cabbage> which can appear either above or below Csound's own <CsoundSynthesizer> tags. Each line of Cabbage specific code relates to one GUI widget only. The attributes of each widget are set using different identifiers such as colour(), channel(), size() etc. Where identifiers are not used, Cabbage will use the default values. Long lines can be broken up with a '\' placed at the end of a line. 
+
+Each and every Cabbage widget has 4 common parameters: position on screen(x, y) and size(width, height). Apart from position and size all other parameters are optional and if left out default values will be assigned. To set widget parameters you will need to use an appropriate identifier after the widget name. More information on the various widgets and identifiers available in Cabbage can be found in the Widget reference section of these docs.
+
+### Getting started.
+
+Now that the basics of the Csound language have been outlined, let's create a simple instrument. The opcodes used in this simple walk through are `vco2`, `madsr`, `moogladder` and `outs`.
+
+The vco2 opcode models a voltage controlled oscillator. It provides users with an effective way of generating band-limited waveforms and can be the building blocks of many a synthesiser. Its syntax, taken from the Csound [reference](https://csound.github.io/docs/manual/vco2.html) manual, is given below. It is important to become au fait with the way opcodes are presented in the Csound reference manual. It, along with the the Cabbage widget reference are two documents that you will end up referencing time and time again as you start developing Cabbage instruments.  
+
+```
+ares vco2 kamp, kcps [, imode] [, kpw] [, kphs] [, inyx]
+```
+
+`vco2` outputs an a-rate signal and accepts several different input argument. The types of input parameters are given by the first letter in their names. We see above that the kamp argument needs to be k-rate. Square brackets around an input argument means that argument is optional and can be left out. Although not seen above, whenever an input argument start with 'x', it can be an i, k or a-rate variable. 
+
+*kamp* determines the amplitude of the signal, while *kcps* set the frequency of the signal. The default type of waveform created by a `vco2` is a sawtooth waveform. The simplest instrument that can be written to use a `vco2` is given below. The `out` opcode is used to output an a-rate signal as audio.
+
+```
 instr 1
-kenv linenr p5, 0.1, .25, 0.01
-a1 oscil kenv*k1, p4, 1
-outs a1, a1
+aOut vco2 1, 440
+out aOut
 endin
+```
+In the traditional Csound context, we would start this instrument using a 'score statement'. We'll learn about score statements later, but because we are building a synthesiser that will be played with a MIDI keyboard, our score section will not be very complex. In fact, it will only contain one line of code. *f0 z* is a special score statement that instructs Csound to listen for events for an extremely long time. Below is the entire source code, including a simple Cabbage section for the instrument presented above.
 
-</CsInstruments>
-<CsScore>
-f1 0 1024 10 1
-f0 3600
-</CsScore>
-</CsoundSynthesizer>
-~~~
-
-
-You will notice that a *-n* and *-d* are passed to Csound in the
-\<CsOptions\> section. *-n* stops Csound from writing audio to disk. This
-must be used when Cabbage is managing audio. If users wish to use Csound
-audio IO modules they need to disable Cabbage audio from the settings
-menu. The -d prevents any FLTK widgets from displaying. You will also
-notice that our instrument is stereo. ALL Cabbage instruments operate in
-stereo.
-
-
-### Controlling Your Instrument
-
-The most obvious limitation to the above instrument is that users cannot
-interact directly with Csound. In order to do this one can use a Csound
-channel opcode and a Cabbage control such as a slider. Any control that
-is to interact with Csound must have a channel identifier.
-
-When one supplies a channel name to the *channel()* identifier Csound will
-listen for data being sent on that channel through the use of the named
-channel opcodes. In order to retrieve data from the named channel bus in
-Csound one can use the chnget opcode. It is defined in the Csound
-reference manual as:
-
-    kval chnget Sname
-
-Sname is the name of the channel. This same name must be passed to the
-*channel()* identifier in the corresponding \<Cabbage\> section. Cabbage
-only works with the *chnget/chnset* method of sending and receiving
-channel data. The *invalue* and *outvalue* opcodes are not supported.
-
-The previous example can be modified so that a slider now controls the
-volume of our oscillator.
-
-~~~
+```
 <Cabbage>
-form size(400, 170), caption("Simple Synth"), pluginID("plu1")
-hslider  bounds(0, 110, 380, 50), channel("gain"), range(0, 1, .5), textBox(1)
-keyboard bounds(0, 0, 380, 100)
+form caption("Untitled") size(400, 300), colour(58, 110, 182), pluginID("def1")
+keyboard bounds(8, 158, 381, 95)
 </Cabbage>
 <CsoundSynthesizer>
 <CsOptions>
--n -d -+rtmidi=NULL -M0 --midi-key-cps=4 --midi-velocity-amp=5
+-+rtmidi=NULL -M0 -m0d --midi-key-cps=4 --midi-velocity-amp=5
 </CsOptions>
 <CsInstruments>
-sr = 44100
-ksmps = 64
-nchnls = 2
-0dbfs=1
-
-instr 1
-k1 chnget "gain"
-kenv linenr p5, 0.1, 1, 0.1
-a1 oscil kenv*k1, p4, 1
-outs a1, a1
-endin
-
-</CsInstruments>
-<CsScore>
-f1 0 1024 10 1
-f0 3600
-</CsScore>
-</CsoundSynthesizer>
-~~~
-
-![](../resources/images/10-b-simplesynth_1.png
-
-In the example above we use a
-[hslider](http://www.thecabbagefoundation.org/documentation.php#x35)
-control which is a horizontal slider. The *bounds()* identifier sets up
-the position and size of the widget. The most important identifier is
-*channel()*. It is passed a string "gain". This is the same string we
-pass to [chnget](https://csound.com/docs/manual/chnget.html) in our
-Csound code. When a user moves the slider, the current position of the
-slider is sent to Csound on a channel named "gain". Without the
-*channel()* identifier no communication would take place between the
-Cabbage control and Csound. The keyboard widget can be used en lieu of a
-real MIDI keyboard when testing plugins. It is also possible to move
-Cabbage widgets from within the Csound orchestra using the
-[chnset](https://csound.com/docs/manual/chnset.html) opcode.
-
-
-### A basic Cabbage effect
-
-Cabbage effects are used to process incoming audio. To do so one must
-make sure they can access the incoming audio stream. Any of Csound's
-signal input opcodes can be used for this. The examples that come with
-Cabbage use both the ins and inch opcodes to retrieve the incoming audio
-signal. The following code is for a simple reverb unit. It accepts a
-stereo input and outputs a stereo signal.
-
-~~~
-<Cabbage>
-form caption("Reverb") size(230, 130)
-groupbox text("Stereo Reverb"), bounds(0, 0, 200, 100)
-rslider channel("size"), bounds(10, 25, 70, 70), text("Size"), range(0, 2, 0.2)
-rslider channel("fco"), bounds(70, 25, 70, 70), text("Cut-off"), range(0, 22000, 10000)
-rslider channel("gain"), bounds(130, 25, 70, 70), text("Gain"), range(0, 1, 0.5)
-</Cabbage>
-<CsoundSynthesizer>
-<CsOptions>
--d -n
-</CsOptions>
-<CsInstruments>
-; Initialize the global variables.
+; Initialize the global variables. 
 sr = 44100
 ksmps = 32
 nchnls = 2
+0dbfs = 1
 
+;instrument will be triggered by keyboard widget
 instr 1
-kfdback chnget "size"
-kfco chnget "fco"
-kgain chnget "gain"
-ainL inch 1
-ainR inch 2
-aoutL, aoutR reverbsc ainL, ainR, kfdback, kfco
-outs aoutL*kgain, aoutR*kgain
+iFreq = p4
+iAmp = p5
+aOut vco2 iAmp, iFreq
+outs aOut, aOut
 endin
 
 </CsInstruments>
 <CsScore>
-f1 0 4096 10 1
-i1 0 1000
+;causes Csound to run for about 7000 years...
+f0 z
 </CsScore>
 </CsoundSynthesizer>
-~~~
+```   
+
+You'll notice that the pitch and frequency for the `vco2` opcode has been replaced with two *i*-rate variables, *iFreq* and *iAmp*, who in turn get their value from *p5*, and *p4*. *p5* and *p4* are p-variables. Their values will be assigned based on incoming MIDI data. If you look at the code in the <CsOptions> section you'll see the text '--midi-key-cps=4 --midi-velocity-amp=5'. This instructs Csound to pass the current note's velocity to *p5*, and the current note's frequency, in cycle per second(Hz.) to *p4*. *p4* and *p5* were chosen arbitrarily. *p7*, *p8*, *p*-whatever could have been used, so long as we accessed those same *p* variables in our instrument.
+
+Another important piece of text from the <CsOptions> section is the '*-M0*'. This tells Csound to send MIDI data to our instruments. Whenever a note is pressed using the on-screen MIDI keyboard, or a hardware keyboard if one is connected, it will trigger instrument 1 to play. Not only will it trigger instrument one to play, it will also pass the current note's amplitude and frequency to our two *p* variables. 
+
+### Don't be a click head!
+
+If you've tried out the instrument above you'll notice the notes will click each time they sound. To avoid this, an amplitude envelope should be applied to the output signal. The most common envelope is the ubiquitous ADSR envelope. ADSR stands for Attack, Decay, Sustain and Release. The attack, decay and sustain sections are given in seconds as they relate to time values. The sustain value describes the sustain level which kicks in after the attack and decay times have passed. The note's amplitude will rest at this sustain level until it is released.
+
+![](../resources/images/10-b-cabbageadsr.png)
 
 
-The above instrument uses 3 sliders to control the reverb size, the
-cut-off frequency for the internal low-pass filters, and the overall
-gain. The *range()* identifier is used with each slider to specify the
-min, max and starting value of the sliders. If you compare the two score
-sections in the above instruments you will notice that the synth
-instrument does not use any i-statement. Instead it uses an f0 3600.
-This tells Csound to wait for 3600 seconds before exiting. (In recent
-versions of Csound this step is no longer necessary to sustain
-performance.) Because synth instruments are controlled via MIDI we don't
-need to use an i-statement in the score. In the audio effect example we
-use an i-statement with a long duration so that the effect runs without
-stopping for a long time, typically longer than a user session in a
-DAW.
+Csound offers several ADSR envelopes. The simplest one to use, and the one that will work out of the box with MIDI based instruments is `madsr` Its syntax, as listed in the Csound [reference](https://csound.github.io/docs/manual/madsr.html) manual, is given as:
 
-![](../resources/images/10-b-simplereverb.png)
+```
+kres madsr iatt, idec, islev, irel
+```
+Note that the inputs to madsr are *i*-rate. They cannot change over the duration of a note. There are several places in the instrument code where the output of this opcode can be used. It could be applied directly to the first input argument of the vco2 opcode, or it can be placed in the line with the out opcode. Both are valid approaches. 
+
+```
+<Cabbage>
+form caption("Untitled") size(400, 300), colour(58, 110, 182), pluginID("def1")
+keyboard bounds(8, 158, 381, 95)
+</Cabbage>
+<CsoundSynthesizer>
+<CsOptions>
+-n -d -+rtmidi=NULL -M0 -m0d --midi-key-cps=4 --midi-velocity-amp=5
+</CsOptions>
+<CsInstruments>
+; Initialize the global variables. 
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
+
+;instrument will be triggered by keyboard widget
+instr 1
+iFreq = p4
+iAmp = p5
+iAtt = 0.1
+iDec = 0.4
+iSus = 0.6
+iRel = 0.7
+kEnv madsr iAtt, iDec, iSus, iRel 
+aOut vco2 iAmp, iFreq
+outs aOut*kEnv, aOut*kEnv
+endin
+
+</CsInstruments>
+<CsScore>
+;causes Csound to run for about 7000 years...
+f0 z
+</CsScore>
+</CsoundSynthesizer>
+```
+
+### Controlling ADSR parameters.
+
+The values of the ADSR parameters can be set using widgets. A typical widget for such control is a slider of some sort. They all behave in more or less the same way. Their job is to send numbers to Csound on a fixed channel. Each widget that is capable of controlling some aspect of an instrument must have a channel set using the `channel()` identifier. In the following code 4 rsliders are created. Each one has a unique `channel()` set, and they all have the same range. More details on sliders can be found in the widget reference section.
+
+```
+<Cabbage>
+form caption("Simple Synth") size(450, 260), colour(58, 110, 182), pluginID("def1")
+keyboard bounds(14, 120, 413, 95)
+rslider bounds(12, 14, 105, 101), channel("att"), range(0, 1, 0.01, 1, .01), text("Attack")
+rslider bounds(114, 14, 105, 101), channel("dec"), range(0, 1, 0.5, 1, .01), text("Decay")
+rslider bounds(218, 14, 105, 101), channel("sus"), range(0, 1, 0.5, 1, .01), text("Sustain")
+rslider bounds(322, 14, 105, 101), channel("rel"), range(0, 1, 0.7, 1, .01), text("Release")
+</Cabbage>
+```
 
 
-Recent Innovations
-------------------
+![](../resources/images/10-b-cabbagefirstsynth1.gif)
 
-### Gentable Widget
+It can't be stated enough that each widget responsible for controlling an aspect of your instrument MUST have a channel set using the `channel()` identifier. Why? Because Csound can access these channels using its `chnget` opcode. The syntax for `chnget` is very simple:
 
-The *gentable* widget can be used to display any Csound function table.
+```
+kRes chnget "channel"
+``` 
+The `chnget` opcode will create a variable that will contain the current value of the named channel. The rate at which the `chnget` opcode will operate at is determined by the first letter of its output variable. The simple instrument shown in the complete example above can now be modified so that it accesses the values of each of the sliders. 
 
-![](../resources/images/10-b-cabbagegentable.png)
+```
+instr 1
+iFreq = p4
+iAmp = p5
+iAtt chnget "att"
+iDec chnget "dec"
+iSus chnget "sus"
+iRel chnget "rel"
+kEnv madsr iAtt, iDec, iSus, iRel 
+aOut vco2 iAmp, iFreq
+outs aOut*kEnv, aOut*kEnv
+endin
+```
+Every time a user plays a note, the instrument will grab the current value of each slider and use that value to set its ADSR envelop. Note that the `chnget` opcodes listed above all operate at i-time only. This is important because the `madsr` opcode expects *i*-rate variable.  
 
-*gentable* views can be updated during performance in order to reflect any
-changes that may have been made to their contents by the Csound
-orchestra. Updating is actuated by using the gentable widget's
-so-called *ident* channel (a channel that is used exclusively for
-changing the appearance of widgets and that is channel separate from the
-normal value channel).
+### Low-pass me the Cabbage please...
 
-It is also possible to modify the contents of a some function tables
-that are represented using *gentable* by clicking and dragging upon their
-GUI representations. This feature is a work in progress and is currently
-only available with *GEN 02*, *05* and *07*.
+ADSR envelopes are often used to control the cut-off frequency of low-pass filters. Low-pass filters block high frequency components of a sound, while letting lower frequencies pass. A popular low-pass filter found in Csound is the moogladder filter which is modeled on the famous filters found in Moog synthesisers. Its syntax, as listed in the Csound [reference](https://csound.github.io/docs/manual/moogladder.html) manual is given as:
+
+```
+asig moogladder ain, kcf, kres
+```
+Its first input argument is an a-rate variable. The next two arguments set the filter cut-off frequency and the amount of resonance to be added to the signal. Both of these can be k-rate variables, thus allowing them to be changed during the note. Cut-off and resonance controls can easily be added to our instrument. To do so we need to add two more sliders to our Cabbage section of code. We'll also need to add two more `chnget` opcodes and a `moogladder` to our Csound code. One thing to note about the cut-off slider is that it should be exponential. As the users increases the slider, it should increment in larger and larger steps. We can do this be setting the sliders *skew* value to .5. More details about this can be found in the slider widget reference page.  
+
+```
+<Cabbage>
+form caption("Simple Synth") size(450, 220), colour(58, 110, 182), pluginID("def1")
+keyboard bounds(14, 88, 413, 95)
+rslider bounds(12, 14, 70, 70), channel("att"), range(0, 1, 0.01, 1, .01), text("Attack")
+rslider bounds(82, 14, 70, 70), channel("dec"), range(0, 1, 0.5, 1, .01), text("Decay")
+rslider bounds(152, 14, 70, 70), channel("sus"), range(0, 1, 0.5, 1, .01), text("Sustain")
+rslider bounds(222, 14, 70, 70), channel("rel"), range(0, 1, 0.7, 1, .01), text("Release")
+rslider bounds(292, 14, 70, 70), channel("cutoff"), range(0, 22000, 2000, .5, .01), text("Cut-Off")
+rslider bounds(360, 14, 70, 70), channel("res"), range(0, 1, 0.7, 1, .01), text("Resonance")
+</Cabbage>
+<CsoundSynthesizer>
+<CsOptions>
+-n -d -+rtmidi=NULL -M0 -m0d --midi-key-cps=4 --midi-velocity-amp=5
+</CsOptions>
+<CsInstruments>
+; Initialize the global variables. 
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
+
+;instrument will be triggered by keyboard widget
+instr 1
+iFreq = p4
+iAmp = p5
+
+iAtt chnget "att"
+iDec chnget "dec"
+iSus chnget "sus"
+iRel chnget "rel"
+kRes chnget "res"
+kCutOff chnget "cutoff"
+
+kEnv madsr iAtt, iDec, iSus, iRel 
+aOut vco2 iAmp, iFreq
+aLP moogladder aOut, kCutOff, kRes
+outs aLP*kEnv, aLP*kEnv
+endin
+
+</CsInstruments>
+<CsScore>
+;causes Csound to run for about 7000 years...
+f0 z
+</CsScore>
+</CsoundSynthesizer>
+```
+
+![](../resources/images/10-b-cabbagefirstsynth2.png)
 
 
-### Soundfiler Widget
+### Sightings of LFOs! 
 
-Whilst audio files stored in *GEN 01* function tables can be viewed using
-gentable it is more efficient (particularly with longer files) to do
-this using the *soundfiler* widget.
+Many synths use some kind of automation to control filter parameters. Sometimes an ADSR is used to control the cut-off frequency of a filter, and in other cases low frequency oscillators, or LFOs are used. As we have already seen how ADSRs work, let's look at implementing an LFO to control the filters cut-off frequency. Csound comes with a standard LFO opcode that provides several different type of waveforms to use. Its syntax, as listed in the Csound [reference](https://csound.github.io/docs/manual/lfo.html) manual is given as: 
 
-![](../resources/images/10-b-cabbagesoundfiler.png)
+```
+kres lfo kamp, kcps [, itype]
+``` 
+Type can be one of the following:
 
-*soundfiler* also facilitates zooming into and out of the viewed waveform
-and a portion of the waveform can be highlighted using click and drag.
-The start and end points of this highlighted region can be read into
-Csound and used, for example, as loop points. An example of this can be
-found in the *Table3FilePlayer* example in Cabbage's built-in examples in
-the File Players subsection. A *scrubber* (a vertical line through the
-waveform) can also be displayed to indicate playback position.
+- itype = 0  sine
+- itype = 1  triangles
+- itype = 2  square (bipolar)
+- itype = 3  square (unipolar)
+- itype = 4  saw-tooth
+- itype = 5  saw-tooth(down)
 
-Using *soundfiler* in combination with a button widget, we can open a
-browser and browse for a new sound file during performance. All of the
-examples in *Examples->FilePlayers* make use of this possibility.
+In our example we will use a downward moving saw-tooth wave form. A basic implementation would look like this.
 
+```
+(...)
+kEnv madsr iAtt, iDec, iSus, iRel 
+aOut vco2 iAmp, iFreq
+kLFO lfo 1, 1, 5
+aLP moogladder aOut, kLFO*kCutOff, kRes
+outs aLP*kEnv, aLP*kEnv
+endin
+(...)
+```
 
-### Widgetarray
+The output of the LFO is multiplied by the value of *kCutOff*. The frequency of the LFO is set to 1 which means the cut-off frequency will move from *kCutOff* to 0, once every second. This will create a simple rhythmical effect. Of course it doesn't make much sense to have the frequency fixed at 1. Instead, it is better to give the user control over the frequency using another slider. Finally, an amplitude control slider will also be added, allowing users to control the over amplitude of their synth. 
 
-The *widgetarray* identifier can be used with most widgets to generate
-large numbers of widgets in a single step.
+There are many further improvements that could be made to the simple instrument. For example, a second `vco2` could be added to create a detune effect which will add some depth to the synth's sound. One could also an ADSR to control the filter envelope, allowing the user an option to switch between modes. If you do end up with something special why not share it on the Cabbage recipes forum!  
 
-![](../resources/images/10-b-cabbagewidgetarray.png)
+```
+<Cabbage>
+form caption("Simple Synth") size(310, 310), colour(58, 110, 182), pluginID("def1")
+keyboard bounds(12, 164, 281, 95)
+rslider bounds(12, 14, 70, 70), channel("att"), range(0, 1, 0.01, 1, .01), text("Attack")
+rslider bounds(82, 14, 70, 70), channel("dec"), range(0, 1, 0.5, 1, .01), text("Decay")
+rslider bounds(152, 14, 70, 70), channel("sus"), range(0, 1, 0.5, 1, .01), text("Sustain")
+rslider bounds(222, 14, 70, 70), channel("rel"), range(0, 1, 0.7, 1, .01), text("Release")
+rslider bounds(12, 84, 70, 70), channel("cutoff"), range(0, 22000, 2000, .5, .01), text("Cut-Off")
+rslider bounds(82, 84, 70, 70), channel("res"), range(0, 1, 0.7, 1, .01), text("Resonance")
+rslider bounds(152, 84, 70, 70), channel("LFOFreq"), range(0, 10, 0, 1, .01), text("LFO Freq")
+rslider bounds(222, 84, 70, 70), channel("amp"), range(0, 1, 0.7, 1, .01), text("Amp")
+</Cabbage>
+<CsoundSynthesizer>
+<CsOptions>
+-n -d -+rtmidi=NULL -M0 -m0d --midi-key-cps=4 --midi-velocity-amp=5
+</CsOptions>
+<CsInstruments>
+; Initialize the global variables. 
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
 
-The screenshot from the example shown above (which can be found in
-Cabbage's built-in examples in the *FunAndGames* subsection) employs
-300 image widgets to create the stars and the UFO and these are
-generated in a single line of code. Each individual widget can be
-addressed from within the Csound orchestra using a numbered identity
-channel, thereby they can be individually repositioned or modified in
-any other way. This process can be simplified by using looping
-procedures.
+;instrument will be triggered by keyboard widget
+instr 1
+iFreq = p4
+iAmp = p5
 
-### Texteditor
+iAtt chnget "att"
+iDec chnget "dec"
+iSus chnget "sus"
+iRel chnget "rel"
+kRes chnget "res"
+kCutOff chnget "cutoff"
+kLFOFreq chnget "LFOFreq"
+kAmp chnget "amp"
 
-The *texteditor* widget can be used to directly type in a string on the
-computer keyboard which can then be sent to Csound. An example use of
-this is to type in score events in real time (exemplified in the example
-RealTimeScoreEvents in the the *Instructional* subsection in
-Cabbage's built-in examples.)
+kEnv madsr iAtt, iDec, iSus, iRel 
+aOut vco2 iAmp, iFreq
+kLFO lfo 1, kLFOFreq
+aLP moogladder aOut, kLFO*kCutOff, kRes
+outs kAmp*(aLP*kEnv), kAmp*(aLP*kEnv)
+endin
 
-### Plants and Popups
+</CsInstruments>
+<CsScore>
+;causes Csound to run for about 7000 years...
+f0 z
+</CsScore>
+</CsoundSynthesizer>
+```
 
-Cabbage *plants* provides a convenient mechanism with which GUI
-elements which belong together in some way can be grouped. An example of
-this might be the various widgets pertaining to the values used by an
-envelope. Thereafter if becomes easier to modify the grouped widgets en
-masse: to move them somewhere else in the gui or to hide or reveal them
-completely.
+# A basic Cabbage effect
+Cabbage effects are used to process incoming audio. To do this we make use of the signal input opcodes. One can use either 'ins' or 'inch'. To create a new effect click the new file button and select audio effect.
 
-An more elaborate function is to hold a plant in a completely separate
-GUI window that can be launched using a *pop-up* button. An example of
-this is the *Clavinet* instrument in the *Synths* subsection in
-Cabbage's built-in examples.
+After you have named the new effect Cabage will generate a very simple instrument that takes an incoming stream of audio and outputs directly, without any modification or further processing. In order to do some processing we can add some Csound code the instrument. The code presented below is for a simple reverb unit. We assign the incoming sample data to two variables, i.e., aInL and aInR. We then process the incoming signal through the reverbsc opcode. Some GUI widgets have also been added to provide users with access to various parameter. See the previous section on creating your first synth if you are not sure about how to add GUI widgets.  
 
-### Range Sliders
+## Example
 
-A special type of slider (horizontal or vertical but not rotary \'r\'
-type) employs two control knobs so that it can output two values.
+```
+<Cabbage>
+form size(280, 160), caption("Simple Reverb"), pluginID("plu1")
+groupbox bounds(20, 12, 233, 112), text("groupbox")    
+rslider bounds(32, 40, 68, 70), channel("size"), range(0, 1, .2, 1, 0.001), text("Size"), colour(2, 132, 0, 255), 
+rslider bounds(102, 40, 68, 70), channel("fco"), range(1, 22000, 10000, 1, 0.001), text("Cut-Off"), colour(2, 132, 0, 255), 
+rslider bounds(172, 40, 68, 70), channel("gain"), range(0, 1, .5, 1, 0.001), text("Gain"), colour(2, 132, 0, 255), 
+</Cabbage>
+<CsoundSynthesizer>
+<CsOptions>
+-n -d
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 64
+nchnls = 2
+0dbfs=1
 
-![](../resources/images/10-b-cabbagerangeslider.png)
+instr 1
+	kFdBack chnget "size"
+	kFco chnget "fco"
+	kGain chnget "gain"
+	aInL inch 1
+	aInR inch 2
+	aOutL, aOutR reverbsc aInL, aInR, kFdBack, kFco
+	outs aOutL*kGain, aOutR*kGain
+endin
 
-This widget can be seen in action in the example *DelayGrain* in the
-*Effects* subsection in Cabbage's built-in examples.
+</CsInstruments>  
+<CsScore>
+f1 0 1024 10 1
+i1 0 z
+</CsScore>
+</CsoundSynthesizer>
+```
 
-### Reserved Channels
+The above instrument uses 3 rsliders to control the reverb size(feedback level), the cut-off frequency, and overall gain. The range() identifier is used with each slider to specify the min, max and starting value of the sliders. 
 
-Reserved channels in Cabbage provide a means of reading in a variety of
-data beyond that of the Cabbage GUI widgets. This includes providing a
-means of reading in mouse position and mouse button activations and also
-tempo, song position and start/stop/record status (if used as a plugin
-within a host). These channels are read using the chnset opcode.
+>If you compare the two score sections in the synth and effect instruments, you'll notice that the synth instrument doesn't use any i-statement. Instead it uses an 'f0 z'. This tells Csound to wait for incoming events until the user kills it. Because the instrument is to be controlled via MIDI we don't need to use an i-statement in the score. In the second example we use an i-statement with a long duration so that the instrument runs without stopping for a long time.   
 
-More information on any of these features can be found in the Cabbage
-reference manual which comes built into Cabbage or can be found
-[here](http://thecabbagefoundation.org/documentation.php).
+![](../resources/images/10-b-cabbagefirsteffect.png)
 
+<a name="LearningMore"></a>
+
+# Learning More
+
+To learn more about Cabbage, please visit the [Cabbage website](https://cabbageaudio.com). There you will find links to more tutorials, video links, and the user forum. 
