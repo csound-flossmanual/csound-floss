@@ -43,9 +43,7 @@ are pre-assigned to control channels which can be read using Csound's
 
 The app also contains an embedded Web browser, based on WebKit, that 
 implements most features of the HTML5 standard. This embedded browser can
-run Csound pieces written as .html files. In addition, the app can render HTML 
-and JavaScript code that is contained in an optional `<html>` element of a 
-regular .csd file. 
+run Csound pieces written as *.html* files. In addition, the app can render HTML and JavaScript code that is contained in an optional `<html>` element of a regular .csd file. 
 
 In both cases, the JavaScript context of the Web page will contain a global 
 Csound object with a JavaScript interface that implements useful functions 
@@ -90,17 +88,16 @@ to get it from the [Google Play Store](https://play.google.com/store/apps/detail
 
 #### Preparing Your Device
 
-Using the *Csound for Android app* is similar to using an application on a regular
-computer. You need to be able to browse the file system.  
+Using the *Csound for Android app* is similar to using an application on a regular computer. You need to be able to browse the file system.  
 
 There are a number of free and paid apps that give users the ability to
 browse the Linux file system that exists on all Android devices. If you
 don't already have such a utility, you should install a file browser
 that provides access to as much as possible of the file system on your
 device, including system storage and external store such as an SD card.
-I have found that the free
+The free
 [AndroZip](https://play.google.com/store/apps/details?id=com.agilesoftresource&hl=en)
-app can do this.  
+app can do this, for instance.
 
 If you render soundfiles, they take up a lot of space. For example,
 CD-quality stereo soundfiles (44.1 KHz, 16 bit) take up about 1
@@ -110,7 +107,7 @@ should have gigabytes, thousands of megabytes, of free storage. This is
 actually enough to make an entire album of pieces.  
 
 On most devices, installing extra storage is easy and not very
-expensive. I recommend obtaining the largest possible SD card, if your
+expensive. Obtain the largest possible SD card, if your
 device supports them. This will vastly expand the amount of available
 space, up to 32 or 64 gigabytes or even more.  
 
@@ -140,7 +137,7 @@ CsoundApplication-release.apk file. Find your device's download directory, and p
 CsoundApplication-release.apk file there.  
 
 Then you will need to use a file browser that is actually on your
-device, such as AndropZip. Browse to your Download directory, select the
+device, such as AndroZip. Browse to your Download directory, select the
 CsoundApplication-release.apk file, and you should be presented with a choice of actions.
 Select the Install action. The installer will ask for certain
 permissions, which you should give.
@@ -173,7 +170,6 @@ The Csound for Android app has a tabbed user interface. The tabs include:
 
 -   ***HELP*** -- Displays the online Csound Reference Manual in an embedded Web
                   browser.
-                  
 -   ***ABOUT*** -- Displays the Csound home page in an embedded Web browser.
 
 ### Main Menu
@@ -183,13 +179,10 @@ The app also has a top-level menu with the following commands:
 -   ***NEW...*** -- creates a blank template CSD file in the root directory
     of the user's storage for the user to edit. The CSD file will be
     remembered and performed by Csound.
-
 -   ***OPEN...*** -- opens an existing CSD file in the root directory of
     the user's storage. The user's storage filesystem can be navigated
     to find other files.
-
 -   ***SAVE*** -- saves the current contents of the editor to its file.
-
 -   ***RUN/STOP*** -- if a CSD file has been loaded, pushing the
     button starts running Csound; if Csound is running, pushing the
     button stops Csound. If the `<CsOptions>` element of the CSD file
@@ -197,14 +190,10 @@ The app also has a top-level menu with the following commands:
     output. If the element contains `-osoundfilename`, Csound\'s audio
     output will go to the file `soundfilename`, which should be a valid
     Linux pathname in the user's storage filesystem.
-
 -   ***Save as ...*** -- saves the current contents of the editor to a new file.
-
 -   ***Examples*** -- shows a number of example pieces that may be loaded 
-                      into the editor and run.
-
 -   ***User guide*** -- a minimal guide to setting up and using the app.
-
+                      into the editor and run.
 -   ***Privacy policy*** -- presents the Csound for Android app's privacy policy.
 
 The widgets are assigned control channel names *slider1* through *slider9*,
@@ -470,7 +459,7 @@ As the very last instrument in your orchestra:
     endin
 
 Now, the controllers are re-mapped to sensible ranges, and have names
-that make sense for your intruments. They can be used as follows. Note
+that make sense for your instruments. They can be used as follows. Note
 particularly that, just above the instrument definition, in other words
 actually in the orchestra header, these global variables are initialized
 with values that will work in performance, in case the user does not set
@@ -484,34 +473,34 @@ performance to performance.
     gkindex1 init 1
     gkindex2 init 0.0125
     instr Phaser
-    insno = p1
-    istart = p2
-    iduration = p3
-    ikey = p4
-    ivelocity = p5
-    iphase = p6
-    ipan = p7
-    iamp = ampdb(ivelocity) * 8
-    iattack = gioverlap
-    idecay = gioverlap
-    isustain = p3 - gioverlap
-    p3 = iattack + isustain + idecay
-    kenvelope transeg 0.0, iattack / 2.0, 1.5, iamp / 2.0, iattack / 2.0,
+     insno = p1
+     istart = p2
+     iduration = p3
+     ikey = p4
+     ivelocity = p5
+     iphase = p6
+     ipan = p7
+     iamp = ampdb(ivelocity) * 8
+     iattack = gioverlap
+     idecay = gioverlap
+     isustain = p3 - gioverlap
+     p3 = iattack + isustain + idecay
+     kenvelope transeg 0.0, iattack / 2.0, 1.5, iamp / 2.0, iattack / 2.0,
           -1.5, iamp, isustain, 0.0, iamp, idecay / 2.0, 1.5, iamp / 2.0,
           idecay / 2.0, -1.5, 0
-    ihertz = cpsmidinn(ikey)
-    print insno, istart, iduration, ikey, ihertz, ivelocity, iamp, iphase, ipan
-    isine ftgenonce 0,0,65536,10,1
-    khertz = ihertz
-    ifunction1 = isine
-    ifunction2 = isine
-    a1,a2 crosspm gkratio1, gkratio2, gkindex1, gkindex2,
+     ihertz = cpsmidinn(ikey)
+     print insno, istart, iduration, ikey, ihertz, ivelocity, iamp, iphase, ipan
+     isine ftgenonce 0,0,65536,10,1
+     khertz = ihertz
+     ifunction1 = isine
+     ifunction2 = isine
+     a1,a2 crosspm gkratio1, gkratio2, gkindex1, gkindex2,
                   khertz, ifunction1, ifunction2
-    aleft, aright pan2 a1+a2, ipan
-    adamping linseg 0, 0.03, 1, p3 - 0.1, 1, 0.07, 0
-    aleft = adamping * aleft * kenvelope
-    aright = adamping * aright * kenvelope
-    outleta "outleft", aleft
-    outleta "outright", aright
+     aleft, aright pan2 a1+a2, ipan
+     adamping linseg 0, 0.03, 1, p3 - 0.1, 1, 0.07, 0
+     aleft = adamping * aleft * kenvelope
+     aright = adamping * aright * kenvelope
+     outleta "outleft", aleft
+     outleta "outright", aright
     endin
 
