@@ -117,7 +117,6 @@ Once an instrument node has been added, Cabbage will automatically open the corr
 
 ## Navigating large source files
 It can become quite tricky to navigate very long text files. For this reason Cabbage provides a means of quickly jumping to instrument definitions. It is also possible to create a special `;- Region:` tag. Any text that appears after this tag will be appended to the drop-down combo box in the Cabbage tool bar.
-![](../../images/docs/navigate_code.gif) 
 
 ![](../resources/images/10-b-cabbagenavigatecode.gif)
 
