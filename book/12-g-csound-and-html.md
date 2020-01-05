@@ -29,8 +29,7 @@ control Csound, and to generate Csound scores and even orchestras.
 In all of these environments, a piece may be written in the form of a Web page 
 (an .html file), with access to a global instance of Csound that exists in the 
 JavaScript context of that Web page. In such pieces, it is common to embed the 
-entire .orc or .csd file for Csound into the .html code as a JavaScript multiline 
-string literal or an invisible TextArea widget.
+entire .orc or .csd file for Csound into the .html code as a JavaScript multiline string literal or an invisible TextArea widget.
 
 In CsoundQt and Csound for Android, the HTML code may be embedded in an optional 
 `<html>` element of the Csound Structured Data (.csd) file. This element
@@ -198,13 +197,9 @@ editor, and some pieces are included as HTML examples in CsoundQt.
 
 ### HelloWorld.csd
 
-This is about the shortest CSD that shows some HTML output. In its
-entirety it is:
+This is about the shortest CSD that shows some HTML output. 
 
-<details>
-    <summary>
-    Click to expand code
-    </summary>
+   ***EXAMPLE 12G01_Hello_HTML_World.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -212,35 +207,29 @@ entirety it is:
 </CsOptions>
 <CsInstruments>
 sr = 44100
-ksmps = 128
+ksmps = 32
 nchnls = 2
-0dbfs = 1.0
+0dbfs = 1
 </CsInstruments>
 <html>
 Hello, World, this is Csound!
 </html>
 <CsScore>
-f 0 10
+e 1
 </CsScore>
 </CsoundSynthesizer>
 ;example by Michael Gogins
 ~~~
 
-</details>
 
 ### Minimal_HTML_Example.csd
 
 This is a simple example that shows how to control Csound using an HTML slider.
 
-<details>
-    <summary>
-    Click to expand code
-    </summary>
+
+   ***EXAMPLE 12G02_Minimal_HTML.csd***
 
 ~~~
-; Minimal example about using html section in CSD
-; by Tarmo Johannes trmjhnns@gmail.com 2016
-
 <CsoundSynthesizer>
 <CsOptions>
 -odac -d
@@ -292,10 +281,10 @@ i 1 0 0.5 ; to hear if Csound is loaded
 f 0 3600
 </CsScore>
 </CsoundSynthesizer>
-
+;example by Tarmo Johannes
 ~~~
 
-</details>
+
 
 ### Styled_Sliders.csd
 
@@ -973,10 +962,10 @@ The normalized values can be rescaled as required in the Csound
 instrument code.
 
     gk_FmIndex init 0.5
-    instr ModerateFM
-    ...
-    kindex = gk_FmIndex * 20
-    ...
+     instr ModerateFM
+     ...
+     kindex = gk_FmIndex * 20
+     ...
     endin
 
 Also for the sake of efficiency, a global, always-on instrument can be
@@ -984,22 +973,22 @@ used to read the control channels and assign their values to these
 global variables:
 
     instr Controls
-    gk_FmIndex_ chnget "gk_FmIndex"
-    if gk_FmIndex_  != 0 then
-     gk_FmIndex = gk_FmIndex_
-    endif
-    gk_FmCarrier_ chnget "gk_FmCarrier"
-    if gk_FmCarrier_  != 0 then
-     gk_FmCarrier = gk_FmCarrier_
-    endif
-    gk_ReverberationDelay_ chnget "gk_ReverberationDelay"
-    if gk_ReverberationDelay_  != 0 then
-     gk_ReverberationDelay = gk_ReverberationDelay_
-    endif
-    gk_MasterLevel_ chnget "gk_MasterLevel"
-    if gk_MasterLevel_  != 0 then
-     gk_MasterLevel = gk_MasterLevel_
-    endif
+     gk_FmIndex_ chnget "gk_FmIndex"
+     if gk_FmIndex_  != 0 then
+      gk_FmIndex = gk_FmIndex_
+     endif
+     gk_FmCarrier_ chnget "gk_FmCarrier"
+     if gk_FmCarrier_  != 0 then
+      gk_FmCarrier = gk_FmCarrier_
+     endif
+     gk_ReverberationDelay_ chnget "gk_ReverberationDelay"
+     if gk_ReverberationDelay_  != 0 then
+      gk_ReverberationDelay = gk_ReverberationDelay_
+     endif
+     gk_MasterLevel_ chnget "gk_MasterLevel"
+     if gk_MasterLevel_  != 0 then
+      gk_MasterLevel = gk_MasterLevel_
+     endif
     endin
 
 Note that each actual global variable has a default value, which is only

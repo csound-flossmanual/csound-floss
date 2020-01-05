@@ -3,8 +3,6 @@ TO DO
 
 - replace formulas in chapter 04-g and 05-b
 - move 05L to miscellanea
-- explain write process
-- explain pandoc markdown
 - test all examples
 - go through all examples and
     - replace some instrument numbers by names
@@ -132,13 +130,6 @@ Edits
     - review or remove
 
 
-General Layout
---------------
-
-- more space between text and examples
-- footnotes should be at bottom of each chapter seperately
-- relative links should work
-
 
 In Process
 ----------
@@ -148,7 +139,6 @@ In Process
 - Hlodver will contribute Live Coding Chapter (14 C) (20191215)
 - Asked Luis and Hlodver about Csound in vim and Emacs (20191215)
 - Asekd Anton about new version of Haskell chapter (20191215)
-- Asked Rory about possible updates for Cabbage chapter (20191231)
 - Asked Jan Jan the same about Blue chapter (20191231)
 
 
