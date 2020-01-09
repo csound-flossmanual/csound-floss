@@ -3,6 +3,7 @@ TO DO
 
 - replace formulas in chapter 04-g and 05-b
 - move 05L to miscellanea
+- rename 12G to Csound in HTML and Javascript
 - test all examples
 - go through all examples and
     - replace some instrument numbers by names
