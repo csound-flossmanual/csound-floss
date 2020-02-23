@@ -16,6 +16,10 @@ control messages. Moreover with Haskell we get all standard types and
 functions like lists, maps, trees. It's a great way to organize code
 and data.
 
+One of the great features that comes with the library is big collection of
+solid patches which are predefined synthesizers with high quality sound.
+They are provided with library csound-catalog.
+
 *Csound-expression* is an open source library. It's available on Hackage
 (the main base of Haskell projects).
 
@@ -26,6 +30,15 @@ Key principles
 Here is an overview of the features and principles:
 
 -   Keep it simple and compact.
+-   Support for interactive music coding. We can create our sounds in the REPL.
+    So we can chat with our audio engine and can quickly test ideas.
+    It greatly speeds up development comparing to traditional compile-listen style.
+-   With the library we can create our own libraries. We can create a
+    palette  of instruments and use it as a library. It means we can
+    just import the instruments and there is no need for copy and paste and worry for
+    collision of names while pasting. In fact there is a library on
+    hackage that is called csound-catalog. It defines great high quality instruments
+    from the Csound Catalog and other sources.
 -   Try to hide low level Csound's wiring as much as we can (no ids for
     ftables, instruments, global variables). The haskell is a modern
     language with rich set of abstractions. The author tried to keep the
@@ -34,11 +47,11 @@ Here is an overview of the features and principles:
 -   No distinction between audio and control rates on the type level.
     Derive all rates from the context. If the user plugs signal to an
     opcode that expects an audio rate signal the argument is converted
-    to the right rate.
+    to the right rate. Though user can force signal to be of desired type.
 -   Less typing, more music. Use short names for all types. Make library
     so that all expressions can be built without type annotations. Make
     it simple for the compiler to derive all types. Don't use complex
-    type classes.
+    type classes or brainy language concepts.
 -   Ensure that output signal is limited by amplitude. Csound can
     produce signals with HUGE amplitudes. Little typo can damage your
     ears and your speakers. In generated code all signals are clipped by
@@ -100,28 +113,61 @@ Here is an overview of the features and principles:
     that is based on samples. It's called csound-sampler. With it we
     can easily create patterns out of wav-files, we can reverse files or
     play random segments of files.
--   There is a novel model for composition predefined in the library.
-    It's based on the assumption that we can delay a signal with an
-    event stream and stop it with an event stream. There is a tiny set
-    of primitives:
-    - *toSeg* -- creates a segment out of the signal (it lasts indefinitely)
-    - *slim*  -- limits a segment by an event stream (the segment lasts and
-      waits for the first event in the event stream to stop itself)
-    - *sflow* -- it plays a list of segments on after another
-    - *spar*  -- it plays a list of segments at the same time
-    - *sloop* -- it plays a segment over and over again.
--   With the library we can create our own libraries. We can create a
-    palette  of instruments and use it as a library. It means we can
-    just import the instruments o need for copy and paste and worry for
-    collision of names while pasting. In fact there is a library on
-    hackage that is called csound-catalog. It defines some instruments
-    from the Csound Catalog.
 
+How to try out the library
+-----------------------------
+
+to try out the library we need:
+
+* ghc - Haskell compiler
+* cabal and cabal-install Haskell tool to install open source libraries
+* Csound - to run the audio
+
+As you install all those tools you can type in the terminal:
+
+```
+cabal install csound-catalog
+```
+
+It will install csound-expression and batteries. If you want just the main library
+use csound-expression instead of csound-catalog.
+
+This works for cabal prior to 3.0 version. If your cabal is newer. Then we
+need to use flag `lib`:
+
+```
+cabal install csound-catalog --lib
+```
+
+We can check the version of cabal with:
+
+```
+cabal --version
+```
+
+After that library is installed and we can use it. 
+We can try in the haskell interpreter, import library and hear the greeting test sound:
+
+```
+> ghci 
+> import Csound.Base
+> dac (testDrone3 220)
+```
+
+It works and we can hear the sound if we have installed evrything
+and our system audio is properly configured to work with default Csound settings.
+
+Next step to go would be to read through the tutorial <https://github.com/spell-music/csound-expression/blob/master/tutorial/Index.md>.
+Library covers almost all features of Csound so it is as huge as Csound but most
+concepts are easy to grasp and it is driven by composition of small parts. 
+
+Happy Haskelling and Csounding!
 
 Links
 -----
-
-The library homepage on hackage:
+The library tutorial:
+<https://github.com/spell-music/csound-expression/blob/master/tutorial/Index.md>\
+The library homepage on hackage (it's haskell stock of open source projects):
 <http://hackage.haskell.org/package/csound-expression>\
 The library homepage on github:
 <http://github.com/anton-k/csound-expression/blob/master/tutorial/Index.md>\
