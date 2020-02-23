@@ -126,19 +126,13 @@ To try out the library we need:
 As you install all those tools you can type in the terminal:
 
 ```
-cabal install csound-catalog
+cabal install csound-catalog --lib
 ```
 
 It will install csound-expression and batteries. If you want just the main library
 use csound-expression instead of csound-catalog.
 
-This works for cabal prior to 3.0 version. If your cabal is newer. Then we
-need to use flag `lib`:
-
-```
-cabal install csound-catalog --lib
-```
-
+If our cabal version is lower than 3.0 version we can skip the flag `--lib`. 
 We can check the version of cabal with:
 
 ```
