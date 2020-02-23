@@ -117,11 +117,11 @@ Here is an overview of the features and principles:
 How to try out the library
 -----------------------------
 
-to try out the library we need:
+To try out the library we need:
 
-* ghc - Haskell compiler
-* cabal and cabal-install Haskell tool to install open source libraries
-* Csound - to run the audio
+* [ghc](https://www.haskell.org/ghc/) - Haskell compiler
+* [cabal](https://www.haskell.org/cabal/) -- Haskell tool to install open source libraries
+* [Csound](https://csound.com/) - to run the audio
 
 As you install all those tools you can type in the terminal:
 
