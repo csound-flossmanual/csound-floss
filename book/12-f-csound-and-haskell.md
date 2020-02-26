@@ -4,21 +4,20 @@
 Csound-expression
 ------------------
 
-*Csound-expression* is a framework for creation of computer music. It is a Haskell library to make Csound much more friendly. It generates Csound files out of Haskell code.
+*Csound-expression* is a framework for creation of computer music. It is a Haskell library to ease the use of Csound. It generates Csound files out of Haskell code.
 
-With the help of the library we can create our instruments on the fly. A
-few lines in the interpreter is enough to get the cool sound going out
-of your speakers. Some of the features of the library are heavily
-inspired by reactive programming. We can invoke the instruments with
+With the help of the library Csound instruments can be created on the fly. A
+few lines in the interpreter is enough to get cool sound. Some of the features of the library are heavily
+inspired by reactive programming. Instruments can be evoked with
 event streams. Event streams can be combined in the manner of reactive
-programming. The GUI-widgets are producing the event streams as a
-control messages. Moreover with Haskell we get all standard types and
-functions like lists, maps, trees. It's a great way to organize code
-and data.
+programming. The GUI-widgets are producing the event streams as
+control messages. Moreover with Haskell all standard types and
+functions like lists, maps and trees can be used. By this, code
+and data can be organized easily.
 
-One of the great features that comes with the library is big collection of
+One of the great features that comes with the library is a big collection of
 solid patches which are predefined synthesizers with high quality sound.
-They are provided with library csound-catalog.
+They are provided with the library csound-catalog.
 
 *Csound-expression* is an open source library. It's available on Hackage
 (the main base of Haskell projects).
@@ -39,16 +38,16 @@ Here is an overview of the features and principles:
     collision of names while pasting. In fact there is a library on
     hackage that is called csound-catalog. It defines great high quality instruments
     from the Csound Catalog and other sources.
--   Try to hide low level Csound's wiring as much as we can (no ids for
-    ftables, instruments, global variables). The haskell is a modern
-    language with rich set of abstractions. The author tried to keep the
+-   Try to hide low level Csound's wiring as much as we can (no IDs for
+    ftables, instruments, global variables). Haskell is a modern
+    language with a rich set of abstractions. The author tried to keep the
     Csound primitives as close to the haskell as possible. For example,
     invocation of the instrument is just an application of the function.
 -   No distinction between audio and control rates on the type level.
     Derive all rates from the context. If the user plugs signal to an
     opcode that expects an audio rate signal the argument is converted
     to the right rate. Though user can force signal to be of desired type.
--   Less typing, more music. Use short names for all types. Make library
+-   Less typing, more music. Use short names for all types. Make a library
     so that all expressions can be built without type annotations. Make
     it simple for the compiler to derive all types. Don't use complex
     type classes or brainy language concepts.
@@ -63,18 +62,18 @@ Here is an overview of the features and principles:
     output which can be used in another instrument and so on.
 -   Set Csound flags with meaningful (well-typed) values. Derive as much
     as you can from the context. This principle let us start for very
-    simple expressions. We can create our audio signal apply the
-    function dac to it and we are ready to hear the result in the
+    simple expressions. We can create our audio signal, apply the
+    function `dac` to it and we are ready to hear the result in the
     speakers. No need for XML copy and paste form. It's as easy as
     typing the line\
         `> dac (osc 440)`\
     in the interpreter.
 -   The standard functions for musical needs. We often need standard
-    waveforms and filters and adsrs. Some functions are not so easy to
+    waveforms and filters and adsr's. Some functions are not so easy to
     use in the Csound. So there are a lot of predefined functions that
     capture lots of musical ideas. the library strives to defines audio
     DSP primitives in the most basic easiest form.
--   -   There are audio waves: osc, saw, tri, sqr, pw, ramp, and their
+    -   There are audio waves: osc, saw, tri, sqr, pw, ramp, and their
         unipolar friends (usefull for LFOs).
     -   There are filters: lp, hp, bp, br, mlp (moog low pass), filt
         (for packing several filters in chain), formant filters with
@@ -117,7 +116,7 @@ Here is an overview of the features and principles:
 How to try out the library
 -----------------------------
 
-To try out the library we need:
+To try out the library you need:
 
 * [ghc](https://www.haskell.org/ghc/) - Haskell compiler
 * [cabal](https://www.haskell.org/cabal/) -- Haskell tool to install open source libraries
@@ -132,15 +131,15 @@ cabal install csound-catalog --lib
 It will install csound-expression and batteries. If you want just the main library
 use csound-expression instead of csound-catalog.
 
-If our cabal version is lower than 3.0 version we can skip the flag `--lib`. 
-We can check the version of cabal with:
+If your cabal version is lower than 3.0 version you can skip the flag `--lib`. 
+The version of cabal can be checked with:
 
 ```
 cabal --version
 ```
 
-After that library is installed and we can use it. 
-We can try in the haskell interpreter, import library and hear the greeting test sound:
+After that library is installed and is ready to be used. 
+You can try in the haskell interpreter to import the library and hear the greeting test sound:
 
 ```
 > ghci 
@@ -148,14 +147,12 @@ We can try in the haskell interpreter, import library and hear the greeting test
 > dac (testDrone3 220)
 ```
 
-It works and we can hear the sound if we have installed evrything
-and our system audio is properly configured to work with default Csound settings.
+It works and you can hear the sound if you have installed evrything
+and the system audio is properly configured to work with default Csound settings.
 
-Next step to go would be to read through the tutorial <https://github.com/spell-music/csound-expression/blob/master/tutorial/Index.md>.
-Library covers almost all features of Csound so it is as huge as Csound but most
-concepts are easy to grasp and it is driven by composition of small parts. 
+Next step to go would be to read through the [tutorial](https://github.com/spell-music/csound-expression/blob/master/tutorial/Index.md). The library covers almost all features of Csound so it is as huge as Csound but most
+concepts are easy to grasp and it is driven by compositions of small parts. 
 
-Happy Haskelling and Csounding!
 
 Links
 -----
