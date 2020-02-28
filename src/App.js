@@ -16,6 +16,9 @@ function App() {
   useEffect(() => {
     browserHistory.listen((location, action) => {
       setCurrentRoute(location.pathname);
+      if (action === "PUSH") {
+        setTimeout(() => window.scroll({ top: 0, left: 0 }), 0);
+      }
     });
   }, []);
 
