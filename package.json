@@ -3,24 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@emotion/core": "^10.0.22",
+    "@emotion/core": "^10.0.28",
     "chokidar": "^3.3.1",
-    "codemirror": "^5.50.0",
+    "codemirror": "^5.52.0",
     "csound-manual-react": "^1.0.0-alpha8",
     "he": "^1.2.0",
     "history": "^4.10.1",
     "html-to-jsx": "^0.0.4",
-    "htmlparser2": "^4.0.0",
+    "htmlparser2": "^4.1.0",
     "mathjax-node": "^2.1.1",
     "pandoc-filter-promisified": "^0.1.0",
-    "ramda": "^0.26.1",
-    "react": "^16.12.0",
+    "ramda": "^0.27.0",
+    "react": "^16.13.0",
     "react-codemirror2": "^6.0.0",
     "react-document-title": "^2.0.3",
-    "react-dom": "^16.12.0",
+    "react-dom": "^16.13.0",
     "react-mathjax": "^1.0.1",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.3.0",
+    "react-scripts": "3.4.0",
     "react-select": "^3.0.8",
     "react-side-effect": "^2.1.0",
     "react-sticky-footer": "^0.1.0-rc3"
@@ -49,6 +49,6 @@
     ]
   },
   "devDependencies": {
-    "fast-glob": "^3.1.1"
+    "fast-glob": "^3.2.2"
   }
 }
