@@ -5,7 +5,6 @@ export const main = css`
   padding: 48px 12px;
   position: relative;
   max-width: calc(100% - 240px - 24px);
-  margin: auto;
   & > div {
     background-color: #fff;
     margin-right: auto;
@@ -14,10 +13,6 @@ export const main = css`
     margin-bottom: 20px;
     border: 1px solid #d9d9d9;
     border-radius: 2px;
-  }
-
-  @media (min-width: 1600px) {
-    left: -60px;
   }
 
   @media (min-width: 900px) {

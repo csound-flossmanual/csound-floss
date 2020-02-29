@@ -22,6 +22,7 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
 import StickyEl from "../../vendor/react-sticky-el.min.js";
 import routes from "../../book_fragments/routes.json";
+import DarkModeToggle from "./DarkMode";
 import * as ß from "./styles";
 
 const IconArrowLeft = () => (
@@ -166,6 +167,7 @@ function LeftNav({ routeIndex }) {
         );
       }
     );
+
     return (
       <li key={index} css={ß.chapterItem}>
         <Link
@@ -201,6 +203,7 @@ function LeftNav({ routeIndex }) {
     <div css={ß.clear}>
       <StickyEl>
         <div css={ß.rootStyle}>
+          <DarkModeToggle />
           <PerfectScrollbar
             style={{ maxHeight: "75vh", position: "relative" }}
             containerRef={setScrollBarRef}

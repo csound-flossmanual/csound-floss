@@ -15,7 +15,8 @@ const LoadingSpinner = () => (
       backgroundColor: "unset",
       height: "100%",
       display: "flex",
-      justifyContent: "center"
+      justifyContent: "center",
+      border: "none"
     }}
   >
     <style>{"main {width: 100%;height:90vh;}"}</style>
