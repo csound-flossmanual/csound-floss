@@ -18,7 +18,8 @@ const MARKDOWN_EXTENSIONS = [
   "link_attributes",
   "inline_notes",
   "citations",
-  "footnotes"
+  "footnotes",
+  "definition_lists"
 ];
 
 module.exports = { JSX_OUTPUT, BOOK_DIRECTORY, MARKDOWN_EXTENSIONS };
