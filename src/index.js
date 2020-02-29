@@ -5,6 +5,7 @@ import * as serviceWorker from "./serviceWorker";
 // POLYFILLS
 import "core-js/es/object";
 import "core-js/es/weak-set";
+import "core-js/es/string";
 
 ReactDOM.render(<App />, document.getElementById("root"));
 
