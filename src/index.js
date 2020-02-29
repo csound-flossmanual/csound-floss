@@ -7,6 +7,8 @@ import "core-js/es/object";
 import "core-js/es/weak-set";
 import "core-js/es/string";
 import "core-js/es/promise";
+import "core-js/es/typed-array";
+import "core-js/es/array-buffer";
 
 ReactDOM.render(<App />, document.getElementById("root"));
 
