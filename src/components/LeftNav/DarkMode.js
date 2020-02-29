@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { jsx, css } from "@emotion/core";
+import { equals } from "ramda";
 import React from "react";
 const {
   enableDynamicTheme,
@@ -132,8 +133,8 @@ const labelStyle = css`
 
 const getLocalStorageVal = () =>
   typeof window.localStorage !== "undefined" &&
-  typeof window.localStorage.getItem !== "function" &&
-  window.localStorage.getItem("dark_mode_enabled") === "1";
+  typeof window.localStorage.getItem === "function" &&
+  equals(window.localStorage.getItem("dark_mode_enabled"), "1");
 
 const setLocalStorageState = enabled =>
   typeof window.localStorage !== "undefined" &&
@@ -148,20 +149,18 @@ const DarkModeToggle = () => {
       enableDynamicTheme();
       setEnabled(true);
     }
-    return () => {
-      setLocalStorageState(enabled);
-    };
     // eslint-disable-next-line
   }, []);
 
   const handleToggle = () => {
-    console.log(enabled);
     if (enabled) {
       setEnabled(false);
       disableDynamicTheme();
+      setLocalStorageState(false);
     } else {
       setEnabled(true);
       enableDynamicTheme();
+      setLocalStorageState(true);
     }
   };
 
