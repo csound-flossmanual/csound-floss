@@ -42,3 +42,7 @@ pre > code {
   font-size: 16px !important;
   line-height: 19px !important;
 }
+
+#root {
+  display: flex;
+}

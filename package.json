@@ -19,11 +19,11 @@
     "react-document-title": "^2.0.3",
     "react-dom": "^16.13.0",
     "react-mathjax": "^1.0.1",
+    "react-perfect-scrollbar": "^1.5.8",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.0",
     "react-select": "^3.0.8",
-    "react-side-effect": "^2.1.0",
-    "react-sticky-footer": "^0.1.0-rc3"
+    "react-side-effect": "^2.1.0"
   },
   "resolutions": {
     "html-to-jsx/cheerio": "^1.0.0-rc.3",
