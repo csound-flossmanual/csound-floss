@@ -2,6 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+// POLYFILLS
+import "core-js/es/object";
 
 ReactDOM.render(<App />, document.getElementById("root"));
 
