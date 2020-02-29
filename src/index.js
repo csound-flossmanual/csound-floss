@@ -6,6 +6,7 @@ import * as serviceWorker from "./serviceWorker";
 import "core-js/es/object";
 import "core-js/es/weak-set";
 import "core-js/es/string";
+import "core-js/es/promise";
 
 ReactDOM.render(<App />, document.getElementById("root"));
 
