@@ -7,29 +7,28 @@ https://rmarkdown.rstudio.com/authoring_pandoc_markdown.html%23raw-tex#pandoc_ma
 
 For anyone who writes on this book, these features are in particular important:
 
-1. HEADINGS
-===========
+# 1. HEADINGS
    
-    level one heading
-    =================
+`level one heading`
+`=================`
 
 is preferred but
 
-    # level one heading
+`# level one heading`
 
 is also possible.
 
-    level two heading
-    -----------------
+`level two heading`
+`-----------------`
 
 is preferred but
 
-    ## level two heading
+`## level two heading`
 
 is also possible.
 
-    ### level three heading
-    #### level four heading
+`### level three heading`
+`#### level four heading`
 
 gets
 
@@ -37,8 +36,7 @@ gets
 #### level four heading
 
 
-2. ITALICS
-==========
+# 2. ITALICS
 
 please use `*this*` not `_that_`
 
@@ -72,7 +70,7 @@ b) other code snippets
 
 are preceded by four spaces:
 
-`    this is a small code snippet`
+&nbsp;&nbsp;&nbsp;&nbsp;this is a small code snippet
 
 gets
 
@@ -82,7 +80,7 @@ gets
 c) code snippets inside normal text
 -----------------------------------
 
-this is an `inside code snippet` which must by surronded by backticks.
+this is an `inside code snippet` which must by surronded by backticks \`.
 
     
 5. IMAGES
