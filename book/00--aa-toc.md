@@ -51,7 +51,6 @@
 ### [H. CONVOLUTION](05-h-convolution.md)
 ### [I. FOURIER ANALYSIS / SPECTRAL PROCESSING](05-i-fourier-analysis-spectral-processing.md)
 ### [K. ATS RESYNTHESIS](05-k-ats-resynthesis.md)
-### [L. AMPLITUDE AND PITCH TRACKING](05-l-amplitude-and-pitch-tracking.md)
 
 ## 06 SAMPLES
 ### [A. RECORD AND PLAY SOUNDFILES](06-a-record-and-play-soundfiles.md)
@@ -101,6 +100,7 @@
 ## 14 MISCELLANEA
 ### [A. METHODS OF WRITING CSOUND SCORES](14-a-methods-of-writing-csound-scores.md)
 ### [B. PYTHON IN CSOUNDQT](14-b-python-in-csoundqt.md)
+### [C. AMPLITUDE AND PITCH TRACKING](05-l-amplitude-and-pitch-tracking.md)
 
 ## 15 APPENDIX
 ### [A. OPCODE GUIDE](15-a-opcode-guide.md)

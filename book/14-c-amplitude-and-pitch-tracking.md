@@ -1,4 +1,4 @@
-05 L. AMPLITUDE AND PITCH TRACKING
+14 C. AMPLITUDE AND PITCH TRACKING
 ==================================
 
 Tracking the amplitude of an audio signal is a relatively simple
@@ -39,7 +39,7 @@ samples in a control period (ksmps) will then no longer alter response
 behaviour.
 
 
-   ***EXAMPLE 05L01_Amplitude_Tracking_First_Principles.csd***
+   ***EXAMPLE 14C01_Amplitude_Tracking_First_Principles.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -101,13 +101,13 @@ The sound file used in all three comparisons is *fox.wav* which can be
 found as part of the Csound HTML Manual download. This sound is someone
 saying: "the quick brown fox jumps over the lazy dog".
 
-![](../resources/images/05-l-fox.png)
+![](../resources/images/14-c-fox.png)
 
 First of all by employing the technique exemplified in example
-*05L01*, the amplitude following signal is overlaid upon the source
+*14C01*, the amplitude following signal is overlaid upon the source
 signal:
 
-![](../resources/images/05-l-homebrew.png)
+![](../resources/images/14-c-homebrew.png)
 
 It can be observed that the amplitude tracking signal follows the
 amplitudes of the input signal reasonably well. A slight delay in
@@ -131,7 +131,7 @@ method similar to that used in the previous example but with the
 convenience of an encapsulated opcode. Its output superimposed upon the
 waveform is shown below:
 
-![](../resources/images/05-l-rms.png)
+![](../resources/images/14-c-rms.png)
 
 Its method of averaging uses filtering rather than simply taking a mean
 of a buffer of amplitude values.
@@ -159,7 +159,7 @@ amplitude tracked using the following line:
 
  with the following result:
 
-![](../resources/images/05-l-follow.png)
+![](../resources/images/14-c-follow.png)
 
 The hump over the word spoken during the third and fourth time divisions
 initially seem erroneous but it is a result of greater amplitude
@@ -179,7 +179,7 @@ the attack time. The relevant line of code is:
 
 and the result of amplitude tracking is:
 
-![](../resources/images/05-l-follow2.png)
+![](../resources/images/14-c-follow2.png)
 
 This technique can be used to extend the duration of short input sound
 events or triggers. Note that the attack and release times for follow2
@@ -197,7 +197,7 @@ define a threshold above which one thing happens and below which
 something else happens. A crude dynamic gating of the signal above could
 be implemented thus:
 
-   ***EXAMPLE 05L02_Simple_Dynamic_Gate.csd***
+   ***EXAMPLE 14C02_Simple_Dynamic_Gate.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -246,7 +246,7 @@ and low-pass filtering.
 
 The results of this dynamic gate are shown below:
 
-![](../resources/images/05-l-gate.png)
+![](../resources/images/14-c-gate.png)
 
 The threshold is depicted as a red line. It can be seen that each time
 the RMS value (the black line) drops below the threshold the audio
@@ -266,7 +266,7 @@ sole trigger is illustrated by the vertical black line.) Raising the
 threshold might seem to be remedial action but is not ideal as this will
 prevent quietly played notes from generating triggers.
 
-![](../resources/images/05-l-thresholdtriggering.png)
+![](../resources/images/14-c-thresholdtriggering.png)
 
 It will often be more successful to use magnitudes of amplitude increase
 to decide whether to generate a trigger or not. The two critical values
@@ -284,7 +284,7 @@ before retesting amplitude changes.
 If we pass our piano sound file through this instrument, the results
 look like this:
 
-![](../resources/images/05-l-dynamictrigger.png)
+![](../resources/images/14-c-dynamictrigger.png)
 
 This time we correctly receive two triggers, one at the onset of each
 note.
@@ -293,7 +293,7 @@ The example below tracks audio from the sound-card input channel 1 using
 this mechanism.
 
 
-   ***EXAMPLE 05L03_Dynamic_Trigger.csd***
+   ***EXAMPLE 14C03_Dynamic_Trigger.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -391,7 +391,7 @@ sibilants.
 *pitch* is the oldest of the pitch tracking opcodes on offer and
 provides the widest range of input parameters.
 
-    koct, kamp pitch asig, iupdte, ilo, ihi, idbthresh [, ifrqs] [, iconf] \
+    koct, kamp pitch asig, iupdte, ilo, ihi, idbthresh [, ifrqs] [, iconf]
           [, istrt] [, iocts] [, iq] [, inptls] [, irolloff] [, iskip]
 
 This makes it somewhat more awkward to use initially (although many of
@@ -484,7 +484,7 @@ terminal when onsets are detected which might assist in this fine
 tuning.
 
 
-   ***EXAMPLE 05L04_Drum_Replacement.csd***
+   ***EXAMPLE 14C04_Drum_Replacement.csd***
 
 ~~~
 <CsoundSynthesizer>

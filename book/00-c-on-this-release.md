@@ -12,6 +12,7 @@ some catchwords here for later elaboration:
   - 04 C AM
   - 04 D FM
   - 05 I FFT
+- moved 05L to 14C
 
 try to find a balance between no presuppositions for reading (so as basic as possible) and interesting also for advanced users (so as elaborated as possible)
 
