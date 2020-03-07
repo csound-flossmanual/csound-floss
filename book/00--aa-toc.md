@@ -92,7 +92,7 @@
 ### [D. CSOUND IN iOS](12-d-csound-in-ios.md)
 ### [E. CSOUND ON ANDROID](12-e-csound-on-android.md)
 ### [F. CSOUND AND HASKELL](12-f-csound-and-haskell.md)
-### [G. CSOUND AND HTML](12-g-csound-and-html.md)
+### [G. CSOUND IN HTML AND JAVASCRIPT](12-g-csound-in-html-and-javascript.md)
 
 ## 13 EXTENDING CSOUND
 ### [A. DEVELOPING PLUGIN OPCODES](13-a-developing-plugin-opcodes.md)

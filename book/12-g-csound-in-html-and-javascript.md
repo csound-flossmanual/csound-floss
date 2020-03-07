@@ -1,5 +1,5 @@
-12 G. CSOUND AND HTML
-=====================
+12 G. CSOUND IN HTML AND JAVASCRIPT
+===================================
 
 Introduction
 -------------
