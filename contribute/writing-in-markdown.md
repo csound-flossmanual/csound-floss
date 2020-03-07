@@ -9,7 +9,7 @@ For anyone who writes on this book, these features are in particular important:
 
 # 1. HEADINGS
    
-`level one heading`
+`level one heading`  
 `=================`
 
 is preferred but
@@ -18,7 +18,7 @@ is preferred but
 
 is also possible.
 
-`level two heading`
+`level two heading`  
 `-----------------`
 
 is preferred but
@@ -27,7 +27,7 @@ is preferred but
 
 is also possible.
 
-`### level three heading`
+`### level three heading`  
 `#### level four heading`
 
 gets
@@ -41,14 +41,12 @@ gets
 please use `*this*` not `_that_`
 
 
-3. BOLD
-=======
+# 3. BOLD
 
 please usw `**this**` not `__that__`
 
 
-4. CODE EXAMPLES
-================
+# 4. CODE EXAMPLES
 
 a) full .csd examples
 ---------------------
@@ -80,11 +78,10 @@ gets
 c) code snippets inside normal text
 -----------------------------------
 
-this is an `inside code snippet` which must by surronded by backticks \`.
+this is an `inside code snippet` which must by surronded by \`backticks\`.
 
     
-5. IMAGES
-=========
+# 5. IMAGES
 
 this is the way an image is specified with caption and resizing:
 
@@ -95,8 +92,7 @@ this is the way an image is specified with caption and resizing:
 - caption and resizing are optional
 
 
-6. FOOTNOTES
-============
+# 6. FOOTNOTES
 
 inside the text use `[^1]` for the first footnote in the chapter.
     
@@ -107,8 +103,7 @@ by a newline as:
           and this is the text continued
 
 
-7. MATH FORMULAS
-================
+# 7. MATH FORMULAS
 
 are written in [tex math](https://en.wikibooks.org/wiki/LaTeX/Mathematics), surrounded by dollar signs `$` in the text, or by two dollar signs `$$` for paragraphs.
 
