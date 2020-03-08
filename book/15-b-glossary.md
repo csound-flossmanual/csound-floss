@@ -1,7 +1,20 @@
 15 B. GLOSSARY
 ==============
 
+Math Symbols
+------------
 
+**Multiplication** in formulars is usually denoted with the dot operator:
+
+$2 \cdot 3 = 6$
+
+In text, the `*` is also used (as in Csound and other programming languages), or with the cross `x`.
+
+**Proportionality** is written as: $\propto$.
+
+
+Csound Terms
+------------
 
 **control cycle**, **control period** or **k-loop** is a pass during the
 performance of an instrument, in which all k- and a-variables are
@@ -153,7 +166,7 @@ Granular Synthesis opcodes.
 a slider or a button. GUI widgets normally permit some user
 modifications such as size, positioning colours etc. A variety options
 are available for the creation of widgets usable by Csound, from it own
-built-in FLTK widgets to those provided by front-ends such as CsoundQT,
+built-in FLTK widgets to those provided by front-ends such as CsoundQt,
 Cabbage and Blue.
 
 

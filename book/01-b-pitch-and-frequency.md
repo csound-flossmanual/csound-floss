@@ -173,12 +173,12 @@ although the frequency displacement is different each time.
 So what of the algorithms mentioned above. As some readers will know the
 current preferred method of tuning western instruments is based on equal
 temperament. Essentially this means that all octaves are split into 12
-equal intervals. Therefore a semitone has a ratio of 2^(1/12)^, which is
+equal intervals. Therefore a semitone has a ratio of 2^1/12^, which is
 approximately 1.059463.
 
 So what about the reference to logarithms in the heading above? As
-stated previously, logarithms are shorthand for exponents. 2^(1/12)^=
-1.059463 can also be written as log2(1.059463)= 1/12. Therefore musical
+stated previously, logarithms are shorthand for exponents. 2^1/12^=
+1.059463 can also be written as log~2~(1.059463)= 1/12. Therefore musical
 frequency works on a logarithmic scale.
 
 ### MIDI Notes
