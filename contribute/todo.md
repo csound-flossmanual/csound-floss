@@ -1,7 +1,6 @@
 TO DO
 =====
 
-- replace formulas in chapter 04-g and 05-b
 - test all examples
 - go through all examples and
     - replace some instrument numbers by names
@@ -75,6 +74,7 @@ Edits
     - add envelopes stored as function tables
 - 05-b (spatial)
     - better sound for 05B01
+    - ambi udos: array output wherever possible
 - 05-c (filter)
     - perhaps add notch, shelf filter and equilizers
     - add figures

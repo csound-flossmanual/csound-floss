@@ -875,42 +875,41 @@ the listener (front) and the direction to the sound source, and by their
 distance r. Cartesian coordinates can be converted to polar coordinates
 by the formulae:
 
-    r =    and  ψ = arctan(x, y),
+$r = \sqrt{x^2 + y^2}$  and $\psi = arctan(x, y)$,
 
 polar to Cartesian coordinates by
 
-    x = r·cos(ψ) and y = r·sin(ψ).
+$x = r·cos(\psi)$ and $y = r·sin(\psi)$.
 
 ![](../resources/images/05-b-ambi-fig2-2d.png)
 
 The 0th order B-Format of a signal S of a sound source on the unit
-circle is just the mono signal: W0 = W = S. The first order B-Format
-contains two additional channels: W1,1 = X = S·cos(ψ) = S·x and W1,2 = Y
+circle is just the mono signal: W~0~ = W = S. The first order B-Format
+contains two additional channels: W~1,1~ = X = S·cos(ψ) = S·x and W~1,2~ = Y
 = S·sin(ψ) = S·y, i.e. the product of the Signal S with the sine and the
 cosine of the direction ψ of the sound source. The B-Format higher order
-contains two additional channels per order m: Wm, 1 = S·cos(mψ) and Wm,
-2 = S·sin(mψ).
+contains two additional channels per order m: W~m,1~ = S·cos(mψ) and W~m,2~ = S·sin(mψ).
 
-    W0 = S
-    W1,1 = X = S·cos(ψ) = S·x W1,2 = Y = S·sin(ψ) = S·y
-    W2,1 = S·cos(2ψ) W2,2 = S·sin(2ψ)
-    ...
-    Wm,1 = S·cos(mψ)    Wm,2 = S·sin(mψ)
+$W_0 = S$  
+$W_{1,1} = X = S·cos(ψ) = S·x$ and $W_{1,2} = Y = S·sin(ψ) = S·y$  
+$W_{2,1} = S·cos(2ψ)$ and $W_{2,2} = S·sin(2ψ)$  
+$...$  
+$W_{m,1} = S·cos(mψ)$ and $W_{m,2} = S·sin(mψ)$  
 
-From the n = 2m + 1 B-Format channels the loudspeaker signals pi of n
-loudspeakers which are set up symmetrically on a circle (with angle ϕi)
+From the n = 2m + 1 B-Format channels the loudspeaker signals p~i~ of n
+loudspeakers which are set up symmetrically on a circle (with angle ϕ~i~)
 are:
 
-    pi = 1/n(W0 + 2W1,1cos(ϕi) + 2W1,2sin(ϕi) + 2W2,1cos(2ϕi) + 2W2,2sin(2ϕi) + ...)
-    = 2/n(1/2 W0 + W1,1cos(ϕi) + W1,2sin(ϕi) + W2,1cos(2ϕi) + W2,2sin(2ϕi) + ...)
+$p_i = \frac{1}{n} · (W_0 + 2W_{1,1}cos(ϕ_i) + 2W_{1,2}sin(ϕ_i) + 2W_{2,1}cos(2ϕ_i) + 2W_{2,2}sin(2ϕ_i)\  +\  ...)$  
+$\ \ = \frac{2}{n} · (\frac{1}{2} W_0 + W_{1,1}cos(ϕ_i) + W_{1,2}sin(ϕ_i) + W_{2,1}cos(2ϕ_i) + W_{2,2}sin(2ϕ_i)\  +\  ...)$
 
 (If more than n speakers are used, we can use the same formula.)
 
 In the following Csound example *udo_ambisonics2D_1.csd* the UDO
-*ambi2D_encode_1a* produces the 3 channels W, X and Y (a0, a11, a12)
-from an input sound and the angle ψ (azmuth kaz), the UDO
+*ambi2D_encode_1a* produces the 3 channels W, X and Y (*a0, a11, a12*)
+from an input sound and the angle ψ (azimuth *kaz*), the UDO
 *ambi2D_decode_1_8* decodes them to 8 speaker signals *a1, a2, ..., a8*.
-The inputs of the decoder are the 3 channels a0, a11, a12 and the 8
+The inputs of the decoder are the 3 channels *a0, a11, a12* and the 8
 angles of the speakers.
 
 
@@ -981,7 +980,7 @@ i1 0 40
 ~~~
 
 
-The B-format of all events of all instruments can be summed before
+The B-format for all signals in all instruments can be summed before
 decoding. Thus in the next example we create a zak
 space with 21 channels (zakinit 21, 1) for the 2D B-format up to 10th
 order where the encoded signals are accumulated. The UDO
@@ -991,7 +990,7 @@ the 2(n+1) channels a0, a11, a12, ..., a32 for any order n (needs
 zakinit 2(n+1), 1). The UDO *ambi2D_decode_basic* is an overloaded
 function i.e. it decodes to n speaker signals depending on the number of
 in- and outputs given (in this example only for 1 or 2 speakers). Any
-number of instruments can play arbitrary often. Instrument 10 decodes
+number of instruments can be played arbitrarily often. Instrument 10 decodes
 for the first 4 speakers of an 18 speaker setup.
 
 
@@ -1140,12 +1139,12 @@ not arise, the B-format channels can be weighted before being decoded.
 The weighting factors depend on the highest order used (M) and the order
 of the particular channel being decoded (m).
 
-    $$gm =  (M!)^2/((M + m)!·(M - m)!)$$
+$g_m = \frac{(M!)^2}{((M + m)!·(M - m)!)}$
 
 ![](../resources/images/05-b-ambi-fig8-tab1.png)
 
-The decoded signal can be normalised with the factor $gnorm(M) = (2M + 1)
-!/(4^M (M!)^2)$.
+The decoded signal can be normalised with the factor 
+$g_{norm}(M) = \frac{2 · (2M)!}{4^M · (M!)^2}$\ :
 
 ![](../resources/images/05-b-ambi-fig9-tab2.png)
 
@@ -1190,7 +1189,7 @@ endop
 opcode  ambi2D_dec_inph, a, ii
 ; weights and norms up to 12th order
 iNorm2D[] array 1,0.75,0.625,0.546875,0.492188,0.451172,0.418945,
-                                        0.392761,0.370941,0.352394,0.336376,0.322360
+                0.392761,0.370941,0.352394,0.336376,0.322360
 iWeight2D[][] init   12,12
 iWeight2D     array  0.5,0,0,0,0,0,0,0,0,0,0,0,
         0.666667,0.166667,0,0,0,0,0,0,0,0,0,0,
@@ -1284,7 +1283,7 @@ approximately 1/d. In addition the function f1 should continuously grow
 with decreasing distance and reach its maximum at d = 0. The maximal
 gain must be 1. The function atan(d·π/2)/(d·π/2) fulfills these
 constraints. We create a function f2 for the fading out of the other
-channels by multiplying f1 by the factor (1 -- E\^(-d)).
+channels by multiplying f1 by the factor (1 - e^-d^).
 
 ![](../resources/images/05-b-ambi-fig6-dist2.png)
 
@@ -1455,6 +1454,8 @@ i10 0 5
 </CsoundSynthesizer>
 ;example by martin neukom
 ~~~
+
+### Adding third dimension
 
 The position of a point in space can be given by its Cartesian
 coordinates x, y and z or by its spherical coordinates the radial
@@ -1894,13 +1895,13 @@ If we combine encoding and in-phase decoding, we obtain the following
 panning function (a gain function for a speaker depending on its
 distance to a virtual sound source):
 
-$$P(γ, m) = (1/2+ 1/2 cos γ)^m$$
+$P(γ, m) = (\frac{1}{2} + \frac{1}{2} \cos γ)^m$
 
 where γ denotes the angle between a sound source and a speaker and m
 denotes the order. If the speakers are positioned on a unit sphere the
 cosine of the angle γ is calculated as the scalar product of the vector
-to the sound source (x, y, z) and the vector to the speaker (xs, ys,
-zs).
+to the sound source (x, y, z) and the vector to the speaker (x~s~, y~s~,
+z~s~).
 
 In contrast to Ambisonics the order indicated in the function does not
 have to be an integer. This means that the order can be continuously
@@ -1915,10 +1916,10 @@ useful for real-time applications, for panning in connection with
 sequencer programs and for experimentation with high and non-integral
 Ambisonic orders.
 
-The opcode AEP1 in the next example shows the calculation of
-ambisonics equivalent panning for one speaker. The opcode AEP then uses
-AEP1 to produce the signals for several speakers. In the text file
-*AEP_udos.txt* AEP ist implemented for up to 16 speakers. The
+The opcode *AEP1* in the next example shows the calculation of
+ambisonics equivalent panning for one speaker. The opcode *AEP* then uses
+*AEP1* to produce the signals for several speakers. In the text file
+*AEP_udos.txt* *AEP* ist implemented for up to 16 speakers. The
 position of the speakers must be written in a function table. As the
 first parameter in the function table the maximal speaker distance must
 be given.

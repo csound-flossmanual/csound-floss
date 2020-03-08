@@ -248,17 +248,19 @@ the Runge--Kutta methods).
 Velocity $v$ is the difference of positions $x$ per time unit $T$,
 acceleration $a$ the difference of velocities $v$ per time unit $T$:
 
-v~t~ = (x~t ~--~ ~x~t-1~)/T, a~t~ = (v~t~ -- v~t-1~)/T.
+$v_t = (x_t - x_{t-1} )/T, a_t = (v_t - v_{t-1})/T$
 
 Putting T = 1 we get
 
-v~t~ = x~t ~-- x~t-1~, a~t~ = v~t ~-- v~t-1~.
+$v_t~ = x_t - x_{t-1}, a_t~ = v_t - v_{t-1}$
 
-If we know the position and velocity of a point at time *t* -- 1 and are
-able to calculate its acceleration at time *t* we can calculate the
-velocity v~t~ and the position x~t~ at time *t*:
+If we know the position and velocity of a point at time $t - 1$ and are
+able to calculate its acceleration at time $t$ we can calculate the
+velocity $v_t$ and the position $x_t$ at time $t$:
 
-v~t~ = v~t-1 ~+ a~t~ andx~t~ = x~t-1~ + v~t~
+$v_t = v_{t-1} + a_t$
+and
+$x_t = x_{t-1} + v_t$
 
 With the following algorithm we calculate a sequence of successive
 positions *x*:
@@ -301,7 +303,7 @@ Example 3: Spring with damping (see *lin_reson.csd* below):
 
 The factor *c* can be calculated from the frequency *f*:
 
-    *c* = 2 -- sqrt(4 -- d^2^) cos(2π *f/sr*)
+$c = 2 - \sqrt{4 - d^2} cos(2\pi f/sr)$
 
 ### Introducing excitation
 
@@ -448,10 +450,10 @@ While attempting to explain the nonlinear dynamics of vacuum tube
 circuits, the Dutch electrical engineer Balthasar van der Pol derived
 the differential equation
 
-    d^2^*x*/d*t*^2 ^= --ω^2^*x* + μ(1 -- x^2^)d*x*/d*t*.
-    (where d^2^*x*/d*t*^2^ = acelleration and d*x*/d*t* = velocity)
+$d^2 x / d t^2 = -\omega^2 x + \mu(1 - x^2) dx/dt$  
+(where $d^2 x /d t^2 =$ accelleration and $dx/dt$ = velocity)
 
-The equation describes a linear oscillator d^2^*x*/d*t*^2 ^=
+The equation describes a linear oscillator d^2^*x*/d*t*^2^ =
 --ω^2^*x* with an additional nonlinear term μ(1 -- x^2^)d*x*/d*t*. When
 \|*x*\| \> 1, the nonlinear term results in damping, but when \|*x*\| \<
 1, negative damping results, which means that energy is introduced into
@@ -469,17 +471,17 @@ The constant ω is the angular frequency of the linear oscillator (μ =
 0). For a simulation with sampling rate *sr* we calculate the frequency
 *f* in Hz as
 
-    *f* = ω·*sr*/2π.
+$f = \omega · sr/2\pi$
 
 Since the simulation is only an approximation of the oscillation this
 formula gives good results only for low frequencies. The exact frequency
 of the simulation is
 
-    *f* = arccos(1 -- ω^2^/2)*sr*·/2π.
+$f = arccos(1 - \omega^2/2) · sr/2\pi$
 
-We get ω^2 ^from frequency *f* as
+We get $\omega^2$ from frequency $f$ as
 
-    2 -- 2cos(*f*·2π/*sr*).
+$2 - 2cos(f · 2\pi/sr)$
 
 With increasing μ the oscillations nonlinearity becomes stronger and
 more overtones arise (and at the same time the frequency becomes lower).
