@@ -35,30 +35,13 @@ parameters affects the way we perceive sound.
 
 -   **Frequency**: the number of cycles or periods per second. Frequency
     is measured in Hertz. If a sound has a frequency of 440Hz it
-    completes 440 cycles every second. Given a frequency, one can easily
-    calculate the period of any sound. Mathematically, the period is the
-    reciprocal of the frequency (and vice versa). In equation form this
-    is expressed as follows.
-
-         Frequency = 1/Period
-         Period = 1/Frequency
-
-Therefore the frequency is the inverse of the period, so a wave of 100
-Hz frequency has a period of 1/100 or 0.01 secs, likewise a frequency of
-256Hz has a period of 1/256, or 0.004 secs. To calculate the wavelength
-of a sound in any given medium we can use the following equation:
-
-     Wavelength = Velocity/Frequency
-
-Humans can hear frequencies from 20Hz to 20000Hz (although this can
-differ dramatically from individual to individual and the upper limit
-will decay with age). You can read more about frequency in the [next
-chapter](01-b-pitch-and-frequency.md).
+    completes 440 cycles every second. Read more about frequency in the 
+    [next chapter](01-b-pitch-and-frequency.md).
 
 -   **Phase:** This is the starting point of a waveform. The starting
     point along the Y-axis of our plotted waveform is not always zero.
     This can be expressed in degrees or in radians. A complete cycle of
-    a waveform will cover 360 degrees or (2 x pi) radians.
+    a waveform will cover 360 degrees or 2π radians.
 
 -   **Amplitude:** Amplitude is represented by the y-axis of a plotted
     pressure wave. The strength at which the molecules pull or push away
@@ -251,8 +234,9 @@ that CD quality can only represent frequencies up to 22050Hz. Humans
 typically have an absolute upper limit of hearing of about 20Khz thus
 making 44.1KHz a reasonable standard sampling rate.
 
-Bits, Bytes and Words. Understanding Binary.
---------------------------------------------
+
+Bits, Bytes and Words
+---------------------
 
 All digital computers represent data as a collection of bits (short for
 binary digit). A bit is the smallest possible unit of information. One
@@ -263,10 +247,11 @@ disk, a program in memory, a packet on a network - is ultimately a
 collection of bits.
 
 Bits in groups of eight are called bytes, and one byte usually
-represents a single character of data in the computer. It\'s a little
+represents a single character of data in the computer. It's a little
 used term, but you might be interested in knowing that a nibble is half
 a byte (usually 4 bits).
 
+The [word length](https://en.wikipedia.org/wiki/Word_(computer_architecture)) of a computer is the number of bits which is handled as a unit by the processor. The transition from 32-bit to 64-bit word length around 2010 in the most used processors required new compilations of Csound and other applications, in particular for the Windows installers. To put it simple: A 32-bit machine needs a 32-bit application, a 64-bit machine needs an application compiled for 64-bit.
 
 
 The Binary System

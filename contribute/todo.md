@@ -7,7 +7,6 @@ TO DO
     - introduce some functional style
     - format 
 - insert navigation for each chapter
-- explain math symbols
 - add more figures or even gifs
 - more consistency in either *myVar* or `myVar` 
 
@@ -16,7 +15,6 @@ Edits
 -----
 
 - 01-a (digital audio)
-    - swap red and blue colors for aliasing figures
     - perhaps introduce bitwise operations
     - perhaps introduce frequency-domain representation
 - 01-b (pitch and freq)
