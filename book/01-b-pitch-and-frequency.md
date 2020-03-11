@@ -12,8 +12,7 @@ Frequencies
 As mentioned in the previous chapter, frequency is defined as the number
 of cycles or periods per second. The SI unit is Hertz where 1 Hertz means 1 period per second. If a tone has a frequency of 100 Hz it completes 100 cycles every second. If a tone has a frequency of 200 Hz it completes 200 cycles every second.
 
-Given a tone's frequency, the time for one period can be calculated straightforward. For 100 periods per seconds (100 Hz), the time for one period is 1/100 or 0.01 seconds.  For 200 periods per second (200 Hz), the time for each period is only half as much: 1/200 or 0.005 seconds. Mathematically, the period is the reciprocal of the frequency and
-vice versa. In equation form, this is expressed as follows.
+Given a tone's frequency, the time for one period can be calculated straightforward. For 100 periods per seconds (100 Hz), the time for one period is 1/100 or 0.01 seconds.  For 200 periods per second (200 Hz), the time for each period is only half as much: 1/200 or 0.005 seconds. Mathematically, the period is the reciprocal of the frequency and vice versa. In equation form, this is expressed as follows:
 
 $Frequency = \frac{1}{Period}$  
 $Period = \frac{1}{Frequency}$
@@ -21,7 +20,7 @@ $Period = \frac{1}{Frequency}$
 
 ### Wavelength
 
-In physical reality, one cycle of a periodic sound can not only be measured in time, but also as extension in space. This is called the wavelength. It is usually abbreviated with the greek character λ (lambda). It can be calculated as ratio between the velocity frequency of the wave. 
+In physical reality, one cycle of a periodic sound can not only be measured in time, but also as extension in space. This is called the wavelength. It is usually abbreviated with the greek character λ (lambda). It can be calculated as ratio between the velocity and the frequency of the wave. 
 
 $λ = \frac{Velocity}{Frequency}$
 
@@ -35,7 +34,7 @@ For instance, a sine wave of 1000 Hz has a length of approximately 340/1000 m = 
 
 ### Periodic and Nonperiodic Sounds
 
-Not all sounds are periodic. In fact, periodic sounds are only one pole. The other pole is noise. In between is a continuum which can be described from both points of view: a periodic sound which has noisy parts, or a noise which has periodic parts. The following example shows these aspects. It starts with a sine tone of 1000 Hz and slowly adds aperiodicity. This is done by changing the frequency of the sine oscillator faster and faster, and in a wider and wider range.  At the end noise is reached. The way from noise to a periodic tone is shown with a band filter whichs band width is at first 10000 Hz around a center frequency of 1000 Hz, so not essentially altering the white noise. Then the band width decreases dramatically (from 10000 Hz to 0.1 Hz) so that at the end nearly a sine tone is reached.
+Not all sounds are periodic. In fact, periodic sounds are only one pole. The other pole is noise. In between is a continuum which can be described from both points of view: a periodic sound which has noisy parts, or a noise which has periodic parts. The following example shows these aspects in one of their numerous possibilities. It starts with a sine tone of 1000 Hz and slowly adds aperiodicity. This is done by changing the frequency of the sine oscillator faster and faster, and in a wider and wider range.  At the end noise is reached. The other way, from noise to a periodic tone, is shown with a band filter whichs band width is at first 10000 Hz around a center frequency of 1000 Hz, so not essentially altering the white noise. Then the band width decreases dramatically (from 10000 Hz to 0.1 Hz) so that at the end nearly a sine tone is reached.
 
    ***EXAMPLE 01B01_PeriodicAperiodic.csd***
 
@@ -84,12 +83,11 @@ Only when a sound is periodic, we perceive a pitch. But the human ear is very se
 ### Upper and Lower Limits of Hearing
 
 It is generally stated that the human ear can hear sounds in the range
-20Hz to 20,000Hz (20kHz). This upper limit tends to decrease with age
+20 Hz to 20,000 Hz (20kHz). This upper limit tends to decrease with age
 due to a condition known as presbyacusis, or age related hearing loss.
 Most adults can hear to about 16 kHz while most children can hear beyond
 this. At the lower end of the spectrum the human ear does not respond to
-frequencies below 20 Hz, with 40 of 50 Hz being the lowest most people
-can perceive.
+frequencies below 20 Hz, and very low frequencies need more power to be heard than medium or high frequencies. (This is explained more in detail in the paragraph about the Fletscher-Munson-Curves in the [next chapter](01-c-intensities.md).)
 
 So, in the following example, you will not hear the first (10 Hz) tone,
 and probably not the last (20 kHz) one, but hopefully the other ones
@@ -130,7 +128,7 @@ i . + . 20000
 Pitches
 -------
 
-Musicians tune their instruments, and theorists make their mind about the rationals, describing intervals and scales. This happened in different cultures, since ages, long before the term frequency came up and long before it was possible to measure a certain frequency by technical devices. What is the relationship between musical terms like octave, major third, semitone and the frequency we have to specify for an oscillator? And why are frequencies often described as being on a "logarithmic scale"?
+Musicians tune their instruments, and theorists make their mind about the rationals, describing intervals and scales. This happened in different cultures, since ages, long before the term frequency came up and long before it was possible to measure a certain frequency by technical devices. What is the relationship between musical terms like octave, major third, semitone, and the frequency we have to specify for an oscillator? And why are frequencies often described as being on a "logarithmic scale"?
 
 
 ### Logarithms, Frequency Ratios and Intervals
@@ -149,9 +147,7 @@ brightnesses.
 Intervals in music describe the distance between two notes. When dealing
 with standard musical notation it is easy to determine an interval
 between two adjacent notes. For example a perfect 5th is always made up
-of seven semitones, so seven adjacent keys on a keyboard. When dealing with Hz values things are different. A
-difference of say 100 Hz does not always equate to the same musical
-interval. This is because musical intervals are
+of seven semitones, so seven adjacent keys on a keyboard. When dealing with Hz values things are different. A difference of say 100 Hz does not always equate to the same musical interval. This is because musical intervals are
 represented as ratio between two frequencies. An octave for example is always
 2:1. That is to say every time you double a Hz value you will jump up by
 a musical interval of an octave.
@@ -161,8 +157,7 @@ player plays A5 an octave above it at 880 Hz the difference in Hz
 is 440. Now consider the piccolo, the highest pitched instrument of the
 orchestra. It can play A6 with a frequency of 1760 Hz but it can also play A7 an octave above this at 3520 Hz (2 x 1760 Hz). While the difference in Hertz
 between A4 and A5 on the flute is only 440 Hz, the difference between
-A6 and A7 on a piccolo is 1760 Hz yet they are both only
-playing notes one octave apart.
+A6 and A7 on a piccolo is 1760 Hz yet they are both only playing notes one octave apart.
 
 The following example shows the difference between adding a certain
 frequency and applying a ratio. First, the frequencies of 100, 400 and
@@ -241,7 +236,8 @@ The equal-tempered scale is present on each [MIDI](https://www.midi.org/) keyboa
       encounter A 440 Hz being described as A3.
 
 Csound can easily deal with MIDI notes and comes with functions that
-will convert MIDI notes to Hertz values (*mtof*) and back again (*ftom*). In the following example, the MIDI notes 69, 69, 69, 68, 67, 66, 65, 64 are being played. 
+will convert MIDI notes to Hertz values (*mtof*) and back again (*ftom*). The next example shows a small chromatic melody which is given as MIDI notes in the array iMidiKeys[], and then converted to the according frequencies, related to the definition of A4 (440 Hz as default). The opcode [mton](https://csound.com/docs/manual/mton.html) returns the note names.
+
 
    ***EXAMPLE 01B04_Midi_to_frequency.csd***
 
@@ -307,9 +303,9 @@ As A4 is set in the header to 457 Hz (overwriting the default 440 Hz), this is t
 
 ### Other Pitch Representation
 
-In addition to raw frequency and MIDI not input, Csound offers two other possibilities to specify a certain pitch. The *pch* notation is a floating point number in which the integer part denotes the octave number and the fractional part denotes the semitones. The octave numbers are not the same as in the common system -- the middle octave is number 8 rather than 4. So C4, the "middle c" on a piano, has the number 8.00. Semitones upwards are then 8.01, 8.02 and so on, reaching A4 as 8.09. B4 is 8.11 and C5 is 9.00.
+In addition to raw frequency input and MIDI note numbers, Csound offers two other possibilities to specify a certain pitch. The *pch* notation is a floating point number in which the integer part denotes the octave number and the fractional part denotes the semitones. The octave numbers are not the same as in the common system -- the middle octave is number 8 rather than 4. So C4, the "middle c" on a piano, has the number 8.00. Semitones upwards are then 8.01, 8.02 and so on, reaching A4 as 8.09. B4 is 8.11 and C5 is 9.00.
 
-The *oct* notation also uses floating point numbers. The integer part has the same meaning as in the *pch* notation. The fractional part divides one octave in acoustically equal steps. For 8.00 as C4 and 9.00 as C5 we get as 8.5 a pitch which is acoustically in the middle between C4 and C5, which means that the proportion between this frequency and the C4 frequency is the same as the proportion between the C5 frequency and this tone's frequency. Csound calculates this as:
+The *oct* notation also uses floating point numbers. The integer part has the same meaning as in the *pch* notation. The fractional part divides one octave in acoustically equal steps. For 8.00 as C4 and 9.00 as C5, 8.5 denotes a pitch which is acoustically in the middle between C4 and C5, which means that the proportion between this frequency and the C4 frequency is the same as the proportion between the C5 frequency and this tone's frequency. Csound calculates this as:
 
     instr 1 
      iC4 = cpsoct(8)
@@ -352,7 +348,7 @@ The following code shows that things like these can also be achieved with a bit 
 
 ### Cent
 
-One semitone in the equal-tempered tuning system can be divided in 100 Cent. It is a common way to denote small or "microtonal" deviations. It can be used in Csound's MIDI notation as fractional part. MIDI note number 69.5 is a quarter tone (50 Cent) above A4; 68.75 is an eight tone (25 Cent) below A4. In the pch notation we would write 8.095 for the first and 8.0875 for the second pitch.
+One semitone in the equal-tempered tuning system can be divided in 100 Cent. It is a common way to denote small or "microtonal" deviations. It can be used in Csound's MIDI notation as fractional part. MIDI note number 69.5 is a quarter tone (50 Cent) above A4; 68.75 is an eight tone (25 Cent) below A4. In the *pch* notation we would write 8.095 for the first and 8.0875 for the second pitch.
 
 All musical intervals can be described as ratios or multipliers. The ratio for the perfect fifth is 3:2 as ratio or 1.5 as multiplier. Also one Cent is a multiplier. As one octave consists of 12 semitones, and each semitone consists of 100 Cent, one octave consists of 1200 Cent. So one Cent, described as multiplier, is 2^1/1200^ (1.000577...), and 50 Cent is 2^50/1200^ (1.0293022...). To return this multiplier, Csound offers the [cent](https://csound.com/docs/manual/cent.html) converter. So `cent(50)` returns the number by which we must multiply a certain frequency to get a quarter tone higher, and `cent(-25)` returns the multiplier for calculating an eighth tone lower.
 
@@ -380,7 +376,7 @@ Tuning Systems
 
 The equal-tempered tuning system which can be found on each MIDI keyboard is not the only existing one. For many musical contexts it is not approriate. In european history there were many different systems, for instance the Pythagorean and the Meantone tuning. Each of the countless traditional music cultures all over the world, for instance arabic Maqam, iranian Dastgah, indian Raga, has an own tuning system. And in comtemporary music we find also numerous different tuning systems.
 
-Audio programming languages like Csound which can synthesize sounds are particularily suited for this approach. It is even simple to "tune" a MIDI keyboard in quarter tones or to any historical tuning. The following example shows the fundamentals. It plays the five notes C D E F G (= MIDI 60 62 64 65 67) first in Pythoagorean tuning, then in Meantone, then as quatertones, then as partials 1-5.
+Audio programming languages like Csound which can synthesize sounds with any frequency are particularily suited for this approach. It is even simple to "tune" a MIDI keyboard in quarter tones or to any historical tuning using Csound. The following example shows the fundamentals. It plays the five notes C D E F G (= MIDI 60 62 64 65 67) first in Pythoagorean tuning, then in Meantone, then as quatertones, then as partials 1-5.
 
 ~~~
 <CsoundSynthesizer>
@@ -403,19 +399,19 @@ endin
 instr Meantone
  giScale[] fillarray 1, 10/9, 5/4, 4/3, 3/2
  schedule("LetPlay",0,0)
- puts "Pythagorean scale",1
+ puts "Meantone scale",1
 endin
 
 instr Quatertone
  giScale[] fillarray 1, 2^(1/24), 2^(2/24), 2^(3/24), 2^(4/24)
  schedule("LetPlay",0,0)
- puts "Pythagorean scale",1
+ puts "Quatertone scale",1
 endin
 
 instr Partials
  giScale[] fillarray 1, 2, 3, 4, 5
  schedule("LetPlay",0,0)
- puts "Pythagorean scale",1
+ puts "Partials scale",1
 endin
 
 instr LetPlay
@@ -462,6 +458,8 @@ $f_{new} = f \cdot p$
 **Example**:  
 Which frequency is in 5/4 proportion to 440 Hz?  
 $\to f_{new} = 440 Hz \cdot 5/4 = 550\ Hz$  
+**Csound code**:  
+`iFreq_new = 440 * 5/4`
 
 
 ### New Frequency from Frequency and Cent Difference
@@ -476,6 +474,8 @@ $f_{new} = f \cdot 2^{c/1200}$
 **Example**:  
 Which frequency is 50 Cent below 440 Hz?  
 $f_{new} = 440 \cdot 2^{-50/1200} = 427.474\ Hz$  
+**Csound code**:  
+`iFreq_new = 440 * 2^(-50/1200)`
 
 
 ### Cent Difference of two Frequencies
@@ -488,4 +488,7 @@ $f_{new} = 440 \cdot 2^{-50/1200} = 427.474\ Hz$
 $c = \log_2{\frac{f1}{f2}} \cdot 1200$  
 **Example**:  
 What is the Cent difference between 550 Hz and 440 Hz?  
-$\to c = \log_2{\frac{550}{440}} \cdot 1200 = 386.318\ Cent$  
+$\to c = \log_2{\frac{550}{440}} \cdot 1200 = 386.314\ Cent$  
+**Csound code**:  
+`iCent = log2(550/440) * 1200`
+
