@@ -77,6 +77,14 @@ i "NoiseToSine" 11 10
 ;example by joachim heintz
 ~~~
 
+This is how the signal looks at start and end of the *SineToNoise* process:
+
+![Sine to noise](../resources/images/01-b-sinetonoise.png)
+
+And this is how the signal looks at start and end of the *NoiseToSine* process:
+
+![Noise to sine](../resources/images/01-b-noisetosine.png)
+
 Only when a sound is periodic, we perceive a pitch. But the human ear is very sensitive, and it is quite fascinating to observe how few periodicity is needed to sense some pitch.
 
 
