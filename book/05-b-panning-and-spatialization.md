@@ -18,7 +18,21 @@ sr = 44100
 ksmps = 32
 0dbfs = 1
 nchnls = 2
-seed 0
+seed 1
+
+opcode Resonator, a, akk 
+ aSig, kFreq, kQ xin
+ kRatio[] fillarray 1, 2.89, 4.95, 6.99, 8.01, 9.02
+ a1 = mode:a(aSig, kFreq*kRatio[0], kQ)
+ a2 = mode:a(aSig, kFreq*kRatio[1], kQ)
+ a3 = mode:a(aSig, kFreq*kRatio[2], kQ)
+ a4 = mode:a(aSig, kFreq*kRatio[3], kQ)
+ a5 = mode:a(aSig, kFreq*kRatio[4], kQ)
+ a6 = mode:a(aSig, kFreq*kRatio[5], kQ)
+ aSum sum a1, a2, a3, a4, a5, a6
+ aOut = balance:a(aSum, aSig)
+ xout aOut
+endop
 
 instr Equal
  kTrig metro 80/60
@@ -45,7 +59,8 @@ instr Perc
  iAmp = p4
  iChannel = p5
  aBeat pluck iAmp, 100, 100, 0, 3, .5
- outch iChannel, aBeat
+ aOut Resonator aBeat, 300, 5
+ outch iChannel, aOut
 endin
 
 </CsInstruments>
@@ -55,7 +70,7 @@ i "Beat" 11 9.5
 i "Dialog" 22 9.5
 </CsScore>
 </CsoundSynthesizer>
-;example by joachim heintz
+;example by joachim heintz and philipp henkel
 ~~~
 
 The spatialization technique used in this example is called *routing*. In routing we connect an audio signal directly to one speaker. This is a somehow brutal method which knows only black or white, only right or left. Usually we want to have a more refined way to locate sounds, with different positions between pure left and pure right. This is often compared to a *panorama* - a sound horizon on which certain sounds have a location between left and right. So we look first into this *panning* for a stereo setup. Then we will discuss the extension of panning in a multi-channl setup. The last part of this chapter is dedicated to the Ambisonics technique which offers a different way to locate sound sources.
