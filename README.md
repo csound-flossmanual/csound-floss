@@ -24,6 +24,11 @@ yarn
 yarn start
 ```
 
+## Contributing
+- [Conventions for writing](contribute/conventions.md)
+- [Writing in Markdown](contribute/writing-in-markdown.md)
+- [Todo list](contribute/todo.md)
+
 ## Writing Tools
 - [Panwriter: a GUI for editing Pandoc files](https://panwriter.com/)
 - [Atom Package for Pandoc edit and preview](https://atom.io/packages/pandoc)
