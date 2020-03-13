@@ -12,7 +12,7 @@ Frequencies
 As mentioned in the previous chapter, frequency is defined as the number
 of cycles or periods per second. The SI unit is Hertz where 1 Hertz means 1 period per second. If a tone has a frequency of 100 Hz it completes 100 cycles every second. If a tone has a frequency of 200 Hz it completes 200 cycles every second.
 
-Given a tone's frequency, the time for one period can be calculated straightforward. For 100 periods per seconds (100 Hz), the time for one period is 1/100 or 0.01 seconds.  For 200 periods per second (200 Hz), the time for each period is only half as much: 1/200 or 0.005 seconds. Mathematically, the period is the reciprocal of the frequency and vice versa. In equation form, this is expressed as follows:
+Given a tone's frequency, the time for one period can be calculated straightforwardly. For 100 periods per seconds (100 Hz), the time for one period is 1/100 or 0.01 seconds. For 200 periods per second (200 Hz), the time for each period is only half as much: 1/200 or 0.005 seconds. Mathematically, the period is the reciprocal of the frequency and vice versa. In equation form, this is expressed as follows:
 
 $Frequency = \frac{1}{Period}$  
 $Period = \frac{1}{Frequency}$
@@ -20,7 +20,7 @@ $Period = \frac{1}{Frequency}$
 
 ### Wavelength
 
-In physical reality, one cycle of a periodic sound can not only be measured in time, but also as extension in space. This is called the wavelength. It is usually abbreviated with the greek character λ (lambda). It can be calculated as ratio between the velocity and the frequency of the wave. 
+In physical reality, one cycle of a periodic sound can not only be measured in time, but also as extension in space. This is called the wavelength. It is usually abbreviated with the greek letter λ (lambda). It can be calculated as the ratio between the velocity and the frequency of the wave. 
 
 $λ = \frac{Velocity}{Frequency}$
 
@@ -34,7 +34,7 @@ For instance, a sine wave of 1000 Hz has a length of approximately 340/1000 m = 
 
 ### Periodic and Nonperiodic Sounds
 
-Not all sounds are periodic. In fact, periodic sounds are only one pole. The other pole is noise. In between is a continuum which can be described from both points of view: a periodic sound which has noisy parts, or a noise which has periodic parts. The following example shows these aspects in one of their numerous possibilities. It starts with a sine tone of 1000 Hz and slowly adds aperiodicity. This is done by changing the frequency of the sine oscillator faster and faster, and in a wider and wider range.  At the end noise is reached. The other way, from noise to a periodic tone, is shown with a band filter whichs band width is at first 10000 Hz around a center frequency of 1000 Hz, so not essentially altering the white noise. Then the band width decreases dramatically (from 10000 Hz to 0.1 Hz) so that at the end nearly a sine tone is reached.
+Not all sounds are periodic. In fact, periodic sounds are only one end of a spectrum. The other end is noise. In between is a continuum which can be described from both points of view: a periodic sound which has noisy parts, or a noise which has periodic parts. The following example shows these aspects in one of their numerous possibilities. It starts with a sine tone of 1000 Hz and slowly adds aperiodicity. This is done by changing the frequency of the sine oscillator faster and faster, and in a wider and wider range.  At the end noise is reached. The other way, from noise to a periodic tone, is shown with a band filter the band width of which is at first 10000 Hz around a center frequency of 1000 Hz, i.e. essentially not altering the white noise. Then the band width decreases dramatically (from 10000 Hz to 0.1 Hz) so that at the end a sine tone is nearly reached.
 
    ***EXAMPLE 01B01_PeriodicAperiodic.csd***
 
@@ -77,15 +77,15 @@ i "NoiseToSine" 11 10
 ;example by joachim heintz
 ~~~
 
-This is how the signal looks at start and end of the *SineToNoise* process:
+This is what the signal looks like at the start and the end of the *SineToNoise* process:
 
 ![Sine to noise](../resources/images/01-b-sinetonoise.png)
 
-And this is how the signal looks at start and end of the *NoiseToSine* process:
+And this is what the signal looks like at the start and the end of the *NoiseToSine* process:
 
 ![Noise to sine](../resources/images/01-b-noisetosine.png)
 
-Only when a sound is periodic, we perceive a pitch. But the human ear is very sensitive, and it is quite fascinating to observe how few periodicity is needed to sense some pitch.
+Only when a sound is periodic, we perceive a pitch. But the human ear is very sensitive, and it is quite fascinating to observe how little periodicity is needed to sense some pitch.
 
 
 ### Upper and Lower Limits of Hearing
@@ -93,7 +93,7 @@ Only when a sound is periodic, we perceive a pitch. But the human ear is very se
 It is generally stated that the human ear can hear sounds in the range
 20 Hz to 20,000 Hz (20kHz). This upper limit tends to decrease with age
 due to a condition known as presbyacusis, or age related hearing loss.
-Most adults can hear to about 16 kHz while most children can hear beyond
+Most adults can hear frequencies up to about 16 kHz while most children can hear beyond
 this. At the lower end of the spectrum the human ear does not respond to
 frequencies below 20 Hz, and very low frequencies need more power to be heard than medium or high frequencies. (This is explained more in detail in the paragraph about the Fletscher-Munson-Curves in the [next chapter](01-c-intensities.md).)
 
@@ -136,7 +136,7 @@ i . + . 20000
 Pitches
 -------
 
-Musicians tune their instruments, and theorists make their mind about the rationals, describing intervals and scales. This happened in different cultures, since ages, long before the term frequency came up and long before it was possible to measure a certain frequency by technical devices. What is the relationship between musical terms like octave, major third, semitone, and the frequency we have to specify for an oscillator? And why are frequencies often described as being on a "logarithmic scale"?
+Musicians tune their instruments, and theorists concernthemselves with the rationals, describing intervals and scales. This has happened in different cultures, for ages, long before the term frequency was invented and long before it was possible to measure a certain frequency by technical devices. What is the relationship between musical terms like octave, major third, semitone, and the frequency we have to specify for an oscillator? And why are frequencies often described as being on a "logarithmic scale"?
 
 
 ### Logarithms, Frequency Ratios and Intervals
