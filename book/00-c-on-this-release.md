@@ -29,6 +29,6 @@ Previous releases can be found at <http://files.csound-tutorial.net/floss_manual
 
 I hope the fewer people who still enjoy reading texts find this resource useful to learn more about music and realizing their music in Csound.
 
-Hannover, March 2020
+Hannover, March 2020  
 joachim heintz
 
