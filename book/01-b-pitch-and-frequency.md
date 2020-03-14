@@ -136,7 +136,7 @@ i . + . 20000
 Pitches
 -------
 
-Musicians tune their instruments, and theorists concernthemselves with the rationals, describing intervals and scales. This has happened in different cultures, for ages, long before the term frequency was invented and long before it was possible to measure a certain frequency by technical devices. What is the relationship between musical terms like octave, major third, semitone, and the frequency we have to specify for an oscillator? And why are frequencies often described as being on a "logarithmic scale"?
+Musicians tune their instruments, and theorists concern themselves with the rationale, describing intervals and scales. This has happened in different cultures, for ages, long before the term frequency was invented and long before it was possible to measure a certain frequency by technical devices. What is the relationship between musical terms like octave, major third, semitone and the frequency we have to specify for an oscillator? And why are frequencies often described as being on a "logarithmic scale"?
 
 
 ### Logarithms, Frequency Ratios and Intervals
@@ -156,7 +156,7 @@ Intervals in music describe the distance between two notes. When dealing
 with standard musical notation it is easy to determine an interval
 between two adjacent notes. For example a perfect 5th is always made up
 of seven semitones, so seven adjacent keys on a keyboard. When dealing with Hz values things are different. A difference of say 100 Hz does not always equate to the same musical interval. This is because musical intervals are
-represented as ratio between two frequencies. An octave for example is always
+represented as ratios between two frequencies. An octave for example is always
 2:1. That is to say every time you double a Hz value you will jump up by
 a musical interval of an octave.
 
@@ -228,23 +228,23 @@ i 3 17 1 800 [3/2]
 
 ### Equal tempered scale
 
-As some readers will know the current preferred method of tuning western instruments is based on equal temperament. Essentially this means that all octaves are split into 12 equal intervals, called semitones. Therefore a semitone has a ratio of 2^1/12^, which is approximately 1.059463.[^2] The next semitone will have the ratio 2^2/12^ (1.122462...), the third one 2^3/12^ (1.189207...), and so on. The exponents increase linear (1/12, 2/12, 3/12, ...), thus yielding the same proportion between each subsequent semitone.
+As some readers will know, the current preferred method of tuning western instruments is based on equal temperament. Essentially this means that all octaves are split into 12 equal intervals, called semitones. Therefore a semitone has a ratio of 2^1/12^, which is approximately 1.059463.[^2] The next semitone will have the ratio 2^2/12^ (1.122462...), the third one 2^3/12^ (1.189207...), and so on. The exponents increase linear (1/12, 2/12, 3/12, ...), thus yielding the same proportion between each subsequent semitone.
 
-So what about the reference to logarithms? As stated previously, logarithms are shorthand for exponents. 2^1/12^ = 1.059463 can also be written as log~2~(1.059463) = 1/12. Therefore it is said that frequencies representing musical scales or intervals can be described on a logarithmic scale. The linear progression of the exponents (with base 2) as 1/12, 2/12, 3/12 ... represent the linear progression of semitones. 
+So what about the reference to logarithms? As stated previously, logarithms are shorthand for exponents. 2^1/12^ = 1.059463 can also be written as log~2~(1.059463) = 1/12. Therefore, frequencies representing musical scales or intervals can be described on a logarithmic scale. The linear progression of the exponents (with base 2) as 1/12, 2/12, 3/12 ... represent the linear progression of semitones. 
 
 [^2]: 2^1/12^ is the same as $\sqrt[12]{2}$ thus the number which yields 2 if multiplied by itself 12 times.
 
 
 ### MIDI Notes 
 
-The equal-tempered scale is present on each [MIDI](https://www.midi.org/) keyboard. So the most used way to work with pitches is to use MIDI note numbers. In MIDI speak A4 (= 440 Hz) is MIDI note 69.[^3] The semitone below, called A flat or G sharp, is MIDI note 68, and so on. The MIDI notes 1-127 cover the frequency range from 9 Hz to 12544 Hz which fits pretty well to the human hearing (and to a usual grand piano which would correspond to MIDI keys 21-108).
+The equal-tempered scale is present on each [MIDI](https://www.midi.org/) keyboard. So the most common way to work with pitches is to use MIDI note numbers. In MIDI speak A4 (= 440 Hz) is MIDI note 69.[^3] The semitone below, called A flat or G sharp, is MIDI note 68, and so on. The MIDI notes 1-127 cover the frequency range from 9 Hz to 12544 Hz which is pretty well suited to the human hearing (and to a usual grand piano which would correspond to MIDI keys 21-108).
 
 [^3]: Caution: like many standards there is occasional disagreement about
       the mapping between frequency and octave number. You may occasionally
       encounter A 440 Hz being described as A3.
 
 Csound can easily deal with MIDI notes and comes with functions that
-will convert MIDI notes to Hertz values (*mtof*) and back again (*ftom*). The next example shows a small chromatic melody which is given as MIDI notes in the array iMidiKeys[], and then converted to the according frequencies, related to the definition of A4 (440 Hz as default). The opcode [mton](https://csound.com/docs/manual/mton.html) returns the note names.
+will convert MIDI notes to Hertz values (*mtof*) and back again (*ftom*). The next example shows a small chromatic melody which is given as MIDI notes in the array iMidiKeys[], and then converted to the corresponding frequencies, related to the definition of A4 (440 Hz as default). The opcode [mton](https://csound.com/docs/manual/mton.html) returns the note names.
 
 
    ***EXAMPLE 01B04_Midi_to_frequency.csd***
@@ -311,7 +311,7 @@ As A4 is set in the header to 457 Hz (overwriting the default 440 Hz), this is t
 
 ### Other Pitch Representation
 
-In addition to raw frequency input and MIDI note numbers, Csound offers two other possibilities to specify a certain pitch. The *pch* notation is a floating point number in which the integer part denotes the octave number and the fractional part denotes the semitones. The octave numbers are not the same as in the common system -- the middle octave is number 8 rather than 4. So C4, the "middle c" on a piano, has the number 8.00. Semitones upwards are then 8.01, 8.02 and so on, reaching A4 as 8.09. B4 is 8.11 and C5 is 9.00.
+In addition to raw frequency input and MIDI note numbers, Csound offers two more possibilities to specify a certain pitch. The *pch* notation is a floating point number, in which the integer part denotes the octave number and the fractional part denotes the semitones. The octave numbers are not the same as in the common system -- the middle octave is number 8 rather than 4. So C4, the "middle c" on a piano, has the number 8.00. Semitones upwards are then 8.01, 8.02 and so on, reaching A4 as 8.09. B4 is 8.11 and C5 is 9.00.
 
 The *oct* notation also uses floating point numbers. The integer part has the same meaning as in the *pch* notation. The fractional part divides one octave in acoustically equal steps. For 8.00 as C4 and 9.00 as C5, 8.5 denotes a pitch which is acoustically in the middle between C4 and C5, which means that the proportion between this frequency and the C4 frequency is the same as the proportion between the C5 frequency and this tone's frequency. Csound calculates this as:
 
@@ -331,7 +331,7 @@ And the output is:
     C4 = 261.626 Hz, C5 = 523.251 Hz, oct(8.5) = 369.994 Hz.
     Proportion New:C4 = 1.414, C5:New = 1.414
 
-On a keyboard, this pitch which divides the octave in two acoustically equal halves, is F#4. It can be notated in *pch* notation as 8.06, or in MIDI notation as key number 66. So why adding *oct* notation? -- The reason is that by this notation it becomes very simple to introduce for instance the division of an octave in 10 equal steps: 8.1, 8.2, ..., or in 8 equal steps as 8.125, 8.25, 8.375, ... 
+On a keyboard, this pitch which divides the octave in two acoustically equal halves, is F#4. It can be notated in *pch* notation as 8.06, or in MIDI notation as key number 66. So why was *oct* notation added? -- The reason is that by this notation it becomes very simple to introduce for instance the division of an octave into 10 equal steps: 8.1, 8.2, ..., or in 8 equal steps as 8.125, 8.25, 8.375, ... 
 
 The following code shows that things like these can also be achieved with a bit of math, but for simple cases it is quite convenient to use the *oct* notation. A scale consisting of ten equal steps based on A3 (= 220 Hz) is constructed.
 
@@ -356,7 +356,7 @@ The following code shows that things like these can also be achieved with a bit 
 
 ### Cent
 
-One semitone in the equal-tempered tuning system can be divided in 100 Cent. It is a common way to denote small or "microtonal" deviations. It can be used in Csound's MIDI notation as fractional part. MIDI note number 69.5 is a quarter tone (50 Cent) above A4; 68.75 is an eight tone (25 Cent) below A4. In the *pch* notation we would write 8.095 for the first and 8.0875 for the second pitch.
+One semitone in the equal-tempered tuning system can be divided into 100 Cent. It is a common way to denote small or "microtonal" deviations. It can be used in Csound's MIDI notation as fractional part. MIDI note number 69.5 is a quarter tone (50 Cent) above A4; 68.75 is an eight tone (25 Cent) below A4. In the *pch* notation we would write 8.095 for the first and 8.0875 for the second pitch.
 
 All musical intervals can be described as ratios or multipliers. The ratio for the perfect fifth is 3:2 as ratio or 1.5 as multiplier. Also one Cent is a multiplier. As one octave consists of 12 semitones, and each semitone consists of 100 Cent, one octave consists of 1200 Cent. So one Cent, described as multiplier, is 2^1/1200^ (1.000577...), and 50 Cent is 2^50/1200^ (1.0293022...). To return this multiplier, Csound offers the [cent](https://csound.com/docs/manual/cent.html) converter. So `cent(50)` returns the number by which we must multiply a certain frequency to get a quarter tone higher, and `cent(-25)` returns the multiplier for calculating an eighth tone lower.
 
@@ -382,9 +382,9 @@ The result of this comparison is:
 Tuning Systems
 --------------
 
-The equal-tempered tuning system which can be found on each MIDI keyboard is not the only existing one. For many musical contexts it is not approriate. In european history there were many different systems, for instance the Pythagorean and the Meantone tuning. Each of the countless traditional music cultures all over the world, for instance arabic Maqam, iranian Dastgah, indian Raga, has an own tuning system. And in comtemporary music we find also numerous different tuning systems.
+The equal-tempered tuning system which can be found on each MIDI keyboard is not the only tuning system in existence. For many musical contexts it is not approriate. In european history there were many different systems, for instance the Pythagorean and the Meantone tuning. Each of the countless traditional music cultures all over the world, for instance arabic Maqam, iranian Dastgah, indian Raga, has its own tuning system. And in comtemporary music we find also numerous different tuning systems.
 
-Audio programming languages like Csound which can synthesize sounds with any frequency are particularily suited for this approach. It is even simple to "tune" a MIDI keyboard in quarter tones or to any historical tuning using Csound. The following example shows the fundamentals. It plays the five notes C D E F G (= MIDI 60 62 64 65 67) first in Pythoagorean tuning, then in Meantone, then as quatertones, then as partials 1-5.
+Audio programming languages like Csound, which can synthesize sounds with any frequency, are particularily suited for this approach. It is even simple to "tune" a MIDI keyboard in quarter tones or to any historical tuning using Csound. The following example shows the fundamentals. It plays the five notes C D E F G (= MIDI 60 62 64 65 67) first in Pythoagorean tuning, then in Meantone, then as quatertones, then as partials 1-5.
 
 ~~~
 <CsoundSynthesizer>
