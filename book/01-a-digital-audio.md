@@ -17,7 +17,7 @@ Each time the waveform signal goes above 0 the molecules are in a state
 of compression meaning that each molecule within the waveform
 disturbance is pushing into its neighbour. Each time the waveform signal
 drops below 0 the molecules are in a state of rarefaction meaning the
-molecules are pulling away from thier neighbours. When a waveform shows
+molecules are pulling away from their neighbours. When a waveform shows
 a clear repeating pattern, as in the case above, it is said to be
 periodic. Periodic sounds give rise to the sensation of pitch.
 
@@ -30,12 +30,12 @@ Periodic waves have some main parameters:
     measured in seconds.
 
 -   **Frequency**: The number of cycles or periods per second, measured 
-    in Hertz. If a sound has a frequency of 440 Hz it
+    in Hertz (Hz). If a sound has a frequency of 440 Hz it
     completes 440 cycles every second. Read more about frequency in the 
     [next chapter](01-b-pitch-and-frequency.md).
 
 -   **Phase:** This is the starting point of a waveform. 
-    This can be expressed in degrees or in radians. A complete cycle of
+    It can be expressed in degrees or in radians. A complete cycle of
     a waveform will cover 360 degrees or 2π radians. A sine with a phase 
     of 90° or π/2 results in a cosine.
 
@@ -64,16 +64,16 @@ of pressure is therefore *transduced* into continuous variation of
 voltage. The greater the variation of pressure the greater the variation
 of voltage that is sent to the computer.
 
-Ideally the transduction process should be as transparent as possible:
+Ideally, the transduction process should be as transparent as possible:
 whatever goes in should come out as a perfect analogy in a voltage
-representation. In reality however this will not be the case. Low quality devices add noise and deformation. High quality devices add certain characteristics like warmth or transparency.
+representation. In reality, however, this will not be the case. Low quality devices add noise and deformation. High quality devices add certain characteristics like warmth or transparency.
 
 
 Sampling
 --------
 
 The analogue voltage that corresponds to an acoustic signal changes
-continuously so that at each instant in time it will have a different
+continuously, so that at each point in time it will have a different
 value. It is not possible for a computer to receive the value of the
 voltage for every instant because of the physical limitations of both
 the computer and the data converters (remember also that there are an
@@ -88,8 +88,8 @@ moment of sampling.
 
 Below is a diagram showing a sinusoidal waveform. The vertical lines
 that run through the diagram represent the points in time when a
-snapshot is taken of the signal. After the sampling has taken place we
-are left with what is known as a discrete signal consisting of a
+snapshot is taken of the signal. After the sampling has taken place, we
+are left with what is known as a *discrete signal*, consisting of a
 collection of audio samples, as illustrated in the bottom half of the
 diagram.
 
@@ -112,7 +112,7 @@ Sample Rate and the Sampling Theorem
 ------------------------------------
 
 The sample rate describes the number of samples (pictures/snapshots)
-taken each second. To sample an audio signal correctly it is important
+taken each second. To sample an audio signal correctly, it is important
 to pay attention to the sampling theorem:
 
 *To represent digitally a signal containing frequencies up to X Hz, it
@@ -153,7 +153,7 @@ and DSP techniques procedures will produce these frequencies as
 unavoidable by-products and we need to ensure that they do not result in
 unwanted artifacts.
 
-In computer music we can produce any frequency internally, much higher than we can hear, and much higher than the Nyquist frequency. This may occur intentionally, or by accident, for instance when we multiply a frequency of 2000 Hz by the 22th harmonic, resulting in 44000 Hz. In the following example, instrument 1 plays a 1000 Hz tone first directly, and then as result of 43100 Hz input which is 1000 Hz lower than the sample rate of 44100 Hz. Instrument 2 demonstrates unwanted aliasing as result of harmonics beyond Nyquist: the 22th partial of 1990 Hz is 43780 Hz which sound as 44100-43780 = 320 Hz.
+In computer music we can produce any frequency internally, much higher than we can hear, and much higher than the Nyquist frequency. This may occur intentionally, or by accident, for instance when we multiply a frequency of 2000 Hz by the 22nd harmonic, resulting in 44000 Hz. In the following example, instrument 1 plays a 1000 Hz tone first directly, and then as result of 43100 Hz input which is 1000 Hz lower than the sample rate of 44100 Hz. Instrument 2 demonstrates unwanted aliasing as a result of harmonics beyond Nyquist: the 22nd partial of 1990 Hz is 43780 Hz which sounds as 44100-43780 = 320 Hz.
 
 
 ***EXAMPLE 01A01\_Aliasing.csd***
@@ -193,8 +193,8 @@ i 2 6 4 1990 ;1990 Hz results in 1990*22=43780 Hz so aliased 320 Hz
 ;example by joachim heintz
 ~~~
 
-The same phenomenon takes places in film and video too. You may recall
-having seen wagon wheels apparently turn at the wrong speed in old
+The same phenomenon happens in film and video, too. You may recall
+having seen wagon wheels apparently turn in the wrong direction in old
 Westerns. Let us say for example that a camera is taking 30 frames per
 second of a wheel moving. In one example, if the wheel is completing one
 rotation in exactly 1/30th of a second, then every picture looks the
@@ -226,14 +226,14 @@ bit can only be in one of two states: off or on, 0 or 1. All computer data
 Bits in groups of eight are called *bytes*, and one byte historically
 represented a single character of data in the computer memory. Mostly one byte is the smallest unit of data, and bigger units will be created by using two, three or more bytes. A good example is the number of bytes which is used to store the number for one audio sample. In early games it was 1 byte (8 bit), on a CD it is 2 bytes (16 bit), in sound cards it is often 3 bytes (24 bit), in most audio software it is internally 4 bytes (32 bit), and in Csound 8 bytes (64 bit).
 
-The [word length](https://en.wikipedia.org/wiki/Word_(computer_architecture)) of a computer is the number of bits which is handled as a unit by the processor. The transition from 32-bit to 64-bit word length around 2010 in the most used processors required new compilations of Csound and other applications, in particular for the Windows installers. To put it simple: A 32-bit machine needs an application compiled for 32-bit, a 64-bit machine needs an application compiled for 64-bit. 
+The [word length](https://en.wikipedia.org/wiki/Word_(computer_architecture)) of a computer is the number of bits which is handled as a unit by the processor. The transition from 32-bit to 64-bit word length around 2010 in the most commonly used processors required new compilations of Csound and other applications, in particular for the Windows installers. To put it simple: A 32-bit machine needs an application compiled for 32-bit, a 64-bit machine needs an application compiled for 64-bit. 
 
 
 Bit-depth Resolution
 --------------------
 
 The sample rate determines the finer or rougher resolution in time. The number of bits for each single sample determines the finer or rougher resultion in amplitude. The standard resolution for CDs is 16 bit, which allows for 65536
-different possible amplitude levels, 32767 either side of the zero axis.
+different possible amplitude levels, 32767 on either side of the zero axis.
 Using bit rates lower than 16 is not a good idea as it will result in
 noise being added to the signal. This is referred to as quantization
 noise and is a result of amplitude values being excessively rounded up
