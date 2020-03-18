@@ -9,6 +9,7 @@ The whole text has been revised. Many figures have been substituted or added. Ma
 
 - [01 A Digital Audio](01-a-digital-audio.md)
 - [01 B Pitch and Frequency](01-b-pitch-and-frequency.md)
+- [03 E Arrays](03-e-arrays.md)
 - [04 C AM](04-c-amplitude-and-ring-modulation.md)
 - [04 D FM](04-d-frequency-modulation.md) (thanks to Marijana Janevska)
 - [05 I FFT](05-i-fourier-analysis-spectral-processing.md)
@@ -27,7 +28,7 @@ Since the first release of this textbook in 2010, Iain McCurdy was my compagnion
 
 Previous releases can be found at <http://files.csound-tutorial.net/floss_manual>, as well as the current csd files and audio samples.
 
-I hope the few people who still enjoy reading texts find this resource useful to learn more about music and realizing their music in Csound.
+I hope the ones who still enjoy reading texts find this resource useful to learn more about music and realizing their music in Csound.
 
 Hannover, March 2020  
 joachim heintz

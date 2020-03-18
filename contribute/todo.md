@@ -36,8 +36,6 @@ Edits
       within a I or k-rate loop
     - look at interesting new gen routines for the overview
     - show exporting tables as files (also in k-rate loop)
-- 03-e (arrays)
-    - add/explain new methods
 - 03-f (live events)
     - mention a new (to write) chapter about live coding
 - 04-a (additive)

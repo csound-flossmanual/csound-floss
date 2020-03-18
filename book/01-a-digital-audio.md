@@ -13,10 +13,10 @@ wave.
 
 ![](../resources/images/01-a-sinewave.png)
 
-Each time the waveform signal goes above 0 the molecules are in a state
+Each time the waveform signal goes above zero the molecules are in a state
 of compression meaning that each molecule within the waveform
 disturbance is pushing into its neighbour. Each time the waveform signal
-drops below 0 the molecules are in a state of rarefaction meaning the
+drops below zero the molecules are in a state of rarefaction meaning the
 molecules are pulling away from their neighbours. When a waveform shows
 a clear repeating pattern, as in the case above, it is said to be
 periodic. Periodic sounds give rise to the sensation of pitch.
@@ -264,4 +264,4 @@ The entire process, as described above, of taking an analogue signal and
 converting it to a digital signal is referred to as analogue to digital
 conversion, or ADC. Of course digital to analogue conversion, DAC, is
 also possible. This is how we get to hear our music through our PC\'s
-headphones or speakers. If a sound is played back or streamed, the software will send a series of numbers to the soundcard. The soundcard converts these numbers back to voltage. When the voltages reaches the loudspeaker they cause the loudspeaker's magnet to move inwards and outwards. This induces a disturbance in the air around the speaker — compressions and rarefactions as described at the beginning of this chapter — resulting in what we perceive as sound.
+headphones or speakers. If a sound is played back or streamed, the software will send a series of numbers to the soundcard. The soundcard converts these numbers back to voltage. When the voltages reaches the loudspeaker they cause the loudspeaker's membrane to move inwards and outwards. This induces a disturbance in the air around the speaker — compressions and rarefactions as described at the beginning of this chapter — resulting in what we perceive as sound.

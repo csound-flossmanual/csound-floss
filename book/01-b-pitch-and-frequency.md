@@ -26,8 +26,8 @@ $λ = \frac{Velocity}{Frequency}$
 
 As the velocity of a sound in air (at 20° Celsius) is about 340 m/s, we can calculate the wavelength of a sound as
 
-$\lambda = \frac{\frac{340 m}{s}}{\frac{Frequency}{s}} = 
-\frac{340}{Frequency} m$
+$\lambda = \frac{\frac{340 m}{s}}{\frac{Number of Cycles}{s}} = 
+\frac{340}{Number of Cycles} m$
 
 For instance, a sine wave of 1000 Hz has a length of approximately 340/1000 m = 34 cm, whereas a wave of 100 Hz has a length of 340/100 m = 3.4 m.
 
@@ -358,7 +358,7 @@ The following code shows that things like these can also be achieved with a bit 
 
 One semitone in the equal-tempered tuning system can be divided into 100 Cent. It is a common way to denote small or "microtonal" deviations. It can be used in Csound's MIDI notation as fractional part. MIDI note number 69.5 is a quarter tone (50 Cent) above A4; 68.75 is an eight tone (25 Cent) below A4. In the *pch* notation we would write 8.095 for the first and 8.0875 for the second pitch.
 
-All musical intervals can be described as ratios or multipliers. The ratio for the perfect fifth is 3:2 as ratio or 1.5 as multiplier. Also one Cent is a multiplier. As one octave consists of 12 semitones, and each semitone consists of 100 Cent, one octave consists of 1200 Cent. So one Cent, described as multiplier, is 2^1/1200^ (1.000577...), and 50 Cent is 2^50/1200^ (1.0293022...). To return this multiplier, Csound offers the [cent](https://csound.com/docs/manual/cent.html) converter. So `cent(50)` returns the number by which we must multiply a certain frequency to get a quarter tone higher, and `cent(-25)` returns the multiplier for calculating an eighth tone lower.
+All musical intervals can be described as ratios or multipliers. The ratio for the perfect fifth is 3:2, or 1.5 when used as multiplier. Also one Cent is a multiplier. As one octave consists of 12 semitones, and each semitone consists of 100 Cent, one octave consists of 1200 Cent. So one Cent, described as multiplier, is 2^1/1200^ (1.000577...), and 50 Cent is 2^50/1200^ (1.0293022...). To return this multiplier, Csound offers the [cent](https://csound.com/docs/manual/cent.html) converter. So `cent(50)` returns the number by which we must multiply a certain frequency to get a quarter tone higher, and `cent(-25)` returns the multiplier for calculating an eighth tone lower.
 
     instr 1
      prints "A quater tone above A4 (440 Hz):\n"
@@ -382,7 +382,7 @@ The result of this comparison is:
 Tuning Systems
 --------------
 
-The equal-tempered tuning system which can be found on each MIDI keyboard is not the only tuning system in existence. For many musical contexts it is not approriate. In european history there were many different systems, for instance the Pythagorean and the Meantone tuning. Each of the countless traditional music cultures all over the world, for instance arabic Maqam, iranian Dastgah, indian Raga, has its own tuning system. And in comtemporary music we find also numerous different tuning systems.
+The equal-tempered tuning system which can be found on each MIDI keyboard is not the only tuning system in existence. For many musical contexts it is not approriate. In european history there were many different systems, for instance the Pythagorean and the Meantone tuning. Each of the countless traditional music cultures all over the world, for instance Arabic Maqam, Iranian Dastgah, Indian Raga, has its own tuning system. And in comtemporary music we find also numerous different tuning systems.
 
 Audio programming languages like Csound, which can synthesize sounds with any frequency, are particularily suited for this approach. It is even simple to "tune" a MIDI keyboard in quarter tones or to any historical tuning using Csound. The following example shows the fundamentals. It plays the five notes C D E F G (= MIDI 60 62 64 65 67) first in Pythoagorean tuning, then in Meantone, then as quatertones, then as partials 1-5.
 
@@ -488,7 +488,7 @@ $f_{new} = 440 \cdot 2^{-50/1200} = 427.474\ Hz$
 
 ### Cent Difference of two Frequencies
 **Given**:  
-- Frequency 1 $f_1$  
+- Frequency_1 $f_1$  
 - Frequency_2 $f_2$  
 **Searched**:  
 - Cent difference $c$  
