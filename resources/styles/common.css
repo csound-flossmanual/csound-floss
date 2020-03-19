@@ -36,6 +36,26 @@ h2 {
   padding: 0;
 }
 
+h3 {
+  border-bottom: none;
+  color: #444444;
+  font-size: 28px;
+  line-height: 130%;
+  margin: 0.4em 0;
+  margin-top: 26px;
+  padding: 0;
+}
+
+h4 {
+  border-bottom: none;
+  color: #444444;
+  font-size: 20px;
+  line-height: 130%;
+  margin: 0.4em 0;
+  margin-top: 16px;
+  padding: 0;
+}
+
 p {
   text-align: left;
   line-height: 160%;
