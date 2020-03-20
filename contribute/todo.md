@@ -17,8 +17,6 @@ Edits
 - 01-a (digital audio)
     - perhaps introduce bitwise operations
     - perhaps introduce frequency-domain representation
-- 01-c (intensities) 
-    - write introduction to connect more with csound
 - 01-d (random)
     - perhaps give more connection to csound
     - III explain fourth parameter for randomh and randomi.
@@ -42,9 +40,6 @@ Edits
     - perhaps add example of using an array or function table of partial data
       which is then sent to a recursive UDO from which an additive tone is
       created
-- 04-d (fm) 
-    - review second part of this chapter
-    - make formula formatting consistent
 - 04-e (wave shaping)
     - in Powershape section add csd example for what has been described
     - standard polynomial and Chebyshev polynomial wave shaping – both using
