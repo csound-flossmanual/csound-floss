@@ -29,7 +29,7 @@ indexed:
 
 The same syntax is used for a simple copy via the $=$ operator:
 
-    kArr1[]  array  1, 2, 3, 4, 5  ;creates kArr1
+    kArr1[]  init   10             ;creates kArr1
     kArr2[]  =      kArr1          ;creates kArr2[] as copy of kArr1
 
 
@@ -226,7 +226,7 @@ in each *k*-cycle - in this case every 1/10 second, but usually something
 around every 1/1000 second. 
 
 
-### *a*-Rate
+### Audio Arrays
 
 An audio array is a collection of audio signals. The size (length) of the audio array denotes the number of audio signals which are hold in it. In the next example, the audio array is created for two audio signals:
 
@@ -423,17 +423,20 @@ coincide, it is easy:
 
 -   ***i**_array*[***i_**index*] reads and writes at i-time
 -   ***k**_array*[***k_**index*] reads and writes at k-time
--   ***a**_array*[***a_**index*] reads and writes at a-time
+
+For audio arrays, we must distinguish between the audio vector itself which is updated sample by sample, and the array as container which can be updated at k-time. (Imagine an audio array whichs index switches each control cycle between 0 and 1; thus switching each k-time between the audio vector of both signals.) So the coincidence between variable and index rate is here:
+
+-   ***a**_array*[***k_**index*] reads and writes at k-time
 
 But what to do if array type and index type do not coincide? In general,
 the index type will then determine whether the array is read or written
-only once (at init-time) or at each k-cycle. This is valid in particular
+only once (at init-time) or at each *k*-cycle. This is valid in particular
 for *S* arrays (containing strings). Other cases are:
 
 -   ***i**_array*[***k**_index*] reads at k-time; writing is not possible
     (yields a runtime error)
 -   ***k**_array*[***i**_index*] reads and writes at k-rate
--   ***a**_array*[***i**_index*] reads and writes at a-rate
+-   ***a**_array*[***i**_index*] reads and writes at k-rate
 
 
 ### Init Values of *k*-Arrays
@@ -722,6 +725,8 @@ Prints:
     1 3 9 5 
     1 3 9 
     1 3 
+
+Growing an array during performance is not possible in Csound, because memory will only be allocated at initialization. This is the reason that only *trim_i* can be used for this purpose.
 
 
 ### Format Interchange
@@ -1142,6 +1147,8 @@ The call
 will print:
 
     2 6 18 54 162 
+
+As an expert note it should be mentioned that UDOs refer to arrays by value. This means that an input array is copied into the UDO, and an output array is copied to the instrument. This can slow down the performance for large arrays and k-rate calls.
 
 
 ### Overload
