@@ -10,6 +10,7 @@ import "./code-mirror-csound-mode";
 import PlayIcon from "../../assets/play.svg";
 import PauseIcon from "../../assets/pause.svg";
 import StopIcon from "../../assets/stop.svg";
+import LogIcon from "../../assets/logs_icon_wikimedia.svg";
 require("codemirror/lib/codemirror.css");
 require("codemirror/theme/neo.css");
 
@@ -29,7 +30,15 @@ const PlayControlsLoadingSpinner = () => (
 
 const PlayControls = ({ currentEditorState }) => {
   let [
-    { libcsound, csound, isLoading, isPaused, isPlaying },
+    {
+      libcsound,
+      csound,
+      isLoading,
+      isPaused,
+      isPlaying,
+      logDialogClosed,
+      logDialogOpen,
+    },
     csoundDispatch,
   ] = useCsound();
 
@@ -94,7 +103,7 @@ const PlayControls = ({ currentEditorState }) => {
         <img alt="pause" src={PauseIcon} style={{ height: 30, width: 20 }} />
       </button>
       <button
-        onClick={onPause}
+        onClick={async () => await libcsound.csoundStop(csound)}
         style={{ marginLeft: 3 }}
         disabled={!isPlaying && !isPaused}
       >
@@ -102,6 +111,22 @@ const PlayControls = ({ currentEditorState }) => {
           alt="stop"
           src={StopIcon}
           style={{ height: 22, width: 22, marginTop: 5 }}
+        />
+      </button>
+      <button
+        onClick={() => csoundDispatch({ type: "OPEN_LOG_DIALOG" })}
+        style={{ marginLeft: 3 }}
+        disabled={logDialogOpen || (!logDialogOpen && !logDialogClosed)}
+      >
+        <img
+          alt="console logs"
+          src={LogIcon}
+          style={{
+            height: 22,
+            width: 22,
+            marginTop: 5,
+            filter: "unset",
+          }}
         />
       </button>
     </div>

@@ -26,6 +26,15 @@ export const container = css`
   padding-top: 22px;
 `;
 
+export const closeIconContainer = css`
+  position: absolute;
+  fill: white;
+  right: 12px;
+  top: 0;
+  z-index: 999999;
+  cursor: pointer;
+`;
+
 export const windowBar = css`
   padding: 0 12px;
   color: #f5f2f0;

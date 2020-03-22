@@ -3940,10 +3940,10 @@ csound-manual-react@^1.0.0-alpha8:
     webpack "^4.39.3"
     webpack-cli "^3.3.8"
 
-csound-wasm@^6.14.0-alpha4:
-  version "6.14.0-alpha4"
-  resolved "https://registry.yarnpkg.com/csound-wasm/-/csound-wasm-6.14.0-alpha4.tgz#2407e2e1dc18dfa6bb16fce1a8180fec387ebcf3"
-  integrity sha512-2/JXUrazSjGm6ELP2FiLnTGuqwrHZ8751q+SaP+P0NLlBspVHBulqHMsyZF+e2+bEe1cbh+C2nGEY5saDptdyA==
+csound-wasm@^6.14.0-alpha5:
+  version "6.14.0-alpha5"
+  resolved "https://registry.yarnpkg.com/csound-wasm/-/csound-wasm-6.14.0-alpha5.tgz#8960c6b64585d97b78c2caa3c97507014a756aca"
+  integrity sha512-HlEt+gMBSswpWoC7bwjM0lfRpUfp7SMOyNgVD4Kgfk/I+QXkuOxMC/EBzrXA5EURwx8otYs0buwMgGvIiyJcOw==
   dependencies:
     "@wasmer/wasi" "^0.10.1"
     "@wasmer/wasm-transformer" "^0.10.1"

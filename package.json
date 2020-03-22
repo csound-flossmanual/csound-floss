@@ -8,7 +8,7 @@
     "codemirror": "^5.52.0",
     "core-js": "^3.6.4",
     "csound-manual-react": "^1.0.0-alpha8",
-    "csound-wasm": "^6.14.0-alpha4",
+    "csound-wasm": "^6.14.0-alpha5",
     "he": "^1.2.0",
     "history": "^4.10.1",
     "html-to-jsx": "^0.0.4",

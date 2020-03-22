@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React, { createContext, useContext, useReducer } from "react";
-import { append, assoc, pipe } from "ramda";
+import { append, assoc, pipe, when } from "ramda";
 
 export const CsoundStateContext = createContext();
 export const CsoundDispatchContext = createContext();
@@ -24,6 +24,15 @@ const reducer = (state, action) => {
     case "SET_IS_LOADING": {
       return assoc("isLoading", action.isLoading, state);
     }
+    case "CLOSE_LOG_DIALOG": {
+      return pipe(
+        assoc("logDialogOpen", false),
+        assoc("logDialogClosed", true)
+      )(state);
+    }
+    case "OPEN_LOG_DIALOG": {
+      return assoc("logDialogOpen", true, state);
+    }
     case "HANDLE_PLAY_STATE_CHANGE": {
       switch (action.change) {
         case "realtimePerformanceEnded": {
@@ -36,7 +45,8 @@ const reducer = (state, action) => {
           return pipe(
             assoc("isPaused", false),
             assoc("isPlaying", true),
-            assoc("isLoading", false)
+            assoc("isLoading", false),
+            when(s => !s.logDialogClosed, assoc("logDialogOpen", true))
           )(state);
         }
         case "realtimePerformancePaused": {
@@ -71,6 +81,8 @@ export const CsoundProvider = ({ children }) => {
     libcsound: null,
     isPaused: false,
     isPlaying: false,
+    logDialogOpen: false,
+    logDialogClosed: false,
     logs: [],
   });
 
