@@ -50,11 +50,11 @@ generation. For a huge amount of numbers, they look as if they are
 randomly distributed, although everything depends on the first input:
 the *seed*. For one given seed, the next values can be predicted.
 
-### Uniform Distribution
+### Uniform Distribution and Seed
 
 The output of a classical pseudo-random generator is uniformly
 distributed: each value in a given range has the same likelihood of
-occurence. The first example shows the influence of a fixed seed (using
+occurence. The first example shows the influence of a fixed *seed* (using
 the same chain of numbers and beginning from the same location in the
 chain each time) in contrast to a seed being taken from the system clock
 (the usual way of imitating unpredictability). The first three groups of
@@ -1586,7 +1586,7 @@ Csound has a range of opcodes and GEN routine for the creation of
 various random functions and distributions. Perhaps the simplest of
 these is [random](http://www.csound.com/docs/manual/random.html) which
 simply generates a random value within user defined minimum and maximum
-limit and at i-time, k-rate or a-rate accroding to the variable type of
+limit and at i-time, k-rate or a-rate according to the variable type of
 its output:
 
     ires random imin, imax
@@ -1627,12 +1627,12 @@ opcodes are illustrated below.
 
 In addition to these so called *x-class noise generators* Csound
 provides random function generators, providing values that change over
-time a various ways.
+time at various ways. Remember that most of these random generators will need to have [seed](https://csound.com/docs/manual/seed.html) set to zero if the user wants to get always different random values.
 
 [randomh](http://www.csound.com/docs/manual/randomh.html) generates new
 random numbers at a user defined rate. The previous value is held until
 a new value is generated, and then the output immediately assumes that
-value.
+value. 
 
 The instruction:
 
@@ -1641,14 +1641,14 @@ The instruction:
     kfreq  =         2
     kout   randomh   kmin,kmax,kfreq
 
-will produce and output something like:
+will produce and output a random line which changes its value every half second between the minimum of -1 and the maximum of 1. Special care should be given to the fourth parameter *imode* which is by default 0, but can be set to 1, 2, or 3. For *imode*=0 and *imode*=1 the random lines will start at the minimum (here -1) and will hold this value until the first period has been finished. For *imode*=2 it will start at a value set by the user (by default 0), wheras for *imode*=3 it will start at a random value between minimum und maximum. This is a generation for five seconds:
 
 ![](../resources/images/01-d-randomh.png)
 
-[randomi](http://www.csounds.com/manual/html/randomi.html) is an
-interpolating version of randomh. Rather than jump to new values when
+Usually we will use *imode*=3, as we want the random line to start immediately at a random value. The same options are valid for [randomi](http://www.csounds.com/manual/html/randomi.html) which is an
+interpolating version of *randomh*. Rather than jump to new values when
 they are generated, randomi interpolates linearly to the new value,
-reaching it just as a new random value is generated. Replacing randomh
+reaching it just as a new random value is generated. Now we see the difference between *imode*=0 and *imode*=1. The former remains one whole period on the minimum, and begins its first interpolation after it; the latter also starts on the minimum but begins interpolation immediately. Replacing randomh
 with randomi in the above code snippet would result in the following
 output:
 
