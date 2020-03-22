@@ -168,7 +168,7 @@ nchnls = 2
 0dbfs = 1
 
 instr Rising_index
- ModAmp = 400
+ kModAmp = 400
  kIndex linseg 3, p3, 8
  kModFreq = kModAmp/kIndex
  aModulator poscil kModAmp, kModFreq
@@ -341,12 +341,12 @@ In the example above, in instr 1 the Carrier has a frequency of 330 Hz, the Modu
 More Complex FM Algorithms
 --------------------------
 
-Combining more than two oscillators (operators) is called complex FM synthesis. Operators can be connected in different combinations: Multiple modulators FM and Multiple carriers FM. 
+Combining more than two oscillators (operators) is called complex FM synthesis. Operators can be connected in different combinations: Multiple modulators FM and Multiple carriers FM.
 
 
 ### Multiple Modulators (MM FM)
 
-In multiple modulator frequency modulation, more than one oscillator modulates a single carrier oscillator. The carrier is always the last operator in the row. Changing its pitch shifts the whole sound. All other operators are modulators, changing their pitch and especially amplitude alters the sound-spectrum. Two basic configurations are possible: parallel and serial. In parallel MM FM, two sinewaves simultaneously modulate a single carrier oscillator. The principle here is, that (Modulator1:Carrier) and (Modulator2:Carrier) will be separate modulations and later added together. 
+In multiple modulator frequency modulation, more than one oscillator modulates a single carrier oscillator. The carrier is always the last operator in the row. Changing its pitch shifts the whole sound. All other operators are modulators, changing their pitch and especially amplitude alters the sound-spectrum. Two basic configurations are possible: parallel and serial. In parallel MM FM, two sinewaves simultaneously modulate a single carrier oscillator. The principle here is, that (Modulator1:Carrier) and (Modulator2:Carrier) will be separate modulations and later added together.
 
 ![](../resources/images/04-d-parallel-mm-fm.jpg)
 
@@ -438,10 +438,10 @@ ksmps = 32
 nchnls = 2
 0dbfs = 1
 
-instr FM_two_carriers 
+instr FM_two_carriers
  aModulator poscil 100, randomi:k(10,15,1,3)
- aCarrier1 poscil 0.3, 700 + aModulator 
- aCarrier2 poscil 0.1, 701 + aModulator 
+ aCarrier1 poscil 0.3, 700 + aModulator
+ aCarrier2 poscil 0.1, 701 + aModulator
  outs aCarrier1+aCarrier2, aCarrier1+aCarrier2
 endin
 
