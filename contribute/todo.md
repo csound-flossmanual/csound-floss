@@ -19,8 +19,6 @@ Edits
     - perhaps introduce frequency-domain representation
 - 01-d (random)
     - perhaps give more connection to csound
-    - III explain fourth parameter for randomh and randomi.
-    - new figures then for 01-d-randomh and 01-d-randomi
 - 03-a (init and perf)
     - mention fractional note numbers and additional usefulness of note numbers
     - audio interpolation as a remedy to k-rate zipper in situations where the
