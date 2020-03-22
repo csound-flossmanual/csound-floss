@@ -28,6 +28,26 @@ const PlayControlsLoadingSpinner = () => (
   </div>
 );
 
+const checkIfPlayIsPossible = () => {
+  const hasSAB = typeof SharedArrayBuffer !== "undefined";
+  const hasAudioCtx = typeof AudioNode !== "undefined";
+  const hasWorklets = typeof AudioWorkletNode !== "undefined";
+  if (hasSAB && hasAudioCtx && hasWorklets) {
+    return true;
+  } else {
+    alert(`Your browser doesn't have some or all of following
+features needed to play csound via webassembly.
+
+           1. SharedArrayBuffer ${hasSAB ? "Found" : "Not Found"}
+           2. AudioContext ${hasAudioCtx ? "Found" : "Not Found"}
+           3. AudioWorkletNode ${hasWorklets ? "Found" : "Not Found"}
+
+Chromium and GoogleChromse versions later than 78 should work.
+Firefox support will hopefully arrive soon.`);
+    return false;
+  }
+};
+
 const PlayControls = ({ currentEditorState }) => {
   let [
     {
@@ -43,6 +63,9 @@ const PlayControls = ({ currentEditorState }) => {
   ] = useCsound();
 
   const onPlay = async () => {
+    if (!checkIfPlayIsPossible()) {
+      return;
+    }
     if (isPaused) {
       onPause();
       return;
