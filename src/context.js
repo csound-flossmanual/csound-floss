@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React, { createContext, useContext, useReducer } from "react";
-import { assoc } from "ramda";
+import { append, assoc, pipe } from "ramda";
 
 export const CsoundStateContext = createContext();
 export const CsoundDispatchContext = createContext();
@@ -10,23 +10,59 @@ CsoundStateContext.displayName = "CsoundStateContext";
 const reducer = (state, action) => {
   switch (action.type) {
     case "STORE_LIBCSOUND": {
-      state = assoc("libcsound", action.libcsound, state);
-      break;
+      return assoc("libcsound", action.libcsound, state);
+    }
+    case "STORE_LOG": {
+      return assoc("logs", append(action.log, state.logs), state);
+    }
+    case "CLEAR_LOGS": {
+      return assoc("logs", [], state);
     }
     case "STORE_CSOUND": {
-      state = assoc("csound", action.csound, state);
-      break;
+      return assoc("csound", action.csound, state);
     }
-    case "SET_PAUSE_STATE": {
-      state = assoc("isPaused", action.isPaused, state);
-      break;
+    case "SET_IS_LOADING": {
+      return assoc("isLoading", action.isLoading, state);
+    }
+    case "HANDLE_PLAY_STATE_CHANGE": {
+      switch (action.change) {
+        case "realtimePerformanceEnded": {
+          return pipe(
+            assoc("isPaused", false),
+            assoc("isPlaying", false)
+          )(state);
+        }
+        case "realtimePerformanceStarted": {
+          return pipe(
+            assoc("isPaused", false),
+            assoc("isPlaying", true),
+            assoc("isLoading", false)
+          )(state);
+        }
+        case "realtimePerformancePaused": {
+          return pipe(
+            assoc("isPaused", true),
+            assoc("isPlaying", false),
+            assoc("isLoading", false)
+          )(state);
+        }
+        case "realtimePerformanceResumed": {
+          return pipe(
+            assoc("isPaused", false),
+            assoc("isPlaying", true),
+            assoc("isLoading", false)
+          )(state);
+        }
+        default: {
+          return state;
+        }
+      }
     }
     default: {
       console.error(`Unknown dispatch type ${action.type}`);
       return state;
     }
   }
-  return state;
 };
 
 export const CsoundProvider = ({ children }) => {
@@ -34,6 +70,8 @@ export const CsoundProvider = ({ children }) => {
     csound: null,
     libcsound: null,
     isPaused: false,
+    isPlaying: false,
+    logs: [],
   });
 
   return (
@@ -45,11 +83,11 @@ export const CsoundProvider = ({ children }) => {
   );
 };
 
-export const withCsound = C => props => (
-  <CsoundProvider>
-    <C {...props} />
-  </CsoundProvider>
-);
+// export const withCsound = C => props => (
+//   <CsoundProvider>
+//     <C {...props} />
+//   </CsoundProvider>
+// );
 
 export const useCsoundState = () => {
   const context = useContext(CsoundStateContext);

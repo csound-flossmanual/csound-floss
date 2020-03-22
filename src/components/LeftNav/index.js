@@ -16,7 +16,7 @@ import {
   range,
   reduce,
   reject,
-  replace
+  replace,
 } from "ramda";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
@@ -69,12 +69,12 @@ const makeNavName = ({ module = "", name }) => {
 
 const createSelectDataChapter = (route, chapterNumber) => ({
   value: route.url,
-  label: `${chapterNumber} - ${route.name}`
+  label: `${chapterNumber} - ${route.name}`,
 });
 
 const createSelectDataSection = route => ({
   value: route.url,
-  label: moduleToName(route.module)
+  label: moduleToName(route.module),
 });
 
 const getChapterData = chapterNum => {
@@ -150,14 +150,14 @@ function LeftNav({ routeIndex }) {
             css={ß.chapterItem}
             style={{
               display: isActive ? "list-item" : "none",
-              fontWeight: subChapterActive ? 700 : "inherit"
+              fontWeight: subChapterActive ? 700 : "inherit",
             }}
             key={subIndex}
           >
             <Link to={subValue}>
               <p
                 style={{
-                  fontWeight: isActive && subChapterActive ? 700 : "inherit"
+                  fontWeight: isActive && subChapterActive ? 700 : "inherit",
                 }}
               >
                 {trimSubChapterLetter(subLabel)}
@@ -176,7 +176,7 @@ function LeftNav({ routeIndex }) {
           style={{
             pointerEvents: isActive ? "none" : "inherit",
             cursor: isActive ? "default" : "pointer",
-            fontWeight: isActive ? 700 : "inherit"
+            fontWeight: isActive ? 700 : "inherit",
           }}
         >
           <p style={{ textDecoration: isActive ? "none" : "inherit" }}>
@@ -186,7 +186,7 @@ function LeftNav({ routeIndex }) {
         <ol
           css={ß.chapterList}
           style={{
-            height: isActive ? "auto" : 0
+            height: isActive ? "auto" : 0,
           }}
         >
           {chapterList}
@@ -200,7 +200,7 @@ function LeftNav({ routeIndex }) {
     routeIndex < dec(routes.length) ? makeNavName(nextRoute) : null;
 
   return (
-    <div css={ß.clear}>
+    <div id="left-nav" css={ß.clear}>
       <StickyEl>
         <div css={ß.rootStyle}>
           <DarkModeToggle />
