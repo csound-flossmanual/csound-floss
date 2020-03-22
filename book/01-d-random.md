@@ -1643,7 +1643,7 @@ The instruction:
 
 will produce and output a random line which changes its value every half second between the minimum of -1 and the maximum of 1. Special care should be given to the fourth parameter *imode* which is by default 0, but can be set to 1, 2, or 3. For *imode*=0 and *imode*=1 the random lines will start at the minimum (here -1) and will hold this value until the first period has been finished. For *imode*=2 it will start at a value set by the user (by default 0), wheras for *imode*=3 it will start at a random value between minimum und maximum. This is a generation for five seconds:
 
-![](../resources/images/01-d-randomh.png)
+![Opcode randomh with different values for imode](../resources/images/01-d-randomh.png)
 
 Usually we will use *imode*=3, as we want the random line to start immediately at a random value. The same options are valid for [randomi](http://www.csounds.com/manual/html/randomi.html) which is an
 interpolating version of *randomh*. Rather than jump to new values when
@@ -1652,7 +1652,7 @@ reaching it just as a new random value is generated. Now we see the difference b
 with randomi in the above code snippet would result in the following
 output:
 
-![](../resources/images/01-d-randomi.png)
+![Opcode randomi with different values for imode](../resources/images/01-d-randomi.png)
 
 In practice randomi's angular changes in direction as new random values
 are generated might be audible depending on the how it is used.
