@@ -26,7 +26,7 @@ const Console = () => {
 
   return (
     logDialogOpen && (
-      <div css={ß.sticky}>
+      <div css={ß.sticky} style={{ pointerEvents: "none" }}>
         <StickyEl bottomOffset={300}>
           <Rnd
             css={ß.container}

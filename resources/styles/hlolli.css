@@ -1,0 +1,30 @@
+.solid-box {
+  padding: 24px 0;
+  border: 1px solid black;
+}
+
+.center-vertical {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.center-vertical > * {
+  display: block;
+  align-self: center;
+  position: relative;
+  margin: 6px 0;
+}
+
+.center-horizontal {
+  display: flex;
+  justify-content: space-bewteen;
+  flex-direction: row;
+}
+
+.center-horizontal > * {
+  display: block;
+  align-self: center;
+  position: relative;
+  margin: 0 6px;
+}
