@@ -72,6 +72,7 @@ and in the same way. It is also worth mentioning that the performance
 time of the instruments (p3) is zero. This makes sense, as the
 instruments are called, but only the init-pass is performed.[^1]
 
+
 The Performance Pass
 --------------------
 
@@ -105,7 +106,7 @@ both clocks in seconds. In the upmost line you see that the first
 control cycle has been finished at 0.000227 seconds, the second one at
 0.000454 seconds, and so on.[^4]
 
-![](../resources/images/03-a-sr-kr-time3.png){width=70%}
+![](../resources/images/03-a-sr-kr-time3.png){width=80%}
 
 The rate (frequency) of these ticks is called the control rate in
 Csound. By historical reason,[^5]  it is called *kontrol rate* instead
@@ -357,7 +358,7 @@ iAmp      =       p4 ;amplitude taken from the 4th parameter of the score line
 iFreq     =       p5 ;frequency taken from the 5th parameter
 ; --- move from 0 to 1 in the duration of this instrument call (p3)
 kPan      line      0, p3, 1
-aNote     oscils  iAmp, iFreq, 0 ;create an audio signal
+aNote     poscil  iAmp, iFreq ;create an audio signal
 aL, aR    pan2    aNote, kPan ;let the signal move from left to right
           outs    aL, aR ;write it to the output
 endin
@@ -444,8 +445,8 @@ The *i()* feature is particularily useful if you need to examine the value
 of any control signal from a widget or from midi, at the time when an
 instrument starts.
 
-For getting the init value of an element in a k-time array, see the
-section *More on Array Rates* in the [Arrays](03-e-arrays.md)
+For getting the init value of an element in a k-time array, the syntax i(kArray,iIndex) must be used; for instance i(kArr,0) will get the first element of array kArr at init-time. More about this in the
+section *Init Values of k-Arrays* in the [Arrays](03-e-arrays.md)
 chapter of this book.
 
 k-Values and Initialization in Multiple Triggered Instruments
@@ -823,7 +824,7 @@ result is 2. So the printout at this first performance pass is *iCount =
 2.000*. The same happens in the next nine performance cycles, so the
 final count is 11.
 
-Order Of Calculation
+Order of Calculation
 --------------------
 
 In this context, it can be very important to observe the order in which
@@ -871,6 +872,7 @@ i 10 1 1
 ~~~
 
 The output shows the difference:
+
     new alloc for instr 1:
     new alloc for instr 10:
      i  10 time     0.10000:     1.00000
@@ -971,6 +973,81 @@ output:[^10]
     instr Random_Filter uses instrument number 3
     instr Final_Reverb uses instrument number 4
 
+
+Instruments with Fractional Numbers
+-----------------------------------
+
+Sometimes we want to call severall instances of an instrument, but we want to treat each instance different. For this, Csound provides the possibility of fractional note numbers. In the following example, instr 1 shows a basic example, turning on and off certain instances in the score. (Turning off is done here by negative note numbers.) Instr *Play* is a bit more complicated in using the instance number as index to a global array. Instr *Trigger* calls this instrument several times with fractional numbers. It also shows how we can use fractional numbers for named instruments: We first get the number which Csound appointed to this instrument (using the [nstrnum](https://csound.com/docs/manual/nstrnum.html) opcode), and then add the fractional part (0, 0.1, 0.2 etc) to it.
+
+
+   ***EXAMPLE 03A16_FractionalInstrNums.csd***
+
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-odac -m128
+</CsOptions>
+<CsInstruments>
+sr = 44100
+nchnls = 2
+0dbfs = 1
+ksmps = 32
+seed 0
+
+giArr[] fillarray 60, 68, 67, 66, 65, 64, 63
+
+instr 1
+ iMidiNote = p4
+ iFreq mtof iMidiNote
+ aPluck pluck .1, iFreq, iFreq, 0, 1
+ aOut linenr aPluck, 0, 1, .01
+ out aOut, aOut
+endin
+
+instr Trigger
+ index = 0
+ while index < lenarray(giArr) do
+  iInstrNum = nstrnum("Play")+index/10
+  schedule(iInstrNum,index+random:i(0,.5),5)
+  index += 1
+ od
+endin
+
+instr Play
+ iIndx = frac(p1)*10 //index is fractional part of instr number
+ iFreq = mtof:i(giArr[round(iIndx)])
+ aPluck pluck .1, iFreq, iFreq, 0, 1
+ aOut linenr aPluck, 0, 1, .01
+ out aOut, aOut
+endin
+
+</CsInstruments>
+<CsScore>
+//traditional score
+t 0 90
+i 1.0 0 -1 60
+i 1.1 1 -1 65
+i 1.2 2 -1 55
+i 1.3 3 -1 70
+i 1.4 4 -1 50
+i 1.5 5 -1 75
+
+i -1.4 7 1 0
+i -1.1 8 1 0
+i -1.5 9 1 0
+i -1.0 10 1 0
+i -1.3 11 1 0
+i -1.2 12 1 0
+
+//event generating instrument
+i "Trigger" 15 10
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+~~~
+
+
+
 About *i-time* and *k-rate* Opcodes
 ---------------------------------------
 
@@ -1033,7 +1110,7 @@ If you use the a-rate random generator, you will get as many new values
 per second as your sample rate is. If you use it in the range of your 0
 dB amplitude, you produce white noise.
 
-   ***EXAMPLE 03A16\_Random\_at\_ika.csd***
+   ***EXAMPLE 03A17\_Random\_at\_ika.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1105,22 +1182,22 @@ line of code:
 
 Your envelope will look like this:
 
-![](../resources/images/03-a-k-rate-env.png){width=65%}
+![](../resources/images/03-a-k-rate-env.png)
 
 Such a *staircase-envelope* is what you hear in the next example as
 zipper noise. The transeg opcode produces a non-linear envelope with a
 sharp peak:
 
-![](../resources/images/03-a-peak.png){width=30%}
+![](../resources/images/03-a-peak.png)
 
-The rise and the decay are each 1/100 seconds long. If this envelope is
+The rise and the decay are each 1/10 seconds long. If this envelope is
 produced at k-rate with a blocksize of 128 (instr 1), the noise is
 clearly audible. Try changing ksmps to 64, 32 or 16 and compare the
-amount of zipper noise. - Instrument 2 uses an envelope at audio-rate
+amount of zipper noise. — Instrument 2 uses an envelope at audio-rate
 instead. Regardless the blocksize, each sample is calculated seperately,
-so the envelope will always be smooth.
+so the envelope will always be smooth. — Instrument 3 shows a remedy for situations in which a k-rate envelope cannot be avoided: the [a()](https://csound.com/docs/manual/opa.html) will convert the k-signal to audio-rate by interpolation thus smoothing the envelope.
 
-   ***EXAMPLE 03A17\_Zipper.csd***
+   ***EXAMPLE 03A18\_Zipper.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1135,27 +1212,36 @@ nchnls = 2
 0dbfs = 1
 
 instr 1 ;envelope at k-time
-aSine     oscils    .5, 800, 0
+aSine     poscil    .5, 800
 kEnv      transeg   0, .1, 5, 1, .1, -5, 0
 aOut      =         aSine * kEnv
           outs      aOut, aOut
 endin
 
 instr 2 ;envelope at a-time
-aSine     oscils    .5, 800, 0
+aSine     poscil    .5, 800
 aEnv      transeg   0, .1, 5, 1, .1, -5, 0
 aOut      =         aSine * aEnv
           outs      aOut, aOut
 endin
 
+instr 3 ;envelope at k-time with a-time interpolation
+aSine     poscil    .5, 800
+kEnv      transeg   0, .1, 5, 1, .1, -5, 0
+aOut      =         aSine * a(kEnv)
+          outs      aOut, aOut
+endin
+
 </CsInstruments>
 <CsScore>
-r 5 ;repeat the following line 5 times
+r 3 ;repeat the following line 3 times
 i 1 0 1
 s ;end of section
-r 5
+r 3
 i 2 0 1
-e
+s
+r 3
+i 3 0 1
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
@@ -1173,7 +1259,7 @@ control cycles, nor end.
 The next example chooses an extreme small control rate (only 10 k-cycles
 per second) to illustrate this.
 
-   ***EXAMPLE 03A18\_Time\_Impossible.csd***
+   ***EXAMPLE 03A19\_Time\_Impossible.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1275,7 +1361,7 @@ but here not for printing rather than playing out only the samples
 whichs values are between 0 and 1/10000. They are then multiplied by
 10000 so that not only rhythm is irregular but also volume.
 
-***EXAMPLE 03A19\_Sample\_by\_sample\_processing.csd***
+***EXAMPLE 03A20\_Sample\_by\_sample\_processing.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1392,7 +1478,7 @@ The first case is easy to understand, although some results may be
 unexpected. Any k-variable which is not explicitly initialized is set to
 zero as initial value.
 
-***EXAMPLE 03A20\_Init\_explcit\_implicit.csd***
+***EXAMPLE 03A21\_Init\_explcit\_implicit.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1452,7 +1538,7 @@ Usually the second one overwrites the first. But if a k-value is
 explicitely set via the *init* opcode, the implicit initialization will
 not take place.
 
-***EXAMPLE 03A21\_Init\_overwrite.csd***
+***EXAMPLE 03A22\_Init\_overwrite.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1512,7 +1598,7 @@ if-condition will never become true. But regardless it is true or false,
 any k-rate if-clause initializes its expressions, in this case the
 *String* variable.
 
-***EXAMPLE 03A22\_Init\_hidden\_in\_if.csd***
+***EXAMPLE 03A23\_Init\_hidden\_in\_if.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1584,7 +1670,7 @@ opcode, but in terms of implicit initialization it is not the case. In
 the following example, we may expect that instrument 2 has the same
 output as instrument 1.
 
-***EXAMPLE 03A23\_Init\_hidden\_in\_udo.csd***
+***EXAMPLE 03A24\_Init\_hidden\_in\_udo.csd***
 
 ~~~
 <CsoundSynthesizer>
