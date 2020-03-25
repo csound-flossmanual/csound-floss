@@ -25,9 +25,11 @@ with another, a logarithmic scale is used. The unit *Bel* describes the
 relation of one intensity $I$ to a reference
 intensity $I_0$ as follows:
 
-
-[$\log_{10} \frac{I}{I_0}$
-*Sound Intensity Level in Bel*]{.solid-box .center-vertical}
+<center>
+<p style="border:1px; border-style:solid; text-align:center; display:inline-block; padding: 1em;">
+$\log_{10} \frac{I}{I_0}$  
+*Sound Intensity Level in Bel*
+</p></center>
 
 If, for example, the ratio I/I~0~ is 10, this is 1 Bel.
 If the ratio is 100, this is 2 Bel.
@@ -38,9 +40,12 @@ at 1000 Hertz. So the range of human hearing covers about 12 Bel.
 Usually 1 Bel is divided into 10 decibel, so the common formula for
 measuring a sound intensity is:
 
-[$10 \cdot \log_{10} \frac{I}{I_0}$
+<center>
+<p style="border:1px; border-style:solid; text-align:center; display:inline-block; padding: 1em;">
+$10 \cdot \log_{10} \frac{I}{I_0}$  
 *Sound Intensity Level (SIL) in deci Bel (dB) with
-I~0~ = 10 ^-12^ W/m^2^*]{.solid-box .center-vertical}
+I~0~ = 10 ^-12^ W/m^2^*
+</p></center>
 
 
 ### SPL — Sound Pressure Level
@@ -57,7 +62,7 @@ $P$. As a formula:
 
 <center>
 <p style="border:1px; border-style:solid; text-align:center; display:inline-block; padding: 1em;">
-$$I \propto P^2$$
+$$I \propto P^2$$  
 *Relation between Sound Intensity and Sound Pressure*
 </p></center>
 
@@ -75,7 +80,7 @@ pressure $P$ related to the pressure $P_0$ is:
 
 <center>
 <p style="border:1px; border-style:solid; text-align:center; display:inline-block; padding: 1em;">
-$10 \cdot  log_{10} \left(\frac{P}{P_0}\right)^2 = 2 \cdot  10 \cdot  log_{10} \frac{P}{P_0}  = 20 \cdot  log_{10} \frac{P}{P_0}$
+$10 \cdot  log_{10} \left(\frac{P}{P_0}\right)^2 = 2 \cdot  10 \cdot  log_{10} \frac{P}{P_0}  = 20 \cdot  log_{10} \frac{P}{P_0}$ <br/>
 *Sound Pressure Level (SPL) in Decibels (dB) with P~0~ = 2·10^-5^ Pa*
 </p></center>
 
@@ -91,7 +96,7 @@ intensity and amplitudes:
 
 <center>
 <p style="border:1px; border-style:solid; text-align:center; display:inline-block; padding: 1em;">
-$$I \propto A^2$$
+$$I \propto A^2$$  
 *Relationship between Intensity and Amplitude*
 </p></center>
 
@@ -101,7 +106,7 @@ amplitude $A_0$ is:
 
 <center>
 <p style="border:1px; border-style:solid; text-align:center; display:inline-block; padding: 1em;">
-$$20 \cdot \log_{10} \frac{A}{A_0}$$
+$$20 \cdot \log_{10} \frac{A}{A_0}$$  
 *Decibel (dB) Scale of Amplitudes*
 </p></center>
 

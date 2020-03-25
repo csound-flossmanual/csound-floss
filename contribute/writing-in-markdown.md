@@ -119,3 +119,4 @@ here are some tex math examples from <https://github.com/kikofernandez/pandoc-ex
     $e^x = \sum_{n=0}^\infty \frac{x^n}{n!} = \lim_{n\rightarrow\infty} (1+x/n)^n$
 
 ![](../resources/images/tex_math_examples.png)
+
