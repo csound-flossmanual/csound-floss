@@ -5,7 +5,7 @@ As musicians we are dealing with volume, loudness, sound intensity. (In classica
 
 ![Csound console printout](../resources/images/01-c-overall-amps.png)
 
-Amplitudes are related to sound intensities, but in a more complicated way we may think. This chapter starts with some essentials about measuring intensities and the *decibel* (*dB*) scale. It continues with *rms* measurement and ends with the *Fletcher-Munson* curves.
+Amplitudes are related to sound intensities, but in a more complicated way than we may think. This chapter starts with some essentials about measuring intensities and the *decibel* (*dB*) scale. It continues with *rms* measurement and ends with the *Fletcher-Munson* curves.
 
 
 Real World Intensities and Amplitudes
@@ -100,7 +100,7 @@ $$I \propto A^2$$
 *Relationship between Intensity and Amplitude*
 </p></center>
 
-This yields to the same transformation as described above for the
+This yields the same transformation as described above for the
 sound pressure; so finally the relation in Decibel of any amplitude $A$ to a reference
 amplitude $A_0$ is:
 
@@ -118,7 +118,7 @@ $$20 \cdot \log_{10} \frac{1}{0.5} = 20 \cdot  log_{10} 2 = 20 \cdot  0.30103 = 
 
 The most useful thing to bear in mind is that when we double an
 amplitude this will provide a change of +6 dB, or when we halve an
-amplitude this will provide a change in of -6 dB.
+amplitude this will provide a change of -6 dB.
 
 
 
@@ -221,11 +221,11 @@ RMS Measurement
 Sound intensity depends on many factors. One of the most important is
 the effective mean of the amplitudes in a certain time span. This is
 called the Root Mean Square (RMS) value. To calculate it, you have (1)
-to calculate the squared amplitudes of number N samples. Then you (2)
+to calculate the squared amplitudes of N samples. Then you (2)
 divide the result by N to calculate the mean of it. Finally (3) take the
 square root.
 
-Let us consider a simple example and then look how to derive rms values
+Let us consider a simple example and then look at how to derive rms values
 within Csound. Assuming we have a sine wave which consists of 16
 samples, we get these amplitudes:
 
