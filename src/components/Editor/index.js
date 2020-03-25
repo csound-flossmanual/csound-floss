@@ -1,3 +1,4 @@
+/* eslint-disable */
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 // eslint-disable-next-line no-unused-vars
@@ -7,12 +8,17 @@ import { decode } from "he";
 import { Controlled as CodeMirror } from "react-codemirror2";
 import * as ß from "./styles";
 import "./code-mirror-csound-mode";
+import SourceMaterials from "../../assets/source_materials.json";
 import PlayIcon from "../../assets/play.svg";
 import PauseIcon from "../../assets/pause.svg";
 import StopIcon from "../../assets/stop.svg";
 import LogIcon from "../../assets/logs_icon_wikimedia.svg";
 require("codemirror/lib/codemirror.css");
 require("codemirror/theme/neo.css");
+
+function timeout(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 const PlayControlsLoadingSpinner = () => (
   <div
@@ -27,6 +33,32 @@ const PlayControlsLoadingSpinner = () => (
     <div css={ß.playLoadingSpinner} />
   </div>
 );
+
+async function asyncForEach(array, callback) {
+  for (let index = 0; index < array.length; index++) {
+    await callback(array[index], index, array);
+  }
+}
+
+const ensureSourceMaterials = async (exampleString, loadedSamples) => {
+  const fetchedResources = {};
+  await asyncForEach(SourceMaterials, async fileName => {
+    if (!loadedSamples.includes(fileName)) {
+      if (exampleString.includes(fileName)) {
+        // One special case for 04H08_Scan_tablesize.csd
+        // but let's not make this a habit!
+        fileName =
+          fileName === "circularstring" ? "circularstring-128" : fileName;
+        const response = await fetch(`/resources/SourceMaterials/${fileName}`);
+        if (response.status === 200) {
+          const ab = await response.arrayBuffer();
+          fetchedResources[fileName] = ab;
+        }
+      }
+    }
+  });
+  return fetchedResources;
+};
 
 const checkIfPlayIsPossible = () => {
   const hasSAB = typeof SharedArrayBuffer !== "undefined";
@@ -48,7 +80,7 @@ Firefox support will hopefully arrive soon.`);
   }
 };
 
-const PlayControls = ({ currentEditorState }) => {
+const PlayControls = ({ initialEditorState, currentEditorState }) => {
   let [
     {
       libcsound,
@@ -56,6 +88,7 @@ const PlayControls = ({ currentEditorState }) => {
       isLoading,
       isPaused,
       isPlaying,
+      loadedSamples,
       logDialogClosed,
       logDialogOpen,
     },
@@ -74,9 +107,11 @@ const PlayControls = ({ currentEditorState }) => {
       csoundDispatch({ type: "SET_IS_LOADING", isLoading: true });
       const esModule = await import("csound-wasm");
       libcsound = await esModule.default();
-      await libcsound.setMessageCallback(log =>
-        csoundDispatch({ type: "STORE_LOG", log })
-      );
+      // eslint-disable-next-line
+      await libcsound.setMessageCallback(log => {
+        console.log(log);
+        csoundDispatch({ type: "STORE_LOG", log });
+      });
       await libcsound.setCsoundPlayStateChangeCallback(change =>
         csoundDispatch({ type: "HANDLE_PLAY_STATE_CHANGE", change })
       );
@@ -90,7 +125,16 @@ const PlayControls = ({ currentEditorState }) => {
       await libcsound.csoundCleanup(csound);
       await libcsound.csoundReset(csound);
     }
-    await libcsound.csoundPrepareRT(csound);
+    const fetchesResources = await ensureSourceMaterials(
+      initialEditorState,
+      loadedSamples
+    );
+    const newResources = Object.keys(fetchesResources) || [];
+    newResources.length > 0 &&
+      csoundDispatch({ type: "CONJ_LOADED_SAMPLES", newSamples: newResources });
+    await asyncForEach(newResources, async fileName => {
+      await libcsound.copyToFs(fetchesResources[fileName], fileName);
+    });
     await libcsound.csoundCompileCsdText(csound, currentEditorState);
     await libcsound.csoundStart(csound);
     await libcsound.startWebAudio(csound);
@@ -157,7 +201,8 @@ const PlayControls = ({ currentEditorState }) => {
 };
 
 const CodeElement = ({ data }) => {
-  const [state, setState] = useState(decode(data || ""));
+  const initialEditorState = decode(data || "");
+  const [state, setState] = useState(initialEditorState);
 
   const onBeforeChange = (editor, data, value) => {
     setState(value);
@@ -166,7 +211,12 @@ const CodeElement = ({ data }) => {
 
   return (
     <div css={ß.codeMirror(isCsd)}>
-      {isCsd && <PlayControls currentEditorState={state} />}
+      {isCsd && (
+        <PlayControls
+          currentEditorState={state}
+          initialEditorState={initialEditorState}
+        />
+      )}
       <CodeMirror
         value={state}
         onBeforeChange={onBeforeChange}

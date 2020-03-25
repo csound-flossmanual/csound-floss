@@ -8,12 +8,12 @@ const {
   buildLink,
   ensureEmptyDir,
   makeWrapChapterInTemplate,
-  readFileWithFallback
+  readFileWithFallback,
 } = require("./utils");
 const {
   JSX_OUTPUT,
   BOOK_DIRECTORY,
-  MARKDOWN_EXTENSIONS
+  MARKDOWN_EXTENSIONS,
 } = require("./constants");
 const html2jsx = require("html-to-jsx");
 const R = require("ramda");
@@ -59,7 +59,7 @@ function execMarkdownToHtml(fileName) {
   );
   return {
     module: `${chapterBasename}`,
-    ...linkData
+    ...linkData,
   };
 }
 
