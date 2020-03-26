@@ -19,9 +19,6 @@ Edits
     - perhaps introduce frequency-domain representation
 - 01-d (random)
     - perhaps give more connection to csound
-- 03-a (i and k)
-    - the structure of this chapter should be more clear.
-      try to find level 2 and level 3 headings.
 - 03-b (variables) 
     - give more space to f-sigs (local and global)
 - 03-c (control) 

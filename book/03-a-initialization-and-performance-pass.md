@@ -18,9 +18,13 @@ how you can profit from them, after you understood and accepted both
 qualities.
 
 
+Basic Distinction
+-----------------
 
-The Init Pass
--------------
+We will explain at first the difference between *i-rate* and *k-rate*. Then we will look at some properties of k-rate signals, and finally introduce the audio vector.
+
+
+### Init Pass
 
 Whenever a Csound instrument is called, all variables are set to initial
 values. This is called the initialization pass.
@@ -73,8 +77,7 @@ time of the instruments (p3) is zero. This makes sense, as the
 instruments are called, but only the init-pass is performed.[^1]
 
 
-The Performance Pass
---------------------
+### Performance Pass
 
 After having assigned initial values to all variables, Csound starts the
 actual performance. As music is a variation of values in time,[^2]  audio
@@ -275,8 +278,10 @@ Outputs:
 
 ### A Look at the Audio Vector
 
+One k-cycle consists of [ksmps](https://csound.com/docs/manual/ksmps.html) audio samples. The single samples are processed in a block, called audio vector. If *ksmps=32*, for each audio signal 32 samples are processed in every k-cycle.
+
 There are different opcodes to print out k-variables.[^9] There is no
-opcode in Csound to print out the audio vector directly, but you can use
+opcode in Csound to print out the audio vector directly, but we can use
 the *vaget* opcode to see what is happening inside one control cycle
 with the audio samples.
 
@@ -290,7 +295,7 @@ ksmps = 5
 0dbfs = 1
 
 instr 1
-aSine      oscils     1, 2205, 0
+aSine      poscil     1, 2205
 kVec1      vaget      0, aSine
 kVec2      vaget      1, aSine
 kVec3      vaget      2, aSine
@@ -376,8 +381,13 @@ this happens when the instrument call is performed:
 ![](../resources/images/03-a-initandperfpass3.png){width=80%}
 
 
-Accessing the Initialization Value of a k-Variable
---------------------------------------------------
+Applications and Concepts
+-------------------------
+
+We will look now at some applications and consequences of what has been showed. We will see how we can use a k-variable at i-time. Then we will at k-signals in an instrument which is called several times. We will explain the concept of re-initialization and have a look at instruments: in which order they are processed, how named instruments work, and how we can use fractional instrument numbers.
+ 
+
+### Accessing the Initialization Value of a k-Variable
 
 It has been said that the init pass sets initial values to all
 variables. It must be emphasized that this indeed concerns all
@@ -449,8 +459,7 @@ For getting the init value of an element in a k-time array, the syntax i(kArray,
 section *Init Values of k-Arrays* in the [Arrays](03-e-arrays.md)
 chapter of this book.
 
-k-Values and Initialization in Multiple Triggered Instruments
--------------------------------------------------------------
+### k-Values and Initialization in Multiple Triggered Instruments
 
 What happens on a k-variable if an instrument is called multiple times?
 What is the initialization value of this variable on the first call, and
@@ -737,8 +746,7 @@ i . 7 . 1
 ;example by oeyvind brandtsegg and joachim heintz
 ~~~
 
-Reinitialization
-----------------
+### Reinitialization
 
 As we saw above, an i-value is not affected by the performance loop. So
 you cannot expect this to work as an incrementation:
@@ -824,8 +832,8 @@ result is 2. So the printout at this first performance pass is *iCount =
 2.000*. The same happens in the next nine performance cycles, so the
 final count is 11.
 
-Order of Calculation
---------------------
+
+### Order of Calculation
 
 In this context, it can be very important to observe the order in which
 the instruments of a Csound orchestra are evaluated. This order is
@@ -904,8 +912,7 @@ same control cycle, but it can only refer to values of instrument 100
 which are produced in the previous control cycle. By this reason, the
 printout shows values which are one less in the latter case.
 
-Named Instruments
------------------
+### Named Instruments
 
 It has been said in chapter 02B (Quick Start) that instead of a number
 you can also use a name for an instrument. This is mostly preferable,
@@ -974,8 +981,7 @@ output:[^10]
     instr Final_Reverb uses instrument number 4
 
 
-Instruments with Fractional Numbers
------------------------------------
+### Instruments with Fractional Numbers
 
 Sometimes we want to call severall instances of an instrument, but we want to treat each instance different. For this, Csound provides the possibility of fractional note numbers. In the following example, instr 1 shows a basic example, turning on and off certain instances in the score. (Turning off is done here by negative note numbers.) Instr *Play* is a bit more complicated in using the instance number as index to a global array. Instr *Trigger* calls this instrument several times with fractional numbers. It also shows how we can use fractional numbers for named instruments: We first get the number which Csound appointed to this instrument (using the [nstrnum](https://csound.com/docs/manual/nstrnum.html) opcode), and then add the fractional part (0, 0.1, 0.2 etc) to it.
 
@@ -1047,9 +1053,13 @@ i "Trigger" 15 10
 ~~~
 
 
+Tips for Pratical Use
+---------------------
 
-About *i-time* and *k-rate* Opcodes
----------------------------------------
+The last part of this chapter focusses on some situations which are known as stumbling blocks by many users. We will start with a discussion about *i-time* and *k-rate* opcodes, and when to use either of them. In between we will look at some possible issues with the k-rate ticks as internal time units. We will have another look at the audio vector, before we try to throw some light in the complicated matter of hidden initializaion. Finally, we will give some general suggestions when to choose *i*-rate or *k*-rate opcodes.
+
+
+### About *i-time* and *k-rate* Opcodes
 
 It is often confusing for the beginner that there are some opcodes which
 only work at *i-time* or *i-rate*, and others which only work at
@@ -1168,8 +1178,7 @@ i 4 9   1
 ;example by joachim heintz
 ~~~
 
-Possible Problems with k-Rate Tick Size
----------------------------------------
+### Possible Problems with k-Rate Tick Size
 
 It has been said that usually the k-rate clock ticks much slower than
 the sample (a-rate) clock. For a common size of ksmps=32, one k-value
@@ -1247,8 +1256,7 @@ i 3 0 1
 ;example by joachim heintz
 ~~~
 
-Time Impossible
----------------
+### Time Impossible
 
 There are two internal clocks in Csound. The sample rate (sr) determines
 the audio-rate, whereas the control rate (kr) determines the rate, in
@@ -1309,7 +1317,7 @@ cases:
 3.  ksmps=1
 4.  ksmps=128 and *--sample-accurate* enabled
 
-![](../resources/images/03-a-ksmps.png){width=50%}
+![](../resources/images/03-a-ksmps.png)
 
 This is the effect:
 
@@ -1333,8 +1341,7 @@ So, in case you experience clicks at very short envelopes although you
 use a-rate envelopes, it might be necessary to set either ksmps=1, or to
 enable the \--sample-accurate option.
 
-Yet another Look at the Audio Vector
-------------------------------------
+### Yet another Look at the Audio Vector
 
 In Csound 6 it is actually possible to access each sample of the audio
 vector directly, without setting ksmps=1. This feature, however,
@@ -1463,8 +1470,7 @@ At the end of chapter [03G](03-g-user-defined-opcodes.md) an example is shown fo
 of sample-by-sample processing in Csound: to implement a digital filter
 as user defined opcode.
 
-Hidden Initialization of k- and S-Variables
--------------------------------------------
+### Hidden Initialization of k- and S-Variables
 
 Any k-variable can be explicitly initialized by the *init* opcode, as
 has been shown above. But internally any variable, it be control rate
@@ -1472,7 +1478,7 @@ has been shown above. But internally any variable, it be control rate
 initialization can be hidden from the user, it can lead to unexpexted
 behaviour.
 
-### Explicit and implicit initialization
+#### Explicit and implicit initialization
 
 The first case is easy to understand, although some results may be
 unexpected. Any k-variable which is not explicitly initialized is set to
@@ -1531,7 +1537,7 @@ initialization although the opcode name *strcpy**k*** may suggest
 something else. But as the manual page states: *strcpyk does the
 assignment both at initialization and performance time.*
 
-### Order of initialization statements
+#### Order of initialization statements
 
 What happens if there are two init statements, following each other?
 Usually the second one overwrites the first. But if a k-value is
@@ -1589,7 +1595,7 @@ initialization, and this initialization will overwrite the preceding
 one. If the lines were swapped, the result would be *goodbye* rather
 than *world*.
 
-### Hidden initialization in k-rate if-clause
+#### Hidden initialization in k-rate if-clause
 
 If-clauses can be either i-rate or k-rate. A k-rate if-clause
 initializes nevertheless. Reading the next example may suggest that the
@@ -1663,7 +1669,7 @@ If you want to skip the initialization at this point, you can use an
       skip:
      endif
 
-### Hidden initialization via UDOs
+#### Hidden initialization via UDOs
 
 A user may expect that a UDO will behave identical to a csound native
 opcode, but in terms of implicit initialization it is not the case. In
@@ -1750,8 +1756,8 @@ write this in the variable kLine. So i(kLine) is 10.\" It is not, and if
 you send this value at init-time to another instrument, your program
 will give wrong output.
 
-When to Use i- or k- Rate
--------------------------
+
+### When to Use i- or k- Rate
 
 When you code on your Csound instrument, you may sometimes wonder
 whether you shall use an i-rate or a k-rate opcode. From what is said,
