@@ -1397,6 +1397,95 @@ i "TimeLoop" 0 30
 ~~~
 
 
+Self-Triggering and Recursion
+-----------------------------
+
+Another surprisingly simple method for a loop in time is self-triggering: When an instrument is called, it calls the next instance, so that an endless chain is created. The following example reproduces the previous one, but without the controlling *TimeLoop* instrument. Instead, at the end of instr *Play*, the next instance is called.
+
+
+   ***EXAMPLE 03C25_self_triggering.csd***
+
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-odac -m128
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
+seed 0
+
+instr Play
+ifreq1    random    600, 1000; starting frequency
+idiff     random    100, 300; difference to final frequency
+ifreq2    =         ifreq1 - idiff; final frequency
+kFreq     expseg    ifreq1, p3, ifreq2; glissando
+iMaxdb    random    -18, -6; peak randomly between -12 and 0 dB
+kAmp      transeg   ampdb(iMaxdb), p3, -10, 0; envelope
+aTone     poscil    kAmp, kFreq
+          out       aTone, aTone
+schedule("Play",random:i(.3,1.5),random:i(1,5))
+endin
+
+instr Exit
+ exitnow()
+endin
+
+</CsInstruments>
+<CsScore>
+i "Play" 0 3
+i "Exit" 20 1
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+~~~
+
+The problem here is: how to stop? The [turnoff2](https://csound.com/docs/manual/turnoff2.html) opcode does not help, because in the moment we turn off the running instance, it has already triggered the next instance.
+
+In our example, this problem has been solved the brutal way: to exit Csound. Much better is to introduce a break condition. This is what is called *base case* in recursion. We can, for instance, give a counter as *p4*, say 20. For each instance, the new call is done with *p4-1* (19, 18, 17, ...). When zero is reached, no self-triggering is done any more.
+
+
+   ***EXAMPLE 03C26_recursion.csd***
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-odac -m128
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
+seed 0
+
+instr Play
+ifreq1    random    600, 1000; starting frequency
+idiff     random    100, 300; difference to final frequency
+ifreq2    =         ifreq1 - idiff; final frequency
+kFreq     expseg    ifreq1, p3, ifreq2; glissando
+iMaxdb    random    -18, -6; peak randomly between -12 and 0 dB
+kAmp      transeg   ampdb(iMaxdb), p3, -10, 0; envelope
+aTone     poscil    kAmp, kFreq
+          out       aTone, aTone
+if p4 > 0 then
+ schedule("Play",random:i(.3,1.5),random:i(1,5), p4-1)
+endif
+endin
+
+</CsInstruments>
+<CsScore>
+i "Play" 0 3 20
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+~~~
+
+Recursion is in particular important for User Defined Opcodes. Recursive UDOs will be explained in chapter [03 G](03-g-user-defined-opcodes.md). They follow the same principles as shown here.
+
+
+
 Links
 -----
 

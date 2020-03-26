@@ -19,10 +19,6 @@ Edits
     - perhaps introduce frequency-domain representation
 - 01-d (random)
     - perhaps give more connection to csound
-- 03-b (variables) 
-    - give more space to f-sigs (local and global)
-- 03-c (control) 
-    - perhaps mention recursion and/or point to udo recursion examples
 - 03-d (tables)
     - demonstrate transforming the contents of a function table instantly 
       within a I or k-rate loop
@@ -116,8 +112,6 @@ In Process
 - Nikhil about Csound iOS (20191208)
 - Hlodver will contribute Live Coding Chapter (14 C) (20191215)
 - Asked Luis and Hlodver about Csound in vim and Emacs (20191215)
-- Asekd Anton about new version of Haskell chapter (20191215)
-- Asked Jan Jan the same about Blue chapter (20191231)
 
 
 [1] (mailing list dec 11, 2019)

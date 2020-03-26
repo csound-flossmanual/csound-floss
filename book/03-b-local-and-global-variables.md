@@ -31,7 +31,8 @@ which are used for spectral processing:
     (all starting with the characters **pvs**), which are very important
     for doing realtime FFT (Fast Fourier Transform) in Csound. They are
     updated at k-time, but their values depend also on the FFT
-    parameters like frame size and overlap.
+    parameters like frame size and overlap. Examples for using *f*-sigs
+    can be found in chapter [05 I](05-i-fourier-analysis-spectral-processing.md).
 -   **w**-variables are used in some older spectral processing opcodes.
 
 The following example exemplifies all the variable types (except the
