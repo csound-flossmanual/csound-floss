@@ -1281,7 +1281,7 @@ nchnls = 1
 0dbfs = 1
 
   instr 1
-aPink oscils .5, 430, 0
+aPink poscil .5, 430
 out aPink
   endin
 </CsInstruments>
@@ -1299,7 +1299,7 @@ call starts at a possible time, but the duration of 0.15 again does not
 coincident with the control rate. So the result starts the first call at
 time 0.1 and extends the second call to 0.2 seconds:
 
-![](../resources/images/03-a-wrong-times.png){width=60%}
+![](../resources/images/03-a-wrong-times.png)
 
 With Csound6, the possibilities of these *in between* are enlarged via
 the *--sample-accurate* option. The next image shows how a 0.01 second
