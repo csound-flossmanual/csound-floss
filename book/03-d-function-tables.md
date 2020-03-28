@@ -1,10 +1,9 @@
 03 D. FUNCTION TABLES
 =====================
 
-*<small>Note: This chapter was written before arrays had been introduced into
+*Note: This chapter was written before arrays had been introduced into
 Csound. Now the usage of arrays is in some situations preferable to
-using function tables. Have a look in chapter 03E to see how you can use
-arrays.</small>*<br>
+using function tables. Have a look in chapter [03 E](03-e-arrays.md) to see how you can use arrays.*<br>
 
 A function table is essentially the same as what other audio programming
 languages might call a buffer, a table, a list or an array. It is a
@@ -38,9 +37,12 @@ and flexible use of function tables.
 How to Generate a Function Table
 --------------------------------
 
-Each function table must be created **before** it can be used. Even if
+Each function table must be created **before** it can be used.[^1] Even if
 you want to write values later, you must first create an empty table,
 because you must initially reserve some space in memory for it.
+
+[^1]: Nevertheless function tables can be created at any time during
+      the Csound performance, for instance via `event "f" ...`
 
 Each creation of a function table in Csound is performed by one of the
 **GEN Routines**. Each GEN Routine generates a function table in a
@@ -80,7 +82,7 @@ parameters after the **f** are as follows:
     in the early days of Csound only power-of-two sizes were possible
     for function tables (2, 4, 8, 16, \...); nowadays almost all GEN
     Routines accepts other sizes, but these non-power-of-two sizes
-    must be declared as negative numbers![^1]
+    must be declared as negative numbers![^2]
 -   ***2***: the number of the GEN Routine which is used to generate the
     table, and here is another important point which must be borne in
     mind: **by default, Csound normalizes the table values.** This means
@@ -93,7 +95,7 @@ parameters after the **f** are as follows:
 -   ***v1 v2 v3 ...***: the values which are written into the function
     table.
 
-[^1]: At least this is still the safest method to declare a non-power-
+[^2]: At least this is still the safest method to declare a non-power-
 of-two size for the table, although for many GEN routines also positive
 numbers work.
 
@@ -111,14 +113,15 @@ difference in their contents will be demonstrated.
 -nm0
 </CsOptions>
 <CsInstruments>
-  instr 1 ;prints the values of table 1 or 2
-          prints    "%nFunction Table %d:%n", p4
-indx      init      0
-loop:
-ival      table     indx, p4
-          prints    "Index %d = %f%n", indx, ival
-          loop_lt   indx, 1, 7, loop
-  endin
+instr 1 ;prints the values of table 1 or 2
+ prints "%nFunction Table %d:%n", p4
+ indx init 0
+ while indx < 7 do
+  ival table indx, p4
+  prints "Index %d = %f%n", indx, ival
+  indx += 1
+ od
+endin
 </CsInstruments>
 <CsScore>
 f 1 0 -7 -2 1.1 2.2 3.3 5.5 8.8 13.13 21.21; not normalized
@@ -130,6 +133,26 @@ i 1 0 0 2; prints function table 2
 ;example by joachim heintz
 ~~~
 
+Prints:
+
+    Function Table 1:
+    Index 0 = 1.100000
+    Index 1 = 2.200000
+    Index 2 = 3.300000
+    Index 3 = 5.500000
+    Index 4 = 8.800000
+    Index 5 = 13.130000
+    Index 6 = 21.210000
+
+    Function Table 2:
+    Index 0 = 0.051862
+    Index 1 = 0.103725
+    Index 2 = 0.155587
+    Index 3 = 0.259312
+    Index 4 = 0.414899
+    Index 5 = 0.619048
+    Index 6 = 1.000000
+
 Instrument 1 simply reads and prints (to the terminal) the values of the
 table. Notice the difference in values read, whether the table is
 normalized (positive GEN number) or not normalized (negative GEN
@@ -137,10 +160,10 @@ number).
 
 Using the [ftgen](http://www.csound.com/docs/manual/ftgen.html) opcode
 is a more modern way of creating a function table, which is generally
-preferable to the old way of writing an f-statement in the score.[^2]
+preferable to the old way of writing an f-statement in the score.[^3]
 The syntax is explained below:
 
-[^2]: *ftgen* is preferred mainly because you can refer to the function
+[^3]: *ftgen* is preferred mainly because you can refer to the function
       table by a variable name and must not deal with constant tables
       numbers. This will enhance the portability of orchestras and better
       facilitate the combining of multiple orchestras. It can also enhance
@@ -165,8 +188,7 @@ of the orchestra, each argument is separated from the next by a comma
 (not by a space or tab like in the score).
 
 So this is the same example as above, but now with the function tables
-being generated in the orchestra header, and by using a *while* loop
-rather than Csound's older *loop* facility:
+being generated in the orchestra header:
 
    ***EXAMPLE 03D02_Table_ftgen.csd***
 
@@ -315,60 +337,61 @@ nchnls = 2
 0dbfs = 1
 
 giSine    ftgen     0, 0, 2^10, 10, 1
-giSaw     ftgen     0, 0, 2^10, 10, 1, 1/2, 1/3, 1/4, 1/5, 1/6, 1/7, 1/8, 1/9
+giSaw     ftgen     0, 0, 2^10, 10, 1, -1/2, 1/3, -1/4, 1/5, -1/6, 1/7, -1/8, 1/9
 giSquare  ftgen     0, 0, 2^10, 10, 1, 0, 1/3, 0, 1/5, 0, 1/7, 0, 1/9
 giTri     ftgen     0, 0, 2^10, 10, 1, 0, -1/9, 0, 1/25, 0, -1/49, 0, 1/81
 giImp     ftgen     0, 0, 2^10, 10, 1, 1, 1, 1, 1, 1, 1, 1, 1
 
-  instr 1 ;plays the sine wavetable
+  instr Sine
 aSine     poscil    .2, 400, giSine
 aEnv      linen     aSine, .01, p3, .05
           outs      aEnv, aEnv
   endin
 
-  instr 2 ;plays the saw wavetable
+  instr Saw
 aSaw      poscil    .2, 400, giSaw
 aEnv      linen     aSaw, .01, p3, .05
           outs      aEnv, aEnv
   endin
 
-  instr 3 ;plays the square wavetable
+  instr Square
 aSqu      poscil    .2, 400, giSquare
 aEnv      linen     aSqu, .01, p3, .05
           outs      aEnv, aEnv
   endin
 
-  instr 4 ;plays the triangular wavetable
+  instr Triangle
 aTri      poscil    .2, 400, giTri
 aEnv      linen     aTri, .01, p3, .05
           outs      aEnv, aEnv
   endin
 
-  instr 5 ;plays the impulse wavetable
+  instr Impulse
 aImp      poscil    .2, 400, giImp
 aEnv      linen     aImp, .01, p3, .05
           outs      aEnv, aEnv
   endin
 
-  instr 6 ;plays a sine and uses the first half of its shape as envelope
-aEnv      poscil    .2, 1/6, giSine
+  instr Sine_with_env
+aEnv      poscil    .2, (1/p3)/2, giSine
 aSine     poscil    aEnv, 400, giSine
           outs      aSine, aSine
   endin
 
 </CsInstruments>
 <CsScore>
-i 1 0 3
-i 2 4 3
-i 3 8 3
-i 4 12 3
-i 5 16 3
-i 6 20 3
+i "Sine" 0 3
+i "Saw" 4 3
+i "Square" 8 3
+i "Triangle" 12 3
+i "Impulse" 16 3
+i "Sine_with_env" 20 3
 </CsScore>
 </CsoundSynthesizer>
 ;Example by Joachim Heintz
 ~~~
 
+![](../resources/images/03-d-waveforms.png)
 
 How to Write Values to a Function Table
 ---------------------------------------
@@ -442,27 +465,29 @@ Instrument 2 simply prints all the values in a list to the terminal.
 </CsOptions>
 <CsInstruments>
 
-giFt      ftgen     0, 0, -12, -2, 0
+giFt ftgen 0, 0, 12, 2, 0
 
-  instr 1; calculates first 12 fibonacci values and writes them to giFt
-istart    =         1
-inext     =         2
-indx      =         0
-loop:
-          tableiw   istart, indx, giFt ;writes istart to table
-istartold =         istart ;keep previous value of istart
-istart    =         inext ;reset istart for next loop
-inext     =         istartold + inext ;reset inext for next loop
-          loop_lt   indx, 1, 12, loop
-  endin
+instr 1; calculates first 12 fibonacci values and writes them to giFt
+ istart = 1
+ inext =	 2
+ indx = 0
+ while indx < 12 do
+  tableiw istart, indx, giFt ;writes istart to table
+  istartold = istart ;keep previous value of istart
+  istart = inext ;reset istart for next loop
+  inext = istartold + inext ;reset inext for next loop
+  indx += 1
+ od
+endin
 
-  instr 2; prints the values of the table
-          prints    "%nContent of Function Table:%n"
-indx      init      0
-loop:
-ival      table     indx, giFt
-          prints    "Index %d = %f%n", indx, ival
-          loop_lt   indx, 1, ftlen(giFt), loop
+instr 2; prints the values of the table
+ prints "%nContent of Function Table:%n"
+ indx init 0
+ while indx < 12 do
+  ival table indx, giFt
+  prints "Index %d = %f%n", indx, ival
+  indx += 1
+ od
   endin
 
 </CsInstruments>
@@ -683,14 +708,14 @@ interpolates linearly, whilst
 interpolation (which is generally preferable but is computationally
 slightly more expensive) and when CPU cycles are no object,
 [tablexkt](http://www.csound.com/docs/manual/tablexkt.html) can be used
-for ultimate interpolating quality.[^3]
+for ultimate interpolating quality.[^4]
 
 Examples of the use of the
 [table](http://www.csound.com/docs/manual/table.html) opcodes can be
 found in the earlier examples in the *How to Write Values to a Function Table*
 section.
 
-[^3]:  For a general introduction about interpolation, see for instance
+[^4]:  For a general introduction about interpolation, see for instance
        http://en.wikipedia.org/wiki/Interpolation
 
 ### Oscillators
@@ -910,24 +935,16 @@ aindx     phasor    1/5
   endin
 
   instr 2; write the giAudio table to a soundfile
-Soutname  =         "testwrite.wav"; name of the output file
-iformat   =         14; write as 16 bit wav file
-itablen   =         ftlen(giAudio); length of the table in samples
-
-kcnt      init      0; set the counter to 0 at start
-loop:
-kcnt      =         kcnt+ksmps; next value (e.g. 10 if ksmps=10)
-andx      interp    kcnt-1; calculate audio index (e.g. from 0 to 9)
-asig      tab       andx, giAudio; read the table values as audio signal
-          fout      Soutname, iformat, asig; write asig to a file
- if kcnt <= itablen-ksmps kgoto loop; go back as long there is something to do
-          turnoff   ; terminate the instrument
+iDone  ftaudio giAudio, "testwrite.wav", -1
+if iDone==1 then
+ prints "FUNCTION TABLE WRITTEN TO FILE 'testwrite.wav'!%n"
+endif
   endin
 
 </CsInstruments>
 <CsScore>
 i 1 0 7
-i 2 7 .1
+i 2 7 0
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
@@ -979,24 +996,24 @@ this reason GEN08 is mostly used with post-normalisation turned on, i.e.
 a minus sign is not added to the GEN number when the function table is
 defined. Here are some examples of GEN08 tables:
 
-![](../resources/images/01-d-gen08-1.png)
+![](../resources/images/03-d-gen08-1.png)
 
 
     f 1 0 1024 8 0 1 1 1023 0
 
 
-![](../resources/images/01-d-gen08-2.png)
+![](../resources/images/03-d-gen08-2.png)
 
 
     f 2 0 1024 8 0 97 1 170 0.583 757 0
 
 
-![](../resources/images/01-d-gen08-3.png)
+![](../resources/images/03-d-gen08-3.png)
 
 
     f 3 0 1024 8 0 1 0.145 166 0.724 857 0
 
-![](../resources/images/01-d-gen08-4.png)
+![](../resources/images/03-d-gen08-4.png)
 
 
     f 4 0 1024 8 0 1 0.079 96 0.645 927 0
@@ -1019,31 +1036,31 @@ curves in rising segments and convex curves in falling segments. The
 opposite applies if the curvature value is negative. Below are some
 examples of GEN16 function tables:
 
-![](../resources/images/01-d-gen16-1.png)
+![](../resources/images/03-d-gen16-1.png)
 
 
     f 1 0 1024 16 0 512 20 1 512 20 0
 
 
-![](../resources/images/01-d-gen16-2.png)
+![](../resources/images/03-d-gen16-2.png)
 
 
     f 2 0 1024 16 0 512 4 1 512 4 0
 
 
-![](../resources/images/01-d-gen16-3.png)
+![](../resources/images/03-d-gen16-3.png)
 
 
     f 3 0 1024 16 0 512 0 1 512 0 0
 
 
-![](../resources/images/01-d-gen16-4.png)
+![](../resources/images/03-d-gen16-4.png)
 
 
     f 4 0 1024 16 0 512 -4 1 512 -4 0
 
 
-![](../resources/images/01-d-gen16-5.png)
+![](../resources/images/03-d-gen16-5.png)
 
 
     f 5 0 1024 16 0 512 -20 1 512 -20 0
@@ -1065,13 +1082,13 @@ the creation of functions for LFOs and window functions for envelopes in
 granular synthesis. Below are some examples of GEN19:
 
 
-![](../resources/images/01-d-gen19-1.png)
+![](../resources/images/03-d-gen19-1.png)
 
 
     f 1 0 1024 19 1 1 0 0 20 0.1 0 0
 
 
-![](../resources/images/01-d-gen19-2.png)
+![](../resources/images/03-d-gen19-2.png)
 
 
     f 2 0 1024 -19 0.5 1 180 1
@@ -1102,19 +1119,19 @@ actually a GEN07 generated sawtooth, the second two are GEN30
 band-limited versions of the first):
 
 
-![](../resources/images/01-d-gen30-1.png)
+![](../resources/images/03-d-gen30-1.png)
 
 
      f 1 0 1024 7 1 1024 -1
 
 
-![](../resources/images/01-d-gen30-2.png)
+![](../resources/images/03-d-gen30-2.png)
 
 
     f 2 0 1024 30 1 1 20
 
 
-![](../resources/images/01-d-gen30-3.png)
+![](../resources/images/03-d-gen30-3.png)
 
 
     f 3 0 1024 30 1 2 20

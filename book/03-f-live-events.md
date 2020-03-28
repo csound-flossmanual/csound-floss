@@ -1,6 +1,8 @@
 03 F. LIVE EVENTS
 =================
 
+*Note: This chapter is not about live coding. Live coding should be covered in future in an own chapter. For now, have a look at [live.csound.com](https://live.csound.com/) and Steven Yi's related [csound-live-code](https://github.com/kunstmusik/csound-live-code) repository.*
+
 The basic concept of Csound from the early days of the program is still
 valid and useful because it is a musically familiar one: you create a
 set of instruments and instruct them to play at various times. These

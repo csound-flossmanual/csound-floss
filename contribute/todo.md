@@ -23,9 +23,6 @@ Edits
     - demonstrate transforming the contents of a function table instantly 
       within a I or k-rate loop
     - look at interesting new gen routines for the overview
-    - show exporting tables as files (also in k-rate loop)
-- 03-f (live events)
-    - mention a new (to write) chapter about live coding
 - 04-a (additive)
     - perhaps add example of using an array or function table of partial data
       which is then sent to a recursive UDO from which an additive tone is
