@@ -23,10 +23,7 @@ Edits
     - demonstrate transforming the contents of a function table instantly 
       within a I or k-rate loop
     - look at interesting new gen routines for the overview
-- 04-a (additive)
-    - perhaps add example of using an array or function table of partial data
-      which is then sent to a recursive UDO from which an additive tone is
-      created
+    - new plots for it
 - 04-e (wave shaping)
     - in Powershape section add csd example for what has been described
     - standard polynomial and Chebyshev polynomial wave shaping – both using

@@ -13,8 +13,9 @@ to go about implementing additive synthesis. We shall endeavour to
 introduce some of them and to allude to how they relate to different
 programming paradigms.
 
-What are the Main Parameters of Additive Synthesis?
----------------------------------------------------
+
+Main Parameters of Additive Synthesis
+-------------------------------------
 
 Before examining various methods of implementing additive synthesis in
 Csound, we shall first consider what parameters might be required. As
@@ -60,19 +61,21 @@ sounds, but the task of first analysing and then attempting to imitate a
 sound can prove to be very useful when studying additive synthesis. This
 is what a guitar note looks like when spectrally analysed:
 
-![*<small>Spectral analysis of a guitar tone in time (courtesy of W. Fohl,
-Hamburg)</small>*](../resources/images/04-a-wf_v2.png)
+![Spectral analysis of a guitar tone in time (courtesy of W. Fohl,
+Hamburg)](../resources/images/04-a-wf_v2.png)
 
 Each partial possesses its own frequency movement and duration. We may
 or may not be able to achieve this successfully using additive
-synthesis. Let us begin with some simple sounds and consider how to go
+synthesis. We will begin with some simple sounds and consider how to go
 about programming this in Csound. Later we will look at some more
 complex sounds and the more advanced techniques required to synthesize
 them.
 
 
-Simple Additions of Sinusoids Inside an Instrument
---------------------------------------------------
+Different Methods for Additive Synthesis
+----------------------------------------
+
+### Simple Additions of Sinusoids Inside an Instrument
 
 If additive synthesis amounts to simply adding together sine generators,
 it is therefore straightforward to implement this by creating multiple
@@ -153,8 +156,7 @@ i 2 7 10   6.00      -13
 ~~~
 
 
-Simple Additions of Sinusoids via the Score
--------------------------------------------
+### Simple Additions of Sinusoids via the Score
 
 A typical paradigm in programming: if you are repeating lines of code
 with just minor variations, consider abstracting it in some way. In the
@@ -247,8 +249,7 @@ good practice in Csound coding. We will discuss later how this end can
 be achieved in a more elegant way.
 
 
-Creating Function Tables for Additive Synthesis
------------------------------------------------
+### Creating Function Tables for Additive Synthesis
 
 Before we continue, let us return to the first example and discuss a
 classic and abbreviated method for playing a number of partials. As we
@@ -367,7 +368,7 @@ nchnls = 2
 0dbfs = 1
 
 giImp  ftgen  1, 0, 4096, 10, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
-giSaw  ftgen  2, 0, 4096, 10, 1,1/2,1/3,1/4,1/5,1/6,1/7,1/8,1/9,1/10
+giSaw  ftgen  2, 0, 4096, 10, 1,-1/2,1/3,-1/4,1/5,-1/6,1/7,-1/8,1/9,-1/10
 giSqu  ftgen  3, 0, 4096, 10, 1, 0, 1/3, 0, 1/5, 0, 1/7, 0, 1/9, 0
 giTri  ftgen  4, 0, 4096, 10, 1, 0, -1/9, 0, 1/25, 0, -1/49, 0, 1/81, 0
 
@@ -388,8 +389,7 @@ i 1 12 3 4
 ~~~
 
 
-Triggering Instrument Events for the Partials
-----------------------------------------------
+### Triggering Instrument Events for the Partials
 
 Performing additive synthesis by designing partial strengths into
 function tables has the disadvantage that once a note has begun there is
@@ -402,7 +402,7 @@ approach: triggering one instance of a sub-instrument[^1]  for each
 partial, and exploring the possibilities of creating a spectrally
 dynamic sound using this technique.
 
-[1]:  This term is used here in a general manner. There is also a Csound
+[^1]:  This term is used here in a general manner. There is also a Csound
       opcode [subinstr](https://csound.com/docs/manual/subinstr.html),
       which has some more specific meanings.
 
@@ -507,14 +507,14 @@ endin
 ;Example by Joachim Heintz
 ~~~
 
+
 Although this instrument is rather primitive it is useful to be able to
 control the timbre in this way using key velocity. Let us continue to
 explore some other methods of creating parameter variation in additive
 synthesis.
 
 
-User-controlled Random Variations in Additive Synthesis
--------------------------------------------------------
+### Applying User-controlled Random Variations
 
 Natural sounds exhibit constant movement and change in the parameters we
 have so far discussed. Even the best player or singer will not be able
@@ -736,8 +736,95 @@ power of your computer. Have a look at chapter
 on getting the best possible performance from your Csound orchestra.
 
 
-gbuzz, buzz and GEN11
----------------------
+### Using a Recursive UDO
+
+A recursive User-Defines Opcode, as described in chapter [03 G](03-g-user-defined-opcodes.md), is an elegant way to accomplish the task of individually controlled partials in an additive synthesis. One instance of the UDO performs one partial. It calls the next instance recursively until the desired number of partials is there. The audio signals are added in the recursion.
+
+The next example demonstrates this in transforming the Risset bell code (04A07) to this approach. The coding style is more condensed here, so some comments are added after the code.
+
+
+   ***EXAMPLE 04A09_risset_bell_rec_udo.csd***
+
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-o dac -m128
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
+seed 0
+
+opcode AddSynth,a,i[]i[]iooo
+ /* iFqs[], iAmps[]: arrays with frequency ratios and amplitude multipliers
+ iBasFreq: base frequency (hz)
+ iPtlIndex: partial index (first partial = index 0)
+ iFreqDev, iAmpDev: maximum frequency (cent) and amplitude (db) deviation */
+ iFqs[], iAmps[], iBasFreq, iPtlIndx, iFreqDev, iAmpDev xin
+ iFreq = iBasFreq * iFqs[iPtlIndx] * cent(rnd31:i(iFreqDev,0))
+ iAmp = iAmps[iPtlIndx] * ampdb(rnd31:i(iAmpDev,0))
+ aPartial poscil iAmp, iFreq
+ if iPtlIndx < lenarray(iFqs)-1 then
+  aPartial += AddSynth(iFqs,iAmps,iBasFreq,iPtlIndx+1,iFreqDev,iAmpDev)
+ endif
+ xout aPartial
+endop
+
+;frequency and amplitude multipliers for 11 partials of Risset's bell
+giFqs[] fillarray  .56, .563, .92, .923, 1.19, 1.7, 2, 2.74, 3, 3.74, 4.07
+giAmps[] fillarray 1, 2/3, 1, 1.8, 8/3, 5/3, 1.46, 4/3, 4/3, 1, 4/3
+
+instr Risset_Bell
+ ibasfreq = p4
+ iamp = ampdb(p5)
+ ifqdev = p6 ;maximum freq deviation in cents
+ iampdev = p7 ;maximum amp deviation in dB
+ aRisset AddSynth giFqs, giAmps, ibasfreq, 0, ifqdev, iampdev
+ aRisset *= transeg:a(0, .01, 0, iamp/10, p3-.01, -10, 0)
+ out aRisset, aRisset
+endin
+
+instr PlayTheBells
+ iMidiPitch random 60,70
+ schedule("Risset_Bell",0,random:i(2,8),mtof:i(iMidiPitch),random:i(-30,-10),30,6)
+ if p4 > 0 then
+  schedule("PlayTheBells",random:i(1/10,1/4),1,p4-1)
+ endif
+endin
+
+</CsInstruments>
+<CsScore>
+;         base   db   frequency   amplitude 
+;         freq        deviation   deviation 
+;                      in cent     in dB    
+r 2 ;unchanged sound
+i 1 0 5   400    -6   0           0
+r 2 ;variations in frequency
+i 1 0 5   400    -6   50          0         
+r 2 ;variations in amplitude
+i 1 0 5   400    -6   0           10    
+s  
+i "PlayTheBells" 0 1 50 ;perform sequence of 50 bells
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+~~~
+
+Some comments:
+
+- Line 12-17: The main inputs are array with the frequencies *iFqs[]*, the array with the amplitudes *iAmps[]*, and the base frequency *iBasFreq*. The partial index *iPtlIndx* is by default zero, as well as the possible frequency and amplitude deviation of each partial.
+- Line 18-19: The appropriate frequency and amplitude multiplier is selected from the array as `iFqs[iPtlIndx]` and `iAmps[iPtlIndx]`. The deviations are   calculated for each partial by the [rnd31](https://csound.com/docs/manual/rnd31.html) opcode, a bipolar random generator which by default seeds from  system clock.
+- Line 21-23: The recursion is done if this is not the last partial. For the Risset bell it means: partials 0, 1, 2, ... are called until partial index 10. As index 10 is not smaller than the length of the frequency array (= 11) minus 1, it will not perform the recursion any more.
+- Line 37: The envelope is applied for the sum of all partials (again in functional style, see chapter [03 I](03-i-functional-syntax.md)), as we don't use individual durations here.
+- Line 41-47: The *PlayTheBells* instrument also uses recursion. It starts with p4=50 and calls the next instance of itself with p4=49, which in turn will call the next instance with p4=48, until 0 has been reached. The *Risset_Bell* instrument is scheduled with random values for duration, pitch and volume.
+
+
+Csound Opcodes for Additive Synthesis
+-------------------------------------
+
+### gbuzz, buzz and GEN11
 
 [gbuzz](http://www.csound.com/docs/manual/gbuzz.html) is useful for
 creating additive tones made of harmonically related cosine waves.
@@ -761,7 +848,7 @@ spectrogram/sonogram displays how this manifests spectrally. A linear
 frequency scale is employed in the spectrogram so that harmonic partials
 appear equally spaced.
 
-   ***EXAMPLE 04A09_gbuzz.csd***
+   ***EXAMPLE 04A10_gbuzz.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -809,7 +896,7 @@ In the next example the number of partials contained within the tone
 remains constant but the partial number of the lowest partial rises from
 1 to 20.
 
-   ***EXAMPLE 04A10_gbuzz_partials_rise.csd***
+   ***EXAMPLE 04A11_gbuzz_partials_rise.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -858,7 +945,7 @@ be heard (and seen in the spectrogram) how, when this value is zero,
 emphasis is on the lowermost partial and when this value is 2, emphasis
 is on the uppermost partial.
 
-   ***EXAMPLE 04A11_gbuzz_amp_coeff_rise.csd***
+   ***EXAMPLE 04A12_gbuzz_amp_coeff_rise.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -914,9 +1001,6 @@ possibility of using its waveforms in a variety of other opcodes.
 useful as a source for subtractive synthesis.
 
 
-Additional Interesting Opcodes for Additive Synthesis
------------------------------------------------------
-
 ### hsboscil
 
 The opcode [hsboscil](http://www.csound.com/docs/manual/hsboscil.html)
@@ -947,7 +1031,7 @@ which adds a frequency value to all partials thereby warping the
 interval between partials. Instrument 3 employs a more complex waveform
 (pseudo-inharmonic) as the source waveform for the partials.
 
-   ***EXAMPLE 04A12_hsboscil.csd***
+   ***EXAMPLE 04A13_hsboscil.csd***
 
 ~~~
 <CsoundSynthesizer>
