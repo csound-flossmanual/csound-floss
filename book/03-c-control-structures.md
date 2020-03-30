@@ -33,8 +33,8 @@ certain threshold, it is done at performance time (k-time). If we receive
 user-input by a scroll number, this is also a k-value, so we need a
 k-condition.
 
-Thus, all [if](https://csound.com/docs/manual/if.html) and
-[loop](https://csound.com/docs/manual/loop_lt.html) opcodes have an
+Thus, [if](https://csound.com/docs/manual/if.html) and
+[while](https://csound.com/docs/manual/while.html) as most used control structures have an
 *i* and a *k* descendant. In the next few sections, a general
 introduction into the different control tools is given, followed by
 examples both at i-time and at k-time for each tool.
@@ -47,7 +47,7 @@ programming languages. Note that in Csound, *then* must be written in
 the same line as *if* and the expression to be tested, and that you
 must close the if-block with an *endif* statement on a new line:
 
-    if \<condition\> then
+    if <condition> then
      ...
     else
      ...
@@ -55,15 +55,15 @@ must close the if-block with an *endif* statement on a new line:
 
 It is also possible to have no *else* statement:
 
-    if \<condition\> then
+    if <condition> then
      ...
     endif
 
 Or you can have one or more *elseif-then* statements in between:
 
-    if \<condition1\> then
+    if <condition1> then
      ...
-    elseif \<condition2\> then
+    elseif <condition2> then
      ...
     else
      ...
@@ -72,14 +72,14 @@ Or you can have one or more *elseif-then* statements in between:
 If statements can also be nested. Each level must be closed with an
 *endif*. This is an example with three levels:
 
-    if \<condition1\> then; first condition opened
-     if \<condition2\> then; second condition openend
-      if \<condition3\> then; third condition openend
+    if <condition1> then; first condition opened
+     if <condition2> then; second condition openend
+      if <condition3> then; third condition openend
        ...
       else
        ...
       endif; third condition closed
-     elseif \<condition2a\> then
+     elseif <condition2a> then
       ...
      endif; second condition closed
     else
@@ -241,7 +241,7 @@ condition is true. This is the general syntax:
 
 i-time
 
-    if \<condition\> igoto this; same as if-then
+    if <condition> igoto this; same as if-then
      igoto that; same as else
     this: ;the label "this" ...
     ...
@@ -253,7 +253,7 @@ i-time
 
 k-time
 
-    if \<condition\> kgoto this; same as if-then
+    if <condition> kgoto this; same as if-then
      kgoto that; same as else
     this: ;the label "this" ...
     ...
@@ -262,6 +262,8 @@ k-time
     ...
     continue: ;go on after the conditional branch
     ...
+
+In case raw *goto* is used, it is a combination of *igoto* and *kgoto*, so the condition is tested on both, initialization and performance pass.
 
 ### i-Rate Examples
 
@@ -306,9 +308,7 @@ i 1 0 0
 
 But if you want to play the file, you must also use a k-rate if-kgoto,
 because, not only do you have an event at i-time (initializing the
-soundin opcode) but also at k-time (producing an audio signal). So the
-code in this case is much more cumbersome, or obfuscated, than the
-previous if-then-else example.
+soundin opcode) but also at k-time (producing an audio signal). So *goto* must be used here, to combine *igoto* and *kgoto*.
 
    ***EXAMPLE 03C05\_IfGoto\_ik.csd***
 
@@ -326,15 +326,12 @@ nchnls = 2
   instr 1
 Sfile     =          "ClassGuit.wav"
 ifilchnls filenchnls Sfile
- if ifilchnls == 1 kgoto mono
-  kgoto stereo
- if ifilchnls == 1 igoto mono; condition if true
-  igoto stereo; else condition
+ if ifilchnls == 1 goto mono
+  goto stereo
 mono:
 aL        soundin    Sfile
 aR        =          aL
-          igoto      continue
-          kgoto      continue
+          goto      continue
 stereo:
 aL, aR    soundin    Sfile
 continue:
@@ -1397,8 +1394,7 @@ i "TimeLoop" 0 30
 ~~~
 
 
-Self-Triggering and Recursion
------------------------------
+### Self-Triggering and Recursion
 
 Another surprisingly simple method for a loop in time is self-triggering: When an instrument is called, it calls the next instance, so that an endless chain is created. The following example reproduces the previous one, but without the controlling *TimeLoop* instrument. Instead, at the end of instr *Play*, the next instance is called.
 
@@ -1448,6 +1444,7 @@ In our example, this problem has been solved the brutal way: to exit Csound. Muc
 
 
    ***EXAMPLE 03C26_recursion.csd***
+
 ~~~
 <CsoundSynthesizer>
 <CsOptions>
@@ -1485,13 +1482,6 @@ i "Play" 0 3 20
 Recursion is in particular important for User Defined Opcodes. Recursive UDOs will be explained in chapter [03 G](03-g-user-defined-opcodes.md). They follow the same principles as shown here.
 
 
-
-Links
------
-
-Steven Yi: Control Flow
-[Part I](http://csoundjournal.com/2006spring/controlFlow.html)
-[Part II](http://csoundjournal.com/2006summer/controlFlow_part2.html)
 
 [^1]: The modern way to solve this is to work with an audio array as
       output of diskin. But nevertheless the example shows a typical
