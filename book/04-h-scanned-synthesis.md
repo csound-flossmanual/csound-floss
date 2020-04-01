@@ -15,12 +15,12 @@ dynamic f-tables for use with other Csound opcodes.
 A Quick Scanned Synth
 ---------------------
 
-The quickest way to start using scanned synthesis is Matt Ingalls' opcode
+The quickest way to start using scanned synthesis is Matt Gilliard's opcode
 [scantable](https://csound.com/docs/manual/scantable.html).
 
-    a1 *scantable* iamp, kfrq, ipos, imass, istiff, idamp, ivel
+    a1 scantable kamp, kfrq, ipos, imass, istiff, idamp, ivel
 
-The arguments *iamp* and *kfrq* should be familiar, amplitude and
+The arguments *kamp* and *kfrq* should be familiar, amplitude and
 frequency respectively. The other arguments are f-table numbers
 containing data known in the scanned synthesis world as **profiles**.
 
@@ -37,13 +37,15 @@ user, profiles are a series of f-tables that set up the
 opcode. To the opcode, these f-tables influence the dynamic behavior of
 the table read by a table-lookup oscillator.
 
-    gipos ftgen 1, 0, 128, 10, 1 ;Initial Shape: Sine wave range -1 to 1
-    gimass ftgen 2, 0, 128, -7, 1, 1 ;Masses: Constant value 1
-    gistiff ftgen 3, 0, 128, -7, 50, 64, 100, 64, 0 ;Stiffness: Unipolar triangle range to 100
+    gipos ftgen 1, 0, 128, 10, 1 ;Position Initial Shape: Sine wave range -1 to 1
+    gimass ftgen 2, 0, 128, -7, 1, 128, 1 ;Masses: Constant value 1
+    gistiff ftgen 3, 0, 128, -7, 0, 64, 100, 64, 0 ;Stiffness: Unipolar triangle range to 100
     gidamp ftgen 4, 0, 128, -7, 1, 128, 1 ;Damping: Constant value 1
-    givel ftgen 5, 0, 128, -7, 0, 128, 0 ;Initial Velocity: Constant value 0
+    givel ftgen 5, 0, 128, -2, 0 ;Velocity: Initially constant value 0
 
-These tables need to be the same size as each other or Csound will
+![Initial function table profiles](../resources/images/04-h-scantable-1.png)
+
+All these tables need to be the same size; otherwise Csound will
 return an error.
 
 Run the following *.csd*. Notice that the sound starts off sounding like
@@ -51,7 +53,7 @@ our intial shape (a sine wave) but evolves as if there are filters,
 distortions or LFO's.
 
 
-   ***EXAMPLE 04H01_scantable.csd***
+   ***EXAMPLE 04H01_scantable_1.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -60,95 +62,81 @@ distortions or LFO's.
 </CsOptions>
 <CsInstruments>
 nchnls = 2
-sr=44100
+sr = 44100
 ksmps = 32
 0dbfs = 1
 
-gipos ftgen 1, 0, 128, 10, 1 ;Initial Shape, sine wave range -1 to 1
-gimass ftgen 2, 0, 128, -7, 1, 128, 1 ;Masses(adj.), constant value 1
-gistiff ftgen 3, 0, 128, -7, 50, 64, 100, 64, 0 ;Stiffness; unipolar triangle range 0 to 100
-gidamp ftgen 4, 0, 128, -7, 1, 128, 1 ;Damping; constant value 1
-givel ftgen 5, 0, 128, -7, 0, 128, 0 ;Initial Velocity; constant value 0
+gipos ftgen 1, 0, 128, 10, 1 ;position of the masses (initially: sine)
+gimass ftgen 2, 0, 128, -7, 1, 128, 1 ;masses: constant value 1
+gistiff ftgen 3, 0, 128, -7, 0, 64, 100, 64, 0 ;stiffness; triangle 0->100->0
+gidamp ftgen 4, 0, 128, -7, 1, 128, 1 ;damping; constant value 1
+givel ftgen 5, 0, 128, -2, 0 ;velocity; initially 0
 
- instr 1
-iamp = .7
-kfrq = 440
-a1 scantable iamp, kfrq, gipos, gimass, gistiff, gidamp, givel
-a1 dcblock2 a1
- outs a1, a1
- endin
+instr 1
+ iamp = .2
+ ifrq = 440
+ aScan scantable iamp, ifrq, gipos, gimass, gistiff, gidamp, givel
+ aOut linen aScan, 1, p3, 1
+ out aOut, aOut
+endin
 
 </CsInstruments>
 <CsScore>
-i 1 0 10
-e
+i 1 0 19
 </CsScore>
 </CsoundSynthesizer>
-;example by Christopher Saunders
+;example by Christopher Saunders and joachim heintz
 ~~~
 
-But as you see no effects or control signals in the .csd, just a synth!
+What happens in the *scantable* synthesis, is a constant change in the position (table *gipos*) and the velocity (table +givel*) of the mass particles. Here are three snapshots of these tables in the examples above:
 
-This is the power of scanned synthesis. It produces a dynamic spectrum
-with *just* an oscillator. Imagine now applying a scanned synthesis
-oscillator to all your favorite synth techniques - Subtractive,
-Waveshaping, FM, Granular and more.
+![Position and Velocity tables at 0, 8, 16 seconds](../resources/images/04-h-scantable-2.png)
 
-Recall from the subtractive synthesis technique, that the *shape* of
-the waveform of your oscillator has a huge effect on the way the
-oscillator sounds. In scanned synthesis, the shape is in motion and
-these f-tables control how the shape moves.
+The audio output of *scantable* is the result of oscillating through the *gipos* table. So we will achieve the same audible result with this code:
+
+
+   ***EXAMPLE 04H02_scantable_2.csd***
+
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-o dac
+</CsOptions>
+<CsInstruments>
+nchnls = 2
+sr = 44100
+ksmps = 32
+0dbfs = 1
+
+gipos ftgen 1, 0, 128, 10, 1 ;position of the masses (initially: sine)
+gimass ftgen 2, 0, 128, -7, 1, 128, 1 ;masses: constant value 1
+gistiff ftgen 3, 0, 128, -7, 0, 64, 100, 64, 0 ;stiffness; triangle 0->100->0
+gidamp ftgen 4, 0, 128, -7, 1, 128, 1 ;damping; constant value 1
+givel ftgen 5, 0, 128, -2, 0 ;velocity; initially 0
+
+instr 1
+ iamp = .2
+ ifrq = 440
+ a0 scantable 0, 0, gipos, gimass, gistiff, gidamp, givel
+ aScan poscil iamp, ifrq, gipos
+ aOut linen aScan, 1, p3, 1
+ out aOut, aOut
+endin
+
+</CsInstruments>
+<CsScore>
+i 1 0 19
+</CsScore>
+</CsoundSynthesizer>
+;example by Christopher Saunders and joachim heintz
+~~~
+
 
 
 Dynamic Tables
 --------------
 
-The [scantable](https://csound.com/docs/manual/scantable.html)
-opcode makes it easy to use dynamic f-tables in other csound opcodes.
-The example below sounds exactly like the above .csd, but it
-demonstrates how the f-table set into motion by scantable can be used by
-other csound opcodes.
-
-
-   ***EXAMPLE 04H02_Dynamic_tables.csd***
-
-~~~
-<CsoundSynthesizer>
-<CsOptions>
--o dac
-</CsOptions>
-<CsInstruments>
-nchnls = 2
-sr=44100
-ksmps = 32
-0dbfs = 1
-
-gipos      ftgen      1, 0, 128, 10, 1 ;Initial Shape, sine wave range -1 to 1;
-gimass     ftgen      2, 0, 128, -7, 1, 128, 1 ;Masses(adj.), constant value 1
-gistiff    ftgen      3, 0, 128, -7, 50, 64, 100, 64, 0 ;Stiffness; unipolar triangle range 0 to 100
-gidamp     ftgen      4, 0, 128, -7, 1, 128, 1 ;Damping; constant value 1
-givel      ftgen      5, 0, 128, -7, 0, 128, 0 ;Initial Velocity; constant value 0
-
-instr 1
-iamp       =          .7
-kfrq       =          440
-a0         scantable  iamp, kfrq, gipos, gimass, gistiff, gidamp, givel ;
-a1         oscil3     iamp, kfrq, gipos
-a1         dcblock2   a1
-           outs       a1, a1
-endin
-</CsInstruments>
-<CsScore>
-i 1 0 10
-e
-</CsScore>
-</CsoundSynthesizer>
-;example by Christopher Saunders
-~~~
-
-Above we use a table-lookup oscillator to periodically read a dynamic
-table.
-
+We can use table which is changed by *scantable* dynamically for any context. 
 Below is an example of using the values of an f-table generated by *scantable*
 to modify the amplitudes of an fsig, a signal type in csound which
 represents a spectral signal.
@@ -163,51 +151,55 @@ represents a spectral signal.
 </CsOptions>
 <CsInstruments>
 nchnls = 2
-sr=44100
+sr = 44100
 ksmps = 32
 0dbfs = 1
 
-gipos      ftgen      1, 0, 128, 10, 1                  ;Initial Shape, sine wave range -1 to 1;
-gimass     ftgen      2, 0, 128, -7, 1, 128, 1          ;Masses(adj.), constant value 1
-gistiff    ftgen      3, 0, 128, -7, 50, 64, 100, 64, 0 ;Stiffness; unipolar triangle range 0 to 100
-gidamp     ftgen      4, 0, 128, -7, 1, 128, 1          ;Damping; constant value 1
-givel      ftgen      5, 0, 128, -7, 0, 128, 0          ;Initial Velocity; constant value 0
-gisin      ftgen      6, 0,8192, 10, 1                  ;Sine wave for buzz opcode
+gipos ftgen 0,0,128,10,1,1,1,1,1,1     ;Initial Position Shape: impulse-like
+gimass ftgen 0,0,128,-5,0.0001,128,.01 ;Masses: exponential from 0.0001 to 0.01
+gistiff ftgen 0,0,128,-7,0,64,100,64,0 ;Stiffness; triangle range 0 to 100
+gidamp ftgen 0,0,128,-7,1,128,1        ;Damping; constant value 1
+givel ftgen 0,0,128,-7,0,128,0         ;Initial Velocity; constant value 0
+gisin ftgen 0,0,8192,10,1              ;Sine wave for buzz opcode
 
 instr 1
-iamp       =          .7
+iamp       =          .2
 kfrq       =          110
-a1         buzz       iamp, kfrq, 32, gisin
-           outs       a1, a1
+aBuzz      buzz       iamp, kfrq, 32, gisin
+aBuzz      linen      aBuzz, .1, p3, 1
+           out        aBuzz, aBuzz
 endin
 instr 2
-iamp       =          .7
+iamp       =          .4
 kfrq       =          110
-a0         scantable  1, 10, gipos, gimass, gistiff, gidamp, givel ;
+a0         scantable  0, 0, gipos, gimass, gistiff, gidamp, givel
 ifftsize   =          128
 ioverlap   =          ifftsize / 4
 iwinsize   =          ifftsize
 iwinshape  =          1; von-Hann window
-a1         buzz       iamp, kfrq, 32, gisin
-fftin      pvsanal    a1, ifftsize, ioverlap, iwinsize, iwinshape; fft-analysis of file
-fmask      pvsmaska   fftin, 1, 1
-a2         pvsynth    fmask; resynthesize
-           outs       a2, a2
+aBuzz      buzz       iamp, kfrq, 32, gisin
+fBuzz      pvsanal    aBuzz, ifftsize, ioverlap, iwinsize, iwinshape; fft-analysis
+fMask      pvsmaska   fBuzz, gipos, 1
+aOut       pvsynth    fMask; resynthesize
+aOut       linen      aOut, .1, p3, 1
+           out        aOut, aOut
 endin
 </CsInstruments>
 <CsScore>
 i 1 0 3
-i 2 5 10
-e
+i 2 4 20
 </CsScore>
 </CsoundSynthesizer>
-;Example by Christopher Saunders
+;Example by Christopher Saunders and joachim heintz
 ~~~
 
 In this .csd, the score plays instrument 1, a normal buzz sound, and
-then the score plays instrument 2 -- the same buzz sound re-synthesized
+then the score plays instrument 2 — the same buzz sound re-synthesized
 with amplitudes of each of the 128 frequency bands, controlled by a
-dynamic f-table.
+dynamic function table which is generated by *scantable*. Compared to the first example, two tables have been changed. The initial positions are an impulse-like wave form, and the masses are between 1/10000 and 1/10 in exponential rise.
+
+![](../resources/images/04-h-scantable-3.png)
+
 
 
 A More Flexible Scanned Synth
@@ -228,16 +220,16 @@ table in ways a table-lookup oscillator cannot.
 
 *Scanu* takes 18 arguments and sets a table into motion.
 
-     *scanu* ipos, irate, ifnvel, ifnmass, ifnstif, ifncentr, ifndamp, kmass, kstif, kcentr, kdamp, ileft, iright, kpos, kstrngth, ain, idisp, id
+     scanu ipos, irate, ifnvel, ifnmass, ifnstif, ifncentr, ifndamp, kmass,
+       kstif, kcentr, kdamp, ileft, iright, kpos, kstrngth, ain, idisp, id
 
 For a detailed description of what each argument does, see the
 [Csound Reference Manual](https://csound.com/docs/manual/scanu.html);
 I will discuss the various types of arguments in the opcode.
 
-The first set of arguments - *ipos, irate, ifnvel, ifnmass, ifnstiff,
+The first set of arguments - *ipos, ifnvel, ifnmass, ifnstiff,
 ifncenter*, and *ifndamp* - are f-tables describing the profiles,
-similar to the profile arguments for *scantable*. *Scanu* takes 6
-f-tables instead of *scantable's* 5. Like for *scantable*, the same size is required for each of these tables.
+similar to the profile arguments for *scantable*. Like for *scantable*, the same size is required for each of these tables.
 
 An exception to this size requirement is the *ifnstiff* table. This
 table is the size of the other profiles squared. If the other f-tables
@@ -331,18 +323,17 @@ by adjusting the start time of the f-events in the score.
 </CsOptions>
 <CsInstruments>
 sr=44100
-kr=4410
-ksmps=10
+ksmps=32
 nchnls=2
 0dbfs=1
 
 instr 1
 ipos       ftgen      1, 0, 128, 10, 1 ; Initial Shape, sine wave range -1 to 1;
 imass      ftgen      2, 0, 128, -7, 1, 128, 1 ;Masses(adj.), constant value 1
-istiff     ftgen      3, 0, 128, -7, 50, 64, 100, 64, 0 ;Stiffness; unipolar triangle range 0 to 100
+istiff     ftgen      3, 0, 128, -7, 0, 64, 100, 64, 0 ;Stiffness; unipolar triangle range 0 to 100
 idamp      ftgen      4, 0, 128, -7, 1, 128, 1; ;Damping; constant value 1
 ivel       ftgen      5, 0, 128, -7, 0, 128, 0 ;Initial Velocity; constant value 0
-iamp       =          0.5
+iamp       =          0.2
 a1         scantable  iamp, 60, ipos, imass, istiff, idamp, ivel
            outs       a1, a1
 endin
@@ -449,7 +440,7 @@ label becomes the number of an f-table that can be used by any other
 opcode in Csound, like we did with *scantable* earlier in this chapter.
 
 We could then use
-[oscil](https://csound.com/docs/manual/oscil.html)
+[poscil](https://csound.com/docs/manual/poscil.html)
 to perform a table lookup algorithm to make sound out of
 [scanu](https://csound.com/docs/manual/scanu.html)
 (as long as id is negative), but *scanu* has a companion opcode,
@@ -463,8 +454,8 @@ Scan Trajectories
 -----------------
 
 One thing we have taken for granted so far with
-[oscil](https://csound.com/docs/manual/oscil.html)
-is that the wave table is read front to back. If you regard *oscil* as a
+[poscil](https://csound.com/docs/manual/poscil.html)
+is that the wave table is read front to back. If you regard *poscil* as a
 phasor and table pair, the first index of the table is always read first
 and the last index is always read last as in the example below:
 
@@ -477,10 +468,8 @@ and the last index is always read last as in the example below:
 -o dac
 </CsOptions>
 <CsInstruments>
-
 sr=44100
-kr=4410
-ksmps=10
+ksmps=32
 nchnls=2
 0dbfs=1
 
@@ -491,7 +480,6 @@ outs a1*.2, a1*.2
 endin
 </CsInstruments>
 <CsScore>
-
 f1 0 8192 10 1
 i 1 0 4
 </CsScore>
@@ -513,19 +501,18 @@ But what if we wanted to read the table indices back to front, or even
 </CsOptions>
 <CsInstruments>
 sr=44100
-kr=4410
-ksmps=10
-nchnls=2 ; STEREO
+ksmps=32
+nchnls=2
 0dbfs=1
+
 instr 1
 andx phasor 440
-andx table andx*8192, 1  ; read the table out of order!
-a1   table andx*8192, 1
-outs a1*.2, a1*.2
+andx table andx*8192, 2  ; read the table out of order!
+aOut table andx*8192, 1
+outs aOut*.2, aOut*.2
 endin
 </CsInstruments>
 <CsScore>
-
 f1 0 8192 10 1
 f2 0 8192 -5 .001 8192 1;
 i 1 0 4
@@ -535,10 +522,9 @@ i 1 0 4
 ~~~
 
 
-We are still dealing with 2-dimensional arrays, or f-tables as we know
+We are still dealing with 1-dimensional arrays, or f-tables as we know
 them. But if we remember back to our conversation about the scanned
-matrix, matrices are multi-dimensional, it would be a shame to only read
-them in "2D".
+matrix, matrices are multi-dimensional.
 
 The opcode
 [scans](https://csound.com/docs/manual/scans.html)
@@ -547,7 +533,7 @@ telling the phasor/table combination to read values non-consecutively.
 We could read these values, not left to right, but in a spiral order, by
 specifying a table to be the *ifntraj* argument of *scans*.
 
-    a3 *scans* iamp, kpch, ifntraj ,id , interp
+    a3 scans iamp, kpch, ifntraj ,id , interp
 
 An f-table for the spiral method can generated by reading the ASCII file
 *spiral-8,16,128,2,1over2* by GEN23
@@ -571,7 +557,7 @@ The following .csd requires that the files *circularstring-128* and
 <CsInstruments>
 nchnls = 2
 sr = 44100
-ksmps = 10
+ksmps = 32
 0dbfs = 1
 instr 1
 ipos ftgen 1, 0, 128, 10, 1
@@ -597,7 +583,6 @@ scanu 1,.007,6,2,3,4,5, 2, 1.10 ,.10 ,0 ,.1 ,.5, 0, 0,ain,1,2;
 iamp = .2
 ifreq = 200
 a1 scans iamp, ifreq, 7, id
-a1 dcblock a1
 outs a1, a1
 endin
 </CsInstruments>
@@ -606,7 +591,7 @@ f7 0 128 -7 0 128 128
 i 1 0 5
 f7 5 128 -23 "spiral-8,16,128,2,1over2"
 i 1 5 5
-f7 10 128 -7 127 64 1 63 127
+f7 10 128 -7 127 64 0 64 127
 i 1 10 5
 </CsScore>
 </CsoundSynthesizer>
@@ -614,7 +599,9 @@ i 1 10 5
 ~~~
 
 
-Notice that the scan trajectory has an FM-like effect on the sound.
+Notice that the scan trajectory has an FM-like effect on the sound. These are the three different *f7* tables which are started in the score:
+
+![](../resources/images/04-h-scanu.png)
 
 
 Table Size and Interpolation
@@ -630,67 +617,6 @@ trajectory tables must be of size 128, and contain values from 0 to 127.
 One can use larger or smaller tables, but their sizes must agree in this
 way or Csound will give you an error. Larger tables, of course
 significantly increase CPU usage and slow down real-time performance.
-
-If all the sizes are multiples of a number (128), we can use Csound's
-Macro language extension to define the table size as a macro, and then
-change the definition twice (once for the orc and once for the score)
-instead of 10 times.
-
-
-   ***EXAMPLE 04H08_Scan_tablesize.csd***
-
-~~~
-<CsoundSynthesizer>
-<CsOptions>
--o dac
-</CsOptions>
-<CsInstruments>
-nchnls = 2
-sr = 44100
-ksmps = 10
-0dbfs = 1
-#define SIZE #128#
-instr 1
-ipos ftgen 1, 0, $SIZE., 10, 1
-irate = .005
-ifnvel ftgen 6, 0, $SIZE., -7, 0, $SIZE., 0
-ifnmass ftgen 2, 0, $SIZE., -7, 1, $SIZE., 1
-ifnstif ftgen 3, 0, $SIZE.*$SIZE.,-23, "circularstring-$SIZE."
-ifncentr ftgen 4, 0, $SIZE., -7, 0, $SIZE., 2
-ifndamp ftgen 5, 0, $SIZE., -7, 1, $SIZE., 1
-imass = 2
-istif = 1.1
-icentr = .1
-idamp = -0.01
-ileft = 0.
-iright = .5
-ipos = 0.
-istrngth = 0.
-ain = 0
-idisp = 0
-id = 8
-
-scanu 1, irate, ifnvel, ifnmass, ifnstif, ifncentr, ifndamp, imass, istif, icentr, idamp, ileft, iright, ipos, istrngth, ain, idisp, id
-scanu 1,.007,6,2,3,4,5, 2, 1.10 ,.10 ,0 ,.1 ,.5, 0, 0,ain,1,2;
-iamp = .2
-ifreq = 200
-a1 scans iamp, ifreq, 7, id, 4
-a1 dcblock a1
-outs a1, a1
-endin
-</CsInstruments>
-<CsScore>
-#define SIZE #128#
-f7 0 $SIZE. -7 0 $SIZE. $SIZE.
-i 1 0 5
-f7 5 $SIZE. -7 0 63 [$SIZE.-1] 63 0
-i 1 5 5
-f7 10 $SIZE. -7 [$SIZE.-1] 64 1 63 [$SIZE.-1]
-i 1 10 5
-</CsScore>
-</CsoundSynthesizer>
-;example by Christopher Saunders
-~~~
 
 When using smaller size tables it may be necessary to use interpolation
 to avoid the artifacts of a small table. *scans* gives us this option as
@@ -714,10 +640,10 @@ as a misplaced decimal point.
 
 **Warning: the following .csd is hot, it produces massively loud
 amplitude values. Be very cautious about rendering this .csd, I highly
-recommend rendering to a file instead of real-time.**
+recommend rendering to a file instead of real-time. Only uncomment line 43 when you know what you do!**
 
 
-   ***EXAMPLE 04H09_Scan_extreme_amplitude.csd***
+   ***EXAMPLE 04H08_Scan_extreme_amplitude.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -728,7 +654,7 @@ recommend rendering to a file instead of real-time.**
 
 nchnls = 2
 sr = 44100
-ksmps = 256
+ksmps = 32
 0dbfs = 1
 ;NOTE THIS CSD WILL NOT RUN UNLESS
 ;IT IS IN THE SAME FOLDER AS THE FILE "STRING-128"
@@ -794,7 +720,8 @@ to listen to sine wave (a signal with consistent, safe amplitude) and
 squash down our extremely loud scanned synth output (which is loud only
 because of our intentional carelessness.)
 
-    ***EXAMPLE 04H10_Scan_balanced_amplitudes.csd***
+
+   ***EXAMPLE 04H09_Scan_balanced_amplitudes.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -839,7 +766,7 @@ ifn ftgen 7, 0, 128, -5, .001, 128, 128.
 a1 scans kamp, kfreq, ifn, id
 a1 dcblock2 a1
 ifnsine ftgen 8, 0, 8192, 10, 1
-a2 oscil kamp, kfreq, ifnsine
+a2 poscil kamp, kfreq, ifnsine
 a1 balance a1, a2
 iatt = .005
 idec = 1

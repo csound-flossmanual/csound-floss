@@ -12,6 +12,7 @@ The whole text has been revised. Many figures have been substituted or added. Ma
 - [03 E Arrays](03-e-arrays.md)
 - [04 C AM](04-c-amplitude-and-ring-modulation.md)
 - [04 D FM](04-d-frequency-modulation.md) (thanks to Marijana Janevska)
+- [04 H Scanned Synthesis](04-h-scanned-synthesis.md)
 - [05 I FFT](05-i-fourier-analysis-spectral-processing.md)
 - [10 B Cabbage](10-b-cabbage.md) (thanks to Rory Walsh)
 - [12 A Csound API](12-a-the-csound-api.md) (thanks to François Pinot)

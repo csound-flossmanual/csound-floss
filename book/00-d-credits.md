@@ -103,7 +103,7 @@ Iain McCurdy
 Joachim Heintz, Iain McCurdy, Martin Neukom
 
 *H. SCANNED SYNTHESIS*
-Christopher Saunders
+Christopher Saunders. Joachim Heintz
 
 
 #### 05 SOUND MODIFICATION
