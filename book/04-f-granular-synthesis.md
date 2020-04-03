@@ -1,24 +1,90 @@
 04 F. GRANULAR SYNTHESIS
 ========================
 
+In his *Computer Music Tutorial*, Curtis Roads gives an interesting introductory model for granular synthesis. A sine as source waveform is modified by a repeating envelope. Each envelope period creates one grain.
+
+![After Curtis Roads, Computer Music Tutorial, Fig. 5.11](../resources/images/04-f-roads.png){width=50%}
+
+In our introductory example, we will start with 1 Hz as frequency for the envelope opscillator, then rising to 10 Hz, then to 20, 50 and finally 300 Hz. The grain durations are therefore 1 second, then 1/10 second, then 1/20, 1/50 and 1/300 second. In a second run, we will use the same values, but add a random value to the frequency of the envelope generator, thus avoiding regularities.
+
+   ***EXAMPLE 04F01_GranSynthIntro.csd***
+
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-o dac -m128
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
+
+giEnv ftgen 0, 0, 8192, 9, 1/2, 1, 0 ;half sine as envelope
+
+instr EnvFreq
+ printf "   Envelope frequency rising from %d to %d Hz\n", 1, p4, p5
+ gkEnvFreq expseg p4, 3, p4, 2, p5
+endin
+
+instr GrainGenSync
+ puts "\nSYNCHRONOUS GRANULAR SYNTHESIS", 1
+ aEnv poscil .2, gkEnvFreq, giEnv
+ aOsc poscil aEnv, 400
+ aOut linen aOsc, .1, p3, .5
+ out aOut, aOut
+endin
+
+instr GrainGenAsync
+ puts "\nA-SYNCHRONOUS GRANULAR SYNTHESIS", 1
+ aEnv poscil .2, gkEnvFreq+randomi:k(0,gkEnvFreq,gkEnvFreq), giEnv
+ aOsc poscil aEnv, 400
+ aOut linen aOsc, .1, p3, .5
+ out aOut, aOut
+endin
+
+</CsInstruments>
+<CsScore>
+i "GrainGenSync" 0 30
+i "EnvFreq" 0 5 1 10
+i . + . 10 20
+i . + . 20 50
+i . + . 50 100
+i . + . 100 300
+b 31
+i "GrainGenAsync" 0 30
+i "EnvFreq" 0 5 1 10
+i . + . 10 20
+i . + . 20 50
+i . + . 50 100
+i . + . 100 300
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+~~~
+
+We hear different characteristics, due to the regular or irregular sequence of the grains. To understand what happens, we will go deeper in this matter and advance to a more flexible model for grain generation.
+
+
+
 Concept Behind Granular Synthesis
 ---------------------------------
 
-Granular synthesis is a technique in which a source sound or waveform is
+Granular synthesis can in general be described as a technique in which a source sound or waveform is
 broken into many fragments, often of very short duration, which are then
 restructured and rearranged according to various patterning and
 indeterminacy functions.
 
-If we imagine the simplest possible granular synthesis algorithm in
-which a precise fragment of sound is repeated with regularity, there are
-two principle attributes of this process that we are most concerned
+If we 
+repeat a fragment of sound with regularity, there are
+two principle attributes that we are most concerned
 with. Firstly the duration of each sound grain is significant: if the
 grain duration if very small, typically less than 0.02 seconds, then
 less of the characteristics of the source sound will be evident. If the
 grain duration is greater than 0.02 then more of the character of the
 source sound or waveform will be evident. Secondly the rate at which
 grains are generated will be significant: if grain generation is below
-20 hertz, i.e. less than 20 grains per second, then the stream of grains
+20 Hertz, i.e. less than 20 grains per second, then the stream of grains
 will be perceived as a rhythmic pulsation; if rate of grain generation
 increases beyond 20 Hz then individual grains will be harder to
 distinguish and instead we will begin to perceive a buzzing tone, the
@@ -61,7 +127,7 @@ periodicity is referred to as synchronous granular synthesis. Granular
 synthesis in which this periodicity is not evident is referred to as
 asynchronous granular synthesis.
 
-   ***EXAMPLE 04F01_GranSynth_basic.csd***
+   ***EXAMPLE 04F02_GranSynth_basic.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -141,7 +207,7 @@ values are stored in function tables in the FOF synthesis example.
 GEN07, which produces linear break point envelopes, is chosen as we will
 then be able to morph continuously between vowels.
 
-   ***EXAMPLE 04F02_Fof_vowels.csd***
+   ***EXAMPLE 04F03_Fof_vowels.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -344,7 +410,7 @@ grain, grain duration, spatial location etc. can be similarly modulated
 with random functions to offset the psychoacoustic effects of
 synchronicity when using constant values.
 
-   ***EXAMPLE 04F03_Asynchronous_GS.csd***
+   ***EXAMPLE 04F04_Asynchronous_GS.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -434,7 +500,7 @@ Current values for formant (cps), grain duration, density and waveform
 are printed to the terminal every second. The key for waveforms is:
 1:sawtooth; 2:square; 3:triangle; 4:pulse; 5:buzz.
 
-   ***EXAMPLE 04F04_grain3.csd***
+   ***EXAMPLE 04F05_grain3.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -506,7 +572,7 @@ time grain size is relatively large:0.8 seconds and density
 correspondingly low: 20 Hz.
 
 
-   ***EXAMPLE 04F05_grain3_random.csd***
+   ***EXAMPLE 04F06_grain3_random.csd***
 
 ~~~
 <CsoundSynthesizer>

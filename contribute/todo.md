@@ -20,29 +20,21 @@ Edits
 - 01-d (random)
     - perhaps give more connection to csound
 - 03-d (tables)
-    - demonstrate transforming the contents of a function table instantly 
-      within a I or k-rate loop
     - look at interesting new gen routines for the overview
     - new plots for it
 - 04-e (wave shaping)
-    - in Powershape section add csd example for what has been described
     - standard polynomial and Chebyshev polynomial wave shaping – both using
       the opcodes and function tables
     - Tanh waveshaping, both using the function tanh() and a function table
       GEN “tanh”
-- 04-f (granular) 
-    - perhaps start with some basic example like curtis roads
 - 04-g (physical models)
     - maybe add prepiano and platerev examples
     - modal synthesis to mention here?
-- 04-h (scanned)
-    - should be revised
 - 05-a (envelopes)
     - add figures before and after example 05A05 (line/linseg and line/expon)
     - also before 05A07
     - add envelopes stored as function tables
 - 05-b (spatial)
-    - better sound for 05B01
     - ambi udos: array output wherever possible
 - 05-c (filter)
     - perhaps add notch, shelf filter and equilizers

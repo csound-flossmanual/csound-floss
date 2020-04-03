@@ -154,6 +154,37 @@ The sonograms of the five examples shown above are as shown below:
 
 ![](../resources/images/04-e-sonograms2.png)
 
+   ***EXAMPLE 04E02_Powershape.csd***
+
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-o dac
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
+
+instr Powershape
+ iAmp = 0.2
+ iFreq = 300
+ aIn poscil iAmp, iFreq
+ ifullscale = iAmp
+ kShapeAmount linseg 1, 1.5, 1, .5, p4, 1.5, p4, .5, p5
+ aOut powershape aIn, kShapeAmount, ifullscale
+ out aOut, aOut
+endin
+</CsInstruments>
+<CsScore>
+i "Powershape" 0 6 2.5 50
+i "Powershape" 7 6 0.5 0.1
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+~~~
+
 As power (shape amount) is increased from 1 through 2.5 to 50, it can be
 observed how harmonic partials are added. It is worth noting also that
 when the power exponent is 50 the strength of the fundamental has waned
@@ -223,7 +254,7 @@ provided for *start* and *end* only alter the shape.
 In the following test example a sine wave at 200 hz is waveshaped using
 distort and the tanh function shown above.
 
-   ***EXAMPLE 04E02_Distort_1.csd***
+   ***EXAMPLE 04E03_Distort_1.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -267,7 +298,7 @@ partials are present at 600, 1000, 1400 hz and so on. If we want to
 restore the even numbered partials we can simultaneously waveshape a
 sine at 400 hz, one octave above the fundamental as in the next example:
 
-   ***EXAMPLE 04E03_Distort_2.csd***
+   ***EXAMPLE 04E04_Distort_2.csd***
 
 ~~~
 <CsoundSynthesizer>
