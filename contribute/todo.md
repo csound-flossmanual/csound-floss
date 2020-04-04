@@ -31,8 +31,6 @@ Edits
     - maybe add prepiano and platerev examples
     - modal synthesis to mention here?
 - 05-a (envelopes)
-    - add figures before and after example 05A05 (line/linseg and line/expon)
-    - also before 05A07
     - add envelopes stored as function tables
 - 05-b (spatial)
     - ambi udos: array output wherever possible

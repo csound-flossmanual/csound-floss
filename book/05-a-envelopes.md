@@ -253,6 +253,7 @@ i 2 5 4 ; line envelope
 ;example by Iain McCurdy and joachim heintz
 ~~~
 
+![](../resources/images/05-a-line-linseg.png)
 
 [expon](https://csound.com/docs/manual/expon.html) and
 [expseg](https://csound.com/docs/manual/expseg.html) are versions of
@@ -307,6 +308,7 @@ i 2 2 1 ; expon envelope
 ;example by Iain McCurdy
 ~~~
 
+![](../resources/images/05-a-line-expon.png)
 
 The nearer our *near-zero* values are to zero the quicker the curve
 will appear to reach zero. In the next example smaller and smaller
@@ -346,6 +348,8 @@ e
 </CsoundSynthesizer>
 ;example by Iain McCurdy
 ~~~
+
+![](../resources/images/05-a-expseg-versions.png)
 
 Note that *expseg* does not behave like linseg in that it will not hold
 its last final value if p3 exceeds its entire duration, instead it
