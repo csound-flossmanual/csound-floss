@@ -43,8 +43,6 @@ Edits
 - 05-d (delay)
     - add vdelay opcodes etc
     - add steven's basic implementation [1]
-- 05-e (reverb)
-    - add figures showing function table contents in the last example 05F04
 - 05-g (granular)
     - a step-by-step description can be added at the end
 - 05-h (convolution)

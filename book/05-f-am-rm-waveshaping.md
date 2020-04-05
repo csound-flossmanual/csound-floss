@@ -195,7 +195,9 @@ Instead of using the "self-built" method which has been described
 here, you can use the Csound opcode
 [distort](https://csound.com/docs/manual/distort.html). It performs
 the actual waveshaping process and gives a nice control about the amount
-of distortion in the *kdist* parameter. Here is a simple example:
+of distortion in the *kdist* parameter. Here is a simple example, using rather different tables:
+
+![](../resources/images/05-f-example-4.png)
 
 
    ***EXAMPLE 05F04_distort.csd***
