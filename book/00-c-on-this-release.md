@@ -24,13 +24,14 @@ The chapter about amplitude and pitch tracking has now been moved to [14 C](14-c
 
 The explanations and examples try to find a balance between *no previous knowledge* (as basic as possible) and *interesting also for advanced users* (as elaborate as possible). On the one hand certainly an impossible mission, but to put it as request to the reader: Please tolerate that some examples may be either too simple or too complex for you -- it cannot be different.
 
-
 Since the first release of this textbook in 2010, Iain McCurdy was my compagnion in the attempt to keep it up to date and improve it. He showed us all how Csound can sound, and the best parts of this book (both descriptions and examples) are his work. His inexhaustible collection of [Csound Realtime Examples](http://iainmccurdy.org/csound.html) should be used all the time, in my opinion.
 
 Previous releases can be found at <http://files.csound-tutorial.net/floss_manual>, as well as the current csd files and audio samples.
 
 I hope the ones who still enjoy reading texts find this resource useful to learn more about music and realizing their music in Csound.
 
-Hannover, April 2020  
+This release is dedicated to the memory of Eugenio Giordani, collegue, friend, pioneer of computer music in Italy and one of the hosts of the memorable Csound Conference 2019 in Cagli. He passed away two days ago as one of the victims of the corona epidemic. I hope he would have enjoyed the development of this textbook.
+
+Hannover, April 6, 2020  
 joachim heintz
 
