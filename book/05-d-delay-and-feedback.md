@@ -67,7 +67,7 @@ delayed signal is attenuated with respect to the input signal.
 <CsInstruments>
 sr = 44100
 ksmps = 32
-nchnls = 1
+nchnls = 2
 0dbfs = 1
 
   instr 1
@@ -82,7 +82,8 @@ aBufOut delayr   0.3
         delayw   aSig
 
 ; -- send audio to output (input and output to the buffer are mixed)
-        out      aSig + (aBufOut*0.4)
+aOut    =        aSig + (aBufOut*0.4)
+        out      aOut/2, aOut/2
   endin
 
 </CsInstruments>
@@ -118,7 +119,7 @@ example implements a simple delay with feedback.
 <CsInstruments>
 sr = 44100
 ksmps = 32
-nchnls = 1
+nchnls = 2
 0dbfs = 1
 
   instr 1
@@ -135,7 +136,8 @@ aBufOut delayr   0.3                    ; read audio from end of buffer
         delayw   aSig+(aBufOut*iFdback)
 
 ; send audio to output (mix the input signal with the delayed signal)
-        out      aSig + (aBufOut*0.4)
+aOut    =        aSig + (aBufOut*0.4)
+        out      aOut/2, aOut/2
   endin
 
 </CsInstruments>
@@ -144,6 +146,42 @@ i 1 0 25
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
+~~~
+
+An alternative for implementing a simple delay-feedback line in Csound would be to use the [delay](https://csound.com/docs/manual/delay.html) opcode. This is the same example done in this way:
+
+   ***EXAMPLE 05D03_delay_feedback_2.csd***
+
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-odac
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
+
+  instr 1
+kEnv    loopseg  0.5,0,0,0,0.0005,1,0.1,0,1.9,0,0
+kCps    randomh  400, 600, 0.5
+aSig    poscil   a(kEnv), kCps
+
+iFdback =        0.7           ; feedback ratio
+aDelay  init     0             ; initialize delayed signal
+aDelay  delay    aSig+(aDelay*iFdback), .3 ;delay 0.3 seconds
+
+aOut    =        aSig + (aDelay*0.4)
+        out      aOut/2, aOut/2
+  endin
+
+</CsInstruments>
+<CsScore>
+i 1 0 25
+</CsScore>
+</CsoundSynthesizer>
+;example by Iain McCurdy and joachim heintz
 ~~~
 
 
@@ -187,7 +225,7 @@ delay time that will be permissible will be the duration of one k cycle
 (ksmps/sr).
 
 
-   ***EXAMPLE 05D03_deltapi.csd***
+   ***EXAMPLE 05D04_deltapi.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -197,7 +235,7 @@ delay time that will be permissible will be the duration of one k cycle
 <CsInstruments>
 sr = 44100
 ksmps = 32
-nchnls = 1
+nchnls = 2
 0dbfs = 1
 
   instr 1
@@ -213,13 +251,13 @@ aTap          deltapi  aDelayTime        ; 'tap' the delay buffer
               delayw   aSig + (aTap*0.9) ; write audio into buffer
 
 ; send audio to the output (mix the input signal with the delayed signal)
-              out      aSig + (aTap*0.4)
+aOut          linen    aSig + (aTap*0.4), .1, p3, 1
+              out      aOut/2, aOut/2
   endin
 
 </CsInstruments>
 <CsScore>
 i 1 0 30
-e
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
@@ -235,7 +273,7 @@ but all three taps are mixed and sent to the output. There is no reason
 not to experiment with arrangements other than this, but this one is
 most typical.
 
-   ***EXAMPLE 05D04_multi-tap_delay.csd***
+   ***EXAMPLE 05D05_multi-tap_delay.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -245,7 +283,7 @@ most typical.
 <CsInstruments>
 sr = 44100
 ksmps = 32
-nchnls = 1
+nchnls = 2
 0dbfs = 1
 
   instr 1
@@ -263,7 +301,8 @@ aTap3   deltap   0.4139                 ; delay tap 3
         delayw   aSig + (aTap3*0.4)     ; write audio into buffer
 
 ; send audio to the output (mix the input signal with the delayed signals)
-        out      aSig + ((aTap1+aTap2+aTap3)*0.4)
+aOut    linen    aSig + ((aTap1+aTap2+aTap3)*0.4), .1, p3, 1
+        out      aOut/2, aOut/2
   endin
 
 </CsInstruments>
@@ -293,7 +332,7 @@ employs an U-shaped parabola as its waveform as this seems to provide
 the smoothest comb filter modulations.
 
 
-   ***EXAMPLE 05D05_flanger.csd***
+   ***EXAMPLE 05D06_flanger.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -304,7 +343,7 @@ the smoothest comb filter modulations.
 
 sr = 44100
 ksmps = 32
-nchnls = 1
+nchnls = 2
 0dbfs = 1
 
 giLFOShape  ftgen   0, 0, 2^12, 19, 0.5, 1, 180, 1 ; u-shaped parabola
@@ -322,7 +361,8 @@ aTap    deltap3  aMod + iOffset        ; tap audio from within buffer
         delayw   aSig + (aTap*kFdback) ; write audio into buffer
 
 ; send audio to the output (mix the input signal with the delayed signal)
-        out      aSig + aTap
+aOut    linen    (aSig + aTap)/2, .1, p3, 1
+        out      aOut, aOut
   endin
 
 </CsInstruments>
@@ -334,7 +374,113 @@ i 1 0 25
 ~~~
 
 
-Delay buffers can be used to implement a wide variety of signal
-processing effects beyond simple echo effects. This chapter has
-introduced the basics of working with Csound's delay opcodes and also
-hinted at some of the further possibilities available.
+As alternative to using the *deltap* group of opcodes, Csound provides opcodes which start with *vdel* (for *variable delay line*). They establish one single delay line per opcode. This may be easier to write for one or few taps, whereas for a large number of taps the method which has been described in the previous examples is preferable.
+
+Basically all these opcode have three main arguments:
+1. The audio input signal.
+2. The delay time as audio signal.
+3. The maximum possible delay time.
+
+Some caution must be given to the unit in argument 2 and 3: [vdelay](https://csound.com/docs/manual/vdelay.html) and [vdelay3](https://csound.com/docs/manual/vdelay3.html) use *milliseconds* here, whereas [vdelayx](https://csound.com/docs/manual/vdelayx.html) uses seconds (as nearly every other opcode in Csound). 
+
+This is an identical version of the previous *flanger* example which uses *vdelayx* instead of *deltap3*. The *vdelayx* opcode has an additional parameter which allows the user to set the number of samples to be used for interpolation between 4 and 1024. The higher the number, the better the quality, requiring yet more rendering power.
+
+
+   ***EXAMPLE 05D07_flanger_2.csd***
+
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-odac ; activates real time sound output
+</CsOptions>
+<CsInstruments>
+
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
+
+giLFOShape  ftgen   0, 0, 2^12, 19, 0.5, 1, 180, 1
+
+  instr 1
+aSig    pinkish  0.1
+
+aMod    poscil   0.005, 0.05, giLFOShape
+iOffset =        ksmps/sr
+kFdback linseg   0.8,(p3/2)-0.5,0.95,1,-0.95
+
+aDelay  init     0
+aDelay  vdelayx  aSig+aDelay*kFdback, aMod+iOffset, 0.5, 128
+
+aOut    linen    (aSig+aDelay)/2, .1, p3, 1
+        out      aOut, aOut
+  endin
+
+</CsInstruments>
+<CsScore>
+i 1 0 25
+</CsScore>
+</CsoundSynthesizer>
+;example by Iain McCurdy and joachim heintz
+~~~
+
+
+Custom Delay Line
+-----------------
+
+As an advanced insight into sample-by-sample processing in Csound, we end here with an intruiging example by Steven Yi (showed on the Csound mailing list 2019/12/11). It demonstrates how a delay line can be created as Csound array which is written and read as circular buffer. Here are some comments:
+
+- Line 15: The array is created with the size *delay-time times sample-rate*, in our case 0.25 * 44100 = 11025. So 11025 samples can be stored in this array.
+- Line 16-17: The read pointer *kread_ptr* is set to the second element (index=1), the write pointer *kwrite_ptr* is set to the first element (index=0) at beginning.
+- Line 19-20: The audio signal as input for the delay line — it can be anything.
+- Line 22-23, 30-31: The [while](https://csound.com/docs/manual/while.html) loop iterates through each sample of the audio vector: from *kindx*=0 to *kindx*=31 if [ksmps](https://csound.com/docs/manual/ksmps.html) is 32.
+- Line 24: Each element of the audio vector is copied into the appropriate position of the array. At the beginning, the first element of the audio vector is copied to position 0, the second element to position 1, and so on.
+- Line 25: The element in the array to which the read index "kread_ptr*  points is copied to the appropriate element of the delayed audio signal. As *kread_ptr* starts with 1 (not 0), at first it can only copy zeros.
+- Line 27-28: Both pointers are incremented by one and then the *modulo* is taken. This ensures that the array is not read or written beyond its boundaries, but used as a circular buffer.
+
+
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-odac ; activates real time sound output
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
+
+instr CustomDelayLine
+
+  ;; 0.25 second delay
+  idel_size = 0.25 * sr
+  kdelay_line[] init idel_size
+  kread_ptr init 1
+  kwrite_ptr init 0
+
+  asig = vco2(0.3, 220 * (1 + int(lfo:k(3, 2, 2))) * expon(1, p3, 4), 10)
+  asig = zdf_ladder(asig, 2000, 4)
+
+  kindx = 0
+  while (kindx < ksmps) do
+    kdelay_line[kwrite_ptr] = asig[kindx]
+    adel[kindx] = kdelay_line[kread_ptr]
+
+    kwrite_ptr = (kwrite_ptr + 1) % idel_size
+    kread_ptr = (kread_ptr + 1) % idel_size
+
+    kindx += 1
+  od
+  
+  out(linen:a(asig,0,p3,1),linen:a(adel,0,p3,1))
+
+endin
+
+</CsInstruments>
+<CsScore>
+i "CustomDelayLine" 0 10
+</CsScore>
+</CsoundSynthesizer>
+;example by Steven Yi
+~~~
+
