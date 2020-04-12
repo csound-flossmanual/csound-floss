@@ -252,6 +252,8 @@ Time stretching is then done in the first instrument in a similar way we perform
 
 The second instrument can still use the buffer. Here a time stretch line is superimposed by a *trembling* random movement. It changes 10 times a second and interpolates to a point which is between - 0.2 seconds and + 0.2 seconds from the current position of the slow moving time pointer created by the expression *linseg:k(0,p3,gilen)*.
 
+![](../resources/images/05-i-trembling.png)
+
 So although a bit harder to use, *pvsbufread* offers some nice possibilities. And it is reported to have a very good performance, for instance when playing back a lot of files triggered by a MIDI keyboard.
 
 

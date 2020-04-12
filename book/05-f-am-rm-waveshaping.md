@@ -89,11 +89,11 @@ size 4, a line becomes a staircase:
 
 Bit Depth = high
 
-![](../resources/images/05fbild1a.png){width=50%}
+![](../resources/images/05-f-bit-depth-high.png){width=50%}
 
 Bit Depth = 2
 
-![](../resources/images/05fbild2a.png){width=50%}
+![](../resources/images/05-f-bit-depth-2.png){width=50%}
 
 This is the sounding result:
 

@@ -8,6 +8,150 @@ upon asynchronous granulation. For an introduction to synchronous
 granular synthesis using simple waveforms please refer to chapter
 [04 F](04-f-granular-synthesis.md).
 
+We will start with a self-made granulator which we build step by step. It may help to understand the main parameters, and to see upon which decisions the different opcode designs are built. In the second part of this chapter we will introduce some of the many Csound opcodes for granular synthesis, in typical use cases.
+
+
+A Self-Made Granulator
+----------------------
+
+It is perfectly possible to build an own granular machine in Csound code, without using one of the many opcodes for granular synthesis. This machine will certainly rund slower than a native opcode. But for understanding what is happening, and being able to implement own ideas, this is a very instructive approach.
+
+Granular synthesis can be described as a sequence of small sound snippets. So we can think of two units: One unit is managing the sequence, the other unit is performing one grain. Let us call the first unit *Granulator*, and the second unit *Grain*. The *Granulator* will manage the sequence of grains in calling the *Grain* unit again and again, with different parameters:
+
+ABBILDUNG
+
+In Csound, we implement this architecture as two instruments. We will start with the instrument which performs one grain.
+
+
+### The Grain Unit
+
+
+#### Parameter for One Grain
+
+The *Grain* instrument needs these informations to play back one grain:
+
+1. **Sound**. In the most simple version this is a sound file on the hard disk. More flexible and fast is a sample which has been stored in a buffer (function table). We can also record this buffer in real time — by this we can perform live granular synthesis.
+2. **Point in Sound to start playback**. In the most simple version, this is the same as the *skiptime* for playing back sound from hard disk via [diskin](https://csound.com/docs/manual/diskin.html). Usually we will choose seconds as unit for this parameter.
+3. **Duration**. The duration for one grain is usually in the range 20-50 ms, but can be smaller or bigger for special effects. In Csound this parameter is passed to the instrument as *p3* in its call, measured in seconds.
+4. **Speed of Playback**. This parameter is used by *diskin* and similar opcodes: 1 means the normal speed, 2 means double speed, 1/2 means half speed. This would result in no pitch change (1), octave higher (2) and octave lower(1/2). Negative numbers mean reverse playback.
+5. **Volume**. We will measure it in *dB*, where 0 dB means to play back the sound as it is recorded.
+6. **Envelope**. Each grain needs an envelope which starts and ends at zero, to ensure that there will be no clicks. These are some frequently used envelopes:[^1]
+![](../resources/images/05-g-grain-envs.png)
+7. **Spatial Position**. Each grain will be send to a certain point in space. For stereo, it will be a panning position between 0 (left) and 1 (right).
+
+[^1]: The function tables have been created with this code:  
+      i0 ftgen 1, 0, 8192, 20, 3, 1  
+      i0 ftgen 2, 0, 8192, 9, 1/2, 1, 0  
+      i0 ftgen 3, 0, 8192, 20, 2, 1  
+      i0 ftgen 4, 0, 8192, 20, 6, 1  
+      i0 ftgen 5, 0, 8192, 20, 9, 1  
+      i0 ftgen 6, 0, 8192, 20, 9, 1, 5  
+
+
+#### Simple Grain Implementation
+
+We start with the most simple implementation. We play back the sound with [diskin](https://csound.com/docs/manual/diskin.html) and apply a triangular envelope with the [linen](https://csound.com/docs/manual/linen.html) opcode. We pass the *grain duration* as *p3*, the *playback start* as *p4* and the *playback speed* as *p5*. We choose a constant grain duration of 50 ms, but in the first five examples different starting points, then in the other five examples from one starting point different playback speeds.
+
+   ***EXAMPLE 05G01_simple_grain.csd***
+
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-odac
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
+
+instr Grain
+ //input parameters
+ Sound = "fox.wav"
+ iStart = p4 ;position in sec to read the sound
+ iSpeed = p5
+ iVolume = -3 ;dB
+ iPan = .5 ;0=left, 1=right
+ //perform
+ aSound = diskin:a(Sound,iSpeed,iStart,1)
+ aOut = linen:a(aSound,p3/2,p3,p3/2)
+ aL, aR pan2 aOut*ampdb(iVolume), iPan
+ out(aL,aR)
+endin
+
+</CsInstruments>
+<CsScore>
+;              start speed
+i "Grain" 0 .05 .05    1
+i .       1 .   .2     .
+i .       2 .   .42    .
+i .       3 .   .78    .
+i .       4 .   1.2    .
+i .       6 .   .2     1
+i .       7 .   .      2
+i .       8 .   .      0.5
+i .       9 .   .      10
+i .      10 .   .25    -1
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+~~~
+
+It is a tiring job to write a score line for each grain ... — no one will do this. But only with a small change we can read through the whole sound file by calling our *Grain* instrument only once! The technique we use in the next example is to start a new instance of the *Grain* instrument by the running instance, as long as the end of the sound file has not yet been reached. (This technique has been described in paragraph *Self-Triggering and Recursion* of chapter [03 C](03-d-control-structures.md).)
+
+   ***EXAMPLE 05G02_simple_grain_continuous.csd***
+
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-odac
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
+
+instr Grain
+ //input parameters
+ Sound = "fox.wav"
+ iStart = p4 ;position in sec to read the sound
+ iSpeed = 1
+ iVolume = -3 ;dB
+ iPan = .5 ;0=left, 1=right
+ //perform
+ aSound = diskin:a(Sound,iSpeed,iStart,1)
+ aOut = linen:a(aSound,p3/2,p3,p3/2)
+ aL, aR pan2 aOut*ampdb(iVolume), iPan
+ out(aL,aR)
+ //call next grain until sound file has reached its end
+ if iStart < filelen(Sound) then
+  schedule("Grain",p3,p3,iStart+p3)
+ endif
+endin
+schedule("Grain",0,50/1000,0)
+
+</CsInstruments>
+<CsScore>
+e 5 ;stops performance after 5 seconds
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+~~~
+
+
+#### Improvements
+
+
+
+### The Granulator Unit
+
+
+
+
+Csound Opcodes for Granular Synthesis
+-------------------------------------
+
 Csound offers a wide range of opcodes for sound granulation. Each has
 its own strengths and weaknesses and suitability for a particular task.
 Some are easier to use than others, some, such as
@@ -17,8 +161,7 @@ extremely complex and are, at least in terms of the number of input
 arguments they demand, amongst Csound's most complex opcodes.
 
 
-sndwarp - Time Stretching and Pitch Shifting
---------------------------------------------
+### sndwarp - Time Stretching and Pitch Shifting
 
 [sndwarp](https://csound.com/docs/manual/sndwarp.html)
 may not be Csound's newest or most advanced opcode for sound
@@ -239,8 +382,7 @@ i 3  0  3600 ; reverb instrument
 ~~~
 
 
-granule - Clouds of Sound
--------------------------
+### granule - Clouds of Sound
 
 The [granule](https://csound.com/docs/manual/granule.html) opcode is
 one of Csound's most complex opcodes requiring up to 22 input arguments
@@ -385,8 +527,7 @@ i 2 0 [48*5+2]; reverb instrument
 ~~~
 
 
-Grain delay effect
-------------------
+### Grain delay effect with fof2
 
 Granular techniques can be used to implement a flexible delay effect,
 where we can do transposition, time modification and disintegration of

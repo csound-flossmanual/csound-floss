@@ -45,7 +45,6 @@ Edits
 - 05-h (convolution)
     - oeyvind's new live convolution opcode liveconv should be added here
 - 05-i (fft)
-    - figure before example 05I03 to show the tremor time pointer would be nice
     - add section at the end dedicated to pvsblur, pvsmooth and similar ways
       to improve audio quality
     - add a section about pvsbin and pvstrace
@@ -63,8 +62,6 @@ Edits
     - needs to be updated
 - 10-a (csoundqt) 
     - describe some use cases here. perhaps more links to csoundqt's website
-- 10-f (web csound) 
-    - must certainly be updated (michael will do)
 - 11-a (utility: analysis)
     - add short description about atsa etc
 - 11-b and 11-c also more explanation
