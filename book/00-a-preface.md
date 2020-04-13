@@ -71,8 +71,11 @@ code in an even more condensed fashion using so-called *functional
 syntax*, as shown below:
 
     instr Sine
-     out poscil(0.2, 400)
+     out poscil:a(0.2, 400)
     endin
+
+We will use both, traditional and functional style, throughout this textbook. More details on functional style can be found in chapter 
+[03 I](03-i-functional-syntax.md).
 
 It is often difficult to find up to date resources that show and explain
 what is possible with Csound. Documentation and tutorials produced by

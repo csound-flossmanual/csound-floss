@@ -691,8 +691,8 @@ can be either an i-, k- or a-rate signal and the value type of the
 output automatically selects either the a- k- or a-rate version of the
 opcode. The first input is an index at the appropriate rate (i-index for
 i-output, k-index for k-output, a-index for a-output). The other
-arguments are as explained above for [tableiw]
-(http://www.csound.com/docs/manual/html/tableiw.html)/
+arguments are as explained above for 
+[tableiw](http://www.csound.com/docs/manual/html/tableiw.html)/
 [tablew](http://www.csound.com/docs/manual/html/tablew.html).
 
     ires      table    indx, ifn [, ixmode] [, ixoff] [, iwrap]

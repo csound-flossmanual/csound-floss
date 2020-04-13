@@ -20,6 +20,7 @@ Edits
 - 01-d (random)
     - perhaps give more connection to csound
 - 03-d (tables)
+    - reading values could be described better: either index+table (where index can derive from linseg or phasor), or oscillator.
     - look at interesting new gen routines for the overview
     - new plots for it
 - 04-e (wave shaping)

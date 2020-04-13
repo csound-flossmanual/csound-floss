@@ -18,7 +18,7 @@ It is perfectly possible to build an own granular machine in Csound code, withou
 
 Granular synthesis can be described as a sequence of small sound snippets. So we can think of two units: One unit is managing the sequence, the other unit is performing one grain. Let us call the first unit *Granulator*, and the second unit *Grain*. The *Granulator* will manage the sequence of grains in calling the *Grain* unit again and again, with different parameters:
 
-ABBILDUNG
+![](../resources/images/05-g-scheme.png)
 
 In Csound, we implement this architecture as two instruments. We will start with the instrument which performs one grain.
 
@@ -26,7 +26,7 @@ In Csound, we implement this architecture as two instruments. We will start with
 ### The Grain Unit
 
 
-#### Parameter for One Grain
+#### Parameters for One Grain
 
 The *Grain* instrument needs these informations to play back one grain:
 
@@ -142,7 +142,73 @@ e 5 ;stops performance after 5 seconds
 
 #### Improvements
 
+The *Grain* instrument works but it has some weaknesses:
 
+- Rather than played back from disk, the sound should be put in a buffer (function table) and played back from there. This is faster and gives more flexibility, for instance in filling the buffer with real-time recording.
+- The envelope should also be read from a function table. Again, this is faster and offers more flexibility. In case we want to change the envelope, we simply use another function table, without changing any code of the instrument.
+
+Table reading can be done by different methods in Csound. Have a look at chapter [03 D](03-d-function-tables.md) for details. We will use reading the tables with the [poscil3](https://csound.com/docs/manual/poscil3.html) oscillator here. This should give a very good result in sound quality.
+
+In the next example we reproduce the first example above to check the new code to the *Grain* instrument.
+
+   ***EXAMPLE 05G03_simple_grain_optimized.csd***
+
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-odac
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
+
+//load sample to table and create triangular shape
+giSample ftgen 0, 0, 0, -1, "fox.wav", 0, 0, 1
+giEnv ftgen 0, 0, 8192, 20, 3, 1
+giSampleLen = ftlen(giSample)/sr
+
+instr Grain
+ //input parameters
+ iStart = p4 ;position in sec to read the sound
+ iSpeed = p5
+ iVolume = -3 ;dB
+ iPan = .5 ;0=left, 1=right
+ //perform
+ aEnv = poscil3:a(ampdb(iVolume),1/p3,giEnv)
+ aSound = poscil3:a(aEnv,iSpeed/giSampleLen,giSample,iStart/giSampleLen)
+ aL, aR pan2 aSound, iPan
+ out(aL,aR)
+endin
+
+</CsInstruments>
+<CsScore>
+;              start speed
+i "Grain" 0 .05 .05    1
+i .       1 .   .2     .
+i .       2 .   .42    .
+i .       3 .   .78    .
+i .       4 .   1.2    .
+i .       6 .   .2     1
+i .       7 .   .      2
+i .       8 .   .      0.5
+i .       9 .   .      10
+i .      10 .   .25    -1
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+~~~
+
+Some comments to this code:
+
+- Line 12-13: The sample *fox.wav* is loaded into function table *giSample* via [GEN](https://csound.com/docs/manual/ScoreGenRef.html) routine [01](https://csound.com/docs/manual/GEN01.html). Note that we are using here -1 instead of 1 because we don't want to normalize the sound.[^2] \
+The triangular shape is loaded via [GEN 20](https://csound.com/docs/manual/GEN20.html) which offers a good selection of different envelope shapes.
+- Line 14: `giSampleLen = ftlen(giSample)/sr`. This calculates the length of the sample in seconds, as length of the function table divided by the sample rate. It makes sense to store this in a global variable because we are using it in the *Grain* instrument again and again.
+- Line 23: `aEnv = poscil3:a(ampdb(iVolume),1/p3,giEnv)`. The envelope (as audio signal) is reading the table *giEnv* in which a triangular shape is stored. We set the amplitude of the oscillator to `ampdb(iVolume)`, so to the amplitude equivalent of the *iVolume* decibel value. The frequency of the oscillator is *1/p3* because we want to read the envelope exactly once during the performance time of this instrument instance.
+- Line 24: `aSound = poscil3:a(aEnv,iSpeed/giSampleLen,giSample,iStart/giSampleLen)`. Again this is a [poscil3](https://csound.com/docs/manual/poscil3.html) oscillator reading a table. The table is here *giSample*; the amplitude of the oscillator is the *aEnv* signal we produced. The frequency of reading the table in normal speed is *1/giSampleLen*; if we include the speed changes, it is *iSpeed/giSampleLen*. The starting point to read the table is given to the oscillator as phase value (0=start to 1=end of the table). So we must divide *iStart* by *giSampleLen* to get this value.
+
+[^2]: This decision is completely up to the user.
 
 ### The Granulator Unit
 
