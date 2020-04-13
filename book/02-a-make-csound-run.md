@@ -35,8 +35,8 @@ How to Download and Install Csound
 ----------------------------------
 
 To get Csound you first need to download the package for your system
-from the Download page of the Csound project on Github:
-<http://csound.github.io/download.html>
+from the Download page of the Csound project:
+<https://csound.com/download>
 
 There are many files here, so here are some guidelines to help you
 choose the appropriate version.
@@ -45,9 +45,9 @@ choose the appropriate version.
 
 Windows installers are the ones ending in *.exe*. Look for the latest
 version of Csound and find a file which should be called something like:
-*64bit Full Installer v6.13.0.*
+*64bit Full Installer v6.14.0.*
 
-After you have downloaded the installer simply double-click it start the
+After you have downloaded the installer simply double-click it to start the
 installation process. This will invoke 8 simple steps:
 
 1.  A welcome screen advises you to close other programs.
@@ -91,12 +91,10 @@ downloaded and installed separately.
 
 ### Mac OS X
 
-The Mac OS X installers are the files ending in *.dmg*. Look for the
-latest version of Csound for your particular system, for example a
-Universal binary for 10.9 will be called something like:
-*csound6.06-OSX-universal.dmg*. When you double click the downloaded
+The Mac OS X installers are the files ending in *.dmg*, for instance
+*Csound6.14.0-MacOS_x86_64.dmg*. When you double click the downloaded
 file, you will have a disk image on your desktop, with the Csound
-installer, CsoundQt and a readme file. Double-click the installer and
+installer, CsoundQt and a *readme* file. Double-click the installer and
 follow the instructions. Csound and the basic Csound utilities will be
 installed. To install the CsoundQt frontend, you only need to move it to
 your Applications folder.
@@ -106,25 +104,22 @@ your Applications folder.
 Csound is available from the official package repositories for many
 distributions like OpenSuse, Debian, Ubuntu, Fedora, Archlinux and
 Gentoo. If there are no binary packages for your platform, or you need a
-more recent version, you can get the sources from the [Github
-page](https://github.com/csound/csound/tree/develop)
+more recent version, you can get the sources from the
+[Github page](https://github.com/csound/csound/tree/develop)
 and build from source. You will find the most recent build instructions
 in the [Build.md](http://github.com/csound/csound/blob/develop/BUILD.md)
-file in the Csound sources or in the [Github Csound
-Wiki](https://github.com/csound/csound/wiki).
+file in the Csound sources or in the 
+[Github Csound Wiki](https://github.com/csound/csound/wiki).
 
 ### iOS
 
 If you would just like to run Csound on your iPad, there is an app for
-iOS called CsoundPad:
-http://itunes.apple.com/app/csoundpad/id861008380?mt=8\#
+iOS called 
+[CsoundPad](http://itunes.apple.com/app/csoundpad/id861008380?mt=8\#)
 
 If you are a developer, Csound can be run in an iOS app that you are
 programming by including the Csound-for-iOS files in your Xcode project.
-For example for version 6.09 of Csound, the files are in this archive:
-<http://github.com/csound/csound/releases/download/6.09.1/csound-iOS-6.09.1.zip>
-The *csound-iOS-6.09.1.zip* file contains an archive of an example
-project and PDF manual.
+The *SDK* can be found on the [Csound Download Page](https://csound.com/download), for instance *Csound6.14.0-iOS.zip*. It contains an archive of an example project and a PDF manual.
 
 Some sample projects:
 
@@ -148,8 +143,7 @@ leads you to the Google Play Store from which you can install it for
 free. Chapter [12E](12-e-csound-on-android)
 in this manual describes how to use Csound on Android.
 
-If you are a developer, download the Android SDK, for instance:
-<http://github.com/csound/csound/releases/download/6.09.1/csound-android-6.09.1.zip>
+If you are a developer, download the *Android SDK*, for instance *Csound6.14.0-Android.zip*.
 
 On Google\'s Play Store there are some apps that use Csound. Below is a
 small sample of such apps:
@@ -170,10 +164,9 @@ If, for any reason, you can't find the CsoundQt frontend on your system
 after install, or if you want to install the most recent version of
 CsoundQt, or if you prefer another frontend altogether: see the CSOUND
 FRONTENDS section of this manual for further information. If you have
-any install problems, consider joining the [Csound Mailing
-List](https://listserv.heanet.ie/cgi-bin/wa?A0=CSOUND)
-to report your issues, or write a mail to one of the maintainers (see ON
-THIS RELEASE).
+any install problems, consider joining the 
+[Csound Mailing List](https://listserv.heanet.ie/cgi-bin/wa?A0=CSOUND)
+to report your issues, or use any other community channel.
 
 The Csound Reference Manual
 ---------------------------
@@ -182,7 +175,7 @@ The Csound Reference Manual is an indispensable companion to Csound. It
 is available in various formats from the same place as the Csound
 installers, and it is installed with the packages for OS X and Windows.
 It can also be browsed online at
-<http://csound.github.io/docs/manual/index.html>. Many frontends will
+<https://csound.com/docs/manual/index.html>. Many frontends will
 provide you with direct and easy access to it.
 
 How to Execute a Simple Example
