@@ -66,7 +66,7 @@ installation process. This will invoke 8 simple steps:
     other than the default *Csound 6* for the folder containing the
     various Csound components. Alternatively you can choose not to
     create a start menu folder.
-6.  Next there is an option to add the Csoound application directory to
+6.  Next there is an option to add the Csound application directory to
     your PATH variable. Adding this will allow you to run Csound from
     the command line from any directory location.
 7.  Next a window reminds you of what will be installed and what changes
