@@ -320,7 +320,125 @@ It is suggested to change some values in this example, and to listen to the resu
 
 #### Improvements and Random Deviations
 
+The preferred method for the moving pointer in the *Granulator* instrument is a [phasor](https://csound.com/docs/manual/phasor.html). It is the best approach for real-time use. It can run for an unlimited time and can easily move backwards. As input for the phasor, technically its frequency, we will put the speed in the usual way: 1 means normal speed, 0 is freeze, -1 is backwards reading in normal speed. As optional parameter we can set a start position of the pointer.
 
+All we have to do for implementing this in Csound is to take the sound file length in account for both, the pointer position and the start position:
+
+    iFileLen = 2 ;sec
+    iStart = 1 ;sec
+    kSpeed = 1
+    kPhasor = phasor:a(kSpeed/iFileLen,iStart/iFileLen)
+    kPointer = kPhasor*iFileLen
+
+In this example, the phasor will start with an initial phase of *iStart/iFileLen* = 0.5. The *kPhasor* signal which is always 0-1, will move in the frequency *kSpeed/iFileLen*, here 1/2. The *kPhasor* will then be multiplied by two, so will become 0-2 for *kPointer*.
+
+It is very useful to add **random deviations** to some of the parameters for granular synthesis. This opens the space for many different structures and possibilities. We will apply here random deviations to these parameters of the *Granulator*:
+
+- *Pointer*. The pointer will "tremble" or "jump" depending on the range of the random deviation. The range is given in seconds.
+- *Duration*. We will define here a maximum deviation in percent, related to the medium grain duration. 100% would mean that a grain duration can deviate between half and twice the medium duration. A medium duration of 20 ms would yield a random range of 10-40 ms in this case.
+- *Transposition*. We can add to the main transposition a bidirectional random range. If, for example, the main transposition is 500 cent and the maximum random transposition is 300 cent, each grain will choose a value between 200 and 800 cent. 
+- *Volume*. A maximum decibel deviation (also bidirectional) can be added to the main volume. 
+- *Spatial Position*. In addition to the main spatial position (in the stereo field 0-1), we can add a bidirectional maximum deviation. If the main position is 0.5 and the maximum deviation is 0.2, each grain will have a panning position between 0.3 and 0.7.
+
+The next example demonstrates the five possibilities one by one, each parameter in three steps: at first with no random deviations, then with slight deviations, then with big ones.
+
+
+   ***EXAMAMPLE 05G05_random_deviations.csd***
+
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-odac -m128
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
+
+giSample ftgen 0, 0, 0, -1, "fox.wav", 0, 0, 1
+giHalfSine ftgen 0, 0, 1024, 9, .5, 1, 0
+
+instr Granulator
+ //standard input parameter
+ iSndTab = giSample
+ iSampleLen = ftlen(iSndTab)/sr
+ iStart = 0 ;sec
+ kPointerSpeed = 2/3
+ iGrainDur = 30 ;milliseconds
+ iTranspos = -100 ;cent
+ iVolume = -6 ;dB
+ iEnv = giHalfSine ;table with envelope
+ iPan = .5 ;panning 0-1
+ iDensity = 50 ;Hz (grains per second)
+ iDistribution = .5 ;0-1
+ //random deviations (for demonstration set to p-fields)
+ iPointerRndDev = p4 ;sec
+ iGrainDurRndDev = p5 ;percent
+ iTransposRndDev = p6 ;cent
+ iVolumeRndDev = p7 ;dB
+ iPanRndDev = p8 ;as in iPan
+ //perform
+ kPhasor = phasor:k(kPointerSpeed/iSampleLen,iStart/iSampleLen)
+ kTrig = metro(iDensity)
+ if kTrig==1 then
+  kPointer = kPhasor*iSampleLen + rnd31:k(iPointerRndDev,0)
+  kOffset = random:k(0,iDistribution/iDensity)
+  kGrainDurDiff = rnd31:k(iGrainDurRndDev,0) ;percent
+  kGrainDur = iGrainDur*2^(kGrainDurDiff/100) ;ms
+  kTranspos = cent(iTranspos+rnd31:k(iTransposRndDev,0))
+  kVol = iVolume+rnd31:k(iVolumeRndDev,0)
+  kPan = iPan+rnd31:k(iPanRndDev,0)
+  schedulek("Grain",kOffset,kGrainDur/1000,iSndTab,iSampleLen,kPointer,kTranspos,kVol,iEnv,kPan)
+ endif
+endin
+
+instr Grain
+ //input parameters
+ iSndTab = p4
+ iSampleLen = p5
+ iStart = p6
+ iSpeed = p7
+ iVolume = p8 ;dB
+ iEnvTab = p9
+ iPan = p10
+ //perform
+ aEnv = poscil3:a(ampdb(iVolume),1/p3,iEnvTab)
+ aSound = poscil3:a(aEnv,iSpeed/iSampleLen,iSndTab,iStart/iSampleLen)
+ aL, aR pan2 aSound, iPan
+ out(aL,aR)
+endin
+
+</CsInstruments>
+<CsScore>
+t 0 40
+; Random Deviations: Pointer GrainDur Transp Vol Pan
+;RANDOM POINTER DEVIATIONS
+i "Granulator" 0 2.7   0       0        0      0   0 ;normal pointer
+i .            3 .     0.1     0        0      0   0 ;slight trembling
+i .            6 .     1       0        0      0   0 ;chaotic jumps
+;RANDOM GRAIN DURATION DEVIATIONS
+i .           10 .     0       0        0      0   0 ;no deviation
+i .           13 .     0     100        0      0   0 ;100%
+i .           16 .     0     200        0      0   0 ;200%
+;RANDOM TRANSPOSITION DEVIATIONS
+i .           20 .     0       0        0      0   0 ;no deviation
+i .           23 .     0       0      300      0   0 ;±300 cent maximum
+i .           26 .     0       0     1200      0   0 ;±1200 cent maximum
+;RANDOM VOLUME DEVIATIONS
+i .           30 .     0       0        0      0   0 ;no deviation
+i .           33 .     0       0        0      6   0 ;±6 dB maximum
+i .           36 .     0       0        0     12   0 ;±12 dB maximum
+;RANDOM PAN DEVIATIONS
+i .           40 .     0       0        0      0   0 ;no deviation
+i .           43 .     0       0        0      0  .1 ;±0.1 maximum
+i .           46 .     0       0        0      0  .5 ;±0.5 maximum
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+~~~
+
+It sounds like for normal use, the pointer, transposition and pan deviation are most interesting to apply.
 
 
 #### Final Example and Possible Extensions
