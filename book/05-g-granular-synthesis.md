@@ -144,7 +144,7 @@ e 5 ;stops performance after 5 seconds
 
 The *Grain* instrument works but it has some weaknesses:
 
-- Rather than played back from disk, the sound should be put in a buffer (function table) and played back from there. This is faster and gives more flexibility, for instance in filling the buffer with real-time recording.
+- Rather than being played back from disk, the sound should be put in a buffer (function table) and played back from there. This is faster and gives more flexibility, for instance in filling the buffer with real-time recording.
 - The envelope should also be read from a function table. Again, this is faster and offers more flexibility. In case we want to change the envelope, we simply use another function table, without changing any code of the instrument.
 
 Table reading can be done by different methods in Csound. Have a look at chapter [03 D](03-d-function-tables.md) for details. We will use reading the tables with the [poscil3](https://csound.com/docs/manual/poscil3.html) oscillator here. This should give a very good result in sound quality.
@@ -334,11 +334,13 @@ In this example, the phasor will start with an initial phase of *iStart/iFileLen
 
 It is very useful to add **random deviations** to some of the parameters for granular synthesis. This opens the space for many different structures and possibilities. We will apply here random deviations to these parameters of the *Granulator*:
 
-- *Pointer*. The pointer will "tremble" or "jump" depending on the range of the random deviation. The range is given in seconds.
+- *Pointer*. The pointer will "tremble" or "jump" depending on the range of the random deviation. The range is given in seconds. It is implemented in line 36 of the next example as  
+    `kPointer = kPhasor*iSampleLen + rnd31:k(iPointerRndDev,0)`  
+The opcode [rnd31](https://csound.com/docs/manual/rnd31.html) is a bipolar random generator which will output values between *-iPointerRndDev* and *+iPointerRndDev*. This is then added to the normal pointer position.
 - *Duration*. We will define here a maximum deviation in percent, related to the medium grain duration. 100% would mean that a grain duration can deviate between half and twice the medium duration. A medium duration of 20 ms would yield a random range of 10-40 ms in this case.
-- *Transposition*. We can add to the main transposition a bidirectional random range. If, for example, the main transposition is 500 cent and the maximum random transposition is 300 cent, each grain will choose a value between 200 and 800 cent. 
-- *Volume*. A maximum decibel deviation (also bidirectional) can be added to the main volume. 
-- *Spatial Position*. In addition to the main spatial position (in the stereo field 0-1), we can add a bidirectional maximum deviation. If the main position is 0.5 and the maximum deviation is 0.2, each grain will have a panning position between 0.3 and 0.7.
+- *Transposition*. We can add to the main transposition a bipolar random range. If, for example, the main transposition is 500 cent and the maximum random transposition is 300 cent, each grain will choose a value between 200 and 800 cent. 
+- *Volume*. A maximum decibel deviation (also bipolar) can be added to the main volume. 
+- *Spatial Position*. In addition to the main spatial position (in the stereo field 0-1), we can add a bipolar maximum deviation. If the main position is 0.5 and the maximum deviation is 0.2, each grain will have a panning position between 0.3 and 0.7.
 
 The next example demonstrates the five possibilities one by one, each parameter in three steps: at first with no random deviations, then with slight deviations, then with big ones.
 
@@ -389,7 +391,8 @@ instr Granulator
   kTranspos = cent(iTranspos+rnd31:k(iTransposRndDev,0))
   kVol = iVolume+rnd31:k(iVolumeRndDev,0)
   kPan = iPan+rnd31:k(iPanRndDev,0)
-  schedulek("Grain",kOffset,kGrainDur/1000,iSndTab,iSampleLen,kPointer,kTranspos,kVol,iEnv,kPan)
+  schedulek("Grain",kOffset,kGrainDur/1000,iSndTab,
+            iSampleLen,kPointer,kTranspos,kVol,iEnv,kPan)
  endif
 endin
 
@@ -443,6 +446,216 @@ It sounds like for normal use, the pointer, transposition and pan deviation are 
 
 #### Final Example and Possible Extensions
 
+After these more instructional examples here is a last one which shows some potentials of granular sounds. It uses the same parts of *The quick brown fox* as in the first example of this chapter, each which different sounds and combination of the parameters. 
+
+
+   ***EXAMPLE 05G06_the_fox_universe.csd***
+
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-odac -m128
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
+seed 0
+
+opcode Chan,S,Si
+ Sname, id xin
+ Sout sprintf "%s_%d", Sname, id
+ xout Sout
+endop
+
+giSample ftgen 0, 0, 0, -1, "fox.wav", 0, 0, 1
+giSinc ftgen 0, 0, 1024, 20, 9, 1
+gi_ID init 1
+
+instr Quick
+ id = gi_ID
+ gi_ID += 1
+ iStart = .2
+ chnset(1/100, Chan("PointerSpeed",id))
+ chnset(linseg:k(10,p3,1), Chan("GrainDur",id))
+ chnset(randomi:k(15,20,1/3,3), Chan("Density",id))
+ chnset(linseg:k(7000,p3/2,6000), Chan("Transpos",id))
+ chnset(600,Chan("TransposRndDev",id))
+ chnset(linseg:k(-10,p3-3,-10,3,-30), Chan("Volume",id))
+ chnset(randomi:k(.2,.8,1,3), Chan("Pan",id))
+ chnset(.2,Chan("PanRndDev",id))
+ schedule("Granulator",0,p3,id,iStart)
+ schedule("Output",0,p3,id,0)
+endin
+
+instr Brown
+ id = gi_ID
+ gi_ID += 1
+ iStart = .42
+ chnset(1/100, Chan("PointerSpeed",id))
+ chnset(50, Chan("GrainDur",id))
+ chnset(50, Chan("Density",id))
+ chnset(100,Chan("TransposRndDev",id))
+ chnset(linseg:k(-50,3,-10,12,-10,3,-50), Chan("Volume",id))
+ chnset(.5, Chan("Pan",id))
+ schedule("Granulator",0,p3,id,iStart)
+ schedule("Output",0,p3+3,id,.3)
+endin
+
+instr F
+ id = gi_ID
+ gi_ID += 1
+ iStart = .68
+ chnset(50, Chan("GrainDur",id))
+ chnset(40, Chan("Density",id))
+ chnset(100,Chan("TransposRndDev",id))
+ chnset(linseg:k(-30,3,-10,p3-6,-10,3,-30)+randomi:k(-10,10,1/3), Chan("Volume",id))
+ chnset(.5, Chan("Pan",id))
+ chnset(.5, Chan("PanRndDev",id))
+ schedule("Granulator",0,p3,id,iStart)
+ schedule("Output",0,p3+3,id,.9)
+endin
+
+instr Ox
+ id = gi_ID
+ gi_ID += 1
+ iStart = .72
+ chnset(1/100,Chan("PointerSpeed",id))
+ chnset(50, Chan("GrainDur",id))
+ chnset(40, Chan("Density",id))
+ chnset(-2000,Chan("Transpos",id))
+ chnset(linseg:k(-20,3,-10,p3-6,-10,3,-30)+randomi:k(-10,0,1/3), Chan("Volume",id))
+ chnset(randomi:k(.2,.8,1/5,2,.8), Chan("Pan",id))
+ schedule("Granulator",0,p3,id,iStart)
+ schedule("Output",0,p3+3,id,.9)
+endin
+
+instr Jum
+ id = gi_ID
+ gi_ID += 1
+ iStart = 1.3
+ chnset(0.01,Chan("PointerRndDev",id))
+ chnset(50, Chan("GrainDur",id))
+ chnset(40, Chan("Density",id))
+ chnset(transeg:k(p4,p3/3,0,p4,p3/2,5,3*p4),Chan("Transpos",id))
+ chnset(linseg:k(0,1,-10,p3-7,-10,6,-50)+randomi:k(-10,0,1,3), Chan("Volume",id))
+ chnset(p5, Chan("Pan",id))
+ schedule("Granulator",0,p3,id,iStart)
+ schedule("Output",0,p3+3,id,.7)
+ if p4 < 300 then
+  schedule("Jum",0,p3,p4+500,p5+.3)
+ endif
+endin
+
+instr Whole
+ id = gi_ID
+ gi_ID += 1
+ iStart = 0
+ chnset(1/2,Chan("PointerSpeed",id))
+ chnset(5, Chan("GrainDur",id))
+ chnset(20, Chan("Density",id))
+ chnset(.5, Chan("Pan",id))
+ chnset(.3, Chan("PanRndDev",id))
+ schedule("Granulator",0,p3,id,iStart)
+ schedule("Output",0,p3+1,id,0)
+endin
+
+instr Granulator
+ //get ID for resolving string channels
+ id = p4
+ //standard input parameter
+ iSndTab = giSample
+ iSampleLen = ftlen(iSndTab)/sr
+ iStart = p5
+ kPointerSpeed = chnget:k(Chan("PointerSpeed",id))
+ kGrainDur = chnget:k(Chan("GrainDur",id))
+ kTranspos = chnget:k(Chan("Transpos",id))
+ kVolume = chnget:k(Chan("Volume",id))
+ iEnv = giSinc
+ kPan = chnget:k(Chan("Pan",id))
+ kDensity = chnget:k(Chan("Density",id))
+ iDistribution = 1
+ //random deviations
+ kPointerRndDev = chnget:k(Chan("PointerRndDev",id))
+ kTransposRndDev = chnget:k(Chan("TransposRndDev",id))
+ kPanRndDev = chnget:k(Chan("PanRndDev",id))
+ //perform
+ kPhasor = phasor:k(kPointerSpeed/iSampleLen,iStart/iSampleLen)
+ kTrig = metro(kDensity)
+ if kTrig==1 then
+  kPointer = kPhasor*iSampleLen + rnd31:k(kPointerRndDev,0)
+  kOffset = random:k(0,iDistribution/kDensity)
+  kTranspos = cent(kTranspos+rnd31:k(kTransposRndDev,0))
+  kPan = kPan+rnd31:k(kPanRndDev,0)
+  schedulek("Grain",kOffset,kGrainDur/1000,iSndTab,iSampleLen,
+            kPointer,kTranspos,kVolume,iEnv,kPan,id)
+ endif
+endin
+
+instr Grain
+ //input parameters
+ iSndTab = p4
+ iSampleLen = p5
+ iStart = p6
+ iSpeed = p7
+ iVolume = p8
+ iEnvTab = p9
+ iPan = p10
+ id = p11
+ //perform
+ aEnv = poscil3:a(ampdb(iVolume),1/p3,iEnvTab)
+ aSound = poscil3:a(aEnv,iSpeed/iSampleLen,iSndTab,iStart/iSampleLen)
+ aL, aR pan2 aSound, iPan
+ //write audio to channels for id
+ chnmix(aL,Chan("L",id))
+ chnmix(aR,Chan("R",id))
+endin
+
+instr Output
+ id = p4
+ iRvrbTim = p5
+ aL_dry = chnget:a(Chan("L",id))
+ aR_dry = chnget:a(Chan("R",id))
+ aL_wet, aR_wet reverbsc aL_dry, aR_dry, iRvrbTim,sr/2
+ out(aL_dry+aL_wet,aR_dry+aR_wet)
+ chnclear(Chan("L",id),Chan("R",id))
+endin
+
+</CsInstruments>
+<CsScore>
+i "Quick" 0 20
+i "Brown" 10 20
+i "F" 20 50
+i "Ox" 30 40
+i "Jum" 72 30 -800 .2
+i "Quick" 105 10
+i "Whole" 118 5.4
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+~~~
+
+Some comments:
+
+- Line 12-16: The User-Defined Opcode (UDO) *Chan* puts a string and an ID together to a combined string:
+    `Chan("PointerSpeed",1)`  
+returns  
+    `"PointerSpeed_1"`  
+This is nothing but a more readable version of  
+    `sprintf("%s_%d", "PointerSpeed", 1)`  
+- Line 20-24: The whole architecture of this example is based on software channels. The instr *Quick* schedules one instance of instr *Granulator*. While this instance is still running, the instr *Brown* schedules another instance of instr *Granulator*. Both, *Quick* and *Brown* want to send their specific values to their instance of instr *Granulator*. This is done by an ID which is added to the channel name. For the pointer speed, instr *Quick* uses the channel "PointerSpeed_1" whereas instr *Brown* uses the channel "PointerSpeed_2". So each of the instruments *Quick*, *Brown* etc. have to get a unique ID. This is done with the global variable *gi_ID*. When instr *Quick* starts, it sets its own variable *id* to the value of *gi_ID* (which is 1 in this moment), and then sets *gi_ID* to 2. So when instr *Brown* starts, it sets its own *id* as 2 and sets *gi_ID* to 3 for future use by instrument *F*.
+- Line 34: Each of the instruments which provide the different parameters, like instr *Quick* here, call an instance of instr *Granulator* and pass the ID to it, as well as the pointer start in the sample:  
+    `schedule("Granulator",0,p3,id,iStart)`  
+The *id* is passed here as fourth parameter, so instr *Granulator* will read  
+    `id = p4`  
+in line 112 to receive th ID, and  
+    `iStart = p5`  
+in line 116, to receive the pointer start.
+- Line 35: As we want to add some reverb, but with different reverb time for each structure, we start one instance of instr *Output* here. Again it will pass the own ID to the instance of instr *Output*, and also the reverb time. In line 162-163 we see how these values are received:  
+    `id = p4`  
+    `iRvrbTim = p5`  
+- Line 157-158: Instr *Grain* does not output the audio signal directly, but sends it via [chnmix](https://csound.com/docs/manual/chnmix.html) to the instance of instr *Output* with the same ID. See line 164-165 for the complementary code in instr *Output*. Note that we must use *chnmix* not *chnset* here because we muss add all audio in the overlapping grains (try to substitute *chnmix* by *chnset* to hear the difference). The zeroing of each audio channel at the end of the chain by [chnclear](https://csound.com/docs/manual/chnclear.html) is also important (cmment out line 168 to hear the difference).
 
 
 Csound Opcodes for Granular Synthesis
@@ -500,7 +713,7 @@ example), with more of a percussive character (short attack, long decay)
 or *gate*-like (short attack, long sustain, short decay).
 
 
-   ***EXAMPLE 05G01_sndwarp.csd***
+   ***EXAMPLE 05G07_sndwarp.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -596,7 +809,7 @@ lowpass filter in each case encasing each note under a smooth arc.
 Finally a small amount of reverb is added to smooth the overall texture
 slightly
 
-   ***EXAMPLE 05G02_selfmade_grain.csd***
+   ***EXAMPLE 05G08_selfmade_grain.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -734,7 +947,7 @@ about what these transpositions are, are printed to the terminal as each
 note begins.
 
 
-   ***EXAMPLE 05G03_granule.csd***
+   ***EXAMPLE 05G09_granule.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -837,7 +1050,7 @@ buffer determines the delay time. We've used the fof2 opcode for this
 purpose here.
 
 
-   ***EXAMPLE 05G04_grain_delay.csd***
+   ***EXAMPLE 05G10_grain_delay.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -927,7 +1140,7 @@ the oldest opcode, *Grain2* is a more easy-to-use opcode, while
 *Grain3* offers more control.
 
 
-   ***EXAMPLE 05G05_grain.csd***
+   ***EXAMPLE 05G11_grain.csd***
 
 ~~~
 <CsoundSynthesizer>

@@ -127,7 +127,7 @@ Iain McCurdy
 Alex Hofmann, Joachim Heintz
 
 *G. GRANULAR SYNTHESIS*
-Iain McCurdy, Oeyvind Brandtsegg, Bjorn Houdorf
+Iain McCurdy, Oeyvind Brandtsegg, Bjorn Houdorf, Joachim Heintz
 
 *H. CONVOLUTION*
 Iain McCurdy
