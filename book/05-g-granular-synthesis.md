@@ -638,23 +638,10 @@ i "Whole" 118 5.4
 
 Some comments:
 
-- Line 12-16: The User-Defined Opcode (UDO) *Chan* puts a string and an ID together to a combined string:
-    `Chan("PointerSpeed",1)`  
-returns  
-    `"PointerSpeed_1"`  
-This is nothing but a more readable version of  
-    `sprintf("%s_%d", "PointerSpeed", 1)`  
+- Line 12-16: The User-Defined Opcode (UDO) *Chan* puts a string and an ID together to a combined string: `Chan("PointerSpeed",1)` returns `"PointerSpeed_1"`. This is nothing but a more readable version of `sprintf("%s_%d", "PointerSpeed", 1)`.
 - Line 20-24: The whole architecture of this example is based on software channels. The instr *Quick* schedules one instance of instr *Granulator*. While this instance is still running, the instr *Brown* schedules another instance of instr *Granulator*. Both, *Quick* and *Brown* want to send their specific values to their instance of instr *Granulator*. This is done by an ID which is added to the channel name. For the pointer speed, instr *Quick* uses the channel "PointerSpeed_1" whereas instr *Brown* uses the channel "PointerSpeed_2". So each of the instruments *Quick*, *Brown* etc. have to get a unique ID. This is done with the global variable *gi_ID*. When instr *Quick* starts, it sets its own variable *id* to the value of *gi_ID* (which is 1 in this moment), and then sets *gi_ID* to 2. So when instr *Brown* starts, it sets its own *id* as 2 and sets *gi_ID* to 3 for future use by instrument *F*.
-- Line 34: Each of the instruments which provide the different parameters, like instr *Quick* here, call an instance of instr *Granulator* and pass the ID to it, as well as the pointer start in the sample:  
-    `schedule("Granulator",0,p3,id,iStart)`  
-The *id* is passed here as fourth parameter, so instr *Granulator* will read  
-    `id = p4`  
-in line 112 to receive th ID, and  
-    `iStart = p5`  
-in line 116, to receive the pointer start.
-- Line 35: As we want to add some reverb, but with different reverb time for each structure, we start one instance of instr *Output* here. Again it will pass the own ID to the instance of instr *Output*, and also the reverb time. In line 162-163 we see how these values are received:  
-    `id = p4`  
-    `iRvrbTim = p5`  
+- Line 34: Each of the instruments which provide the different parameters, like instr *Quick* here, call an instance of instr *Granulator* and pass the ID to it, as well as the pointer start in the sample: `schedule("Granulator",0,p3,id,iStart)`. The *id* is passed here as fourth parameter, so instr *Granulator* will read  `id = p4` in line 112 to receive th ID, and `iStart = p5` in line 116, to receive the pointer start.
+- Line 35: As we want to add some reverb, but with different reverb time for each structure, we start one instance of instr *Output* here. Again it will pass the own ID to the instance of instr *Output*, and also the reverb time. In line 162-163 we see how these values are received: `id = p4` and `iRvrbTim = p5`
 - Line 157-158: Instr *Grain* does not output the audio signal directly, but sends it via [chnmix](https://csound.com/docs/manual/chnmix.html) to the instance of instr *Output* with the same ID. See line 164-165 for the complementary code in instr *Output*. Note that we must use *chnmix* not *chnset* here because we muss add all audio in the overlapping grains (try to substitute *chnmix* by *chnset* to hear the difference). The zeroing of each audio channel at the end of the chain by [chnclear](https://csound.com/docs/manual/chnclear.html) is also important (cmment out line 168 to hear the difference).
 
 
@@ -721,7 +708,7 @@ endin
 
 We only use some of the many parameters here; others can be added easily. As we chose one second for the table, we can simplify some calculations. Most important is to know for instr *Granulator* the current position of the write pointer, and to start playback *giDelay* milliseconds (here 1 ms) after it. For this, we write the current write pointer position to a global variable *gaWritePointer* in instr *Record* and get the start for one grain by 
 
-    `kPointer = k(gaWritePointer)-giDelay/1000`
+    kPointer = k(gaWritePointer)-giDelay/1000
 
 After having built this self-made granulator step by step, we will look now into some Csound opcodes for sample-based granular synthesis.
 
