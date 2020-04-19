@@ -444,7 +444,7 @@ i .           46 .     0       0        0      0  .5 ;±0.5 maximum
 It sounds like for normal use, the pointer, transposition and pan deviation are most interesting to apply.
 
 
-#### Final Example and Possible Extensions
+#### Final Example
 
 After these more instructional examples here is a last one which shows some potentials of granular sounds. It uses the same parts of *The quick brown fox* as in the first example of this chapter, each which different sounds and combination of the parameters. 
 
@@ -658,6 +658,74 @@ in line 116, to receive the pointer start.
 - Line 157-158: Instr *Grain* does not output the audio signal directly, but sends it via [chnmix](https://csound.com/docs/manual/chnmix.html) to the instance of instr *Output* with the same ID. See line 164-165 for the complementary code in instr *Output*. Note that we must use *chnmix* not *chnset* here because we muss add all audio in the overlapping grains (try to substitute *chnmix* by *chnset* to hear the difference). The zeroing of each audio channel at the end of the chain by [chnclear](https://csound.com/docs/manual/chnclear.html) is also important (cmment out line 168 to hear the difference).
 
 
+#### Live Input
+
+Instead of using prerecorded samples, granular synthesis can also be applied to live input. Basically what we have to do is to add an instrument which writes the live input continuously to a table. When we ensure that writing and reading the table is done in a circular way, the table can be very short. 
+
+The time interval between writing and reading can be very short. If we do not transpose, or only downwards, we can read immediately. Only if we tranpose upwards, we must wait. Imagine a grain duration of 50 ms, a delay between writing and reading of 20 ms, and a pitch shift of one octave upwards. The reading pointer will move twice as fast as the writing pointer, so after 40 ms of the grain, it will get ahead of the writing pointer.
+
+So, in the following example, we will set the desired delay time to a small value. It has to be adjusted by the user depending on maximal tranposition and grain size.
+
+
+   ***EXAMPLE 05G07_live_granular.csd***
+
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-odac -iadc -m128
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
+
+giTable ftgen 0, 0, sr, 2, 0 ;for one second of recording
+giHalfSine ftgen 0, 0, 1024, 9, .5, 1, 0
+giDelay = 1 ;ms
+
+instr Record
+ aIn = inch(1)
+ gaWritePointer = phasor(1)
+ tablew(aIn,gaWritePointer,giTable,1)
+endin
+schedule("Record",0,-1)
+
+instr Granulator
+ kGrainDur = 30 ;milliseconds
+ kTranspos = -300 ;cent
+ kDensity = 50 ;Hz (grains per second)
+ kDistribution = .5 ;0-1
+ kTrig = metro(kDensity)
+ if kTrig==1 then
+  kPointer = k(gaWritePointer)-giDelay/1000
+  kOffset = random:k(0,kDistribution/kDensity)
+  schedulek("Grain",kOffset,kGrainDur/1000,kPointer,cent(kTranspos))
+ endif
+endin
+schedule("Granulator",giDelay/1000,-1)
+
+instr Grain
+ iStart = p4
+ iSpeed = p5
+ aOut = poscil3:a(poscil3:a(.3,1/p3,giHalfSine),iSpeed,giTable,iStart)
+ out(aOut,aOut)
+endin
+
+</CsInstruments>
+<CsScore>
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+~~~
+
+We only use some of the many parameters here; others can be added easily. As we chose one second for the table, we can simplify some calculations. Most important is to know for instr *Granulator* the current position of the write pointer, and to start playback *giDelay* milliseconds (here 1 ms) after it. For this, we write the current write pointer position to a global variable *gaWritePointer* in instr *Record* and get the start for one grain by 
+
+    `kPointer = k(gaWritePointer)-giDelay/1000`
+
+After having built this self-made granulator step by step, we will look now into some Csound opcodes for sample-based granular synthesis.
+
+
 Csound Opcodes for Granular Synthesis
 -------------------------------------
 
@@ -713,7 +781,7 @@ example), with more of a percussive character (short attack, long decay)
 or *gate*-like (short attack, long sustain, short decay).
 
 
-   ***EXAMPLE 05G07_sndwarp.csd***
+   ***EXAMPLE 05G08_sndwarp.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -809,7 +877,7 @@ lowpass filter in each case encasing each note under a smooth arc.
 Finally a small amount of reverb is added to smooth the overall texture
 slightly
 
-   ***EXAMPLE 05G08_selfmade_grain.csd***
+   ***EXAMPLE 05G09_selfmade_grain.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -947,7 +1015,7 @@ about what these transpositions are, are printed to the terminal as each
 note begins.
 
 
-   ***EXAMPLE 05G09_granule.csd***
+   ***EXAMPLE 05G10_granule.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1050,7 +1118,7 @@ buffer determines the delay time. We've used the fof2 opcode for this
 purpose here.
 
 
-   ***EXAMPLE 05G10_grain_delay.csd***
+   ***EXAMPLE 05G11_grain_delay.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -1140,7 +1208,7 @@ the oldest opcode, *Grain2* is a more easy-to-use opcode, while
 *Grain3* offers more control.
 
 
-   ***EXAMPLE 05G11_grain.csd***
+   ***EXAMPLE 05G12_grain.csd***
 
 ~~~
 <CsoundSynthesizer>
