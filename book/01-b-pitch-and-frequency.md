@@ -3,7 +3,8 @@
 
 Pitch and frequency are related but different terms.[^1] *Pitch* is used by musicians to describe the "height" of a tone, most obvious on a keyboard. *Frequency* is a technical term. We will start with the latter and then return to pitch in some of its numerous aspects, including intervals, tuning systems and different conversions between pitch and frequency in Csound.
 
-[^1]: Similar to *volume* and *amplitude* -- see [next chapter](01-c-intensities.md).
+[^1]: Similar to *volume* and *amplitude* -- see 
+      [next chapter](01-c-intensities.md).
 
 
 Frequencies
@@ -26,8 +27,8 @@ $λ = \frac{Velocity}{Frequency}$
 
 As the velocity of a sound in air (at 20° Celsius) is about 340 m/s, we can calculate the wavelength of a sound as
 
-$\lambda = \frac{\frac{340 m}{s}}{\frac{Number of Cycles}{s}} = 
-\frac{340}{Number of Cycles} m$
+$\lambda = \frac{\frac{340 m}{s}}{\frac{Number\ of\ Cycles}{s}} = 
+\frac{340}{Number\ of\ Cycles} m$
 
 For instance, a sine wave of 1000 Hz has a length of approximately 340/1000 m = 34 cm, whereas a wave of 100 Hz has a length of 340/100 m = 3.4 m.
 
@@ -188,21 +189,24 @@ nchnls = 2
 0dbfs = 1
 
 instr 1
- prints  "Playing %d Hertz!\n", p4
- asig    poscil  .2, p4
- outs    asig, asig
+ prints "Playing %d Hertz!\n", p4
+ asig poscil .2, p4
+ aout linen asig, 0, p3, p3
+ outs aout, aout
 endin
 
 instr 2
  prints  "Adding %d Hertz to %d Hertz!\n", p5, p4
  asig    poscil  .2, p4+p5
- outs    asig, asig
+ aout linen asig, 0, p3, p3
+ outs aout, aout
 endin
 
 instr 3
  prints  "Applying the ratio of %f (adding %d Hertz) to %d Hertz!\n", p5, p4*p5, p4
  asig    poscil  .2, p4*p5
- outs    asig, asig
+ aout linen asig, 0, p3, p3
+ outs aout, aout
 endin
 
 </CsInstruments>
