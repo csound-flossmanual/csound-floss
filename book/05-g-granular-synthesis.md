@@ -14,7 +14,7 @@ We will start with a self-made granulator which we build step by step. It may he
 A Self-Made Granulator
 ----------------------
 
-It is perfectly possible to build an own granular machine in Csound code, without using one of the many opcodes for granular synthesis. This machine will certainly rund slower than a native opcode. But for understanding what is happening, and being able to implement own ideas, this is a very instructive approach.
+It is perfectly possible to build one's own granular machine in Csound code, without using one of the many opcodes for granular synthesis. This machine will certainly run slower than a native opcode. But for understanding what is happening, and being able to implement own ideas, this is a very instructive approach.
 
 Granular synthesis can be described as a sequence of small sound snippets. So we can think of two units: One unit is managing the sequence, the other unit is performing one grain. Let us call the first unit *Granulator*, and the second unit *Grain*. The *Granulator* will manage the sequence of grains in calling the *Grain* unit again and again, with different parameters:
 
@@ -28,9 +28,9 @@ In Csound, we implement this architecture as two instruments. We will start with
 
 #### Parameters for One Grain
 
-The *Grain* instrument needs these informations to play back one grain:
+The *Grain* instrument needs the following information in order to play back a single grain:
 
-1. **Sound**. In the most simple version this is a sound file on the hard disk. More flexible and fast is a sample which has been stored in a buffer (function table). We can also record this buffer in real time — by this we can perform live granular synthesis.
+1. **Sound**. In the most simple version this is a sound file on the hard disk. More flexible and fast is a sample which has been stored in a buffer (function table). We can also record this buffer in real time and through this perform live granular synthesis.
 2. **Point in Sound to start playback**. In the most simple version, this is the same as the *skiptime* for playing back sound from hard disk via [diskin](https://csound.com/docs/manual/diskin.html). Usually we will choose seconds as unit for this parameter.
 3. **Duration**. The duration for one grain is usually in the range 20-50 ms, but can be smaller or bigger for special effects. In Csound this parameter is passed to the instrument as *p3* in its call, measured in seconds.
 4. **Speed of Playback**. This parameter is used by *diskin* and similar opcodes: 1 means the normal speed, 2 means double speed, 1/2 means half speed. This would result in no pitch change (1), octave higher (2) and octave lower(1/2). Negative numbers mean reverse playback.
@@ -97,7 +97,7 @@ i .      10 .   .25    -1
 ;example by joachim heintz
 ~~~
 
-It is a tiring job to write a score line for each grain ... — no one will do this. But only with a small change we can read through the whole sound file by calling our *Grain* instrument only once! The technique we use in the next example is to start a new instance of the *Grain* instrument by the running instance, as long as the end of the sound file has not yet been reached. (This technique has been described in paragraph *Self-Triggering and Recursion* of chapter [03 C](03-d-control-structures.md).)
+It is a tiring job to write a score line for each grain ... — no one will do this. But with but a small change we can read through the whole sound file by calling our *Grain* instrument only once! The technique we use in the next example is to start a new instance of the *Grain* instrument by the running instance, as long as the end of the sound file has not yet been reached. (This technique has been described in paragraph *Self-Triggering and Recursion* of chapter [03 C](03-d-control-structures.md).)
 
    ***EXAMPLE 05G02_simple_grain_continuous.csd***
 
@@ -446,7 +446,7 @@ It sounds like for normal use, the pointer, transposition and pan deviation are 
 
 #### Final Example
 
-After these more instructional examples here is a last one which shows some potentials of granular sounds. It uses the same parts of *The quick brown fox* as in the first example of this chapter, each which different sounds and combination of the parameters. 
+After first prsenting the more instructional examples, this final one shows some of the potential applications for granular sounds. It uses the same parts of *The quick brown fox* as in the first example of this chapter, each which different sounds and combination of the parameters. 
 
 
    ***EXAMPLE 05G06_the_fox_universe.csd***
@@ -998,7 +998,7 @@ total less than 100.
 Five notes are played by this example. While each note explores grain
 gap and grain size in the same way each time, different permutations for
 the four pitch transpositions are explored in each note. Information
-about what these transpositions are, are printed to the terminal as each
+about what these transpositions are is printed to the terminal as each
 note begins.
 
 

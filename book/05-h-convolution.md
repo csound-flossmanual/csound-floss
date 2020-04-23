@@ -315,3 +315,106 @@ commercial convolution algorithms demand a proprietary impulse response
 format inevitably limiting the user to using the impulse responses
 provided by the software manufacturers but with Csound we have the
 freedom to use any sound we like.
+
+
+liveconv
+--------
+
+The [liveconv](https://csound.com/docs/manual/liveconv.html) opcode is an interesting extension of the *ftconv* opcode. Its main purpose is to make dynamical reloading of the table with the impulse response not only possible, but give an option to avoid artefacts in this reloading. This is possible as reloading can be done partition by partition.
+
+The following example mimics the live input by short snippets of the *fox.wav* sound file. Once the new sound starts to fill the table (each time instr *Record_IR* is called), it sends the number 1 via software channel *conv_update* to the *kupdate* parameter of the *liveconv* opcode in instr *Convolver*. This will start the process of applying the new impulse response.
+
+
+   ***EXAMPLE 05H03_liveconv.csd***
+
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-odac  -m128
+</CsOptions>
+<CsInstruments>
+
+sr	= 44100
+ksmps = 32
+nchnls	= 2
+0dbfs	= 1
+
+;create IR table
+giIR_record 	ftgen 0, 0, 131072, 2, 0
+
+instr Input
+ gaIn diskin "beats.wav", 1, 0, 1
+ if timeinsts() < 2 then
+  outch 2, gaIn
+ endif
+endin
+	
+instr Record_IR
+
+ ;set p3 to table duration
+ p3 = ftlen(giIR_record)/sr
+ iskip = p4
+ irlen = p5
+ 
+ ;mimic live input with short sounds
+ if timeinsts() < irlen then
+  asnd diskin "fox.wav", 1, iskip
+ else
+  asnd = 0
+ endif
+
+ ;fill IR table 
+ andx_IR line 0, p3, ftlen(giIR_record)
+ tablew asnd, andx_IR, giIR_record
+ 
+ ;send 1 at first k-cycle, otherwise 0
+ kTrig init 1
+ chnset kTrig, "conv_update"
+ kTrig = 0
+
+ ;output the IR for reference
+	outch 1, asnd
+
+endin
+        
+instr Convolver
+
+ ;receive information about updating the table
+ kupdate	chnget "conv_update"
+ 
+ ;different dB values for the different IR 
+ kDb[] fillarray -34, -35, -40, -28, -40, -40, -40
+ kIndx init -1
+ if kupdate==1 then
+  kIndx += 1
+ endif
+ 
+ ;apply live convolution
+ aconv liveconv gaIn, giIR_record, 2048, kupdate, 0
+	outch 2, aconv*ampdb(kDb[kIndx])
+	
+endin
+        
+        
+</CsInstruments>
+<CsScore>
+;play input sound "naked" first
+i "Input" 0 15.65
+
+;record impulse response multiple times
+;                  skip  IR_dur
+i "Record_IR" 2 1  0.18  0.073
+i .           4 .  0.51  0.151
+i .           6 .  0.77  0.17
+i .           8 .  0.98  0.12
+i .          10 .  1.73  0.12
+i .          12 .  2.07  0.12
+i .          14 .  2.38  0.25
+
+;convolve continuously
+i "Convolver" 	2	13.65	
+</CsScore>
+</CsoundSynthesizer>
+;example by Oeyving Brandtsegg and Sigurd Saue
+~~~
+

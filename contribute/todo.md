@@ -41,8 +41,6 @@ Edits
     - go deeper in the implementation of filters, perhaps with steven's udos
     - how to create a multiband graphic EQ
     - example of the classic channel vocoder could fit here
-- 05-h (convolution)
-    - oeyvind's new live convolution opcode liveconv should be added here
 - 05-i (fft)
     - add section at the end dedicated to pvsblur, pvsmooth and similar ways
       to improve audio quality
