@@ -340,12 +340,14 @@ nchnls	= 2
 0dbfs	= 1
 
 ;create IR table
-giIR_record 	ftgen 0, 0, 131072, 2, 0
+giIR_record ftgen 0, 0, 131072, 2, 0
 
 instr Input
- gaIn diskin "beats.wav", 1, 0, 1
+
+ ain diskin "beats.wav", 1, 0, 1
+ chnset ain, "input"
  if timeinsts() < 2 then
-  outch 2, gaIn
+  outch 2, ain/2
  endif
 endin
 	
@@ -356,21 +358,19 @@ instr Record_IR
  iskip = p4
  irlen = p5
  
- ;mimic live input with short sounds
- if timeinsts() < irlen then
-  asnd diskin "fox.wav", 1, iskip
- else
-  asnd = 0
- endif
+ ;mimic live input for impulse response
+ asnd diskin "fox.wav", 1, iskip
+ amp linseg 0, 0.01, 1, irlen, 1, 0.01, 0
+ asnd *= amp
 
  ;fill IR table 
  andx_IR line 0, p3, ftlen(giIR_record)
  tablew asnd, andx_IR, giIR_record
  
  ;send 1 at first k-cycle, otherwise 0
- kTrig init 1
- chnset kTrig, "conv_update"
- kTrig = 0
+ ktrig init 1
+ chnset ktrig, "conv_update"
+ ktrig = 0
 
  ;output the IR for reference
 	outch 1, asnd
@@ -383,33 +383,34 @@ instr Convolver
  kupdate	chnget "conv_update"
  
  ;different dB values for the different IR 
- kDb[] fillarray -34, -35, -40, -28, -40, -40, -40
- kIndx init -1
+ kdB[] fillarray -34, -35, -40, -28, -40, -40, -40
+ kindx init -1
  if kupdate==1 then
-  kIndx += 1
+  kindx += 1
  endif
  
  ;apply live convolution
- aconv liveconv gaIn, giIR_record, 2048, kupdate, 0
-	outch 2, aconv*ampdb(kDb[kIndx])
+ ain chnget "input"
+ aconv liveconv ain, giIR_record, 2048, kupdate, 0
+	outch 2, aconv*ampdb(kdB[kindx])
 	
 endin
         
         
 </CsInstruments>
 <CsScore>
-;play input sound "naked" first
+;play input sound alone first
 i "Input" 0 15.65
 
 ;record impulse response multiple times
 ;                  skip  IR_dur
-i "Record_IR" 2 1  0.18  0.073
-i .           4 .  0.51  0.151
-i .           6 .  0.77  0.17
-i .           8 .  0.98  0.12
-i .          10 .  1.73  0.12
-i .          12 .  2.07  0.12
-i .          14 .  2.38  0.25
+i "Record_IR" 2 1  0.17  0.093
+i .           4 .  0.50  0.13
+i .           6 .  0.76  0.19
+i .           8 .  0.97  0.12
+i .          10 .  1.72  0.12
+i .          12 .  2.06  0.12
+i .          14 .  2.37  0.27
 
 ;convolve continuously
 i "Convolver" 	2	13.65	
@@ -417,4 +418,12 @@ i "Convolver" 	2	13.65
 </CsoundSynthesizer>
 ;example by Oeyving Brandtsegg and Sigurd Saue
 ~~~
+
+Some comments to the code of this example:
+
+- Line 13: A function table is created in which the impulse responses can be recorded in real-time. A power of two size (here 2^17^ = 131072) is preferred as the partition size will then be an integer multiple of the table size.
+- Line 15-24: This instrument mimics the audio source on which the convolution will be applied. Here it is *beats.wav*, a short sound file which is looped.
+- Line 27: Whenever instr *Record_IR* is called, it will record an impulse response to table *giIR_record*. The impulse response can be very small, but the whole table must be recorded anyway. So the duration of the instrument (p3) must be set to the time it takes for this recording. This is the length of the table divided by the sample rate: `ftlen(giIR_record)/sr`, here *131072 / 44100 = 2.972* seconds.
+- Line 32-24: The second live input which is used for the impulse response, is mimicked here by the file *fox.wav* which is played back with different skip times in the different calls of the instrument. The envelope *amp* applies a short fade in and fade out to the short portion of the sample which we want to use. (`asnd *= amp` is a short form for `asnd = asnd*amp`.)
+- Line 56-60: Depending on the intensity and the spectral content of the impulse response, the convolution will have rather different volume. The code in these lines is to balance it. The *kdB[]* array has seven different dB values for the seven calls of instr *Record_IR*. Each new update message (when *kupdate* gets 1) will increase the *kindx* pointer in the array so that these seven dB values are being applied in line 54 as `ampdb(kdB[kindx])` to the convolution *aconv*. 
 
