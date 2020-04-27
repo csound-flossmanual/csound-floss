@@ -7,8 +7,13 @@ An audio signal can be described as continuous changes of amplitudes in time.[^1
       always zero. Silence is any constant amplitude, it be 0 or 1 or -0.2.
 
 
-FT, STFT, DFT and FFT
----------------------
+General Aspects
+---------------
+
+Fourier Transform is a complex method. We will describe here in short what is most important to know about it for the user.
+
+
+### FT, STFT, DFT and FFT
 
 As described in chapter [04 A](04-a-additive-synthesis.md), the mathematician J.B. Fourier (1768-1830) developed a method to approximate periodic functions by weighted sums of the trigonometric functions *sine* and *cosine*. As many sounds, for instance a violin or a flute tone, can be described as *periodic functions*,[^2] we should be able to analyse their spectral components by means of the Fourier Transform.
 
@@ -31,8 +36,7 @@ Secondly the analysis windows are not put side by side but as *overlapping* each
 We already measured the size of the analysis window in these figures in samples rather than in milliseconds. As we are dealing with *digital* audio, the Fourier Transform has become a *Digital Fourier Transform* (*DFT*). It offers some simplifications compared to the analogue FT as the number of amplitudes in one frame is finite. And moreover, there is a considerable gain of speed in the calculation if the window size is a power of two. This version of the DFT is called *Fast Fourier Transform* (*FFT*) and is implemented in all audio programming languages.
 
 
-Window Size, Bins and Time-Frequency-Tradeoff
----------------------------------------------
+### Window Size, Bins and Time-Frequency-Tradeoff
 
 Given that one FFT analysis window size should last about 10-50 ms and that a power-of-two number of samples must be matched, for *sr=44100* the sizes 512, 1024 or 2048 samples would be most suitable for one FFT window, thus resulting in a window length of about 11, 23 and 46 milliseconds respectively. Whether a smaller or lager window size is better, depends on different decisions.
 
@@ -90,8 +94,7 @@ We will focus on these *pvs* opcodes here, which for most use cases offer all wh
 in the Csound Manual.
 
 
-From Time Domain to Frequency Domain: *pvsanal*
------------------------------------------------
+### From Time Domain to Frequency Domain: *pvsanal*
 
 For dealing with signals in the frequency domain, the *pvs* opcodes
 implement a new signal type, the *frequency-* or *f-signal*. If we start with an audio signal in time-domain as *aSig*, it will become *fSig* as result of the Fourier Transform.
@@ -192,7 +195,7 @@ resynthesis:
 ![](../resources/images/05-i-schema-1.png)
 
 
-### Alternatives and Time Stretching: *pvstanal* / *pvsbufread*
+#### Alternatives and Time Stretching: *pvstanal* / *pvsbufread*
 
 Working with *pvsanal* to create an f-signal is easy and straightforward. But if we are using an already existing sound file, we are missing one of the interesting possibilities in working with FFT: time stretching. This we can obtain most simple when we use
 [pvstanal](https://csound.com/docs/manual/pvstanal.html) instead. The *t* in *pvs**t**anal* stands for *table*. This opcode performs FFT on a sound which has been loaded in a table.[^7] These are the main parameters:
@@ -319,8 +322,7 @@ i 2 11 20
 The [mincer](https://csound.com/docs/manual/mincer.html) opcode also provides a high-quality time- and pitch-shifting algorithm. Other than *pvstanal* and *pvsbufread* it already transforms the f-signal back to time domain, thus outputting an audio signal.
 
 
-Pitch shifting
---------------
+### Pitch shifting
 
 Simple pitch shifting can be carried out by the opcode
 [pvscale](https://csound.com/docs/manual/pvscale.html). All the
@@ -393,8 +395,7 @@ As mentioned above, simple pitch shifting can also be performed via
 [mincer](https://csound.com/docs/manual/mincer.html).
 
 
-Cross Synthesis
----------------
+### Cross Synthesis
 
 Working in the frequency domain makes it possible to combine or
 *cross* the spectra of two sounds. As the Fourier transform of an
@@ -575,7 +576,73 @@ i 1 0 11
 ~~~
 
 
-Sound Quality in FFT Signals
-----------------------------
+### Sound Quality in FFT Signals
 
 (to be written ...)
+
+
+### Retrieving Single Bins from FFT
+
+It is not only possible to work with the full data set of the Fourier Transform, but to select single bins (amplitude-frequency pairs) from it. This can be useful for specialized resynthesis or for using the analysis data in any way.
+
+The most fundamental extraction of single bins can be done with the [pvsbin](https://csound.com/docs/manual/pvsbin.html) opcode. It takes the f-signal and the bin number as input, and returns the amplitude and the frequency of the bin. These values can be used to drive an oscillator which resynthesizes this bin. 
+
+The next example shows three different applications. At first, instr *SingleBin* is called four times, performing bin 10, 20, 30 and 40. Then instr *FourBins* calls the four instances of *SingleBin* at the same time, so we hear the four bins together. Finally, instr *SlidingBins* uses the fact that the bin number can be given to *pvsbin* as k-rate variable. The line `kBin randomi 1,50,200,3` produces changing bins with a rate of 200 Hz, between bin 1 and 50.
+
+Note that we are always smoothing the bin amplitudes *kAmp* by applying `port(kAmp,.01)`. Raw `kAmp` instead will get clicks, whereas `port(kAmp,.1)` would remove the small attacks.
+
+
+   ***EXAMPLE 05I07_pvsbin.csd***
+
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-odac  -m128
+</CsOptions>
+<CsInstruments>
+
+sr	= 44100
+ksmps = 32
+nchnls	= 2
+0dbfs	= 1
+
+instr SingleBin
+ iBin = p4 //bin number
+ aSig diskin "fox.wav"
+ fSig pvsanal aSig, 1024, 256, 1024, 1
+ kAmp, kFreq pvsbin fSig, iBin
+ aBin poscil port(kAmp,.01), kFreq
+ aBin *= iBin/10
+ out aBin, aBin
+endin
+
+instr FourBins
+ iCount = 1
+ while iCount < 5 do
+  schedule("SingleBin",0,3,iCount*10)
+  iCount += 1
+ od
+endin	
+        
+instr SlidingBins
+ kBin randomi 1,50,200,3
+ aSig diskin "fox.wav"
+ fSig pvsanal aSig, 1024, 256, 1024, 1
+ kAmp, kFreq pvsbin fSig, int(kBin)
+ aBin poscil port(kAmp,.01), kFreq
+ aBin *= kBin/10
+ out aBin, aBin
+endin
+        
+</CsInstruments>
+<CsScore>
+i "SingleBin" 0 3 10
+i . + . 20
+i . + . 30
+i . + . 40
+i "FourBins" 13 3
+i "SlidingBins" 17 3
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+~~~
