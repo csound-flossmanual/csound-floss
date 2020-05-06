@@ -578,12 +578,89 @@ i 1 0 11
 
 ### Sound Quality in FFT Signals
 
-(to be written ...)
+Artifacts can easily occur in several situations of applying FFT. In example *05I02* we have seen how it is a side effect in extreme time stretching of spoken word. The opcodes [pvsmooth](https://csound.com/docs/manual/pvsmooth.html) and [pvsblur](https://csound.com/docs/manual/pvsblur.html) can be a remedy against it, or at least a relief. The adjustment of the parameters are crucial here:
+- For *pvsmooth*, the *kacf* and the *kfcf* parameter apply a low pass filter on the amplitudes and the frequencies of the *f*-signal. The range is 0-1 each, where 0 is the lowest and 1 the highest cutoff frequency. Lower values will smooth more, so the effect will be stronger.
+- For *pvsblur*, the *kblurtime* depicts the time in seconds during which the single FFT windows will be averaged.
+
+This is a trial to reduce the amount of artefacts. Note that [pvstanal](https://csound.com/docs/manual/pvstanal.html) actually has the best method to reduce artifacts in spoken word, as it can leave onsets unstretched (*kdetect* which is on by default). 
+
+
+   ***EXAMPLE 05I07_pvsmooth_pvsblur.csd***
+
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-m 128
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
+
+gifil ftgen 0, 0, 0, 1, "fox.wav", 0, 0, 1
+
+instr Raw
+ fStretch pvstanal 1/10, 1, 1, gifil, 0 ;kdetect is turned off
+ aStretch pvsynth fStretch
+ out aStretch, aStretch
+endin
+
+instr Smooth
+ iAmpCutoff = p4 ;0-1
+ iFreqCutoff = p5 ;0-1
+ fStretch pvstanal 1/10, 1, 1, gifil, 0
+ fSmooth pvsmooth fStretch, iAmpCutoff, iFreqCutoff 
+ aSmooth pvsynth fSmooth
+ out aSmooth, aSmooth
+endin
+
+instr Blur
+ iBlurtime = p4 ;sec
+ fStretch pvstanal 1/10, 1, 1, gifil, 0
+ fBlur pvsblur fStretch, iBlurtime, 1 
+ aSmooth pvsynth fBlur
+ out aSmooth, aSmooth
+endin
+
+instr Smooth_var
+ fStretch pvstanal 1/10, 1, 1, gifil, 0
+ kAmpCut randomi .001, .1, 10, 3
+ kFreqCut randomi .05, .5, 50, 3
+ fSmooth pvsmooth fStretch, kAmpCut, kFreqCut
+ aSmooth pvsynth fSmooth
+ out aSmooth, aSmooth
+endin
+	
+instr Blur_var
+ kBlurtime randomi .005, .5, 200, 3
+ ;kBlurtime random .001, 1
+ fStretch pvstanal 1/10, 1, 1, gifil, 0
+ fBlur pvsblur fStretch, kBlurtime, 1 
+ aSmooth pvsynth fBlur
+ out aSmooth, aSmooth
+endin
+	
+</CsInstruments>
+<CsScore> 
+a 0 0 0
+i 1 0 16
+i 2 17 16 .01 .1
+i 3 34 16 .2
+i 4 51 16
+i 5 68 16
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz and farhad ilaghi hosseini
+~~~
 
 
 ### Retrieving Single Bins from FFT
 
 It is not only possible to work with the full data set of the Fourier Transform, but to select single bins (amplitude-frequency pairs) from it. This can be useful for specialized resynthesis or for using the analysis data in any way.
+
+
+#### pvsbin
 
 The most fundamental extraction of single bins can be done with the [pvsbin](https://csound.com/docs/manual/pvsbin.html) opcode. It takes the f-signal and the bin number as input, and returns the amplitude and the frequency of the bin. These values can be used to drive an oscillator which resynthesizes this bin. 
 
@@ -592,7 +669,7 @@ The next example shows three different applications. At first, instr *SingleBin*
 Note that we are always smoothing the bin amplitudes *kAmp* by applying `port(kAmp,.01)`. Raw `kAmp` instead will get clicks, whereas `port(kAmp,.1)` would remove the small attacks.
 
 
-   ***EXAMPLE 05I07_pvsbin.csd***
+   ***EXAMPLE 05I08_pvsbin.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -642,6 +719,81 @@ i . + . 30
 i . + . 40
 i "FourBins" 13 3
 i "SlidingBins" 17 3
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+~~~
+
+
+#### pvstrace
+
+Another approach to retrieve a selection of bins is done by the opcode [pvstrace](https://csound.com/docs/manual/pvstrace.html). Here, only the N loudest bins are written in the *f* signal which this opcode outputs. 
+
+This is a simple example first which lets *pvstrace* play in sequence the 1, 2, 4, 8 and 16 loudest bins.
+
+
+   ***EXAMPLE 05I09_pvstrace_simple***
+
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-o dac
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
+
+instr Simple
+ aSig diskin "fox.wav"
+ fSig pvsanal aSig, 1024, 256, 1024, 1
+ fTrace pvstrace fSig, p4
+ aTrace pvsynth fTrace
+ out aTrace, aTrace
+endin
+
+</CsInstruments>
+<CsScore>
+i "Simple" 0 3 1
+i . + . 2
+i . + . 4
+i . + . 8
+i . + . 16
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+~~~
+
+
+An optional second output of pvstrace returns an array with the *kn* bin numbers which are most prominent. As a demonstration, this example passes only the loudest bin to *pvsbin* and resynthesizes it with an oscillator unit.
+
+
+   ***EXAMPLE 05I10_pvstrace_array.csd***
+
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-o dac
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
+
+instr LoudestBin
+ aSig diskin "fox.wav"
+ fSig pvsanal aSig, 1024, 256, 1024, 1
+ fTrace, kBins[] pvstrace fSig, 1, 1
+ kAmp, kFreq pvsbin fSig, kBins[0]
+ aLoudestBin poscil port(kAmp,.01), kFreq
+ out aLoudestBin, aLoudestBin
+endin
+
+</CsInstruments>
+<CsScore>
+i "LoudestBin" 0 3
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
