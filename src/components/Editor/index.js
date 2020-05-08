@@ -137,7 +137,6 @@ const PlayControls = ({ initialEditorState, currentEditorState }) => {
     });
     await libcsound.csoundCompileCsdText(csound, currentEditorState);
     await libcsound.csoundStart(csound);
-    await libcsound.startWebAudio(csound);
   };
 
   const onPause = async () => {

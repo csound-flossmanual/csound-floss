@@ -2352,7 +2352,7 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@wasmer/wasi@^0.10.1":
+"@wasmer/wasi@^0.10.2":
   version "0.10.2"
   resolved "https://registry.yarnpkg.com/@wasmer/wasi/-/wasi-0.10.2.tgz#4bd79bcae88cfa23224c21b6af7ef6d2a07081eb"
   integrity sha512-zEcZnGmPcO+b6o95W+uF4AK4oGBvBaM6oyyIOH1Kv/Sigy/knRMmawHWPDdJlImYmea7NLvn6PwdN+XJBYSz5A==
@@ -2362,14 +2362,14 @@
     path-browserify "^1.0.0"
     randomfill "^1.0.4"
 
-"@wasmer/wasm-transformer@^0.10.1":
+"@wasmer/wasm-transformer@^0.10.2":
   version "0.10.2"
   resolved "https://registry.yarnpkg.com/@wasmer/wasm-transformer/-/wasm-transformer-0.10.2.tgz#1f69a4a9766974f1b170de7ad4d46e2f0d2ffec6"
   integrity sha512-cWctY14yLCJrNDrQfWVVlvrblYffwb8PVxsHnvdcbsaA8j8il0I7u/qzaGDA6k4jeN5Hd3QKWM4x+M1AJ6hOwg==
   dependencies:
     wasm-feature-detect "^1.2.2"
 
-"@wasmer/wasmfs@^0.10.1":
+"@wasmer/wasmfs@^0.10.2":
   version "0.10.2"
   resolved "https://registry.yarnpkg.com/@wasmer/wasmfs/-/wasmfs-0.10.2.tgz#d82a3ff3dfd304c8c51177b1a1a710047779fa19"
   integrity sha512-/sH64+/nyWwqY+gJO+q5qMrEG9SaTxmqr8jVvB6fiLOKEPCFnp9Dz+4dhc9O9W1tjScmcf15yGpZ+196w2m/6A==
@@ -3369,7 +3369,7 @@ buffer-es6@^4.9.3:
   resolved "https://registry.yarnpkg.com/buffer-es6/-/buffer-es6-4.9.3.tgz#f26347b82df76fd37e18bcb5288c4970cfd5c404"
   integrity sha1-8mNHuC33b9N+GLy1KIxJcM/VxAQ=
 
-buffer-from@^1.0.0:
+buffer-from@^1.0.0, buffer-from@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/buffer-from/-/buffer-from-1.1.1.tgz#32713bc028f75c02fdb710d7c7bcec1f2c6070ef"
   integrity sha512-MQcXEUbCKtEo7bhqEs6560Hyd4XaovZlO/k9V3hjVUF/zwW7KBVdSK4gIt/bzwS9MbR5qob+F5jusZsb0YQK2A==
@@ -3397,6 +3397,14 @@ buffer@^5.5.0:
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/buffer/-/buffer-5.5.0.tgz#9c3caa3d623c33dd1c7ef584b89b88bf9c9bc1ce"
   integrity sha512-9FTEDjLjwoAkEwyMGDjYJQN2gfRgOKBKRfiglhvibGbpeeU/pQn1bJxQqm32OD/AIeEuHxU9roxXxg34Byp/Ww==
+  dependencies:
+    base64-js "^1.0.2"
+    ieee754 "^1.1.4"
+
+buffer@^5.6.0:
+  version "5.6.0"
+  resolved "https://registry.yarnpkg.com/buffer/-/buffer-5.6.0.tgz#a31749dc7d81d84db08abf937b6b8c4033f62786"
+  integrity sha512-/gDYp/UtU0eA1ys8bOs9J6a+E/KWIY+DZ+Q2WESNUA0jFRsJOc0SNUO6xJ5SGA1xueg3NL65W6s+NY5l9cunuw==
   dependencies:
     base64-js "^1.0.2"
     ieee754 "^1.1.4"
@@ -4125,15 +4133,17 @@ csound-manual-react@^1.0.0-alpha8:
     webpack "^4.39.3"
     webpack-cli "^3.3.8"
 
-csound-wasm@^6.14.0-alpha10:
-  version "6.14.0-alpha10"
-  resolved "https://registry.yarnpkg.com/csound-wasm/-/csound-wasm-6.14.0-alpha10.tgz#0477c00542b0f13d04582915ca520483a4854b4a"
-  integrity sha512-HhpdWrwghNZHpJbX7tUHU8UkT/EJiYxn/Gb5DQMtMBBFAUz/TCwaMVTdkYk3rE6uLulULOcCCTax1GKpaYu2Fw==
+csound-wasm@^6.14.0-alpha12:
+  version "6.14.0-alpha12"
+  resolved "https://registry.yarnpkg.com/csound-wasm/-/csound-wasm-6.14.0-alpha12.tgz#0d4cef4baa38112cbb12d7b83f8ed80ee725008b"
+  integrity sha512-lKFADu2qTcd8jk2Ji/7qq1Fhz8YqafTI+q1PzFPnG0YPJETq5fRW5qeOwfbahfsCqWJFoi7JgnMtSbKWdGKW1A==
   dependencies:
-    "@wasmer/wasi" "^0.10.1"
-    "@wasmer/wasm-transformer" "^0.10.1"
-    "@wasmer/wasmfs" "^0.10.1"
-    buffer "^5.5.0"
+    "@wasmer/wasi" "^0.10.2"
+    "@wasmer/wasm-transformer" "^0.10.2"
+    "@wasmer/wasmfs" "^0.10.2"
+    buffer "^5.6.0"
+    get-user-media-promise "^1.1.4"
+    microphone-stream "^5.0.1"
     pako "^1.0.11"
     path-browserify "^1.0.1"
     web-midi-api "^2.0.7"
@@ -5764,6 +5774,11 @@ get-stream@^4.0.0:
   integrity sha512-GMat4EJ5161kIy2HevLlr4luNjBgvmj413KaQA7jt4V8B4RDsfpHk7WQ9GVqfYyyx8OS/L66Kox+rJRNklLK7w==
   dependencies:
     pump "^3.0.0"
+
+get-user-media-promise@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/get-user-media-promise/-/get-user-media-promise-1.1.4.tgz#cf6b460bbf23b6b273c329899d0dc0d901e719a6"
+  integrity sha512-k49YuV2z0d3gKHLPTFKYfzEA9kduuQk7YBf8ev2dxrKk+DhMyuzfQnK9ZSxkEhE/jv3BZY62M0eICWa7lak9nw==
 
 get-value@^2.0.3, get-value@^2.0.6:
   version "2.0.6"
@@ -7845,6 +7860,14 @@ micromatch@^4.0.2:
   dependencies:
     braces "^3.0.1"
     picomatch "^2.0.5"
+
+microphone-stream@^5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/microphone-stream/-/microphone-stream-5.0.1.tgz#e9fdf1ef6ddcaa35c5c4dfe6019cdfa45f598cb7"
+  integrity sha512-hHblbrtWNZEOz6I3RR3vO9fVmN2e2PyR5TpBi+m6hRtTh7LT/hw4Pt5LIf6NSpL+HSMQ40I3CdLEq9alI4BG0w==
+  dependencies:
+    buffer-from "^1.1.1"
+    readable-stream "^3.3.0"
 
 miller-rabin@^4.0.0:
   version "4.0.1"
@@ -10124,7 +10147,7 @@ readable-stream@^3.0.6, readable-stream@^3.1.1:
     string_decoder "^1.1.1"
     util-deprecate "^1.0.1"
 
-readable-stream@^3.4.0:
+readable-stream@^3.3.0, readable-stream@^3.4.0:
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/readable-stream/-/readable-stream-3.6.0.tgz#337bbda3adc0706bd3e024426a286d4b4b2c9198"
   integrity sha512-BViHy7LKeTz4oNnkcLJ+lVSL6vpiFeX6/d3oSH8zCW7UxP2onchk+vTGB143xuFjHS3deTgkKoXXymXqymiIdA==
