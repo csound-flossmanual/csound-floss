@@ -395,6 +395,54 @@ As mentioned above, simple pitch shifting can also be performed via
 [mincer](https://csound.com/docs/manual/mincer.html).
 
 
+### Spectral Shifting
+
+Rather than multiplying the bin frequencies by a scaling factor, which results in pitch shifting, it is also possible to *add* a certain amount to the single bin frequencies. This results in an effect which is called frequency shifting. It resembles the shifted spectra in ring modulation which has been described at the end of chapter [04C](04-c-amplitude-and-ring-modulation.md).
+
+The frequency-domain spectral shifting which is performed by the [pvshift](https://csound.com/docs/manual/pvshift.html) opcode has some important differences compared to the time-domain ring modulation:
+- Frequencies are only added or subtracted, not both.
+- A lowest frequency can be given. Below this frequency the spectral content will be left untouched; only above addition/subtraction will be processed.
+- Some options are implemented which try to preserve formants. This is of particular interest when working with human voice.
+
+The following example performs some different shifts on a single viola tone.
+
+
+   ***EXAMPLE 05I05_pvshift.csd***
+
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-o dac
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 2
+0dbfs = 1
+
+instr Shift
+ aSig diskin "BratscheMono.wav"
+ fSig pvsanal aSig, 1024, 256, 1024, 1
+ fShift pvshift fSig, p4, p5
+ aShift pvsynth fShift
+ out aShift, aShift
+endin
+
+</CsInstruments>
+<CsScore>
+i "Shift" 0 9 0 0 ;no shift (base freq is 218)
+i . + . 50 0 ;shift all by 50 Hz
+i . + . 150 0 ;shift all by 150 Hz
+i . + . 500 0 ;shift all by 500 Hz
+i . + . 150 230 ;only above 230 Hz by 150 Hz
+i . + . . 460 ;only above 460 Hz 
+i . + . . 920 ;only above 920 Hz
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+~~~
+
+
 ### Cross Synthesis
 
 Working in the frequency domain makes it possible to combine or
@@ -423,7 +471,7 @@ sample is being played at half speed and *sings* through the music of
 sound B:
 
 
-   ***EXAMPLE 05I05_phase_vocoder.csd***
+   ***EXAMPLE 05I06_phase_vocoder.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -475,7 +523,7 @@ i 1 0 11
 The next example introduces *pvscross*:
 
 
-   ***EXAMPLE 05I05_pvscross.csd***
+   ***EXAMPLE 05I07_pvscross.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -528,7 +576,7 @@ resulting intensity is dependent upon the amplitudes of sound B, and if
 the amplitudes are strong enough, you will hear a resonating effect:
 
 
-   ***EXAMPLE 05I06_pvsfilter.csd***
+   ***EXAMPLE 05I08_pvsfilter.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -585,7 +633,7 @@ Artifacts can easily occur in several situations of applying FFT. In example *05
 This is a trial to reduce the amount of artefacts. Note that [pvstanal](https://csound.com/docs/manual/pvstanal.html) actually has the best method to reduce artifacts in spoken word, as it can leave onsets unstretched (*kdetect* which is on by default). 
 
 
-   ***EXAMPLE 05I07_pvsmooth_pvsblur.csd***
+   ***EXAMPLE 05I09_pvsmooth_pvsblur.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -669,7 +717,7 @@ The next example shows three different applications. At first, instr *SingleBin*
 Note that we are always smoothing the bin amplitudes *kAmp* by applying `port(kAmp,.01)`. Raw `kAmp` instead will get clicks, whereas `port(kAmp,.1)` would remove the small attacks.
 
 
-   ***EXAMPLE 05I08_pvsbin.csd***
+   ***EXAMPLE 05I10_pvsbin.csd***
 
 ~~~
 <CsoundSynthesizer>
@@ -732,7 +780,7 @@ Another approach to retrieve a selection of bins is done by the opcode [pvstrace
 This is a simple example first which lets *pvstrace* play in sequence the 1, 2, 4, 8 and 16 loudest bins.
 
 
-   ***EXAMPLE 05I09_pvstrace_simple***
+   ***EXAMPLE 05I11_pvstrace_simple***
 
 ~~~
 <CsoundSynthesizer>
@@ -769,7 +817,7 @@ i . + . 16
 An optional second output of pvstrace returns an array with the *kn* bin numbers which are most prominent. As a demonstration, this example passes only the loudest bin to *pvsbin* and resynthesizes it with an oscillator unit.
 
 
-   ***EXAMPLE 05I10_pvstrace_array.csd***
+   ***EXAMPLE 05I12_pvstrace_array.csd***
 
 ~~~
 <CsoundSynthesizer>
