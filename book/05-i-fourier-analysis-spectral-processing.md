@@ -682,21 +682,36 @@ endin
 	
 instr Blur_var
  kBlurtime randomi .005, .5, 200, 3
- ;kBlurtime random .001, 1
  fStretch pvstanal 1/10, 1, 1, gifil, 0
  fBlur pvsblur fStretch, kBlurtime, 1 
  aSmooth pvsynth fBlur
  out aSmooth, aSmooth
 endin
+
+instr SmoothBlur
+	iacf = p4
+	ifcf = p5
+	iblurtime = p6
+	fanal pvstanal 1/10, 1, 1, gifil, 0
+	fsmot pvsmooth fanal, iacf, ifcf
+	fblur pvsblur fsmot, iblurtime, 1
+	a_smt pvsynth fblur
+	aOut linenr a_smt, 0, iblurtime*2, .01
+	out aOut, aOut
+endin 
 	
 </CsInstruments>
 <CsScore> 
-a 0 0 0
-i 1 0 16
-i 2 17 16 .01 .1
-i 3 34 16 .2
-i 4 51 16
-i 5 68 16
+i "Raw" 0 16
+i "Smooth" 17 16 .01 .1
+i "Blur" 34 16 .2
+i "Smooth_var" 51 16
+i "Blur_var" 68 16
+i "SmoothBlur" 85 16 1 1 0
+i . 102 . .1 1 .25
+i . 119 . .01 .1 .5
+i . 136 . .001 .01 .75
+i . 153 . .0001 .001 1
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz and farhad ilaghi hosseini
