@@ -49,12 +49,14 @@ function execMarkdownToHtml(fileName) {
     .replace(/&amp;/g, "&")
     .replace(/CodeElement data=\"/g, "CodeElement data={`")
     .replace(/\"><\/CodeElement>/g, "`}></CodeElement>");
+
   const linkData = buildLink(path.basename(fileName));
+
   fs.writeFileSync(
     path.join(JSX_OUTPUT, `${chapterBasename}.jsx`),
     wrapChapterInTemplate(
       jsxElements,
-      R.propOr("Untitled Chapter", "name", linkData)
+      R.propOr("Untitled Chapter", "sectionName", linkData)
     )
   );
   return {

@@ -6,5 +6,5 @@ import DocumentTitle from "react-document-title";
 
 const Chapter = () => {
 return (
-<DocumentTitle title={"CHANGEME - The Csound FLOSS Manual"}>
+<DocumentTitle title={"CHANGEME"}>
  <MathJax.Provider>

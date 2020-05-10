@@ -45,6 +45,14 @@ const makeWrapChapterInTemplate = () => {
 
 const startsWithChapterMark = url => /^\d\d/i.test(url);
 
+const toTitleCase = phrase => {
+  return phrase
+    .toLowerCase()
+    .split(" ")
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+};
+
 const buildLink = url => {
   const urlWithoutHash = url.replace(/#+.*/, "");
   if (urlWithoutHash.endsWith(".md") && startsWithChapterMark(urlWithoutHash)) {
@@ -60,9 +68,14 @@ const buildLink = url => {
       );
       process.exit(1);
     }
+    let sectionName = toTitleCase(sectionBasename.replace(/\-/g, " "));
+    if (sectionName.includes("Aa Toc")) {
+      sectionName = "Table of Contents";
+    }
     return {
       url: `${prefixData.url_prefix}/${sectionBasename}`,
-      ...prefixData
+      sectionName,
+      ...prefixData,
     };
   } else {
     return { url };
@@ -73,5 +86,5 @@ module.exports = {
   buildLink,
   ensureEmptyDir,
   makeWrapChapterInTemplate,
-  readFileWithFallback
+  readFileWithFallback,
 };
