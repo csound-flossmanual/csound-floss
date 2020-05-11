@@ -26,7 +26,8 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
     "react-select": "^3.1.0",
-    "react-side-effect": "^2.1.0"
+    "react-side-effect": "^2.1.0",
+    "throttle-debounce": "^2.1.0"
   },
   "resolutions": {
     "html-to-jsx/cheerio": "^1.0.0-rc.3",

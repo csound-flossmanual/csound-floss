@@ -89,7 +89,7 @@ export const CsoundProvider = ({ children }) => {
     isPaused: false,
     isPlaying: false,
     loadedSamples: [],
-    logDialogOpen: process.env.NODE_ENV === "production" ? false : true,
+    logDialogOpen: false, // process.env.NODE_ENV === "production" ? false : true,
     logDialogClosed: false,
     logs: [],
   });

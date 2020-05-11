@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React, { createContext, useContext, useReducer } from "react";
-import { assoc } from "ramda";
+import { assoc, pipe } from "ramda";
 
 export const BookStateContext = createContext();
 export const BookDispatchContext = createContext();
@@ -10,7 +10,13 @@ BookStateContext.displayName = "BookStateContext";
 const reducer = (state, action) => {
   switch (action.type) {
     case "setSections": {
-      return assoc("sections", action.sections, state);
+      return pipe(
+        assoc("sections", action.sections),
+        assoc("sectionIndex", 0)
+      )(state);
+    }
+    case "setSectionIndex": {
+      return assoc("sectionIndex", action.sectionIndex, state);
     }
     default: {
       return state;
@@ -19,7 +25,10 @@ const reducer = (state, action) => {
 };
 
 export const BookProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, { sections: [] });
+  const [state, dispatch] = useReducer(reducer, {
+    sections: [],
+    sectionIndex: 0,
+  });
 
   return (
     <BookStateContext.Provider value={state}>

@@ -1,5 +1,6 @@
 const path = require("path");
 
+const PDF_OUTPUT = path.resolve(__dirname, "../csound_flossmanual.pdf");
 const JSX_OUTPUT = path.resolve(__dirname, "../src/book_fragments");
 const BOOK_DIRECTORY = path.resolve(__dirname, "../book");
 const MARKDOWN_EXTENSIONS = [
@@ -19,7 +20,7 @@ const MARKDOWN_EXTENSIONS = [
   "inline_notes",
   "citations",
   "footnotes",
-  "definition_lists"
+  "definition_lists",
 ];
 
 module.exports = { JSX_OUTPUT, BOOK_DIRECTORY, MARKDOWN_EXTENSIONS };

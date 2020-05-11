@@ -111,6 +111,7 @@ function LeftNav({ routeIndex }) {
   const currentRoute = routes[routeIndex];
   const [bookState] = useBook();
   const currentSections = propOr([], "sections", bookState);
+  const currentSectionIndex = propOr(0, "sectionIndex", bookState);
 
   const nextRoute = propOr(false, routeIndex + 1, routes);
   const previousRoute = propOr(false, routeIndex - 1, routes);
@@ -161,7 +162,10 @@ function LeftNav({ routeIndex }) {
             <Link to={subValue}>
               <p
                 style={{
-                  fontWeight: isActive && subChapterActive ? 700 : "inherit",
+                  fontWeight:
+                    isActive && subChapterActive && currentSectionIndex === 0
+                      ? 700
+                      : "inherit",
                 }}
               >
                 {trimSubChapterLetter(subLabel)}
@@ -170,10 +174,21 @@ function LeftNav({ routeIndex }) {
             {subChapterActive && (
               <ul style={{ paddingLeft: 6 }}>
                 {currentSections.map(({ title, id }, idx) => {
+                  const lastElem = currentSections.length === idx + 1;
                   return (
                     <li key={idx} css={ß.subSectionLi}>
                       <Link to={`#${id}`}>
-                        <p>{title}</p>
+                        <p
+                          style={{
+                            fontWeight:
+                              currentSectionIndex - 1 === idx ||
+                              (lastElem && currentSectionIndex > idx)
+                                ? 700
+                                : 500,
+                          }}
+                        >
+                          {title}
+                        </p>
                       </Link>
                     </li>
                   );
