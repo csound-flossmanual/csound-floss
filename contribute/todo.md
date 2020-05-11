@@ -77,7 +77,6 @@ Edits
 In Process
 ----------
 
-- Martin written about his chapters (20191125)
 - Nikhil about Csound iOS (20191208)
 - Hlodver will contribute Live Coding Chapter (14 C) (20191215)
 - Asked Luis and Hlodver about Csound in vim and Emacs (20191215)

@@ -1,157 +1,297 @@
 15 A. OPCODE GUIDE
 ==================
 
-If you run Csound from the command line with the option -z, you get a
-list of all opcodes. The total number of all opcodes is more than 1500. There are already overviews of all of Csound's opcodes in the
+If Csound is called from the command line with the option -z, a
+list of all opcodes is printed. The total number of all opcodes is more than 1500. There are already overviews of all of Csound's opcodes in the
 [Opcodes Overview](https://csound.com/docs/manual/PartOpcodesOverview.html)
 and the
 [Opcode Quick Reference](https://csound.com/docs/manual/MiscQuickref.html) of the
 [Canonical Csound Manual](https://csound.com/docs/manual/index.html).
 
-This chapter is another attempt to provide some orientation within
-Csound's wealth of opcodes. Unlike the references mentioned above, not
-all opcodes are listed here, but the ones that are, are commented upon
-briefly. Some opcodes appear more than once and in different sections to
-reflect the different contexts in which they could be used. This guide
-intends to provide insights into the opcodes listed that the other
-sources do not.
+This guide is another attempt to provide some orientation within
+Csound's wealth of opcodes — a wealth which is often frightening for beginners and still overwhelming for experienced users.
 
-BASIC SIGNAL PROCESSING
------------------------
+Three selections are given here, each growing in size:  
+1. The **30** most important opcodes. This selection might be useful for beginners. Learning ten opcodes a day, Csound can be learned in three days, and many full-featured Csound programs can be written with these 30 opcodes.  
+2. The Top **100** Opcodes. Adding 70 more opcodes to the top 30 pushes the csound programmer to the next level. This should be sufficient for doing most of the jobs in Csound.  
+3. The third overview is rather extended already, and follows mostly the classification in the Csound Manual. It comprises some **300** opcodes.
+
+Although these selections come from some experience in using and teaching Csound, and have been discussed in the Csound Community, they must remain subjective, as working in Csound can go in quite different directions.
+
+
+THE 30 MOST IMPORTANT OPCODES
+-----------------------------
+
+**Oscillators / Phasors**  
+    poscil 
+    vco2
+    phasor
+
+**Noise**  
+    rand
+
+**Envelopes**  
+    linen(r)
+
+**Line Generators**  
+    linseg
+    expseg
+    transeg
+
+**Line Smooth**  
+    port(k)
+
+**Sound File Playback**  
+    diskin
+    loscilx
+
+**Audio I/O**  
+    inch
+    out
+
+**Tables (Buffers)**  
+    ftgen
+    table(i)
+    tablew
+
+**Arrays**  
+    fillarray
+
+**Control**  
+    if
+    while
+
+**Time**  
+    metro
+    timeinsts
+
+**Software Channels**  
+    chnset
+    chnget
+
+**MIDI**  
+    notnum
+    veloc
+    ctrl7
+
+**OSC**  
+    OSClisten
+    OSCsend
+
+**Key**  
+    sensekey
+
+**Panning / Spatialization**  
+    pan2
+    vbap
+
+**Reverb**  
+    reverbsc
+    freeverb
+
+**FFT**  
+    pvsanal
+    pvsynth
+    pvscale
+
+**Convolution**  
+    pconvolve
+
+**Granular Synthesis**  
+    partikkel
+
+**Delay**  
+    vdelayx
+
+**Distortion**  
+    distort1
+
+**Filter**  
+    butlp(hp/bp)
+    
+**Level**  
+    rms
+    balance
+
+**Random**  
+    random
+    randomi
+    randomh
+    seed
+
+**Math / Conversion**  
+    ampdb
+    mtof
+    ftom
+    cent
+
+**Print**  
+    print(k)
+    printarray
+
+**File Output**  
+    fout
+    
+
+
+TOP 100 OPCODES
+---------------
+
+
+
+
+OPCODES OVERVIEW IN CATEGORIES
+------------------------------
+
+### BASIC SIGNAL PROCESSING
 
 -   **OSCILLATORS AND PHASORS**
 
     -   **Standard Oscillators**
 
-        [(oscils)](https://csound.com/docs/manual/oscils.html)
-        [poscil](https://csound.com/docs/manual/poscil.html)
-        [poscil3](https://csound.com/docs/manual/poscil3.html)
-        [oscili](https://csound.com/docs/manual/oscili.html)
-        [oscil3](https://csound.com/docs/manual/oscil3.html)
-        [more](https://csound.com/docs/manual/SiggenBasic.html)
+        [poscil](https://csound.com/docs/manual/poscil.html) — high precision oscillator with linear interpolation  
+        [poscil3](https://csound.com/docs/manual/poscil3.html) — high precision oscillator with cubic interpolation  
+        [oscili](https://csound.com/docs/manual/oscili.html) — standard oscillator with linear interpolation  
+        [oscil3](https://csound.com/docs/manual/oscil3.html) — standard oscillator with cubic interpolation  
+        [more](https://csound.com/docs/manual/SiggenBasic.html) — more standard oscillators ...  
+        *Note*: [oscil](https://csound.com./docs/manual/oscil.html) is not recommended as it has integer indexing which can result in poor quality
 
-    -   **Dynamic Sprectrum Oscillators**
+    -   **Dynamic Spectrum Oscillators**
 
-        [buzz](https://csound.com/docs/manual/buzz.html)
-        [gbuzz](https://csound.com/docs/manual/gbuzz.html)
-        [mpulse](https://csound.com/docs/manual/mpulse.html)
-        [vco](https://csound.com/docs/manual/vco.html)
-        [vco2](https://csound.com/docs/manual/vco2.html) \
+        [buzz](https://csound.com/docs/manual/buzz.html) — buzzer  
+        [gbuzz](https://csound.com/docs/manual/gbuzz.html) — more generalized buzzer  
+        [mpulse](https://csound.com/docs/manual/mpulse.html) — single sample impulses  
+        [vco2](https://csound.com/docs/manual/vco2.html) — analog modelled oscillator  
 
     -   **Phasors**
 
-        [phasor](https://csound.com/docs/manual/phasor.html)
-        [syncphasor](https://csound.com/docs/manual/syncphasor.html)\
+        [phasor](https://csound.com/docs/manual/phasor.html) — standard phasor  
+        [syncphasor](https://csound.com/docs/manual/syncphasor.html) — phasor with sync I/O
 
 
 -   **RANDOM AND NOISE GENERATORS**
 
-    [(seed)](https://csound.com/docs/manual/seed.html)
-    [rand](https://csound.com/docs/manual/rand.html)
-    [randi](https://csound.com/docs/manual/randi.html)
-    [randh](https://csound.com/docs/manual/randh.html)
-    [rnd31](https://csound.com/docs/manual/rnd31.html)
-    [random](https://csound.com/docs/manual/random.html)
-    ([randomi](https://csound.com/docs/manual/randomi.html) /[randomh](https://csound.com/docs/manual/randomh.html))
-    [pinkish](https://csound.com/docs/manual/pinkish.html)
-    [more](https://csound.com/docs/manual/SiggenNoise.html)
+    -   **Seed**
+
+        [seed](https://csound.com/docs/manual/seed.html) — sets the global seed
+
+    -   **Noise Generators**
+
+        [rand](https://csound.com/docs/manual/rand.html) — standard random (noise) generator  
+        [pinkish](https://csound.com/docs/manual/pinkish.html) — pink noise generator  
+
+    -   **General Random Generators**
+  
+        [rnd](https://csound.com/docs/manual/rnd.html) — simple unipolar random generator  
+        [birnd](https://csound.com/docs/manual/birnd.html) — simple bipolar random generator  
+        [random](https://csound.com/docs/manual/random.html) — random numbers between min/max  
+        [rnd31](https://csound.com/docs/manual/rnd31.html) — random generator with controllable distributions  
+
+    -   **Random Generators with Interpolating or Hold Numbers**
+
+        [randi](https://csound.com/docs/manual/randi.html) — bipolar random generator with interpolation  
+        [randh](https://csound.com/docs/manual/randh.html) — bipolar random generator with hold numbers  
+        [randomi](https://csound.com/docs/manual/randomi.html) — random numbers between min/max with interpolation   
+        [randomh](https://csound.com/docs/manual/randomh.html) — random numbers between min/max with hold numbers  
+        [more](https://csound.com/docs/manual/SiggenNoise.html) — more random generators ...  
 
 
 -   **ENVELOPES**
 
     -   **Simple Standard Envelopes**
 
-        [linen](https://csound.com/docs/manual/linen.html)
-        [linenr](https://csound.com/docs/manual/linenr.html)
-        [adsr](https://csound.com/docs/manual/adsr.html)
-        [madsr](https://csound.com/docs/manual/madsr.html)
-        [more](https://csound.com/docs/manual/SiggenEnvelope.html) \
+        [linen](https://csound.com/docs/manual/linen.html) — linear fade in/out  
+        [linenr](https://csound.com/docs/manual/linenr.html) — fade out at release  
+        [adsr](https://csound.com/docs/manual/adsr.html) — ADSR envelope  
+        [madsr](https://csound.com/docs/manual/madsr.html) — ADSR for MIDI notes  
+        [more](https://csound.com/docs/manual/SiggenEnvelope.html) — more standard envelopes ...  
 
-    -   **Envelopes By Linear And Exponential Generators**
+    -   **Envelopes by Linear and Exponential Generators**
 
-        [linseg](https://csound.com/docs/manual/linseg.html)
-        [expseg](https://csound.com/docs/manual/expseg.html)
-        [transeg](https://csound.com/docs/manual/transeg.html)
-        ([linsegr](https://csound.com/docs/manual/linsegr.html)
-        [expsegr](https://csound.com/docs/manual/expsegr.html)
-        [transegr](http://en.flossmanuals.net/bin/view/Csound/transegr))
-        [more](https://csound.com/docs/manual/SiggenLineexp.html)
+        [linseg](https://csound.com/docs/manual/linseg.html) — one or more linear segments  
+        [expseg](https://csound.com/docs/manual/expseg.html) — one or more exponential segments  
+        [transeg](https://csound.com/docs/manual/transeg.html) — one or more user-definable segments  
+        [linsegr](https://csound.com/docs/manual/linsegr.html) — linear segments with final release segment  
+        [expsegr](https://csound.com/docs/manual/expsegr.html) — exponential segments with release  
+        [transegr](http://en.flossmanuals.net/bin/view/Csound/transegr) — user-definable segments with release  
+        [more](https://csound.com/docs/manual/SiggenLineexp.html) — more envelope generators ...  
 
-    -   **Envelopes By Function Tables**
 
 -   **DELAYS**
 
     -   **Audio Delays**
 
-        [vdelay](https://csound.com/docs/manual/vdelay.html)
-        [vdelayx](https://csound.com/docs/manual/vdelayx.html)
-        [vdelayw](https://csound.com/docs/manual/vdelayw.html)
+        [delay](https://csound.com/docs/manual/delay.html) — simple constant audio delay  
+        [vdelay](https://csound.com/docs/manual/vdelay.html) — variable delay with linear interpolation  
+        [vdelay3](https://csound.com/docs/manual/vdelay3.html) — variable delay with cubic interpolation  
+        [vdelayx](https://csound.com/docs/manual/vdelayx.html) — variable delay with high quality interpolation  
+        [vdelayxw](https://csound.com/docs/manual/vdelayxw.html) — delay changing write rather than read position  
+        [delayr](https://csound.com/docs/manual/delayr.html) — establishes a delay line and reads from it  
+        [delayw](https://csound.com/docs/manual/delayw.html) — writes into a delay line  
+        [deltap](https://csound.com/docs/manual/deltap.html) — taps a delay line  
+        [deltapi](https://csound.com/docs/manual/deltapi.html) — taps a delay line with linear interpolation  
+        [deltap3](https://csound.com/docs/manual/deltap3.html) — taps a delay line with cubic interpolation  
+        [deltapn](https://csound.com/docs/manual/deltapn.html) — taps a delay line at variable offsets  
+        [deltapx](https://csound.com/docs/manual/deltapx.html) — taps a delay line with high quality interpolation  
+        [deltapxw](https://csound.com/docs/manual/deltapxw.html) — writes into a delay line with high quality interpolation  
 
-        [delayr](https://csound.com/docs/manual/delayr.html)
-        [delayw](https://csound.com/docs/manual/delayw.html)
-        [deltap](https://csound.com/docs/manual/deltap.html)
-        [deltapi](https://csound.com/docs/manual/deltapi.html)
-        [deltap3](https://csound.com/docs/manual/deltap3.html)
-        [deltapx](https://csound.com/docs/manual/deltapx.html)
-        [deltapxw](https://csound.com/docs/manual/deltapxw.html)
-        [deltapn](https://csound.com/docs/manual/deltapn.html)   \
 
     -   **Control Signal Delays**
 
-        [delk](https://csound.com/docs/manual/delayk.html)
-        [vdel\_k](https://csound.com/docs/manual/delayk.html) \
+        [delayk](https://csound.com/docs/manual/delayk.html) — simple constant delay for k-signals  
+        [vdel\_k](https://csound.com/docs/manual/delayk.html) — variable delay for k-signals  
 
 
 -   **FILTERS**
 
-    Compare [Standard
-    Filters](https://csound.com/docs/manual/SigmodStandard.html) and
-    [Specialized
-    Filters](https://csound.com/docs/manual/SigmodSpeciali.html)
-    overviews.\
+    Compare the extensive
+    [Standard Filters](https://csound.com/docs/manual/SigmodStandard.html) and
+    [Specialized Filters](https://csound.com/docs/manual/SigmodSpeciali.html)
+    overviews in the Csound Manual.
 
     -   **Low Pass Filters**
 
-        [tone](https://csound.com/docs/manual/tone.html)
-        [tonex](https://csound.com/docs/manual/tonex.html)
-        [butlp](https://csound.com/docs/manual/butterlp.html)
-        [clfilt](https://csound.com/docs/manual/clfilt.html)
+        [tone](https://csound.com/docs/manual/tone.html) — first order IIR filter  
+        [tonex](https://csound.com/docs/manual/tonex.html) — serial connection of several tone filters  
+        [butlp](https://csound.com/docs/manual/butterlp.html) — second order IIR filter  
+        [clfilt](https://csound.com/docs/manual/clfilt.html) — adjustable types and poles  
 
     -   **High Pass Filters**
 
-        [atone](https://csound.com/docs/manual/atone.html)
-        [atonex](https://csound.com/docs/manual/atonex.html)
-        [buthp](https://csound.com/docs/manual/butterhp.html)
-        [clfilt](https://csound.com/docs/manual/clfilt.html)
+        [atone](https://csound.com/docs/manual/atone.html) — first order IIR filter  
+        [atonex](https://csound.com/docs/manual/atonex.html) — serial connection of several atone filters  
+        [buthp](https://csound.com/docs/manual/butterhp.html) — second order IIR filer  
+        [clfilt](https://csound.com/docs/manual/clfilt.html) — adjustable types and poles  
 
     -   **Band Pass And Resonant Filters**
 
-        [reson](https://csound.com/docs/manual/reson.html)
-        [resonx](https://csound.com/docs/manual/resonx.html)
-        [resony](https://csound.com/docs/manual/resony.html)
-        [resonr](https://csound.com/docs/manual/resonr.html)
-        [resonz](https://csound.com/docs/manual/resonz.html)
-        [butbp](https://csound.com/docs/manual/butterbp.html)
+        [reson](https://csound.com/docs/manual/reson.html) — second order resonant filter
+        [resonx](https://csound.com/docs/manual/resonx.html) — serial connection of several reson filters  
+        [resony](https://csound.com/docs/manual/resony.html) — parallel connection of several reson filters  
+        [resonr](https://csound.com/docs/manual/resonr.html) — variant of the reson filter  
+        [resonz](https://csound.com/docs/manual/resonz.html) — variant of the reson filter  
+        [butbp](https://csound.com/docs/manual/butterbp.html) — second order butterworth filter  
+        [mode](https://csound.com/docs/manual/mode.html) — mass-spring system modelled  
 
     -   **Band Reject Filters**
 
-        [areson](https://csound.com/docs/manual/areson.html)
-        [butbr](https://csound.com/docs/manual/butterbp.html)
+        [areson](https://csound.com/docs/manual/areson.html) — first order IIR filter  
+        [butbr](https://csound.com/docs/manual/butterbp.html) — second order IIR filter  
 
     -   **Filters For Smoothing Control Signals**
 
-        [port](https://csound.com/docs/manual/port.html)
-        [portk](https://csound.com/docs/manual/portk.html)
+        [port](https://csound.com/docs/manual/port.html) — portamento-like smoothing  
+        [portk](https://csound.com/docs/manual/portk.html) — portamento with variable half-time  
 
 
 -   **REVERB**
 
-    [freeverb](https://csound.com/docs/manual/freeverb.html)
-    [reverbsc](https://csound.com/docs/manual/reverbsc.html)
-    [reverb](https://csound.com/docs/manual/reverb.html)
-    [nreverb](https://csound.com/docs/manual/nreverb.html)
-    [babo](https://csound.com/docs/manual/babo.html)
-    [pconvolve](https://csound.com/docs/manual/pconvolve.html)
+    [freeverb](https://csound.com/docs/manual/freeverb.html) — stereo reverb after Jezar  
+    [reverbsc](https://csound.com/docs/manual/reverbsc.html) — stereo reverb after Costello  
+    [reverb](https://csound.com/docs/manual/reverb.html) — simple reverb  
+    [nreverb](https://csound.com/docs/manual/nreverb.html) — reverb with adjustable number of units  
+    [babo](https://csound.com/docs/manual/babo.html) — physical model reverberator  
+    *Note*: Convolution reverb can be performed with [pconvolve](https://csound.com/docs/manual/pconvolve.html) and other opcodes.
 
 
 -   **SIGNAL MEASUREMENT, DYNAMIC PROCESSING, SAMPLE LEVEL OPERATIONS**
@@ -573,13 +713,15 @@ BASIC SIGNAL PROCESSING
 
     -   **Time Reading**
 
-        [times](https://csound.com/docs/manual/times.html)/[timek](https://csound.com/docs/manual/timek.html)
+        [times](https://csound.com/docs/manual/times.html)
+        [timek](https://csound.com/docs/manual/timek.html)
 
-        [timeinsts](https://csound.com/docs/manual/timeinsts.html)/[timeinstk](https://csound.com/docs/manual/timeinstk.html)
-        [date](https://csound.com/docs/manual/date.html)/[dates](https://csound.com/docs/manual/dates.html)
+        [timeinsts](https://csound.com/docs/manual/timeinsts.html)
+        [timeinstk](https://csound.com/docs/manual/timeinstk.html)
+        [date](https://csound.com/docs/manual/date.html)
+        [dates](https://csound.com/docs/manual/dates.html)
 
         [setscorepos](https://csound.com/docs/manual/setscorepos.html)
-         \
 
     -   **Tempo Reading**
 
@@ -771,18 +913,4 @@ BASIC SIGNAL PROCESSING
         [dssiaudio](https://csound.com/docs/manual/dssiaudio.html)
         [dssictls](https://csound.com/docs/manual/dssictls.html)  \
 
-    -   **VST**
-
-        [vstinit](https://csound.com/docs/manual/vstinit.html)
-        [vstaudio](https://csound.com/docs/manual/vstaudio.html)/[vstaudiog](https://csound.com/docs/manual/vstaudio.html)
-        [vstmidiout](https://csound.com/docs/manual/vstmidiout.html)
-        [vstparamset](https://csound.com/docs/manual/vstparamset.html)/[vstparamget](https://csound.com/docs/manual/vstparamget.html)
-        [vstnote](https://csound.com/docs/manual/vstnote.html)
-        [vstinfo](https://csound.com/docs/manual/vstinfo.html)
-        [vstbankload](https://csound.com/docs/manual/vstbankload.html)
-        [vstprogset](https://csound.com/docs/manual/vstprogset.html)
-        [vstedit](https://csound.com/docs/manual/vstedit.html) \
-
-
--   **EXPORTING CSOUND FILES TO PLUGINS**
 
