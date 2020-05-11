@@ -4,7 +4,7 @@ import { jsx } from "@emotion/core";
 import React, { useEffect, useRef, useState } from "react";
 import StickyEl from "../../vendor/react-sticky-el.min.js";
 import CloseIcon from "../../assets/close.svg";
-import useCsound from "../../context";
+import useCsound from "../../CsoundContext";
 import { Rnd } from "react-rnd";
 import * as ß from "./styles";
 

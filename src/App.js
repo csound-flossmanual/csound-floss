@@ -6,7 +6,8 @@ import { Router } from "react-router-dom";
 import Main from "./components/Main";
 import LeftNav from "./components/LeftNav";
 import Console from "./components/Console";
-import { CsoundProvider } from "./context";
+import { CsoundProvider } from "./CsoundContext";
+import { BookProvider } from "./BookContext";
 import routes from "./book_fragments/routes.json";
 import { findIndex, isEmpty, propEq } from "ramda";
 import { browserHistory } from "./history";
@@ -30,13 +31,15 @@ function App() {
   )(routes);
 
   return (
-    <CsoundProvider>
-      <Router history={browserHistory}>
-        {routeIndex > -1 && <LeftNav routeIndex={routeIndex} />}
-        <Main currentRoute={currentRoute} setCurrentRoute={setCurrentRoute} />
-      </Router>
-      <Console />
-    </CsoundProvider>
+    <BookProvider>
+      <CsoundProvider>
+        <Router history={browserHistory}>
+          {routeIndex > -1 && <LeftNav routeIndex={routeIndex} />}
+          <Main currentRoute={currentRoute} setCurrentRoute={setCurrentRoute} />
+        </Router>
+        <Console />
+      </CsoundProvider>
+    </BookProvider>
   );
 }
 

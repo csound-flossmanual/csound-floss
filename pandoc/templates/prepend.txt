@@ -3,8 +3,11 @@ import { Link } from "react-router-dom";
 import CodeElement from "../components/Editor";
 import MathJax from "react-mathjax";
 import DocumentTitle from "react-document-title";
+import ChapterHOC from "../ChapterHOC";
 
 const Chapter = () => {
+
 return (
 <DocumentTitle title={"CHANGEME"}>
  <MathJax.Provider>
+   <ChapterHOC>

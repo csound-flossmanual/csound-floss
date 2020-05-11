@@ -2,6 +2,7 @@
 import { jsx } from "@emotion/core";
 import React from "react";
 import { Link } from "react-router-dom";
+import useBook from "../../BookContext";
 import {
   concat,
   dec,
@@ -108,6 +109,9 @@ const getChapterZero = () => {
 function LeftNav({ routeIndex }) {
   const [scrollBarRef, setScrollBarRef] = React.useState(null);
   const currentRoute = routes[routeIndex];
+  const [bookState] = useBook();
+  const currentSections = propOr([], "sections", bookState);
+
   const nextRoute = propOr(false, routeIndex + 1, routes);
   const previousRoute = propOr(false, routeIndex - 1, routes);
   const chapterZero = getChapterZero();
@@ -163,6 +167,19 @@ function LeftNav({ routeIndex }) {
                 {trimSubChapterLetter(subLabel)}
               </p>
             </Link>
+            {subChapterActive && (
+              <ul style={{ paddingLeft: 6 }}>
+                {currentSections.map(({ title, id }, idx) => {
+                  return (
+                    <li key={idx} css={ß.subSectionLi}>
+                      <Link to={`#${id}`}>
+                        <p>{title}</p>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
           </li>
         );
       }
@@ -222,7 +239,15 @@ function LeftNav({ routeIndex }) {
                 <IconArrowLeft />
                 {previousRouteId}
               </p>
-              <p style={{ marginLeft: 3 }}>{previousRoute.name}</p>
+              <p
+                style={{
+                  marginLeft: 3,
+                  whiteSpace: "nowrap",
+                  textOverflow: "ellipsis",
+                }}
+              >
+                {previousRoute.sectionName}
+              </p>
             </Link>
           )}
           {nextRouteId && (
@@ -231,7 +256,15 @@ function LeftNav({ routeIndex }) {
                 <IconArrowRight />
                 {nextRouteId}
               </p>
-              <p style={{ marginLeft: 3 }}>{nextRoute.name}</p>
+              <p
+                style={{
+                  marginLeft: 3,
+                  whiteSpace: "nowrap",
+                  textOverflow: "ellipsis",
+                }}
+              >
+                {nextRoute.sectionName}
+              </p>
             </Link>
           )}
         </div>

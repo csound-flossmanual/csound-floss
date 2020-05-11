@@ -3,7 +3,7 @@
 import { jsx } from "@emotion/core";
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from "react";
-import useCsound from "../../context";
+import useCsound from "../../CsoundContext";
 import { decode } from "he";
 import { Controlled as CodeMirror } from "react-codemirror2";
 import * as ß from "./styles";

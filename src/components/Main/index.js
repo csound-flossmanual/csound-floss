@@ -16,7 +16,7 @@ const LoadingSpinner = () => (
       height: "100%",
       display: "flex",
       justifyContent: "center",
-      border: "none"
+      border: "none",
     }}
   >
     <style>{"main {width: 100%;height:90vh;}"}</style>
@@ -25,14 +25,31 @@ const LoadingSpinner = () => (
 );
 
 function Main({ currentRoute, setCurrentRoute }) {
-  useEffect(() => {
-    browserHistory.listen((location, action) => {
+  const onRouteChange = React.useCallback(
+    (location, action) => {
       setCurrentRoute(location.pathname);
       if (action === "PUSH") {
-        setTimeout(() => window.scroll({ top: 0, left: 0 }), 0);
+        if (currentRoute !== location.pathname) {
+          setTimeout(() => window.scroll({ top: 0, left: 0 }), 0);
+        } else {
+          if (location.hash.length === 0) {
+            window.scroll({ top: 0, left: 0 });
+          } else {
+            const hashElem = document.getElementById(
+              location.hash.replace("#", "")
+            );
+            hashElem && hashElem.scrollIntoView();
+          }
+        }
       }
-    });
-  }, [setCurrentRoute]);
+    },
+    [currentRoute, setCurrentRoute]
+  );
+
+  useEffect(() => {
+    const listener = browserHistory.listen(onRouteChange);
+    return listener;
+  }, [onRouteChange]);
 
   return (
     <main css={ß.main}>

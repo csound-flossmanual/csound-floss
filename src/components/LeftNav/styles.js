@@ -120,17 +120,35 @@ export const chapterItem = css`
     margin: 0;
   }
   &:hover {
-    & > a {
-      background-color: rgba(0, 0, 0, 0.03);
-    }
-    & > a > p {
-      text-decoration: underline;
-    }
     cursor: pointer;
   }
+
+  a:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+    & > p {
+      text-decoration: underline;
+    }
+  }
+
   & > a > p {
     font-size: 16px;
     line-height: 20px;
     margin: 0;
+  }
+`;
+
+export const subSectionLi = css`
+  list-style: none;
+  margin: 0;
+  p {
+    font-weight: 500;
+    color: #6f519b !important;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin: 0;
+  }
+  p:hover {
+    text-decoration: underline;
   }
 `;
