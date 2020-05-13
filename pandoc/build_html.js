@@ -18,8 +18,6 @@ const {
 const html2jsx = require("html-to-jsx");
 const R = require("ramda");
 
-// const linkFilterLocation = path.resolve(__dirname, "./filters/links.js");
-
 const wrapChapterInTemplate = makeWrapChapterInTemplate();
 
 function execMarkdownToHtml(fileName) {
