@@ -22,121 +22,173 @@ Although these selections come from some experience in using and teaching Csound
 THE 30 MOST IMPORTANT OPCODES
 -----------------------------
 
-**Oscillators / Phasors**  
-    poscil 
-    vco2
-    phasor
-
-**Noise**  
-    rand
-
-**Envelopes**  
-    linen(r)
-
-**Line Generators**  
-    linseg
-    expseg
-    transeg
-
-**Line Smooth**  
-    port(k)
-
-**Sound File Playback**  
-    diskin
-    loscilx
-
-**Audio I/O**  
-    inch
-    out
-
-**Tables (Buffers)**  
-    ftgen
-    table(i)
-    tablew
-
-**Arrays**  
-    fillarray
-
-**Control**  
-    if
-    while
-
-**Time**  
-    metro
-    timeinsts
-
-**Software Channels**  
-    chnset
-    chnget
-
-**MIDI**  
-    notnum
-    veloc
-    ctrl7
-
-**OSC**  
-    OSClisten
-    OSCsend
-
-**Key**  
-    sensekey
-
-**Panning / Spatialization**  
-    pan2
-    vbap
-
-**Reverb**  
-    reverbsc
-    freeverb
-
-**FFT**  
-    pvsanal
-    pvsynth
-    pvscale
-
-**Convolution**  
-    pconvolve
-
-**Granular Synthesis**  
-    partikkel
-
-**Delay**  
-    vdelayx
-
-**Distortion**  
-    distort1
-
-**Filter**  
-    butlp(hp/bp)
-    
-**Level**  
-    rms
-    balance
-
-**Random**  
-    random
-    randomi
-    randomh
-    seed
-
-**Math / Conversion**  
-    ampdb
-    mtof
-    ftom
-    cent
-
-**Print**  
-    print(k)
-    printarray
-
-**File Output**  
-    fout
-    
 
 
 TOP 100 OPCODES
 ---------------
 
+**Oscillators / Phasors**  
+    poscil 
+    vco2
+    gbuzz  
+    mpulse  
+    phasor
+
+**Noise**  
+    rand  
+
+**Envelopes**  
+    linen(r)  
+
+**Line Generators**  
+    linseg  
+    expseg  
+    transeg  
+    bpf?  
+
+**Line Smooth**  
+    port(k)  
+
+**Sound Files / Samples**  
+    diskin  
+    loscilx  
+    flooper2  
+    mp3in  
+    filescal  
+    filelen  
+
+**Audio I/O**  
+    inch  
+    out  
+    outch  
+    monitor  
+
+**Tables (Buffers)**  
+    ftgen  
+    table(i|3)  
+    tablew  
+    ftsamplebank  
+
+**Arrays**  
+    fillarray  
+    lenarray  
+    getrow/getcol  
+    setrow/setcol  
+
+**Control**  
+    if  
+    while  
+    changed(2)  
+    trigger  
+
+**Instrument Control**  
+    active  
+    maxalloc  
+    schedule(k)  
+    turnoff(2)  
+    nstrnum  
+
+**Time**  
+    metro(2)    
+    timeinsts    
+
+**Software Channels**  
+    chnset  
+    chnget  
+    chnmix  
+    chnclear  
+
+**MIDI**  
+    massign  
+    notnum  
+    veloc  
+    ctrl7  
+
+**OSC**  
+    OSClisten  
+    OSCsend  
+
+**Key**  
+    sensekey  
+
+**Panning / Spatialization**  
+    pan2  
+    vbap  
+    bformenc2/bformdec2  
+  
+**Reverb**  
+    reverbsc  
+    freeverb  
+
+**FFT**  
+    pvsanal  
+    pvsynth  
+    pvscale  
+    pvsmorph  
+    pvsftw/pvsftr  
+    pvs2array/pvsfromarray  
+
+**Convolution**  
+    pconvolve  
+
+**Granular Synthesis**  
+    partikkel  
+
+**Physical Models**
+    pluck  
+
+**Delay**  
+    vdelayx  
+
+**Distortion**  
+    distort1  
+    powershape  
+
+**Filter**  
+    (a)tone  
+    reson  
+    butlp(hp/bp)  
+    mode  
+    hilbert  
+    
+**Level**  
+    rms  
+    balance(2)  
+
+**Random**  
+    rnd/birnd
+    random
+    randomi/randomh
+    seed
+
+**Math / Conversion**  
+    ampdb/dbamp  
+    mtof/ftom  
+    cent  
+    log2  
+    abs  
+    int/frac  
+
+**Amplitude / Pitch Tracking**
+    ptrack  
+    follow2  
+
+**Print**  
+    print(k)(s)  
+    printarray  
+    ftprint  
+
+**File IO**  
+    fout  
+    ftsave  
+    fprint(k)s  
+    readf(i)  
+    directory  
+
+**Signal Type Conversion**  
+    i(k)  
+    a(k)  
+    k(a)  
 
 
 
@@ -153,6 +205,7 @@ OPCODES OVERVIEW IN CATEGORIES
         [poscil3](https://csound.com/docs/manual/poscil3.html) — high precision oscillator with cubic interpolation  
         [oscili](https://csound.com/docs/manual/oscili.html) — standard oscillator with linear interpolation  
         [oscil3](https://csound.com/docs/manual/oscil3.html) — standard oscillator with cubic interpolation  
+        [lfo](https://csound.com/docs/manual/lfo.html) — low frequency oscillator of various shapes  
         [more](https://csound.com/docs/manual/SiggenBasic.html) — more standard oscillators ...  
         *Note*: [oscil](https://csound.com./docs/manual/oscil.html) is not recommended as it has integer indexing which can result in poor quality
 
@@ -166,19 +219,29 @@ OPCODES OVERVIEW IN CATEGORIES
     -   **Phasors**
 
         [phasor](https://csound.com/docs/manual/phasor.html) — standard phasor  
-        [syncphasor](https://csound.com/docs/manual/syncphasor.html) — phasor with sync I/O
+        [syncphasor](https://csound.com/docs/manual/syncphasor.html) — phasor with sync I/O  
+        [ephasor](https://csound.com/docs/manual/ephasor.html) — phasor with additional exponential decay output  
+
+    -   **Others**
+
+        [gendy(c/x)](https://csound.com/docs/manual/gendy.html)  
+        [loscil(3/x)](https://csound.com/docs/manual/loscil.html) — read sampled sound from a table  
+        [lposcil](https://csound.com/docs/manual/lposcil.html) — read sampled sound with loops  
 
 
 -   **RANDOM AND NOISE GENERATORS**
 
     -   **Seed**
 
-        [seed](https://csound.com/docs/manual/seed.html) — sets the global seed
+        [seed](https://csound.com/docs/manual/seed.html) — sets the global seed  
+        [getseed](https://csound.com/docs/manual/getseed.html) — gets the global seed  
 
     -   **Noise Generators**
 
         [rand](https://csound.com/docs/manual/rand.html) — standard random (noise) generator  
         [pinkish](https://csound.com/docs/manual/pinkish.html) — pink noise generator  
+        [fractalnoise](https://csound.com/docs/manual/fractalnoise.html)  
+        [gauss(i)](https://csound.com/docs/manual/gauss.html)  
 
     -   **General Random Generators**
   
@@ -186,6 +249,9 @@ OPCODES OVERVIEW IN CATEGORIES
         [birnd](https://csound.com/docs/manual/birnd.html) — simple bipolar random generator  
         [random](https://csound.com/docs/manual/random.html) — random numbers between min/max  
         [rnd31](https://csound.com/docs/manual/rnd31.html) — random generator with controllable distributions  
+        [dust(2)](https://csound.com/docs/manual/dust.html) — random impulses
+        [gausstrig](https://csound.com/docs/manual/gausstrig.html)  
+        [lorenz](https://csound.com/docs/manual/lorenz.html) — implements lorenz system of equations  
 
     -   **Random Generators with Interpolating or Hold Numbers**
 
@@ -214,6 +280,10 @@ OPCODES OVERVIEW IN CATEGORIES
         [linsegr](https://csound.com/docs/manual/linsegr.html) — linear segments with final release segment  
         [expsegr](https://csound.com/docs/manual/expsegr.html) — exponential segments with release  
         [transegr](http://en.flossmanuals.net/bin/view/Csound/transegr) — user-definable segments with release  
+        [bpf](https://csound.com/docs/manual/bpf.html) — break point function with linear interpolation  
+        [jitter(2)](https://csound.com/docs/manual/jitter.html) — randomly segmented line  
+        [jspline](https://csound.com/docs/manual/jspline.html) — jitter-spline generated line  
+        [loopseg](https://csound.com/docs/manual/loopseg.html) — loops linear segments  
         [more](https://csound.com/docs/manual/SiggenLineexp.html) — more envelope generators ...  
 
 
@@ -262,6 +332,7 @@ OPCODES OVERVIEW IN CATEGORIES
         [atonex](https://csound.com/docs/manual/atonex.html) — serial connection of several atone filters  
         [buthp](https://csound.com/docs/manual/butterhp.html) — second order IIR filer  
         [clfilt](https://csound.com/docs/manual/clfilt.html) — adjustable types and poles  
+        [dcblock(2)](https://csound.com/docs/manual/dcblock.html) — removes DC offset  
 
     -   **Band Pass And Resonant Filters**
 
@@ -272,11 +343,17 @@ OPCODES OVERVIEW IN CATEGORIES
         [resonz](https://csound.com/docs/manual/resonz.html) — variant of the reson filter  
         [butbp](https://csound.com/docs/manual/butterbp.html) — second order butterworth filter  
         [mode](https://csound.com/docs/manual/mode.html) — mass-spring system modelled  
+        [fofilter](https://csound.com/docs/manual/fofilter.html) — formant filter  
 
     -   **Band Reject Filters**
 
         [areson](https://csound.com/docs/manual/areson.html) — first order IIR filter  
         [butbr](https://csound.com/docs/manual/butterbp.html) — second order IIR filter  
+
+    -   **Equalizer**
+
+        [eqfil](https://csound.com/docs/manual/eqfil.html) — equilizer filter  
+        [exciter](https://csound.com/docs/manual/exciter.html) — non-linear filter to add brilliance  
 
     -   **Filters For Smoothing Control Signals**
 
@@ -287,10 +364,11 @@ OPCODES OVERVIEW IN CATEGORIES
 -   **REVERB**
 
     [freeverb](https://csound.com/docs/manual/freeverb.html) — stereo reverb after Jezar  
-    [reverbsc](https://csound.com/docs/manual/reverbsc.html) — stereo reverb after Costello  
+    [reverbsc](https://csound.com/docs/manual/reverbsc.html) — stereo reverb after Sean Costello  
     [reverb](https://csound.com/docs/manual/reverb.html) — simple reverb  
     [nreverb](https://csound.com/docs/manual/nreverb.html) — reverb with adjustable number of units  
     [babo](https://csound.com/docs/manual/babo.html) — physical model reverberator  
+    [(v)comb](https://csound.com/docs/manual/comb.html) — comb filter  
     *Note*: Convolution reverb can be performed with [pconvolve](https://csound.com/docs/manual/pconvolve.html) and other opcodes.
 
 
@@ -298,36 +376,37 @@ OPCODES OVERVIEW IN CATEGORIES
 
     -   **Amplitude Measurement and Amplitude Envelope Following**
 
-        [rms](https://csound.com/docs/manual/rms.html)
-        [balance](https://csound.com/docs/manual/balance.html)
-        [follow](https://csound.com/docs/manual/follow.html)
-        [follow2](https://csound.com/docs/manual/follow2.html)
-        [peak](https://csound.com/docs/manual/peak.html)
-        [max\_k](https://csound.com/docs/manual/max_k.html)
+        [rms](https://csound.com/docs/manual/rms.html) — RMS measurement  
+        [balance(2)](https://csound.com/docs/manual/balance.html) — adjust audio signal level according to comparator  
+        [follow(2)](https://csound.com/docs/manual/follow.html) — envelopoe follower  
+        [peak](https://csound.com/docs/manual/peak.html) — maintains highest value received  
+        [max\_k](https://csound.com/docs/manual/max_k.html) — local maximum/minimum of audio signal  
 
     -   **Pitch Estimation (Pitch Tracking)**
 
-        [ptrack](https://csound.com/docs/manual/ptrack.html)
-        [pitch](https://csound.com/docs/manual/pitch.html)
-        [pitchamdf](https://csound.com/docs/manual/pitchamdf.html)
-        [pvscent](https://csound.com/docs/manual/pvscent.html)
+        [ptrack](https://csound.com/docs/manual/ptrack.html) — pitch tracking using STFT  
+        [pitch](https://csound.com/docs/manual/pitch.html) — pitch tracking using constant-Q DFT  
+        [pitchamdf](https://csound.com/docs/manual/pitchamdf.html) — pitch tracking using AMDF  
+        [pvspitch](https://csound.com/docs/manual/pvspitch.html) — pitch/amplitude tracking of a PVS signal  
+        [pvscent](https://csound.com/docs/manual/pvscent.html) — spectral centroid of a PVS signal  
 
     -   **Tempo Estimation**
 
-        [tempest](https://csound.com/docs/manual/tempest.html)
+        [tempest](https://csound.com/docs/manual/tempest.html) — estimate tempo of a beat pattern  
 
     -   **Dynamic Processing**
 
-        [compress](https://csound.com/docs/manual/compress.html)
-        [dam](https://csound.com/docs/manual/dam.html)
-        [clip](https://csound.com/docs/manual/clip.html)
+        [compress(2)](https://csound.com/docs/manual/compress.html) — compress audio signal  
+        [dam](https://csound.com/docs/manual/dam.html) — dynamic compressor/expander  
+        [clip](https://csound.com/docs/manual/clip.html) — clips a signal to a predifined limit  
 
     -   **Sample Level Operations**
 
-        [limit](https://csound.com/docs/manual/limit.html)
-        [samphold](https://csound.com/docs/manual/samphold.html)
-        [vaget](https://csound.com/docs/manual/vaget.html)
-        [vaset](https://csound.com/docs/manual/vaset.html)
+        [limit(1)](https://csound.com/docs/manual/limit.html) — sets lower and upper limit  
+        [samphold](https://csound.com/docs/manual/samphold.html) — performs sample-and-hold  
+        [vaget](https://csound.com/docs/manual/vaget.html) — audio vector read access  
+        [vaset](https://csound.com/docs/manual/vaset.html) — audio vector write access  
+        [framebuffer](https://csound.com/docs/manual/framebuffer.html) — reads/writes audio to/from array  
 
 
 -   **SPATIALIZATION**
@@ -351,10 +430,12 @@ OPCODES OVERVIEW IN CATEGORIES
 
     -   **Binaural / HRTF**
 
-        [hrtfstat](https://csound.com/docs/manual/hrtfstat.html)
-        [hrtfmove](https://csound.com/docs/manual/hrtfmove.html)
-        [hrtfmove2](https://csound.com/docs/manual/hrtfmove2.html)
-        [hrtfer](https://csound.com/docs/manual/hrtfer.html) \
+        [hrtfstat](https://csound.com/docs/manual/hrtfstat.html)  
+        [hrtfmove(2)](https://csound.com/docs/manual/hrtfmove.html)  
+        [hrtfer](https://csound.com/docs/manual/hrtfer.html) 
+        [hrtfearly](https://csound.com/docs/manual/hrtfearly.html) — early reflections in a HRTF room  
+        [hrtfreverb](https://csound.com/docs/manual/hrtfreverb.html)  
+        
 
 
 ### ADVANCED SIGNAL PROCESSING
@@ -373,13 +454,21 @@ OPCODES OVERVIEW IN CATEGORIES
         [crossfmpm](https://csound.com/docs/manual/crossfm.html)
         [crossfmpmi](https://csound.com/docs/manual/crossfm.html)
 
+        [fmb3](https://csound.com/docs/manual/fmb3.html)  
+        [fmbell](https://csound.com/docs/manual/fmbell.html)  
+        [fmmetal](https://csound.com/docs/manual/fmmetal.html)  
+        [fmpercfl](https://csound.com/docs/manual/fmpercfl.html)  
+        [fmrhode](https://csound.com/docs/manual/fmrhode.html)  
+        [fmvoice](https://csound.com/docs/manual/fmvoice.html)  
+        [fmwurlie](https://csound.com/docs/manual/fmwurlie.html)  
+
     -   **Distortion And Wave Shaping**
 
-        [distort](https://csound.com/docs/manual/distort.html)
-        [distort1](https://csound.com/docs/manual/distort1.html)
+        [distort(1)](https://csound.com/docs/manual/distort.html)  
         [powershape](https://csound.com/docs/manual/powershape.html)
         [polynomial](https://csound.com/docs/manual/polynomial.html)
         [chebyshevpoly](https://csound.com/docs/manual/chebyshevpoly.html)
+        [fold](https://csound.com/docs/manual/fold.html) — adds artificial foldover to an audio signal  
 
     -   **Flanging, Phasing, Phase Shaping**
 
@@ -395,11 +484,21 @@ OPCODES OVERVIEW IN CATEGORIES
 
         [doppler](https://csound.com/docs/manual/doppler.html)
 
+    -   **Other**
+
+        [diff](https://csound.com/docs/manual/diff.html) — modify a signal by differentiation  
+        [integ](https://csound.com/docs/manual/integ.html) — modify a signal by integration  
+
 
 -   **GRANULAR SYNTHESIS**
 
     [partikkel](https://csound.com/docs/manual/partikkel.html)
     [sndwarp](https://csound.com/docs/manual/sndwarp.html)
+    [fof(2)](https://csound.com/docs/manual/fof.html)  
+    [fog](https://csound.com/docs/manual/fog.html)  
+    [diskgrain](https://csound.com/docs/manual/diskgrain.html)
+    [grain(2/3)](https://csound.com/docs/manual/grain.html)  
+    [granule](https://csound.com/docs/manual/granule.html)  
     [others](https://csound.com/docs/manual/SiggenGranular.html)
 
 
@@ -449,13 +548,21 @@ OPCODES OVERVIEW IN CATEGORIES
         [pvscross](https://csound.com/docs/manual/pvscross.html)
         [pvsfilter](https://csound.com/docs/manual/pvsfilter.html)
         [pvsvoc](https://csound.com/docs/manual/pvsvoc.html)
-        [pvsmorph](http://en.flossmanuals.net/bin/view/Csound/pvsmorph)
+        [pvsmorph](https://csound.com/docs/manual/pvsmorph.html)
         [pvsfreeze](https://csound.com/docs/manual/pvsfreeze.html)
         [pvsmaska](https://csound.com/docs/manual/pvsmaska.html)
         [pvsblur](https://csound.com/docs/manual/pvsblur.html)
         [pvstencil](https://csound.com/docs/manual/pvstencil.html)
         [pvsarp](https://csound.com/docs/manual/pvsarp.html)
         [pvsmooth](https://csound.com/docs/manual/pvsmooth.html)
+
+    -   **Other Methods**
+
+        [dct](https://csound.com/docs/manual/dct.html) — discrete cosine transformation  
+        [dctinv](https://csound.com/docs/manual/dctinv.html) — inverse discrete cosine transformation  
+        [fft(inv)](https://csound.com/docs/manual/fft.html) — complex-to-complex (inverse) FFT  
+        [fmanal](https://csound.com/docs/manual/fmanal.html) — AM/FM analysis from quadrature signal  
+        [hilbert(2)](https://csound.com/docs/manual/hilbert.html) — Hilbert transform    
 
 
 -   **PHYSICAL MODELS AND FM INSTRUMENTS**
@@ -476,17 +583,22 @@ OPCODES OVERVIEW IN CATEGORIES
 
 -   **BUFFER / FUNCTION TABLES**
 
-    -   **Creating Function Tables (Buffers)**
+    -   **Creating/Deleting Function Tables (Buffers)**
 
-        [ftgen](https://csound.com/docs/manual/ftgen.html)  [GEN
-        Routines](https://csound.com/docs/manual/ScoreGenRef.html)
+        [ftgen](https://csound.com/docs/manual/ftgen.html)  
+        [GEN Routines](https://csound.com/docs/manual/ScoreGenRef.html)  
+        [ftfree](https://csound.com/docs/manual/ftfree.html)
+        [ftgenonce](https://csound.com/docs/manual/ftgenonce.html)  
+        [ftgentmp](https://csound.com/docs/manual/ftgentmp.html)  
+        [ftsamplebank](https://csound.com/docs/manual/ftsamplebank.html)  
 
     -   **Writing to Tables**
 
         [tableiw](https://csound.com/docs/manual/tableiw.html)
         [tablew](https://csound.com/docs/manual/tablew.html)
         [tabw\_i](https://csound.com/docs/manual/tab.html)
-        [tabw](https://csound.com/docs/manual/tab.html)
+        [tabw](https://csound.com/docs/manual/tab.html)  
+        [ftslice](https://csound.com/docs/manual/ftslice.html) — copy a slice from one table to another table  
 
     -   **Reading From Tables**
 
@@ -494,19 +606,34 @@ OPCODES OVERVIEW IN CATEGORIES
         [tablei](https://csound.com/docs/manual/tablei.html)
         [table3](https://csound.com/docs/manual/table3.html)
         [tab\_i](https://csound.com/docs/manual/tab.html)
-        [tab](https://csound.com/docs/manual/tab.html)
+        [tab](https://csound.com/docs/manual/tab.html)  
+        [ftmorf](https://csound.com/docs/manual/ftmorf.html)  
 
     -   **Saving Tables to Files**
 
-        [ftsave](https://csound.com/docs/manual/ftsave.html)
-        [ftsavek](https://csound.com/docs/manual/ftsavek.html)
-        [TableToSF](http://www.csounds.com/udo/displayOpcode.php?opcode_id=122)
+        [ftsave](https://csound.com/docs/manual/ftsave.html)  
+        [ftsavek](https://csound.com/docs/manual/ftsavek.html)  
+        [ftaudio](https://csound.com/docs/manual/ftaudio.html)  
 
     -   **Reading Tables From Files**
 
         [ftload](https://csound.com/docs/manual/ftload.html)
         [ftloadk](https://csound.com/docs/manual/ftloadk.html)
         [GEN23](https://csound.com/docs/manual/GEN23.html)
+
+    -   **TABLE QUERIES**
+
+        [ftlen](https://csound.com/docs/manual/ftlen.html) — length of a table  
+        [ftchnls](https://csound.com/docs/manual/ftchnls.html) — number of channels of a stored sound    
+        [ftsr](https://csound.com/docs/manual/ftsr.html) — sample rate of a stored sound  
+        [getftargs](https://csound.com/docs/manual/getftargs.html) — get arguments of table creation  
+        
+-   **ARRAYS**  
+
+        [fillarray](https://csound.com/docs/manual/fillarray.html)  
+        [genarray(_i)](https://csound.com/docs/manual/genarray.html)  
+        
+
 
 
 -   **SIGNAL INPUT/OUTPUT, SAMPLE AND LOOP PLAYBACK, SOUNDFONTS**
@@ -542,11 +669,10 @@ OPCODES OVERVIEW IN CATEGORIES
 
     -   **Sound File Input**
 
-        [soundin](https://csound.com/docs/manual/soundin.html)
         [diskin](https://csound.com/docs/manual/diskin2.html)
-        [diskin2](https://csound.com/docs/manual/diskin2.html)
         [mp3in](https://csound.com/docs/manual/mp3in.html)
-        [(GEN01)](https://csound.com/docs/manual/GEN01.html) \
+        [(GEN01)](https://csound.com/docs/manual/GEN01.html)
+        [filescal](https://csound.com/docs/manual/filescal.html)
 
     -   **Sound File Queries**
 
@@ -554,7 +680,8 @@ OPCODES OVERVIEW IN CATEGORIES
         [filesr](https://csound.com/docs/manual/filesr.html)
         [filenchnls](https://csound.com/docs/manual/filenchnls.html)
         [filepeak](https://csound.com/docs/manual/filepeak.html)
-        [filebit](https://csound.com/docs/manual/filebit.html)  \
+        [filebit](https://csound.com/docs/manual/filebit.html)
+        [filevalid](https://csound.com/docs/manual/filevalid.html)
 
     -   **Sound File Output**
 
@@ -571,6 +698,12 @@ OPCODES OVERVIEW IN CATEGORIES
         [ftsavek](https://csound.com/docs/manual/ftsavek.html)
         [ftload](https://csound.com/docs/manual/ftload.html)  /
         [ftloadk](https://csound.com/docs/manual/ftloadk.html)
+        [hdf5read](https://csound.com/docs/manual/hdf5read.html)  
+        [hdf5write](https://csound.com/docs/manual/hdf5write.html)  
+
+    -   **Directories**
+
+        [directory](https://csound.com/docs/manual/directory.html) — string array with files in a directory  
 
 
 -   **CONVERTERS OF DATA TYPES**
@@ -612,6 +745,11 @@ OPCODES OVERVIEW IN CATEGORIES
         [sprintfk](https://csound.com/docs/manual/sprintfk.html)
         [strset](https://csound.com/docs/manual/strset.html)
         [strget](https://csound.com/docs/manual/strget.html)  \
+
+    -   **Arrays and Tables**
+
+        [printarray](https://csound.com/docs/manual/printarray.html)  
+        [ftprint](https://csound.com/docs/manual/ftprint.html)
 
     -   **String Manipulation And Conversion**
 
@@ -736,17 +874,17 @@ OPCODES OVERVIEW IN CATEGORIES
 
     -   **Time Signal Generators**
 
-        [metro](https://csound.com/docs/manual/metro.html)
+        [metro(2)](https://csound.com/docs/manual/metro.html)
         [mpulse](https://csound.com/docs/manual/mpulse.html) \
 
 
 -   **CONDITIONS AND LOOPS**
 
-    [changed](https://csound.com/docs/manual/changed.html)
+    [changed(2)](https://csound.com/docs/manual/changed.html)
     [trigger](https://csound.com/docs/manual/trigger.html)
     [if](https://csound.com/docs/manual/if.html)
-    [loop\_lt](https://csound.com/docs/manual/loop_lt.html)/[loop\_le](https://csound.com/docs/manual/loop_le.html)/[loop\_gt](https://csound.com/docs/manual/loop_gt.html)/[loop\_ge](https://csound.com/docs/manual/loop_ge.html) \
-
+    [(i/k)goto](https://csound.com/docs/manual/goto.html)  
+    [while](https://csound.com/docs/manual/while.html)
 
 -   **PROGRAM FLOW**
 
@@ -811,40 +949,40 @@ OPCODES OVERVIEW IN CATEGORIES
 
     -   **Arithmetic Operations**
 
-        [+](https://csound.com/docs/manual/adds.html)
-        [-](https://csound.com/docs/manual/subtracts.html)
-        [\*](https://csound.com/docs/manual/multiplies.html)
-        [/](https://csound.com/docs/manual/divides.html)
-        [\^](https://csound.com/docs/manual/raises.html)
-        [%](https://csound.com/docs/manual/modulus.html) \
+        [+](https://csound.com/docs/manual/adds.html)  
+        [-](https://csound.com/docs/manual/subtracts.html)  
+        [\*](https://csound.com/docs/manual/multiplies.html)  
+        [/](https://csound.com/docs/manual/divides.html)  
+        [\^](https://csound.com/docs/manual/raises.html)  
+        [%](https://csound.com/docs/manual/modulus.html)   
+        [divz](https://csound.com/docs/manual/divz.html) — safe division (avoids division by zero)  
 
-        [exp(x)](https://csound.com/docs/manual/exp.html)
-        [log(x)](https://csound.com/docs/manual/log.html)
-        [log10(x)](https://csound.com/docs/manual/log10.html)
-        [sqrt(x)](https://csound.com/docs/manual/sqrt.html) \
+        [exp](https://csound.com/docs/manual/exp.html)  
+        [log(2/10)](https://csound.com/docs/manual/log.html)  
+        [sqrt](https://csound.com/docs/manual/sqrt.html)  
 
-        [abs(x)](https://csound.com/docs/manual/abs.html)
-        [int(x)](https://csound.com/docs/manual/int.html)
-        [frac(x)](https://csound.com/docs/manual/frac.html) \
+        [abs](https://csound.com/docs/manual/abs.html)  
+        [int](https://csound.com/docs/manual/int.html)  
+        [frac](https://csound.com/docs/manual/frac.html)  
 
-        [round(x)](https://csound.com/docs/manual/round.html)
-        [ceil(x)](https://csound.com/docs/manual/ceil.html)
-        [floor(x)](https://csound.com/docs/manual/floor.html) \
+        [round](https://csound.com/docs/manual/round.html)  
+        [ceil](https://csound.com/docs/manual/ceil.html)  
+        [floor](https://csound.com/docs/manual/floor.html)  
 
     -   **Trigonometric Functions**
 
-        [sin(x)](https://csound.com/docs/manual/sin.html)
-        [cos(x)](https://csound.com/docs/manual/cos.html)
-        [tan(x)](https://csound.com/docs/manual/tan.html) \
+        [sin](https://csound.com/docs/manual/sin.html)  
+        [cos](https://csound.com/docs/manual/cos.html)  
+        [tan](https://csound.com/docs/manual/tan.html)  
 
-        [sinh(x)](https://csound.com/docs/manual/sinh.html)
-        [cosh(x)](https://csound.com/docs/manual/cosh.html)
-        [tanh(x)](https://csound.com/docs/manual/tanh.html) \
+        [sinh](https://csound.com/docs/manual/sinh.html)  
+        [cosh](https://csound.com/docs/manual/cosh.html)  
+        [tanh](https://csound.com/docs/manual/tanh.html)  
 
-        [sininv(x)](https://csound.com/docs/manual/sininv.html)
-        [cosinv(x)](https://csound.com/docs/manual/cosinv.html)
-        [taninv(x)](https://csound.com/docs/manual/taninv.html)
-        [taninv2(x)](https://csound.com/docs/manual/taninv2.html) \
+        [sininv](https://csound.com/docs/manual/sininv.html)  
+        [cosinv](https://csound.com/docs/manual/cosinv.html)  
+        [taninv](https://csound.com/docs/manual/taninv.html)  
+        [taninv2](https://csound.com/docs/manual/taninv2.html)  
 
     -   **Logic Operators**
 
@@ -894,6 +1032,16 @@ OPCODES OVERVIEW IN CATEGORIES
     [pycall](https://csound.com/docs/manual/pycall.html)
     [pyeval](https://csound.com/docs/manual/pyeval.html)
     [pyassign](https://csound.com/docs/manual/pyassign.html) \
+
+
+-   **FAUST OPCODES**
+
+    [faustaudio](https://csound.com/docs/manual/faustaudio.html) — instantiates and runs a faust program  
+    [faustcompile](https://csound.com/docs/manual/faustcompile.html) — invokes compiler  
+    [faustdsp](https://csound.com/docs/manual/faustcompile.html) — instantiates a faust program  
+    [faustctl](https://csound.com/docs/manual/faustctl.html) — adjusts a given control  
+    [faustgen](https://csound.com/docs/manual/faustgen.html) — compiles, instantiates and runs a faust program  
+    [faustplay](https://csound.com/docs/manual/faustplay.html) — runs a faust program  
 
 
 -   **SYSTEM OPCODES**

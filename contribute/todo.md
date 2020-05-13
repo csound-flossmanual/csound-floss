@@ -6,8 +6,6 @@ TO DO
     - replace some instrument numbers by names
     - introduce some functional style
     - format 
-- insert navigation for each chapter
-- add more figures or even gifs
 - more consistency in either *myVar* or `myVar` 
 
 
@@ -72,6 +70,11 @@ Edits
 - 15-b (glossary)
     - review or remove
 
+
+Other
+-----
+
+- what about filescal?  
 
 
 In Process
