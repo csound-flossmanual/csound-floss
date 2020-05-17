@@ -20,6 +20,7 @@ The whole text has been revised. Many figures have been substituted or added. Ma
 - [12 E Csound on Android](12-e-csound-on-android.md) (thanks to Michael Gogins)
 - [12 F Csound in Haskell](12-f-csound-and-haskell.md) (thanks to Anton Kholomiov)
 - [12 G Csound in HTML and Javascript](12-g-csound-in-html-and-javascript.md) (thanks to Michael Gogins)
+- [15 A Opcode Guide](15-a-opcode-guide.md)
 
 The chapter about amplitude and pitch tracking has now been moved to [14 C](14-c-amplitude-and-pitch-tracking.md) together with other *miscellaneous* articles.
 

@@ -12,217 +12,292 @@ This guide is another attempt to provide some orientation within
 Csound's wealth of opcodes — a wealth which is often frightening for beginners and still overwhelming for experienced users.
 
 Three selections are given here, each growing in size:  
-1. The **30** most important opcodes. This selection might be useful for beginners. Learning ten opcodes a day, Csound can be learned in three days, and many full-featured Csound programs can be written with these 30 opcodes.  
-2. The Top **100** Opcodes. Adding 70 more opcodes to the top 30 pushes the csound programmer to the next level. This should be sufficient for doing most of the jobs in Csound.  
-3. The third overview is rather extended already, and follows mostly the classification in the Csound Manual. It comprises some **300** opcodes.
+1. The **33 most important opcodes**. This selection might be useful for beginners. Learning ten opcodes a day, Csound can be learned in three days, and many full-featured Csound programs can be written with these 33 opcodes.  
+2. The **Top 100 Opcodes**. Adding 67 more opcodes to the first collection pushes the csound programmer to the next level. This should be sufficient for doing most of the jobs in Csound.  
+3. The third overview is rather extended already, and follows mostly the classification in the Csound Manual. It comprises nearly **500** opcodes.
 
 Although these selections come from some experience in using and teaching Csound, and have been discussed in the Csound Community, they must remain subjective, as working in Csound can go in quite different directions.
 
 
-THE 30 MOST IMPORTANT OPCODES
+THE 33 MOST IMPORTANT OPCODES
 -----------------------------
+
+#### Oscillators / Phasors
+[poscil(3)](https://csound.com/docs/manual/poscil.html) — high precision oscillator with linear (cubic) interpolation  
+[phasor](https://csound.com/docs/manual/phasor.html) — standard phasor  
+
+#### Noise
+[rand](https://csound.com/docs/manual/rand.html) — standard random (noise) generator  
+
+#### Envelopes
+[linen](https://csound.com/docs/manual/linen.html) — linear fade in/out  
+
+#### Line Generators
+[linseg](https://csound.com/docs/manual/linseg.html) — one or more linear segments  
+[transeg](https://csound.com/docs/manual/transeg.html) — one or more user-definable segments  
+
+#### Line Smooth
+[port(k)](https://csound.com/docs/manual/port.html) — portamento-like smoothing for control signals (with variable half-time)  
+
+#### Sound Files / Samples
+[diskin](https://csound.com/docs/manual/diskin2.html) — sound file playback with different options  
+
+#### Audio I/O
+[inch](https://csound.com/docs/manual/inch.html) — read audio from one or more input channels    
+[out](https://csound.com/docs/manual/out.html) — write audio to one or more output channels (starting from first hardware output)  
+
+#### Control
+[if](https://csound.com/docs/manual/if.html) — if clause  
+[changed(2)](https://csound.com/docs/manual/changed.html) — k-rate signal change detector  
+
+#### Instrument Control
+[schedule(k)](https://csound.com/docs/manual/schedule.html) — perform instrument event  
+[turnoff(2)](https://csound.com/docs/manual/turnoff2.html) — turn off this or another instrument    
+
+#### Time
+[metro(2)](https://csound.com/docs/manual/metro.html) — trigger metronome  
+
+#### Software Channels
+[chnset/chnget](https://csound.com/docs/manual/chnset.html) — set/get value in channel    
+
+#### MIDI
+[massign](https://csound.com/docs/manual/massign.html) — assign MIDI channel to Csound instrument  
+[notnum](https://csound.com/docs/manual/notnum.html) — note number received  
+[veloc](https://csound.com/docs/manual/veloc.html) — velocity received  
+
+#### Key
+[sensekey](https://csound.com/docs/manual/sensekey.html) — sense computer keyboard  
+
+#### Panning
+[pan2](https://csound.com/docs/manual/pan2.html) — stereo panning with different options  
+  
+#### Reverb
+[freeverb](https://csound.com/docs/manual/freeverb.html) — stereo reverb after Jezar  
+
+#### Delay
+[vdelayx](https://csound.com/docs/manual/vdelayx.html) — variable delay with highest quality interpolation  
+
+#### Distortion
+[distort(1)](https://csound.com/docs/manual/distort.html) — distortion via waveshaping  
+
+#### Filter
+[butbp(hp/lp)](https://csound.com/docs/manual/butterbp.html) — second order butterworth filter  
+    
+#### Level
+[rms](https://csound.com/docs/manual/rms.html) — RMS measurement  
+[balance(2)](https://csound.com/docs/manual/balance.html) — adjust audio signal level according to comparator  
+
+#### Random
+[random](https://csound.com/docs/manual/random.html) — random numbers between min/max  
+[randomi/randomh](https://csound.com/docs/manual/randomi.html) — random numbers between min/max with interpolation or hold numbers   
+[seed](https://csound.com/docs/manual/seed.html) — set the global seed  
+
+#### Math / Conversion
+[ampdb/dbamp](https://csound.com/docs/manual/ampdb.html) — dB to/from amplitude  
+[mtof/ftom](https://csound.com/docs/manual/mtof.html) — MIDI note number to/from frequency  
+
+#### Print
+[print(k)](https://csound.com/docs/manual/print.html) — print i/k-values   
 
 
 
 TOP 100 OPCODES
 ---------------
 
-**Oscillators / Phasors**  
-    poscil 
-    vco2
-    gbuzz  
-    mpulse  
-    phasor
-
-**Noise**  
-    rand  
-
-**Envelopes**  
-    linen(r)  
-
-**Line Generators**  
-    linseg  
-    expseg  
-    transeg  
-    bpf?  
-
-**Line Smooth**  
-    port(k)  
-
-**Sound Files / Samples**  
-    diskin  
-    loscilx  
-    flooper2  
-    mp3in  
-    filescal  
-    filelen  
-
-**Audio I/O**  
-    inch  
-    out  
-    outch  
-    monitor  
-
-**Tables (Buffers)**  
-    ftgen  
-    table(i|3)  
-    tablew  
-    ftsamplebank  
-
-**Arrays**  
-    fillarray  
-    lenarray  
-    getrow/getcol  
-    setrow/setcol  
-
-**Control**  
-    if  
-    while  
-    changed(2)  
-    trigger  
-
-**Instrument Control**  
-    active  
-    maxalloc  
-    schedule(k)  
-    turnoff(2)  
-    nstrnum  
-
-**Time**  
-    metro(2)    
-    timeinsts    
-
-**Software Channels**  
-    chnset  
-    chnget  
-    chnmix  
-    chnclear  
-
-**MIDI**  
-    massign  
-    notnum  
-    veloc  
-    ctrl7  
-
-**OSC**  
-    OSClisten  
-    OSCsend  
-
-**Key**  
-    sensekey  
-
-**Panning / Spatialization**  
-    pan2  
-    vbap  
-    bformenc2/bformdec2  
-  
-**Reverb**  
-    reverbsc  
-    freeverb  
-
-**FFT**  
-    pvsanal  
-    pvsynth  
-    pvscale  
-    pvsmorph  
-    pvsftw/pvsftr  
-    pvs2array/pvsfromarray  
-
-**Convolution**  
-    pconvolve  
-
-**Granular Synthesis**  
-    partikkel  
-
-**Physical Models**
-    pluck  
-
-**Delay**  
-    vdelayx  
-
-**Distortion**  
-    distort1  
-    powershape  
-
-**Filter**  
-    (a)tone  
-    reson  
-    butlp(hp/bp)  
-    mode  
-    hilbert  
-    
-**Level**  
-    rms  
-    balance(2)  
-
-**Random**  
-    rnd/birnd
-    random
-    randomi/randomh
-    seed
-
-**Math / Conversion**  
-    ampdb/dbamp  
-    mtof/ftom  
-    cent  
-    log2  
-    abs  
-    int/frac  
-
-**Amplitude / Pitch Tracking**
-    ptrack  
-    follow2  
-
-**Print**  
-    print(k)(s)  
-    printarray  
-    ftprint  
-
-**File IO**  
-    fout  
-    ftsave  
-    fprint(k)s  
-    readf(i)  
-    directory  
-
-**Signal Type Conversion**  
-    i(k)  
-    a(k)  
-    k(a)  
-
-
-
-OPCODES OVERVIEW IN CATEGORIES
-------------------------------
-
-
-### OSCILLATORS AND PHASORS
-
-
-#### Standard Oscillators
-
+#### Oscillators / Phasors
 [poscil(3)](https://csound.com/docs/manual/poscil.html) — high precision oscillator with linear (cubic) interpolation  
-[oscili(3)](https://csound.com/docs/manual/oscili.html) — standard oscillator with linear (cubic) interpolation  
-[lfo](https://csound.com/docs/manual/lfo.html) — low frequency oscillator of various shapes  
-[oscilikt](https://csound.com/docs/manual/oscilikt.html) — interpolating oscillator with k-rate changeable tables  
-[more ...](https://csound.com/docs/manual/SiggenBasic.html) — more standard oscillators ...  
-*Note*: [oscil](https://csound.com./docs/manual/oscil.html) is not recommended as it has integer indexing which can result in low quality
-
-
-#### Dynamic Spectrum Oscillators
-
+[vco(2)](https://csound.com/docs/manual/vco2.html) — analog modelled oscillator  
 [(g)buzz](https://csound.com/docs/manual/buzz.html) — buzzer  
 [mpulse](https://csound.com/docs/manual/mpulse.html) — single sample impulses  
-[vco(2)](https://csound.com/docs/manual/vco2.html) — analog modelled oscillator  
-[squinewave](https://csound.com/docs/manual/squinewave.html) — shape-shifting oscillator with hardsync  
-
-
-#### Phasors
-
 [phasor](https://csound.com/docs/manual/phasor.html) — standard phasor  
-[syncphasor](https://csound.com/docs/manual/syncphasor.html) — phasor with sync I/O  
-[ephasor](https://csound.com/docs/manual/ephasor.html) — phasor with additional exponential decay output  
-[sc_phasor](https://csound.com/docs/manual/sc_phasor.html) — resettable phasor  
+
+#### Noise
+[rand](https://csound.com/docs/manual/rand.html) — standard random (noise) generator  
+
+#### Envelopes
+[linen](https://csound.com/docs/manual/linen.html) — linear fade in/out  
+
+#### Line Generators
+[linseg](https://csound.com/docs/manual/linseg.html) — one or more linear segments  
+[expseg](https://csound.com/docs/manual/expseg.html) — one or more exponential segments  
+[transeg](https://csound.com/docs/manual/transeg.html) — one or more user-definable segments  
+
+#### Line Smooth
+[port(k)](https://csound.com/docs/manual/port.html) — portamento-like smoothing for control signals (with variable half-time)  
+
+#### Sound Files / Samples
+[diskin](https://csound.com/docs/manual/diskin2.html) — sound file playback with different options  
+[mp3in](https://csound.com/docs/manual/mp3in.html) — mp3 playback  
+[loscil(3/x)](https://csound.com/docs/manual/loscil.html) — read sampled sound from a table  
+[flooper(2)](https://csound.com/docs/manual/flooper.html) — crossfading looper  
+[filescal](https://csound.com/docs/manual/filescal.html) — phase-locked vocoder processing with time and pitch scale  
+[filelen](https://csound.com/docs/manual/filelen.html) — length of sound file  
+
+#### Audio I/O
+[inch](https://csound.com/docs/manual/inch.html) — read audio from one or more input channels    
+[out](https://csound.com/docs/manual/out.html) — write audio to one or more output channels (starting from first hardware output)  
+[outch](https://csound.com/docs/manual/outch.html) — write audio to arbitrary output channel(s)  
+[monitor](https://csound.com/docs/manual/monitor.html) — monitor audio output channels  
+
+#### Tables (Buffers)
+[ftgen](https://csound.com/docs/manual/ftgen.html) — create any table with a GEN subroutine  
+[table(i/3)](https://csound.com/docs/manual/table.html) — read from table (with linear/cubic interpolation)  
+[tablew](https://csound.com/docs/manual/tablew.html) — write data to a table  
+[ftsamplebank](https://csound.com/docs/manual/ftsamplebank.html) — load files in a directory to tables    
+
+#### Arrays
+[fillarray](https://csound.com/docs/manual/fillarray.html) — fill array with values  
+[lenarray](https://csound.com/docs/manual/lenarray.html) — length of array  
+[getrow/getcol](https://csound.com/docs/manual/getrow.html) — get a row/column from a two-dimensional array  
+[setrow/setcol](https://csound.com/docs/manual/setrow.html) — set a row/column of a two-dimensional array  
+
+#### Control
+[if](https://csound.com/docs/manual/if.html) — if clause  
+[while](https://csound.com/docs/manual/while.html) — while loop  
+[changed(2)](https://csound.com/docs/manual/changed.html) — k-rate signal change detector  
+[trigger](https://csound.com/docs/manual/trigger.html) — threshold trigger  
+
+#### Instrument Control
+[active](https://csound.com/docs/manual/active.html) — number of active instrument instances  
+[maxalloc](https://csound.com/docs/manual/maxalloc.html) — set maximum number of instrument instances  
+[schedule(k)](https://csound.com/docs/manual/schedule.html) — perform instrument event  
+[turnoff(2)](https://csound.com/docs/manual/turnoff2.html) — turn off this or another instrument    
+[nstrnum](https://csound.com/docs/manual/nstrnum.html) — number of a named instrument    
+
+#### Time
+[metro(2)](https://csound.com/docs/manual/metro.html) — trigger metronome  
+[timeinsts](https://csound.com/docs/manual/timeinsts.html) — time of instrument instance in seconds  
+
+#### Software Channels
+[chnset](https://csound.com/docs/manual/chnset.html) — set value in channel    
+[chnget](https://csound.com/docs/manual/chnget.html) — get value from channel  
+[chnmix](https://csound.com/docs/manual/chnmix.html) — mix value to channel  
+[chnclear](https://csound.com/docs/manual/chnclear.html) — clear channel   
+
+#### MIDI
+[massign](https://csound.com/docs/manual/massign.html) — assign MIDI channel to Csound instrument  
+[notnum](https://csound.com/docs/manual/notnum.html) — note number received  
+[veloc](https://csound.com/docs/manual/veloc.html) — velocity received  
+[ctrl7(14/21)](https://csound.com/docs/manual/ctrl7.html) — receive controller  
+
+#### OSC
+[OSClisten](https://csound.com/docs/manual/OSClisten.html) — receive messages  
+[OSCraw](https://csound.com/docs/manual/OSCraw.html) — listens to all messages  
+[OSCsend](https://csound.com/docs/manual/OSCsend.html) — send messages   
+
+#### Key
+[sensekey](https://csound.com/docs/manual/sensekey.html) — sense computer keyboard  
+
+#### Panning / Spatialization
+[pan2](https://csound.com/docs/manual/pan2.html) — stereo panning with different options  
+[vbap](https://csound.com/docs/manual/vbap.html) — vector base amplitude panning for multichannel (also 3d)  
+[bformenc1/bformdec1](https://csound.com/docs/manual/bformenc1.html) — B-format encoding/decoding  
+  
+#### Reverb
+[freeverb](https://csound.com/docs/manual/freeverb.html) — stereo reverb after Jezar  
+[reverbsc](https://csound.com/docs/manual/reverbsc.html) — stereo reverb after Sean Costello  
+
+#### FFT
+[pvsanal](https://csound.com/docs/manual/pvsanal.html) — spectral analysis with audio signal input  
+[pvstanal](https://csound.com/docs/manual/pvstanal.html) — spectral analysis from sampled sound  
+[pvsynth](https://csound.com/docs/manual/pvsynth.html) — spectral resynthesis  
+[pvscale](https://csound.com/docs/manual/pvscale.html) — scale frequency components (pitch shift)  
+[pvsmorph](https://csound.com/docs/manual/pvsmorph.html) — morphing between two f-signals  
+[pvsftw/pvsftr](https://csound.com/docs/manual/pvsftw.html) — write/read anplitude and/or frequency data to/from tables  
+[pvs2array/pvsfromarray](https://csound.com/docs/manual/pvs2tab.html) — write/read spectral data to/from arrays  
+  
+#### Convolution
+[pconvolve](https://csound.com/docs/manual/pconvolve.html) — partitioned convolution  
+
+#### Granular Synthesis
+[partikkel](https://csound.com/docs/manual/partikkel.html) — complete granular synthesis  
+
+#### Physical Models
+[pluck](https://csound.com/docs/manual/pluck.html) — plucked string (Karplus-Strong) algorithm  
+
+#### Delay
+[vdelayx](https://csound.com/docs/manual/vdelayx.html) — variable delay with highest quality interpolation  
+
+#### Distortion
+[distort(1)](https://csound.com/docs/manual/distort.html) — distortion via waveshaping  
+[powershape](https://csound.com/docs/manual/powershape.html) — waveshaping by raising to a variable exponent  
+
+#### Filter
+[(a)tone](https://csound.com/docs/manual/tone.html) — first order IIR low (high) pass filter  
+[reson](https://csound.com/docs/manual/reson.html) — second order resonant filter  
+[butbp(hp/lp)](https://csound.com/docs/manual/butterbp.html) — second order butterworth filter  
+[mode](https://csound.com/docs/manual/mode.html) — mass-spring system modelled  
+[hilbert](https://csound.com/docs/manual/hilbert.html) — hilbert transform
+    
+#### Level
+[rms](https://csound.com/docs/manual/rms.html) — RMS measurement  
+[balance(2)](https://csound.com/docs/manual/balance.html) — adjust audio signal level according to comparator  
+
+#### Random
+[(bi)rnd](https://csound.com/docs/manual/rnd.html) — simple unipolar (bipolar) random generator  
+[random](https://csound.com/docs/manual/random.html) — random numbers between min/max  
+[randomi/randomh](https://csound.com/docs/manual/randomi.html) — random numbers between min/max with interpolation or hold numbers   
+[seed](https://csound.com/docs/manual/seed.html) — set the global seed  
+
+#### Math / Conversion
+[ampdb/dbamp](https://csound.com/docs/manual/ampdb.html) — dB to/from amplitude  
+[mtof/ftom](https://csound.com/docs/manual/mtof.html) — MIDI note number to/from frequency  
+[cent](https://csound.com/docs/manual/cent.html) — cent to scaling factor  
+[log2](https://csound.com/docs/manual/log2.html) — return 2 base log
+[abs](https://csound.com/docs/manual/abs.html) — absolute value  
+[int/frac](https://csound.com/docs/manual/int.html) — integer/fractional part  
+
+#### Amplitude / Pitch Tracking
+[follow(2)](https://csound.com/docs/manual/follow.html) — envelopoe follower  
+[ptrack](https://csound.com/docs/manual/ptrack.html) — pitch tracking using STFT  
+
+#### Print
+[print(k)](https://csound.com/docs/manual/print.html) — print i/k-values   
+[printarray](https://csound.com/docs/manual/printarray.html) — print array  
+[ftprint](https://csound.com/docs/manual/ftprint.html) — print table  
+
+#### File IO
+[fout](https://csound.com/docs/manual/fout.html) — write out real-time audio output *(for rendered audio file output see chapter [02E](02-e-rendering-to-file.md) and [06A](06-a-record-and-play-soundfiles.md))*  
+[ftsave(k)](https://csound.com/docs/manual/ftsave.html) — save table(s) to text file or binary   
+[fprint(k)s](https://csound.com/docs/manual/fprints.html) — formatted printing to file  
+[readf(i)](https://csound.com/docs/manual/readf.html) — reads an external file line by line  
+[directory](https://csound.com/docs/manual/directory.html) — files in a directory as string array  
+
+#### Signal Type Conversion
+[i(k)](https://csound.com/docs/manual/opi.html) — i-value from k-signal  
+[k(a)](https://csound.com/docs/manual/opk.html) — k-signal from a-signal  
+[a(k)](https://csound.com/docs/manual/opa.html) — a-signal from k-signal  
+
+
+
+
+EXTENDED OPCODE OVERVIEW IN CATEGORIES
+======================================
+
+
+I. AUDIO I/O AND SOUND FILES
+----------------------------
+
+### AUDIO I/O
+
+#### General Settings and Queries
+
+[sr](https://csound.com/docs/manual/sr.html) — set sample rate (default=44100)  
+[ksmps](https://csound.com/docs/manual/ksmps.html) — set block (audio vector) size (default=10) *(setting to power-of-two (e.g. 32/64/128) is recommended)*  
+[nchnls](https://csound.com/docs/manual/nchnls.html) — set number of I/O channels (default=1)  
+[nchnls_i](https://csound.com/docs/manual/nchnls_i.html) — set number of input channels if different from output  
+[0dbfs](https://csound.com/docs/manual/Zerodbfs.html) — set zero dB full scale (default=32767) *(setting 0dbfs=1 is strongly recommended)*  
+[nchnls_hw](https://csound.com/docs/manual/nchnls_hw.html) — report number of channels in hardware  
+[setksmps](https://csound.com/docs/manual/setksmps.html) — set local ksmps in User-Defined-Opcodes or instruments  
+
+
+#### Signal Input and Output
+
+[inch](https://csound.com/docs/manual/inch.html) — read audio from one or more input channels    
+[out](https://csound.com/docs/manual/out.html) — write audio to one or more output channels (starting from first hardware output)  
+[outch](https://csound.com/docs/manual/outch.html) — write audio to arbitrary output channel(s)  
+[monitor](https://csound.com/docs/manual/monitor.html) — monitor audio output channels  
+
 
 
 ### SOUND FILES AND SAMPLES
@@ -269,35 +344,47 @@ see overview [here](https://csound.com/docs/manual/SiggenSample.html#SiggenSampl
 
 
 #### Directories
+
 [directory](https://csound.com/docs/manual/directory.html) — files in a directory as string array  
 [ftsamplebank](https://csound.com/docs/manual/ftsamplebank.html) — load files in a directory to tables    
-
-
-### AUDIO I/O
-
-#### General Settings and Queries
-
-[sr](https://csound.com/docs/manual/sr.html) — set sample rate (default=44100)  
-[ksmps](https://csound.com/docs/manual/ksmps.html) — set block (audio vector) size (default=10) *(setting to power-of-two (e.g. 32/64/128) is recommended)*  
-[nchnls](https://csound.com/docs/manual/nchnls.html) — set number of I/O channels (default=1)  
-[nchnls_i](https://csound.com/docs/manual/nchnls_i.html) — set number of input channels if different from output  
-[0dbfs](https://csound.com/docs/manual/Zerodbfs.html) — set zero dB full scale (default=32767) *(setting 0dbfs=1 is strongly recommended)*  
-[nchnls_hw](https://csound.com/docs/manual/nchnls_hw.html) — report number of channels in hardware  
-[setksmps](https://csound.com/docs/manual/setksmps.html) — set local ksmps in User-Defined-Opcodes or instruments  
-
-
-#### Signal Input and Output
-
-[inch](https://csound.com/docs/manual/inch.html) — read audio from one or more input channels    
-[out](https://csound.com/docs/manual/out.html) — write audio to one or more output channels (starting from first hardware output)  
-[outch](https://csound.com/docs/manual/outch.html) — write audio to arbitrary output channel(s)  
-[monitor](https://csound.com/docs/manual/monitor.html) — monitor audio output channels  
 
 
 #### Sound File Output
 
 [fout](https://csound.com/docs/manual/fout.html) — write out real-time audio output *(for rendered audio file output see chapter [02E](02-e-rendering-to-file.md) and [06A](06-a-record-and-play-soundfiles.md))*  
 
+
+
+II. SIGNAL GENERATORS
+---------------------
+
+### OSCILLATORS AND PHASORS
+
+
+#### Standard Oscillators
+
+[poscil(3)](https://csound.com/docs/manual/poscil.html) — high precision oscillator with linear (cubic) interpolation  
+[oscili(3)](https://csound.com/docs/manual/oscili.html) — standard oscillator with linear (cubic) interpolation  
+[lfo](https://csound.com/docs/manual/lfo.html) — low frequency oscillator of various shapes  
+[oscilikt](https://csound.com/docs/manual/oscilikt.html) — interpolating oscillator with k-rate changeable tables  
+[more ...](https://csound.com/docs/manual/SiggenBasic.html) — more standard oscillators ...  
+*Note*: [oscil](https://csound.com./docs/manual/oscil.html) is not recommended as it has integer indexing which can result in low quality
+
+
+#### Dynamic Spectrum Oscillators
+
+[(g)buzz](https://csound.com/docs/manual/buzz.html) — buzzer  
+[mpulse](https://csound.com/docs/manual/mpulse.html) — single sample impulses  
+[vco(2)](https://csound.com/docs/manual/vco2.html) — analog modelled oscillator  
+[squinewave](https://csound.com/docs/manual/squinewave.html) — shape-shifting oscillator with hardsync  
+
+
+#### Phasors
+
+[phasor](https://csound.com/docs/manual/phasor.html) — standard phasor  
+[syncphasor](https://csound.com/docs/manual/syncphasor.html) — phasor with sync I/O  
+[ephasor](https://csound.com/docs/manual/ephasor.html) — phasor with additional exponential decay output  
+[sc_phasor](https://csound.com/docs/manual/sc_phasor.html) — resettable phasor  
 
 
 
@@ -377,7 +464,37 @@ see overview [here](https://csound.com/docs/manual/SiggenSample.html#SiggenSampl
 
 
 
+### PHYSICAL MODELS AND FM INSTRUMENTS
+
+
+#### Waveguide Physical Modelling
+
+see
+[here](https://csound.com/docs/manual/SiggenWavguide.html)
+and
+[here](https://csound.com/docs/manual/SigmodWavguide.html)
+
+
+#### Frequency Modulation
+
+[foscili](https://csound.com/docs/manual/foscili.html) —  basic FM oscillator  
+[cross(p/f)m(i)](https://csound.com/docs/manual/crossfm.html) — two mutually frequency and/or phase modulated oscillators  
+*(see also chapter [04D](04-d-frequency-modulation.md))*  
+
+
+#### FM Instrument Models
+
+see
+[here](https://csound.com/docs/manual/SiggenFmsynth.html)   
+
+
+
+
+III. SIGNAL MODIFIERS
+---------------------
+
 ### DELAYS
+
 
 #### Audio Delays
 
@@ -448,7 +565,6 @@ overviews in the Csound Manual.
 
 
 
-
 ### REVERB
 
 [freeverb](https://csound.com/docs/manual/freeverb.html) — stereo reverb after Jezar  
@@ -462,56 +578,8 @@ overviews in the Csound Manual.
 [pconvolve](https://csound.com/docs/manual/pconvolve.html) and similar opcodes.
 
 
-### SPATIALIZATION
 
-
-#### Amplitude Panning
-
-[pan2](https://csound.com/docs/manual/pan2.html) — stereo panning with different options  
-[vbap](https://csound.com/docs/manual/vbap.html) — vector base amplitude panning for multichannel (also 3d)  
-
-
-#### Ambisonics
-
-[bformenc1](https://csound.com/docs/manual/bformenc1.html) — b-format encoding  
-[bformdec1](https://csound.com/docs/manual/bformdec1.html) — b-format decoding  
-
-
-#### Binaural / HRTF
-
-[hrtfstat](https://csound.com/docs/manual/hrtfstat.html) — static 3d binaural audio for headphones  
-[hrtfmove(2)](https://csound.com/docs/manual/hrtfmove.html) — dynamic 3d binaural audio  
-[hrtfearly](https://csound.com/docs/manual/hrtfearly.html) — early reflections in a HRTF room  
-[hrtfreverb](https://csound.com/docs/manual/hrtfreverb.html) — binaural diffuse-field reverberator  
-
-        
-
-### PHYSICAL MODELS AND FM INSTRUMENTS
-
-#### Waveguide Physical Modelling
-
-see
-[here](https://csound.com/docs/manual/SiggenWavguide.html)
-and
-[here](https://csound.com/docs/manual/SigmodWavguide.html)
-
-
-#### FM Instrument Models
-
-see
-[here](https://csound.com/docs/manual/SiggenFmsynth.html)   
-
-
-
-### MODULATION AND DISTORTION
-
-
-#### Frequency Modulation
-
-[foscili](https://csound.com/docs/manual/foscili.html) —  basic FM oscillator  
-[cross(p/f)m(i)](https://csound.com/docs/manual/crossfm.html) — two mutually frequency and/or phase modulated oscillators  
-*(see also chapter [04D](04-d-frequency-modulation.md))*  
-
+### DISTORTION AND SIMILAR MODIFICATIONS
 
 #### Distortion and Wave Shaping
 
@@ -525,9 +593,18 @@ see
 
 #### Flanging, Phasing, Phase Shaping
 
-[flanger](https://csound.com/docs/manual/flanger.html) — flanger 
-[phaser1/2](https://csound.com/docs/manual/phaser1.html) — first/second order allpass filters in series  
+[flanger](https://csound.com/docs/manual/flanger.html) — flanger   
+[phaser1(2)](https://csound.com/docs/manual/phaser1.html) — first/second order allpass filters in series  
 [pdhalf(y)](https://csound.com/docs/manual/pdhalf.html) — phase distortion synthesis  
+
+
+#### Sample Level Operations
+
+[samphold](https://csound.com/docs/manual/samphold.html) — performs sample-and-hold  
+[vaget](https://csound.com/docs/manual/vaget.html) — audio vector read access  
+[vaset](https://csound.com/docs/manual/vaset.html) — audio vector write access  
+[framebuffer](https://csound.com/docs/manual/framebuffer.html) — reads/writes audio to/from array  
+[shiftin/out](https://csound.com/docs/manual/shiftin.html) — writes/reads the content of an audio variable to/from array
 
 
 #### Other
@@ -540,8 +617,66 @@ see
 [wrap](https://csound.com/docs/manual/wrap.html) — wraps around a signal which exceeds boundaries  
 [waveset](https://csound.com/docs/manual/waveset.html) — repeating cycles of input audio signal  
 [sndloop](https://csound.com/docs/manual/sndloop.html) — looping on audio input signal  
+[mandel](https://csound.com/docs/manual/mandel.html) — Mandelbrot set formula for complex plane  
 
 
+### SIGNAL MEASUREMENT AND DYNAMIC PROCESSING
+
+
+#### Amplitude Measurement and Envelope Following
+
+[rms](https://csound.com/docs/manual/rms.html) — RMS measurement  
+[peak](https://csound.com/docs/manual/peak.html) — maintains highest value received  
+[max\_k](https://csound.com/docs/manual/max_k.html) — local maximum/minimum of audio signal  
+[follow(2)](https://csound.com/docs/manual/follow.html) — envelopoe follower  
+[vactrol](https://csound.com/docs/manual/vactrol.html) — envelope follower  
+
+
+#### Pitch Estimation (Pitch Tracking)
+
+[ptrack](https://csound.com/docs/manual/ptrack.html) — pitch tracking using STFT  
+[pitch](https://csound.com/docs/manual/pitch.html) — pitch tracking using constant-Q DFT  
+[pvspitch](https://csound.com/docs/manual/pvspitch.html) — pitch/amplitude tracking of a PVS signal  
+[pvscent](https://csound.com/docs/manual/pvscent.html) — spectral centroid of a PVS signal  
+
+
+#### Dynamic Processing
+
+[balance(2)](https://csound.com/docs/manual/balance.html) — adjust audio signal level according to comparator  
+[compress(2)](https://csound.com/docs/manual/compress.html) — compress audio signal  
+[dam](https://csound.com/docs/manual/dam.html) — dynamic compressor/expander  
+[clip](https://csound.com/docs/manual/clip.html) — clips a signal to a predifined limit  
+[limit(1)](https://csound.com/docs/manual/limit.html) — sets lower and upper limit  
+
+
+
+
+### SPATIALIZATION
+
+
+#### Amplitude Panning
+
+[pan2](https://csound.com/docs/manual/pan2.html) — stereo panning with different options  
+[vbap](https://csound.com/docs/manual/vbap.html) — vector base amplitude panning for multichannel (also 3d)  
+
+
+#### Ambisonics
+
+[bformenc1](https://csound.com/docs/manual/bformenc1.html) — B-format encoding  
+[bformdec1](https://csound.com/docs/manual/bformdec1.html) — B-format decoding  
+
+
+#### Binaural / HRTF
+
+[hrtfstat](https://csound.com/docs/manual/hrtfstat.html) — static 3d binaural audio for headphones  
+[hrtfmove(2)](https://csound.com/docs/manual/hrtfmove.html) — dynamic 3d binaural audio  
+[hrtfearly](https://csound.com/docs/manual/hrtfearly.html) — early reflections in a HRTF room  
+[hrtfreverb](https://csound.com/docs/manual/hrtfreverb.html) — binaural diffuse-field reverberator  
+
+
+
+IV. GRANULAR SYNTHESIS AND SPECTRAL PROCESSING
+----------------------------------------------
 
 ### GRANULAR SYNTHESIS
 
@@ -557,7 +692,7 @@ see
 
  
 
-### SPECTRAL PROCESSING (FFT WITH PVS OPCODES)
+### SPECTRAL PROCESSING WITH PVS OPCODES
 
 
 #### Environment
@@ -643,99 +778,57 @@ see
 [tvconv](https://csound.com/docs/manual/tvconv.html) — time-varying convolution  
 
 
-### SIGNAL MEASUREMENT, DYNAMIC PROCESSING, SAMPLE LEVEL OPERATIONS
 
+V. DATA
+-------
 
-#### Amplitude Measurement and Amplitude Envelope Following
-
-[rms](https://csound.com/docs/manual/rms.html) — RMS measurement  
-[balance(2)](https://csound.com/docs/manual/balance.html) — adjust audio signal level according to comparator  
-[follow(2)](https://csound.com/docs/manual/follow.html) — envelopoe follower  
-[peak](https://csound.com/docs/manual/peak.html) — maintains highest value received  
-[max\_k](https://csound.com/docs/manual/max_k.html) — local maximum/minimum of audio signal  
-[vactrol](https://csound.com/docs/manual/vactrol.html) — envelope follower  
-
-
-#### Pitch Estimation (Pitch Tracking)
-
-[ptrack](https://csound.com/docs/manual/ptrack.html) — pitch tracking using STFT  
-[pitch](https://csound.com/docs/manual/pitch.html) — pitch tracking using constant-Q DFT  
-[pvspitch](https://csound.com/docs/manual/pvspitch.html) — pitch/amplitude tracking of a PVS signal  
-[pvscent](https://csound.com/docs/manual/pvscent.html) — spectral centroid of a PVS signal  
-
-
-#### Tempo Estimation
-
-[tempest](https://csound.com/docs/manual/tempest.html) — estimate tempo of a beat pattern  
-
-
-#### Dynamic Processing
-
-[compress(2)](https://csound.com/docs/manual/compress.html) — compress audio signal  
-[dam](https://csound.com/docs/manual/dam.html) — dynamic compressor/expander  
-[clip](https://csound.com/docs/manual/clip.html) — clips a signal to a predifined limit  
-
-
-#### Sample Level Operations
-
-[limit(1)](https://csound.com/docs/manual/limit.html) — sets lower and upper limit  
-[samphold](https://csound.com/docs/manual/samphold.html) — performs sample-and-hold  
-[vaget](https://csound.com/docs/manual/vaget.html) — audio vector read access  
-[vaset](https://csound.com/docs/manual/vaset.html) — audio vector write access  
-[framebuffer](https://csound.com/docs/manual/framebuffer.html) — reads/writes audio to/from array  
-[shiftin/out](https://csound.com/docs/manual/shiftin.html) — writes/reads the content of an audio variable to/from array
-
-
-
-
-
-
-
-### BUFFER / FUNCTION TABLES
+### BUFFERS / FUNCTION TABLES
 
 #### Creating/Deleting Function Tables (Buffers)
 
-[ftgen](https://csound.com/docs/manual/ftgen.html)  
-[GEN Routines](https://csound.com/docs/manual/ScoreGenRef.html)  
-[ftfree](https://csound.com/docs/manual/ftfree.html)  
-[ftgenonce](https://csound.com/docs/manual/ftgenonce.html)  
-[ftgentmp](https://csound.com/docs/manual/ftgentmp.html)  
-[tableicopy](https://csound.com/docs/manual/tableicopy.html) — copy table  
+[ftgen](https://csound.com/docs/manual/ftgen.html) — create any table with a GEN subroutine  
+[GEN Routines](https://csound.com/docs/manual/ScoreGenRef.html) — overview of subroutines  
+[ftfree](https://csound.com/docs/manual/ftfree.html) — delete function table  
+[ftgenonce](https://csound.com/docs/manual/ftgenonce.html) — create table inside an instrument  
+[ftgentmp](https://csound.com/docs/manual/ftgentmp.html) — create table bound to instrument instance  
+[tableicopy](https://csound.com/docs/manual/tableicopy.html) — copy table from other table  
+[copya2ftab](https://csound.com/docs/manual/copya2ftab.html) — copy array to a function table
 
 
 #### Writing to Tables
 
-[tableiw](http s://csound.com/docs/manual/tableiw.html)  
-[tablew](https://csound.com/docs/manual/tablew.html)  
-[tabw\_i](https://csound.com/docs/manual/tab.html)  
-[tabw](https://csound.com/docs/manual/tab.html)    
+[tablew](https://csound.com/docs/manual/tablew.html) — write data to a table  
+[tablewkt](https://csound.com/docs/manual/tablewkt.html) — write to k-rate changeable tables   
 [ftslice](https://csound.com/docs/manual/ftslice.html) — copy a slice from one table to another table  
 [modmatrix](https://csound.com/docs/manual/modmatrix.html) — modulation matrix reading from and writing to tables  
+[ftmorf](https://csound.com/docs/manual/ftmorf.html) — morph between tables and write the result   
 
 
 #### Reading From Tables
 
-[table](https://csound.com/docs/manual/table.html)  
-[tablei](https://csound.com/docs/manual/tablei.html)  
-[table3](https://csound.com/docs/manual/table3.html)  
-[tab\_i](https://csound.com/docs/manual/tab.html)  
-[tab](https://csound.com/docs/manual/tab.html)    
-[ftmorf](https://csound.com/docs/manual/ftmorf.html)    
+[table(i/3)](https://csound.com/docs/manual/table.html) — read from table (with linear/cubic interpolation)  
 [tablexkt](https://csound.com/docs/manual/tablexkt.html) — reads function tables with linear/cubic/sinc interpolation  
 
 
 #### Saving Tables to Files
 
-[ftsave](https://csound.com/docs/manual/ftsave.html)   
-[ftsavek](https://csound.com/docs/manual/ftsavek.html)  
-[ftaudio](https://csound.com/docs/manual/ftaudio.html)  
+[ftsave(k)](https://csound.com/docs/manual/ftsave.html) — save table(s) to text file or binary   
+[ftaudio](https://csound.com/docs/manual/ftaudio.html) — save table data to audio file  
 
 
-#### Reading Tables From Files
+#### Loading Tables From Files
 
-[ftload](https://csound.com/docs/manual/ftload.html)  
-[ftloadk](https://csound.com/docs/manual/ftloadk.html)  
-[GEN23](https://csound.com/docs/manual/GEN23.html)
+[ftload(k)](https://csound.com/docs/manual/ftload.html) — load table(s) from file written with ftsave  
+[GEN23](https://csound.com/docs/manual/GEN23.html) — read numeric values from a text file  
+[GEN01](https://csound.com/docs/manual/GEN01.html) — load audio file into table  
+[GEN49](https://csound.com/docs/manual/GEN49.html) — load mp3 sound file into table  
+
+
+#### Writing Tables to Arrays
+
+[copyf2array](https://csound.com/docs/manual/copyf2array.html) — copy function table to an array  
+[tab2array](https://csound.com/docs/manual/tab2array.html) — copy a slice from a table to an array  
+
 
 
 #### Table Queries
@@ -743,90 +836,366 @@ see
 [ftlen](https://csound.com/docs/manual/ftlen.html) — length of a table  
 [ftchnls](https://csound.com/docs/manual/ftchnls.html) — number of channels of a stored sound    
 [ftsr](https://csound.com/docs/manual/ftsr.html) — sample rate of a stored sound  
-[getftargs](https://csound.com/docs/manual/getftargs.html) — get arguments of table creation  
 [nsamp](https://csound.com/docs/manual/nsamp.html) — number of sample frames in a table  
 [tabsum](https://csound.com/docs/manual/tabsum.html) — sum of table values  
+[getftargs](https://csound.com/docs/manual/getftargs.html) — get arguments of table creation  
         
+
 
 ### ARRAYS
 
-[fillarray](https://csound.com/docs/manual/fillarray.html)  
-[genarray(_i)](https://csound.com/docs/manual/genarray.html)  
-[tab2array](https://csound.com/docs/manual/tab2array.html) — table to array  
-        
+#### Creation
+
+[init](https://csound.com/docs/manual/init.html) — initiatlise array   
+[fillarray](https://csound.com/docs/manual/fillarray.html) — fill array with values  
+[genarray(_i)](https://csound.com/docs/manual/genarray.html) — create array with artithmetic sequence  
+[=](https://csound.com/docs/manual/assign.html) — create or reset array as copy of another array  
 
 
-#### Non-Soundfile Input And Output
+#### Analyse
 
-[readk](https://csound.com/docs/manual/readk.html)  
-[GEN23](https://csound.com/docs/manual/GEN23.html)  
-[dumpk](https://csound.com/docs/manual/dumpk.html)  
-[fprints](https://csound.com/docs/manual/fprints.html)  
-[fprintks](https://csound.com/docs/manual/fprintks.html)  
-[ftsave](https://csound.com/docs/manual/ftsave.html)  
-[ftsavek](https://csound.com/docs/manual/ftsavek.html)  
-[ftload](https://csound.com/docs/manual/ftload.html)  
-[ftloadk](https://csound.com/docs/manual/ftloadk.html)  
-[hdf5read](https://csound.com/docs/manual/hdf5read.html)    
-[hdf5write](https://csound.com/docs/manual/hdf5write.html)   
-[readf(i)](https://csound.com/docs/manual/readf.html) — reads an external file line by line  
+[lenarray](https://csound.com/docs/manual/lenarray.html) — length of array  
+[minarray](https://csound.com/docs/manual/minarray.html) — minimum value in array  
+[maxarray](https://csound.com/docs/manual/maxarray.html) — maximum value in array  
+[sumarray](https://csound.com/docs/manual/sumarray.html) — sum of values in array  
+[cmp](https://csound.com/docs/manual/cmp.html) — compare two arrays
+
+
+#### Content Modification
+
+[scalearray](https://csound.com/docs/manual/scalearray.html) — scale values in an array  
+[sorta(d)](https://csound.com/docs/manual/sorta.html) — sort an array in ascending (descending) order  
+[limit(1)](https://csound.com/docs/manual/limit.html) — limit array values  
+[(de)interleave](https://csound.com/docs/manual/interleave.html) — combine/split arrays
+
+
+#### Size Modification
+
+[slicearray](https://csound.com/docs/manual/slicearray.html) — take slice of an array  
+[trim(_i)](https://csound.com/docs/manual/trim.html) — adjust size of one-dimensional array  
+
+
+#### Format Interchange
+
+[copya2ftab](https://csound.com/docs/manual/copya2ftab.html) — copy array to a function table
+[copyf2array](https://csound.com/docs/manual/copyf2array.html) — copy function table to an array  
+[tab2array](https://csound.com/docs/manual/tab2array.html) — copy a slice from a table to an array  
+[pvs2array(pvs2tab)](https://csound.com/docs/manual/pvs2tab.html) — write spectral data to arrays  
+[pvsfromarray(tab2pvs)](https://csound.com/docs/manual/tab2pvs.html) — read spectral data from arrays  
+
+
+#### Dimension Interchange
+
+[reshapearray](https://csound.com/docs/manual/reshapearray.html) — change dimensions of an array  
+[getrow](https://csound.com/docs/manual/getrow.html) — get a row from a two-dimensional array  
+[getcol](https://csound.com/docs/manual/getcol.html) — get a column from a two-dimensional array  
+[setrow](https://csound.com/docs/manual/setrow.html) — set a row of a two-dimensional array  
+[setcol](https://csound.com/docs/manual/setcol.html) — set a column of a two-dimensional array  
+[getrowlin](https://csound.com/docs/manual/getrowlin.html) — copy a row from a 2D array and interpolate between rows  
+
+
+#### Functions
+
+See chapter [03E](03-e-arrays.md) for a list of mathematical function which can directly be applied to arrays.  
  
 
 
+### STRINGS
 
-### CONVERTERS OF DATA TYPES
+#### Creation
 
-[i(k)](https://csound.com/docs/manual/opi.html) — i from k  
-[downsamp](https://csound.com/docs/manual/downsamp.html)  
-[max\_k](https://csound.com/docs/manual/max_k.html)   
-[upsamp](https://csound.com/docs/manual/upsamp.html)  
-[interp](https://csound.com/docs/manual/interp.html)    
+[=](https://csound.com/docs/manual/assign.html) — direct assignment  
+[sprintf(k)](https://csound.com/docs/manual/sprintf.html) — string variable from format string  
+[strget](https://csound.com/docs/manual/strget.html) — string variable from strset number or p-field   
+[strcpy(k)](https://csound.com/docs/manual/strcpy.html) — string copy at i- or k-time  
+[strsub](https://csound.com/docs/manual/strsub.html) — string as part of another string  
+
+
+#### String Queries
+
+[strcmp(k)](https://csound.com/docs/manual/strcmp.html) — compare strings  
+[strlen(k)](https://csound.com/docs/manual/strlen.html) — length of string  
+[strindex(k)](https://csound.com/docs/manual/strindex.html) — first occurrence of string1 in string2  
+[strrindex(k)](https://csound.com/docs/manual/strrindex.html) — last occurrence of string1 in string2  
+[strchar(k)](https://csound.com/docs/manual/strchar.html) — return ASCII code of character in string  
+
+
+#### String Manipulation
+
+[strcat(k)](https://csound.com/docs/manual/strcat.html) — concatenate strings  
+[strstrip](https://csound.com/docs/manual/strstrip.html) — removes white space from both ends of a string  
+[strlower(k)](https://csound.com/docs/manual/strlower.html) — convert string to lower case  
+[strupper(k)](https://csound.com/docs/manual/strupper.html) — convert string to upper case  
+
+
+#### Conversion and Assignment
+
 [S](https://csound.com/docs/manual/ops.html) — number to string  
 [strtod(k)](https://csound.com/docs/manual/strtod.html) — string to number  
+[strset](https://csound.com/docs/manual/strset.html) — link string with a numeric value  
 
 
 
-### PRINTING AND STRINGS
+### FILES
+
+*Note: for sound files see SOUND FILES AND SAMPLES*
+
+[fprint(k)s](https://csound.com/docs/manual/fprints.html) — formatted printing to file  
+[dumpk](https://csound.com/docs/manual/dumpk.html) — write k-signal to file  
+[hdf5write](https://csound.com/docs/manual/hdf5write.html) — write signals and arrays to hdf5 file  
+[hdf5read](https://csound.com/docs/manual/hdf5read.html) — read signals and arrays from hdf5 file   
+[readf(i)](https://csound.com/docs/manual/readf.html) — reads an external file line by line  
+[readk](https://csound.com/docs/manual/readk.html) — read k-signal from file  
+
+
+
+
+VI. PROGRAM FLOW
+----------------
+
+### INSTRUMENTS AND VARIABLES
+
+
+#### Instances and Allocation
+
+[nstance](https://csound.com/docs/manual/nstance.html) — returns additional instance handler  
+[active](https://csound.com/docs/manual/active.html) — number of active instrument instances  
+[maxalloc](https://csound.com/docs/manual/maxalloc.html) — set maximum number of instrument instances  
+[prealloc](https://csound.com/docs/manual/prealloc.html) — allocate memory before running an instrument   
+[subinstr](https://csound.com/docs/manual/subinstr.html) — instrument to be used as opcode  
+
+
+#### Variable Initialization and Conversion
+
+[init](https://csound.com/docs/manual/init.html) — inialize variables  
+[reinit](https://csound.com/docs/manual/reinit.html) — re-initialize i-variable  
+[i(k)](https://csound.com/docs/manual/opi.html) — i-value from k-signal  
+[k(a)](https://csound.com/docs/manual/opk.html) — k-signal from a-signal  
+[a(k)](https://csound.com/docs/manual/opa.html) — a-signal from k-signal  
+
+
+#### On-the-fly Evaluation and Compilation
+
+[evalstr](https://csound.com/docs/manual/evalstr.html) — evaluate Csound code as string  
+[compilecsd](https://csound.com/docs/manual/compilecsd.html) — compile new instruments from csd file  
+[compileorc](https://csound.com/docs/manual/compileorc.html) — compile new instruments from raw orc file  
+[compilestr](https://csound.com/docs/manual/compilestr.html) — compile new instruments from string  
+
+
+#### Named Instruments
+
+[nstrnum](https://csound.com/docs/manual/nstrnum.html) — number of a named instrument    
+[nstrstr](https://csound.com/docs/manual/nstrstr.html) — name of an instrument  
+
+
+### TIME, CONDITIONS, LOOPS, SCORE ACCESS
+
+#### Time Reading
+
+[times](https://csound.com/docs/manual/times.html) — absolute time in seconds  
+[timek](https://csound.com/docs/manual/timek.html) — absolute time in k-cycles  
+[timeinsts](https://csound.com/docs/manual/timeinsts.html) — time of instrument instance in seconds  
+[timeinstk](https://csound.com/docs/manual/timeinstk.html) — time of instrument instance in k-cycles  
+
+
+#### Conditions and Loops
+
+[if](https://csound.com/docs/manual/if.html) — if clause  
+[(i/k)goto](https://csound.com/docs/manual/goto.html) — jump in code   
+[while](https://csound.com/docs/manual/while.html) — while loop  
+[changed(2)](https://csound.com/docs/manual/changed.html) — k-rate signal change detector  
+
+
+#### Score Parameter Access
+
+[p(index)](https://csound.com/docs/manual/p.html) — value in given p-field [pset](https://csound.com/docs/manual/pset.html) — inialize p-field values  
+[passign](https://csound.com/docs/manual/passign.html) — assign p-field values to variables or array    
+[pcount](https://csound.com/docs/manual/pcount.html) — number of p-fields in instrument  
+
+
+
+### EVENTS AND TRIGGERS
+
+#### Events
+
+[schedule(k)](https://csound.com/docs/manual/schedule.html) — perform instrument event
+[event(_i)](https://csound.com/docs/manual/event.html) — perform any score event  
+[scoreline(_i)](https://csound.com/docs/manual/scoreline.html) — perform score lines   
+[sched(k)when(named)](https://csound.com/docs/manual/schedkwhen.html) — perform score event by trigger  
+[readscore](https://csound.com/docs/manual/readscore.html) — read and process score from input string  
+[rewindscore](https://csound.com/docs/manual/rewindscore.html) — rewind playback position of current score  
+[setscorepos](https://csound.com/docs/manual/setscorepos.html) — set score playback position  
+
+
+#### Trigger Generators
+
+[metro(2)](https://csound.com/docs/manual/metro.html) — trigger metronome  
+[trigger](https://csound.com/docs/manual/trigger.html) — threshold trigger  
+[sc_trig](https://csound.com/docs/manual/sc_trig.html) — timed trigger  
+[seqtime(2)](https://csound.com/docs/manual/seqtime.html) — generates trigger according to values stored in a table   
+[timedseq](https://csound.com/docs/manual/timedseq.html) — time-variant sequencer   
+
+
+#### Terminate
+
+[turnoff](https://csound.com/docs/manual/turnoff.html) — turn off this instrument instance    
+[turnoff2](https://csound.com/docs/manual/turnoff2.html) — turn off another instrument    
+[mute](https://csound.com/docs/manual/mute.html) — mute future instances of an instrument  
+[remove](https://csound.com/docs/manual/remove.html) — remove instrument definition  
+[exitnow](https://csound.com/docs/manual/exitnow.html) — exit Csound   
+
+
+
+
+### PRINTING
 
 #### Simple Printing
 
-[print](https://csound.com/docs/manual/print.html)   
-[printk](https://csound.com/docs/manual/printk.html)  
-[printk2](https://csound.com/docs/manual/printk2.html)  
-[puts](https://csound.com/docs/manual/puts.html)  
+[print](https://csound.com/docs/manual/print.html) — print i-values   
+[printk](https://csound.com/docs/manual/printk.html) — print k-values  
+[printk2](https://csound.com/docs/manual/printk2.html) — print k-values when changed  
+[puts](https://csound.com/docs/manual/puts.html) — print string  
 
 
 #### Formatted Printing
 
-[prints](https://csound.com/docs/manual/prints.html)  
-[printf\_i](https://csound.com/docs/manual/printf.html)  
-[printks](https://csound.com/docs/manual/printks.html)  
-[printf](https://csound.com/docs/manual/printf.html)   
-
-
-#### String Variables
-
-[sprintf](https://csound.com/docs/manual/sprintf.html)  
-[sprintfk](https://csound.com/docs/manual/sprintfk.html)  
-[strset](https://csound.com/docs/manual/strset.html)  
-[strget](https://csound.com/docs/manual/strget.html)   
+[print(k)s](https://csound.com/docs/manual/prints.html) — formatted printing  
+[printf(_i)](https://csound.com/docs/manual/printf.html) — formatted printing with trigger 
 
 
 #### Arrays and Tables
 
-[printarray](https://csound.com/docs/manual/printarray.html)  
-[ftprint](https://csound.com/docs/manual/ftprint.html)
+[printarray](https://csound.com/docs/manual/printarray.html) — print array  
+[ftprint](https://csound.com/docs/manual/ftprint.html) — print table  
 
 
-#### String Manipulation And Conversion
 
-see
-[here](https://csound.com/docs/manual/StringsTop.html#stringmanipulate)
-and
-[here](https://csound.com/docs/manual/stringconvert.html) 
-[strstrip](https://csound.com/docs/manual/strstrip.html) — removes white space from both ends of a string  
+### SOFTWARE CHANNELS
 
 
+#### Chn Opcodes
+
+[chn\_k](https://csound.com/docs/manual/chn.html) — declare k-signal channel  
+[chn\_a](https://csound.com/docs/manual/chn.html) — declare a-signal channel    
+[chn\_S](https://csound.com/docs/manual/chn.html) — declare string channel    
+[chnset](https://csound.com/docs/manual/chnset.html) — set value in channel    
+[chnget](https://csound.com/docs/manual/chnget.html) — get value from channel  
+[chnmix](https://csound.com/docs/manual/chnmix.html) — mix value to channel  
+[chnclear](https://csound.com/docs/manual/chnclear.html) — clear channel   
+[chnseti/k/a/s](https://csound.com/docs/manual/chnset.html) — array based chnset  
+[chngeti/k/a/s](https://csound.com/docs/manual/chnget.html) — array based chnget  
+
+
+#### Invalue / Outvalue
+
+[invalue](https://csound.com/docs/manual/invalue.html) — get value from channel  
+[outvalue](https://csound.com/docs/manual/outvalue.html) — set value to channel  
+
+
+#### Zak Patch System
+see [overview](https://csound.com/docs/manual/ZakTop.html) in the Csound Manual
+
+
+
+### MATHEMATICAL CALCULATIONS
+
+#### Arithmetic Operations
+
+[+](https://csound.com/docs/manual/adds.html) — addition  
+[-](https://csound.com/docs/manual/subtracts.html) — subtraction  
+[\*](https://csound.com/docs/manual/multiplies.html) — multiplication  
+[/](https://csound.com/docs/manual/divides.html) — division  
+[\^](https://csound.com/docs/manual/raises.html) — power of  
+[%](https://csound.com/docs/manual/modulus.html) — modulo   
+[divz](https://csound.com/docs/manual/divz.html) — safe division (avoids division by zero)  
+
+[exp](https://csound.com/docs/manual/exp.html) — e raised to x-th power  
+[log(2/10)](https://csound.com/docs/manual/log.html) — logarithm (natural, 2, 10)  
+[sqrt](https://csound.com/docs/manual/sqrt.html) — square root  
+
+[abs](https://csound.com/docs/manual/abs.html) — absolute value  
+[int](https://csound.com/docs/manual/int.html) — integer part  
+[frac](https://csound.com/docs/manual/frac.html) — fractional part  
+[signum](https://csound.com/docs/manual/signum.html) — signum function  
+
+[round](https://csound.com/docs/manual/round.html) — round to nearest integer  
+[ceil](https://csound.com/docs/manual/ceil.html) — round upwards  
+[floor](https://csound.com/docs/manual/floor.html) — round downwards  
+
+
+#### Trigonometric Functions
+
+[sin](https://csound.com/docs/manual/sin.html) — sine  
+[cos](https://csound.com/docs/manual/cos.html) — cosine  
+[tan](https://csound.com/docs/manual/tan.html) — tangent  
+
+[sinh](https://csound.com/docs/manual/sinh.html) — hyperbolic sine  
+[cosh](https://csound.com/docs/manual/cosh.html) — hyperbolic cosine  
+[tanh](https://csound.com/docs/manual/tanh.html) — hyperbolic tangent  
+
+[sininv](https://csound.com/docs/manual/sininv.html) — arcsine  
+[cosinv](https://csound.com/docs/manual/cosinv.html) — arccosine  
+[taninv(2)](https://csound.com/docs/manual/taninv.html) — arctangent  
+
+
+#### Comparisions 
+
+[min](https://csound.com/docs/manual/min.html) — minimum of different i/k/a values  
+[max](https://csound.com/docs/manual/max.html) — maximum of different i/k/a values  
+[minabs](https://csound.com/docs/manual/minabs.html) — minimum of different absolute values/signals  
+[maxabs](https://csound.com/docs/manual/maxabs.html) — maximum of different absolute values/signals  
+[ntropol](https://csound.com/docs/manual/ntrpol.html) — weighted mean of two values/signals
+
+
+#### Logic Operators
+
+[&&](https://csound.com/docs/manual/opand.html) — logical *and*  
+[\|\|](https://csound.com/docs/manual/opor.html) — logical *or*   
+
+
+#### Tests
+
+[qinf](https://csound.com/docs/manual/qinf.html) — question whether argument is infinite number  
+[qnan](https://csound.com/docs/manual/qnan.html) — question whether argument is not a number  
+
+
+
+### CONVERTERS
+
+
+#### MIDI to/from Frequency
+
+[mtof](https://csound.com/docs/manual/mtof.html) — MIDI note number to frequency  
+[ftom](https://csound.com/docs/manual/ftom.html) — frequency to MIDI note number  
+[cpsmidinn](https://csound.com/docs/manual/cpsmidinn.html) — MIDI note number to frequency    
+[mton](https://csound.com/docs/manual/mton.html) — midi number to note name  
+[ntom](https://csound.com/docs/manual/ntom.html) — note name to midi number  
+[ntof](https://csound.com/docs/manual/ntof.html) — note name to frequency  
+
+
+### Other Pitch Converters
+
+[cent](https://csound.com/docs/manual/cent.html) — cent to scaling factor  
+[octave](https://csound.com/docs/manual/octave.html) — octave to scaling factor  
+[octcps](https://csound.com/docs/manual/octcps.html) — frequency to octave-point-decimal  
+[cpsoct](https://csound.com/docs/manual/cpsoct.html) — octave-point-decimal to frequency  
+[cpspch](https://csound.com/docs/manual/cpspch.html) — pitch-class to frequency  
+
+
+#### Amplitude Converters
+
+[ampdb(fs)](https://csound.com/docs/manual/ampdb.html) — dB to amplitude (full scale)  
+[db(fs)amp](https://csound.com/docs/manual/dbamp.html) — amplitude to dB 
+
+
+#### Scaling
+
+[NmScl](https://github.com/csudo/csudo/blob/master/numbers/NmScl.csd) — UDO for i/k scaling  
+
+
+
+VII. PERIPHERALS AND CONNECTIONS
+--------------------------------
 
 ### MIDI
 
@@ -869,314 +1238,58 @@ and
 
 
 
-
 ### OPEN SOUND CONTROL AND NETWORK
 
 #### Open Sound Control
 
-[OSCinit](https://csound.com/docs/manual/OSCinit.html)  
-[OSClisten](https://csound.com/docs/manual/OSClisten.html)  
-[OSCsend](https://csound.com/docs/manual/OSCsend.html)   
-[OSCbundle](https://csound.com/docs/manual/OSCbundle.html) — send data in a bundle  
-[OSCcount](https://csound.com/docs/manual/OSCcount.html) — reports messages received but unread  
+[OSCinit](https://csound.com/docs/manual/OSCinit.html) — initalize OSClisten port    
 [OSCinitM](https://csound.com/docs/manual/OSCinitM.html) — initializes multicast OSC listener  
+[OSClisten](https://csound.com/docs/manual/OSClisten.html) — receive messages  
 [OSCraw](https://csound.com/docs/manual/OSCraw.html) — listens to all messages  
-
-
-#### Remote Instruments
-
-[remoteport](https://csound.com/docs/manual/remoteport.html)  
-[insremot](https://csound.com/docs/manual/insremot.html)  
-[insglobal](https://csound.com/docs/manual/insglobal.html)  
-[midiremot](https://csound.com/docs/manual/midiremot.html)  
-[midiglobal](https://csound.com/docs/manual/midiglobal.html)   
+[OSCsend](https://csound.com/docs/manual/OSCsend.html) — send messages   
+[OSCbundle](https://csound.com/docs/manual/OSCbundle.html) — send data in a bundle  
+[OSCcount](https://csound.com/docs/manual/OSCcount.html) — report messages received but unread  
 
 
 #### Network Audio
 
-[socksend](https://csound.com/docs/manual/socksend.html)  
-[sockrecv](https://csound.com/docs/manual/sockrecv.html)   
-[websocket](https://csound.com/docs/manual/websocket.html)  
+[socksend](https://csound.com/docs/manual/socksend.html) — send data  
+[sockrecv](https://csound.com/docs/manual/sockrecv.html) — receive data   
+[websocket](https://csound.com/docs/manual/websocket.html) — read and write signals and arrays  
 
  
 
-### HUMAN INTERFACES
+### OTHER
 
 
 #### Widgets
 
+*Note that GUI elements are provided by all frontends. Usage of the built-in FLTK widgets has limitations and is in general not recommended.*
+
 FLTK overview
-[here](https://csound.com/docs/manual/ControlFltkIntro.html)  \
+[here](https://csound.com/docs/manual/ControlFltkIntro.html)   
  
 
-#### Keys
+#### Keyboard
 
-[sensekey](https://csound.com/docs/manual/sensekey.html) \
-
-
-#### Mouse
-
-[xyin](https://csound.com/docs/manual/xyin.html) \
+[sensekey](https://csound.com/docs/manual/sensekey.html) — sense computer keyboard  
 
 
 #### WII
 
-[wiiconnect](https://csound.com/docs/manual/wiiconnect.html)  
-[wiidata](https://csound.com/docs/manual/wiidata.html)  
-[wiirange](https://csound.com/docs/manual/wiirange.html)  
-[wiisend](https://csound.com/docs/manual/wiisend.html)  
+[wiiconnect](https://csound.com/docs/manual/wiiconnect.html) — connect  
+[wiidata](https://csound.com/docs/manual/wiidata.html) — read    
+[wiirange](https://csound.com/docs/manual/wiirange.html) — set scaling and range limits    
+[wiisend](https://csound.com/docs/manual/wiisend.html) — send data  
 
 
 #### P5 Glove
 
-[p5gconnect](https://csound.com/docs/manual/p5gconnect.html)  
-[p5gdata](https://csound.com/docs/manual/p5gdata.html)
+[p5gconnect](https://csound.com/docs/manual/p5gconnect.html) — connect  
+[p5gdata](https://csound.com/docs/manual/p5gdata.html) — read  
 
 
-
-### SCORE PARAMETER ACCESS
-
-[p(x)](https://csound.com/docs/manual/p.html)  
-[pindex](https://csound.com/docs/manual/pindex.html)  
-[pset](https://csound.com/docs/manual/pset.html)  
-[passign](https://csound.com/docs/manual/passign.html)  
-[pcount](https://csound.com/docs/manual/pcount.html)  
-
-
-
-### TIME AND TEMPO
-
-#### Time Reading
-
-[times](https://csound.com/docs/manual/times.html)  
-[timek](https://csound.com/docs/manual/timek.html)  
-
-[timeinsts](https://csound.com/docs/manual/timeinsts.html)  
-[timeinstk](https://csound.com/docs/manual/timeinstk.html)  
-[date](https://csound.com/docs/manual/date.html)  
-[dates](https://csound.com/docs/manual/dates.html)  
-
-[setscorepos](https://csound.com/docs/manual/setscorepos.html)
-
-
-#### Tempo Reading
-
-[tempo](https://csound.com/docs/manual/tempo.html)  
-[miditempo](https://csound.com/docs/manual/miditempo.html)  
-[tempoval](https://csound.com/docs/manual/tempoval.html)   
-
-
-#### Duration Modifications
-
-[ihold](https://csound.com/docs/manual/ihold.html)  
-[xtratim](https://csound.com/docs/manual/xtratim.html)  
-
-
-#### Time Signal Generators
-
-[metro(2)](https://csound.com/docs/manual/metro.html)  
-[mpulse](https://csound.com/docs/manual/mpulse.html)  
-
-
-
-### CONDITIONS AND LOOPS
-
-[changed(2)](https://csound.com/docs/manual/changed.html)  
-[trigger](https://csound.com/docs/manual/trigger.html)  
-[sc_trig](https://csound.com/docs/manual/sc_trig.html) — timed trigger  
-[if](https://csound.com/docs/manual/if.html)  
-[(i/k)goto](https://csound.com/docs/manual/goto.html)    
-[while](https://csound.com/docs/manual/while.html)  
-
-
-### PROGRAM FLOW
-
-[init](https://csound.com/docs/manual/init.html)  
-[igoto](https://csound.com/docs/manual/igoto.html)  
-[kgoto](https://csound.com/docs/manual/kgoto.html)  
-[timout](https://csound.com/docs/manual/timout.html)  
-[reinit](https://csound.com/docs/manual/reinit.html)/[rigoto](https://csound.com/docs/manual/rigoto.html)/[rireturn](https://csound.com/docs/manual/rireturn.html)  
-[return](https://csound.com/docs/manual/return.html) — returns a value from an instrument  
-
-
-
-### EVENT TRIGGERING
-
-[schedule(k)](https://csound.com/docs/manual/schedule.html) — schedules an instrument event
-[event(_i)](https://csound.com/docs/manual/event.html)  
-[scoreline(_i)](https://csound.com/docs/manual/scoreline.html)  
-[sched(k)when(named)](https://csound.com/docs/manual/schedkwhen.html)  
-[seqtime(2)](https://csound.com/docs/manual/seqtime.html) — generates trigger according to values stored in a table   
-[timedseq](https://csound.com/docs/manual/timedseq.html)   
-
-[nstance](https://csound.com/docs/manual/nstance.html) — returns additional instance handler  
-[readscore](https://csound.com/docs/manual/readscore.html) — reads and processes a score from input string  
-[rewindscore](https://csound.com/docs/manual/rewindscore.html) — rewinds playback position of current score  
-
-
-### INSTRUMENT SUPERVISION
-
-#### Instances And Allocation
-
-[active](https://csound.com/docs/manual/active.html)  
-[maxalloc](https://csound.com/docs/manual/maxalloc.html)  
-[prealloc](https://csound.com/docs/manual/prealloc.html)   
-
-[subinstr](https://csound.com/docs/manual/subinstr.html)  
-
-
-#### Turning On And Off
-
-[turnon](https://csound.com/docs/manual/turnon.html)  
-[turnoff](https://csound.com/docs/manual/turnoff.html) — turns off this instrument instance    
-[turnoff2](https://csound.com/docs/manual/turnoff2.html) — turns off another instrument    
-[mute](https://csound.com/docs/manual/mute.html)  
-[remove](https://csound.com/docs/manual/remove.html)  
-[exitnow](https://csound.com/docs/manual/exitnow.html)   
-
-
-#### Named Instruments
-
-[nstrnum](https://csound.com/docs/manual/nstrnum.html) — number of a named instrument    
-[nstrstr](https://csound.com/docs/manual/nstrstr.html) — name of an instrument  
-
-
-### SIGNAL EXCHANGE AND MIXING
-
-
-#### chn opcodes
-
-[chn\_k](https://csound.com/docs/manual/chn.html)  
-[chn\_a](https://csound.com/docs/manual/chn.html)  
-[chn\_S](https://csound.com/docs/manual/chn.html)  
-[chnset](https://csound.com/docs/manual/chnset.html)  
-[chnseti/k/a/s](https://csound.com/docs/manual/chnset.html) — array based chnset  
-[chnget](https://csound.com/docs/manual/chnget.html)  
-[chngeti/k/a/s](https://csound.com/docs/manual/chnget.html) — array based chnget  
-[chnmix](https://csound.com/docs/manual/chnmix.html)  
-[chnclear](https://csound.com/docs/manual/chnclear.html)   
-
-[invalue](https://csound.com/docs/manual/invalue.html)  
-[outvalue](https://csound.com/docs/manual/outvalue.html)
-
-
-#### zak
-
-
-
-
-### MATHEMATICAL CALCULATIONS
-
-#### Arithmetic Operations
-
-[+](https://csound.com/docs/manual/adds.html)  
-[-](https://csound.com/docs/manual/subtracts.html)  
-[\*](https://csound.com/docs/manual/multiplies.html)  
-[/](https://csound.com/docs/manual/divides.html)  
-[\^](https://csound.com/docs/manual/raises.html)  
-[%](https://csound.com/docs/manual/modulus.html)   
-[divz](https://csound.com/docs/manual/divz.html) — safe division (avoids division by zero)  
-
-[exp](https://csound.com/docs/manual/exp.html)  
-[log(2/10)](https://csound.com/docs/manual/log.html)  
-[sqrt](https://csound.com/docs/manual/sqrt.html)  
-
-[abs](https://csound.com/docs/manual/abs.html)  
-[int](https://csound.com/docs/manual/int.html)  
-[frac](https://csound.com/docs/manual/frac.html)  
-[signum](https://csound.com/docs/manual/signum.html) — signum function  
-
-[round](https://csound.com/docs/manual/round.html)  
-[ceil](https://csound.com/docs/manual/ceil.html)  
-[floor](https://csound.com/docs/manual/floor.html)  
-
-[qinf](https://csound.com/docs/manual/qinf.html) — question whether argument is infinite number  
-[qnan](https://csound.com/docs/manual/qnan.html) — question whether argument is not a number  
-
-
-#### Trigonometric Functions
-
-[sin](https://csound.com/docs/manual/sin.html)  
-[cos](https://csound.com/docs/manual/cos.html)  
-[tan](https://csound.com/docs/manual/tan.html)  
-
-[sinh](https://csound.com/docs/manual/sinh.html)  
-[cosh](https://csound.com/docs/manual/cosh.html)  
-[tanh](https://csound.com/docs/manual/tanh.html)  
-
-[sininv](https://csound.com/docs/manual/sininv.html)  
-[cosinv](https://csound.com/docs/manual/cosinv.html)  
-[taninv](https://csound.com/docs/manual/taninv.html)  
-[taninv2](https://csound.com/docs/manual/taninv2.html)  
-
-
-#### Comparisions
-
-[min](https://csound.com/docs/manual/min.html) — minimum of different i/k/a values  
-[max](https://csound.com/docs/manual/max.html) — maximum of different i/k/a values  
-[minabs](https://csound.com/docs/manual/minabs.html) — minimum of different absolute values/signals  
-[maxabs](https://csound.com/docs/manual/maxabs.html) — maximum of different absolute values/signals  
-[ntropol](https://csound.com/docs/manual/ntrpol.html) — weighted mean of two values/signals
-
-
-#### Logic Operators
-
-[&&](https://csound.com/docs/manual/opand.html)  
-[\|\|](https://csound.com/docs/manual/opor.html)   
-
-
-
-### CONVERTERS
-
-
-#### MIDI to/from Frequency
-
-[mtof](https://csound.com/docs/manual/mtof.html)  
-[ftom](https://csound.com/docs/manual/ftom.html)  
-[cpsmidi](https://csound.com/docs/manual/cpsmidi.html)  
-[cpsmidinn](https://csound.com/docs/manual/cpsmidinn.html)  
-[mton](https://csound.com/docs/manual/mton.html) — midi number to note name  
-[ntom](https://csound.com/docs/manual/ntom.html) — note name to midi number  
-[ntof](https://csound.com/docs/manual/ntof.html) — note name to frequency  
-
- 
-[more](https://csound.com/docs/manual/PitchTop.html#PitchFuncs)  
-
-
-### Other Pitch Converters
-
-[cent](https://csound.com/docs/manual/cent.html) — cent to scaling factor  
-[octave](https://csound.com/docs/manual/octave.html) — octave to scaling factor  
-[octcps](https://csound.com/docs/manual/octcps.html) — frequency to octave-point-decimal  
-[cpsoct](https://csound.com/docs/manual/cpsoct.html) — octave-point-decimal to frequency  
-[cpspch](https://csound.com/docs/manual/cpspch.html) — pitch-class to frequency  
-
-
-#### Amplitude Converters
-
-[ampdb](https://csound.com/docs/manual/ampdb.html)  
-[ampdbfs](https://csound.com/docs/manual/ampdbfs.html)  
-[dbamp](https://csound.com/docs/manual/dbamp.html)  
-[dbfsamp](https://csound.com/docs/manual/dbfsamp.html)  
-
-
-#### Scaling
-
-[NmScl](https://github.com/csudo/csudo/blob/master/numbers/NmScl.csd) — UDO for i/k scaling  
-
-
-
-### PYTHON OPCODES
-
-[pyinit](https://csound.com/docs/manual/pyinit.html)  
-[pyrun](https://csound.com/docs/manual/pyrun.html)  
-[pyexec](https://csound.com/docs/manual/pyexec.html)  
-[pycall](https://csound.com/docs/manual/pycall.html)  
-[pyeval](https://csound.com/docs/manual/pyeval.html)  
-[pyassign](https://csound.com/docs/manual/pyassign.html)  
-
-
-### SERIAL OPCODES
+#### Serial Opcodes
 
 [serialBegin](https://csound.com/docs/manual/serialBegin.html) — open a serial port  
 [serialEnd](https://csound.com/docs/manual/serialEnd.html) — close a serial port  
@@ -1187,34 +1300,42 @@ FLTK overview
 
 
 
+### SYSTEM
 
-### FAUST OPCODES
-
-[faustaudio](https://csound.com/docs/manual/faustaudio.html) — instantiates and runs a faust program  
-[faustcompile](https://csound.com/docs/manual/faustcompile.html) — invokes compiler  
-[faustdsp](https://csound.com/docs/manual/faustcompile.html) — instantiates a faust program  
-[faustctl](https://csound.com/docs/manual/faustctl.html) — adjusts a given control  
-[faustgen](https://csound.com/docs/manual/faustgen.html) — compiles, instantiates and runs a faust program  
-[faustplay](https://csound.com/docs/manual/faustplay.html) — runs a faust program  
-
-
-### SYSTEM OPCODES
-
-[getcfg](https://csound.com/docs/manual/getcfg.html)  
-[system](https://csound.com/docs/manual/system.html)/[system\_i](https://csound.com/docs/manual/system.html)  
+[getcfg](https://csound.com/docs/manual/getcfg.html) — get configuration  
+[system(_i)](https://csound.com/docs/manual/system.html) — call external program via system  
 [pwd](https://csound.com/docs/manual/pwd.html) — print working directory  
-[rtclock](https://csound.com/docs/manual/rtclock.html) — reads real time clock  
+[rtclock](https://csound.com/docs/manual/rtclock.html) — read real time clock  
+[date(s)](https://csound.com/docs/manual/dates.html) — return date and time  
 
 
+### PLUGINS
 
-### LADSPA PLUGINS
+#### Python
 
-[dssiinit](https://csound.com/docs/manual/dssiinit.html)    
-[dssiactivate](https://csound.com/docs/manual/dssiactivate.html)  
-[dssilist](https://csound.com/docs/manual/dssilist.html)  
-[dssiaudio](https://csound.com/docs/manual/dssiaudio.html)  
-[dssictls](https://csound.com/docs/manual/dssictls.html)   
+[pyinit](https://csound.com/docs/manual/pyinit.html) — initialize Python interpreter  
+[pyrun](https://csound.com/docs/manual/pyrun.html) — run Python code  
+[pyexec](https://csound.com/docs/manual/pyexec.html) — execute script from file  
+[pycall](https://csound.com/docs/manual/pycall.html) — write Python call to Csound variable  
+[pyeval](https://csound.com/docs/manual/pyeval.html) — evaluate Python expression and write to Csound variable  
+[pyassign](https://csound.com/docs/manual/pyassign.html) — assign Csound variable to Python variable  
 
 
-### keine ahnung
-[mandel](https://csound.com/docs/manual/mandel.html) — Mandelbrot set formula for complex plane  
+#### Faust
+
+[faustaudio](https://csound.com/docs/manual/faustaudio.html) — instantiate and run a faust program  
+[faustcompile](https://csound.com/docs/manual/faustcompile.html) — invoke compiler  
+[faustdsp](https://csound.com/docs/manual/faustcompile.html) — instantiate a faust program  
+[faustctl](https://csound.com/docs/manual/faustctl.html) — adjust a given control  
+[faustgen](https://csound.com/docs/manual/faustgen.html) — compile, instantiate and run a faust program  
+[faustplay](https://csound.com/docs/manual/faustplay.html) — run a faust program  
+
+
+#### Ladspa
+
+[dssiinit](https://csound.com/docs/manual/dssiinit.html) — load plugin   
+[dssiactivate](https://csound.com/docs/manual/dssiactivate.html) — (de)activate plugin    
+[dssilist](https://csound.com/docs/manual/dssilist.html) — list available plugins  
+[dssiaudio](https://csound.com/docs/manual/dssiaudio.html) — process audio using a plugin    
+[dssictls](https://csound.com/docs/manual/dssictls.html) — send control to plugin   
+

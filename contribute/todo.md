@@ -65,8 +65,6 @@ Edits
 - 14-b (python csoundqt)
     - should perhaps go to csoundqt website. instead point to it in the
       new csoundqt chapter (10-a) describing use cases
-- 15-a (opcode guide) 
-    - must be reviewed
 - 15-b (glossary)
     - review or remove
 
