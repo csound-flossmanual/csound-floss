@@ -282,6 +282,8 @@ I. AUDIO I/O AND SOUND FILES
 
 #### General Settings and Queries
 
+*Note that modern Csound frontends handle most of the Audio I/O settings. For command line usage, see [this](https://csound.com/docs/manual/CommandFlagsCategory.html#FlagsCatMinusLowerIadc) section in the Csound Options.*
+
 [sr](https://csound.com/docs/manual/sr.html) — set sample rate (default=44100)  
 [ksmps](https://csound.com/docs/manual/ksmps.html) — set block (audio vector) size (default=10) *(setting to power-of-two (e.g. 32/64/128) is recommended)*  
 [nchnls](https://csound.com/docs/manual/nchnls.html) — set number of I/O channels (default=1)  
@@ -1095,6 +1097,10 @@ VI. PROGRAM FLOW
 #### Zak Patch System
 see [overview](https://csound.com/docs/manual/ZakTop.html) in the Csound Manual
 
+
+#### Signal Flow Graph and Mixer
+
+see [here](https://csound.com/docs/manual/SignalFlowGraphOpcodes.html) and [here](https://csound.com/docs/manual/MixerOpcodes.html) in the Csound Manual
 
 
 ### MATHEMATICAL CALCULATIONS
