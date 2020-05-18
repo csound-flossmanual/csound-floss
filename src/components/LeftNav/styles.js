@@ -123,6 +123,7 @@ export const chapterItem = css`
   & > a {
     color: #6f519b !important;
     margin: 0;
+    display: block;
   }
   &:hover {
     cursor: pointer;
