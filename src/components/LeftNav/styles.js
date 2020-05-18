@@ -51,6 +51,7 @@ export const buttonNav = css`
   margin-left: 12px;
   color: #6f519b;
   background-color: white;
+
   & > a {
     color: #6f519b !important;
     display: flex;
@@ -74,6 +75,10 @@ export const buttonNav = css`
     font-size: 16px;
     margin: 0;
     margin-left: 24px;
+    &:nth-of-type(2) {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 `;
 
