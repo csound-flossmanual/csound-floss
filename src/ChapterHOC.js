@@ -1,6 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useBookDispatch } from "./BookContext";
-import { filter, pathOr, propEq } from "ramda";
+import {
+  append,
+  assocPath,
+  curry,
+  isEmpty,
+  path,
+  pathOr,
+  propEq,
+  reduce,
+} from "ramda";
 import { debounce } from "throttle-debounce";
 
 function getIndexToIns(arr, num) {
@@ -10,15 +19,41 @@ function getIndexToIns(arr, num) {
   return index === -1 ? arr.length : index;
 }
 
+var updatePath = curry(function updatePath(p, transform, coll) {
+  return assocPath(p, transform(path(p, coll)), coll);
+});
+
+const getSections = reduce((acc, el) => {
+  if (propEq("type", "h2", el)) {
+    return append(
+      {
+        title: pathOr("unnamed section", ["props", "children"], el),
+        id: pathOr("unknown", ["props", "id"], el),
+        subSubSections: [],
+      },
+      acc
+    );
+  } else if (isEmpty(acc)) {
+    return acc;
+  } else if (propEq("type", "h3", el)) {
+    return updatePath(
+      [acc.length - 1, "subSubSections"],
+      append({
+        title: pathOr("unnamed section", ["props", "children"], el),
+        id: pathOr("unknown", ["props", "id"], el),
+      }),
+      acc
+    );
+  } else {
+    return acc;
+  }
+}, []);
+
 const ChapterHOC = ({ children }) => {
   const bookDispatch = useBookDispatch();
   const [scrollPoints, setScrollPoints] = useState([]);
-  const h2Elems = filter(propEq("type", "h2"), children);
-  const subSections = h2Elems.map(el => {
-    const title = pathOr("unnamed section", ["props", "children"], el);
-    const id = pathOr("unknown", ["props", "id"], el);
-    return { title, id };
-  });
+
+  const subSections = getSections(children);
 
   const updateScrollPoints = () =>
     setScrollPoints(

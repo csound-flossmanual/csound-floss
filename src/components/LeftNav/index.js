@@ -173,7 +173,7 @@ function LeftNav({ routeIndex }) {
             </Link>
             {subChapterActive && (
               <ul style={{ paddingLeft: 6 }}>
-                {currentSections.map(({ title, id }, idx) => {
+                {currentSections.map(({ title, id, subSubSections }, idx) => {
                   const lastElem = currentSections.length === idx + 1;
                   return (
                     <li key={idx} css={ß.subSectionLi}>
@@ -190,6 +190,19 @@ function LeftNav({ routeIndex }) {
                           {title}
                         </p>
                       </Link>
+                      <ul style={{ paddingLeft: 6 }}>
+                        {subSubSections.map(
+                          ({ title: titleI, id: idI }, idxI) => (
+                            <li css={ß.subSectionLi} key={idxI}>
+                              <Link to={`#${idI}`}>
+                                <p style={{ lineHeight: "130%", fontSize: 15 }}>
+                                  {titleI}
+                                </p>
+                              </Link>
+                            </li>
+                          )
+                        )}
+                      </ul>
                     </li>
                   );
                 })}
