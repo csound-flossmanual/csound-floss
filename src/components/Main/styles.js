@@ -37,8 +37,10 @@ export const main = css`
 `;
 
 export const mainMobile = css`
-  width: calc(100% - 24px);
-  padding: 12px;
+  @media {
+    width: 100%;
+    padding: 12px;
+  }
   & > div {
     background-color: #fff;
     margin-right: auto;
