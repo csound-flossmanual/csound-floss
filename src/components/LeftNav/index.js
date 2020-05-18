@@ -112,6 +112,7 @@ function LeftNav({ routeIndex }) {
   const [bookState] = useBook();
   const currentSections = propOr([], "sections", bookState);
   const currentSectionIndex = propOr(0, "sectionIndex", bookState);
+  const currentSubSectionIndex = propOr(0, "subSectionIndex", bookState);
 
   const nextRoute = propOr(false, routeIndex + 1, routes);
   const previousRoute = propOr(false, routeIndex - 1, routes);
@@ -191,17 +192,30 @@ function LeftNav({ routeIndex }) {
                         </p>
                       </Link>
                       <ul style={{ paddingLeft: 6 }}>
-                        {subSubSections.map(
-                          ({ title: titleI, id: idI }, idxI) => (
-                            <li css={ß.subSectionLi} key={idxI}>
-                              <Link to={`#${idI}`}>
-                                <p style={{ lineHeight: "130%", fontSize: 15 }}>
-                                  {titleI}
-                                </p>
-                              </Link>
-                            </li>
-                          )
-                        )}
+                        {currentSectionIndex > 0 &&
+                          currentSectionIndex - 1 === idx &&
+                          subSubSections.map(
+                            ({ title: titleI, id: idI }, idxI) => (
+                              <li css={ß.subSectionLi} key={idxI}>
+                                <Link to={`#${idI}`}>
+                                  <p
+                                    style={{
+                                      lineHeight: "130%",
+                                      fontSize: 15,
+                                      fontWeight:
+                                        currentSubSectionIndex === idxI ||
+                                        (idxI === 0 &&
+                                          currentSubSectionIndex < 0)
+                                          ? 700
+                                          : 500,
+                                    }}
+                                  >
+                                    {titleI}
+                                  </p>
+                                </Link>
+                              </li>
+                            )
+                          )}
                       </ul>
                     </li>
                   );

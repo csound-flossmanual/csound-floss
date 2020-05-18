@@ -127,6 +127,9 @@ export const chapterItem = css`
   }
   &:hover {
     cursor: pointer;
+    & > a {
+      background-color: rgba(0, 0, 0, 0.03);
+    }
   }
 
   a:hover {

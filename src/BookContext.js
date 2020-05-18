@@ -12,11 +12,15 @@ const reducer = (state, action) => {
     case "setSections": {
       return pipe(
         assoc("sections", action.sections),
-        assoc("sectionIndex", 0)
+        assoc("sectionIndex", 0),
+        assoc("subSectionIndex", -1)
       )(state);
     }
     case "setSectionIndex": {
-      return assoc("sectionIndex", action.sectionIndex, state);
+      return pipe(
+        assoc("sectionIndex", action.sectionIndex),
+        assoc("subSectionIndex", action.subSectionIndex || -1)
+      )(state);
     }
     default: {
       return state;

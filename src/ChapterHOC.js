@@ -8,6 +8,7 @@ import {
   path,
   pathOr,
   propEq,
+  propOr,
   reduce,
 } from "ramda";
 import { debounce } from "throttle-debounce";
@@ -52,7 +53,6 @@ const getSections = reduce((acc, el) => {
 const ChapterHOC = ({ children }) => {
   const bookDispatch = useBookDispatch();
   const [scrollPoints, setScrollPoints] = useState([]);
-
   const subSections = getSections(children);
 
   const updateScrollPoints = () =>
@@ -71,9 +71,36 @@ const ChapterHOC = ({ children }) => {
     const yOffset = window.pageYOffset || docEl.scrollTop || 0;
     const sectionIdx = getIndexToIns(scrollPoints, yOffset + 200);
 
+    const currSubSub = propOr(
+      [],
+      "subSubSections",
+      propOr({}, sectionIdx - 1, subSections)
+    );
+
+    const currSubSubPoints =
+      sectionIdx < 1
+        ? []
+        : currSubSub
+            .map(({ id }) => {
+              const element = document.getElementById(id);
+              if (element) {
+                return (
+                  element.offsetTop - element.scrollTop + element.clientTop
+                );
+              } else {
+                return 0;
+              }
+            })
+            .sort();
+
+    const maybeSubSubIdx = getIndexToIns(currSubSubPoints, yOffset + 100) - 1;
+    const subSectionIndex =
+      currSubSub.length > 0 && maybeSubSubIdx < 0 ? 0 : maybeSubSubIdx;
+
     bookDispatch({
       type: "setSectionIndex",
       sectionIndex: sectionIdx,
+      subSectionIndex,
     });
   });
 
