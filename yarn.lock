@@ -4133,10 +4133,10 @@ csound-manual-react@^1.0.0-alpha8:
     webpack "^4.39.3"
     webpack-cli "^3.3.8"
 
-csound-wasm@^6.14.0-alpha12:
-  version "6.14.0-alpha12"
-  resolved "https://registry.yarnpkg.com/csound-wasm/-/csound-wasm-6.14.0-alpha12.tgz#0d4cef4baa38112cbb12d7b83f8ed80ee725008b"
-  integrity sha512-lKFADu2qTcd8jk2Ji/7qq1Fhz8YqafTI+q1PzFPnG0YPJETq5fRW5qeOwfbahfsCqWJFoi7JgnMtSbKWdGKW1A==
+csound-wasm@^6.14.0-alpha13:
+  version "6.14.0-alpha13"
+  resolved "https://registry.yarnpkg.com/csound-wasm/-/csound-wasm-6.14.0-alpha13.tgz#f96db26c966c546a3ec841622f8fa054c2be8700"
+  integrity sha512-ca/S790FjIygKLRyQ5koDFd4kxFn+68vI1pNRhxG1hD0dTRCOfJIn3GtRr30TW8/YrszNVuQnAzNF+qEYqI5rQ==
   dependencies:
     "@wasmer/wasi" "^0.10.2"
     "@wasmer/wasm-transformer" "^0.10.2"
@@ -10055,6 +10055,11 @@ react-side-effect@^2.1.0:
   resolved "https://registry.yarnpkg.com/react-side-effect/-/react-side-effect-2.1.0.tgz#1ce4a8b4445168c487ed24dab886421f74d380d3"
   integrity sha512-IgmcegOSi5SNX+2Snh1vqmF0Vg/CbkycU9XZbOHJlZ6kMzTmi3yc254oB1WCkgA7OQtIAoLmcSFuHTc/tlcqXg==
 
+react-sticky-footer@^0.1.0-rc3:
+  version "0.1.0-rc3"
+  resolved "https://registry.yarnpkg.com/react-sticky-footer/-/react-sticky-footer-0.1.0-rc3.tgz#47137e332cafcf49a48561894aa410cca683b3af"
+  integrity sha512-FKXTCQxLoRhSC0ReEbpE52jqzMcLSYcSJjPQrx8spDGBDp3IWiyo7c1Slibsut4UmHLWG6UUA1sUCDmSAFU43Q==
+
 react-transition-group@^4.3.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.3.0.tgz#fea832e386cf8796c58b61874a3319704f5ce683"
@@ -10408,6 +10413,11 @@ requires-port@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
   integrity sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8=
+
+resize-observer-polyfill@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/resize-observer-polyfill/-/resize-observer-polyfill-1.5.1.tgz#0e9020dd3d21024458d4ebd27e23e40269810464"
+  integrity sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==
 
 resolve-cwd@^2.0.0:
   version "2.0.0"

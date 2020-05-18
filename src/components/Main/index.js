@@ -24,7 +24,7 @@ const LoadingSpinner = () => (
   </div>
 );
 
-function Main({ currentRoute, setCurrentRoute }) {
+function Main({ currentRoute, mobileMode, setCurrentRoute }) {
   const onRouteChange = React.useCallback(
     (location, action) => {
       setCurrentRoute(location.pathname);
@@ -52,7 +52,7 @@ function Main({ currentRoute, setCurrentRoute }) {
   }, [onRouteChange]);
 
   return (
-    <main css={ß.main}>
+    <main css={mobileMode ? ß.mainMobile : ß.main}>
       <Suspense fallback={<LoadingSpinner />}>
         <div>
           <Switch>

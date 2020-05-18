@@ -3,6 +3,8 @@ import { jsx } from "@emotion/core";
 // eslint-disable-next-line no-unused-vars
 import React, { lazy, Suspense, useEffect, useState } from "react";
 import { Router } from "react-router-dom";
+import ResizeObserver from "resize-observer-polyfill";
+import MobileNav from "./components/MobileNav";
 import Main from "./components/Main";
 import LeftNav from "./components/LeftNav";
 import Console from "./components/Console";
@@ -30,12 +32,40 @@ function App() {
     )
   )(routes);
 
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const resizeHandler = () => setWindowWidth(window.innerWidth);
+    const resizeObserver = new ResizeObserver(resizeHandler);
+    resizeObserver.observe(document.body);
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, [setWindowWidth]);
+
+  const mobileMode = windowWidth < 800;
+
   return (
     <BookProvider>
       <CsoundProvider>
+        {mobileMode && (
+          <style>{`html, body {
+  overflow-x: hidden;
+}`}</style>
+        )}
+        <style>{`#root {flex-direction: ${
+          mobileMode ? "column" : "row"
+        };}`}</style>
         <Router history={browserHistory}>
-          {routeIndex > -1 && <LeftNav routeIndex={routeIndex} />}
-          <Main currentRoute={currentRoute} setCurrentRoute={setCurrentRoute} />
+          {!mobileMode && routeIndex > -1 && (
+            <LeftNav routeIndex={routeIndex} />
+          )}
+          <Main
+            currentRoute={currentRoute}
+            mobileMode={mobileMode}
+            setCurrentRoute={setCurrentRoute}
+          />
+          {mobileMode && <MobileNav routeIndex={routeIndex} />}
         </Router>
         <Console />
       </CsoundProvider>

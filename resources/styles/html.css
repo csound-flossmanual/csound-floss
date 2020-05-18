@@ -45,4 +45,5 @@ pre > code {
 
 #root {
   display: flex;
+  overflow-x: hidden;
 }

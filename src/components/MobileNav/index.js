@@ -2,7 +2,7 @@
 import { css, jsx } from "@emotion/core";
 // eslint-disable-next-line no-unused-vars
 import React, { lazy, Suspense, useEffect, useState } from "react";
-import { navigate } from "./history";
+import { navigate } from "../../history";
 import { Link } from "react-router-dom";
 import {
   assoc,
@@ -18,16 +18,15 @@ import {
   range,
   reduce,
   reject,
-  replace
+  replace,
 } from "ramda";
-import StickyFooter from "react-sticky-footer";
+import StickyMobileNav from "react-sticky-footer";
 import Select from "react-select";
-import routes from "./book_fragments/routes.json";
+import routes from "../../book_fragments/routes.json";
 
 const rootStyle = css`
   display: flex;
   justify-content: end;
-  padding-right: 120px;
   @media (max-width: 1150px) {
     flex-direction: column;
   }
@@ -35,7 +34,7 @@ const rootStyle = css`
 
 const selectContainer = css`
   width: 260px;
-  margin-right: 24px;
+  margin-right: 12px;
 `;
 
 const buttonGroupStyle = css`
@@ -48,12 +47,13 @@ const buttonGroupStyle = css`
   & a,
   span {
     padding: 0;
-    margin: auto 12px;
+    margin: auto 6px;
   }
   & h3 {
     white-space: nowrap;
     margin-top: 0px;
     margin-bottom: 0px;
+    font-size: 15px;
   }
 `;
 
@@ -65,7 +65,7 @@ const buttonGroupStyle = css`
 const groupStyles = {
   display: "flex",
   alignItems: "center",
-  justifyContent: "space-between"
+  justifyContent: "space-between",
 };
 
 const groupBadgeStyles = {
@@ -78,7 +78,7 @@ const groupBadgeStyles = {
   lineHeight: "1",
   minWidth: 1,
   padding: "0.16666666666667em 0.5em",
-  textAlign: "center"
+  textAlign: "center",
 };
 
 const formatGroupLabel = data => (
@@ -105,12 +105,12 @@ const moduleToName = pipe(
 
 const createSelectDataChapter = (route, chapterNumber) => ({
   value: route.url,
-  label: `${chapterNumber} - ${route.name}`
+  label: `${chapterNumber} - ${route.name}`,
 });
 
 const createSelectDataSection = route => ({
   value: route.url,
-  label: moduleToName(route.module)
+  label: moduleToName(route.module),
 });
 
 const getChapterData = chapterNum => {
@@ -134,9 +134,10 @@ const getAllChapters = () => {
   )(range(0, numChapters + 1));
 };
 
-function Footer({ routeIndex }) {
+function MobileNav({ routeIndex }) {
   const [isBottomReached, setIsBottomReached] = useState(false);
   const currentRoute = routes[routeIndex];
+
   const nextRoute = propOr(false, routeIndex + 1, routes);
   const previousRoute = propOr(false, routeIndex - 1, routes);
   const currentChapter = getChapterData(currentRoute.chapter);
@@ -157,45 +158,29 @@ function Footer({ routeIndex }) {
         container: (provided, state) =>
           Object.assign(provided, selectContainer),
         menu: (provided, state) =>
-          pipe(
-            assoc("width", "auto"),
-            assoc("minWidth", "260px")
-          )(provided)
+          pipe(assoc("width", "auto"), assoc("minWidth", "260px"))(provided),
       }}
     />
   );
 
   return (
-    <StickyFooter
-      onFooterStateChange={setIsBottomReached}
+    <StickyMobileNav
+      onMobileNavStateChange={setIsBottomReached}
       bottomThreshold={50}
       normalStyles={{
         zIndex: 1000,
         backgroundColor: "rgba(255,255,255,.8)",
         padding: "2rem",
-        width: "100%"
+        width: "100%",
       }}
       stickyStyles={{
         zIndex: 1000,
         backgroundColor: "rgba(255,255,255,.8)",
-        padding: "2rem",
-        width: "100vw"
+        padding: "12px",
+        width: "calc(100% - 24px)",
       }}
     >
       <div css={rootStyle}>
-        <div css={buttonGroupStyle}>
-          <Selector
-            defaultValue={createSelectDataChapter(
-              routes[routeIndex],
-              currentRoute.chapter
-            )}
-            options={allChapters}
-          />
-          <Selector
-            defaultValue={createSelectDataSection(routes[routeIndex])}
-            options={currentChapter}
-          />
-        </div>
         <div css={buttonGroupStyle}>
           {previousRoute ? (
             <Link to={previousRoute.url}>
@@ -220,8 +205,21 @@ function Footer({ routeIndex }) {
           )}
         </div>
       </div>
-    </StickyFooter>
+      <div css={buttonGroupStyle}>
+        <Selector
+          defaultValue={createSelectDataChapter(
+            routes[routeIndex],
+            currentRoute.chapter
+          )}
+          options={allChapters}
+        />
+        <Selector
+          defaultValue={createSelectDataSection(routes[routeIndex])}
+          options={currentChapter}
+        />
+      </div>
+    </StickyMobileNav>
   );
 }
 
-export default Footer;
+export default MobileNav;

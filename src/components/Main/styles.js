@@ -36,6 +36,17 @@ export const main = css`
   }
 `;
 
+export const mainMobile = css`
+  width: calc(100% - 24px);
+  padding: 12px;
+  & > div {
+    background-color: #fff;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 32px;
+  }
+`;
+
 export const loadingSpinner = css`
   display: inline-block;
   width: 80px;
