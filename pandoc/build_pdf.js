@@ -16,7 +16,7 @@ const allChapters_ = R.reject(
   fg.sync([`${BOOK_DIRECTORY}/*.md`], { dot: false })
 ).sort();
 
-const allChapters = R.take(10, allChapters_);
+const allChapters = R.take(20, allChapters_);
 
 const tmpDest = path.join(tmpdir(), "csound_flossmanual_single.md");
 
@@ -45,6 +45,7 @@ execSync(
       --highlight-style=kate \
       --include-in-header pandoc/latex/chapter_break.tex \
       --pdf-engine=xelatex \
+      --filter=pandoc/filters/pdf_interlinks.js \
       -o ${PDF_OUTPUT}`,
   { encoding: "utf-8" }
 );

@@ -1537,6 +1537,11 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.0.1.tgz#5d93e0a099cd0acd5ef3d5bde3c086e1f49ff68c"
   integrity sha512-FAYBGwC+W6F9+huFIDtn43cpy7+SzG+atzRiTfdp3inUKL2hXnd4rG8hylJLIh4+hqrQy1P17kvJByE/z825hA==
 
+"@types/node@^13.13.0":
+  version "13.13.8"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.13.8.tgz#39fa1c8563bce1077507fea05699437f112ecbcc"
+  integrity sha512-WJoiKALUF5exZo0G3T5coauJR2Tmc6rdE9/kgppZVnV6rlUB2dl3gTu2GTNBKhKF6SZ/WFfpEUIGNC/0qvdMWA==
+
 "@types/parse-json@^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@types/parse-json/-/parse-json-4.0.0.tgz#2f8bb441434d163b35fb8ffdccd7138927ffb8c0"
@@ -5144,6 +5149,11 @@ get-stdin@~0.1.0:
   resolved "https://registry.yarnpkg.com/get-stdin/-/get-stdin-0.1.0.tgz#5998af24aafc802d15c82c685657eeb8b10d4a91"
   integrity sha1-WZivJKr8gC0VyCxoVlfuuLENSpE=
 
+get-stdin@~7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/get-stdin/-/get-stdin-7.0.0.tgz#8d5de98f15171a125c5e516643c7a6d0ea8a96f6"
+  integrity sha512-zRKcywvrXlXsA0v0i9Io4KDRaAw7+a1ZpjRwl9Wox8PFlVCCHra7E9c4kqXCoCM9nR5tBkaTTZRBoCm60bFqTQ==
+
 get-stream@^4.0.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/get-stream/-/get-stream-4.1.0.tgz#c1b255575f3dc21d59bfc79cd3d2b46b1c3a54b5"
@@ -7901,6 +7911,14 @@ pandoc-filter-promisified@^0.1.0:
   integrity sha512-ro4wlfDqmflXfz9Ht+UrZu4jjy29H66XAVIHLt2VwWGhmBcip0lBajBtKDAd7SIrzh2WRGthKFgquDXPQ3HQvQ==
   dependencies:
     get-stdin "~0.1.0"
+
+pandoc-filter@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/pandoc-filter/-/pandoc-filter-2.0.0.tgz#5f53648a6626886478afe853eb4dfa8dd38e7b48"
+  integrity sha512-+Jp50Bh9bEdp+QV7HoQZ/8MwG6LIApWdt0eC18bgxbeL6siVYsJ0ynhKEEGE3TK1htfst+1SMI39TEIPs3oTTg==
+  dependencies:
+    "@types/node" "^13.13.0"
+    get-stdin "~7.0.0"
 
 parallel-transform@^1.1.0:
   version "1.2.0"
