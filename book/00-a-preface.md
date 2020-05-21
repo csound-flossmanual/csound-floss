@@ -45,18 +45,26 @@ simplest. You do not need to know any specific programming techniques or
 to be a computer scientist. The basics of the Csound language are a
 straightforward transfer of the signal flow paradigm to text.
 
+\newpage
+
 For example, to create a 400 Hz sine oscillator with an amplitude of
 0.2, this is the signal flow:
 
 
-![](../resources/images/00-a-signal-flow.png){width=25%}
+`\begin{wrapfigure}[3]{r}{0.3\textwidth}`{=latex}
+`\begin{center}`{=latex}
+![](../resources/images/00-a-signal-flow.png){}
+`\end{center}`{=latex}
+`\end{wrapfigure}`{=latex}
 
 Here is a possible transformation of the signal graph into Csound code:
 
+~~~Csound
     instr   Sine
      aSig poscil  0.2, 400
      out     aSig
     endin
+~~~
 
 The oscillator is represented by the opcode
 [poscil](http://csound.com/docs/manual/poscil.html) and receives
@@ -70,11 +78,13 @@ With the release of Csound version 6, it is possible to write the same
 code in an even more condensed fashion using so-called *functional
 syntax*, as shown below:
 
+~~~Csound
     instr Sine
      out poscil:a(0.2, 400)
     endin
+~~~
 
-We will use both, traditional and functional style, throughout this textbook. More details on functional style can be found in chapter 
+We will use both, traditional and functional style, throughout this textbook. More details on functional style can be found in chapter
 [03 I](03-i-functional-syntax.md).
 
 It is often difficult to find up to date resources that show and explain

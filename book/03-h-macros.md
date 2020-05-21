@@ -62,7 +62,7 @@ replace it with any other mono file.
 
    ***EXAMPLE 03H01_Macros_basic.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -128,7 +128,7 @@ the macro as p4 from the score.
 
    ***EXAMPLE 03H02_Macro_6partials.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -202,7 +202,7 @@ bound within square brackets `[]`.
 
    ***EXAMPLE 03H03_Score_macro.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -282,4 +282,3 @@ refinements and this chapter serves merely as an introduction to their
 basic use. To learn more it is recommended to refer to the relevant
 sections of the [Csound Reference
 Manual](http://www.csound.com/docs/manual/OrchMacros.html).
-

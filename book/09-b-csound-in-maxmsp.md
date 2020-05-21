@@ -32,6 +32,7 @@ Creating a *csound~* Patch
 
     ***EXAMPLE 09B01_maxcs_helloworld.csd ***
 
+~~~Csound
         <CsoundSynthesizer>
         <CsInstruments>
         ;Example by Davis Pyon
@@ -52,7 +53,7 @@ Creating a *csound~* Patch
         e
         </CsScore>
         </CsoundSynthesizer>
-
+~~~
 
 5.  Open the patch, press the bang button, then press the speaker icon.
 
@@ -106,7 +107,7 @@ Here is the corresponding text file (let's call it *audio_io.csd*):
 
    ***EXAMPLE 09B02_maxcs_audio_io.csd ***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsInstruments>
 sr     = 44100
@@ -168,7 +169,7 @@ The following patch and Csound file demonstrates control messages:
 
    ***EXAMPLE 09B03_maxcs_control_in.csd ***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsInstruments>
 sr     = 44100
@@ -223,7 +224,7 @@ and text file that uses MIDI:
 
    ***EXAMPLE 09B04_maxcs_midi.csd ***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsInstruments>
 sr     = 44100
@@ -285,7 +286,7 @@ The following patch and text file demonstrates how to send events:
 
    ***EXAMPLE 09B05_maxcs_events.csd ***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsInstruments>
 sr     = 44100

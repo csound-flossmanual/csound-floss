@@ -1,6 +1,7 @@
 *.iml
 /.idea
 /tmp
+csound_flossmanual.pdf
 csound-floss-export*
 html2pdf*.html
 __pycache__

@@ -49,7 +49,7 @@ value.
 
    ***EXAMPLE 07A01_midiin_print.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -Ma -m128

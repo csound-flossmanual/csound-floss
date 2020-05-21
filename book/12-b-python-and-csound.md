@@ -36,9 +36,9 @@ header. The example below shows a simple csd file which prints the text
       about init- and k-time in Csound.
 
 
-   ***EXAMPLE 12B01_pyinit.csd***
+***EXAMPLE 12B01_pyinit.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -ndm0
@@ -76,9 +76,9 @@ multi-line string can be written in Csound with the {{\...}} delimiters.
 This can be useful for longer Python code snippets.
 
 
-   ***EXAMPLE 12B02_python_global.csd***
+***EXAMPLE 12B02_python_global.csd***
 
-~~~
+~~~Csound
  <CsoundSynthesizer>
 <CsOptions>
 -ndm0
@@ -147,9 +147,9 @@ instrument 3 is called which performs both, incrementing (in the *+=*
 short form) and printing, for the first two k-cycles.
 
 
-   ***EXAMPLE 12B03_pyrun.csd***
+***EXAMPLE 12B03_pyrun.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -ndm0
@@ -227,8 +227,9 @@ value of a Python expression. As usual, the expression is given as a
 string. So we expect this to work:
 
 
-   ***Not Working Example!***
+***Not Working Example!***
 
+~~~Csound
     <CsoundSynthesizer>
     <CsOptions>
     -ndm0
@@ -249,6 +250,7 @@ string. So we expect this to work:
     i 1 0 0
     </CsScore>
     </CsoundSynthesizer>
+~~~
 
 Running this code results in an error with this message:
 
@@ -263,9 +265,9 @@ deliver a floating-point number to Csound. This can be done by Python's
 *float()* facility. So this code should work:
 
 
-   ***EXAMPLE 12B04_pyevali.csd***
+***EXAMPLE 12B04_pyevali.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -ndm0
@@ -304,9 +306,9 @@ is a very simple example which calculates the cent distance of the
 proportion 3/2:
 
 
-   ***EXAMPLE 12B05_pyassigni.csd***
+***EXAMPLE 12B05_pyassigni.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -ndm0
@@ -371,9 +373,9 @@ function to be evaluated at instrument initialization, or in the header.
 The following csd shows a simple usage of the pycall opcodes:
 
 
-   ***EXAMPLE 12B06_pycall.csd***
+***EXAMPLE 12B06_pycall.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -dnm0
@@ -422,9 +424,9 @@ applies to instrument instances, not instrument numbers. The next
 example shows both, local and global behaviour.
 
 
-   ***EXAMPLE 12B07_local_vs_global.csd***
+***EXAMPLE 12B07_local_vs_global.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -dnm0
@@ -525,9 +527,9 @@ be known in advance, since it is not necessary in python to declare the
 sizes of lists.
 
 
-   ***EXAMPLE 12B08_markov.csd***
+***EXAMPLE 12B08_markov.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -dm0
@@ -608,5 +610,3 @@ i 1 15 15     1               8
 </CsoundSynthesizer>
 ;Example by Andrés Cabrera
 ~~~
-
-

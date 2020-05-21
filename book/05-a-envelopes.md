@@ -29,7 +29,7 @@ seconds descends in linear fashion to zero.
 
    ***EXAMPLE 05A01_line.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -65,7 +65,7 @@ envelope will be stretched or contracted accordingly.
 
    ***EXAMPLE 05A02_line_p3.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -135,7 +135,7 @@ employed to circumvent this from happening.
 
    ***EXAMPLE 05A03_linseg.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -172,7 +172,7 @@ duration of each note regardless of duration.
 
    ***EXAMPLE 05A04_linseg_p3_fractions.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -221,7 +221,7 @@ beyond the end of their final segment is clear. The *linseg* envelope stays at z
 
    ***EXAMPLE 05A05_line_vs_linseg.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -276,7 +276,7 @@ The following example illustrates the difference between *line* and
 
    ***EXAMPLE 05A06_line_vs_expon.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -306,7 +306,7 @@ i 2 2 1 ; expon envelope
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
+~~~Csound
 
 ![](../resources/images/05-a-line-expon.png)
 
@@ -319,7 +319,7 @@ increasingly short.
 
    ***EXAMPLE 05A07_expon_pings.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -383,7 +383,7 @@ final envelope segment to decay to zero.
 
    ***EXAMPLE 05A08_linsegr.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -+rtmidi=virtual -M0
@@ -425,7 +425,7 @@ shape of the first half of a sine wave.
 
    ***EXAMPLE 05A09_sine_env.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -649,7 +649,7 @@ these values are given in the .csd.
 
    ***EXAMPLE 05A10_lpshold_loopseg.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac ;activates real time sound output

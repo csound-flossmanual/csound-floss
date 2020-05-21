@@ -35,7 +35,7 @@ directed to instrument 1.
 
    ***EXAMPLE 07B01_MidiInstrTrigger.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -Ma -odac -m128
@@ -114,7 +114,7 @@ which an instrument does not exist will be mapped to instrument 1.
 
    ***EXAMPLE 07B02_massign.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -Ma -odac -m128
@@ -215,7 +215,7 @@ using fractional instrument numbers.
 
    ***EXAMPLE 07B03_MidiTriggerChain.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -Ma
@@ -286,7 +286,7 @@ the [UDO chapter](03-g-user-defined-opcodes.md) of this manual):
 
    ***EXAMPLE 07B04_MidiMultiTrigg.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -Ma

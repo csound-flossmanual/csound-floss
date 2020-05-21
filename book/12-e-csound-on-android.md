@@ -302,6 +302,7 @@ during Csound's performance (`-m3`).
 Create a blank line between `<CsInstruments>` and `</CsInstruments>` and
 type the following text:
 
+~~~Csound
     sr = 44100
     ksmps = 32
     nchnls = 1
@@ -310,6 +311,7 @@ type the following text:
      asignal poscil 0.2, 440
      out asignal
     endin
+~~~
 
 This is just about the simplest possible Csound orchestra. The orchestra
 header specifies an audio signal sampling rate of 44,100 frames per
@@ -359,6 +361,7 @@ The first step is to declare one global variable for each of the control
 channels, with the same name as the control channel, at the top of the
 orchestra header, initialized to a value of zero:
 
+~~~Csound
     gkslider1 init 0
     gkslider2 init 0
     gkslider3 init 0
@@ -378,15 +381,19 @@ orchestra header, initialized to a value of zero:
     gkaccelerometerx init 0
     gkaccelerometery init 0
     gkaccelerometerz init 0
+~~~
 
 Then write an *always-on* instrument that reads each of these control
 channels into each of those global variables. At the top of the
 orchestra header:
 
+~~~Csound
     alwayson "Controls"
+~~~
 
 As the next to last instrument in your orchestra:
 
+~~~Csound
     instr Controls
      gkslider1 chnget "slider1"
      gkslider2 chnget "slider2"
@@ -408,6 +415,7 @@ As the next to last instrument in your orchestra:
      gkaccelerometery chnget "accelerometerY"
      gkaccelerometerz chnget "accelerometerZ"
     endin
+~~~
 
 So far, everything is common to all pieces. Now, for each specific piece
 and specific set of instruments, write another *always-on* instrument that
@@ -423,6 +431,7 @@ At the top of the orchestra header:
 
 As the very last instrument in your orchestra:
 
+~~~Csound
     instr VariablesForControls
     if gkslider1 > 0 then
        gkFirstHarmonic = gkslider1 * 2
@@ -463,6 +472,7 @@ As the very last instrument in your orchestra:
        ; gkQ = gkQ * 2
     endif
     endin
+~~~
 
 Now, the controllers are re-mapped to sensible ranges, and have names
 that make sense for your instruments. They can be used as follows. Note
@@ -474,6 +484,7 @@ necessary because the widgets in the Csound for Android app, unlike say the widg
 in CsoundQt, do not "remember" their positions and values from
 performance to performance.
 
+~~~Csound
     gkratio1 init 1
     gkratio2 init 1/3
     gkindex1 init 1
@@ -509,3 +520,4 @@ performance to performance.
      outleta "outleft", aleft
      outleta "outright", aright
     endin
+~~~

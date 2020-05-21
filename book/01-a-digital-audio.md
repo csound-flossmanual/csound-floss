@@ -29,14 +29,14 @@ Periodic waves have some main parameters:
 -   **Period**: The time it takes for a waveform to complete one cycle,
     measured in seconds.
 
--   **Frequency**: The number of cycles or periods per second, measured 
+-   **Frequency**: The number of cycles or periods per second, measured
     in Hertz (Hz). If a sound has a frequency of 440 Hz it
-    completes 440 cycles every second. Read more about frequency in the 
+    completes 440 cycles every second. Read more about frequency in the
     [next chapter](01-b-pitch-and-frequency.md).
 
--   **Phase:** This is the starting point of a waveform. 
+-   **Phase:** This is the starting point of a waveform.
     It can be expressed in degrees or in radians. A complete cycle of
-    a waveform will cover 360 degrees or 2π radians. A sine with a phase 
+    a waveform will cover 360 degrees or 2π radians. A sine with a phase
     of 90° or π/2 results in a cosine.
 
 -   **Amplitude:** Amplitude is represented by the y-axis of a plotted
@@ -93,7 +93,7 @@ are left with what is known as a *discrete signal*, consisting of a
 collection of audio samples, as illustrated in the bottom half of the
 diagram.
 
-![Sampling of an analog signal](../resources/images/01-a-sampling.png)
+![Sampling of an analog signal](../resources/images/01-a-sampling.png){height=6cm}
 
 It is important to remember that each sample represents the amount of
 voltage, positive or negative, that was present in the signal at the
@@ -132,7 +132,7 @@ Aliasing
 
 Here is a graphical representation of aliasing.
 
-![Aliasing (red) of a high frequency (blue)](../resources/images/01-a-aliasing-1.png){width=50%}
+![Aliasing (red) of a high frequency (blue)](../resources/images/01-a-aliasing-1.png){height=6cm}
 
 The sinusoidal waveform in blue is being sampled at the vertical black
 lines. The line that joins the red circles together is the captured
@@ -141,7 +141,7 @@ waveform express different frequencies.
 
 Here is another example:
 
-![Aliasing of a 30 kHz sine at 40 kHz sample rate](../resources/images/01-a-aliasing-2.png){width=80%}
+![Aliasing of a 30 kHz sine at 40 kHz sample rate](../resources/images/01-a-aliasing-2.png){height=6cm}
 
 We can see that if the sample rate is 40 kHz there is no problem with
 sampling a signal that is 10 KHz. On the other hand, in the second
@@ -158,7 +158,7 @@ In computer music we can produce any frequency internally, much higher than we c
 
 ***EXAMPLE 01A01\_Aliasing.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -220,13 +220,13 @@ Bits, Bytes and Words
 
 All digital computers represent data as a collection of *bits* (short for
 binary digit). A bit is the smallest possible unit of information. One
-bit can only be in one of two states: off or on, 0 or 1. All computer data 
+bit can only be in one of two states: off or on, 0 or 1. All computer data
 — a text file on disk, a program in memory, a packet on a network — is ultimately a collection of bits.
 
 Bits in groups of eight are called *bytes*, and one byte historically
 represented a single character of data in the computer memory. Mostly one byte is the smallest unit of data, and bigger units will be created by using two, three or more bytes. A good example is the number of bytes which is used to store the number for one audio sample. In early games it was 1 byte (8 bit), on a CD it is 2 bytes (16 bit), in sound cards it is often 3 bytes (24 bit), in most audio software it is internally 4 bytes (32 bit), and in Csound 8 bytes (64 bit).
 
-The [word length](https://en.wikipedia.org/wiki/Word_(computer_architecture)) of a computer is the number of bits which is handled as a unit by the processor. The transition from 32-bit to 64-bit word length around 2010 in the most commonly used processors required new compilations of Csound and other applications, in particular for the Windows installers. To put it simple: A 32-bit machine needs an application compiled for 32-bit, a 64-bit machine needs an application compiled for 64-bit. 
+The [word length](https://en.wikipedia.org/wiki/Word_(computer_architecture)) of a computer is the number of bits which is handled as a unit by the processor. The transition from 32-bit to 64-bit word length around 2010 in the most commonly used processors required new compilations of Csound and other applications, in particular for the Windows installers. To put it simple: A 32-bit machine needs an application compiled for 32-bit, a 64-bit machine needs an application compiled for 64-bit.
 
 
 Bit-depth Resolution

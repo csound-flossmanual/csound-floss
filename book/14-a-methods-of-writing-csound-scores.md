@@ -162,6 +162,7 @@ arguments (= file names).
 
    ***EXAMPLE 14A01_Score_bin.csd***
 
+~~~Csound
     <CsoundSynthesizer>
     <CsInstruments>
     instr 1
@@ -173,7 +174,7 @@ arguments (= file names).
     print("File to write = '%s'" % argv[1])
     </CsScore>
     </CsoundSynthesizer>
-
+~~~
 
 When you execute this .csd file in the terminal, your output should
 include something like this:
@@ -192,15 +193,18 @@ written:
 To test this, first save this file as *print.py* in the same folder
 where your .csd examples are:
 
+~~~Python
     from sys import argv
     print("Script = '%s'" % argv[0])
     print("File to read = '%s'" % argv[1])
     print("File to write = '%s'" % argv[2])
+~~~
 
 Then run this csd:
 
    ***EXAMPLE 14A02_Score_bin_script.csd***
 
+~~~Csound
     <CsoundSynthesizer>
     <CsInstruments>
     instr 1
@@ -209,6 +213,7 @@ Then run this csd:
     <CsScore bin="python3 print.py">
     </CsScore>
     </CsoundSynthesizer>
+~~~
 
 The output should include these lines:
 
@@ -219,7 +224,6 @@ The output should include these lines:
 And again a complaint about the invalid score file:
 
     cannot open scorefile /tmp/csound-NbMTfJ.sco
-
 
 ### CsBeats
 
@@ -246,6 +250,7 @@ two statements will always generate the same values.
 
    ***EXAMPLE 14A03_Score_perlscript.csd***
 
+~~~Csound
     <CsoundSynthesizer>
     <CsInstruments>
     ;example by tito latini
@@ -267,7 +272,9 @@ two statements will always generate the same values.
 
     </CsScore>
     </CsoundSynthesizer>
+~~~
 
+~~~Perl
     # cs_sco_rand.pl
     my ($in, $out) = @ARGV;
     open(EXT, "<", $in);
@@ -278,7 +285,7 @@ two statements will always generate the same values.
       s/rand\(\d*\)/eval $&/ge;
       print SCO;
     }
-
+~~~
 
 Pysco
 -----

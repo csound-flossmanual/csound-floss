@@ -128,7 +128,7 @@ with headphones.)
 
    ***EXAMPLE 05I01_pvsanal.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -i adc -o dac
@@ -213,7 +213,7 @@ Working with *pvsanal* to create an f-signal is easy and straightforward. But if
 
    ***EXAMPLE 05I02_pvstanal.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -262,7 +262,7 @@ So although a bit harder to use, *pvsbufread* offers some nice possibilities. An
 
    ***EXAMPLE 05I03_pvsbufread.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac  --env:SSDIR+=../SourceMaterials
@@ -335,7 +335,7 @@ cent values instead of ratios as input, the
 
    ***EXAMPLE 05I04_pvscale.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac --env:SSDIR+=../SourceMaterials
@@ -409,7 +409,7 @@ The following example performs some different shifts on a single viola tone.
 
    ***EXAMPLE 05I05_pvshift.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -435,7 +435,7 @@ i . + . 50 0 ;shift all by 50 Hz
 i . + . 150 0 ;shift all by 150 Hz
 i . + . 500 0 ;shift all by 500 Hz
 i . + . 150 230 ;only above 230 Hz by 150 Hz
-i . + . . 460 ;only above 460 Hz 
+i . + . . 460 ;only above 460 Hz
 i . + . . 920 ;only above 920 Hz
 </CsScore>
 </CsoundSynthesizer>
@@ -473,7 +473,7 @@ sound B:
 
    ***EXAMPLE 05I06_phase_vocoder.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac --env:SSDIR+=../SourceMaterials
@@ -525,7 +525,7 @@ The next example introduces *pvscross*:
 
    ***EXAMPLE 05I07_pvscross.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac --env:SSDIR+=../SourceMaterials
@@ -578,7 +578,7 @@ the amplitudes are strong enough, you will hear a resonating effect:
 
    ***EXAMPLE 05I08_pvsfilter.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac --env:SSDIR+=../SourceMaterials
@@ -630,12 +630,12 @@ Artifacts can easily occur in several situations of applying FFT. In example *05
 - For *pvsmooth*, the *kacf* and the *kfcf* parameter apply a low pass filter on the amplitudes and the frequencies of the *f*-signal. The range is 0-1 each, where 0 is the lowest and 1 the highest cutoff frequency. Lower values will smooth more, so the effect will be stronger.
 - For *pvsblur*, the *kblurtime* depicts the time in seconds during which the single FFT windows will be averaged.
 
-This is a trial to reduce the amount of artefacts. Note that [pvstanal](https://csound.com/docs/manual/pvstanal.html) actually has the best method to reduce artifacts in spoken word, as it can leave onsets unstretched (*kdetect* which is on by default). 
+This is a trial to reduce the amount of artefacts. Note that [pvstanal](https://csound.com/docs/manual/pvstanal.html) actually has the best method to reduce artifacts in spoken word, as it can leave onsets unstretched (*kdetect* which is on by default).
 
 
    ***EXAMPLE 05I09_pvsmooth_pvsblur.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -m 128
@@ -658,7 +658,7 @@ instr Smooth
  iAmpCutoff = p4 ;0-1
  iFreqCutoff = p5 ;0-1
  fStretch pvstanal 1/10, 1, 1, gifil, 0
- fSmooth pvsmooth fStretch, iAmpCutoff, iFreqCutoff 
+ fSmooth pvsmooth fStretch, iAmpCutoff, iFreqCutoff
  aSmooth pvsynth fSmooth
  out aSmooth, aSmooth
 endin
@@ -666,7 +666,7 @@ endin
 instr Blur
  iBlurtime = p4 ;sec
  fStretch pvstanal 1/10, 1, 1, gifil, 0
- fBlur pvsblur fStretch, iBlurtime, 1 
+ fBlur pvsblur fStretch, iBlurtime, 1
  aSmooth pvsynth fBlur
  out aSmooth, aSmooth
 endin
@@ -679,11 +679,11 @@ instr Smooth_var
  aSmooth pvsynth fSmooth
  out aSmooth, aSmooth
 endin
-	
+
 instr Blur_var
  kBlurtime randomi .005, .5, 200, 3
  fStretch pvstanal 1/10, 1, 1, gifil, 0
- fBlur pvsblur fStretch, kBlurtime, 1 
+ fBlur pvsblur fStretch, kBlurtime, 1
  aSmooth pvsynth fBlur
  out aSmooth, aSmooth
 endin
@@ -698,10 +698,10 @@ instr SmoothBlur
 	a_smt pvsynth fblur
 	aOut linenr a_smt, 0, iblurtime*2, .01
 	out aOut, aOut
-endin 
-	
+endin
+
 </CsInstruments>
-<CsScore> 
+<CsScore>
 i "Raw" 0 16
 i "Smooth" 17 16 .01 .1
 i "Blur" 34 16 .2
@@ -725,7 +725,7 @@ It is not only possible to work with the full data set of the Fourier Transform,
 
 #### pvsbin
 
-The most fundamental extraction of single bins can be done with the [pvsbin](https://csound.com/docs/manual/pvsbin.html) opcode. It takes the f-signal and the bin number as input, and returns the amplitude and the frequency of the bin. These values can be used to drive an oscillator which resynthesizes this bin. 
+The most fundamental extraction of single bins can be done with the [pvsbin](https://csound.com/docs/manual/pvsbin.html) opcode. It takes the f-signal and the bin number as input, and returns the amplitude and the frequency of the bin. These values can be used to drive an oscillator which resynthesizes this bin.
 
 The next example shows three different applications. At first, instr *SingleBin* is called four times, performing bin 10, 20, 30 and 40. Then instr *FourBins* calls the four instances of *SingleBin* at the same time, so we hear the four bins together. Finally, instr *SlidingBins* uses the fact that the bin number can be given to *pvsbin* as k-rate variable. The line `kBin randomi 1,50,200,3` produces changing bins with a rate of 200 Hz, between bin 1 and 50.
 
@@ -734,7 +734,7 @@ Note that we are always smoothing the bin amplitudes *kAmp* by applying `port(kA
 
    ***EXAMPLE 05I10_pvsbin.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac  -m128
@@ -762,8 +762,8 @@ instr FourBins
   schedule("SingleBin",0,3,iCount*10)
   iCount += 1
  od
-endin	
-        
+endin
+
 instr SlidingBins
  kBin randomi 1,50,200,3
  aSig diskin "fox.wav"
@@ -773,7 +773,7 @@ instr SlidingBins
  aBin *= kBin/10
  out aBin, aBin
 endin
-        
+
 </CsInstruments>
 <CsScore>
 i "SingleBin" 0 3 10
@@ -790,14 +790,14 @@ i "SlidingBins" 17 3
 
 #### pvstrace
 
-Another approach to retrieve a selection of bins is done by the opcode [pvstrace](https://csound.com/docs/manual/pvstrace.html). Here, only the N loudest bins are written in the *f* signal which this opcode outputs. 
+Another approach to retrieve a selection of bins is done by the opcode [pvstrace](https://csound.com/docs/manual/pvstrace.html). Here, only the N loudest bins are written in the *f* signal which this opcode outputs.
 
 This is a simple example first which lets *pvstrace* play in sequence the 1, 2, 4, 8 and 16 loudest bins.
 
 
    ***EXAMPLE 05I11_pvstrace_simple***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -834,7 +834,7 @@ An optional second output of pvstrace returns an array with the *kn* bin numbers
 
    ***EXAMPLE 05I12_pvstrace_array.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac

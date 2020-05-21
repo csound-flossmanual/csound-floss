@@ -63,7 +63,7 @@ whereas the last three groups should always have a different pitch.
 
    ***EXAMPLE 01D01\_different\_seed.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m0
@@ -119,7 +119,7 @@ random generator now works with a 31-bit number.
 
    ***EXAMPLE 01D02\_white\_noises.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -215,7 +215,7 @@ precedence of higher pitches (but shorter durations).
 
    ***EXAMPLE 01D03\_linrand.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m0
@@ -367,7 +367,7 @@ in the same environment as the previous example.
 
    ***EXAMPLE 01D04\_trirand.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m0
@@ -535,7 +535,7 @@ new instance of *notes*.
 
    ***EXAMPLE 01D05\_more\_lin\_tri\_units.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m0
@@ -759,7 +759,7 @@ according to their position in the array.
 
    ***EXAMPLE 01D06\_scalings.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m0
@@ -974,7 +974,7 @@ been *a*.
 
    ***EXAMPLE 01D07\_markov\_basics.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -ndm0
@@ -1035,7 +1035,7 @@ independently from each other.
 
    ***EXAMPLE 01D08\_markov\_music.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -m128 -odac
@@ -1201,7 +1201,7 @@ crossed, and vice versa.
 
    ***EXAMPLE 01D09\_random\_walk.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -m128 -odac
@@ -1368,7 +1368,7 @@ Synthesis*[^6] chapter 10.1.4.4)
 
 ***EXAMPLE 01D10\_Rejection\_Sampling.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -1440,7 +1440,7 @@ i2 0 10 4 5 6
 </CsScore>
 </CsoundSynthesizer>
 ;example by martin neukom
-~~~
+~~~Csound
 
 
 #### Random Walk
@@ -1515,7 +1515,7 @@ actual acelleration *a*, the change of the aceleration, etc.
 
 ***EXAMPLE 01D11\_Random\_Walk2.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -1632,7 +1632,7 @@ time at various ways. Remember that most of these random generators will need to
 [randomh](http://www.csound.com/docs/manual/randomh.html) generates new
 random numbers at a user defined rate. The previous value is held until
 a new value is generated, and then the output immediately assumes that
-value. 
+value.
 
 The instruction:
 
@@ -1686,7 +1686,7 @@ of each note in addition to an i-time random offset.
 
 ***EXAMPLE 01D12\_humanising.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -1758,7 +1758,7 @@ of certain notes and certain rhythmic gaps occuring.
 
 ***EXAMPLE 01D13\_simple\_algorithmic\_note\_generator.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m0
@@ -1816,4 +1816,3 @@ e
       deviation.
 [^6]: Neukom, Martin. Signals, systems and sound synthesis. Bern: Peter
       Lang, 2013. Print.
-

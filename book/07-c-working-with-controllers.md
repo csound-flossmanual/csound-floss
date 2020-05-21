@@ -24,7 +24,7 @@ also the modulation wheel on a midi keyboard.
 
    ***EXAMPLE 07C01_ctrl7_print.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -Ma -odac
@@ -80,7 +80,7 @@ play a midi note on your keyboard and then move the pitch bend wheel.
 
    ***EXAMPLE 07C02_pchbend_aftouch.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -Ma
@@ -164,7 +164,7 @@ scan and rescale key velocity.
 
    ***EXAMPLE 07C03_cpsmidi_ampmidi.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -Ma -odac
@@ -246,7 +246,7 @@ between k-cycles.
 
    ***EXAMPLE 07C0\_smoothing.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -Ma -odac
@@ -287,7 +287,7 @@ the [gbuzz](https://csound.com/docs/manual/gbuzz.html) opcode.
 
    ***EXAMPLE 07C05_MidiControlComplex.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -Ma -odac
@@ -370,7 +370,7 @@ single file.
 
    ***EXAMPLE 07C06_RecordingController.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -dm0
@@ -509,8 +509,3 @@ i 1 0 3600
 </CsoundSynthesizer>
 ;example by Iain McCurdy
 ~~~
-
-
-
-
-

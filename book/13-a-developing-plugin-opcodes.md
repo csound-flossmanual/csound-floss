@@ -121,6 +121,7 @@ the top of the source file. The example below shows a simple data
 structure for an opcode with one output and three inputs, plus a couple
 of private internal variables:
 
+~~~C
     #include "csdl.h"
 
     typedef struct  _newopc {
@@ -132,7 +133,7 @@ of private internal variables:
     MYFLT  var2;
 
     } newopc;
-
+~~~
 
 ### Initialisation
 
@@ -145,12 +146,13 @@ the opcode dataspace. The following example shows an example
 initialisation function. It initialises one of the variables to 0 and
 the other to the third opcode input parameter.
 
+~~~C
     int newopc_init(CSOUND *csound, newopc *p){
      p->var1 = (MYFLT) 0;
      p->var2 = *p->in3;
     return OK;
     }
-
+~~~
 
 ### Control-rate performance
 
@@ -163,6 +165,7 @@ the second input. The output is offset by the first input and the
 ramping is reset if it reaches the value of *var2* (which is set to the
 third input argument in the constructor above).
 
+~~~C
     int newopc_process_control(CSOUND *csound, newopc *p){
      MYFLT cnt = p->var1 + *(p->in2);
      if(cnt > p->var2) cnt = (MYFLT) 0; /* check bounds */
@@ -170,7 +173,7 @@ third input argument in the constructor above).
       p->var1 = cnt; /* keep the value of cnt */
       return OK;
     }
-
+~~~
 
 ### Audio-rate performance
 
@@ -199,6 +202,7 @@ instrument, and act to ensure these are taken into account. Without
 this, the opcode would still work, but not support the sample-accurate
 mode.
 
+~~~C
     int newopc_process_audio(CSOUND *csound, newopc *p){
      int i, n = CS_KSMPS;
      MYFLT *aout = p->out;  /* output signal */
@@ -221,17 +225,19 @@ mode.
        p->var1 = cnt; /* keep the value of cnt */
        return OK;
     }
+~~~
 
 In order for Csound to be aware of the new opcode, we will have to
 register it. This is done by filling an opcode registration structure
 `OENTRY` array called *localops* (which is static, meaning that only one
 such array exists in memory at a time):
 
+~~~C
     static OENTRY localops[] = {
     { "newopc", sizeof(newopc), 0, 7, "s", "kki",(SUBR) newopc_init,
     (SUBR) newopc_process_control, (SUBR) newopc_process_audio }
     };
-
+~~~
 
 ### Linkage
 
@@ -305,6 +311,7 @@ Windows (MinGW+MSYS):
 To run Csound with the new opcodes, we can use the
 \--opcode-lib=*libname* option.
 
+~~~Csound
     <CsoundSynthesizer>
     <CsOptions>
     --opcode-lib=newopc.so  ; OSX: newopc.dylib; Windows: newopc.dll
@@ -325,3 +332,4 @@ To run Csound with the new opcodes, we can use the
     </CsInstruments>
     </CsoundSynthesizer>
     ;example by victor lazzarini
+~~~

@@ -59,7 +59,7 @@ delayed signal is attenuated with respect to the input signal.
 
    ***EXAMPLE 05D01_delay.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac ; activates real time sound output
@@ -111,7 +111,7 @@ example implements a simple delay with feedback.
 
    ***EXAMPLE 05D02_delay_feedback.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac ;activates real time sound output
@@ -152,7 +152,7 @@ An alternative for implementing a simple delay-feedback line in Csound would be 
 
    ***EXAMPLE 05D03_delay_feedback_2.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -227,7 +227,7 @@ delay time that will be permissible will be the duration of one k cycle
 
    ***EXAMPLE 05D04_deltapi.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac ; activates real time sound output
@@ -275,7 +275,7 @@ most typical.
 
    ***EXAMPLE 05D05_multi-tap_delay.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac ; activates real time sound output
@@ -334,7 +334,7 @@ the smoothest comb filter modulations.
 
    ***EXAMPLE 05D06_flanger.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac ; activates real time sound output
@@ -381,14 +381,14 @@ Basically all these opcode have three main arguments:
 2. The delay time as audio signal.
 3. The maximum possible delay time.
 
-Some caution must be given to the unit in argument 2 and 3: [vdelay](https://csound.com/docs/manual/vdelay.html) and [vdelay3](https://csound.com/docs/manual/vdelay3.html) use *milliseconds* here, whereas [vdelayx](https://csound.com/docs/manual/vdelayx.html) uses seconds (as nearly every other opcode in Csound). 
+Some caution must be given to the unit in argument 2 and 3: [vdelay](https://csound.com/docs/manual/vdelay.html) and [vdelay3](https://csound.com/docs/manual/vdelay3.html) use *milliseconds* here, whereas [vdelayx](https://csound.com/docs/manual/vdelayx.html) uses seconds (as nearly every other opcode in Csound).
 
 This is an identical version of the previous *flanger* example which uses *vdelayx* instead of *deltap3*. The *vdelayx* opcode has an additional parameter which allows the user to set the number of samples to be used for interpolation between 4 and 1024. The higher the number, the better the quality, requiring yet more rendering power.
 
 
    ***EXAMPLE 05D07_flanger_2.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac ; activates real time sound output
@@ -439,7 +439,7 @@ As an advanced insight into sample-by-sample processing in Csound, we end here w
 - Line 27-28: Both pointers are incremented by one and then the *modulo* is taken. This ensures that the array is not read or written beyond its boundaries, but used as a circular buffer.
 
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac ; activates real time sound output
@@ -471,7 +471,7 @@ instr CustomDelayLine
 
     kindx += 1
   od
-  
+
   out(linen:a(asig,0,p3,1),linen:a(adel,0,p3,1))
 
 endin
@@ -483,4 +483,3 @@ i "CustomDelayLine" 0 10
 </CsoundSynthesizer>
 ;example by Steven Yi
 ~~~
-

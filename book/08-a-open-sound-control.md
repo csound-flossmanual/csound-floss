@@ -19,7 +19,7 @@ and OSClisten.
 
    ***Example 08A01_osc.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -82,4 +82,3 @@ e 3600
 </CsoundSynthesizer>
 ; example by Alex Hofmann
 ~~~
-

@@ -20,7 +20,7 @@ number, like this:
 
    ***EXAMPLE 02D01\_GetDeviceList.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -iadc999 -odac999
@@ -141,7 +141,7 @@ Console should output five times per second the input amplitude level.
 
    ***EXAMPLE 02D02\_LiveInput.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 ;CHANGE YOUR INPUT AND OUTPUT DEVICE NUMBER HERE IF NECESSARY!

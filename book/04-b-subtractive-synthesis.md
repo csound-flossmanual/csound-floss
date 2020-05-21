@@ -71,7 +71,7 @@ A schematic for this instrument is shown below:
 
    ***EXAMPLE 04B01_Subtractive_Midi.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -Ma
@@ -279,7 +279,7 @@ A flow diagram for this instrument is shown below:
 
    ***EXAMPLE 04B02_Subtractive_timbres.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -446,7 +446,7 @@ A flow diagram for this instrument is shown below:
 
    ***EXAMPLE 04B03_Subtractive_vowels.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac

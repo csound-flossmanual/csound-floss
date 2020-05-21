@@ -88,7 +88,7 @@ main amplitude in dB.
 
    ***EXAMPLE 04A01_AddSynth_simple.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -185,7 +185,7 @@ code and defines the variable values as score parameters:
 
    ***EXAMPLE 04A02_AddSynth_score.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -283,7 +283,7 @@ first example in a shorter (and computationally faster) form:
 
    ***EXAMPLE 04A03_AddSynth_GEN.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -356,7 +356,7 @@ with just the first ten partials for each of these waveforms.
 
    ***EXAMPLE 04A04_Standard_waveforms.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -415,7 +415,7 @@ example triggers any number of partials using this one value:
 
    ***EXAMPLE 04A05_Flexible_number_of_partials.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -464,7 +464,7 @@ synthesized partials played to implement a brightness control.
 
    ***EXAMPLE 04A06_Play_it_with_Midi.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac -Ma
@@ -553,7 +553,7 @@ Catalogue*.[^2]
 
    ***EXAMPLE 04A07_Risset_variations.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac -m0
@@ -654,7 +654,7 @@ increasing force the sound produced will be increasingly altered.
 
    ***EXAMPLE 04A08_Risset_played_by_Midi.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac -m0
@@ -745,7 +745,7 @@ The next example demonstrates this in transforming the Risset bell code (04A07) 
 
    ***EXAMPLE 04A09_risset_bell_rec_udo.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac -m128
@@ -796,16 +796,16 @@ endin
 
 </CsInstruments>
 <CsScore>
-;         base   db   frequency   amplitude 
-;         freq        deviation   deviation 
-;                      in cent     in dB    
+;         base   db   frequency   amplitude
+;         freq        deviation   deviation
+;                      in cent     in dB
 r 2 ;unchanged sound
 i 1 0 5   400    -6   0           0
 r 2 ;variations in frequency
-i 1 0 5   400    -6   50          0         
+i 1 0 5   400    -6   50          0
 r 2 ;variations in amplitude
-i 1 0 5   400    -6   0           10    
-s  
+i 1 0 5   400    -6   0           10
+s
 i "PlayTheBells" 0 1 50 ;perform sequence of 50 bells
 </CsScore>
 </CsoundSynthesizer>
@@ -850,7 +850,7 @@ appear equally spaced.
 
    ***EXAMPLE 04A10_gbuzz.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 
 <CsOptions>
@@ -898,7 +898,7 @@ remains constant but the partial number of the lowest partial rises from
 
    ***EXAMPLE 04A11_gbuzz_partials_rise.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 
 <CsOptions>
@@ -947,7 +947,7 @@ is on the uppermost partial.
 
    ***EXAMPLE 04A12_gbuzz_amp_coeff_rise.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 
 <CsOptions>
@@ -1033,7 +1033,7 @@ interval between partials. Instrument 3 employs a more complex waveform
 
    ***EXAMPLE 04A13_hsboscil.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac -m0

@@ -37,7 +37,7 @@ simple example:
 
    ***EXAMPLE 03A01\_Init-pass.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsInstruments>
 
@@ -124,7 +124,7 @@ Let us see some code examples to illustrate these basic contexts.
 
    ***EXAMPLE 03A02\_Perf-pass\_incr.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsInstruments>
 sr = 44100
@@ -181,7 +181,7 @@ changed.
 
    ***EXAMPLE 03A03\_Perf-pass\_incr\_listen.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -243,7 +243,7 @@ starts from the same point, and nothing really happens:
 
    ***EXAMPLE 03A04\_Perf-pass\_no\_incr.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsInstruments>
 sr = 44100
@@ -287,7 +287,7 @@ with the audio samples.
 
    ***EXAMPLE 03A05\_Audio\_vector.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsInstruments>
 sr = 44100
@@ -348,7 +348,7 @@ summarize and illustrate all the aspects in their practical mixture.
 
    ***EXAMPLE 03A06\_Init\_perf\_audio.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -385,7 +385,7 @@ Applications and Concepts
 -------------------------
 
 We will look now at some applications and consequences of what has been showed. We will see how we can use a k-variable at i-time. Then we will at k-signals in an instrument which is called several times. We will explain the concept of re-initialization and have a look at instruments: in which order they are processed, how named instruments work, and how we can use fractional instrument numbers.
- 
+
 
 ### Accessing the Initialization Value of a k-Variable
 
@@ -404,7 +404,7 @@ facility. This is a simple example:
 
    ***EXAMPLE 03A07\_Init-values\_of\_k-variables.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -481,7 +481,7 @@ cycle.
 
    ***EXAMPLE 03A08\_k-inits\_in\_multiple\_calls\_1.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -nm0
@@ -537,7 +537,7 @@ range at initialization, Csound will report an error, or even crash:
 
    ***EXAMPLE 03A09\_k-inits\_in\_multiple\_calls\_2.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -nm0
@@ -615,7 +615,7 @@ initialization or not, and the resulting effect.
 
    ***EXAMPLE 03A10\_k-inits\_in\_multiple\_calls\_3.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -nm0
@@ -686,7 +686,7 @@ need to be, so that the inadvertend tone disappears.
 
    ***EXAMPLE 03A11\_a\_inits\_in\_multiple\_calls.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -753,7 +753,7 @@ you cannot expect this to work as an incrementation:
 
    ***EXAMPLE 03A12\_Init\_no\_incr.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsInstruments>
 sr = 44100
@@ -784,7 +784,7 @@ cause the i-variable to refresh. Use rireturn to end the reinit section.
 
    ***EXAMPLE 03A13\_Re-init.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsInstruments>
 sr = 44100
@@ -845,7 +845,7 @@ instrument 1, then a value of instrument 100.
 
    ***EXAMPLE 03A14\_Order\_of\_calc.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsInstruments>
 sr = 44100
@@ -925,7 +925,7 @@ this ...
 
    ***EXAMPLE 03A15\_Order\_of\_calc\_named.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -nd
@@ -988,7 +988,7 @@ Sometimes we want to call severall instances of an instrument, but we want to tr
 
    ***EXAMPLE 03A16_FractionalInstrNums.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m128
@@ -1122,7 +1122,7 @@ dB amplitude, you produce white noise.
 
    ***EXAMPLE 03A17\_Random\_at\_ika.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -1208,7 +1208,7 @@ so the envelope will always be smooth. — Instrument 3 shows a remedy for situa
 
    ***EXAMPLE 03A18\_Zipper.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -1269,7 +1269,7 @@ per second) to illustrate this.
 
    ***EXAMPLE 03A19\_Time\_Impossible.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -o test.wav -d
@@ -1370,7 +1370,7 @@ whichs values are between 0 and 1/10000. They are then multiplied by
 
 ***EXAMPLE 03A20\_Sample\_by\_sample\_processing.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m128
@@ -1486,7 +1486,7 @@ zero as initial value.
 
 ***EXAMPLE 03A21\_Init\_explcit\_implicit.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 </CsOptions>
@@ -1546,7 +1546,7 @@ not take place.
 
 ***EXAMPLE 03A22\_Init\_overwrite.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -nm0
@@ -1606,7 +1606,7 @@ any k-rate if-clause initializes its expressions, in this case the
 
 ***EXAMPLE 03A23\_Init\_hidden\_in\_if.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -m128
@@ -1678,7 +1678,7 @@ output as instrument 1.
 
 ***EXAMPLE 03A24\_Init\_hidden\_in\_udo.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -m128

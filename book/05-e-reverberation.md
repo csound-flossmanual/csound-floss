@@ -60,7 +60,7 @@ of a space with soft surfaces such as thick carpets and heavy curtains.
 
    ***EXAMPLE 05E01_freeverb.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac ; activates real time sound output
@@ -98,7 +98,7 @@ i 5 0 300 ; start reverb
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
+~~~Csound
 
 
 The *second method* uses Csound's *zak patching system* to send audio from
@@ -147,7 +147,7 @@ pass filters within the algorithm.
 
    ***EXAMPLE 05E02_reverbsc.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac ; activates real time sound output
@@ -188,7 +188,7 @@ i 5 0 12 ; start reverb
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
+~~~Csound
 
 *reverbsc* contains a mechanism to modulate delay times internally which
 has the effect of harmonically blurring sounds the longer they are
@@ -208,7 +208,7 @@ bus and the Csound API.
 
    ***EXAMPLE 05E03_reverb_with_chn.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac ; activates real time sound output
@@ -245,7 +245,7 @@ i 5 0 12 ; start reverb
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
+~~~Csound
 
 
 The Schroeder Reverb Design
@@ -268,7 +268,7 @@ and ringing artefacts. The results produced by the freeverb opcode are
 very smooth but a criticism might be that it is lacking in character and
 is more suggestive of a plate reverb than of a real room.
 
-![](../resources/images/05-e-soundmod-schroeder.jpg)
+![](../resources/images/05-e-soundmod-schroeder-min.jpg)
 
 The next example implements the basic Schroeder reverb with four
 parallel comb filters followed by three series allpass filters. This
@@ -299,7 +299,7 @@ instruments 2 to 4.
 
    ***EXAMPLE 05E04_schroeder_reverb.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m128
@@ -407,7 +407,7 @@ e
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
+~~~Csound
 
 
 This chapter has introduced some of the more recent Csound opcodes for

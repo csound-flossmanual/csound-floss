@@ -27,7 +27,7 @@ intensity $I_0$ as follows:
 
 <center>
 <p style="border:1px; border-style:solid; text-align:center; display:inline-block; padding: 1em;">
-$\log_{10} \frac{I}{I_0}$  
+$\log_{10} \frac{I}{I_0}$
 *Sound Intensity Level in Bel*
 </p></center>
 
@@ -42,7 +42,7 @@ measuring a sound intensity is:
 
 <center>
 <p style="border:1px; border-style:solid; text-align:center; display:inline-block; padding: 1em;">
-$10 \cdot \log_{10} \frac{I}{I_0}$  
+$10 \cdot \log_{10} \frac{I}{I_0}$
 *Sound Intensity Level (SIL) in deci Bel (dB) with
 I~0~ = 10 ^-12^ W/m^2^*
 </p></center>
@@ -62,7 +62,7 @@ $P$. As a formula:
 
 <center>
 <p style="border:1px; border-style:solid; text-align:center; display:inline-block; padding: 1em;">
-$$I \propto P^2$$  
+$$I \propto P^2$$
 *Relation between Sound Intensity and Sound Pressure*
 </p></center>
 
@@ -96,7 +96,7 @@ intensity and amplitudes:
 
 <center>
 <p style="border:1px; border-style:solid; text-align:center; display:inline-block; padding: 1em;">
-$$I \propto A^2$$  
+$$I \propto A^2$$
 *Relationship between Intensity and Amplitude*
 </p></center>
 
@@ -106,7 +106,7 @@ amplitude $A_0$ is:
 
 <center>
 <p style="border:1px; border-style:solid; text-align:center; display:inline-block; padding: 1em;">
-$$20 \cdot \log_{10} \frac{A}{A_0}$$  
+$$20 \cdot \log_{10} \frac{A}{A_0}$$
 *Decibel (dB) Scale of Amplitudes*
 </p></center>
 
@@ -173,7 +173,7 @@ over 10 seconds.
 
    ***EXAMPLE 01C01\_db\_vs\_linear.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -253,7 +253,7 @@ reduced. This is an example^[cf Martin Neukom, Signale Systeme Klangsynthese, ZÃ
 
    ***EXAMPLE 01C02_rms_feedback_system.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -297,7 +297,6 @@ i 1 61 . 2          ;two random movements of delay with feedback
 
 
 
-
 Fletcher-Munson Curves
 ----------------------
 
@@ -328,7 +327,7 @@ not hear anything in the bass region.
 
    ***EXAMPLE 01C03_FletcherMunson.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac

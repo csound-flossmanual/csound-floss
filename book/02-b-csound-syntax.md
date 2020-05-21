@@ -61,7 +61,7 @@ be used by Csound.
 
    ***EXAMPLE 02B01\_DocStruct.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>; START OF A CSOUND FILE
 
 <CsOptions> ; CSOUND CONFIGURATION

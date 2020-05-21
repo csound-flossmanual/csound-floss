@@ -80,7 +80,7 @@ audio samples).
 
    ***EXAMPLE 04G01_Mass_spring_sine.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -n ;no sound
@@ -137,7 +137,7 @@ Here is the audible proof:
 
    ***EXAMPLE 04G02_MS_sine_audible.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -186,7 +186,7 @@ spring constant, which is now no longer a constant:
 
    ***EXAMPLE 04G03_MS_variable_constant.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -323,7 +323,7 @@ input)
 
    ***EXAMPLE 04G04_lin_reson.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -397,7 +397,7 @@ Example 6: *a* = *f*(*x*) = -- *c*~1~x + *c*~2~sin(*c*~3~x)
 
    ***EXAMPLE 04G05_nonlin_reson.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -450,7 +450,7 @@ While attempting to explain the nonlinear dynamics of vacuum tube
 circuits, the Dutch electrical engineer Balthasar van der Pol derived
 the differential equation
 
-$d^2 x / d t^2 = -\omega^2 x + \mu(1 - x^2) dx/dt$  
+$d^2 x / d t^2 = -\omega^2 x + \mu(1 - x^2) dx/dt$
 (where $d^2 x /d t^2 =$ accelleration and $dx/dt$ = velocity)
 
 The equation describes a linear oscillator d^2^*x*/d*t*^2^ =
@@ -510,7 +510,7 @@ frequency increases as *kmu* and *kaex* increase.
 
    ***EXAMPLE 04G06_van_der_pol.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -616,7 +616,7 @@ result after each five steps which here is referred to as one cycle:
 
    ***EXAMPLE 04G07_KarplusStrong.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -n
@@ -705,7 +705,7 @@ sounds, if the buffer size is 1/100 second (or 441 samples at sr=44100):
 
    ***EXAMPLE 04G08_Plucked.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -804,7 +804,7 @@ to create a stereo effect and a reverb has been added.
 
    ***EXAMPLE 04G09_wgbow.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -882,7 +882,7 @@ and some reverb is added.
 
    ***EXAMPLE 04G10_wgbow_enhanced.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -1010,7 +1010,7 @@ over the frequency at which the scanning location is modulated.
 
    ***EXAMPLE 04G11_barmodel.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -1110,7 +1110,7 @@ with some more extreme conditions.
 
    ***EXAMPLE 04G12_PhiSEM.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -1220,6 +1220,3 @@ in the chapters
 [Models and Emulations](https://csound.com/docs/manual/SiggenModels.html),
 [Scanned Synthesis](https://csound.com/docs/manual/SiggenScanTop.html) and
 [Waveguide Physical Modeling](https://csound.com/docs/manual/SiggenWavguide.html) of the [Csound Manual](https://csound.com/docs/manual/index.html).
-
-
-

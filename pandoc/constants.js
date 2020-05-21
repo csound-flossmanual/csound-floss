@@ -22,6 +22,8 @@ const MARKDOWN_EXTENSIONS = [
   "citations",
   "footnotes",
   "definition_lists",
+  "raw_tex",
+  "raw_attribute",
 ];
 
 module.exports = {

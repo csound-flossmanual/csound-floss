@@ -97,7 +97,7 @@ output argument, and throw it to both output channels:[^1]
 
    ***EXAMPLE 03C01\_IfThen\_i.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -138,7 +138,7 @@ equal or below 0.5, the gate closes, and you hear nothing.
 
    ***EXAMPLE 03C02\_IfThen\_k.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -190,7 +190,7 @@ For instance, the last example could be written in this way:
 
    ***EXAMPLE 03C03\_IfThen\_short\_form.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -274,7 +274,7 @@ statement:
 
    ***EXAMPLE 03C04\_IfGoto\_i.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 --env:SSDIR+=../SourceMaterials -odac
@@ -312,7 +312,7 @@ soundin opcode) but also at k-time (producing an audio signal). So *goto* must b
 
    ***EXAMPLE 03C05\_IfGoto\_ik.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -353,7 +353,7 @@ a moving gate between 0 and 1:
 
    ***EXAMPLE 03C06\_IfGoto\_k.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -405,7 +405,7 @@ created using the if-i/kgoto facility:
 
    ***EXAMPLE 03C07\_Loops\_with\_if.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -473,7 +473,7 @@ The following .csd provides a simple example for all four loop opcodes:
 
    ***EXAMPLE 03C08\_Loop\_opcodes\_i.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -528,7 +528,7 @@ out:
 
    ***EXAMPLE 03C09\_Random\_string.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -nm0
@@ -566,7 +566,7 @@ values by instrument 2.
 
    ***EXAMPLE 03C10\_Random\_ftable\_fill.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -nm0
@@ -613,7 +613,7 @@ here:
 
    ***EXAMPLE 03C11\_Table\_random\_dev.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -674,7 +674,7 @@ a simple example at i-rate:
 
    ***EXAMPLE 03C12\_while\_until\_i-rate.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -nm0
@@ -742,7 +742,7 @@ turned off after the third cycle.
 
    ***EXAMPLE 03C13\_while\_until\_k-rate.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -nm0
@@ -840,7 +840,7 @@ is 3 seconds for the first note, and 5 seconds for the second note:
 
    ***EXAMPLE 03C14\_Timout\_pre.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -874,7 +874,7 @@ and five times for the second note:
 
    ***EXAMPLE 03C15\_Timout\_basics.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -935,7 +935,7 @@ instrument:
 
    ***EXAMPLE 03C16\_Timeloop\_and\_not.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -979,7 +979,7 @@ This can be done either by referring to the duration of this note (p3)
 
    ***EXAMPLE 03C17\_Timout\_different\_durations.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -1016,7 +1016,7 @@ pass, for instance by random values:
 
    ***EXAMPLE 03C18\_Timout\_random\_durations.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -1065,7 +1065,7 @@ pitch,creating a glissando effect:
 
    ***EXAMPLE 03C19\_Timout\_trigger\_events.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -1119,7 +1119,7 @@ and so on. Here is a possible solution:
 
    ***EXAMPLE 03C20\_Timout\_random\_envelope.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -1176,7 +1176,7 @@ Below is a simple example for calling a subinstrument twice per second:
 
    ***EXAMPLE 03C21\_Timeloop\_metro.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -1214,7 +1214,7 @@ with the *metro* opcode in this way:
 
    ***EXAMPLE 03C22_Metro_trigger_events.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -1307,7 +1307,7 @@ the *metro* opcode did, but now by using the internal clock.[^3]
 
    ***EXAMPLE 03C23_Timeloop_Internal_Clock.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m0
@@ -1353,7 +1353,7 @@ the internal clock approach.
 
    ***EXAMPLE 03C24_Internal_clock_trigger_events.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m0
@@ -1401,7 +1401,7 @@ Another surprisingly simple method for a loop in time is self-triggering: When a
 
    ***EXAMPLE 03C25_self_triggering.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m128
@@ -1445,7 +1445,7 @@ In our example, this problem has been solved the brutal way: to exit Csound. Muc
 
    ***EXAMPLE 03C26_recursion.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m128
@@ -1490,4 +1490,3 @@ Recursion is in particular important for User Defined Opcodes. Recursive UDOs wi
       can also be written without parentheses.
 [^3]: To say the truth, *metro* is more precise. But this can be neglected
       for live situations for which this approach is mainly meant to be used.
-

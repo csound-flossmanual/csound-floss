@@ -62,10 +62,12 @@ Once you have successfully added this folder, including the CsoundObj
 class (the class that manages Csound on iOS) is as simple as adding an
 import statement to the class. For example:
 
+~~~C
     //
     // ViewController.h
     //
     #import "CsoundObj.h"
+~~~
 
 Note that this only makes the CsoundObj class available, which provides
 an interface for Csound. There are other objects containing UI and
@@ -86,6 +88,7 @@ file).
 Once this is done, navigate to the bridging header in Xcode and add your
 Objective-C `#import` statements here. For example:
 
+~~~C
     //
     // CsoundiOS_ExampleSwift-Bridging-Header.h
     // CsoundiOS_ExampleSwift
@@ -97,6 +100,7 @@ Objective-C `#import` statements here. For example:
     #import "CsoundObj.h"
 
     #endif /* CsoundiOS_ExampleSwift_Bridging_Header_h */
+~~~
 
 You do not need to add any individual import statements to Swift files,
 CsoundObj's functionality should be accessible in your *.swift* files
@@ -110,6 +114,7 @@ The first thing we will do so that we can play a *.csd* file is add our
 this case named *test.csd*) that plays a sine tone with a frequency of
 440Hz for ten seconds. Sample Csound code for this is:
 
+~~~Csound
     <CsoundSynthesizer>
     <CsOptions>
     -odac
@@ -131,6 +136,7 @@ this case named *test.csd*) that plays a sine tone with a frequency of
     i1 0 10
     </CsScore>
     </CsoundSynthesizer>
+~~~
 
 We will add this to our Xcode project by dragging and dropping it into
 our project's main folder, making sure to select *Copy items if
@@ -140,6 +146,7 @@ In order to play this *.csd* file, we must first create an instance of the
 CsoundObj class. We can do this by creating a property of our class as
 follows, in our .h file (for example, in ViewController.h):
 
+~~~C
     //
     // ViewController.h
     // CsoundiOS_ExampleProject
@@ -153,12 +160,14 @@ follows, in our .h file (for example, in ViewController.h):
     @property CsoundObj *csound;
 
     @end
+~~~
 
 Once we've done this, we can move over to the corresponding `.m` file (in
 this case, ViewController.m) and instantiate our Csound object. Here we
 will do this in our *viewDidLoad* method, that is called when our
 ViewController's view loads.
 
+~~~C
     //
     // ViewController.m
     // CsoundiOS_ExampleProject
@@ -173,6 +182,7 @@ ViewController's view loads.
         // Allocate memory for and initialize a CsoundObj
         self.csound = [[CsoundObj alloc] init];
     }
+~~~
 
 Note: in order to play our *.csd* file, we must first get a path to it
 that we can give Csound. Because part of this path can vary depending on
@@ -184,6 +194,8 @@ The *.csd* file is copied as a resource (you can see this under the *Build
 Phases* tab in your target's settings), and so we will access it and
 tell Csound to play it as follows:
 
+
+~~~C
     - (void)viewDidLoad {
         [super viewDidLoad];
         self.csound = [[CsoundObj alloc] init];
@@ -191,9 +203,11 @@ tell Csound to play it as follows:
         NSString *pathToCsd = [[NSBundle mainBundle] pathForResource: @"test" ofType:@ "csd"];
         [self.csound play:pathToCsd];
     }
+~~~
 
 Note that in Swift, this is a little easier and we can simply use:
 
+~~~Swift
     import UIKit
     class ViewController: UIViewController {
         var csound = CsoundObj()
@@ -204,6 +218,7 @@ Note that in Swift, this is a little easier and we can simply use:
             self.csound.play(pathToCsd)
         }
     }
+~~~
 
 With this, the test.csd file should load and play, and we should hear a
 ten-second long sine tone shortly after the application runs (i.e. when
@@ -218,30 +233,38 @@ Recording and Rendering
 To record the output of Csound in real-time, instead of the play method,
 use:
 
+~~~C
     // Objective-C
     NSURL *docsDirURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
     NSURL *file = [docsDirURL URLByAppendingPathComponent:@"outputFile.aif"];
     NSString *csdPath = [[NSBundle mainBundle] pathForResource:@"csdToRecord" ofType:@"csd"];
     [self.csound record:csdPath toURL:file];
+~~~
 
+~~~Swift
     // Swift
     let docsDirURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
     let file = docsDirURL.appendingPathComponent("outFile.aif")
     let csdPath = Bundle.main.path(forResource: "csdFile", ofType: "csd")
     csound.record(csdPath, to: file)
+~~~
 
 Alternatively, the `recordToURL` method can be used while Csound is
 already running to begin recording:
 
+~~~C
     // Objective-C
     NSURL *docsDirURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
     NSURL *file = [docsDirURL URLByAppendingPathComponent:@"outputFile.aif"];
     [self.csound recordToURL:file];
+~~~
 
+~~~Swift
     // Swift
     let docsDirURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
     let file = docsDirURL.appendingPathComponent("outFile.aif")
     csound.record(to: file)
+~~~
 
 Note: the `stopRecording` method is used to stop recording without also
 stopping Csound's real-time rendering.
@@ -253,17 +276,21 @@ You can also render a *.csd* to an audio file offline. To render Csound
 offline to disk, use the record:toFile: method, which takes a path
 rather than a URL as its second argument. For example:
 
+~~~C
     // Objective-C
     NSString *docsDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
     NSString *file = [docsDir stringByAppendingPathComponent:@"outFile.aif"];
     NSString *csdPath = [[NSBundle mainBundle] pathForResource:@"csdFile" ofType:@"csd"];
     [self record:csdPath toFile:file];
+~~~
 
+~~~Swift
     // Swift
     let docsDir = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
     let file = docsDir.appending("/outFile.aif")
     let csdPath = Bundle.main.path(forResource: "csdFile", ofType: "csd")
     csound.record(csdPath, toFile: file)
+~~~
 
 These demonstrations above save the audio files in the app's documents
 directory, which allows write access for file and subdirectory storage
@@ -282,11 +309,15 @@ between iOS and Csound, it can, in many cases, abstract the process of
 setting up a UI object binding to a single line of code. To initialize a
 CsoundUI object, we must give it a reference to our Csound object:
 
+~~~C
     //Objective-C
     CsoundUI *csoundUI = [[CsoundUI alloc] initWithCsoundObj: self.csound];
+~~~
 
+~~~Swift
     // Swift
     var csoundUI = CsoundUI(csoundObj: csound)
+~~~
 
 Normally, however, these objects are declared as properties rather than
 locally in methods. As mentioned, CsoundUI uses named channels for
@@ -294,23 +325,26 @@ communicating to and from Csound. Once set-up, values passed to these
 named channels are normally accessed through the chnget opcode, for
 example:
 
+~~~Csound
     instr 1
     kfreq chnget "frequency"
     asig oscil 0.5 , kfreq
     outs asig , asig
     endin
+~~~
 
 Conversely, in order to pass values from Csound, the chnset opcode is
 normally used with two arguments. The first is the variable, and it is
 followed by the channel name:
 
+~~~Csound
     instr 1
     krand randomi 300 , 2000 , 1 , 3
     asig poscil 0.5 , krand
     outs asig , asig
     chnset krand , "randFreq"
     endin
-
+~~~
 
 ### UIButton Binding
 
@@ -318,11 +352,15 @@ The UIButton binding is predominantly contained within the
 CsoundButtonBinding class, which CsoundUI uses to create individual
 button bindings. To add a button binding, use:
 
+~~~C
     //Objective-C
     [self.csoundUI addButton:self.button forChannelName:"channelName"];
+~~~
 
+~~~Swift
     // Swift
     csoundUI.add(button, forChannelName: "channelName")
+~~~
 
 Where `self.button` is the button you would like to bind to, and the
 string *channelName* contains the name of the channel referenced by
@@ -333,6 +371,7 @@ touched, and reset to 0 when it is released. A simple example of how
 this might be used in Csound, based on the pvscross example by Joachim
 Heintz, is shown below:
 
+~~~Csound
     instr 1
     kpermut chnget "crossToggle "
     ain1 soundin "fox .wav"
@@ -352,7 +391,7 @@ Heintz, is shown below:
     aout pvsynth fcross
     out aout
     endin
-
+~~~
 
 ### UISwitch Binding
 
@@ -361,16 +400,21 @@ and a named channel in Csound. This binding is managed in the
 CsoundSwitchBinding class and you can create a UISwitch binding by
 using:
 
+~~~C
     //Objective-C
     [self.csoundUI addSwitch:self.uiSwitch forChannelName:"channelName"];
+~~~
 
+~~~Swift
     // Swift
     csoundUI.add(switch, forChannelName: "channelName")
+~~~
 
 As in the case of the UIButton binding, the UISwitch binding provides an
 on-off state value (1 or 0 respectively) to Csound. Below we use it to
 turn on or off a simple note generator:
 
+~~~Csound
     ; Triggering instrument
     instr 1
     kTrigFreq randomi gkTrigFreqMin , gkTrigFreqMax , 5
@@ -392,7 +436,7 @@ turn on or off a simple note generator:
     asig oscil iamp * aenv , cpspch(ipch) , 1
     outs asig * ipan , asig * (1 - ipan)
     endin
-
+~~~
 
 ### UILabel Binding
 
@@ -400,17 +444,22 @@ The UILabel binding allows you to display any value from Csound in a
 UILabel object. This can often be a helpful way of providing feedback to
 the user. You can add a label binding with:
 
+~~~C
     //Objective-C
     [self.csoundUI addLabel:self.label forChannelName:"channelName"];
+~~~
 
+~~~Swift
     // Swift
     csoundUI.add(label, forChannelName: "channelName")
+~~~
 
 However, in this case the channel is an output channel. To demonstrate,
 let us add an output channel in Csound to display the frequency of the
 sound generating instrument's oscillator from the previous example (for
 UISwitch):
 
+~~~Csound
     ; Triggering instrument
     instr 1
     kTrigFreq randomi gkTrigFreqMin , gkTrigFreqMax , 5
@@ -433,6 +482,7 @@ UISwitch):
     chnset cpspch(ipch) , " pitchOut "
     outs asig * ipan , asig * (1 - ipan)
     endin
+~~~
 
 Note additionally that the desired precision of the value display can be
 set beforehand using the labelPrecision property of the CsoundUI object.
@@ -448,12 +498,16 @@ allows the value of a UISlider object to be passed to Csound whenever it
 changes. This is set up in the CsoundSliderBinding class and we access
 it via CsoundUI using:
 
+~~~C
     // Objective-C
     [self.csoundUI addSlider:self.slider
     forChannelName:"channelName"];
+~~~
 
+~~~Swift
     // Swift
     csoundUI.add(slider, forChannelName: "channelName")
+~~~
 
 Note that this restricts you to using the slider's actual value, rather
 than a rounded verion of it or some other variation, which would
@@ -461,6 +515,7 @@ normally be best suited to a manual value binding, which is addressed
 later in this guide. An example is provided below of two simple such
 UISlider-bound values in Csound:
 
+~~~Csound
     sr = 44100
     ksmps = 128
     nchnls = 2
@@ -476,6 +531,7 @@ UISlider-bound values in Csound:
     asig poscil kamp , kfreq
     outs asig , asig
     endin
+~~~
 
 Above we get around being restricted to the value of the UISlider by
 creating an exponential distribution in Csound. Of course we could
@@ -497,14 +553,19 @@ touched, passing this to Csound on the next k-cycle, and immediately
 resetting it to 0 after passing it. This is all occurring predominantly
 in the CsoundMomentaryButtonBinding class, which we access using:
 
+~~~C
     // Objective-C
     [self.csoundUI addMomentaryButton:self.triggerButton forChannelName:"channelName"];
+~~~
 
+~~~Swift
     // Swift
     csoundUI.addMomentaryButton(triggerButton, forChannelName: "channelName")
+~~~
 
 Here's a simple usage example:
 
+~~~Csound
     ; Triggering instrument
     instr 1
     ktrigger chnget " noteTrigger "
@@ -522,6 +583,7 @@ Here's a simple usage example:
     chnset cpspch(ipch) , " pitchOut "
     outs asig * ipan , asig * (1 - ipan)
     endin
+~~~
 
 This replaces the automatic instrument triggering with a manual trigger.
 Every time the UIButton is touched, a note (by way of an instance of
@@ -543,11 +605,15 @@ they are pre-assigned by the relevant objects (e.g. "AccelerometerX").
 
 To declare and initialize a CsoundMotion object, use:
 
+~~~C
     // Objective-C
     CsoundMotion *csoundMotion = [[CsoundMotion alloc] initWithCsoundObj:self.csound];
+~~~
 
+~~~Swift
     // Swift
     var csoundMotion = CsoundMotion(csoundObj: csound)
+~~~
 
 As with CsoundUI, it may often be advantageous to declare the
 CsoundMotion object as a property rather than locally.
@@ -562,12 +628,15 @@ iOS device's accelerometer data along its three axes (X, Y, Z). The
 accelerometer is a device that measures acceleration, aiding in several
 basic interactions. To enable it, use:
 
+~~~C
     // Objective-C
     [csoundMotion enableAccelerometer];
+~~~
 
+~~~Swift
     // Swift
     csoundMotion.enableAccelerometer()
-
+~~~
 
 ### Gyroscope Binding
 
@@ -578,12 +647,15 @@ accelerometer is a device that allows rotational velocity to be
 determined, and together with the accelerometer forms a system with six
 degrees of freedom. To enable it, use:
 
+~~~C
     // Objective-C
     [csoundMotion enableGyroscope];
+~~~
 
+~~~Swift
     // Swift
     csoundMotion.enableGyroscope()
-
+~~~
 
 ### Attitude Binding
 
@@ -595,11 +667,15 @@ CsoundMotion enables this as three Euler angle valies: *roll*, *pitch*,
 and *yaw* (rotation around X, Y, and Z respectively). To enable the
 attitude binding, use:
 
+~~~C
     // Objective-C
     [csoundMotion enableAttitude];
+~~~
 
+~~~Swift
     // Swift
     csoundMotion.enableAttitude()
+~~~
 
 Together, these bindings enable control of Csound parameters with device
 motion in ways that are very simple and straightforward. In the
@@ -615,6 +691,7 @@ and demonstrates uses for some of it. This example is taken from the
 [Csound for iOS Examples](https://github.com/csound/csound/tree/develop/iOS)
  project.
 
+~~~Csound
     instr 1
     kaccelX chnget " accelerometerX "
     kaccelY chnget " accelerometerY "
@@ -636,6 +713,7 @@ and demonstrates uses for some of it. This example is taken from the
     aL , aR reverbsc a1 , a1 , .72 , 5000
     outs aL , aR
     endin
+~~~
 
 Each of the channel names is shown here, and each corresponds to what is
 automatically set in the relevant binding. A little experimenting can be
@@ -653,6 +731,7 @@ values to Csound using named channels that can be referenced in your
 *.csd* file using opcodes like chnget and chnset, as described in the
 earlier section on CsoundUI. The protocol definition from CsoundObj is:
 
+~~~C
     @protocol CsoundBinding <NSObject>
     - (void)setup:(CsoundObj*)csoundObj;
     @optional
@@ -660,15 +739,20 @@ earlier section on CsoundUI. The protocol definition from CsoundObj is:
     - (void)updateValuesFromCsound;
     - (void)updateValuesToCsound;
     @end
+~~~
 
 In order to add a binding object to Csound, use CsoundObj's addBinding
 method:
 
+~~~C
     // Objective-C
     [self.csound addBinding:self];
+~~~
 
+~~~Swift
     // Swift
     csound.addBinding(self)
+~~~
 
 Note that you will need to conform to the CsoundBinding protocol, and
 implement. at minimum, the required setup method. The CsoundBinding
@@ -696,6 +780,7 @@ context here implies that kverb received its value from an input control
 channel named *verbMix*, and that *asig* outputs to an audio channel
 named *samples*.
 
+~~~Csound
     giSqr ftgen 2, 0, 8192, 10, 1,0,.33,0,.2,0,.14,0,.11,0,.09
 
     instr 1
@@ -707,6 +792,7 @@ named *samples*.
     chnset asig , " samples "
     outs asig , asig
     endin
+~~~
 
 The section that follows will describe how to set up and pass values to
 and from this instrument's channels in an iOS application.
@@ -717,6 +803,7 @@ and from this instrument's channels in an iOS application.
 The *setup* method is called before Csound's first performance pass, and
 this is typically where channel references are created. For example:
 
+~~~C
     // Objective-C
     // verbPtr and samplesPtr are instance variables of type float*
 
@@ -724,7 +811,9 @@ this is typically where channel references are created. For example:
         verbPtr = [csoundObj getInputChannelPtr:@"verbMix" channelType:CSOUND_CONTROL_CHANNEL];
         samplesPtr = [csoundObj getOutputChannelPtr:@"samples" channelType:CSOUND_AUDIO_CHANNEL];
     }
+~~~
 
+~~~Swift
     // Swift
     var verbPtr: UnsafeMutablePointer<Float>?
     var samplesPtr: UnsafeMutablePointer<Float>?
@@ -733,22 +822,26 @@ this is typically where channel references are created. For example:
         verbPtr = csoundObj.getInputChannelPtr("verbMix", channelType: CSOUND_CONTROL_CHANNEL)
         samplesPtr = csoundObj.getOutputChannelPtr("samples", channelType: CSOUND_AUDIO_CHANNEL)
     }
+~~~
 
 The *cleanup* method from CsoundBinding, also optional, is intended for
 use in removing bindings once they are no longer active. This can be
 done using CsoundObj's removeBinding method:
 
+~~~C
     // Objective-C
     // verbPtr and samplesPtr are instance variables of type float*
     -(void)cleanup {
         [self.csound removeBinding:self];
     }
+~~~
 
+~~~Swift
     // Swift
     func cleanup() {
         csound.removeBinding(self)
     }
-
+~~~
 
 ### Communicating Values To and From Csound
 
@@ -756,15 +849,19 @@ Communicating values to Csound is normally handled in the
 `updateValuesToCsound` method. This method is called once per performance
 pass (i.e. at the k-rate). For example:
 
+~~~C
     // Objective-C
     -(void)updateValuesToCsound {
         *verbPtr = self.verbSlider.value;
     }
+~~~
 
+~~~Swift
     // Swift
     func updateValuesToCsound() {
         verbPtr?.pointee = verbSlider.value
     }
+~~~
 
 This updates the value at a memory location that Csound has already
 associated with a named channel (in the setup method). This process has
@@ -774,20 +871,24 @@ on the slider value, or associate another value (that might not be
 associated with a UI object) with the channel altogether. To pass values
 back from Csound, we use the updateValuesFromCsound method.
 
+~~~C
     // Objective-C
     -(void)updateValuesFromCsound {
         float *samps = samplesPtr;
     }
+~~~
 
 Note that in Swift, we have do a little extra work in order to get an
 array of samples that we can easily index into:
 
+~~~Swift
     // Swift
     func updateValuesFromCsound() {
         let samps = samplesPtr?.pointee
         let sampsArray = [Float](UnsafeBufferPointer(start: audioPtr,
         count: Int(csound.getKsmps())))
     }
+~~~
 
 Note also that `updateValuesToCsound is called before
 `updateValuesFromCsound` during each performance pass, with the Csound
@@ -801,11 +902,13 @@ The *CsoundObjListener* protocol allows objects in your program to be
 notified when Csound begins running, and when it completes running. The
 protocol definition from CsoundObj is:
 
+~~~C
     @protocol CsoundObjListener <NSObject>
     @optional
     - (void)csoundObjStarted:(CsoundObj *)csoundObj;
     - (void)csoundObjCompleted:(CsoundObj *)csoundObj;
     @end
+~~~
 
 Note that there are no methods that an object is required to adopt in
 order to conform to this protocol. These methods simply allow an object
@@ -813,6 +916,7 @@ to elect to be notified when Csound either begins, completes running, or
 both. Note that these methods are not called on the main thread, so any
 UI work must be explicitly run on the main thread. For example:
 
+~~~C
     // Objective-C
     -(void)viewDidLoad {
         [super viewDidLoad];
@@ -821,7 +925,9 @@ UI work must be explicitly run on the main thread. For example:
     - (void)csoundObjStarted:(CsoundObj *)csoundObj {
         [self.runningLabel performSelectorOnMainThread:@selector(setText:) withObject:@"Csound Running" waitUntilDone:NO];
     }
+~~~
 
+~~~Swift
     // Swift
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -832,7 +938,7 @@ UI work must be explicitly run on the main thread. For example:
             self.runningLabel.text = "Csound Stopped"
         }
     }
-
+~~~
 
 Console Output
 --------------
@@ -842,22 +948,28 @@ method that handles console info using CsoundObj's
 setMessageCallbackSelector method, and passing in an appropriate
 selector, for instance:
 
+~~~C
     // Objective-C
     [self.csound setMessageCallbackSelector:@selector(printMessage:)];
+~~~
 
+~~~Swift
     // Swift
     csound.setMessageCallbackSelector(#selector(printMessage(_:)))
+~~~
 
 An object of type NSValue will be passed in. This object is acting as a
 wrapper for a C struct of type Message. The definition for Message in
 *CsoundObj.h* is:
 
+~~~C
     typedef struct {
         CSOUND *cs;
         int attr;
         const char *format;
         va_list valist;
     } Message;
+~~~
 
 The two fields of interest to us for the purposes of console output are
 format and valist. The former is a format string, and the latter
@@ -873,8 +985,7 @@ The process demonstrated in the code examples below can be described as:
     output string.
 5.  Wrap this C string in an Objective-C NSString or Swift String.
 
-<!-- -->
-
+~~~C
     // Objective-C
     - (void)printMessage:(NSValue *)infoObj
         Message info;
@@ -884,10 +995,12 @@ The process demonstrated in the code examples below can be described as:
         NSString *messageStr = [NSString stringWithFormat:@"%s", message];
         NSLog(@"%@", messageStr);
     }
+~~~
 
 Note that in Swift, we have to create a `CVaListPointer` (equivalent to a
 `va_list *` in C) for use with the `vsnprintf()` function:
 
+~~~Swift
     // Swift
     func messageCallback(_ infoObj: NSValue) {
         var info = Message()
@@ -898,6 +1011,7 @@ Note that in Swift, we have to create a `CVaListPointer` (equivalent to a
         let messageStr = String(cString: message)
         print(messageStr)
     }
+~~~
 
 In both cases above, we are printing the resulting string objects to
 Xcode's console. This can be very useful for finding and addressing
@@ -931,17 +1045,21 @@ case, the MidiWidgetsManager uses a MidiWidgetsWrapper to connect a MIDI
 CC to a UI object, and then CsoundUI can be used to connect this UI
 object's value to a named channel in Csound. For instance:
 
+~~~C
     // Objective-C
     MidiWidgetsManager *widgetsManager = [[MidiWidgetsManager alloc] init];
     [widgetsManager addSlider:self.cutoffSlider forControllerNumber:5];
     [csoundUI addSlider:self.cutoffSlider forChannelName:@"cutoff"];
     [widgetsManager openMidiIn];
+~~~
 
+~~~Swift
     // Swift
     let widgetsManager = MidiWidgetsManager()
     widgetsManager.add(cutoffSlider, forControllerNumber: 5)
     csoundUI?.add(cutoffSlider, forChannelName: "cutoff")
     widgetsManager.openMidiIn()
+~~~
 
 An advantage of this variant is that MIDI connections to the UI widgets
 are active even when Csound is not running, so visual feedback can still
@@ -998,7 +1116,3 @@ Additionally, `getKsmps` returns the current *ksmps* value, and
 `getNumChannels` returns the number of audio channels in use by the
 current Csound instance. These both act directly as wrappers to Csound C
 API functions.
-
-
-
-

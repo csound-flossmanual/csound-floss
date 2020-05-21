@@ -48,7 +48,7 @@ spectral richness.
 
    ***EXAMPLE 05C01_tone_butlp_moogladder.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac ; activates real time sound output
@@ -116,7 +116,7 @@ spectral direction.
 
    ***EXAMPLE 05C02_atone_buthp_bqrez.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac ; activates real time sound output
@@ -196,7 +196,7 @@ pink noise.
 
    ***EXAMPLE 05C03_reson_butbp.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac ; activates real time sound output
@@ -288,7 +288,7 @@ to best demonstrate the qualities of a comb filter.
 
    ***EXAMPLE 05C04_comb.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac ;activates real time sound output
@@ -380,7 +380,7 @@ common used filters.
 
    ***EXAMPLE 05C05_filter_compar.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m128
@@ -670,4 +670,3 @@ i "PlayAll" 0 1 0.35
 ;example by Anton Kholomiov
 ;based on the Jacob Joaquin wobble bass sound
 ~~~
-

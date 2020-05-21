@@ -31,7 +31,7 @@ to a tone is something like this:
 
    ***EXAMPLE 03I01_traditional_syntax.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -93,7 +93,7 @@ So we can reduce our code from four lines to two lines:
 
    ***EXAMPLE 03I02_functional_syntax_1.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -124,7 +124,7 @@ Or if you prefer the "all-in-one" solution:[^2]
 
    ***EXAMPLE 03I03_functional_syntax_2.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -170,7 +170,7 @@ different movement for each tone. In this case, we can simply write
 
    ***EXAMPLE 03I04_functional_syntax_rate_1.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -205,7 +205,7 @@ So it is both, clearer and actually required, to explicitly declare at which rat
 
    ***EXAMPLE 03I05_functional_syntax_rate_2.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -242,7 +242,7 @@ self created opcodes ("User Defined Opcodes"):
 
    ***EXAMPLE 03I06_functional_syntax_udo.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -282,7 +282,7 @@ Besides the ability of functional expressions to abbreviate code, this way of wr
 
    ***EXAMPLE 03I07_functional_syntax_udo_2.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac

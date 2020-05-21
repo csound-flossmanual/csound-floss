@@ -102,7 +102,7 @@ will be produced unless a MIDI note is received on channel 1.
 
    ***EXAMPLE 02C01\_Midi\_Keybd\_in.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -+rtmidi=portmidi -Ma -odac
@@ -147,7 +147,7 @@ value is used to set the frequency of a simple sine oscillator.
 
    ***EXAMPLE 02C02\_Midi\_Ctl\_in.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -+rtmidi=virtual -M1 -odac
@@ -188,7 +188,7 @@ MIDI.
 
    ***EXAMPLE 02C03\_Midi\_all\_in.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -+rtmidi=portmidi -Ma -odac

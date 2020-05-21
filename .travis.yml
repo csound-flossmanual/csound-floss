@@ -9,6 +9,8 @@ install:
 - nix-shell shell.nix --run 'exit 0' # just install and exit to prevent filling memory
 script:
 - nix-shell --run 'yarn && yarn build'
+- nix-shell --run 'yarn build:pdf'
+- mv *.pdf public
 
 deploy:
   skip_cleanup: true

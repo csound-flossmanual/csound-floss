@@ -48,7 +48,7 @@ This is a simple example:
 
    ***EXAMPLE 09A01_pdcs_control_in.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 </CsOptions>
@@ -103,7 +103,7 @@ following .csd uses two audio inputs:
 
    ***EXAMPLE 09A02_pdcs_live_in.csd ***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 </CsOptions>
@@ -161,7 +161,7 @@ ratio is calculated randomly between two limits, which can be adjusted.
 
    ***EXAMPLE 09A03_pdcs_midi.csd ***
 
-~~~
+~~~Csound
 <CsOptions>
 -+rtmidi=null -M0
 </CsOptions>
@@ -208,7 +208,7 @@ function table) to Csound.
 
    ***EXAMPLE 09A04_pdcs_events.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 </CsOptions>
@@ -255,7 +255,7 @@ second element. You can get the values by a *route* object or by a
 
 ***EXAMPLE 09A05_pdcs_control_out.csd ***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 </CsOptions>
@@ -296,7 +296,7 @@ soundfile instead of *stimme.wav*.
 
    ***EXAMPLE 06A06_pdcs_tabset_tabget.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -362,5 +362,3 @@ message *offset*, followed by a number, offsets the score playback by
 that number of seconds.
 
 ![](../resources/images/09-a-pd8.png)
-
-

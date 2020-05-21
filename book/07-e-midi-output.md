@@ -78,7 +78,7 @@ values.
 
    ***EXAMPLE 07E01_midiout.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 ; amend device number accordingly
@@ -120,7 +120,7 @@ whenever a note ends and sending the note-off then.
 
    ***EXAMPLE 07E02_score_to_midiout.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 ; amend device number accordingly
@@ -178,7 +178,7 @@ to respond.
 
    ***EXAMPLE 07E03_midiout_cc.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 ; amend device number accordingly
@@ -236,7 +236,7 @@ playing a simple major arpeggio.
 
    ***EXAMPLE 07E04_midion.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 ; amend device number accordingly
@@ -282,7 +282,7 @@ a [randomi](https://csound.com/docs/manual/randomi.html) function.
 
    ***EXAMPLE 07E05_midion2.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 ; amend device number accordingly
@@ -326,7 +326,7 @@ line using *moscil*.
 
    ***EXAMPLE 07E06_moscil.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 ; amend device number accordingly

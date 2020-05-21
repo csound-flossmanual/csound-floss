@@ -50,7 +50,7 @@ instrument 3 **at init-time**.
 
    ***EXAMPLE 03F01_OrderOfExc_event_i.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -nm0
@@ -111,7 +111,7 @@ Let us compare now what is happening when instrument 2 calls instrument
 
    ***EXAMPLE 03F02_OrderOfExc_event_k.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -nm0
@@ -206,7 +206,7 @@ examples:
 
    ***EXAMPLE 03F03_Score_tricks.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -296,7 +296,7 @@ MIDI keyboard and it should work.
 
    ***EXAMPLE 03F04_Midi_triggered_events.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -Ma -odac
@@ -345,7 +345,7 @@ A more extended example can be found
 
    ***EXAMPLE 03F05\_FLTK\_triggered\_events.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -430,7 +430,7 @@ and run it from the command line:
 
    ***EXAMPLE 03F06_Commandline_rt_events.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -L stdin -odac
@@ -507,7 +507,7 @@ instrument is triggered.
 
    ***EXAMPLE 03F07_Event_by_condition.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -iadc -odac
@@ -591,7 +591,7 @@ instrument using the scoreline opcode:
 
    ***EXAMPLE 03F08_Generate_event_pool.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -637,7 +637,7 @@ about control structures).
 
    ***EXAMPLE 03F09_Events_sprintf.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -703,7 +703,7 @@ scoreline\_i (instr 2):
 
    ***EXAMPLE 03F10_Events_collected.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -789,7 +789,7 @@ bell-like additive synthesis.
 
    ***EXAMPLE 03F11_Events_time_loop.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -889,7 +889,7 @@ is a very simple example:
 
    ***EXAMPLE 03F12_event_i_vs_event.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -nm0
@@ -1101,7 +1101,7 @@ Then save this csd in the same directory:
 
    ***EXAMPLE 03F13\_compileorc.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac -d -L stdin -Ma
@@ -1163,7 +1163,7 @@ the string. This is a basic example:
 
    ***EXAMPLE 03F14\_compilestr.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac -d

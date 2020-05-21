@@ -41,7 +41,7 @@ An array can be created by different methods:
 - with the [init](https://csound.com/docs/manual/init.html) opcode,
 - with [fillarray](https://csound.com/docs/manual/fillarray.html),
 - with [genarray](https://csound.com/docs/manual/fillarray.html),
-- as a copy of an already existing array with the 
+- as a copy of an already existing array with the
   [=](https://csound.com/docs/manual/assign.html) operator,
 - implicit as result of some opcodes, e.g. *diskin*.
 
@@ -75,7 +75,7 @@ In conjunction with a previously defined two-dimensional array, *fillarray* can 
     iArr[][] init 2, 3
     iArr fillarray 1, 2, 3, -1, -2, -3
 
-This results in a 2D array (matrix) with the elements 1 2 3 as first row, and -1 -2 -3 as second row.[^1] 
+This results in a 2D array (matrix) with the elements 1 2 3 as first row, and -1 -2 -3 as second row.[^1]
 
 [^1]:  Another method to fill a matrix is to use the
        [setrow](https://csound.com/docs/manual/setrow.html) opcode.
@@ -96,12 +96,12 @@ a start value to an (included) end value. Here are some examples:
 
 ### Copy with $=$
 
-The [=](https://csound.com/docs/manual/assign.html) operator copies any existing array to a new variable. The example shows how a global array is copied into a local one depending on a score p-field: If *p4* is set to 1, *iArr\[\]* is set to the content of *gi_Arr_1*; if *p4* is 2, it gets the content of *gi_Arr_2*. The content of *iArr\[\]* is then sent to instr *Play* in a [while](https://csound.com/docs/manual/while.html) loop. 
+The [=](https://csound.com/docs/manual/assign.html) operator copies any existing array to a new variable. The example shows how a global array is copied into a local one depending on a score p-field: If *p4* is set to 1, *iArr\[\]* is set to the content of *gi_Arr_1*; if *p4* is 2, it gets the content of *gi_Arr_2*. The content of *iArr\[\]* is then sent to instr *Play* in a [while](https://csound.com/docs/manual/while.html) loop.
 
 
    ***EXAMPLE 04E01_CopyArray.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m128
@@ -174,7 +174,7 @@ in every k-cycle (!).[^2] Here is a simple example showing the difference:
 
    ***EXAMPLE 03E02_i_k_arrays.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -nm128 ;no sound and reduced messages
@@ -223,7 +223,7 @@ Although both instruments run for one second, the operation to increment
 the first array value by ten is executed only once in the *i*-rate version
 of the array. But in the *k*-rate version, the incrementation is repeated
 in each *k*-cycle - in this case every 1/10 second, but usually something
-around every 1/1000 second. 
+around every 1/1000 second.
 
 
 ### Audio Arrays
@@ -246,7 +246,7 @@ multiplies the envelope with each element of the array, and the [out](https://cs
 
    ***EXAMPLE 03E03_Audio_array.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -d
@@ -290,7 +290,7 @@ instance while working with file paths.[^3] The array can be filled by one of th
     S_array[] fillarray "one", "two", "three"
 
 [^3]:  You cannot currently have a mixture of numbers and strings in an
-       array, but you can convert a string to a number with the 
+       array, but you can convert a string to a number with the
        [strtod](https://csound.com/docs/manual/strtod.html) opcode.
 
 
@@ -304,7 +304,7 @@ The [directory](https://csound.com/docs/manual/directory.html) opcode looks for 
 
    ***EXAMPLE 04E04_Directory.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -d
@@ -345,7 +345,7 @@ This means that it is only valid in the instrument in which it has been defined.
 
    ***EXAMPLE 03E05_Local_vs_global_arrays.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -nm128 ;no sound and reduced messages
@@ -479,7 +479,7 @@ Operations on Arrays
 #### *lenarray* — Array Length
 
 The opcode [lenarray](https://csound.com/docs/manual/lenarray.html)
-reports the length of an array. 
+reports the length of an array.
 
     iArr[] fillarray 0, 1, 2, 3, 4
     iLen lenarray iArr ; -> 5
@@ -503,7 +503,7 @@ By using functional syntax, *lenarray()* will report the array length at init-ti
 
 #### *minarray*, *maxarray* — Smallest/Largest Element
 
-The opcodes [minarray](https://csound.com/docs/manual/minarray.html) and 
+The opcodes [minarray](https://csound.com/docs/manual/minarray.html) and
 [maxarray](https://csound.com/docs/manual/maxarray.html) return the smallest or largest element of a numerical array:
 
     iArr[] fillarray 4, -2, 3, 10, 0
@@ -526,7 +526,7 @@ The [cmp](https://csound.com/docs/manual/cmp.html) opcode offers quite extended 
 
    ***EXAMPLE 03E06_cmp.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -m0
@@ -563,15 +563,15 @@ i "Compare" 0 1
 The printout is:
 
     Array:
-     1 2 3 4 5 
+     1 2 3 4 5
     CmpArray:
-     3 5 1 4 2 
+     3 5 1 4 2
     Array >= 3?
-     0 0 1 1 1 
+     0 0 1 1 1
     1 < Array <= 4?
-     0 1 1 1 0 
+     0 1 1 1 0
     Array > CmpArray?
-     0 0 1 0 1 
+     0 0 1 0 1
 
 
 ### Content Modifications
@@ -605,11 +605,11 @@ The opcodes [sorta](https://csound.com/docs/manual/sorta.html) and [sortd](https
 Prints:
 
     Sorted ascending:
-     -1 1 3 5 6 9 17 
+     -1 1 3 5 6 9 17
     Sorted descending:
-     17 9 6 5 3 1 -1 
+     17 9 6 5 3 1 -1
     Original array:
-     1 3 9 5 6 -1 17 
+     1 3 9 5 6 -1 17
 
 
 #### *limit* — Limit Values
@@ -618,7 +618,7 @@ The [limit](https://csound.com/docs/manual/limit.html) opcode sets a lower and u
 
     iArr[] fillarray  1, 3, 9, 5, 6, -1, 17
     iLimit[] limit iArr, 0, 7
-    printarray(iLimit, "%d") ; ->  1 3 7 5 6 0 7 
+    printarray(iLimit, "%d") ; ->  1 3 7 5 6 0 7
 
 
 #### *interleave*/*deinterleave*
@@ -635,11 +635,11 @@ As the name suggests, the [interleave](https://csound.com/docs/manual/interleave
 Which prints:
 
     array 1:
-     1 2 3 4 5 
+     1 2 3 4 5
     array 2:
-     -1 -2 -3 -4 -5 
+     -1 -2 -3 -4 -5
     interleaved:
-     1 -1 2 -2 3 -3 4 -4 5 -5 
+     1 -1 2 -2 3 -3 4 -4 5 -5
 
 And vice versa, [deinterleave](https://csound.com/docs/manual/deinterleave.html) returns two arrays from one input array in alternating its values:
 
@@ -652,11 +652,11 @@ And vice versa, [deinterleave](https://csound.com/docs/manual/deinterleave.html)
 Which prints:
 
     input array:
-     1 2 3 4 5 6 7 8 9 10 
+     1 2 3 4 5 6 7 8 9 10
     deinterleaved 1:
-     1 3 5 7 9 
+     1 3 5 7 9
     deinterleaved 2:
-     2 4 6 8 10 
+     2 4 6 8 10
 
 
 
@@ -720,11 +720,11 @@ At performance rather than initialization [trim](https://csound.com/docs/manual/
 
 Prints:
 
-    1 3 9 5 6 -1 
-    1 3 9 5 6 
-    1 3 9 5 
-    1 3 9 
-    1 3 
+    1 3 9 5 6 -1
+    1 3 9 5 6
+    1 3 9 5
+    1 3 9
+    1 3
 
 Growing an array during performance is not possible in Csound, because memory will only be allocated at initialization. This is the reason that only *trim_i* can be used for this purpose.
 
@@ -740,7 +740,7 @@ by [copyf2array](https://csound.com/docs/manual/copyf2array.html). The following
     iFtSine ftgen 0, 0, 8, 10, 1
     iArr[] init 8
     copyf2array iArr, iFtSine
-    printarray iArr 
+    printarray iArr
     ; -> 0.0000 0.7071 1.0000 0.7071 0.0000 -0.7071 -1.0000 -0.7071
 
 
@@ -776,14 +776,14 @@ This will copy the values from index 1 to index 8 (not included):
     iFtSine ftgen 0, 0, 8, 10, 1, -1/2, 1/3, -1/4, 1/5, -1/6
     iArr[] tab2array iFtSine, 1, 7
     printarray(iArr)
-    ; -> 0.4125 0.7638 1.0000 0.0000 -1.0000 -0.7638 
+    ; -> 0.4125 0.7638 1.0000 0.0000 -1.0000 -0.7638
 
 And this will copy the whole array but only every second value:
 
     iFtSine ftgen 0, 0, 8, 10, 1, -1/2, 1/3, -1/4, 1/5, -1/6
     iArr[] tab2array iFtSine, 0, 0, 2
     printarray(iArr)
-    ; -> 0.0000 0.7638 0.0000 -0.7638 
+    ; -> 0.0000 0.7638 0.0000 -0.7638
 
 
 #### *pvs2array*/*pvsfromarray* — Arrays to/from FFT Data
@@ -837,7 +837,7 @@ values to the array so as not to waste rendering power.
 
    ***EXAMPLE 03E07_pvs_to_from_array.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -860,7 +860,7 @@ instr FFT_HighPass
  ;if kflag has reported a new write action ...
  if changed(kflag) == 1 then
   ; ... set amplitude of first 40 bins to zero:
-  kndx = 0 
+  kndx = 0
   while kndx <= 80 do
    kArr[kndx] = 0
    kndx += 2 ;change only even array index = bin amplitude
@@ -895,11 +895,11 @@ With [reshapearray](https://csound.com/docs/manual/reshapearray.html) a one-dime
 This is the printout:
 
     1D array:
-     1 2 3 4 5 6 7 8 9 10 11 12 
+     1 2 3 4 5 6 7 8 9 10 11 12
     2D array:
-       0: 1 2 3 4 
-       1: 5 6 7 8 
-       2: 9 10 11 12 
+       0: 1 2 3 4
+       1: 5 6 7 8
+       2: 9 10 11 12
 
 
 #### *getrow*/*getcol* — Get Row/Column from a 2D Array
@@ -917,13 +917,13 @@ The opcodes [getrow](https://csound.com/docs/manual/getrow.html) and [getcol](ht
 Prints:
 
     2D array:
-       0: 1 2 3 4 
-       1: 5 6 7 8 
-       2: 9 10 11 12 
+       0: 1 2 3 4
+       1: 5 6 7 8
+       2: 9 10 11 12
     First row:
-     1 2 3 4 
+     1 2 3 4
     First columns:
-     1 5 9 
+     1 5 9
 
 
 #### *setrow*/*setcol* - Set Row/Column of a 2D Array
@@ -942,22 +942,22 @@ The opcodes [setrow](https://csound.com/docs/manual/setrow.html) and [setcol](ht
 Prints:
 
     2D array empty:
-       0: 0 0 0 0 
-       1: 0 0 0 0 
-       2: 0 0 0 0 
+       0: 0 0 0 0
+       1: 0 0 0 0
+       2: 0 0 0 0
     2D array with first row:
-       0: 1 2 3 4 
-       1: 0 0 0 0 
-       2: 0 0 0 0 
+       0: 1 2 3 4
+       1: 0 0 0 0
+       2: 0 0 0 0
     2D array with fourth column:
-       0: 1 2 3 -1 
-       1: 0 0 0 -2 
-       2: 0 0 0 -3 
+       0: 1 2 3 -1
+       1: 0 0 0 -2
+       2: 0 0 0 -3
 
 
 #### *getrowlin* — Get Row from a 2D Array and Interpolate
 
-The [getrowlin](https://csound.com/docs/manual/getrowlin.html) opcode is similar to [getrow](https://csound.com/docs/manual/getrow.html) but interpolates between adjacent rows of a matrix if a non-integer number is given. 
+The [getrowlin](https://csound.com/docs/manual/getrowlin.html) opcode is similar to [getrow](https://csound.com/docs/manual/getrow.html) but interpolates between adjacent rows of a matrix if a non-integer number is given.
 
     kArr[][] init 3, 4
     kArr fillarray 1,2,3,4,5,6,7,8,9,10,11,12
@@ -968,11 +968,11 @@ The [getrowlin](https://csound.com/docs/manual/getrowlin.html) opcode is similar
 The 0.5th row means an interpolation between first and second row, so this is the output:
 
     2D array:
-       0: 1 2 3 4 
-       1: 5 6 7 8 
-       2: 9 10 11 12 
+       0: 1 2 3 4
+       1: 5 6 7 8
+       2: 9 10 11 12
     Row 0.5:
-     3 4 5 6 
+     3 4 5 6
 
 
 
@@ -980,7 +980,7 @@ The 0.5th row means an interpolation between first and second row, so this is th
 
 #### Arithmetic Operators
 
-The four basic operators [+](https://csound.com/docs/manual/adds.html), [-](https://csound.com/docs/manual/subtracts.html), [*](https://csound.com/docs/manual/subtracts.html) and [/](https://csound.com/docs/manual/divides.html) can directly be applied to an array, either with a scalar or a second array as argument. 
+The four basic operators [+](https://csound.com/docs/manual/adds.html), [-](https://csound.com/docs/manual/subtracts.html), [*](https://csound.com/docs/manual/subtracts.html) and [/](https://csound.com/docs/manual/divides.html) can directly be applied to an array, either with a scalar or a second array as argument.
 
 All operations can be applied to the input array itself (changing its content destructively), or can create a new array as result.  This is a simple example for the scalar addition:
 
@@ -999,18 +999,18 @@ It also works for a 2D matrix:
 Which prints:
 
     original array:
-       0: 1 2 3 
-       1: 4 5 6 
+       0: 1 2 3
+       1: 4 5 6
     modified array:
-       0: 11 12 13 
-       1: 14 15 16 
+       0: 11 12 13
+       1: 14 15 16
 
 Both possibilities — creating a new array or modifying the existing one — are also valid if a second array is given as argument:
 
     iArr[] fillarray 1, 2, 3
     iArg[] fillarray 10, 20, 30
     iNew[] = iArr + iArg ; -> 11 22 33 as new array
-    iArr += iArg ; iArr is now 11 22 33 
+    iArr += iArg ; iArr is now 11 22 33
 
 Both arrays must have the same size, but it also works for 2D arrays:
 
@@ -1026,14 +1026,14 @@ Both arrays must have the same size, but it also works for 2D arrays:
 Which prints:
 
     original array:
-       0: 1 2 3 
-       1: 4 5 6 
+       0: 1 2 3
+       1: 4 5 6
     argument array:
-       0: 3 4 5 
-       1: 6 7 8 
+       0: 3 4 5
+       1: 6 7 8
     modified array:
-       0: 4 6 8 
-       1: 10 12 14 
+       0: 4 6 8
+       1: 10 12 14
 
 
 #### Unary Functions
@@ -1118,7 +1118,7 @@ This is a simple UDO definition which returns the first element of a given 1D *k
     opcode FirstEl, k, k[]
      kArr[] xin
      kOut = kArr[0]
-     xout kOut  
+     xout kOut
     endop
 
 The output declaration is done quite similar: abstract type declaration in the *outtypes* list, and variable name in the UDO body. Here the usual naming conventions are valid, as explained at the beginning of this chapter (first occurrence with brackets, then without brackets).
@@ -1146,7 +1146,7 @@ The call
 
 will print:
 
-    2 6 18 54 162 
+    2 6 18 54 162
 
 As an expert note it should be mentioned that UDOs refer to arrays by value. This means that an input array is copied into the UDO, and an output array is copied to the instrument. This can slow down the performance for large arrays and k-rate calls.
 
@@ -1159,7 +1159,7 @@ The following example extends the *FirstEl* function from *k*-arrays also to *i*
 
    ***EXAMPLE 03E08_array_overload.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -m0
@@ -1170,19 +1170,19 @@ ksmps = 32
 opcode FirstEl, k, k[]
  kArr[] xin
  kOut = kArr[0]
- xout kOut  
+ xout kOut
 endop
 
 opcode FirstEl, i, i[]
  iArr[] xin
  iOut = iArr[0]
- xout iOut  
+ xout iOut
 endop
 
 opcode FirstEl, S, S[]
  SArr[] xin
  SOut = SArr[0]
- xout SOut  
+ xout SOut
 endop
 
 instr Test
@@ -1228,7 +1228,7 @@ As Csound has no random opcode for integers, this is first defined as helper fun
 
    ***EXAMPLE 03E09_Shuffle.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -m0
@@ -1286,9 +1286,8 @@ i "Test" 0 0
 
 The output is, for instance:
 
-     7 3 4 5 2 6 1 
-     1 3 2 7 4 5 6 
-     3 5 1 4 7 2 6 
-     6 2 5 1 7 4 3 
-     4 7 2 5 6 1 3 
-
+     7 3 4 5 2 6 1
+     1 3 2 7 4 5 6
+     3 5 1 4 7 2 6
+     6 2 5 1 7 4 3
+     4 7 2 5 6 1 3

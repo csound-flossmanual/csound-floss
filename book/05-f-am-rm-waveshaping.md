@@ -29,7 +29,7 @@ In the following example, first three static modulating frequencies are applied.
 
    ***EXAMPLE 05F01_RM_modification.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac  --env:SSDIR+=../SourceMaterials
@@ -100,7 +100,7 @@ This is the sounding result:
 
    ***EXAMPLE 05F02_Wvshp_bit_crunch.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -142,7 +142,7 @@ meaningful sentence and a nice music can regarded as noise ...
 
    ***EXAMPLE 05F03_Wvshp_different_transfer_funs.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -202,7 +202,7 @@ of distortion in the *kdist* parameter. Here is a simple example, using rather d
 
    ***EXAMPLE 05F04_distort.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -245,4 +245,3 @@ i . + . 8 .02
 </CsoundSynthesizer>
 ;example by joachim heintz
 ~~~
-

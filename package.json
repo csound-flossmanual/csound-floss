@@ -37,7 +37,8 @@
   },
   "scripts": {
     "start": "node pandoc/development.js",
-    "build": "node pandoc/build.js"
+    "build": "node pandoc/build.js",
+    "build:pdf": "node pandoc/build_pdf.js"
   },
   "eslintConfig": {
     "extends": "react-app"

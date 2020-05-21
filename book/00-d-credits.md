@@ -276,7 +276,10 @@ Joachim Heintz, Iain McCurdy
 *C. LINKS*
 Joachim Heintz, Stefano Bonetti
 
-------------------------------------------------------------------------
+<hr/>
+
+\newpage
+
 
 V.1 - Final Editing Team in March 2011:
 

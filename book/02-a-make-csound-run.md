@@ -108,13 +108,13 @@ more recent version, you can get the sources from the
 [Github page](https://github.com/csound/csound/tree/develop)
 and build from source. You will find the most recent build instructions
 in the [Build.md](http://github.com/csound/csound/blob/develop/BUILD.md)
-file in the Csound sources or in the 
+file in the Csound sources or in the
 [Github Csound Wiki](https://github.com/csound/csound/wiki).
 
 ### iOS
 
 If you would just like to run Csound on your iPad, there is an app for
-iOS called 
+iOS called
 [CsoundPad](http://itunes.apple.com/app/csoundpad/id861008380?mt=8\#)
 
 If you are a developer, Csound can be run in an iOS app that you are
@@ -164,7 +164,7 @@ If, for any reason, you can't find the CsoundQt frontend on your system
 after install, or if you want to install the most recent version of
 CsoundQt, or if you prefer another frontend altogether: see the CSOUND
 FRONTENDS section of this manual for further information. If you have
-any install problems, consider joining the 
+any install problems, consider joining the
 [Csound Mailing List](https://listserv.heanet.ie/cgi-bin/wa?A0=CSOUND)
 to report your issues, or use any other community channel.
 
@@ -204,7 +204,7 @@ executed as an independent process. The result should be the same - the
 
    ***EXAMPLE 02A01\_HelloWorld.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -283,7 +283,7 @@ Cabbage please consult the chapter on
 
    ***EXAMPLE 02A02\_HelloCabbage.csd***
 
-~~~
+~~~Csound
 <Cabbage>
 form size(420,100)
 keyboard bounds(10,10,300,80)

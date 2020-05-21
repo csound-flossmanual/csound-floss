@@ -3,7 +3,7 @@
 
 Pitch and frequency are related but different terms.[^1] *Pitch* is used by musicians to describe the "height" of a tone, most obvious on a keyboard. *Frequency* is a technical term. We will start with the latter and then return to pitch in some of its numerous aspects, including intervals, tuning systems and different conversions between pitch and frequency in Csound.
 
-[^1]: Similar to *volume* and *amplitude* -- see 
+[^1]: Similar to *volume* and *amplitude* -- see
       [next chapter](01-c-intensities.md).
 
 
@@ -15,19 +15,19 @@ of cycles or periods per second. The SI unit is Hertz where 1 Hertz means 1 peri
 
 Given a tone's frequency, the time for one period can be calculated straightforwardly. For 100 periods per seconds (100 Hz), the time for one period is 1/100 or 0.01 seconds. For 200 periods per second (200 Hz), the time for each period is only half as much: 1/200 or 0.005 seconds. Mathematically, the period is the reciprocal of the frequency and vice versa. In equation form, this is expressed as follows:
 
-$Frequency = \frac{1}{Period}$  
+$Frequency = \frac{1}{Period}$
 $Period = \frac{1}{Frequency}$
 
 
 ### Wavelength
 
-In physical reality, one cycle of a periodic sound can not only be measured in time, but also as extension in space. This is called the wavelength. It is usually abbreviated with the greek letter λ (lambda). It can be calculated as the ratio between the velocity and the frequency of the wave. 
+In physical reality, one cycle of a periodic sound can not only be measured in time, but also as extension in space. This is called the wavelength. It is usually abbreviated with the greek letter λ (lambda). It can be calculated as the ratio between the velocity and the frequency of the wave.
 
-$λ = \frac{Velocity}{Frequency}$
+$\lambda = \frac{Velocity}{Frequency}$
 
 As the velocity of a sound in air (at 20° Celsius) is about 340 m/s, we can calculate the wavelength of a sound as
 
-$\lambda = \frac{\frac{340 m}{s}}{\frac{Number\ of\ Cycles}{s}} = 
+$\lambda = \frac{\frac{340 m}{s}}{\frac{Number\ of\ Cycles}{s}} =
 \frac{340}{Number\ of\ Cycles} m$
 
 For instance, a sine wave of 1000 Hz has a length of approximately 340/1000 m = 34 cm, whereas a wave of 100 Hz has a length of 340/100 m = 3.4 m.
@@ -39,7 +39,7 @@ Not all sounds are periodic. In fact, periodic sounds are only one end of a spec
 
    ***EXAMPLE 01B01_PeriodicAperiodic.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -104,7 +104,7 @@ and probably not the last (20 kHz) one, but hopefully the other ones
 
    ***EXAMPLE 01B02_LimitsOfHearing.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m0
@@ -151,7 +151,7 @@ shorthand for exponents and are used in many areas of science and
 engineering in which quantities vary over a large range. Examples of
 logarithmic scales include the decibel scale, the Richter scale for
 measuring earthquake magnitudes and the astronomical scale of stellar
-brightnesses. 
+brightnesses.
 
 Intervals in music describe the distance between two notes. When dealing
 with standard musical notation it is easy to determine an interval
@@ -177,7 +177,7 @@ although the frequency displacement is different each time.
 
    ***EXAMPLE 01B03_Adding_vs_ratio.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m0
@@ -234,12 +234,12 @@ i 3 17 1 800 [3/2]
 
 As some readers will know, the current preferred method of tuning western instruments is based on equal temperament. Essentially this means that all octaves are split into 12 equal intervals, called semitones. Therefore a semitone has a ratio of 2^1/12^, which is approximately 1.059463.[^2] The next semitone will have the ratio 2^2/12^ (1.122462...), the third one 2^3/12^ (1.189207...), and so on. The exponents increase linear (1/12, 2/12, 3/12, ...), thus yielding the same proportion between each subsequent semitone.
 
-So what about the reference to logarithms? As stated previously, logarithms are shorthand for exponents. 2^1/12^ = 1.059463 can also be written as log~2~(1.059463) = 1/12. Therefore, frequencies representing musical scales or intervals can be described on a logarithmic scale. The linear progression of the exponents (with base 2) as 1/12, 2/12, 3/12 ... represent the linear progression of semitones. 
+So what about the reference to logarithms? As stated previously, logarithms are shorthand for exponents. 2^1/12^ = 1.059463 can also be written as log~2~(1.059463) = 1/12. Therefore, frequencies representing musical scales or intervals can be described on a logarithmic scale. The linear progression of the exponents (with base 2) as 1/12, 2/12, 3/12 ... represent the linear progression of semitones.
 
 [^2]: 2^1/12^ is the same as $\sqrt[12]{2}$ thus the number which yields 2 if multiplied by itself 12 times.
 
 
-### MIDI Notes 
+### MIDI Notes
 
 The equal-tempered scale is present on each [MIDI](https://www.midi.org/) keyboard. So the most common way to work with pitches is to use MIDI note numbers. In MIDI speak A4 (= 440 Hz) is MIDI note 69.[^3] The semitone below, called A flat or G sharp, is MIDI note 68, and so on. The MIDI notes 1-127 cover the frequency range from 9 Hz to 12544 Hz which is pretty well suited to the human hearing (and to a usual grand piano which would correspond to MIDI keys 21-108).
 
@@ -253,7 +253,7 @@ will convert MIDI notes to Hertz values (*mtof*) and back again (*ftom*). The ne
 
    ***EXAMPLE 01B04_Midi_to_frequency.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac -m128
@@ -277,8 +277,8 @@ instr LetPlay
   iStart += iDurations[iIndex]
   iIndex += 1
  od
- 
-endin 
+
+endin
 
 instr Play
 
@@ -319,13 +319,13 @@ In addition to raw frequency input and MIDI note numbers, Csound offers two more
 
 The *oct* notation also uses floating point numbers. The integer part has the same meaning as in the *pch* notation. The fractional part divides one octave in acoustically equal steps. For 8.00 as C4 and 9.00 as C5, 8.5 denotes a pitch which is acoustically in the middle between C4 and C5, which means that the proportion between this frequency and the C4 frequency is the same as the proportion between the C5 frequency and this tone's frequency. Csound calculates this as:
 
-    instr 1 
+    instr 1
      iC4 = cpsoct(8)
      iC5 = cpsoct(9)
      iNew = cpsoct(8.5)
-     prints "C4 = %.3f Hz, C5 = %.3f Hz, oct(8.5) = %.3f Hz.\n", 
+     prints "C4 = %.3f Hz, C5 = %.3f Hz, oct(8.5) = %.3f Hz.\n",
        iC4, iC5, iNew
-     prints "Proportion New:C4 = %.3f, C5:New = %.3f\n", 
+     prints "Proportion New:C4 = %.3f, C5:New = %.3f\n",
        iNew/iC4, iC5/iNew
     endin
     schedule(1,0,0)
@@ -335,11 +335,11 @@ And the output is:
     C4 = 261.626 Hz, C5 = 523.251 Hz, oct(8.5) = 369.994 Hz.
     Proportion New:C4 = 1.414, C5:New = 1.414
 
-On a keyboard, this pitch which divides the octave in two acoustically equal halves, is F#4. It can be notated in *pch* notation as 8.06, or in MIDI notation as key number 66. So why was *oct* notation added? -- The reason is that by this notation it becomes very simple to introduce for instance the division of an octave into 10 equal steps: 8.1, 8.2, ..., or in 8 equal steps as 8.125, 8.25, 8.375, ... 
+On a keyboard, this pitch which divides the octave in two acoustically equal halves, is F#4. It can be notated in *pch* notation as 8.06, or in MIDI notation as key number 66. So why was *oct* notation added? -- The reason is that by this notation it becomes very simple to introduce for instance the division of an octave into 10 equal steps: 8.1, 8.2, ..., or in 8 equal steps as 8.125, 8.25, 8.375, ...
 
 The following code shows that things like these can also be achieved with a bit of math, but for simple cases it is quite convenient to use the *oct* notation. A scale consisting of ten equal steps based on A3 (= 220 Hz) is constructed.
 
-    instr 1 
+    instr 1
      puts "Calculation with octpch():", 1
      iOctDiff = 0
      while iOctDiff < 1 do
@@ -390,7 +390,7 @@ The equal-tempered tuning system which can be found on each MIDI keyboard is not
 
 Audio programming languages like Csound, which can synthesize sounds with any frequency, are particularily suited for this approach. It is even simple to "tune" a MIDI keyboard in quarter tones or to any historical tuning using Csound. The following example shows the fundamentals. It plays the five notes C D E F G (= MIDI 60 62 64 65 67) first in Pythoagorean tuning, then in Meantone, then as quatertones, then as partials 1-5.
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac -m128
@@ -460,47 +460,65 @@ Frequently Used Formulas
 
 ### New Frequency from Frequency and Proportion
 
-**Given**:  
-- Frequency $f$  
-- Proportion $p$  
-**Searched**:  
-- New Frequency $f_{new}$  
-**Solution**:  
-$f_{new} = f \cdot p$  
-**Example**:  
-Which frequency is in 5/4 proportion to 440 Hz?  
-$\to f_{new} = 440 Hz \cdot 5/4 = 550\ Hz$  
-**Csound code**:  
-`iFreq_new = 440 * 5/4`
+**Given**:
+
+- Frequency $f$
+- Proportion $p$
+
+**Searched**:
+
+- New Frequency $f_{new}$
+
+**Solution**:
+$f_{new} = f \cdot p$
+
+**Example**:
+Which frequency is in 5/4 proportion to 440 Hz?
+$\to f_{new} = 440 Hz \cdot 5/4 = 550\ Hz$
+
+**Csound code**:
+`iFreq_new = 440 * 5/4`{.Csound}
 
 
 ### New Frequency from Frequency and Cent Difference
 
-**Given**:  
-- Frequency $f$  
-- Cent difference $c$  
-**Searched**:  
-- New Frequency $f_{new}$  
-**Solution**:  
-$f_{new} = f \cdot 2^{c/1200}$  
-**Example**:  
-Which frequency is 50 Cent below 440 Hz?  
-$f_{new} = 440 \cdot 2^{-50/1200} = 427.474\ Hz$  
-**Csound code**:  
-`iFreq_new = 440 * 2^(-50/1200)`
+**Given**:
+
+- Frequency $f$
+- Cent difference $c$
+
+**Searched**:
+
+- New Frequency $f_{new}$
+
+**Solution**:
+$f_{new} = f \cdot 2^{c/1200}$
+
+**Example**:
+Which frequency is 50 Cent below 440 Hz?
+$f_{new} = 440 \cdot 2^{-50/1200} = 427.474\ Hz$
+
+**Csound code**:
+`iFreq_new = 440 * 2^(-50/1200)`{.Csound}
 
 
 ### Cent Difference of two Frequencies
-**Given**:  
-- Frequency_1 $f_1$  
-- Frequency_2 $f_2$  
-**Searched**:  
-- Cent difference $c$  
-**Solution**:  
-$c = \log_2{\frac{f1}{f2}} \cdot 1200$  
-**Example**:  
-What is the Cent difference between 550 Hz and 440 Hz?  
-$\to c = \log_2{\frac{550}{440}} \cdot 1200 = 386.314\ Cent$  
-**Csound code**:  
-`iCent = log2(550/440) * 1200`
 
+**Given**:
+
+- Frequency_1 $f_1$
+- Frequency_2 $f_2$
+
+**Searched**:
+
+- Cent difference $c$
+
+**Solution**:
+$c = \log_2{\frac{f1}{f2}} \cdot 1200$
+
+**Example**:
+What is the Cent difference between 550 Hz and 440 Hz?
+$\to c = \log_2{\frac{550}{440}} \cdot 1200 = 386.314\ Cent$
+
+**Csound code**:
+`iCent = log2(550/440) * 1200`{.Csound}

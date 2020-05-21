@@ -39,13 +39,13 @@ The *Grain* instrument needs the following information in order to play back a s
 ![](../resources/images/05-g-grain-envs.png)
 7. **Spatial Position**. Each grain will be send to a certain point in space. For stereo, it will be a panning position between 0 (left) and 1 (right).
 
-[^1]: The function tables have been created with this code:  
-      i0 ftgen 1, 0, 8192, 20, 3, 1  
-      i0 ftgen 2, 0, 8192, 9, 1/2, 1, 0  
-      i0 ftgen 3, 0, 8192, 20, 2, 1  
-      i0 ftgen 4, 0, 8192, 20, 6, 1  
-      i0 ftgen 5, 0, 8192, 20, 9, 1  
-      i0 ftgen 6, 0, 8192, 20, 9, 1, 5  
+[^1]: The function tables have been created with this code:
+      i0 ftgen 1, 0, 8192, 20, 3, 1
+      i0 ftgen 2, 0, 8192, 9, 1/2, 1, 0
+      i0 ftgen 3, 0, 8192, 20, 2, 1
+      i0 ftgen 4, 0, 8192, 20, 6, 1
+      i0 ftgen 5, 0, 8192, 20, 9, 1
+      i0 ftgen 6, 0, 8192, 20, 9, 1, 5
 
 
 #### Simple Grain Implementation
@@ -54,7 +54,7 @@ We start with the most simple implementation. We play back the sound with [diski
 
    ***EXAMPLE 05G01_simple_grain.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -101,7 +101,7 @@ It is a tiring job to write a score line for each grain ... — no one will do t
 
    ***EXAMPLE 05G02_simple_grain_continuous.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -153,7 +153,7 @@ In the next example we reproduce the first example above to check the new code t
 
    ***EXAMPLE 05G03_simple_grain_optimized.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -242,7 +242,7 @@ For triggering the single grains, we use the [metro](https://csound.com/docs/man
 
    ***EXAMPLE 05G04_simple_granulator.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m128
@@ -334,12 +334,12 @@ In this example, the phasor will start with an initial phase of *iStart/iFileLen
 
 It is very useful to add **random deviations** to some of the parameters for granular synthesis. This opens the space for many different structures and possibilities. We will apply here random deviations to these parameters of the *Granulator*:
 
-- *Pointer*. The pointer will "tremble" or "jump" depending on the range of the random deviation. The range is given in seconds. It is implemented in line 36 of the next example as  
-    `kPointer = kPhasor*iSampleLen + rnd31:k(iPointerRndDev,0)`  
+- *Pointer*. The pointer will "tremble" or "jump" depending on the range of the random deviation. The range is given in seconds. It is implemented in line 36 of the next example as
+    `kPointer = kPhasor*iSampleLen + rnd31:k(iPointerRndDev,0)`
 The opcode [rnd31](https://csound.com/docs/manual/rnd31.html) is a bipolar random generator which will output values between *-iPointerRndDev* and *+iPointerRndDev*. This is then added to the normal pointer position.
 - *Duration*. We will define here a maximum deviation in percent, related to the medium grain duration. 100% would mean that a grain duration can deviate between half and twice the medium duration. A medium duration of 20 ms would yield a random range of 10-40 ms in this case.
-- *Transposition*. We can add to the main transposition a bipolar random range. If, for example, the main transposition is 500 cent and the maximum random transposition is 300 cent, each grain will choose a value between 200 and 800 cent. 
-- *Volume*. A maximum decibel deviation (also bipolar) can be added to the main volume. 
+- *Transposition*. We can add to the main transposition a bipolar random range. If, for example, the main transposition is 500 cent and the maximum random transposition is 300 cent, each grain will choose a value between 200 and 800 cent.
+- *Volume*. A maximum decibel deviation (also bipolar) can be added to the main volume.
 - *Spatial Position*. In addition to the main spatial position (in the stereo field 0-1), we can add a bipolar maximum deviation. If the main position is 0.5 and the maximum deviation is 0.2, each grain will have a panning position between 0.3 and 0.7.
 
 The next example demonstrates the five possibilities one by one, each parameter in three steps: at first with no random deviations, then with slight deviations, then with big ones.
@@ -347,7 +347,7 @@ The next example demonstrates the five possibilities one by one, each parameter 
 
    ***EXAMAMPLE 05G05_random_deviations.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m128
@@ -446,12 +446,12 @@ It sounds like for normal use, the pointer, transposition and pan deviation are 
 
 #### Final Example
 
-After first prsenting the more instructional examples, this final one shows some of the potential applications for granular sounds. It uses the same parts of *The quick brown fox* as in the first example of this chapter, each which different sounds and combination of the parameters. 
+After first prsenting the more instructional examples, this final one shows some of the potential applications for granular sounds. It uses the same parts of *The quick brown fox* as in the first example of this chapter, each which different sounds and combination of the parameters.
 
 
    ***EXAMPLE 05G06_the_fox_universe.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m128
@@ -647,7 +647,7 @@ Some comments:
 
 #### Live Input
 
-Instead of using prerecorded samples, granular synthesis can also be applied to live input. Basically what we have to do is to add an instrument which writes the live input continuously to a table. When we ensure that writing and reading the table is done in a circular way, the table can be very short. 
+Instead of using prerecorded samples, granular synthesis can also be applied to live input. Basically what we have to do is to add an instrument which writes the live input continuously to a table. When we ensure that writing and reading the table is done in a circular way, the table can be very short.
 
 The time interval between writing and reading can be very short. If we do not transpose, or only downwards, we can read immediately. Only if we tranpose upwards, we must wait. Imagine a grain duration of 50 ms, a delay between writing and reading of 20 ms, and a pitch shift of one octave upwards. The reading pointer will move twice as fast as the writing pointer, so after 40 ms of the grain, it will get ahead of the writing pointer.
 
@@ -656,7 +656,7 @@ So, in the following example, we will set the desired delay time to a small valu
 
    ***EXAMPLE 05G07_live_granular.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -iadc -m128
@@ -706,7 +706,7 @@ endin
 ;example by joachim heintz
 ~~~
 
-We only use some of the many parameters here; others can be added easily. As we chose one second for the table, we can simplify some calculations. Most important is to know for instr *Granulator* the current position of the write pointer, and to start playback *giDelay* milliseconds (here 1 ms) after it. For this, we write the current write pointer position to a global variable *gaWritePointer* in instr *Record* and get the start for one grain by 
+We only use some of the many parameters here; others can be added easily. As we chose one second for the table, we can simplify some calculations. Most important is to know for instr *Granulator* the current position of the write pointer, and to start playback *giDelay* milliseconds (here 1 ms) after it. For this, we write the current write pointer position to a global variable *gaWritePointer* in instr *Record* and get the start for one grain by
 
     kPointer = k(gaWritePointer)-giDelay/1000
 
@@ -770,7 +770,7 @@ or *gate*-like (short attack, long sustain, short decay).
 
    ***EXAMPLE 05G08_sndwarp.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m128
@@ -866,7 +866,7 @@ slightly
 
    ***EXAMPLE 05G09_selfmade_grain.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac --env:SSDIR+=../SourceMaterials
@@ -1004,7 +1004,7 @@ note begins.
 
    ***EXAMPLE 05G10_granule.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m128
@@ -1107,7 +1107,7 @@ purpose here.
 
    ***EXAMPLE 05G11_grain_delay.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 --env:SSDIR+=../SourceMaterials
@@ -1183,7 +1183,7 @@ i 3 0 20
 </CsScore>
 </CsoundSynthesizer>
 ;example by Oeyvind Brandtsegg
-~~~
+~~~Csound
 
 
 In the last example we will use the
@@ -1197,7 +1197,7 @@ the oldest opcode, *Grain2* is a more easy-to-use opcode, while
 
    ***EXAMPLE 05G12_grain.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
  -o dac  --env:SSDIR+=../SourceMaterials
@@ -1245,7 +1245,7 @@ i2 0 21 ; Reverb
 </CsScore>
 </CsoundSynthesizer>
 ;example by Bjørn Houdorf
-~~~
+~~~Csound
 
 
 Several opcodes for granular synthesis have been considered in this

@@ -118,6 +118,7 @@ websites directory. Next, create an index.html file at the top level of
 the new websites directory that contains the following minimal html
 code:
 
+~~~Html
     <html>
     <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
@@ -125,6 +126,7 @@ code:
     <body>
     </body>
     </html>
+~~~
 
 
 #### Instantiate Csound
@@ -132,6 +134,7 @@ code:
 We need to write some Javascript to create an instance of CsoundObj, so
 within the body tags ad new script tags and insert the following code:
 
+~~~Html
     <html>
     <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
@@ -148,7 +151,7 @@ within the body tags ad new script tags and insert the following code:
     </script>
     </body>
     </html>
-
+~~~
 
 The *Module* functions within this code are related to how emscripten
 built javascript libraries execute when a webpage is loaded. The
@@ -174,6 +177,7 @@ virtual file system. In the emscripten/examples directory there is the
 the process of uploading files to the virtual file system. Copy
 *FileManager.js* to the root directory of the web page.
 
+~~~Html
     <html>
     <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
@@ -197,6 +201,7 @@ the process of uploading files to the virtual file system. Copy
     </script>
     </body>
     </html>
+~~~
 
 As can be seen in the code above, the file manager is instantiated with
 two arguments. The first argument is an array of strings which tells the
@@ -220,6 +225,7 @@ Once the .csd file has been compiled csound can execute a performance.
 In the following code we will create an html button and add some code to
 the button so that when pressed it will run a performance of csound.
 
+~~~Html
     <html>
     <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
@@ -252,6 +258,7 @@ the button so that when pressed it will run a performance of csound.
     </script>
     </body>
     </html>
+~~~
 
 Here we can see that the button *startButton* is instantiated using the
 *document.createElement* method. The buttons label is set using the

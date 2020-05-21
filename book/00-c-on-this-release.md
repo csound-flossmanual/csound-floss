@@ -34,6 +34,5 @@ I hope the ones who still enjoy reading texts find this resource useful to learn
 
 This release is dedicated to the memory of Eugenio Giordani, collegue, friend, pioneer of computer music in Italy and one of the hosts of the memorable Csound Conference 2019 in Cagli. He passed away two days ago as one of the victims of the corona epidemic. I hope he would have enjoyed the development of this textbook.
 
-Hannover, April 6, 2020  
+Hannover, April 6, 2020
 joachim heintz
-

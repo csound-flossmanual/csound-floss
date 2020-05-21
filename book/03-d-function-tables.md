@@ -107,7 +107,7 @@ difference in their contents will be demonstrated.
 
    ***EXAMPLE 03D01_Table_norm_notNorm.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -nm0
@@ -192,7 +192,7 @@ being generated in the orchestra header:
 
    ***EXAMPLE 03D02_Table_ftgen.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -nm0
@@ -273,7 +273,7 @@ as one of many choices in Csound.
 
    ***EXAMPLE 03D03\_Sample\_to\_table.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac --env:SSDIR=../SourceMaterials
@@ -325,7 +325,7 @@ sound and the envelope.
 
    ***EXAMPLE 03D04_Standard_waveforms_with_GEN10.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -458,7 +458,7 @@ Instrument 2 simply prints all the values in a list to the terminal.
 
    ***EXAMPLE 03D05_Write_Fibo_to_table.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -nm0
@@ -508,7 +508,7 @@ like here:
 
    ***EXAMPLE 03D06_Record_ksig_to_table.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -598,7 +598,7 @@ audio input for 5 seconds and subsequently plays it back.
 
    ***EXAMPLE 03D07\_Record\_audio\_to\_table.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -iadc -odac
@@ -691,7 +691,7 @@ can be either an i-, k- or a-rate signal and the value type of the
 output automatically selects either the a- k- or a-rate version of the
 opcode. The first input is an index at the appropriate rate (i-index for
 i-output, k-index for k-output, a-index for a-output). The other
-arguments are as explained above for 
+arguments are as explained above for
 [tableiw](http://www.csound.com/docs/manual/html/tableiw.html)/
 [tablew](http://www.csound.com/docs/manual/html/tablew.html).
 
@@ -740,7 +740,7 @@ oscillator with a cubic interpolation):
 
    ***EXAMPLE 03D08_RecPlay_ak_signals.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -iadc -odac
@@ -844,7 +844,7 @@ linear increment produced during the performance) at k-time.
 
    ***EXAMPLE 03D09\_ftsave.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsInstruments>
 sr = 44100
@@ -903,7 +903,7 @@ the instrument is turned off by executing the
 
    ***EXAMPLE 03D10_Table_to_soundfile.csd***
 
-~~~
+~~~Csound
 <CsoundSynthesizer>
 <CsOptions>
 -i adc
@@ -1135,5 +1135,3 @@ band-limited versions of the first):
 
 
     f 3 0 1024 30 1 2 20
-
-
