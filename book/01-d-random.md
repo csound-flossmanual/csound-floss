@@ -1364,7 +1364,9 @@ number *rand2* between 0 and 1 and accept *rnd1* only if *rand2* \<
 *f*(*rnd1*); otherwise we reject it. (see *Signals, Systems and Sound
 Synthesis*[^6] chapter 10.1.4.4)
 
-![](../resources/images/01-d-random3.gif)
+`\begin{center}`{=latex}
+![](../resources/images/01-d-random3.gif){height=7cm}
+`\end{center}`{=latex}
 
 ***EXAMPLE 01D10\_Rejection\_Sampling.csd***
 
@@ -1440,7 +1442,7 @@ i2 0 10 4 5 6
 </CsScore>
 </CsoundSynthesizer>
 ;example by martin neukom
-~~~Csound
+~~~
 
 
 #### Random Walk
@@ -1589,9 +1591,11 @@ simply generates a random value within user defined minimum and maximum
 limit and at i-time, k-rate or a-rate according to the variable type of
 its output:
 
+~~~Csound
     ires random imin, imax
     kres random kmin, kmax
     ares random kmin, kmax
+~~~
 
 Values are generated according to a uniform random distribution, meaning
 that any value within the limits has equal chance of occurence.
@@ -1636,10 +1640,12 @@ value.
 
 The instruction:
 
+~~~Csound
     kmin   =         -1
     kmax   =         1
     kfreq  =         2
     kout   randomh   kmin,kmax,kfreq
+~~~
 
 will produce and output a random line which changes its value every half second between the minimum of -1 and the maximum of 1. Special care should be given to the fourth parameter *imode* which is by default 0, but can be set to 1, 2, or 3. For *imode*=0 and *imode*=1 the random lines will start at the minimum (here -1) and will hold this value until the first period has been finished. For *imode*=2 it will start at a value set by the user (by default 0), wheras for *imode*=3 it will start at a random value between minimum und maximum. This is a generation for five seconds:
 
@@ -1663,11 +1669,13 @@ maximum frequency, and the resulting function is a smooth spline between
 the minimum and maximum values and these minimum and maximum
 frequencies. The following input:
 
+~~~Csound
     kmin     =         -0.95
     kmax     =         0.95
     kminfrq  =         1
     kmaxfrq  =         4
     asig     rspline   kmin, kmax, kminfrq, kmaxfrq
+~~~
 
 would generate an output something like:
 

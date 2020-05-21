@@ -2,7 +2,6 @@
 
 const { Str, stdio } = require("pandoc-filter");
 const R = require("ramda");
-const { buildLink } = require("../utils");
 
 const isAbsoluteUrl = url => /^https?:\/\//i.test(url);
 
@@ -22,24 +21,6 @@ function action({ t: type, c: value }, format, meta) {
         .replace(".md", "")
         .replace(/^[0-9]+\-/i, "")
         .replace("-", ".-");
-
-    // console.error(value);
-
-    // value = R.assocPath(
-    //   p,
-    //   R.toLower(relUrl)
-    //     .replace(".md", "")
-    //     .replace(/^[0-9]+\-/i, ""),
-    //   value
-    // );
-    // return value;
-    // const pdfUrl = buildLink(relUrl);
-    // console.error(
-    //   R.toLower(relUrl)
-    //     .replace(".md", "")
-    //     .replace(/^[0-9]+\-/i, "")
-    // );
-    // return Str(value.toUpperCase());
   }
 }
 

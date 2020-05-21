@@ -5,11 +5,17 @@
 \PassOptionsToPackage{dvipsnames,svgnames*,x11names*}{xcolor}
 
 
-%
+%% documentclass
 \renewcommand{\linethickness}{0.05pt}
-\documentclass[17pt,english,a4,handout]{article}
+\documentclass[17pt,english,a4,handout]{book}
+
+\usepackage{textcomp} % provide euro and other symbols
 
 \usepackage{pgfpages}
+
+%% unordered list character
+\usepackage{pifont}
+\renewcommand\labelitemi{\ding{47}}
 
 \usepackage{geometry}
  \geometry{
@@ -81,7 +87,6 @@
 
 \setcounter{secnumdepth}{-2}
 
-
 \hypersetup{
   colorlinks=true,
   breaklinks=true,
@@ -90,6 +95,9 @@
 }
 
 \urlstyle{same}
+
+\usepackage{fancyvrb}
+\VerbatimFootnotes
 
 $if(highlighting-macros)$
 $highlighting-macros$
@@ -107,9 +115,14 @@ $endfor$
 }
 \makeatother
 
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+
+\usepackage[raggedright]{titlesec}
+\titleformat{\paragraph}[hang]{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
 
 \begin{document}
-
 $for(include-before)$
 $include-before$
 $endfor$
