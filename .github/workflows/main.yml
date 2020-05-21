@@ -1,0 +1,22 @@
+name: "CI"
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: cachix/install-nix-action@v8
+    - uses: cachix/cachix-action@v6
+      with:
+        name: csound-flossmanual
+        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
+    - run: | 
+       nix-shell --run 'yarn && yarn build'
+       nix-shell --run 'yarn build:pdf'
+       mv *.pdf public
+       nix-build
+       
