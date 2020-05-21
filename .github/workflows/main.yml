@@ -14,7 +14,7 @@ jobs:
         name: csound-flossmanual
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
     - run: |
-       nix-build shell.nix
+       nix-env -i -f shell.nix
        PATH=$PATH:$(pwd)/result/bin
        yarn && yarn build
        yarn build:pdf
