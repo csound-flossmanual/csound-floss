@@ -30,7 +30,7 @@ and is not part of the compilation itself.
 
 Macros are defined using the syntax:
 
-    #define NAME # replacement text #
+    \#define NAME \# replacement text \#
 
 *NAME* is the user-defined name that will be used to call the macro
 at some point later in the orchestra; it must begin with a letter but
@@ -46,9 +46,9 @@ another macro definition. Subsequent expansions of the macro will then
 use the new version.
 
 To expand the macro later in the orchestra the macro name needs to be
-preceded with a *$* symbol thus:
+preceded with a *$$* symbol thus:
 
-      $NAME
+      $$NAME
 
 The following example illustrates the basic syntax needed to employ
 macros. The name of a sound file is referenced twice in the score so it
@@ -74,17 +74,17 @@ nchnls  =       1
 0dbfs   =       1
 
 ; define the macro
-#define SOUNDFILE # "loop.wav" #
+\#define SOUNDFILE \# "loop.wav" \#
 
  instr  1
 ; use an expansion of the macro in deriving the duration of the sound file
-idur  filelen   $SOUNDFILE
+idur  filelen   $$SOUNDFILE
       event_i   "i",2,0,idur
  endin
 
  instr  2
 ; use another expansion of the macro in playing the sound file
-a1  diskin2  $SOUNDFILE,1
+a1  diskin2  $$SOUNDFILE,1
     out      a1
  endin
 
@@ -106,12 +106,12 @@ apostrophe as shown below.
 
 
 
-    #define NAME(Arg1'Arg2'Arg3...) # replacement text #
+    \#define NAME(Arg1'Arg2'Arg3...) \# replacement text \#
 
 Arguments can be any text string permitted as Csound code, they should
 not be likened to opcode arguments where each must conform to a certain
 type such as i, k, a etc. Macro arguments are subsequently referenced in
-the macro text using their names preceded by a *$* symbol. When the
+the macro text using their names preceded by a *$$* symbol. When the
 main macro is called later in the orchestra its arguments are then
 replaced with the values or strings required. The Csound Reference
 Manual states that up to five arguments are permitted but this still
@@ -142,33 +142,33 @@ nchnls  =       1
 gisine  ftgen  0,0,2^10,10,1
 
 ; define the macro
-#define ADDITIVE_TONE(Frq'Ratio1'Ratio2'Ratio3'Ratio4'Ratio5'Ratio6) #
+\#define ADDITIVE_TONE(Frq'Ratio1'Ratio2'Ratio3'Ratio4'Ratio5'Ratio6) \#
 iamp =      0.1
-aenv expseg  1,p3*(1/$Ratio1),0.001,1,0.001
-a1  poscil  iamp*aenv,$Frq*$Ratio1,gisine
-aenv expseg  1,p3*(1/$Ratio2),0.001,1,0.001
-a2  poscil  iamp*aenv,$Frq*$Ratio2,gisine
-aenv expseg  1,p3*(1/$Ratio3),0.001,1,0.001
-a3  poscil  iamp*aenv,$Frq*$Ratio3,gisine
-aenv expseg  1,p3*(1/$Ratio4),0.001,1,0.001
-a4  poscil  iamp*aenv,$Frq*$Ratio4,gisine
-aenv expseg  1,p3*(1/$Ratio5),0.001,1,0.001
-a5  poscil  iamp*aenv,$Frq*$Ratio5,gisine
-aenv expseg  1,p3*(1/$Ratio6),0.001,1,0.001
-a6  poscil  iamp*aenv,$Frq*$Ratio6,gisine
+aenv expseg  1,p3*(1/$$Ratio1),0.001,1,0.001
+a1  poscil  iamp*aenv,$$Frq*$$Ratio1,gisine
+aenv expseg  1,p3*(1/$$Ratio2),0.001,1,0.001
+a2  poscil  iamp*aenv,$$Frq*$$Ratio2,gisine
+aenv expseg  1,p3*(1/$$Ratio3),0.001,1,0.001
+a3  poscil  iamp*aenv,$$Frq*$$Ratio3,gisine
+aenv expseg  1,p3*(1/$$Ratio4),0.001,1,0.001
+a4  poscil  iamp*aenv,$$Frq*$$Ratio4,gisine
+aenv expseg  1,p3*(1/$$Ratio5),0.001,1,0.001
+a5  poscil  iamp*aenv,$$Frq*$$Ratio5,gisine
+aenv expseg  1,p3*(1/$$Ratio6),0.001,1,0.001
+a6  poscil  iamp*aenv,$$Frq*$$Ratio6,gisine
 a7  sum     a1,a2,a3,a4,a5,a6
     out     a7
-#
+\#
 
  instr  1 ; xylophone
 ; expand the macro with partial ratios that reflect those of a xylophone
 ; the fundemental frequency macro argument (the first argument -
 ; - is passed as p4 from the score
-$ADDITIVE_TONE(p4'1'3.932'9.538'16.688'24.566'31.147)
+$$ADDITIVE_TONE(p4'1'3.932'9.538'16.688'24.566'31.147)
  endin
 
  instr  2 ; vibraphone
-$ADDITIVE_TONE(p4'1'3.997'9.469'15.566'20.863'29.440)
+$$ADDITIVE_TONE(p4'1'3.997'9.469'15.566'20.863'29.440)
  endin
 
 </CsInstruments>
@@ -197,10 +197,10 @@ transposition factor in semitones. These riffs are played back using a
 bass guitar-like instrument using the
 [wgpluck2](http://www.csound.com/docs/manual/wgpluck2.html) opcode.
 Remember that mathematical expressions within the Csound score must be
-bound within square brackets `[]`.
+bound within square brackets `\[\]`.
 
 
-   ***EXAMPLE 03H03_Score_macro.csd***
+***EXAMPLE 03H03_Score_macro.csd***
 
 ~~~Csound
 <CsoundSynthesizer>
@@ -223,35 +223,35 @@ aenv linseg   1,p3-0.1,1,0.1,0
 </CsInstruments>
 <CsScore>
 ; p4 = pitch as a midi note number
-#define RIFF_1(Start'Trans)
-#
-i 1 [$Start     ]  1     [36+$Trans]
-i 1 [$Start+1   ]  0.25  [43+$Trans]
-i 1 [$Start+1.25]  0.25  [43+$Trans]
-i 1 [$Start+1.75]  0.25  [41+$Trans]
-i 1 [$Start+2.5 ]  1     [46+$Trans]
-i 1 [$Start+3.25]  1     [48+$Trans]
-#
-#define RIFF_2(Start'Trans)
-#
-i 1 [$Start     ]  1     [34+$Trans]
-i 1 [$Start+1.25]  0.25  [41+$Trans]
-i 1 [$Start+1.5 ]  0.25  [43+$Trans]
-i 1 [$Start+1.75]  0.25  [46+$Trans]
-i 1 [$Start+2.25]  0.25  [43+$Trans]
-i 1 [$Start+2.75]  0.25  [41+$Trans]
-i 1 [$Start+3   ]  0.5   [43+$Trans]
-i 1 [$Start+3.5 ]  0.25  [46+$Trans]
-#
+\#define RIFF_1(Start'Trans)
+\#
+i 1 \[$$Start     \]  1     \[36+$$Trans\]
+i 1 \[$$Start+1   \]  0.25  \[43+$$Trans\]
+i 1 \[$$Start+1.25\]  0.25  \[43+$$Trans\]
+i 1 \[$$Start+1.75\]  0.25  \[41+$$Trans\]
+i 1 \[$$Start+2.5 \]  1     \[46+$$Trans\]
+i 1 \[$$Start+3.25\]  1     \[48+$$Trans\]
+\#
+\#define RIFF_2(Start'Trans)
+\#
+i 1 \[$$Start     \]  1     \[34+$$Trans\]
+i 1 \[$$Start+1.25\]  0.25  \[41+$$Trans\]
+i 1 \[$$Start+1.5 \]  0.25  \[43+$$Trans\]
+i 1 \[$$Start+1.75\]  0.25  \[46+$$Trans\]
+i 1 \[$$Start+2.25\]  0.25  \[43+$$Trans\]
+i 1 \[$$Start+2.75\]  0.25  \[41+$$Trans\]
+i 1 \[$$Start+3   \]  0.5   \[43+$$Trans\]
+i 1 \[$$Start+3.5 \]  0.25  \[46+$$Trans\]
+\#
 t 0 90
-$RIFF_1(0 ' 0)
-$RIFF_1(4 ' 0)
-$RIFF_2(8 ' 0)
-$RIFF_2(12'-5)
-$RIFF_1(16'-5)
-$RIFF_2(20'-7)
-$RIFF_2(24' 0)
-$RIFF_2(28' 5)
+$$RIFF_1(0 ' 0)
+$$RIFF_1(4 ' 0)
+$$RIFF_2(8 ' 0)
+$$RIFF_2(12'-5)
+$$RIFF_1(16'-5)
+$$RIFF_2(20'-7)
+$$RIFF_2(24' 0)
+$$RIFF_2(28' 5)
 e
 </CsScore>
 </CsoundSynthesizer>
@@ -280,5 +280,4 @@ location.
 Csound's orchestra and score macro system offers many additional
 refinements and this chapter serves merely as an introduction to their
 basic use. To learn more it is recommended to refer to the relevant
-sections of the [Csound Reference
-Manual](http://www.csound.com/docs/manual/OrchMacros.html).
+sections of the [Csound Reference Manual](http://www.csound.com/docs/manual/OrchMacros.html).

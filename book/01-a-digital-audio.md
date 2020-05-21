@@ -158,7 +158,7 @@ In computer music we can produce any frequency internally, much higher than we c
 
 ***EXAMPLE 01A01\_Aliasing.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -241,7 +241,7 @@ or down when being digitized.
 
 The figure below shows the quantization issue in simplified version, assuming a depth of only 3 bit. This is like a grid of 2^3^ = 8 possible levels which can be used for each sample. At each sampling period the soundcard plots an amplitude which is adjusted to the next possible vertical position. For a signal with lower amplitude the distortion would even be stronger.
 
-![*Wrong amplitude values due to insufficient bit depth resolution*](../resources/images/01-a-bitdepth.png)
+![*Wrong amplitude values due to insufficient bit depth resolution*](../resources/images/01-a-bitdepth.png){width=12cm}
 
  Quantization noise becomes most apparent
 when trying to represent low amplitude (quiet) sounds. Frequently a tiny

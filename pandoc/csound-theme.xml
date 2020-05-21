@@ -689,11 +689,12 @@
       <context name="Orchestra" attribute="Normal Text" lineEndContext="#stay">
         <IncludeRules context="SharedRules" />
         <StringDetect attribute="Keyword" context="#stay" String="instr " beginRegion="Instr" />
+        <StringDetect attribute="Keyword" context="#stay" String="opcode " beginRegion="Instr" />
         <StringDetect attribute="Keyword" context="#stay" String="endin" endRegion="Instr" />
+        <StringDetect attribute="Keyword" context="#stay" String="endop " beginRegion="Instr" />
         <StringDetect attribute="Region Marker" context="Region Marker" String="//BEGIN" beginRegion="Region" firstNonSpace="true" />
         <StringDetect attribute="Region Marker" context="Region Marker" String="//END" endRegion="Region" firstNonSpace="true" />
-        <keyword attribute="Keyword" context="#stay" String="opcodes"/>
-        <keyword attribute="Definition" context="#stay" String="orchestraHeaderStatements"/>
+
         <RegExpr attribute="Label" context="#stay" String="[a-zA-Z0-9_]+\:" firstNonSpace="true"/>
         <RegExpr attribute="pVariable" context="#stay" String="p[0-9]+" />
         <RegExpr attribute="iVariable" context="#stay" String="i[a-zA-Z0-9_]+" />
@@ -738,9 +739,9 @@
     <itemDatas>
       <itemData name="Normal Text"  defStyleNum="dsNormal"/>
       <itemData name="Comment"      defStyleNum="dsComment"/>
-      <itemData name="CsdTag" defStyleNum="dsAttribute" color="#660000" bold="1"/>
+      <itemData name="CsdTag" defStyleNum="dsAttribute" />
       <itemData name="Normal Text" defStyleNum="dsNormal"/>
-      <itemData name="Definition" defStyleNum="dsBuiltIn" color="#660000" />
+      <itemData name="Definition" defStyleNum="dsBuiltIn" />
       <itemData name="Keyword" defStyleNum="dsKeyword"/>
       <itemData name="Decimal" defStyleNum="dsDecVal"/>
       <itemData name="Octal" defStyleNum="dsBaseN"/>
@@ -755,12 +756,12 @@
       <itemData name="Include" defStyleNum="dsOthers"/>
       <itemData name="MacroDefinition" defStyleNum="dsOthers"/>
       <itemData name="MacroExpansion" defStyleNum="dsFunction"/>
-      <itemData name="Label" defStyleNum="dsNormal" color="#006600" bold="1"/>
-      <itemData name="pVariable" defStyleNum="dsNormal" color="#0000cc" bold="1"/>
-      <itemData name="iVariable" defStyleNum="dsNormal" color="#006600"/>
-      <itemData name="kVariable" defStyleNum="dsNormal" color="#006666"/>
-      <itemData name="aVariable" defStyleNum="dsNormal" color="#660000"/>
-      <itemData name="gVariable" defStyleNum="dsNormal" color="#660066"/>
+      <itemData name="Label" defStyleNum="dsNormal" />
+      <itemData name="pVariable" defStyleNum="dsPvar" />
+      <itemData name="iVariable" defStyleNum="dsIvar" />
+      <itemData name="kVariable" defStyleNum="dsKvar" />
+      <itemData name="aVariable" defStyleNum="dsAvar" />
+      <itemData name="gVariable" defStyleNum="dsGvar" />
     </itemDatas>
   </highlighting>
   <general>

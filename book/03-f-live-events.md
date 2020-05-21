@@ -261,9 +261,9 @@ i    1    1    1    .2   900
 s
 ; -- make a score loop (4 times) with the variable "LOOP"
 {4 LOOP
-i    1    [0 + 4 * $LOOP.]    3    .2   [1200 - $LOOP. * 100]
-i    1    [1 + 4 * $LOOP.]    2    .    [1200 - $LOOP. * 200]
-i    1    [2 + 4 * $LOOP.]    1    .    [1200 - $LOOP. * 300]
+i    1    \[0 + 4 * $$LOOP.\]    3    .2   \[1200 - $$LOOP. * 100\]
+i    1    \[1 + 4 * $$LOOP.\]    2    .    \[1200 - $$LOOP. * 200\]
+i    1    \[2 + 4 * $$LOOP.\]    1    .    \[1200 - $$LOOP. * 300\]
 }
 e
 </CsScore>

@@ -334,12 +334,12 @@ ksmps = 32
 nchnls = 1
 0dbfs = 1
 
-opcode  lin_reson, a, akk
+opcode  lin\_reson, a, akk
 setksmps 1
 avel    init    0               ;velocity
 ax      init    0               ;deflection x
 ain,kf,kdamp    xin
-kc      =       2-sqrt(4-kdamp^2)*cos(kf*2*$M_PI/sr)
+kc      =       2-sqrt(4-kdamp\^2)*cos(kf*2*$$M\_PI/sr)
 aacel   =       -kc*ax
 avel    =       avel+aacel+ain
 avel    =       avel*(1-kdamp)
@@ -349,7 +349,7 @@ endop
 
 instr 1
 aexc    rand    p4
-aout    lin_reson       aexc,p5,p6
+aout    lin\_reson       aexc,p5,p6
         out     aout
 endin
 
@@ -530,7 +530,7 @@ opcode v_d_p, a, akk
  av init 0
  ax init 0
  ain,kfr,kmu xin
- kc = 2-2*cos(kfr*2*$M_PI/sr)
+ kc = 2-2*cos(kfr*2*$$M_PI/sr)
  aa = -kc*ax + kmu*(1-ax*ax)*av
  av = av + aa
  ax = ax + av + ain
@@ -544,7 +544,7 @@ instr 1
  kf = 455
  kmu linseg 0,p3,.7
  a1 poscil kaex,kfex
- aout v_d_p a1,kf,kmu
+ aout v\_d\_p a1,kf,kmu
  out kamp*aout,a1*100
 endin
 
@@ -631,17 +631,17 @@ nchnls = 1
   ;performs the karplus-strong algorithm
 iTab, iTbSiz xin
 ;calculate the mean of the last two values
-iUlt      tab_i     iTbSiz-1, iTab
-iPenUlt   tab_i     iTbSiz-2, iTab
+iUlt      tab\_i     iTbSiz-1, iTab
+iPenUlt   tab\_i     iTbSiz-2, iTab
 iNewVal   =         (iUlt + iPenUlt) / 2
 ;shift values one position to the right
 indx      =         iTbSiz-2
 loop:
-iVal      tab_i     indx, iTab
-          tabw_i    iVal, indx+1, iTab
-          loop_ge   indx, 1, 0, loop
+iVal      tab\_i     indx, iTab
+          tabw\_i    iVal, indx+1, iTab
+          loop\_ge   indx, 1, 0, loop
 ;fill the new value at the beginning of the table
-          tabw_i    iNewVal, 0, iTab
+          tabw\_i    iNewVal, 0, iTab
   endop
 
   opcode PrintTab, 0, iiS
@@ -653,7 +653,7 @@ loop:
 iVal      tab_i     indx, iTab
 Snew      sprintf   "%8.3f", iVal
 Sout      strcat    Sout, Snew
-          loop_lt   indx, 1, iTbSiz, loop
+          loop\_lt   indx, 1, iTbSiz, loop
           puts      Sout, 1
   endop
 
@@ -670,8 +670,8 @@ Scycle    sprintf   "Cycle %d:", iCycle
 iState    =         0
 state:
           KS        iTab, iTbLen
-          loop_lt   iState, 1, iTbLen, state
-          loop_lt   iCycle, 1, 10, cycle
+          loop\_lt   iState, 1, iTbLen, state
+          loop\_lt   iCycle, 1, 10, cycle
 endin
 
 </CsInstruments>
@@ -1051,34 +1051,34 @@ aL,aR   pan2            aSig,kPan
 ;t 0 90 1 30 2 60 5 90 7 30
 ; p4 = stiffness (pitch)
 
-#define gliss(dur'Kstrt'Kend'b'scan1'scan2)
-#
-i 1 0     20 $Kstrt $b $scan1 $scan2
-i 1 ^+0.05 $dur >     $b $scan1 $scan2
-i 1 ^+0.05 $dur >     $b $scan1 $scan2
-i 1 ^+0.05 $dur >     $b $scan1 $scan2
-i 1 ^+0.05 $dur >     $b $scan1 $scan2
-i 1 ^+0.05 $dur >     $b $scan1 $scan2
-i 1 ^+0.05 $dur >     $b $scan1 $scan2
-i 1 ^+0.05 $dur >     $b $scan1 $scan2
-i 1 ^+0.05 $dur >     $b $scan1 $scan2
-i 1 ^+0.05 $dur >     $b $scan1 $scan2
-i 1 ^+0.05 $dur >     $b $scan1 $scan2
-i 1 ^+0.05 $dur >     $b $scan1 $scan2
-i 1 ^+0.05 $dur >     $b $scan1 $scan2
-i 1 ^+0.05 $dur >     $b $scan1 $scan2
-i 1 ^+0.05 $dur >     $b $scan1 $scan2
-i 1 ^+0.05 $dur >     $b $scan1 $scan2
-i 1 ^+0.05 $dur >     $b $scan1 $scan2
-i 1 ^+0.05 $dur $Kend $b $scan1 $scan2
-#
-$gliss(15'40'400'0.0755'0.1'2)
+\#define gliss(dur'Kstrt'Kend'b'scan1'scan2)
+\#
+i 1 0     20 $$Kstrt $$b $$scan1 $$scan2
+i 1 \^+0.05 $$dur >     $$b $$scan1 $$scan2
+i 1 \^+0.05 $$dur >     $$b $$scan1 $$scan2
+i 1 \^+0.05 $$dur >     $$b $$scan1 $$scan2
+i 1 \^+0.05 $$dur >     $$b $$scan1 $$scan2
+i 1 \^+0.05 $$dur >     $$b $$scan1 $$scan2
+i 1 \^+0.05 $$dur >     $$b $$scan1 $$scan2
+i 1 \^+0.05 $$dur >     $$b $$scan1 $$scan2
+i 1 \^+0.05 $$dur >     $$b $$scan1 $$scan2
+i 1 \^+0.05 $$dur >     $$b $$scan1 $$scan2
+i 1 \^+0.05 $$dur >     $$b $$scan1 $$scan2
+i 1 \^+0.05 $$dur >     $$b $$scan1 $$scan2
+i 1 \^+0.05 $$dur >     $$b $$scan1 $$scan2
+i 1 \^+0.05 $$dur >     $$b $$scan1 $$scan2
+i 1 \^+0.05 $$dur >     $$b $$scan1 $$scan2
+i 1 \^+0.05 $$dur >     $$b $$scan1 $$scan2
+i 1 \^+0.05 $$dur >     $$b $$scan1 $$scan2
+i 1 \^+0.05 $$dur $$Kend $$b $$scan1 $$scan2
+\#
+$$gliss(15'40'400'0.0755'0.1'2)
 b 5
-$gliss(2'80'800'0.755'0'0.1)
+$$gliss(2'80'800'0.755'0'0.1)
 b 10
-$gliss(3'10'100'0.1'0'0)
+$$gliss(3'10'100'0.1'0'0)
 b 15
-$gliss(40'40'433'0'0.2'5)
+$$gliss(40'40'433'0'0.2'5)
 e
 </CsScore>
 </CsoundSynthesizer>
@@ -1219,4 +1219,5 @@ to explore based on the approaches exemplified here. You can find lists
 in the chapters
 [Models and Emulations](https://csound.com/docs/manual/SiggenModels.html),
 [Scanned Synthesis](https://csound.com/docs/manual/SiggenScanTop.html) and
-[Waveguide Physical Modeling](https://csound.com/docs/manual/SiggenWavguide.html) of the [Csound Manual](https://csound.com/docs/manual/index.html).
+[Waveguide Physical Modeling](https://csound.com/docs/manual/SiggenWavguide.html) of the
+[Csound Manual](https://csound.com/docs/manual/index.html).

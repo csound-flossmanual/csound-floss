@@ -2,7 +2,7 @@
 \renewcommand{\@seccntformat}[1]{}
 \makeatother
 \PassOptionsToPackage{hyphens}{url}
-\PassOptionsToPackage{dvipsnames,svgnames*,x11names*}{xcolor}
+\PassOptionsToPackage{usenames,dvipsnames,svgnames*,x11names*}{xcolor}
 
 
 %% documentclass
@@ -26,7 +26,6 @@
  top=24mm,
  bottom=24mm,
  }
-
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
@@ -88,20 +87,28 @@
 \setcounter{secnumdepth}{-2}
 
 \hypersetup{
+  pdfkeywords={$for(keywords)$$keywords$$sep$, $endfor$},
   colorlinks=true,
   breaklinks=true,
-  linkcolor=[rgb]{0.533,0.32,0.9},
-  urlcolor=[rgb]{0.533,0.32,0.9},
+  pdfcreator={LaTeX via pandoc},
 }
 
 \urlstyle{same}
 
+\usepackage{color}
 \usepackage{fancyvrb}
+\usepackage{xcolor}
+\usepackage{listings}
+
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
 \VerbatimFootnotes
 
 $if(highlighting-macros)$
 $highlighting-macros$
 $endif$
+
+\usepackage{graphicx}
 
 $for(header-includes)$
 $header-includes$
@@ -119,38 +126,10 @@ $endfor$
 \patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
 \makeatother
 
-%% \let\subsubsection\subsection
-%% \let\subsection\section
-%% \let\section\chapter
-%% \let\chapter\part
-
 \usepackage[raggedright]{titlesec}
 \titleformat{\paragraph}[hang]{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
-%% \titleformat{\section}[hang]{\normalfont\normalsize\bfseries}{\thesection}{1em}{}
-%% \titleformat*{\section}{\LARGE\bfseries}
-%% \titleformat{\subsection}{\normalfont\fontfamily{\robotobold}\fontsize{12}{22}\bfseries\itshape}{\thesubsection}{1em}{}
 
-%% \makeatletter
-%% \renewcommand\section{\@startsection {section}{1}{\z@}%
-%%                                    {-3.5ex \@plus -1ex \@minus -.2ex}%
-%%                                    {2.3ex \@plus.2ex}%
-%%                                    {\normalfont\LARGE\bfseries}}% from \Large
-%% \renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
-%%                                      {-3.25ex\@plus -1ex \@minus -.2ex}%
-%%                                      {1.5ex \@plus .2ex}%
-%%                                      {\normalfont\Large\bfseries}}% from \large
-%% \renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
-%%                                      {-3.25ex\@plus -1ex \@minus -.2ex}%
-%%                                      {1.5ex \@plus .2ex}%
-%%                                      {\normalfont\large\bfseries}}% from \normalsize
-%% \makeatother
-
-%% \titleformat*{\section}{\HUGE\bfseries}
-%% \titleformat*{\subsection}{\Large\bfseries}
-%% \titleformat*{\subsubsection}{\large\bfseries}
-%% \titleformat*{\paragraph}{\large\bfseries}
-%% \titleformat*{\subparagraph}{\large\bfseries}
-
+\newcommand{\passthrough}[1]{\lstset{mathescape=false}#1\lstset{mathescape=true}}
 \begin{document}
 $for(include-before)$
 $include-before$

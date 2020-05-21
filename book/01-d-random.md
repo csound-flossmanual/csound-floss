@@ -1738,8 +1738,8 @@ endin
 </CsInstruments>
 <CsScore>
 t 0 80
-#define SCORE(i) #
-i $i 0 1   60
+\#define SCORE(i) \#
+i $$i 0 1   60
 i .  + 2.5 69
 i .  + 0.5 67
 i .  + 0.5 65
@@ -1750,10 +1750,10 @@ i .  + 2.5 70
 i .  + 0.5 69
 i .  + 0.5 67
 i .  + 0.5 65
-i .  + 3   64 #
-$SCORE(1)  ; play melody without humanising
+i .  + 3   64 \#
+$$SCORE(1)  ; play melody without humanising
 b 17
-$SCORE(2)  ; play melody with humanising
+$$SCORE(2)  ; play melody with humanising
 e
 </CsScore>
 </CsoundSynthesizer>
