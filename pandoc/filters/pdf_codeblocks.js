@@ -7,6 +7,10 @@ const { buildLink } = require("../utils");
 const isAbsoluteUrl = url => /^https?:\/\//i.test(url);
 
 function action({ t: type, c: value }, format, meta) {
+  // if (type === "Header") {
+  //   type = "Chapter";
+  //   console.error(type, value);
+  // }
   if (type === "CodeBlock") {
     if (R.last(value).match(/\n\s*\n/g)) {
       // console.error(

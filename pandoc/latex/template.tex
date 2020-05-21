@@ -10,7 +10,7 @@
 \documentclass[17pt,english,a4,handout]{book}
 
 \usepackage{textcomp} % provide euro and other symbols
-
+\usepackage{parskip} % sensible indent and break in paragraphs
 \usepackage{pgfpages}
 
 %% unordered list character
@@ -119,8 +119,37 @@ $endfor$
 \patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
 \makeatother
 
+%% \let\subsubsection\subsection
+%% \let\subsection\section
+%% \let\section\chapter
+%% \let\chapter\part
+
 \usepackage[raggedright]{titlesec}
 \titleformat{\paragraph}[hang]{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+%% \titleformat{\section}[hang]{\normalfont\normalsize\bfseries}{\thesection}{1em}{}
+%% \titleformat*{\section}{\LARGE\bfseries}
+%% \titleformat{\subsection}{\normalfont\fontfamily{\robotobold}\fontsize{12}{22}\bfseries\itshape}{\thesubsection}{1em}{}
+
+%% \makeatletter
+%% \renewcommand\section{\@startsection {section}{1}{\z@}%
+%%                                    {-3.5ex \@plus -1ex \@minus -.2ex}%
+%%                                    {2.3ex \@plus.2ex}%
+%%                                    {\normalfont\LARGE\bfseries}}% from \Large
+%% \renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+%%                                      {-3.25ex\@plus -1ex \@minus -.2ex}%
+%%                                      {1.5ex \@plus .2ex}%
+%%                                      {\normalfont\Large\bfseries}}% from \large
+%% \renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
+%%                                      {-3.25ex\@plus -1ex \@minus -.2ex}%
+%%                                      {1.5ex \@plus .2ex}%
+%%                                      {\normalfont\large\bfseries}}% from \normalsize
+%% \makeatother
+
+%% \titleformat*{\section}{\HUGE\bfseries}
+%% \titleformat*{\subsection}{\Large\bfseries}
+%% \titleformat*{\subsubsection}{\large\bfseries}
+%% \titleformat*{\paragraph}{\large\bfseries}
+%% \titleformat*{\subparagraph}{\large\bfseries}
 
 \begin{document}
 $for(include-before)$

@@ -5,7 +5,7 @@ on:
       - master
 
 jobs:
-  tests:
+  build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -14,9 +14,9 @@ jobs:
       with:
         name: csound-flossmanual
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
-    - run: | 
-       nix-shell --run 'yarn && yarn build'
-       nix-shell --run 'yarn build:pdf'
+    - run: |
+       nix-build shell.nix
+       PATH=$PATH:$(pwd)/result/bin
+       yarn && yarn build
+       yarn build:pdf
        mv *.pdf public
-       nix-build
-       

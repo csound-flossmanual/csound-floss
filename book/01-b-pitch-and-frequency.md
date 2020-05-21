@@ -319,6 +319,7 @@ In addition to raw frequency input and MIDI note numbers, Csound offers two more
 
 The *oct* notation also uses floating point numbers. The integer part has the same meaning as in the *pch* notation. The fractional part divides one octave in acoustically equal steps. For 8.00 as C4 and 9.00 as C5, 8.5 denotes a pitch which is acoustically in the middle between C4 and C5, which means that the proportion between this frequency and the C4 frequency is the same as the proportion between the C5 frequency and this tone's frequency. Csound calculates this as:
 
+~~~Csound
     instr 1
      iC4 = cpsoct(8)
      iC5 = cpsoct(9)
@@ -329,16 +330,20 @@ The *oct* notation also uses floating point numbers. The integer part has the sa
        iNew/iC4, iC5/iNew
     endin
     schedule(1,0,0)
+~~~
 
 And the output is:
 
+~~~
     C4 = 261.626 Hz, C5 = 523.251 Hz, oct(8.5) = 369.994 Hz.
     Proportion New:C4 = 1.414, C5:New = 1.414
+~~~
 
 On a keyboard, this pitch which divides the octave in two acoustically equal halves, is F#4. It can be notated in *pch* notation as 8.06, or in MIDI notation as key number 66. So why was *oct* notation added? -- The reason is that by this notation it becomes very simple to introduce for instance the division of an octave into 10 equal steps: 8.1, 8.2, ..., or in 8 equal steps as 8.125, 8.25, 8.375, ...
 
 The following code shows that things like these can also be achieved with a bit of math, but for simple cases it is quite convenient to use the *oct* notation. A scale consisting of ten equal steps based on A3 (= 220 Hz) is constructed.
 
+~~~Csound
     instr 1
      puts "Calculation with octpch():", 1
      iOctDiff = 0
@@ -356,7 +361,7 @@ The following code shows that things like these can also be achieved with a bit 
      puts "",1
     endin
     schedule(1,0,0)
-
+~~~
 
 ### Cent
 
@@ -364,6 +369,7 @@ One semitone in the equal-tempered tuning system can be divided into 100 Cent. I
 
 All musical intervals can be described as ratios or multipliers. The ratio for the perfect fifth is 3:2, or 1.5 when used as multiplier. Also one Cent is a multiplier. As one octave consists of 12 semitones, and each semitone consists of 100 Cent, one octave consists of 1200 Cent. So one Cent, described as multiplier, is 2^1/1200^ (1.000577...), and 50 Cent is 2^50/1200^ (1.0293022...). To return this multiplier, Csound offers the [cent](https://csound.com/docs/manual/cent.html) converter. So `cent(50)` returns the number by which we must multiply a certain frequency to get a quarter tone higher, and `cent(-25)` returns the multiplier for calculating an eighth tone lower.
 
+~~~Csound
     instr 1
      prints "A quater tone above A4 (440 Hz):\n"
      prints " 1. as mtof:i(69.5) = %f\n", mtof:i(69.5)
@@ -372,15 +378,17 @@ All musical intervals can be described as ratios or multipliers. The ratio for t
      prints " 4. as cent(50)*440 = %f\n", cent(50)*440
     endin
     schedule(1,0,0)
+~~~
 
 The result of this comparison is:
 
+~~~
     A quater tone above A4 (440 Hz):
      1. as mtof:i(69.5) = 452.892984
      2. as cpspch(8.095) = 452.880211
      3. as 2\^(50/1200)*440 = 452.892984
      4. as cent(50)*440 = 452.892984
-
+~~~
 
 
 Tuning Systems

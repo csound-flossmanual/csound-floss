@@ -108,3 +108,5 @@ great Csound-related articles. The
 [Csound Community Home Page](https://csound.com/) points to a lot of additional resources of learning Csound and informs about recent developments. Other resources (books, mailing lists, social media, videos) are listed in the [Links](15-c-links.md) section of this manual.
 
 We hope you enjoy reading this textbook and wish you happy Csounding!
+
+\newpage
