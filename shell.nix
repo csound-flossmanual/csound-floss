@@ -14,6 +14,7 @@ let
      ec
      etoolbox
      fancyvrb
+     fira
      float
      fontinst
      fontspec
@@ -41,8 +42,8 @@ let
      xkeyval;
   };
   deps = with pkgs; [
-    fira
     fontconfig
+    fira
     haskellPackages.pandoc
     tetex
     texliveDeps

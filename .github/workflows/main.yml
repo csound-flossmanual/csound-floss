@@ -14,7 +14,12 @@ jobs:
         name: csound-flossmanual
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
     - name: Install build dependencies from cache
-      run: nix-env -i -f shell.nix
+      run: |
+        nix-env -i -f shell.nix
+        mkdir -p $HOME/.local/share/fonts
+        cp -rf $(nix-build --no-out-link '<nixpkgs>' -A fira)/share/fonts/* \
+          $HOME/.local/share/fonts
+        fc-cache -f -v
     - name: Install npm dependencies via yarn
       run: yarn
     - name: Build the book website
