@@ -30,7 +30,7 @@ jobs:
       uses: actions/upload-artifact@master
       with:
         name: public
-        path: public
+        path: ./public/
   deploy:
     name: Deploy
     needs: build
