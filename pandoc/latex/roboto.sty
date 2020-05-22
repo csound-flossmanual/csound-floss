@@ -4,13 +4,13 @@
 
 \RequirePackage{ifxetex,ifluatex,xkeyval,textcomp}
 
-\newif\ifroboto@otf 
+\newif\ifroboto@ttf
 \ifxetex
-  \roboto@otftrue
+  \roboto@ttftrue
 \else\ifluatex
-  \roboto@otftrue
+  \roboto@ttftrue
 \else  % [pdf]LaTeX
-  \roboto@otffalse
+  \roboto@ttffalse
 \fi\fi
 
 \newif\ifroboto@lining \roboto@liningfalse
@@ -30,7 +30,7 @@
 
 \DeclareOptionX{default}{\roboto@defaulttrue\roboto@slabfalse}
 \DeclareOptionX{sfdefault}{\roboto@defaulttrue\roboto@slabfalse}
-\DeclareOptionX{type1}{\roboto@otffalse}
+\DeclareOptionX{type1}{\roboto@ttffalse}
 \DeclareOptionX{medium}{\roboto@mediumtrue\roboto@blackfalse}
 \DeclareOptionX{bold}{\roboto@blackfalse\roboto@mediumfalse}
 \DeclareOptionX{black}{\roboto@blacktrue\roboto@mediumfalse}
@@ -53,7 +53,7 @@
 \ExecuteOptionsX{bold,regular,lining,proportional}
 \ProcessOptionsX\relax
 
-\ifroboto@otf
+\ifroboto@ttf
   \def\roboto@boldstyle{Bold}
   \ifroboto@medium\def\roboto@boldstyle{Medium}\fi
   \ifroboto@black\def\roboto@boldstyle{Black}\fi
@@ -91,16 +91,16 @@
 
 \fi
 
-\ifroboto@otf
+\ifroboto@ttf
   \ifroboto@lining
     \def\roboto@figurestyle{Lining}
   \else
-    \def\roboto@figurestyle{OldStyle} 
+    \def\roboto@figurestyle{OldStyle}
   \fi
   \ifroboto@tabular
-    \def\roboto@figurealign{Monospaced} 
+    \def\roboto@figurealign{Monospaced}
   \else
-    \def\roboto@figurealign{Proportional} 
+    \def\roboto@figurealign{Proportional}
   \fi
 \else % type1
   \ifroboto@lining
@@ -116,19 +116,19 @@
 \fi
 
 
-\ifroboto@otf
+\ifroboto@ttf
   \RequirePackage{fontspec}
 \else
   \RequirePackage{fontenc,fontaxes,mweights}
 \fi
 
-\ifroboto@otf
+\ifroboto@ttf
   \def\roboto@regular{Regular}
   \ifxetex\XeTeXtracingfonts=1\fi
   \defaultfontfeatures{
         Ligatures = TeX ,
         Scale     = \Roboto@scale ,
-        Extension = .otf }
+        Extension = .ttf }
   \ifroboto@condensed
     \setsansfont
         [ Numbers = {\roboto@figurealign,\roboto@figurestyle},
@@ -149,7 +149,7 @@
         {Roboto}
   \fi
   % grab current family in case of subsequent change:
-  \let\robotofamily\sfdefault  
+  \let\robotofamily\sfdefault
   \ifroboto@slab
     \setmainfont
         [ UprightFont    = *-\roboto@regstyle ,
@@ -240,22 +240,22 @@
           {RobotoCondensed}
   \else\ifroboto@slab
     \newfontfamily\robotoregular
-          [ 
+          [
             UprightFont    = *-Regular ,
           ]
           {RobotoSlab}
     \newfontfamily\robotothin
-          [ 
+          [
             UprightFont    = *-Thin ,
           ]
           {RobotoSlab}
     \newfontfamily\robotolight
-          [ 
+          [
             UprightFont    = *-Light ,
           ]
           {RobotoSlab}
     \newfontfamily\robotobold
-          [ 
+          [
             UprightFont    = *-Bold ,
           ]
           {RobotoSlab}
@@ -347,7 +347,7 @@
   \def\sfdefault{\robotofamily}
   \ifroboto@default\edef\familydefault{\sfdefault}\edef\seriesdefault{\mdseries@sf}\fi
   \ifroboto@slab\edef\rmdefault{\robotoslabfamily}\fi
-  
+
   \ifroboto@slab
     \def\robotoregular{\fontfamily{\rmdefault}\fontseries{m}\selectfont}
     \def\robotomedium{\fontfamily{\rmdefault}\fontseries{sb}\selectfont}
@@ -395,8 +395,8 @@
 \DeclareTextFontCommand{\robotoOsF}{\robotoosf}
 \DeclareTextFontCommand{\robotoTOsF}{\robototosf}
 
-\def\robotoslablgr{\fontencoding{LGR}\fontfamily{RobotoSlab-TLF}\selectfont}  
-    % use RobotoSlab-* even for otf
+\def\robotoslablgr{\fontencoding{LGR}\fontfamily{RobotoSlab-TLF}\selectfont}
+    % use RobotoSlab-* even for ttf
 \ifroboto@lining
   \def\robotolgr@figurestyle{LF}
 \else
@@ -407,10 +407,10 @@
 \else
   \def\robotolgr@figurealign{}
 \fi
-\def\robotolgr{\fontencoding{LGR}\fontfamily{Roboto-\robotolgr@figurealign\robotolgr@figurestyle}\selectfont}  
-    % use Roboto-* even for otf
+\def\robotolgr{\fontencoding{LGR}\fontfamily{Roboto-\robotolgr@figurealign\robotolgr@figurestyle}\selectfont}
+    % use Roboto-* even for ttf
 
-\ifroboto@otf
+\ifroboto@ttf
   % turn off defaults in case other fonts are selected:
   \defaultfontfeatures{}
 \fi

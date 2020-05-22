@@ -11,12 +11,12 @@ const {
   RESOURCES_DIRECTORY,
 } = require("./constants");
 
-const allChapters_ = R.reject(
+const allChapters = R.reject(
   md => md.includes("00--aa-toc.md"),
   fg.sync([`${BOOK_DIRECTORY}/*.md`], { dot: false })
 ).sort();
 
-const allChapters = R.take(10, allChapters_);
+// const allChapters = R.take(10, allChapters_);
 
 const tmpDest = path.join(tmpdir(), "csound_flossmanual_single.md");
 

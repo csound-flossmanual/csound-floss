@@ -14,14 +14,7 @@ jobs:
         name: csound-flossmanual
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
     - name: Install build dependencies from cache
-      run: |
-        nix-env -i -f shell.nix
-        export XDG_DATA_HOME=${XDG_DATA_HOME:="$HOME/.local/share"}
-        cp -f $(nix-build --no-out-link '<nixpkgs>' -A fira)/share/fonts/opentype/*.otf \
-          $XDG_DATA_HOME/fonts
-        cp -f $(nix-build --no-out-link '<nixpkgs>' -A roboto)/share/fonts/opentype/*.otf \
-          $XDG_DATA_HOME/fonts
-        fc-cache -fsv
+      run: nix-env -i -f shell.nix
     - name: Install npm dependencies via yarn
       run: yarn
     - name: Build the book website

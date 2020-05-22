@@ -7,7 +7,7 @@
 
 %% documentclass
 \renewcommand{\linethickness}{0.05pt}
-\documentclass[17pt,english,a4,handout]{book}
+\documentclass[UTF8,17pt,english,a4,handout]{book}
 
 \usepackage{textcomp} % provide euro and other symbols
 \usepackage{parskip} % sensible indent and break in paragraphs
@@ -34,7 +34,9 @@
 \usepackage{setspace}
 \setstretch{1.25}
 
-\usepackage[sfdefault]{./pandoc/latex/roboto}
+\usepackage{fontspec}
+\usepackage[sfdefault]{roboto}
+\usepackage[T1]{fontenc}
 \renewcommand{\rmdefault}{condensed}
 \renewcommand\thesection{}
 \renewcommand\thesubsection{}
@@ -47,7 +49,6 @@
 \def\fnum@table{\tablename~\thetable}
 \makeatother
 
-\usepackage{unicode-math}
 \usepackage{graphicx,grffile}
 
 \makeatletter
