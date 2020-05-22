@@ -13,12 +13,16 @@ jobs:
       with:
         name: csound-flossmanual
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
-    - run: |
-       nix-env -i -f shell.nix
-       PATH=$PATH:$(pwd)/result/bin
-       yarn && yarn build
-       yarn build:pdf
-       mv *.pdf public
+    - name: Install build dependencies from cache
+      run: |
+        nix-env -i -f shell.nix
+        fc-cache -fsv
+    - name: Install npm dependencies via yarn
+      run: yarn
+    - name: Build the book website
+      run: yarn build
+    - name: Build the pdf
+      run: yarn build:pdf && mv *.pdf public
     - name: Archive Production Artifact
       uses: actions/upload-artifact@master
       with:
