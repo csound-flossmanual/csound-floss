@@ -75,6 +75,7 @@ Tarmo: (m)adsr, ampmidi instead of veloc
 Steven: semitone (not cent), zdf filter
 Oeyvind: "most essential" not "important", tonek (not portk), filter: lpf18
 John: mp3 read not playback, why phasor without table in 33, why not ftgen
+Rory:
 
 
 
