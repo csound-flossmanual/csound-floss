@@ -197,7 +197,7 @@ TOP 100 OPCODES
 [freeverb](https://csound.com/docs/manual/freeverb.html) — stereo reverb after Jezar  
 [reverbsc](https://csound.com/docs/manual/reverbsc.html) — stereo reverb after Sean Costello  
 
-#### FFT
+#### Spectral Processing
 [pvsanal](https://csound.com/docs/manual/pvsanal.html) — spectral analysis with audio signal input  
 [pvstanal](https://csound.com/docs/manual/pvstanal.html) — spectral analysis from sampled sound  
 [pvsynth](https://csound.com/docs/manual/pvsynth.html) — spectral resynthesis  
@@ -248,7 +248,7 @@ TOP 100 OPCODES
 [int/frac](https://csound.com/docs/manual/int.html) — integer/fractional part  
 
 #### Amplitude / Pitch Tracking
-[follow(2)](https://csound.com/docs/manual/follow.html) — envelopoe follower  
+[follow(2)](https://csound.com/docs/manual/follow.html) — envelope follower  
 [ptrack](https://csound.com/docs/manual/ptrack.html) — pitch tracking using STFT  
 
 #### Print

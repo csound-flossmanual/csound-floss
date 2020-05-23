@@ -238,7 +238,7 @@ Andrés Cabrera, Joachim Heintz, Jim Aikin
 Michael Gogins
 
 *D. CSOUND IN IOS*
-Nicholas Arner, Nikhil Singh, Richard Boulanger
+Nicholas Arner, Nikhil Singh, Richard Boulanger, Alessandro Petrolati
 
 *E. CSOUND ON ANDROID*
 Michael Gogins

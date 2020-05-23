@@ -16,65 +16,40 @@ In text, the `*` is also used (as in Csound and other programming languages), or
 Csound Terms
 ------------
 
+**block size** is the number of samples which are processed as vector or "block". In Csound, we usually speak of [ksmps](https://csound.com/docs/manual/ksmps.html): The number of samples in one control period.
+
 **control cycle**, **control period** or **k-loop** is a pass during the
 performance of an instrument, in which all k- and a-variables are
 renewed. The time for one control cycle is measured in samples and
 determined by the [ksmps](https://csound.com/docs/manual/ksmps.html)
-constant in the orchestra header. If your sample rate is 44100 and your
-ksmps value is 10, the time for one control cycle is 1/4410 = 0.000227
+constant in the orchestra header. For a sample rate of 44100 Hz and a
+ksmps value of 32, the time for one control cycle is 32/44100 = 0.000726
 seconds. See the chapter about [Initialization And Performance
-Pass](http://en.flossmanuals.net/bin/view/Csound/InitAndPerfPass) for
-more information.
-
-
+Pass](03-a-initialization-and-performance-pass.md) for a detailed discussion.
 
 **control rate** or **k-rate**
 ([kr](https://csound.com/docs/manual/kr.html)) is the number of
 control cycles per second. It can be calculated as the relationship of
 the sample rate [sr](https://csound.com/docs/manual/sr.html) and the
 number of samples in one control period
-[ksmps](https://csound.com/docs/manual/ksmps.html). If your sample
-rate is 44100 and your ksmps value is 10, your control rate is 4410, so
-you have 4410 control cycles per second.
-
-
-
-**dummy f-statement** see **f-statement**
-
-
+[ksmps](https://csound.com/docs/manual/ksmps.html). For a sample rate of 44100 Hz and a ksmps value of 32, the control rate is 1378.125, so 1378.125 control cycles will be performed in one second. (Note that this value is not necessarily an integer, whilst ksmps is always an integer.)
 
 **f-statement** or **function table statement** is a score line which
-starts with a \"f\" and generates a function table. See the chapter
-about [function
-tables](http://en.flossmanuals.net/bin/view/Csound/FUNCTIONTABLES) for
+starts with \"f\" and generates a function table. See the chapter
+about [function tables](03-d-function-tables.md) for
 more information. A **dummy f-statement** is a statement like \"f 0
 3600\" which looks like a function table statement, but instead of
 generating any table, it serves just for running Csound for a certain
-time (here 3600 seconds = 1 hour).
+time (here 3600 seconds = 1 hour). (This is usually not any more required since Csound 6 runs "endless" with empty score.)
 
+**DSP**
 
+**Frequency Domain** is the look at a signal considering its frequency components. The mathematical procedure to transform a time-domain signal into frequency-domain is called ""Fourier Transform**. See the chapters about [Additive Synthesis](04-a-additive-synthesis.md) and about 
+[Spectral Processing](05-i-fourier-analysis-spectral-processing.md).
 
-
-
-**FFT** Fast Fourier Transform is a system whereby audio data is stored
-or represented in the frequency domain as opposed to the time domain as
-amplitude values as is more typical. Working with FFT data facilitates
-transformations and manipulations that are not possible, or are at least
-more difficult, with audio data stored in other formats.
-
-
-
-
-
-**GEN rountine** a GEN (generation) routine is a mechanism within Csound
-used to create function tables of data that will be held in RAM for all
-or part of the performance. A GEN routine could be a waveform, a stored
-sound sample, a list of explicitly defined number such as tunings for a
-special musical scale or an amplitude envelope. In the past function
-tables could only be created only in the Csound score but now they can
-also be created (and deleted and over-written) within the orchestra.
-
-
+**GEN routine** is a subroutine which generates a **function table** (mostly called buffer in other audio programming languages). GEN Routines are very different; they can load a sound file (GEN01), create segmented lines (GEN05 and others), composite waveforms (GEN10 and others), window functions (GEN20) or random distributions (GEN40). See the chapter about 
+[function tables](03-d-function-tables.md) and the
+[Gen Routines Overview](https://csound.com/docs/manual/ScoreGenRef.html) in the Csound Manual.
 
 **GUI** Graphical User Interface refers to a system of on-screen
 sliders, buttons etc. used to interact with Csound, normally in
