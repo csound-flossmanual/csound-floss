@@ -46,12 +46,10 @@ jobs:
         uses: actions/download-artifact@master
         with:
           name: dist
-          path: build
       - name: Uncompress dist archive
         run: |
-          ls
-          stat build
-          ls build
+          sudo apt-get install unzip
+          unzip ./dist.zip
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
