@@ -16,5 +16,4 @@ node_modules
 src/book_fragments/*
 python-env
 *.log
-yarn.lock
 
