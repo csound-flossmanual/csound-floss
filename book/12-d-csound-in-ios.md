@@ -1396,150 +1396,126 @@ The third and more complex case, requires a control at run-time on the audio *ca
 
 An example of the first case just listed, is in the Orchestras of *Csound for iOS*. The *ksmps* is deliberately 64 and can not be changed.
 
-As mentioned, the BufferFrame of iOS is always greater or equal than 64. The operation is assured thanks to the &#39;for&#39; statement in the *Csound\_Render:*
+As mentioned, the BufferFrame of iOS is always greater or equal than 64. The operation is assured thanks to the *for* statement in the *Csound\_Render:*
 
-~~~
-OSStatus  Csound_Render(void *inRefCon,
+    OSStatus  Csound_Render(void *inRefCon,
                          AudioUnitRenderActionFlags *ioActionFlags,
                          const AudioTimeStamp *inTimeStamp,
                          UInt32 dump,
                          UInt32 inNumberFrames,
                          AudioBufferList *ioData
                          )
-{
-
-
+    {
+    
+    
     //…
 	/* inNumberFrames => ksmps */
 	for(int i = 0; i < (int)slices; ++i){
 		ret = csoundPerformKsmps(cs);
 	}
     //…
-}
-~~~
+    }
 
-This &#39;C&#39; routine is called from the CoreAudio every *inNumberFrames* (i.e. BufferFrame).
+This C routine is called from the CoreAudio every *inNumberFrames* (i.e. BufferFrame).
 
-The *ioData* pointer contains *inNumberFrames* of audio samples incoming from the input (mic/line),*Csound* read this data and it returns *ksmps* processed samples.
+The *ioData* pointer contains *inNumberFrames* of audio samples incoming from the input (mic/line), Csound reads this data and it returns *ksmps* processed samples.
 
-When the *inNumberFrames* and *ksmps* are identical, we can simply copy out the processed buffer, this is done by calling the csoundPerformKsmps() procedure.Since that *ksmps* is less or equal to *inNumberFrames*, we need to call *N slices* the *csoundPerformKsmps()*.
+When the *inNumberFrames* and *ksmps* are identical, we can simply copy out the processed buffer, this is done by calling the *csoundPerformKsmps()* procedure. Since that *ksmps* is less or equal to *inNumberFrames*, we need to call *N slices* the *csoundPerformKsmps()*.
 
-As said, the strong point of this mechanism is that *ksmps* is never greaterthan *inNumberFrames*.
+As said, the strong point of this mechanism is that *ksmps* is never greater than *inNumberFrames*.
 
 Example:
 
-~~~
-ksmps = 64
-inNumberFrames = 512
-
-slices is calculated as follows:
-
-int slices = inNumberFrames / csoundGetKsmps(cs);
-
-slices is 8
-~~~
+    ksmps = 64
+    inNumberFrames = 512
+    
+    slices is calculated as follows:
+    
+    int slices = inNumberFrames / csoundGetKsmps(cs);
+    
+    slices is 8
 
 In other words, every *Csound\_Render* call involves eight sub-calls to *csoundPerformKsmps()*, for every sub-call we fill the *ioData* with *ksmps* samples.
 
 ### Dynamic ksmps, Buffer Frame and Sampling Rate Synchronization
 
-The *ksmps* value should be chosen according to the&#39;Csound Orchestra&#39; operating logic, for the Orchestras particularly heavy in terms of control (operations on variables k), which howeverdo not require low-latency, we can use higher values as 512 or 1024.
+The *ksmps* value should be chosen according to the Csound Orchestra operating logic. If the Orchestras is particularly heavy in terms of k-rate operations, which however do not require low-latency, we can use higher values as 512 or 1024.
 
-Increasing the *ksmps* we spare considerably the overhead of function calls (*k* functions) and it reduces the CPU load, this makes it possible to run orchestras complex even on first generation devices.
+The second case in question is adoptable for many apps developed so far. In fact, except in specific cases, it is always convenient to set the *ksmps* to the same value as the system's *BufferFrame*.
 
-The second case in question was adopted for apps developed so far, in fact, except in cases specific, it is always convenient to set the *ksmps* with the same value of BufferFrame system.
+The following steps are required to change *sr* and *ksmps*:
 
-If necessary, we should inform the user (for example, with a text message) whether the application works with values not suited.
-
-Since the *ksmps* cannot be changed during the *Csound*performance, it is necessary a workaround to change it at the textual level, directly on the file Orchestra this value.
-
-The following steps are required:
-
-1. Stop and Cleaning *Csound* Object
+1. Stop and Clean the *Csound* Object
 2. Replace the Orchestra (.csd) Code with new *sr* and *ksmps*
-3. Initialize and Run *Csound* Object with new modifyed Orchestra
+3. Initialize and Run *Csound* Object with new modified Orchestra
 
-This is a crass workaround but it works properly, we must enter a couple of placeholders in the Orchestra file.
+This is a workaround but it works properly; we just have to set placeholders in the Orchestra header.
 
-~~~
-<CsInstruments>
-sr = 44100
-ksmps = 512
-
-;;;;SR;;;;		//strings replaced from Objective-C
-;;;;KSMPS;;;;	
-
-nchnls = 2
-0dbfs = 1
-
-…
-~~~
-
-The two univocal strings are the placeholders for *sr* and *ksmps*. Please note they begin with the semicolon character since *Csound* recognizes it as a comment.
-
-The following function Objective-C, looks for the placeholders in the *myOrchestra.csd* and replaces them with new sr and *ksmps* values.
-
-~~~
--(void)csoundApplySrAndKsmpsSettings:(Float64)sr withBuffer:(Float64)ksmps {
-
-   NSString *pathAndName = [[[NSBundle mainBundle] resourcePath] 	
-	stringByAppendingString:@"/myOrchestra.csd"];
+    <CsInstruments>
+    sr = 44100
+    ksmps = 512
     
-    if ([[NSFileManager defaultManager] fileExistsAtPath:pathAndName])
-    {
-        NSString *myString = [[NSString alloc] initWithContentsOfFile:pathAndName 
-			encoding:NSUTF8StringEncoding error:NULL];
+    ;;;;SR;;;;		//strings replaced from Objective-C
+    ;;;;KSMPS;;;;	
+    
+    nchnls = 2
+    0dbfs = 1
+    
+    …
+
+The two univocal strings are the placeholders for *sr* and *ksmps*. They begin with the semicolon character so that Csound recognizes it as a comment. The following function in Objective-C looks for the placeholders in the *myOrchestra.csd* and replaces them with new *sr* and *ksmps* values.
+
+    -(void)csoundApplySrAndKsmpsSettings:(Float64)sr withBuffer:(Float64)ksmps  {
+    
+    NSString *pathAndName = [[[NSBundle mainBundle] resourcePath] 	
+	    stringByAppendingString:@"/myOrchestra.csd"];
         
-        myString = [myString stringByReplacingOccurrencesOfString:@";;;;SR;;;;" 				withString:
+        if ([[NSFileManager defaultManager] fileExistsAtPath:pathAndName])
+        {
+            NSString *myString = [[NSString alloc] initWithContentsOfFile:pathAndName 
+    			encoding:NSUTF8StringEncoding error:NULL];
+            
+            myString = [myString stringByReplacingOccurrencesOfString:@";;;;SR;;;;" 				withString:
 			[NSString stringWithFormat:@"sr = %f”, sr]];
-
-        myString = [myString stringByReplacingOccurrencesOfString:@";;;;KSMPS;;;;" 				withString:
+    
+            myString = [myString stringByReplacingOccurrencesOfString:@";;;;KSMPS;;;;" 				withString:
 			[NSString stringWithFormat:@"ksmps = %f”, ksmps]];
-        
+            
         NSString *pathAndNameRUN = [NSString stringWithFormat:@"%@dspRUN.csd", 					NSTemporaryDirectory()];
-        
+            
 		NSError* error = nil;
-
+    
        //save copy of dspRUN.csd in library directory
        [myString writeToFile:pathAndNameRUN
                    atomically:NO
                      encoding:NSUTF8StringEncoding
                         error:&error];
-        
+            
        //Run Csound
        [self startCsound:pathAndNameRUN];
-   }
-    else
+    }
+        else
         NSLog(@"file %@ Does Not Exists At Path!!!", pathAndName);
-}
-~~~
+    }
 
 The NSString *pathAndName* contains the file path of *myOrchestra.csd* in the Resources folder. This path is used to copyin *myString* the entire file (as NSString). Subsequently the *stringByReplacingOccurrencesOfString* method, replaces the placeholders with the valid strings.
 
-Example:
+Since iOS does not allow to edit files in the application *Resources* folder (i.e. *pathAndName*), we need to save the modified version in the new file *dspRUN.csd* that is saved in the temporary folder (i.e. *pathAndNameRUN*), this is achieved through the *writeToFile* method.
 
-~~~
-sr = 44100		//strings replaced from Objective-C
-ksmps = 512
-~~~
+As a final step it is necessary re-initialise Csound by calling the *runCsound* function which runs Csound and sends the appropriate values of *sr* and *ksmps.*
 
-Since iOS does not allow to edit files in the application &quot;Resources&quot; folder (i.e. *pathAndName*), we need to save the modified version in the new file *dspRUN.csd* that is saved in the temporary folder (i.e. *pathAndNameRUN*), this is achieved through the *writeToFile* method.
+### Release ksmps from BufferFrame
 
-As a final step it is necessary re-initialise *Csound* by calling the *runCsound* which sends it running with the appropriate values of *sr* and *ksmps.*
+As seen the second case is a good compromise, however it is not suitable in some particular conditions. So far we have only considered the aspect in which the app works on the main audio thread, with a *BufferFrame* imposed by iOS. However, there are special cases in which the app is called to work on a different thread and with a different *BufferFrame*.
 
-### Release ksmps from Buffer Frame
+For instance the *freeze track* feature implemented by major Host IAA apps (such as Cubasis, Auria etc ...) bypasses the current setup of iOS and imposes an arbitrary *BufferFrame* (usually 64).
 
-As seen the second case is a good compromise, however it is not suitable in some particular conditions. So far we have only considered the aspect in which the app works on the main audio thread, with a BufferFrame imposed by iOS. However, there are special cases in which the app is called to work on a different thread and with a different BufferFrame.
-
-For instance the &#39;freeze track feature&#39; implemented by major &#39;Host IAA apps&#39; (such Cubasis, Auria etc ...) bypasses the current setup of iOS and imposes an arbitrary BufferFrame(usually 64).
-
-Since *Csound* it is still configured with the iOS BufferFrame (main audio thread) but during the &#39;freeze track&#39; process the *Csound\_Perform* routine is called with a differentBufferFrame, *Csound* cannot work properly.
+Since Csound it is still configured with the iOS *BufferFrame* (the main audio thread) but during the freeze track process the *Csound\_Perform* routine is called with a differentBufferFrame, Csound cannot work properly.
 
 In order to solve this limitation we need a run-time control on the audio callback and handle the exception.
-On the *Csound\_Render* we will evaluate the condition for which *slices* is \&lt;1
+On the *Csound\_Render* we will evaluate the condition for which *slices* is < 1:
 
-~~~
-OSStatus  Csound_Perform(void *inRefCon,
+    OSStatus  Csound_Perform(void *inRefCon,
                          AudioUnitRenderActionFlags *ioActionFlags,
                          const AudioTimeStamp *inTimeStamp,
                          UInt32 dump,
@@ -1547,9 +1523,9 @@ OSStatus  Csound_Perform(void *inRefCon,
                          AudioBufferList *ioData
                          ) {
     
-   
+    
     //…
-
+    
     /* CSOUND PERFORM */
     if (slices < 1.0) {
      /* inNumberFrames < ksmps */
@@ -1561,51 +1537,47 @@ OSStatus  Csound_Perform(void *inRefCon,
 			ioData);
     }
     else {
-
+    
 		/* inNumberFrames => ksmps */
 		for(int i = 0; i < (int)slices; ++i){
 			ret = csoundPerformKsmps(cs);
 	  }
-   //…
-}
-~~~
+    //…
+    }
 
 Please note that *slices* is calculated as follows:
 
-~~~
-int slices = inNumberFrames / csoundGetKsmps(cs);
-~~~
+    int slices = inNumberFrames / csoundGetKsmps(cs);
 
 Every time the *ksmps* (for some reason) is greater than BufferFrame,we will perform the *Csound\_Perform\_DOWNSAMP* procedure.
 
-~~~
-//Called when inNumberFrames < ksmps
-OSStatus  Csound_Perform_DOWNSAMP(void *inRefCon,
+    //Called when inNumberFrames < ksmps
+    OSStatus  Csound_Perform_DOWNSAMP(void *inRefCon,
                                   AudioUnitRenderActionFlags *ioActionFlags,
                                   const AudioTimeStamp *inTimeStamp,
                                   UInt32 dump,
                                   UInt32 inNumberFrames,
                                   AudioBufferList *ioData
                                   )
-{
-    AudioDSP *cdata = (__bridge AudioDSP*) inRefCon;
-
-    int ret = cdata->ret, nchnls = cdata->nchnls;
-    CSOUND *cs = cdata->_cs;
+    {
+        AudioDSP *cdata = (__bridge AudioDSP*) inRefCon;
     
-    MYFLT *spin = csoundGetSpin(cs);
-    MYFLT *spout = csoundGetSpout(cs);
-    MYFLT *buffer;
-    
-    /* DOWNSAMPLING FACTOR */
-    int UNSAMPLING = csoundGetKsmps(cs)/inNumberFrames;
-    
-    if (cdata->counter < UNSAMPLING-1) {
+        int ret = cdata->ret, nchnls = cdata->nchnls;
+        CSOUND *cs = cdata->_cs;
         
-        cdata->counter++;
-    }
-    else {
+        MYFLT *spin = csoundGetSpin(cs);
+        MYFLT *spout = csoundGetSpout(cs);
+        MYFLT *buffer;
         
+        /* DOWNSAMPLING FACTOR */
+        int UNSAMPLING = csoundGetKsmps(cs)/inNumberFrames;
+        
+        if (cdata->counter < UNSAMPLING-1) {
+            
+            cdata->counter++;
+        }
+        else {
+            
         cdata->counter = 0;
         
         /* CSOUND PROCESS KSMPS */
@@ -1640,131 +1612,105 @@ OSStatus  Csound_Perform_DOWNSAMP(void *inRefCon,
     
     cdata->ret = ret;
     return  noErr;
-}
-~~~
+    }
 
-As mentioned we need a buffer for the accumulation, however, it is not necessary to create a new one since you can directly use those of *Csound*, i.e. *spin* and *spout*.
+As mentioned we need a buffer for the accumulation. It is, however, not necessary to create a new one since you can directly use Csound's *spin* and *spout* buffer.
 
-First we have to evaluate what is the level of under-sampling through.
+First we have to evaluate what is the level of under-sampling, for example:
 
-Example:
-
-~~~
-Csound ksmps = 512
-iOS inNumberFrames = 64
-
-/* DOWNSAMPLING FACTOR */
-int UNSAMPLING = csoundGetKsmps(cs)/inNumberFrames;
-
-UNSAMPLING is 8
-~~~
+    Csound ksmps = 512
+    iOS inNumberFrames = 64
+    
+    /* DOWNSAMPLING FACTOR */
+    int UNSAMPLING = csoundGetKsmps(cs)/inNumberFrames;
+    
+    UNSAMPLING is 8
 
 This value represents the required steps to accumulate the input signal in spin for every call of csoundPerformKsmps().
 
-~~~
-if (cdata->counter < UNSAMPLING-1) {
-        
-	cdata->counter++;
-}
-else {
-        
-	cdata->counter = 0;
-        
-	/* CSOUND PROCESS KSMPS */
-	if(!cdata->ret) {
-		cdata->ret = csoundPerformKsmps(cs);
-}
-~~~
-
-The *Csound\_Perform\_DOWNSAMP* routine is called by iOS every 64 samples, while we must call *csoundPerformKsmps()* after 512 samples, it means we need to skip eight times (i.e. UNSAMPLING) until we have collected the input buffer.
-
-From another point of view, before calling *csoundPerformKsmps()* we must accumulate eight *inNumberFrames* in *spin*, and for every call of*Csound\_Perform\_DOWNSAMP* we must returns *inNumberFrames* from *spout*.
-
-In the example, the iOS audio is in the *buffer* who is a pointer of the *ioData* structure.
-
-~~~
-/* INCREMENTS DOWNSAMPLING COUNTER */
-int slice_downsamp = inNumberFrames * cdata->counter;
-    
-/* COPY IN CSOUND SYSTEM SLICE INPUT */
-for (int k = 0; k < nchnls; ++k){
-	buffer = (MYFLT *) ioData->mBuffers[k].mData;
-	for(int j = 0; j < inNumberFrames; ++j){
-		spin[(j+slice_downsamp)*nchnls+k] = buffer[j];
-	}
-}
-    
-/* COPY OUT CSOUND KSMPS SLICE */
-for (int k = 0; k < nchnls; ++k) {
-	buffer = (MYFLT *) ioData->mBuffers[k].mData;
-	for(int j = 0; j < inNumberFrames; ++j) {
+    if (cdata->counter < UNSAMPLING-1) {
             
-		buffer[j] = (MYFLT) spout[(j+slice_downsamp)*nchnls+k];
-	}
-}
-~~~
+    	cdata->counter++;
+    }
+    else {
+            
+    	cdata->counter = 0;
+            
+    	/* CSOUND PROCESS KSMPS */
+    	if(!cdata->ret) {
+    		cdata->ret = csoundPerformKsmps(cs);
+    }
+
+The *Csound\_Perform\_DOWNSAMP* routine is called by iOS every 64 samples, while we must call *csoundPerformKsmps()* after 512 samples. This means we need to skip eight times (i.e. UNSAMPLING) until we have collected the input buffer.
+
+From another point of view, before calling *csoundPerformKsmps()* we must accumulate eight *inNumberFrames* in *spin*, and for every call of *Csound\_Perform\_DOWNSAMP* we must return *inNumberFrames* from *spout*.
+
+In the next example, the iOS audio is in *buffer* which is a pointer of the *ioData* structure.
+
+    /* INCREMENTS DOWNSAMPLING COUNTER */
+    int slice_downsamp = inNumberFrames * cdata->counter;
+        
+    /* COPY IN CSOUND SYSTEM SLICE INPUT */
+    for (int k = 0; k < nchnls; ++k){
+    	buffer = (MYFLT *) ioData->mBuffers[k].mData;
+    	for(int j = 0; j < inNumberFrames; ++j){
+    		spin[(j+slice_downsamp)*nchnls+k] = buffer[j];
+    	}
+    }
+        
+    /* COPY OUT CSOUND KSMPS SLICE */
+    for (int k = 0; k < nchnls; ++k) {
+    	buffer = (MYFLT *) ioData->mBuffers[k].mData;
+    	for(int j = 0; j < inNumberFrames; ++j) {
+                
+    		buffer[j] = (MYFLT) spout[(j+slice_downsamp)*nchnls+k];
+    	}
+    }
 
 Ignoring the implementation details regarding the de-interlacing of the audio, we can focus on the  ***slice\_downsamp*** which serves as offset-index for the arrays *spin* and *spout*.
 
-The implementation of both second and third cases, guarantees that the app works properly in every situation.
+The implementation of both second and third cases guarantees that the app works properly in every situation.
 
 ### Plot a Waveform
 
-In this section we will see a more complex example to access memory (*gen*) of *Csound* and display the contents on a UIView.
+In this section we will see a more complex example to access memory of Csound and display the contents on a UIView.
 
-The *waveDrawView* class interacts with the waveLoopPointsView, the *loopoints* allow us to select a portion of the file via the zoom on the waveform (pinch in / out). These values (loopoints) are managed by Csound which ensures the correct reading of the file and returns the normalized value (i.e. 0 ÷ 1) of the instantaneous phase of reading.
+The *waveDrawView* class interacts with the *waveLoopPointsView*, the *loopoints* allow us to select a portion of the file via the zoom on the waveform (pinch in / out). These values (loopoints) are managed by Csound which ensures the correct reading of the file and returns the normalized value of the instantaneous phase of reading.
 
-The two classes are instantiated in ***Main.storyboard***, please note to the hierarchy that must be respected for the setup of other projects as well as the three *UIView* must have the same size (frame) and cannot be dynamically resized.
+The two classes are instantiated in ***Main.storyboard***. Please note the hierarchy that must be respected for the setup of other projects as well as the three *UIView* must have the same size (frame) and cannot be dynamically resized.
 
 ![](../resources/images/12-d-draw.png)
 
-In the score of the file *csound\_waveform.csd* file are declared two *gen* (i.e. *gen* 1) to load in memory the WAV files:
+In the score of the file *csound\_waveform.csd*, two *GEN Routines* are declared to load WAV files in memory:
 
-~~~
-f2 0 0 1 "TimeAgo.wav" 0 0 1
-f3 0 0 1 "Density_Sample08.wav" 0 0 1
-~~~
+    f2 0 0 1 "TimeAgo.wav" 0 0 1
+    f3 0 0 1 "Density_Sample08.wav" 0 0 1
 
-In order to access the audio files in the app Resources folder, we need to setup some environment variables for *Csound*, this is done in the *runCsound* function.
+In order to access the audio files in the app Resources folder, we need to setup some environment variables for Csound. This is done in the *runCsound* function. Here we set the SFDIR (Sound File Directory) and the SADIR (Sound analysis directory):
 
-From the *Csound* manual:
-
-*You can set environment variables on the command line by using the command line flag --env:NAME=VALUE or --env:NAME+=VALUE, where NAME is the environment variable name, and VALUE is its value.*
-
-**SFDIR: Default directory for sound files. Used if no full path is given for sound files.**
-
-**SADIR: Default directory for analysis files. Used if no full path is given for analysis files.**
-
-This code sets both SFDIR and SADIR:
-
-~~~
-// Set's Environment Sound Files Dir
-NSString *resourcesPath = [[NSBundle mainBundle] resourcePath];    
-NSString* envFlag = @"--env:SFDIR+=";
-
-char* SFDIR = (char*)[[envFlag stringByAppendingString:resourcesPath] cStringUsingEncoding:NSASCIIStringEncoding];
-
-envFlag = @"--env:SADIR+=";
-char* SADIR = (char*)[[envFlag stringByAppendingString:resourcesPath] cStringUsingEncoding:NSASCIIStringEncoding];
-
-char *argv[4] = { "csound", SFDIR, SADIR, (char*)[csdFilePath cStringUsingEncoding:NSASCIIStringEncoding]};
+    // Set Environment Sound Files Dir
+    NSString *resourcesPath = [[NSBundle mainBundle] resourcePath];    
+    NSString* envFlag = @"--env:SFDIR+=";
     
-ret = csoundCompile(_cs, 4, argv);
-~~~
-
-The interaction between *Csound* and the UI is two-way, the class method *drawWaveForm* draws the contents of the *genNum*.
-
-~~~
-[waveView drawWaveFromCsoundGen:_cs genNumber:genNum];
-~~~
-
-After calling this method, we need to enable an *NSTimer* object in order to read continuosly (pull) the phase value returned by *Csound*.Please examine the *loadSample\_1* function code, for insights.
-
-The timer is disabled when the DSP is switched off, in the timer-callback we get the pointer, this time from CSOUND\_OUTPUT\_CHANNEL, finally we use this value for synchronize the graphics cursor on the waveform (scrub) in the GUI.
-
-~~~
-- (void)updateScrubPositionFromTimer {
+    char* SFDIR = (char*)[[envFlag stringByAppendingString:resourcesPath] cStringUsingEncoding:NSASCIIStringEncoding];
     
+    envFlag = @"--env:SADIR+=";
+    char* SADIR = (char*)[[envFlag stringByAppendingString:resourcesPath] cStringUsingEncoding:NSASCIIStringEncoding];
+    
+    char *argv[4] = { "csound", SFDIR, SADIR, (char*)[csdFilePath cStringUsingEncoding:NSASCIIStringEncoding]};
+        
+    ret = csoundCompile(_cs, 4, argv);
+
+The interaction between Csound and the UI is two-way, the class method *drawWaveForm* draws the contents of the *genNum*.
+
+    [waveView drawWaveFromCsoundGen:_cs genNumber:genNum];
+
+After calling this method, we need to enable an *NSTimer* object in order to read continuosly (pull) the phase value returned by Csound. Please examine the *loadSample\_1* function code for insights.
+
+The timer is disabled when the DSP is switched off, in the timer-callback we get the pointer, this time from CSOUND\_OUTPUT\_CHANNEL, finally we use this value to synchronize the graphics cursor on the waveform (scrub) in the GUI.
+
+    - (void)updateScrubPositionFromTimer {
+        
     if (!running)
         return;
     
@@ -1776,154 +1722,136 @@ The timer is disabled when the DSP is switched off, in the timer-callback we get
     
     if (channelPtr_file_position)
         [waveView updateScrubPosition:*channelPtr_file_position];
-}
-~~~
+    }
 
-In the Orchestra we find the corresponding code for write in the software bus.
+In the Orchestra we find the corresponding code for writing in the software bus.
 
-~~~
 	chnset kfilposphas , "file_position_from_csound"
-~~~
+
 
 ### Write into a Csound GEN table
 
-We already have seen how to read from the *Csound*&#39;s gen memory, in this section we will focus on the write operation with two possible ways.
+We already have seen how to read from the Csound's GEN memory. Now we will focus on the write operation with two possible ways.
 
 The goal is to modify a table in realtime while being read (played) by an oscillator LUT (i.e. look-up table), a **Pad** XY, to the left in the UI, manages the interpolation on the four prototypes and, to the right of the interface, a **16-slider** surface controls the harmonic content of a wave.
 
-Concerning the first example (pad morph), the waveform interpolations are implemented in the Orchestra file and performed by *Csound*. The UI communicates with *Csound*, by activating an instrument (i.e. *instr* 53), through a &#39;score message&#39;.Instead, in the second example (16-slider surface) the code is implemented in the ***AudioDSP.m*** file and, precisely, in the *didValueChanged* delegate. The architecture of this second example is based on addArm procedure that write in a temporary array. The resulting waveform is then copied on the gen-table, via the *csoundTableCopyIn* API.
+Concerning the first example (pad morph), the waveform interpolations are implemented in the Orchestra file and performed by Csound. The UI communicates with Csound, by activating an instrument (instr 53) through a score message. Instead, in the second example (16-slider surface) the code is implemented in the ***AudioDSP.m*** file and, precisely, in the *didValueChanged* delegate. The architecture of this second example is based on addArm procedure that write in a temporary array. The resulting waveform is then copied to the GEN-table, via the *csoundTableCopyIn* API.
 
-In the first example, the &#39;*instr 53*&#39; is activated via a &#39;score message&#39; to every action on the pad, this is performed in ui\_wavesMorphPad:
+In the first example, *instr 53* is activated via a score message to every action on the pad, this is performed in ui\_wavesMorphPad:
 
-~~~
-NSString* score = [NSString stringWithFormat:@"i53 0 %f %f %f", 
+    NSString* score = [NSString stringWithFormat:@"i53 0 %f %f %f", 
 								UPDATE_RES, 
 								pad.xValue, 
 								pad.yValue];
+    
+    csoundInputMessage(_cs, [score cStringUsingEncoding:NSASCIIStringEncoding]);
 
-csoundInputMessage(_cs, [score cStringUsingEncoding:NSASCIIStringEncoding]);
-~~~
+The *instr* 53 is kept active for UPDATE\_RES sec (0.1), the *maxalloc* opcode limits the number of simultaneous instances (notes). Thus, any score events which fall inside UPDATE\_RES time, are ignored.
 
-The &#39;*instr* 53&#39; is kept active for UPDATE\_RES sec (0.1), the *maxalloc* opcode limits the number of simultaneous instances (notes). Thus, any score events which falls inside UPDATE\_RES time, are ignored.
+    maxalloc 53,1  ;iPad UI Waveforms morphing only 1 instance
 
-~~~
-maxalloc 53,1  ;iPad UI Waveforms morphing only 1 instance
-~~~
+This results in a sub-sampling of Csound *instr 53*, compared to the UI pad-callback. The waveform display process is done by the Waveview class, it is a simplified version of the WaveDrawView class, introduced in the tutorial (**04_plotWaveForm**), that does not deserves particular investigation.
+As mentioned, the waveforms's interpolations are performed by Csound, followed by the *instr 53* code:
 
-This results as a sub-sampling of Csound ‘instr 53’, compared to the UI pad-callback. The waveform display's process is done by the Waveview class, it is a simplified version of the WaveDrawView class, introduced in the tutorial (**04_plotWaveForm**), that does not deserves particular investigation.
-As mentioned, the waveforms's interpolations are performed by Csound, hereinafter is the 'instr 53' code:
+    tableimix giWaveTMP1, 0, giWaveSize, giSine, 0, 1.-p4, giTri, 0, p4
+    tableimix giWaveTMP2, 0, giWaveSize, giSawSmooth, 0, 1.-p4, giSquareSmooth, 0, p4
+    tableimix giWaveMORPH, 0, giWaveSize, giWaveTMP2, 0, 1.-p5, giWaveTMP1, 0, p5
+    
+    chnset giWaveMORPH , "wave_func_table"
 
-~~~
-tableimix giWaveTMP1, 0, giWaveSize, giSine, 0, 1.-p4, giTri, 0, p4
-tableimix giWaveTMP2, 0, giWaveSize, giSawSmooth, 0, 1.-p4, giSquareSmooth, 0, p4
-tableimix giWaveMORPH, 0, giWaveSize, giWaveTMP2, 0, 1.-p5, giWaveTMP1, 0, p5
+The p4 and p5 p-fields, are the XY pad axes used as weights for the three vector-interpolations which are required. The *tablemix* opcode mixes two tables with different weights into *giWaveTMP1* destination table. In this case we interpolate a Sine Wave (i.e. *giSine*) with a triangular (i.e. *giTri*), then in the second line between *giSawSmooth* and *giSquareSmooth*, mixing the result in *giWaveTMP2*. At the end of the process, ***giWaveMORPH*** contains the interpolated values of the two *giWaveTMP1* and *giWaveTMP2* arrays.
 
-chnset giWaveMORPH , "wave_func_table"
-~~~
+The global *ftgen*-tables, deliberately have been declared with the *p1* value set to zero. This means that the *GEN*-table number is assigned dynamically from Csound at compile time. Since we do not know the number assigned, we must return the number of the table through *chnset* at runtime.
 
-The p4 and p5 p-fields, are the XY pad axes used as weights for the three vector-interpolations which are required.The *tablemix* opcode, mixes two tables with different weights into *giWaveTMP1* destination table.In this case we interpolate a Sine Wave (i.e. *giSine*) with a triangular (i.e. *giTri*), while in the second line between *giSawSmooth* and *giSquareSmooth*,the result is in *giWaveTMP2*. At last of the process, ***giWaveMORPH*** contain the interpolated values of the two *giWaveTMP1* and *giWaveTMP2* arrays.
+In the ***AudioDSP.m*** class is the implementation code of the second example.
 
-The global *ftgen*-tables, deliberately have been declared with the &#39;*p1**&#39;* value to zero. This means that the *gen*-table number is assigned dynamically from *Csound* at compile time. Since we do not know the number assigned, we must return the number of function through *chnset* at runtime.
+The *APE\_MULTISLIDER* class returns, through its own delegate method *didValueChanged*, an array with the indexed values of the sliders. These are used as amplitude-weights for the generation of the harmonic additive waveform. Let us leave out the code about the wave's amplitude normalization and we focus on this code:
 
-In the ***AudioDSP.m*** class there is the implementation&#39;s code of the second example.
-
-The *APE\_MULTISLIDER* class returns, through its own delegate method didValueChanged, an array with the indexed values of the sliders. These are used as amplitude-weights for the generation of the harmonic additive waveform.Let&#39;s leave out the code about the wave&#39;s amplitude normalization and we focus on this code:
-
-~~~
-MYFLT *tableNumFloat;
-csoundGetChannelPtr(_cs, &tableNumFloat, 
+    MYFLT *tableNumFloat;
+    csoundGetChannelPtr(_cs, &tableNumFloat, 
 	[@"harm_func_table" cStringUsingEncoding:NSASCIIStringEncoding],
                                 CSOUND_CONTROL_CHANNEL | CSOUND_INPUT_CHANNEL);
-
-/* Contain the table num (i.e. giWaveHARM) */
-int tableNum = (int) *tableNumFloat;
-
-/* Contain the table (giWaveHARM) Pointer */
-MYFLT *tablePtr;
-int tableLength = csoundGetTable(_cs, &tablePtr, tableNum);
-            
-/* Is invalid? Return */
-if (tableLength <= 0 || tableNum <= 0 || !tablePtr) return;
-            
-/* Clear temporary array  */
-memset(srcHarmonic, 0, tableLength * sizeof(MYFLT));
-
-/* Generate an additive sinusoidal waveform with 16 harmonics */
-for(int i = 0; i < maxnum; ++i) {
-	[self appendHarm:i+1 
+    
+    /* Contain the table num (i.e. giWaveHARM) */
+    int tableNum = (int) *tableNumFloat;
+    
+    /* Contain the table (giWaveHARM) Pointer */
+    MYFLT *tablePtr;
+    int tableLength = csoundGetTable(_cs, &tablePtr, tableNum);
+                
+    /* Is invalid? Return */
+    if (tableLength <= 0 || tableNum <= 0 || !tablePtr) return;
+                
+    /* Clear temporary array  */
+    memset(srcHarmonic, 0, tableLength * sizeof(MYFLT));
+    
+    /* Generate an additive sinusoidal waveform with 16 harmonics */
+    for(int i = 0; i < maxnum; ++i) {
+    	[self appendHarm:i+1 
 			Amp:(powf(value[i], 2.0))*average 
 			SIZE:tableLength 
 			DEST:srcHarmonic];
-}
-            
-/* Write array in the Csound Gen Memory (i.e. giWaveHARM) */
-csoundTableCopyIn(_cs, tableNum, srcHarmonic);
-~~~
+    }
+                
+    /* Write array in the Csound Gen Memory (i.e. giWaveHARM) */
+    csoundTableCopyIn(_cs, tableNum, srcHarmonic);
 
-This function also can be sub-sampled by de-commenting the *DOWNSAMP\_FUNC* macro. This code is purely for purposes of example as it can be significantly optimized, in the case of vectors&#39;s operations, the Apple *vDSP* framework could be an excellent solution.
+This function also can be sub-sampled by de-commenting the *DOWNSAMP\_FUNC* macro. This code is purely for purposes of example as it can be significantly optimized, in the case of vectors's operations, the Apple *vDSP* framework could be an excellent solution.
 
 ### Optimize performance and add a custom opcode
 
-In this final section we'll understand how to use the programming environment to implement a *ocpode* directly on ***AudioDSP*** class and add it to the list of opcodes of Csound without re-compile *Csound*. This is fundamental in order to optimize some processes audio particularly heavy from the point of view of the CPU.In fact, outside of Csound it will be possible to use a series of instruments such as the highly powerful vDSP of Apple, especially for the implementation of FFT routines (i.e. Fast Fourier Transform).
-The guidelines are consistent with the official documentation of Csound.
+In this final section we will understand how to use the programming environment to implement a *ocpode* directly on ***AudioDSP*** class and add it to the list of opcodes of Csound without re-compiling Csound. This is fundamental in order to optimize some audio processing, in particular heavy from the point of view of the CPU. In fact, outside of Csound it will be possible to use a series of instruments such as the highly powerful vDSP of Apple, especially for the implementation of FFT routines.
+
 The steps involved are three:
 
-1. add custom opcode to Csound list
+1. add custom opcode to the Csound opcode list
 2. declare opcode structure
-3. functions implementation
+3. implement functions
 
-The first step must be made in the *runCsound*, before calling *csoundCompile*.
+The first step must be done in the *runCsound* process, before calling *csoundCompile*.
 
-~~~
-csoundAppendOpcode(cs, "MOOGLADDER", sizeof(MOOGLADDER_OPCODE),
+    csoundAppendOpcode(cs, "MOOGLADDER", sizeof(MOOGLADDER_OPCODE),
                        0, 3, "a", "akk", iMOOGLADDER, kMOOGLADDER, aMOOGLADDER);
-~~~
 
-Appends an opcode implemented by external softwareto Csound&#39;s internal opcode list. The opcode list is extended by one slot,and the parameters are copied into the new slot.
+This appends an opcode implemented by external software to Csound's internal opcode list. The opcode list is extended by one slot, and the parameters are copied into the new slot.
 
-Basically, what we have done is declare three pointers to functions (iMOOGLADDER, kMOOGLADDER and aMOOGLADDER) implemented in the class AudioDSP.
+Basically, what we have done is declaring three pointers to functions (iMOOGLADDER, kMOOGLADDER and aMOOGLADDER) implemented in the class *AudioDSP*.
 
-The second step is to declare the data structure used from opcode in the **AudioDSP.h**, you must include the header file csdl.h according to documentation:
+The second step is to declare the data structure used by the opcode in the **AudioDSP.h**. So the header file csdl.h must be included according to the documentation:
 
 *Plugin opcodes can extend the functionality of Csound, providing new functionality that is exposed
 as opcodes in the Csound language. Plugins need to include this header file only, as it will bring all necessary data structures to interact with Csound. It is not necessary for plugins to link to the libcsound library, as plugin opcodes will always receive a CSOUND* pointer (to the CSOUND_struct) which contains all the API functions inside.This is the basic template for a plugin opcode. See the manual for further details on accepted types and function call rates. The use of the LINKAGE macro is highly recommended, rather than calling the functions directly.*
 
-~~~
-typedef struct {
-    OPDS    h;
-    MYFLT   *ar, *asig, *kcutoff, *kresonance;
-    //…
-    
-} MOOGLADDER_OPCODE;
-~~~
+    typedef struct {
+        OPDS    h;
+        MYFLT   *ar, *asig, *kcutoff, *kresonance;
+        //…
+        
+    } MOOGLADDER_OPCODE;
 
 Finally, the implementation of the three required functions in ***AudioDSP.m***:
 
-~~~
-int iMOOGLADDER(CSOUND *csound, void *p_) {
-//…      
-}
+    int iMOOGLADDER(CSOUND *csound, void *p_) {
+    //…      
+    }
+    
+    int kMOOGLADDER(CSOUND *csound, void *p_)
+    {
+    //…
+    }
+    
+    int aMOOGLADDER(CSOUND *csound, void *p_)
+    {
+    //…
+    }
 
-int kMOOGLADDER(CSOUND *csound, void *p_)
-{
-//…
-}
+In the Orchestra code, we can call MOOGLADDER in the same way as the native opcodes compiled:
 
-int aMOOGLADDER(CSOUND *csound, void *p_)
-{
-//…
-}
-~~~
+    aOutput MOOGLADDER aInput, kcutoff, kres
 
-In the Orchestra code, we can call MOOGLADDER in the same way of the native opcodes compiled:
+The MOOGLADDER is a simplified and optimized implementation of the opcode moogladder by Victor Lazzarini. The iVCS3 app uses this mechanism for the Envelope and Filter implementationthat also allows a fine control of the cutoff.
 
-~~~
-aOutput MOOGLADDER aInput, kcutoff, kres
-~~~
-
-The MOOGLADDER is a simplified and optimized implementation of the opcode moogladder by Victor Lazzarini. The iVCS3 app uses this mechanism for the Envelope and Filter implementationthat also allows a fine control of the cutoff (audio variable &#39;*a*&#39;).
-
-### References
+### Links
 
 [Csound for iOS](http://www.csounds.com/)
 

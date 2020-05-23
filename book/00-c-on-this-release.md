@@ -17,6 +17,7 @@ The whole text has been revised. Many figures have been substituted or added. Ma
 - [05 I FFT](05-i-fourier-analysis-spectral-processing.md)
 - [10 B Cabbage](10-b-cabbage.md) (thanks to Rory Walsh)
 - [12 A Csound API](12-a-the-csound-api.md) (thanks to François Pinot)
+- [12 D Csound in iOS](12-d-csound-in-ios.md) (thanks to Alessandro Petrolati)
 - [12 E Csound on Android](12-e-csound-on-android.md) (thanks to Michael Gogins)
 - [12 F Csound in Haskell](12-f-csound-and-haskell.md) (thanks to Anton Kholomiov)
 - [12 G Csound in HTML and Javascript](12-g-csound-in-html-and-javascript.md) (thanks to Michael Gogins)
