@@ -25,11 +25,11 @@ jobs:
     - name: Build the book website
       run: yarn build
     - name: Build the pdf
-      run: yarn build:pdf && mv *.pdf public
+      run: yarn build:pdf && mv *.pdf build
     - name: Compress dist to zip
       run: |
         nix-env -f '<nixpkgs>' -iA zip
-        zip -r dist.zip public
+        zip -r dist.zip build
     - name: Archive Production Artifact
       uses: actions/upload-artifact@master
       with:
@@ -46,12 +46,12 @@ jobs:
         uses: actions/download-artifact@master
         with:
           name: dist
-          path: dist.zip
+          path: build
       - name: Uncompress dist archive
         run: |
-          sudo apt-get install unzip
-          unzip dist.zip -d public
           ls
+          stat build
+          ls build
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
