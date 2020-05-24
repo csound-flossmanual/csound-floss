@@ -230,26 +230,26 @@ string. So we expect this to work:
 ***Not Working Example!***
 
 ~~~Csound
-    <CsoundSynthesizer>
-    <CsOptions>
-    -ndm0
-    </CsOptions>
-    <CsInstruments>
+<CsoundSynthesizer>
+<CsOptions>
+-ndm0
+</CsOptions>
+<CsInstruments>
 
-    pyinit
-    pyruni "a = 1"
-    pyruni "b = 2"
+pyinit
+pyruni "a = 1"
+pyruni "b = 2"
 
-    instr 1
-    ival pyevali "a + b"
-    prints "a + b = %d\n", ival
-    endin
+instr 1
+ival pyevali "a + b"
+prints "a + b = %d\n", ival
+endin
 
-    </CsInstruments>
-    <CsScore>
-    i 1 0 0
-    </CsScore>
-    </CsoundSynthesizer>
+</CsInstruments>
+<CsScore>
+i 1 0 0
+</CsScore>
+</CsoundSynthesizer>
 ~~~
 
 Running this code results in an error with this message:

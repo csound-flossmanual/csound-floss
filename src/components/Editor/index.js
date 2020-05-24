@@ -200,6 +200,7 @@ const PlayControls = ({ initialEditorState, currentEditorState }) => {
 };
 
 const CodeElement = ({ data }) => {
+  console.log(decode(data || ""));
   const initialEditorState = decode(data || "");
   const [state, setState] = useState(initialEditorState);
 

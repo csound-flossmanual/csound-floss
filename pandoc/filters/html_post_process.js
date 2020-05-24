@@ -53,47 +53,41 @@ const fixPreTags = dom => {
   return dom;
 };
 
+const escapeCodeData = str =>
+  str
+    .replace(/\\n/g, "\\\\n")
+    .replace(/\\'/g, "\\\\'")
+    .replace(/\\"/g, '\\\\"')
+    .replace(/\\&/g, "\\\\&")
+    .replace(/\\r/g, "\\\\r")
+    .replace(/\\t/g, "\\\\t")
+    .replace(/\\b/g, "\\\\b")
+    .replace(/\\f/g, "\\\\f");
+
 const fixCodeTags = dom => {
   DomUtils.findAll(elem => elem.name === "code", dom).forEach(elem => {
-    if (
+    if (R.pathOr("", ["attribs", "class"], elem).match(/^sourceCode +/g)) {
+      elem.name = "CodeElement";
+      elem.attribs.data = DomUtils.getText(elem);
+      elem.attribs = {
+        data: escapeCodeData(elem.attribs.data),
+        ext: R.pathOr("", ["attribs", "class"], elem).replace(
+          /^sourceCode +/g,
+          ""
+        ),
+      };
+      elem.children = [[]];
+    } else if (
       R.hasPath(["children", 0, "data"], elem) &&
       R.pathOr(false, ["parent", "name"], elem) === "div"
     ) {
       elem.name = "CodeElement";
-      elem.attribs.data = elem.children[0].data
-        .replace(/\\n/g, "\\\\n")
-        .replace(/\\'/g, "\\\\'")
-        .replace(/\\"/g, '\\\\"')
-        .replace(/\\&/g, "\\\\&")
-        .replace(/\\r/g, "\\\\r")
-        .replace(/\\t/g, "\\\\t")
-        .replace(/\\b/g, "\\\\b")
-        .replace(/\\f/g, "\\\\f");
+      elem.attribs.data = escapeCodeData(elem.children[0].data);
       elem.children[0].data = "";
     }
   });
   return dom;
 };
-
-// mjAPI.start();
-// const mathjax_to_svg = (tex, isInline) => {
-//   let result = "";
-//   mjAPI.typeset(
-//     {
-//       math: tex,
-//       format: isInline ? "inline-TeX" : "TeX",
-//       svg: true
-//     },
-//     function(data) {
-//       if (data.errors) {
-//         console.error("MathJax Error: " + data.errors);
-//       } else {
-//         result = data.svg;
-//       }
-//     }
-//   );
-//   return result;
-// };
 
 const wrapMathJax = dom => {
   DomUtils.findAll(
@@ -114,17 +108,6 @@ const wrapMathJax = dom => {
         R.assoc("inline", "true")
       )(elem.attribs);
       elem.children = [];
-      // R.mergeAll({
-      //   formula: ,
-      //   inline: true
-      // };
-      // elem.children[0] = {};
-      // elem.children = parse(
-      //   mathjax_to_svg(
-      //     he.decode(R.path(["children", 0, "data"], elem)).replace(/\\/g, ""),
-      //     elem.attribs.class.includes("inline")
-      //   )
-      // );
     }
   });
   return dom;

@@ -64,3 +64,5 @@ function execMarkdownToHtml(fileName) {
 }
 
 module.exports = { execMarkdownToHtml };
+// execMarkdownToHtml("book/12-a-the-csound-api.md");
+// execMarkdownToHtml("henda.md");
