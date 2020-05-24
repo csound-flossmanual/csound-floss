@@ -1842,9 +1842,21 @@ In the Orchestra code, we can call MOOGLADDER in the same way as the native opco
 
 The MOOGLADDER is a simplified and optimized implementation of the opcode moogladder by Victor Lazzarini. The iVCS3 app uses this mechanism for the Envelope and Filter implementationthat also allows a fine control of the cutoff.
 
+### Conclusion
+
+1. The descriptions here describe the essential audio integrations in iOS. Some of the topics will be soon out of date, like the Inter-Audio App (IAA) which is deprecated form Apple since iOS 13, or the Audiobus which is replaced as well from the modern AUv3 technology.
+
+2. This approach cover the inalienable features for the audio integration using Csound for professional software audio applications and presents some workarounds to solve some intrinsic idiosyncratic issue related to the Csound world.
+
+3. A separate study deserves the integration of Csound for the Av3 architecture, meanwhile in the [tutorial repository](https://bitbucket.org/alessandropetrolati/tutorials/src/master) you can download an Xcode project template using Csound as audio engine for an AUv3 plugins extension. The template is self-explanatory.
+
+4. All the tutorials are using the latest Csound 6.14 compiled for Apple Catalyst SDK it means that the app can runs as universal in both iOS and macOS (since Catalina >= 10.15).
+
+
+
 ### Links
 
-[Csound for iOS](http://www.csound.com)
+[Csound for iOS](https://github.com/csound/csound/releases/download) (look for the iOS-zip file)
 
 [Online Tutorial](https://bitbucket.org/alessandropetrolati/tutorials/src/master)
 
