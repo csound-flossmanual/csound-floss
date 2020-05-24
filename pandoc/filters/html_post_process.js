@@ -71,11 +71,12 @@ const fixCodeTags = dom => {
       elem.attribs.data = DomUtils.getText(elem);
       elem.attribs = {
         data: escapeCodeData(elem.attribs.data),
-        ext: R.pathOr("", ["attribs", "class"], elem).replace(
-          /^sourceCode +/g,
-          ""
-        ),
       };
+      // FIXME: propogate lang info to CodeMirror
+      // ext: R.pathOr("", ["attribs", "class"], elem).replace(
+      //     /^sourceCode +/g,
+      //     ""
+      //   ),
       elem.children = [[]];
     } else if (
       R.hasPath(["children", 0, "data"], elem) &&
