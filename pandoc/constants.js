@@ -2,6 +2,7 @@ const path = require("path");
 
 const PDF_OUTPUT = path.resolve(__dirname, "../csound_flossmanual.pdf");
 const EPUB_OUTPUT = path.resolve(__dirname, "../csound_flossmanual.epub");
+const ODT_OUTPUT = path.resolve(__dirname, "../csound_flossmanual.odt");
 const JSX_OUTPUT = path.resolve(__dirname, "../src/book_fragments");
 const BOOK_DIRECTORY = path.resolve(__dirname, "../book");
 const RESOURCES_DIRECTORY = path.resolve(__dirname, "../resources");
@@ -31,6 +32,7 @@ module.exports = {
   EPUB_OUTPUT,
   JSX_OUTPUT,
   PDF_OUTPUT,
+  ODT_OUTPUT,
   BOOK_DIRECTORY,
   RESOURCES_DIRECTORY,
   MARKDOWN_EXTENSIONS,

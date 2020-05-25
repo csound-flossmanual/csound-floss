@@ -33,6 +33,10 @@ jobs:
       run: |
         yarn build:epub
         mv *.epub build/build/csound-flossmanual-7.0.0-SNAPSHOT.epub
+    - name: Build odt
+      run: |
+        yarn build:odt
+        mv *.odt build/build/csound-flossmanual-7.0.0-SNAPSHOT.odt
     - name: Compress dist to zip
       run: |
         nix-env -f '<nixpkgs>' -iA zip

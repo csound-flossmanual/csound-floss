@@ -80,7 +80,6 @@ export const alternativeDists = css`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 400px;
   p {
     font-size: 20px;
     text-decoration: underline;

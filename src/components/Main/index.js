@@ -27,11 +27,26 @@ const LoadingSpinner = () => (
 const HomeScreen = () => (
   <React.Fragment>
     <div css={ß.alternativeDists}>
-      <a href={`/build/csound-flossmanual-7.0.0-SNAPSHOT.epub`}>
+      <a
+        href={`/build/csound-flossmanual-7.0.0-SNAPSHOT.epub`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <p>{`Read the EPUB version`}</p>
       </a>
-      <a href={`/build/csound-flossmanual-7.0.0-SNAPSHOT.pdf`}>
+      <a
+        href={`/build/csound-flossmanual-7.0.0-SNAPSHOT.pdf`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <p>{`Read the PDF version`}</p>
+      </a>
+      <a
+        href={`/build/csound-flossmanual-7.0.0-SNAPSHOT.odt`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <p>{`Download OpenDocument version`}</p>
       </a>
     </div>
   </React.Fragment>

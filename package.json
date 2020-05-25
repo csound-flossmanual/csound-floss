@@ -40,7 +40,8 @@
     "start": "node pandoc/development.js",
     "build": "node pandoc/build.js",
     "build:pdf": "node pandoc/build_pdf.js",
-    "build:epub": "node pandoc/build_epub.js"
+    "build:epub": "node pandoc/build_epub.js",
+    "build:odt": "node pandoc/build_odt.js"
   },
   "eslintConfig": {
     "extends": "react-app"
