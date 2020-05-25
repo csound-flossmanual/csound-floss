@@ -75,7 +75,13 @@ Tarmo: (m)adsr, ampmidi instead of veloc
 Steven: semitone (not cent), zdf filter
 Oeyvind: "most essential" not "important", tonek (not portk), filter: lpf18
 John: mp3 read not playback, why phasor without table in 33, why not ftgen
-Rory:
+Rory: add 'r' variants, madsr under envelopes (not midi), vco2 to essential opcodes, comb under delays
+Richard: 
+Luis: again noise/random, add cosseg to envelopes (at least top 100), reverbsc instead of freeverb, add spat3d, add eqfil or rbjeq to top 100, add rbjeq to the big list
+Eduardo: 
+- 33 list: linsegr, sc_lag(ud) instead of port, loscil* are only for gen01 tables, timeinstk
+- 100 list: pinker (in noise), mincer instead of timescal, linlin for conversion
+- big list, not to include: nstance (not working), printf (instead printfk), nsamp, printks (malloc in k-time)
 
 
 

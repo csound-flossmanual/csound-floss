@@ -26,7 +26,7 @@ WinXound: <http://mnt.conts.it/winxound/>
 Community
 ---------
 
-The [Csound commuity how page](http://csound.com) is the main place for news,  basic infos, links and more.
+The [Csound commuity home page](http://csound.com) is the main place for news,  basic infos, links and more.
 
 The [Csound Journal](http://csoundjournal.com/index.html)
 is a main source for different aspects of working with Csound.
@@ -87,7 +87,7 @@ by Michael Gogins (2009), one of the main Csound Developers.
 Video Tutorials
 ---------------
 
-A playlist as overview by Alex Hofmann:
+A playlist as overview by Alex Hofmann (some years ago):
 
 <http://www.youtube.com/view_play_list?p=3EE3219702D17FD3>
 

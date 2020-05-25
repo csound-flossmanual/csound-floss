@@ -7,7 +7,7 @@ Csound can be embedded in a [Max](http://cycling74.com/products/max/)
 patch using the *csound~* object. This allows you to synthesize and
 process audio, MIDI, or control data with Csound.
 
-Note: Most of the descriptions below have been written years ago by Davis Pyon. They may be outdated and will need to be updated.
+*Note: Most of the descriptions below have been written years ago by Davis Pyon. They may be outdated and will need to be updated.*
 
 
 Installing
