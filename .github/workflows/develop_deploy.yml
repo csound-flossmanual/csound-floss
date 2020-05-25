@@ -1,0 +1,27 @@
+name: "CI:DEVELOP:DEPLOY"
+on:
+  push:
+    branches:
+      - develop
+jobs:
+  deploy-dev:
+    name: DeployDev
+    needs: build-dev
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Download Artifact
+        uses: actions/download-artifact@master
+        with:
+          name: dist
+      - name: Uncompress dist archive
+        run: |
+          sudo apt-get install unzip
+          unzip ./dist.zip
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy -P develop --only hosting
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN_DEV }}

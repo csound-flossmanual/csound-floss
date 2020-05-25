@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "csound-floss"
+      "default": "csound-floss",
+      "develop": "csound-floss-dev"
   }
 }
