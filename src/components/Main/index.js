@@ -30,7 +30,7 @@ const HomeScreen = () => (
       <a href={`/build/csound-flossmanual-7.0.0-SNAPSHOT.epub`}>
         <p>{`Read the EPUB version`}</p>
       </a>
-      <a href={`/build/csound-flossmanual-7.0.0-SNAPSHOT.epub`}>
+      <a href={`/build/csound-flossmanual-7.0.0-SNAPSHOT.pdf`}>
         <p>{`Read the PDF version`}</p>
       </a>
     </div>
