@@ -22,7 +22,7 @@ Save the following code as Render.csd:
 
    ***EXAMPLE 02E01\_Render.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o Render.wav
@@ -100,7 +100,7 @@ your .csd file):
 
    ***EXAMPLE 02E02\_RecordRT.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac

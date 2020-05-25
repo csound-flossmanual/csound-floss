@@ -71,7 +71,7 @@ which has been discussed previously:
 
    ***EXAMPLE 04E01_Simple_waveshaping.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -156,7 +156,7 @@ The sonograms of the five examples shown above are as shown below:
 
    ***EXAMPLE 04E02_Powershape.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -256,7 +256,7 @@ distort and the tanh function shown above.
 
    ***EXAMPLE 04E03_Distort_1.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -dm0 -odac
@@ -300,7 +300,7 @@ sine at 400 hz, one octave above the fundamental as in the next example:
 
    ***EXAMPLE 04E04_Distort_2.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -dm0 -odac

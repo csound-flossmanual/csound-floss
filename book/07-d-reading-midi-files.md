@@ -37,7 +37,7 @@ going while our midi file plays back.
 
    ***EXAMPLE 07D01_ReadMidiFile.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 ;'-F' flag reads in a midi file
@@ -120,7 +120,7 @@ note numbers as p4 and velocity values as p5.
 
    ***EXAMPLE 07D02_MidiToScore.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 ; enter name of input midi file

@@ -39,7 +39,7 @@ Not all sounds are periodic. In fact, periodic sounds are only one end of a spec
 
    ***EXAMPLE 01B01_PeriodicAperiodic.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -104,7 +104,7 @@ and probably not the last (20 kHz) one, but hopefully the other ones
 
    ***EXAMPLE 01B02_LimitsOfHearing.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m0
@@ -177,7 +177,7 @@ although the frequency displacement is different each time.
 
    ***EXAMPLE 01B03_Adding_vs_ratio.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m0
@@ -253,7 +253,7 @@ will convert MIDI notes to Hertz values (*mtof*) and back again (*ftom*). The ne
 
    ***EXAMPLE 01B04_Midi_to_frequency.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac -m128
@@ -319,7 +319,7 @@ In addition to raw frequency input and MIDI note numbers, Csound offers two more
 
 The *oct* notation also uses floating point numbers. The integer part has the same meaning as in the *pch* notation. The fractional part divides one octave in acoustically equal steps. For 8.00 as C4 and 9.00 as C5, 8.5 denotes a pitch which is acoustically in the middle between C4 and C5, which means that the proportion between this frequency and the C4 frequency is the same as the proportion between the C5 frequency and this tone's frequency. Csound calculates this as:
 
-~~~Csound
+~~~csound
     instr 1
      iC4 = cpsoct(8)
      iC5 = cpsoct(9)
@@ -343,7 +343,7 @@ On a keyboard, this pitch which divides the octave in two acoustically equal hal
 
 The following code shows that things like these can also be achieved with a bit of math, but for simple cases it is quite convenient to use the *oct* notation. A scale consisting of ten equal steps based on A3 (= 220 Hz) is constructed.
 
-~~~Csound
+~~~csound
     instr 1
      puts "Calculation with octpch():", 1
      iOctDiff = 0
@@ -369,7 +369,7 @@ One semitone in the equal-tempered tuning system can be divided into 100 Cent. I
 
 All musical intervals can be described as ratios or multipliers. The ratio for the perfect fifth is 3:2, or 1.5 when used as multiplier. Also one Cent is a multiplier. As one octave consists of 12 semitones, and each semitone consists of 100 Cent, one octave consists of 1200 Cent. So one Cent, described as multiplier, is 2^1/1200^ (1.000577...), and 50 Cent is 2^50/1200^ (1.0293022...). To return this multiplier, Csound offers the [cent](https://csound.com/docs/manual/cent.html) converter. So `cent(50)` returns the number by which we must multiply a certain frequency to get a quarter tone higher, and `cent(-25)` returns the multiplier for calculating an eighth tone lower.
 
-~~~Csound
+~~~csound
     instr 1
      prints "A quater tone above A4 (440 Hz):\n"
      prints " 1. as mtof:i(69.5) = %f\n", mtof:i(69.5)
@@ -398,7 +398,7 @@ The equal-tempered tuning system which can be found on each MIDI keyboard is not
 
 Audio programming languages like Csound, which can synthesize sounds with any frequency, are particularily suited for this approach. It is even simple to "tune" a MIDI keyboard in quarter tones or to any historical tuning using Csound. The following example shows the fundamentals. It plays the five notes C D E F G (= MIDI 60 62 64 65 67) first in Pythoagorean tuning, then in Meantone, then as quatertones, then as partials 1-5.
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac -m128

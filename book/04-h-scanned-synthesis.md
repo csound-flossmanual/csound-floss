@@ -55,7 +55,7 @@ distortions or LFO's.
 
    ***EXAMPLE 04H01_scantable_1.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -97,7 +97,7 @@ The audio output of *scantable* is the result of oscillating through the *gipos*
 
    ***EXAMPLE 04H02_scantable_2.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -144,7 +144,7 @@ represents a spectral signal.
 
    ***EXAMPLE 04H03_Scantable_pvsmaska.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -316,7 +316,7 @@ by adjusting the start time of the f-events in the score.
 
    ***EXAMPLE 04H04_Hammer.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -462,7 +462,7 @@ and the last index is always read last as in the example below:
 
    ***EXAMPLE 04H05_Scan_trajectories.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -494,7 +494,7 @@ But what if we wanted to read the table indices back to front, or even
 
    ***EXAMPLE 04H06_Scan_trajectories2.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -549,7 +549,7 @@ The following .csd requires that the files *circularstring-128* and
 
    ***EXAMPLE 04H07_Scan_matrices.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -645,7 +645,7 @@ recommend rendering to a file instead of real-time. Only uncomment line 43 when 
 
    ***EXAMPLE 04H08_Scan_extreme_amplitude.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -723,7 +723,7 @@ because of our intentional carelessness.)
 
    ***EXAMPLE 04H09_Scan_balanced_amplitudes.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac

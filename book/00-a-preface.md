@@ -59,7 +59,7 @@ For example, to create a 400 Hz sine oscillator with an amplitude of
 
 Here is a possible transformation of the signal graph into Csound code:
 
-~~~Csound
+~~~csound
     instr   Sine
      aSig poscil  0.2, 400
      out     aSig
@@ -78,7 +78,7 @@ With the release of Csound version 6, it is possible to write the same
 code in an even more condensed fashion using so-called *functional
 syntax*, as shown below:
 
-~~~Csound
+~~~csound
     instr Sine
      out poscil:a(0.2, 400)
     endin

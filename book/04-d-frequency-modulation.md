@@ -28,7 +28,7 @@ running in the sub-audio frequency range (below 20 Hz), the result of Modulation
 
    ***EXAMPLE 04D01_Frequency_modulation.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -82,7 +82,7 @@ case of two signals at 800 and 210 Hz), FM generates inharmonic spectra
 
    ***EXAMPLE 04D02_Ratio.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -155,7 +155,7 @@ harsh and undefined. Aliasing can occur easily.
 
    ***EXAMPLE 04D03_Index.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -205,7 +205,7 @@ into the basic model:
 
    ***EXAMPLE 04D04_Standard.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac  -m128
@@ -283,7 +283,7 @@ Basic FM synthesis can be implemented by using the [foscil](https://csound.com/d
 
    ***EXAMPLE 04D05_basic_FM_with_foscil.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -d
@@ -352,7 +352,7 @@ In multiple modulator frequency modulation, more than one oscillator modulates a
 
    ***EXAMPLE 04D06_Parallel_MM_FM.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -389,7 +389,7 @@ In serial MM FM, the output of the first modulator is added with a fixed value a
 
    ***EXAMPLE 04D07_Serial_MM_FM.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -426,7 +426,7 @@ By multiple carrier frequency modulation, we mean an FM instrument in which one 
 
    ***EXAMPLE 04D08_MC_FM.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -459,7 +459,7 @@ Composer and researcher Jown Chowning worked on the first digital implementation
 
    ***EXAMPLE 04D09_Trumpet.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -498,7 +498,7 @@ The following example uses the same instrument, with different settings to gener
 
    ***EXAMPLE 04D10_Bell.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -546,7 +546,7 @@ To build a PM-synth in Csound the tablei opcode substitutes the FM oscillator. I
 
    ***EXAMPLE 04D11_Phase modulation and Feedback FM.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -584,7 +584,7 @@ In the last example we use the possibilities of self-modulation (feedback-modula
 
    ***EXAMPLE 04D12_Feedback modulation.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac

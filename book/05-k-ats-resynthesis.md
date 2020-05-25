@@ -143,7 +143,7 @@ of an ATS file.
 
    ***EXAMPLE 05K01_ats_header.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -n -m0
@@ -332,7 +332,7 @@ filters or FM synthesis networks of oscillators.
 
    ***EXAMPLE 05K02_atsread.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -391,7 +391,7 @@ different numbers of partials:
 
    ***EXAMPLE 05K03_atsread2.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -487,7 +487,7 @@ be computed.
 
    ***EXAMPLE 05K04_atsreadnz.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -613,7 +613,7 @@ the second according to their frequency values.
 
    ***EXAMPLE 05K05_atsinterpread.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -674,7 +674,7 @@ triggered by the designed instrument.
 
    ***EXAMPLE 05K06_atspartialtap.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -781,7 +781,7 @@ values of a particular ATS analysis.
 
    ***EXAMPLE 05K07_atsadd.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -872,7 +872,7 @@ noise bands, but individual amplitude scaling of them is not possible.
 
    ***EXAMPLE 05K08_atsaddnz.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -948,7 +948,7 @@ of the synthesis.
 
    ***EXAMPLE 05K09_atssinnoi.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -1046,7 +1046,7 @@ be obtained using this opcode.
 
    ***EXAMPLE 05K10_atscross.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac

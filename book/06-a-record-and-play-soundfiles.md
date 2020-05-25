@@ -123,7 +123,7 @@ After the mandatory file name or path string, we can pass some optional input ar
 
    ***EXAMPLE 06A01_Play_soundfile.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac --env:SSDIR+=../SourceMaterials
@@ -180,7 +180,7 @@ that we cannot simultaneously listen to the audio in real-time.
 
    ***EXAMPLE 06A02_Write_soundfile.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 ; audio output destination is given as a sound file (wav format specified)
@@ -236,7 +236,7 @@ bit depths and it can also write multi-channel sound files.
 
    ***EXAMPLE 06A03_Write_RT.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac ; activate real-time audio output

@@ -101,7 +101,7 @@ The [=](https://csound.com/docs/manual/assign.html) operator copies any existing
 
    ***EXAMPLE 04E01_CopyArray.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m128
@@ -174,7 +174,7 @@ in every k-cycle (!).[^2] Here is a simple example showing the difference:
 
    ***EXAMPLE 03E02_i_k_arrays.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -nm128 ;no sound and reduced messages
@@ -246,7 +246,7 @@ multiplies the envelope with each element of the array, and the [out](https://cs
 
    ***EXAMPLE 03E03_Audio_array.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -d
@@ -304,7 +304,7 @@ The [directory](https://csound.com/docs/manual/directory.html) opcode looks for 
 
    ***EXAMPLE 04E04_Directory.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -d
@@ -345,7 +345,7 @@ This means that it is only valid in the instrument in which it has been defined.
 
    ***EXAMPLE 03E05_Local_vs_global_arrays.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -nm128 ;no sound and reduced messages
@@ -526,7 +526,7 @@ The [cmp](https://csound.com/docs/manual/cmp.html) opcode offers quite extended 
 
    ***EXAMPLE 03E06_cmp.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -m0
@@ -837,7 +837,7 @@ values to the array so as not to waste rendering power.
 
    ***EXAMPLE 03E07_pvs_to_from_array.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -1159,7 +1159,7 @@ The following example extends the *FirstEl* function from *k*-arrays also to *i*
 
    ***EXAMPLE 03E08_array_overload.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -m0
@@ -1228,7 +1228,7 @@ As Csound has no random opcode for integers, this is first defined as helper fun
 
    ***EXAMPLE 03E09_Shuffle.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -m0

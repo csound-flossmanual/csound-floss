@@ -54,7 +54,7 @@ We start with the most simple implementation. We play back the sound with [diski
 
    ***EXAMPLE 05G01_simple_grain.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -101,7 +101,7 @@ It is a tiring job to write a score line for each grain ... — no one will do t
 
    ***EXAMPLE 05G02_simple_grain_continuous.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -153,7 +153,7 @@ In the next example we reproduce the first example above to check the new code t
 
    ***EXAMPLE 05G03_simple_grain_optimized.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -242,7 +242,7 @@ For triggering the single grains, we use the [metro](https://csound.com/docs/man
 
    ***EXAMPLE 05G04_simple_granulator.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m128
@@ -347,7 +347,7 @@ The next example demonstrates the five possibilities one by one, each parameter 
 
    ***EXAMAMPLE 05G05_random_deviations.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m128
@@ -451,7 +451,7 @@ After first prsenting the more instructional examples, this final one shows some
 
    ***EXAMPLE 05G06_the_fox_universe.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m128
@@ -656,7 +656,7 @@ So, in the following example, we will set the desired delay time to a small valu
 
    ***EXAMPLE 05G07_live_granular.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -iadc -m128
@@ -770,7 +770,7 @@ or *gate*-like (short attack, long sustain, short decay).
 
    ***EXAMPLE 05G08_sndwarp.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m128
@@ -866,7 +866,7 @@ slightly
 
    ***EXAMPLE 05G09_selfmade_grain.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac --env:SSDIR+=../SourceMaterials
@@ -1004,7 +1004,7 @@ note begins.
 
    ***EXAMPLE 05G10_granule.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m128
@@ -1107,7 +1107,7 @@ purpose here.
 
    ***EXAMPLE 05G11_grain_delay.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 --env:SSDIR+=../SourceMaterials
@@ -1183,7 +1183,7 @@ i 3 0 20
 </CsScore>
 </CsoundSynthesizer>
 ;example by Oeyvind Brandtsegg
-~~~Csound
+~~~csound
 
 
 In the last example we will use the
@@ -1197,7 +1197,7 @@ the oldest opcode, *Grain2* is a more easy-to-use opcode, while
 
    ***EXAMPLE 05G12_grain.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
  -o dac  --env:SSDIR+=../SourceMaterials
@@ -1245,7 +1245,7 @@ i2 0 21 ; Reverb
 </CsScore>
 </CsoundSynthesizer>
 ;example by Bjørn Houdorf
-~~~Csound
+~~~csound
 
 
 Several opcodes for granular synthesis have been considered in this

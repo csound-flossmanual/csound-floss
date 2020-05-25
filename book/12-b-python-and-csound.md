@@ -38,7 +38,7 @@ header. The example below shows a simple csd file which prints the text
 
 ***EXAMPLE 12B01_pyinit.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -ndm0
@@ -78,7 +78,7 @@ This can be useful for longer Python code snippets.
 
 ***EXAMPLE 12B02_python_global.csd***
 
-~~~Csound
+~~~csound
  <CsoundSynthesizer>
 <CsOptions>
 -ndm0
@@ -149,7 +149,7 @@ short form) and printing, for the first two k-cycles.
 
 ***EXAMPLE 12B03_pyrun.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -ndm0
@@ -229,7 +229,7 @@ string. So we expect this to work:
 
 ***Not Working Example!***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -ndm0
@@ -267,7 +267,7 @@ deliver a floating-point number to Csound. This can be done by Python's
 
 ***EXAMPLE 12B04_pyevali.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -ndm0
@@ -308,7 +308,7 @@ proportion 3/2:
 
 ***EXAMPLE 12B05_pyassigni.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -ndm0
@@ -375,7 +375,7 @@ The following csd shows a simple usage of the pycall opcodes:
 
 ***EXAMPLE 12B06_pycall.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -dnm0
@@ -426,7 +426,7 @@ example shows both, local and global behaviour.
 
 ***EXAMPLE 12B07_local_vs_global.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -dnm0
@@ -529,7 +529,7 @@ sizes of lists.
 
 ***EXAMPLE 12B08_markov.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -dm0

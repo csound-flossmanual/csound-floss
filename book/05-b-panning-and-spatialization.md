@@ -8,7 +8,7 @@ This is shown at a very simple example. First we hear a percussive sound from bo
 
    ***EXAMPLE 05B01\_routing.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m128
@@ -147,7 +147,7 @@ input sound is filtered pink noise.
 
    ***EXAMPLE 05B02_Pan_stereo.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -225,7 +225,7 @@ linear.
 
    ***EXAMPLE 05B03_pan2.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -301,7 +301,7 @@ in front of us. This example uses the files hrtf-44100-left.dat and hrtf-44100-r
 
    ***EXAMPLE 05B04_hrtfmove.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 --env:SADIR+=../SourceMaterials
@@ -473,7 +473,7 @@ The following would be the Csound code to play the sound file
 
    ***EXAMPLE 05B05_VBAP_circle.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -571,7 +571,7 @@ down to zero.
 
    ***EXAMPLE 05B06_VBAP_spread.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -612,7 +612,7 @@ By this it is possible to switch between different layouts during performance an
 
    ***EXAMPLE 05B07_VBAP_layouts.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -688,7 +688,7 @@ implementing a transformation of the VBAP circle example to Ambisonics.
 
    ***EXAMPLE 05B08_Ambi_circle.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -757,7 +757,7 @@ compare the results.
 
    ***EXAMPLE 05B09_Ambi_orders.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -930,7 +930,7 @@ angles of the speakers.
 
    ***EXAMPLE 05B10_udo_ambisonics2D_1.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -1011,7 +1011,7 @@ for the first 4 speakers of an 18 speaker setup.
 
    ***EXAMPLE 05B11_udo_ambisonics2D_2.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -1174,7 +1174,7 @@ The following example shows in-phase decoding. The weights and norms up to 12th 
 
    ***EXAMPLE 05B12_udo_ambisonics2D_3.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -1311,7 +1311,7 @@ taken positive.
 
    ***EXAMPLE 05B13_udo_ambisonics2D_4.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 --env:SSDIR+=../SourceMaterials -odac -m0
@@ -1395,7 +1395,7 @@ sound file.
 
    ***EXAMPLE 05B14_udo_ambisonics2D_5.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 --env:SSDIR+=../SourceMaterials -odac -m0
@@ -1510,7 +1510,7 @@ and *ambi_decode* up to 8th order are saved in the text file
 
    ***EXAMPLE 05B15_udo_ambisonics_1.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -1659,7 +1659,7 @@ to 8th order are stored in the array *iWeight3D[][]*.
 
    ***EXAMPLE 05B16_udo_ambisonics_2.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 --env:SSDIR+=../SourceMaterials -odac -m0
@@ -1790,7 +1790,7 @@ The following example shows distance encoding.
 
    ***EXAMPLE 05B17_udo_ambisonics_3.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 --env:SSDIR+=../SourceMaterials -odac -m0
@@ -1864,7 +1864,7 @@ speaker setup in a cube (f17).
 
    ***EXAMPLE 05B18_udo_ambisonics_4.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 --env:SSDIR+=../SourceMaterials -odac -m0
@@ -1942,7 +1942,7 @@ be given.
 
    ***EXAMPLE 05B19_udo_AEP.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac

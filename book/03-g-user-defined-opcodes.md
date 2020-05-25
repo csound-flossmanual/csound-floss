@@ -54,7 +54,7 @@ and put it in the frame of a UDO. Let us start with the instrument code:
 
    ***EXAMPLE 03G01_Pre_UDO.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -109,7 +109,7 @@ instrument into a UDO.
 
    ***EXAMPLE 03G02_All_to_UDO.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -222,7 +222,7 @@ exactly the same as before. Instrument 2 has live input instead.
 
    ***EXAMPLE 03G03_UDO_more_flex.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 </CsOptions>
@@ -304,7 +304,7 @@ context of two varying delay lines with a buzz sound as input signal.
 
    ***EXAMPLE 03G04_UDO_calls_UDO.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -482,7 +482,7 @@ time in the instrument, because ksmps in the UDO is 10 times smaller:
 
    ***EXAMPLE 03G06_UDO_setksmps.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -nm0
@@ -533,7 +533,7 @@ be overwritten:
 
    ***EXAMPLE 03G07_UDO_default_args.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -nm0
@@ -579,7 +579,7 @@ number of outputs, the correct version is used by Csound.
 
    ***EXAMPLE 03G08_UDO_overloading.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -nm0
@@ -653,7 +653,7 @@ recursive UDO.
 
    ***EXAMPLE 03G09_Recursive_UDO.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 </CsOptions>
@@ -722,7 +722,7 @@ a *tolerant diskin* ...
 
    ***EXAMPLE 03G10_UDO_FilePlay.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac --env:SSDIR+=../SourceMaterials
@@ -790,7 +790,7 @@ the changed values are written again into the table.
 
    ***EXAMPLE 03G11_UDO_rand_dev.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -853,7 +853,7 @@ resulting output array.
 
    ***EXAMPLE 03G12_ArrPermRnd.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -nm0
@@ -938,7 +938,7 @@ to the output.
 
    ***EXAMPLE 03G13_UDO_Recursive_AddSynth.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -1031,7 +1031,7 @@ aaa.
 
    ***EXAMPLE 03G14_UDO_zdf_svf.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 </CsOptions>

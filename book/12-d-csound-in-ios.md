@@ -110,7 +110,7 @@ The first thing we will do so that we can play a *.csd* file is add our
 this case named *test.csd*) that plays a sine tone with a frequency of
 440Hz for ten seconds. Sample Csound code for this is:
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -319,7 +319,7 @@ communicating to and from Csound. Once set-up, values passed to these
 named channels are normally accessed through the chnget opcode, for
 example:
 
-~~~Csound
+~~~csound
 instr 1
 kfreq chnget "frequency"
 asig oscil 0.5 , kfreq
@@ -331,7 +331,7 @@ Conversely, in order to pass values from Csound, the chnset opcode is
 normally used with two arguments. The first is the variable, and it is
 followed by the channel name:
 
-~~~Csound
+~~~csound
 instr 1
 krand randomi 300 , 2000 , 1 , 3
 asig poscil 0.5 , krand
@@ -365,7 +365,7 @@ touched, and reset to 0 when it is released. A simple example of how
 this might be used in Csound, based on the pvscross example by Joachim
 Heintz, is shown below:
 
-~~~Csound
+~~~csound
 instr 1
 kpermut chnget "crossToggle "
 ain1 soundin "fox .wav"
@@ -408,7 +408,7 @@ As in the case of the UIButton binding, the UISwitch binding provides an
 on-off state value (1 or 0 respectively) to Csound. Below we use it to
 turn on or off a simple note generator:
 
-~~~Csound
+~~~csound
 ; Triggering instrument
 instr 1
 kTrigFreq randomi gkTrigFreqMin , gkTrigFreqMax , 5
@@ -453,7 +453,7 @@ let us add an output channel in Csound to display the frequency of the
 sound generating instrument's oscillator from the previous example (for
 UISwitch):
 
-~~~Csound
+~~~csound
 ; Triggering instrument
 instr 1
 kTrigFreq randomi gkTrigFreqMin , gkTrigFreqMax , 5
@@ -510,7 +510,7 @@ normally be best suited to a manual value binding, which is addressed
 later in this guide. An example is provided below of two simple such
 UISlider-bound values in Csound:
 
-~~~Csound
+~~~csound
 sr = 44100
 ksmps = 128
 nchnls = 2
@@ -560,7 +560,7 @@ csoundUI.addMomentaryButton(triggerButton, forChannelName: "channelName")
 
 Here's a simple usage example:
 
-~~~Csound
+~~~csound
 ; Triggering instrument
 instr 1
 ktrigger chnget " noteTrigger "
@@ -684,7 +684,7 @@ and demonstrates uses for some of it. This example is taken from the
 [Csound for iOS Examples](https://github.com/csound/csound/tree/develop/iOS)
  project.
 
-~~~Csound
+~~~csound
 instr 1
 kaccelX chnget " accelerometerX "
 kaccelY chnget " accelerometerY "
@@ -772,7 +772,7 @@ context here implies that kverb received its value from an input control
 channel named *verbMix*, and that *asig* outputs to an audio channel
 named *samples*.
 
-~~~Csound
+~~~csound
 giSqr ftgen 2, 0, 8192, 10, 1,0,.33,0,.2,0,.14,0,.11,0,.09
 
 instr 1
@@ -1299,7 +1299,7 @@ or
 
 The *channelName* string *freq* is the reference text used by the *chnget* opcode in the *instr 1* of the Csound Orchestra.
 
-~~~Csound
+~~~csound
 	kfr chnget "freq"
 ~~~
 
@@ -1462,7 +1462,7 @@ The following steps are required to change *sr* and *ksmps*:
 
 This is a workaround but it works properly; we just have to set placeholders in the Orchestra header.
 
-~~~Csound
+~~~csound
 <CsInstruments>
 sr = 44100
 ksmps = 512
@@ -1703,7 +1703,7 @@ The two classes are instantiated in ***Main.storyboard***. Please note the hiera
 
 In the score of the file *csound\_waveform.csd*, two *GEN Routines* are declared to load WAV files in memory:
 
-~~~Csound
+~~~csound
 f2 0 0 1 "TimeAgo.wav" 0 0 1
 f3 0 0 1 "Density_Sample08.wav" 0 0 1
 ~~~
@@ -1754,7 +1754,7 @@ The timer is disabled when the DSP is switched off, in the timer-callback we get
 
 In the Orchestra we find the corresponding code for writing in the software bus.
 
-~~~Csound
+~~~csound
 	chnset kfilposphas, "file_position_from_csound"
 ~~~
 
@@ -1780,14 +1780,14 @@ csoundInputMessage(_cs, [score cStringUsingEncoding:NSASCIIStringEncoding]);
 
 The *instr 53* is kept active for UPDATE\_RES sec (0.1), the *maxalloc* opcode limits the number of simultaneous instances (notes). Thus, any score events which fall inside UPDATE\_RES time, are ignored.
 
-~~~Csound
+~~~csound
     maxalloc 53, 1  ;iPad UI Waveforms morphing only 1 instance
 ~~~
 
 This results in a sub-sampling of Csound's *instr 53*, compared to the UI pad-callback. The waveform display process is done by the Waveview class, it is a simplified version of the WaveDrawView class, introduced in the tutorial (**04_plotWaveForm**), that does not deserve particular investigation.
 As mentioned, the waveforms's interpolations are performed by Csound, followed by the *instr 53* code:
 
-~~~Csound
+~~~csound
 tableimix giWaveTMP1, 0, giWaveSize, giSine, 0, 1.-p4, giTri, 0, p4
 tableimix giWaveTMP2, 0, giWaveSize, giSawSmooth, 0, 1.-p4, giSquareSmooth, 0, p4
 tableimix giWaveMORPH, 0, giWaveSize, giWaveTMP2, 0, 1.-p5, giWaveTMP1, 0, p5
@@ -1889,7 +1889,7 @@ int aMOOGLADDER(CSOUND *csound, void *p_)
 
 In the Orchestra code, we can call MOOGLADDER in the same way as the native opcodes compiled:
 
-~~~Csound
+~~~csound
 aOutput MOOGLADDER aInput, kcutoff, kres
 ~~~
 

@@ -128,7 +128,7 @@ with headphones.)
 
    ***EXAMPLE 05I01_pvsanal.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -i adc -o dac
@@ -213,7 +213,7 @@ Working with *pvsanal* to create an f-signal is easy and straightforward. But if
 
    ***EXAMPLE 05I02_pvstanal.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -262,7 +262,7 @@ So although a bit harder to use, *pvsbufread* offers some nice possibilities. An
 
    ***EXAMPLE 05I03_pvsbufread.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac  --env:SSDIR+=../SourceMaterials
@@ -335,7 +335,7 @@ cent values instead of ratios as input, the
 
    ***EXAMPLE 05I04_pvscale.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac --env:SSDIR+=../SourceMaterials
@@ -409,7 +409,7 @@ The following example performs some different shifts on a single viola tone.
 
    ***EXAMPLE 05I05_pvshift.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -473,7 +473,7 @@ sound B:
 
    ***EXAMPLE 05I06_phase_vocoder.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac --env:SSDIR+=../SourceMaterials
@@ -525,7 +525,7 @@ The next example introduces *pvscross*:
 
    ***EXAMPLE 05I07_pvscross.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac --env:SSDIR+=../SourceMaterials
@@ -578,7 +578,7 @@ the amplitudes are strong enough, you will hear a resonating effect:
 
    ***EXAMPLE 05I08_pvsfilter.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac --env:SSDIR+=../SourceMaterials
@@ -635,7 +635,7 @@ This is a trial to reduce the amount of artefacts. Note that [pvstanal](https://
 
    ***EXAMPLE 05I09_pvsmooth_pvsblur.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -m 128
@@ -734,7 +734,7 @@ Note that we are always smoothing the bin amplitudes *kAmp* by applying `port(kA
 
    ***EXAMPLE 05I10_pvsbin.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac  -m128
@@ -797,7 +797,7 @@ This is a simple example first which lets *pvstrace* play in sequence the 1, 2, 
 
    ***EXAMPLE 05I11_pvstrace_simple***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -834,7 +834,7 @@ An optional second output of pvstrace returns an array with the *kn* bin numbers
 
    ***EXAMPLE 05I12_pvstrace_array.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac

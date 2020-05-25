@@ -26,7 +26,7 @@ the entire file is simply played and looped. As always, you can replace the soun
 
    ***EXAMPLE 06B01_flooper2.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac ; activate real-time audio
@@ -91,7 +91,7 @@ to use this example.
 
    ***EXAMPLE 06B02_sndloop.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesize>
 <CsOptions>
 ; real-time audio in and out are both activated
@@ -166,7 +166,7 @@ the score. The duration of the audio buffer in seconds is multiplied by the samp
 
    ***EXAMPLE 06B03_RecPlayToTable.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 ; real-time audio in and out are both activated
@@ -307,7 +307,7 @@ Note that you must disable the key repeats on your computer keyboard for the fol
 
    ***EXAMPLE 06B04_BufRecPlay_UDO.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -i adc -o dac -m128

@@ -19,7 +19,7 @@ Volume-modulation above approximately 15 Hz are perceived as timbre changes. So 
 
    ***EXAMPLE 04C01_Simple_AM.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -64,7 +64,7 @@ It is equivalent to the signal flow in the first flow chart (*AM1* here). It tak
 
    ***EXAMPLE 04C02_Sidebands.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -128,7 +128,7 @@ The next example plays these variants.
 
    ***EXAMPLE 04C03_RingMod.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac

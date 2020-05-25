@@ -59,7 +59,7 @@ delayed signal is attenuated with respect to the input signal.
 
    ***EXAMPLE 05D01_delay.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac ; activates real time sound output
@@ -111,7 +111,7 @@ example implements a simple delay with feedback.
 
    ***EXAMPLE 05D02_delay_feedback.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac ;activates real time sound output
@@ -152,7 +152,7 @@ An alternative for implementing a simple delay-feedback line in Csound would be 
 
    ***EXAMPLE 05D03_delay_feedback_2.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -227,7 +227,7 @@ delay time that will be permissible will be the duration of one k cycle
 
    ***EXAMPLE 05D04_deltapi.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac ; activates real time sound output
@@ -275,7 +275,7 @@ most typical.
 
    ***EXAMPLE 05D05_multi-tap_delay.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac ; activates real time sound output
@@ -334,7 +334,7 @@ the smoothest comb filter modulations.
 
    ***EXAMPLE 05D06_flanger.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac ; activates real time sound output
@@ -388,7 +388,7 @@ This is an identical version of the previous *flanger* example which uses *vdela
 
    ***EXAMPLE 05D07_flanger_2.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac ; activates real time sound output
@@ -439,7 +439,7 @@ As an advanced insight into sample-by-sample processing in Csound, we end here w
 - Line 27-28: Both pointers are incremented by one and then the *modulo* is taken. This ensures that the array is not read or written beyond its boundaries, but used as a circular buffer.
 
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac ; activates real time sound output

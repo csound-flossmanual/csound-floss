@@ -60,7 +60,7 @@ of a space with soft surfaces such as thick carpets and heavy curtains.
 
    ***EXAMPLE 05E01_freeverb.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac ; activates real time sound output
@@ -98,7 +98,7 @@ i 5 0 300 ; start reverb
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~Csound
+~~~csound
 
 
 The *second method* uses Csound's *zak patching system* to send audio from
@@ -147,7 +147,7 @@ pass filters within the algorithm.
 
    ***EXAMPLE 05E02_reverbsc.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac ; activates real time sound output
@@ -188,7 +188,7 @@ i 5 0 12 ; start reverb
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~Csound
+~~~csound
 
 *reverbsc* contains a mechanism to modulate delay times internally which
 has the effect of harmonically blurring sounds the longer they are
@@ -208,7 +208,7 @@ bus and the Csound API.
 
    ***EXAMPLE 05E03_reverb_with_chn.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac ; activates real time sound output
@@ -245,7 +245,7 @@ i 5 0 12 ; start reverb
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~Csound
+~~~csound
 
 
 The Schroeder Reverb Design
@@ -299,7 +299,7 @@ instruments 2 to 4.
 
    ***EXAMPLE 05E04_schroeder_reverb.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m128
@@ -407,7 +407,7 @@ e
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~Csound
+~~~csound
 
 
 This chapter has introduced some of the more recent Csound opcodes for

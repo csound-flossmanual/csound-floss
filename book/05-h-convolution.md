@@ -114,7 +114,7 @@ mindful of mono/stereo/multichannel integrity.
 
    ***EXAMPLE 05H01_pconvolve.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -209,7 +209,7 @@ table.
 
    ***EXAMPLE 05H02_ftconv.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -327,7 +327,7 @@ The following example mimics the live input by short snippets of the *fox.wav* s
 
    ***EXAMPLE 05H03_liveconv.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac  -m128

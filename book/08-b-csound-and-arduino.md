@@ -123,7 +123,7 @@ pitch across a four octave range.
 
    ***EXAMPLE 08B01Pd_to_Csound.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 </CsOptions>
@@ -217,7 +217,7 @@ read in data from all analog and digital inputs you can use Iain McCurdy's
 
    ***EXAMPLE 08B02_Processing_to_Csound.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -361,7 +361,7 @@ analog input range (0-1023) will have to be divided by four.
 
    ***EXAMPLE 08B03_Serial_Read.csd***
 
-~~~Csound
+~~~csound
 ; Example written by Matt Ingalls
 ; CSOUND CODE:
 ; run with a commandline something like:
@@ -496,7 +496,7 @@ handles the messages sent from the Arduino sketch:
 
    ***EXAMPLE 08B04_Serial_Read_multiple.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -d -odac

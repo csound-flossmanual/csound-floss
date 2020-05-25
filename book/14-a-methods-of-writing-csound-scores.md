@@ -162,7 +162,7 @@ arguments (= file names).
 
    ***EXAMPLE 14A01_Score_bin.csd***
 
-~~~Csound
+~~~csound
     <CsoundSynthesizer>
     <CsInstruments>
     instr 1
@@ -204,7 +204,7 @@ Then run this csd:
 
    ***EXAMPLE 14A02_Score_bin_script.csd***
 
-~~~Csound
+~~~csound
     <CsoundSynthesizer>
     <CsInstruments>
     instr 1
@@ -250,7 +250,7 @@ two statements will always generate the same values.
 
    ***EXAMPLE 14A03_Score_perlscript.csd***
 
-~~~Csound
+~~~csound
     <CsoundSynthesizer>
     <CsInstruments>
     ;example by tito latini

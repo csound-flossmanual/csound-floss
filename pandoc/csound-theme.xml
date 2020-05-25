@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Csound" author="Flavio Tordini" license="LGPL">
+<language name="csound" author="Flavio Tordini" license="LGPL">
   <highlighting>
     <list name="orchestraHeaderStatements">
       <item> A4 </item>

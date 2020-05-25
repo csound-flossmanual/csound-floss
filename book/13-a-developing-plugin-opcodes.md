@@ -311,7 +311,7 @@ Windows (MinGW+MSYS):
 To run Csound with the new opcodes, we can use the
 \--opcode-lib=*libname* option.
 
-~~~Csound
+~~~csound
     <CsoundSynthesizer>
     <CsOptions>
     --opcode-lib=newopc.so  ; OSX: newopc.dylib; Windows: newopc.dll

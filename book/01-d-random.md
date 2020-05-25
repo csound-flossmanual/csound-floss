@@ -63,7 +63,7 @@ whereas the last three groups should always have a different pitch.
 
    ***EXAMPLE 01D01\_different\_seed.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m0
@@ -119,7 +119,7 @@ random generator now works with a 31-bit number.
 
    ***EXAMPLE 01D02\_white\_noises.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -215,7 +215,7 @@ precedence of higher pitches (but shorter durations).
 
    ***EXAMPLE 01D03\_linrand.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m0
@@ -367,7 +367,7 @@ in the same environment as the previous example.
 
    ***EXAMPLE 01D04\_trirand.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m0
@@ -535,7 +535,7 @@ new instance of *notes*.
 
    ***EXAMPLE 01D05\_more\_lin\_tri\_units.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m0
@@ -759,7 +759,7 @@ according to their position in the array.
 
    ***EXAMPLE 01D06\_scalings.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m0
@@ -974,7 +974,7 @@ been *a*.
 
    ***EXAMPLE 01D07\_markov\_basics.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -ndm0
@@ -1035,7 +1035,7 @@ independently from each other.
 
    ***EXAMPLE 01D08\_markov\_music.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -m128 -odac
@@ -1201,7 +1201,7 @@ crossed, and vice versa.
 
    ***EXAMPLE 01D09\_random\_walk.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -m128 -odac
@@ -1370,7 +1370,7 @@ Synthesis*[^6] chapter 10.1.4.4)
 
 ***EXAMPLE 01D10\_Rejection\_Sampling.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -1517,7 +1517,7 @@ actual acelleration *a*, the change of the aceleration, etc.
 
 ***EXAMPLE 01D11\_Random\_Walk2.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -1591,7 +1591,7 @@ simply generates a random value within user defined minimum and maximum
 limit and at i-time, k-rate or a-rate according to the variable type of
 its output:
 
-~~~Csound
+~~~csound
     ires random imin, imax
     kres random kmin, kmax
     ares random kmin, kmax
@@ -1640,7 +1640,7 @@ value.
 
 The instruction:
 
-~~~Csound
+~~~csound
     kmin   =         -1
     kmax   =         1
     kfreq  =         2
@@ -1669,7 +1669,7 @@ maximum frequency, and the resulting function is a smooth spline between
 the minimum and maximum values and these minimum and maximum
 frequencies. The following input:
 
-~~~Csound
+~~~csound
     kmin     =         -0.95
     kmax     =         0.95
     kminfrq  =         1
@@ -1694,7 +1694,7 @@ of each note in addition to an i-time random offset.
 
 ***EXAMPLE 01D12\_humanising.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -1766,7 +1766,7 @@ of certain notes and certain rhythmic gaps occuring.
 
 ***EXAMPLE 01D13\_simple\_algorithmic\_note\_generator.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m0

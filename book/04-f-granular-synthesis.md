@@ -9,7 +9,7 @@ In our introductory example, we will start with 1 Hz as frequency for the envelo
 
    ***EXAMPLE 04F01_GranSynthIntro.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac -m128
@@ -129,7 +129,7 @@ asynchronous granular synthesis.
 
    ***EXAMPLE 04F02_GranSynth_basic.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m0
@@ -209,7 +209,7 @@ then be able to morph continuously between vowels.
 
    ***EXAMPLE 04F03_Fof_vowels.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -412,7 +412,7 @@ synchronicity when using constant values.
 
    ***EXAMPLE 04F04_Asynchronous_GS.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -502,7 +502,7 @@ are printed to the terminal every second. The key for waveforms is:
 
    ***EXAMPLE 04F05_grain3.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -574,7 +574,7 @@ correspondingly low: 20 Hz.
 
    ***EXAMPLE 04F06_grain3_random.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac

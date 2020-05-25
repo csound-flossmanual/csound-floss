@@ -204,7 +204,7 @@ executed as an independent process. The result should be the same - the
 
    ***EXAMPLE 02A01\_HelloWorld.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -283,7 +283,7 @@ Cabbage please consult the chapter on
 
    ***EXAMPLE 02A02\_HelloCabbage.csd***
 
-~~~Csound
+~~~csound
 <Cabbage>
 form size(420,100)
 keyboard bounds(10,10,300,80)

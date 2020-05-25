@@ -201,7 +201,7 @@ This is about the shortest CSD that shows some HTML output.
 
    ***EXAMPLE 12G01_Hello_HTML_World.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 </CsOptions>
@@ -229,7 +229,7 @@ This is a simple example that shows how to control Csound using an HTML slider.
 
    ***EXAMPLE 12G02_Minimal_HTML.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -d
@@ -977,7 +977,7 @@ Also for the sake of efficiency, a global, always-on instrument can be
 used to read the control channels and assign their values to these
 global variables:
 
-~~~Csound
+~~~csound
     instr Controls
      gk_FmIndex_ chnget "gk_FmIndex"
      if gk_FmIndex_  != 0 then

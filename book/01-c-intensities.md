@@ -173,7 +173,7 @@ over 10 seconds.
 
    ***EXAMPLE 01C01\_db\_vs\_linear.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -253,7 +253,7 @@ reduced. This is an example^[cf Martin Neukom, Signale Systeme Klangsynthese, ZÃ
 
    ***EXAMPLE 01C02_rms_feedback_system.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -327,7 +327,7 @@ not hear anything in the bass region.
 
    ***EXAMPLE 01C03_FletcherMunson.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac

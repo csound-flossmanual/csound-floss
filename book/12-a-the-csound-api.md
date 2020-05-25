@@ -167,7 +167,7 @@ The term bus is usually used to describe a means of communication between hardwa
 
 Using one of the software bus opcodes in Csound we can provide an interface for communication with a host application. An example of one such opcode is `chnget`. The `chnget` opcode reads data that is being sent from a host Csound API application on a particular named channel, and assigns it to an output variable. In the following example instrument 1 retrieves any data the host may be sending on a channel named "pitch":
 
-~~~Csound
+~~~csound
 instr 1
 kfreq chnget "pitch"
 asig  oscil  10000, kfreq, 1

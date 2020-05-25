@@ -40,7 +40,7 @@ w-type):
 
    ***EXAMPLE 03B01\_Variable\_types.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 --env:SSDIR+=../SourceMaterials -o dac
@@ -133,7 +133,7 @@ names, but different values.
 
    ***EXAMPLE 03B02\_Local\_scope.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -237,7 +237,7 @@ following example:
 
    ***EXAMPLE 03B03\_Global\_scope.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsInstruments>
 sr = 44100
@@ -333,7 +333,7 @@ the same by Csound if it is applied like a local audio signal:
 
    ***EXAMPLE 03B04\_Global\_audio\_intro.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -369,7 +369,7 @@ instrument 1 is overwritten by the 600 Hz sine of instrument 2:
 
    ***EXAMPLE 03B05\_Global\_audio\_overwritten.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -410,7 +410,7 @@ is happening:
 
    ***EXAMPLE 03B06\_Global\_audio\_added.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsInstruments>
 sr = 44100
@@ -440,7 +440,7 @@ k-signal, like here, or by a global k-signal, like in the next example:
 
    ***EXAMPLE 03B07\_Global\_control\_added.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsInstruments>
 sr = 44100
@@ -488,7 +488,7 @@ and then in the following example with a global audio variable.
 
    ***EXAMPLE 03B08\_Local\_audio\_add.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -536,7 +536,7 @@ i 1 0 1
 
    ***EXAMPLE 03B09\_Global\_audio\_add.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -607,7 +607,7 @@ typical situation:
 
    ***EXAMPLE 03B10\_Global\_with\_clear.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -701,7 +701,7 @@ be used.
 
    ***EXAMPLE 03B11\_Chn\_demo.csd***
 
-~~~Csound
+~~~csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac

@@ -302,7 +302,7 @@ during Csound's performance (`-m3`).
 Create a blank line between `<CsInstruments>` and `</CsInstruments>` and
 type the following text:
 
-~~~Csound
+~~~csound
     sr = 44100
     ksmps = 32
     nchnls = 1
@@ -361,7 +361,7 @@ The first step is to declare one global variable for each of the control
 channels, with the same name as the control channel, at the top of the
 orchestra header, initialized to a value of zero:
 
-~~~Csound
+~~~csound
     gkslider1 init 0
     gkslider2 init 0
     gkslider3 init 0
@@ -387,13 +387,13 @@ Then write an *always-on* instrument that reads each of these control
 channels into each of those global variables. At the top of the
 orchestra header:
 
-~~~Csound
+~~~csound
     alwayson "Controls"
 ~~~
 
 As the next to last instrument in your orchestra:
 
-~~~Csound
+~~~csound
     instr Controls
      gkslider1 chnget "slider1"
      gkslider2 chnget "slider2"
@@ -431,7 +431,7 @@ At the top of the orchestra header:
 
 As the very last instrument in your orchestra:
 
-~~~Csound
+~~~csound
     instr VariablesForControls
     if gkslider1 > 0 then
        gkFirstHarmonic = gkslider1 * 2
@@ -484,7 +484,7 @@ necessary because the widgets in the Csound for Android app, unlike say the widg
 in CsoundQt, do not "remember" their positions and values from
 performance to performance.
 
-~~~Csound
+~~~csound
     gkratio1 init 1
     gkratio2 init 1/3
     gkindex1 init 1
