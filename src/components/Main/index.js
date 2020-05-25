@@ -24,6 +24,19 @@ const LoadingSpinner = () => (
   </div>
 );
 
+const HomeScreen = () => (
+  <React.Fragment>
+    <div css={ß.alternativeDists}>
+      <a href={`/build/csound-flossmanual-7.0.0-SNAPSHOT.epub`}>
+        <p>{`Read the EPUB version`}</p>
+      </a>
+      <a href={`/build/csound-flossmanual-7.0.0-SNAPSHOT.epub`}>
+        <p>{`Read the PDF version`}</p>
+      </a>
+    </div>
+  </React.Fragment>
+);
+
 function Main({ currentRoute, mobileMode, setCurrentRoute }) {
   const onRouteChange = React.useCallback(
     (location, action) => {
@@ -55,6 +68,7 @@ function Main({ currentRoute, mobileMode, setCurrentRoute }) {
     <main css={mobileMode ? ß.mainMobile : ß.main}>
       <Suspense fallback={<LoadingSpinner />}>
         <div>
+          <HomeScreen />
           <Switch>
             {map(
               route => (

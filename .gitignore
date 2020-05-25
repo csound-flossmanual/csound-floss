@@ -2,6 +2,7 @@
 /.idea
 /tmp
 csound_flossmanual.pdf
+csound_flossmanual.epub
 csound-floss-export*
 html2pdf*.html
 __pycache__
@@ -16,4 +17,3 @@ node_modules
 src/book_fragments/*
 python-env
 *.log
-

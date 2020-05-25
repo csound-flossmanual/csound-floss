@@ -24,8 +24,15 @@ jobs:
       run: yarn
     - name: Build the book website
       run: yarn build
-    - name: Build the pdf
-      run: yarn build:pdf && mv *.pdf build
+    - name: Build pdf
+      run: |
+        yarn build:pdf
+        mkdir -p build/build
+        mv *.pdf build/build/csound-flossmanual-7.0.0-SNAPSHOT.pdf
+    - name: Build epub
+      run: |
+        yarn build:epub
+        mv *.epub build/build/csound-flossmanual-7.0.0-SNAPSHOT.epub
     - name: Compress dist to zip
       run: |
         nix-env -f '<nixpkgs>' -iA zip
