@@ -11,7 +11,7 @@ and the
 This guide is another attempt to provide some orientation within
 Csound's wealth of opcodes — a wealth which is often frightening for beginners and still overwhelming for experienced users.
 
-Three selections are given here, each growing in size:  
+Three selections are given here, each larger than the other:  
 1. The **33 Most Essential Opcodes**. This selection might be useful for beginners. Learning ten opcodes a day, Csound can be learned in three days, and many full-featured Csound programs can be written with these 33 opcodes.  
 2. The **Top 100 Opcodes**. Adding 67 more opcodes to the first collection pushes the csound programmer to the next level. This should be sufficient for doing most of the jobs in Csound.  
 3. The third overview is rather extended already, and follows mostly the classification in the Csound Manual. It comprises nearly **500** opcodes.
@@ -1346,5 +1346,5 @@ FLTK overview
 [dssictls](https://csound.com/docs/manual/dssictls.html) — send control to plugin   
 
 
-This overview has been compiled by Joachim Heintz in may 2020, based on Csound 6.14.  Thanks to Tarmo Johannes, Victor Lazzarini, Gleb Rogozinsky, Steven Yi, Oeyvind Brandtsegg, Richard Boulanger, John ffitch, Luis Jure, Rory Walsh, Eduardo Moguillansky and others for their feedback which made the selections at least a tiny bit less subjective.
+This overview was compiled by Joachim Heintz in may 2020, based on Csound 6.14.  Thanks to Tarmo Johannes, Victor Lazzarini, Gleb Rogozinsky, Steven Yi, Oeyvind Brandtsegg, Richard Boulanger, John ffitch, Luis Jure, Rory Walsh, Eduardo Moguillansky and others for their feedback which made the selections at least a tiny bit less subjective.
 
