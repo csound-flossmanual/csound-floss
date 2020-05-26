@@ -12,35 +12,38 @@ This guide is another attempt to provide some orientation within
 Csound's wealth of opcodes — a wealth which is often frightening for beginners and still overwhelming for experienced users.
 
 Three selections are given here, each growing in size:  
-1. The **33 most important opcodes**. This selection might be useful for beginners. Learning ten opcodes a day, Csound can be learned in three days, and many full-featured Csound programs can be written with these 33 opcodes.  
+1. The **33 Most Essential Opcodes**. This selection might be useful for beginners. Learning ten opcodes a day, Csound can be learned in three days, and many full-featured Csound programs can be written with these 33 opcodes.  
 2. The **Top 100 Opcodes**. Adding 67 more opcodes to the first collection pushes the csound programmer to the next level. This should be sufficient for doing most of the jobs in Csound.  
 3. The third overview is rather extended already, and follows mostly the classification in the Csound Manual. It comprises nearly **500** opcodes.
 
-Although these selections come from some experience in using and teaching Csound, and have been discussed in the Csound Community, they must remain subjective, as working in Csound can go in quite different directions.
+Although these selections come from some experience in using and teaching Csound, they must remain subjective, as working in Csound can go in quite different directions.
 
 
-THE 33 MOST IMPORTANT OPCODES
------------------------------
+33 ESSENTIAL OPCODES
+--------------------
 
-#### Oscillators / Phasors
+#### Oscillators
 [poscil(3)](https://csound.com/docs/manual/poscil.html) — high precision oscillator with linear (cubic) interpolation  
-[phasor](https://csound.com/docs/manual/phasor.html) — standard phasor  
+[vco(2)](https://csound.com/docs/manual/vco2.html) — analog modelled oscillator  
 
-#### Noise
+#### Noise and Random
 [rand](https://csound.com/docs/manual/rand.html) — standard random (noise) generator  
+[random](https://csound.com/docs/manual/random.html) — random numbers between min/max  
+[randomi/randomh](https://csound.com/docs/manual/randomi.html) — random numbers between min/max with interpolating or hold segments   
+[seed](https://csound.com/docs/manual/seed.html) — set the global seed  
 
 #### Envelopes
-[linen](https://csound.com/docs/manual/linen.html) — linear fade in/out  
+[linen(r)](https://csound.com/docs/manual/linen.html) — linear fade in/out  
 
 #### Line Generators
-[linseg](https://csound.com/docs/manual/linseg.html) — one or more linear segments  
-[transeg](https://csound.com/docs/manual/transeg.html) — one or more user-definable segments  
+[linseg(r)](https://csound.com/docs/manual/linseg.html) — one or more linear segments  
+[transeg(r)](https://csound.com/docs/manual/transeg.html) — one or more user-definable segments  
 
 #### Line Smooth
-[port(k)](https://csound.com/docs/manual/port.html) — portamento-like smoothing for control signals (with variable half-time)  
+[sc_lag(ud)](https://csound.com/docs/manual/sc_lag.html) — exponential lag (with different smoothing times)  
 
 #### Sound Files / Samples
-[diskin](https://csound.com/docs/manual/diskin2.html) — sound file playback with different options  
+[diskin](https://csound.com/docs/manual/diskin2.html) — sound file read/playback with different options  
 
 #### Audio I/O
 [inch](https://csound.com/docs/manual/inch.html) — read audio from one or more input channels    
@@ -72,7 +75,7 @@ THE 33 MOST IMPORTANT OPCODES
 [pan2](https://csound.com/docs/manual/pan2.html) — stereo panning with different options  
   
 #### Reverb
-[freeverb](https://csound.com/docs/manual/freeverb.html) — stereo reverb after Jezar  
+[reverbsc](https://csound.com/docs/manual/reverbsc.html) — stereo reverb after Sean Costello  
 
 #### Delay
 [vdelayx](https://csound.com/docs/manual/vdelayx.html) — variable delay with highest quality interpolation  
@@ -86,11 +89,6 @@ THE 33 MOST IMPORTANT OPCODES
 #### Level
 [rms](https://csound.com/docs/manual/rms.html) — RMS measurement  
 [balance(2)](https://csound.com/docs/manual/balance.html) — adjust audio signal level according to comparator  
-
-#### Random
-[random](https://csound.com/docs/manual/random.html) — random numbers between min/max  
-[randomi/randomh](https://csound.com/docs/manual/randomi.html) — random numbers between min/max with interpolation or hold numbers   
-[seed](https://csound.com/docs/manual/seed.html) — set the global seed  
 
 #### Math / Conversion
 [ampdb/dbamp](https://csound.com/docs/manual/ampdb.html) — dB to/from amplitude  
@@ -111,26 +109,32 @@ TOP 100 OPCODES
 [mpulse](https://csound.com/docs/manual/mpulse.html) — single sample impulses  
 [phasor](https://csound.com/docs/manual/phasor.html) — standard phasor  
 
-#### Noise
+#### Noise and Random
 [rand](https://csound.com/docs/manual/rand.html) — standard random (noise) generator  
+[(bi)rnd](https://csound.com/docs/manual/rnd.html) — simple unipolar (bipolar) random generator  
+[random](https://csound.com/docs/manual/random.html) — random numbers between min/max  
+[randomi/randomh](https://csound.com/docs/manual/randomi.html) — random numbers between min/max with interpolation or hold numbers   
+[seed](https://csound.com/docs/manual/seed.html) — set the global seed  
 
 #### Envelopes
-[linen](https://csound.com/docs/manual/linen.html) — linear fade in/out  
+[linen(r)](https://csound.com/docs/manual/linen.html) — linear fade in/out  
+[(m)adsr](https://csound.com/docs/manual/adsr.html) — traditional ADSR envelope  
 
 #### Line Generators
-[linseg](https://csound.com/docs/manual/linseg.html) — one or more linear segments  
-[expseg](https://csound.com/docs/manual/expseg.html) — one or more exponential segments  
-[transeg](https://csound.com/docs/manual/transeg.html) — one or more user-definable segments  
+[linseg(r)](https://csound.com/docs/manual/linseg.html) — one or more linear segments  
+[expseg(r)](https://csound.com/docs/manual/expseg.html) — one or more exponential segments  
+[cosseg](https://csound.com/docs/manual/cosseg.html) — one or more cosine segments  
+[transeg(r)](https://csound.com/docs/manual/transeg.html) — one or more user-definable segments  
 
 #### Line Smooth
-[port(k)](https://csound.com/docs/manual/port.html) — portamento-like smoothing for control signals (with variable half-time)  
+[sc_lag(ud)](https://csound.com/docs/manual/sc_lag.html) — exponential lag (with different smoothing times)  
 
 #### Sound Files / Samples
-[diskin](https://csound.com/docs/manual/diskin2.html) — sound file playback with different options  
-[mp3in](https://csound.com/docs/manual/mp3in.html) — mp3 playback  
+[diskin](https://csound.com/docs/manual/diskin2.html) — sound file read/playback with different options  
+[mp3in](https://csound.com/docs/manual/mp3in.html) — mp3 read/playback  
 [loscil(3/x)](https://csound.com/docs/manual/loscil.html) — read sampled sound from a table  
 [flooper(2)](https://csound.com/docs/manual/flooper.html) — crossfading looper  
-[filescal](https://csound.com/docs/manual/filescal.html) — phase-locked vocoder processing with time and pitch scale  
+[filescal/mincer](https://csound.com/docs/manual/filescal.html) — phase-locked vocoder processing with time and pitch scale  
 [filelen](https://csound.com/docs/manual/filelen.html) — length of sound file  
 
 #### Audio I/O
@@ -151,7 +155,7 @@ TOP 100 OPCODES
 [getrow/getcol](https://csound.com/docs/manual/getrow.html) — get a row/column from a two-dimensional array  
 [setrow/setcol](https://csound.com/docs/manual/setrow.html) — set a row/column of a two-dimensional array  
 
-#### Control
+#### Program Control
 [if](https://csound.com/docs/manual/if.html) — if clause  
 [while](https://csound.com/docs/manual/while.html) — while loop  
 [changed(2)](https://csound.com/docs/manual/changed.html) — k-rate signal change detector  
@@ -169,10 +173,8 @@ TOP 100 OPCODES
 [timeinsts](https://csound.com/docs/manual/timeinsts.html) — time of instrument instance in seconds  
 
 #### Software Channels
-[chnset](https://csound.com/docs/manual/chnset.html) — set value in channel    
-[chnget](https://csound.com/docs/manual/chnget.html) — get value from channel  
-[chnmix](https://csound.com/docs/manual/chnmix.html) — mix value to channel  
-[chnclear](https://csound.com/docs/manual/chnclear.html) — clear channel   
+[chnget/chnset](https://csound.com/docs/manual/chnget.html) — get/set value from/to channel  
+[chnmix/chnclear](https://csound.com/docs/manual/chnmix.html) — mix value to channel / clear channel  
 
 #### MIDI
 [massign](https://csound.com/docs/manual/massign.html) — assign MIDI channel to Csound instrument  
@@ -217,6 +219,7 @@ TOP 100 OPCODES
 
 #### Delay
 [vdelayx](https://csound.com/docs/manual/vdelayx.html) — variable delay with highest quality interpolation  
+[(v)comb](https://csound.com/docs/manual/comb.html) — comb filter  
 
 #### Distortion
 [distort(1)](https://csound.com/docs/manual/distort.html) — distortion via waveshaping  
@@ -227,25 +230,20 @@ TOP 100 OPCODES
 [reson](https://csound.com/docs/manual/reson.html) — second order resonant filter  
 [butbp(hp/lp)](https://csound.com/docs/manual/butterbp.html) — second order butterworth filter  
 [mode](https://csound.com/docs/manual/mode.html) — mass-spring system modelled  
-[hilbert](https://csound.com/docs/manual/hilbert.html) — hilbert transform
+[zdf_ladder](https://csound.com/docs/manual/zdf_ladder.html) — zero delay feedback implementation of 4 pole ladder filter
     
 #### Level
 [rms](https://csound.com/docs/manual/rms.html) — RMS measurement  
 [balance(2)](https://csound.com/docs/manual/balance.html) — adjust audio signal level according to comparator  
 
-#### Random
-[(bi)rnd](https://csound.com/docs/manual/rnd.html) — simple unipolar (bipolar) random generator  
-[random](https://csound.com/docs/manual/random.html) — random numbers between min/max  
-[randomi/randomh](https://csound.com/docs/manual/randomi.html) — random numbers between min/max with interpolation or hold numbers   
-[seed](https://csound.com/docs/manual/seed.html) — set the global seed  
-
 #### Math / Conversion
 [ampdb/dbamp](https://csound.com/docs/manual/ampdb.html) — dB to/from amplitude  
 [mtof/ftom](https://csound.com/docs/manual/mtof.html) — MIDI note number to/from frequency  
 [cent](https://csound.com/docs/manual/cent.html) — cent to scaling factor  
-[log2](https://csound.com/docs/manual/log2.html) — return 2 base log
+[log2](https://csound.com/docs/manual/log2.html) — return 2 base log  
 [abs](https://csound.com/docs/manual/abs.html) — absolute value  
 [int/frac](https://csound.com/docs/manual/int.html) — integer/fractional part  
+[linlin](https://csound.com/docs/manual/linlin.html) — signal scaling
 
 #### Amplitude / Pitch Tracking
 [follow(2)](https://csound.com/docs/manual/follow.html) — envelope follower  
@@ -264,9 +262,7 @@ TOP 100 OPCODES
 [directory](https://csound.com/docs/manual/directory.html) — files in a directory as string array  
 
 #### Signal Type Conversion
-[i(k)](https://csound.com/docs/manual/opi.html) — i-value from k-signal  
-[k(a)](https://csound.com/docs/manual/opk.html) — k-signal from a-signal  
-[a(k)](https://csound.com/docs/manual/opa.html) — a-signal from k-signal  
+[i(k) / k(a) / a(k)](https://csound.com/docs/manual/opi.html) — i-value from k-signal / k-signal from a-signal / a-signal from k-signal 
 
 
 
@@ -307,8 +303,8 @@ I. AUDIO I/O AND SOUND FILES
 
 #### Sound File Playback
 
-[diskin](https://csound.com/docs/manual/diskin2.html) — sound file playback with different options  
-[mp3in](https://csound.com/docs/manual/mp3in.html) — mp3 playback  
+[diskin](https://csound.com/docs/manual/diskin2.html) — sound file read/playback with different options  
+[mp3in](https://csound.com/docs/manual/mp3in.html) — mp3 read/playback  
 
 
 #### Sample Playback
@@ -402,6 +398,7 @@ II. SIGNAL GENERATORS
 #### Noise Generators
 
 [rand](https://csound.com/docs/manual/rand.html) — standard random (noise) generator  
+[pinker](https://csound.com/docs/manual/pinker.html) — pinkt noise after Stefan Stenzel  
 [pinkish](https://csound.com/docs/manual/pinkish.html) — pink noise generator  
 [fractalnoise](https://csound.com/docs/manual/fractalnoise.html) — fractal noise generator  
 [gauss(i)](https://csound.com/docs/manual/gauss.html) — Gaussian distribution random generator  
@@ -511,6 +508,7 @@ III. SIGNAL MODIFIERS
 [deltapx](https://csound.com/docs/manual/deltapx.html) — tap a delay line with highest quality interpolation  
 [deltapn](https://csound.com/docs/manual/deltapn.html) — tap a delay line at variable offsets  
 [multitap](https://csound.com/docs/manual/multitap.html) — multiple tap delays with different gains  
+[(v)comb](https://csound.com/docs/manual/comb.html) — comb filter  
 
 
 #### Control Signal Delays
@@ -563,6 +561,7 @@ overviews in the Csound Manual.
 #### Equalizer
 
 [eqfil](https://csound.com/docs/manual/eqfil.html) — equilizer filter  
+[rbjeq](https://csound.com/docs/manual/rbjeq.html) — parametric equilizer and filter  
 [exciter](https://csound.com/docs/manual/exciter.html) — non-linear filter to add brilliance  
 
 
@@ -575,7 +574,6 @@ overviews in the Csound Manual.
 [nreverb](https://csound.com/docs/manual/nreverb.html) — reverb with adjustable number of units  
 [babo](https://csound.com/docs/manual/babo.html) — physical model reverberator  
 [(v)alpass](https://csound.com/docs/manual/alpass.html) — reveberates with a flat frequency response  
-[(v)comb](https://csound.com/docs/manual/comb.html) — comb filter  
 *Note*: Convolution reverb can be performed with 
 [pconvolve](https://csound.com/docs/manual/pconvolve.html) and similar opcodes.
 
@@ -674,6 +672,10 @@ overviews in the Csound Manual.
 [hrtfmove(2)](https://csound.com/docs/manual/hrtfmove.html) — dynamic 3d binaural audio  
 [hrtfearly](https://csound.com/docs/manual/hrtfearly.html) — early reflections in a HRTF room  
 [hrtfreverb](https://csound.com/docs/manual/hrtfreverb.html) — binaural diffuse-field reverberator  
+
+#### Other
+
+[spat3d](https://csound.com/docs/manual/spat3d.html) — positioning in 3d space with optional simulation of room acoustics  
 
 
 
@@ -960,7 +962,6 @@ VI. PROGRAM FLOW
 
 #### Instances and Allocation
 
-[nstance](https://csound.com/docs/manual/nstance.html) — returns additional instance handler  
 [active](https://csound.com/docs/manual/active.html) — number of active instrument instances  
 [maxalloc](https://csound.com/docs/manual/maxalloc.html) — set maximum number of instrument instances  
 [prealloc](https://csound.com/docs/manual/prealloc.html) — allocate memory before running an instrument   
@@ -1196,8 +1197,7 @@ see [here](https://csound.com/docs/manual/SignalFlowGraphOpcodes.html) and [here
 
 #### Scaling
 
-[NmScl](https://github.com/csudo/csudo/blob/master/numbers/NmScl.csd) — UDO for i/k scaling  
-
+[linlin](https://csound.com/docs/manual/linlin.html) — linear signal scaling
 
 
 VII. PERIPHERALS AND CONNECTIONS
@@ -1344,4 +1344,7 @@ FLTK overview
 [dssilist](https://csound.com/docs/manual/dssilist.html) — list available plugins  
 [dssiaudio](https://csound.com/docs/manual/dssiaudio.html) — process audio using a plugin    
 [dssictls](https://csound.com/docs/manual/dssictls.html) — send control to plugin   
+
+
+This overview has been compiled by Joachim Heintz in may 2020, based on Csound 6.14.  Thanks to Tarmo Johannes, Victor Lazzarini, Gleb Rogozinsky, Steven Yi, Oeyvind Brandtsegg, Richard Boulanger, John ffitch, Luis Jure, Rory Walsh, Eduardo Moguillansky and others for their feedback which made the selections at least a tiny bit less subjective.
 
