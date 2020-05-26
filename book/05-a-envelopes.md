@@ -14,6 +14,9 @@ ones which emulate the classic ADSR (attack-decay-sustain-release)
 envelopes found on hardware and commercial software synthesizers. A
 selection of these opcodes types shall be introduced here.
 
+line
+----
+
 The simplest opcode for defining an envelope is
 [line](https://csound.com/docs/manual/line.html). It describes a
 single envelope segment as a straight line between a start value *ia* and an
@@ -110,6 +113,9 @@ can occur if they output a k-rate variable, particularly when the
 control rate is low, which in the case of amplitude envelopes can lead
 to clicking artefacts or distortion.
 
+linseg
+------
+
 [linseg](https://csound.com/docs/manual/linseg.html) is an
 elaboration of *line* and allows us to add an arbitrary number of
 segments by adding further pairs of time durations followed envelope
@@ -201,6 +207,9 @@ i 1 3   5
 ;example by Iain McCurdy
 ~~~
 
+Different behaviour in linear continuation
+------------------------------------------
+
 The next example highlights an important difference in the behaviours of
 *line* and *linseg* when p3 exceeds the duration of an envelope.
 
@@ -254,6 +263,9 @@ i 2 5 4 ; line envelope
 ~~~
 
 ![](../resources/images/05-a-line-linseg.png)
+
+expon and expseg
+----------------
 
 [expon](https://csound.com/docs/manual/expon.html) and
 [expseg](https://csound.com/docs/manual/expseg.html) are versions of
@@ -357,6 +369,9 @@ continues its curving trajectory in a manner similar to *line* (and
 *expon*). This could have dangerous results if used as an amplitude
 envelope.
 
+Envelopes with release segment
+------------------------------
+
 When dealing with notes with an indefinite duration at the time of
 initiation (such as midi activated notes or score activated notes with a
 negative p3 value), we do not have the option of using p3 in a
@@ -411,6 +426,9 @@ e 240 ; csound performance for 4 minutes
 ;example by Iain McCurdy
 ~~~
 
+
+Envelopes in Function Tables
+----------------------------
 
 Sometimes designing our envelope shape in a function table can provide
 us with shapes that are not possible using Csound's envelope generating
