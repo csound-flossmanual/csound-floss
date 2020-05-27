@@ -88,7 +88,7 @@
 ## 12 CSOUND AND OTHER PROGRAMMING LANGUAGES
 ### [A. THE CSOUND API](12-a-the-csound-api.md)
 ### [B. PYTHON AND CSOUND](12-b-python-and-csound.md)
-### [C. LUA IN CSOUND](12-c-lua-in-csound.md)
+### [C. LUA AND CSOUND](12-c-lua-and-csound.md)
 ### [D. CSOUND IN iOS](12-d-csound-in-ios.md)
 ### [E. CSOUND ON ANDROID](12-e-csound-on-android.md)
 ### [F. CSOUND AND HASKELL](12-f-csound-and-haskell.md)

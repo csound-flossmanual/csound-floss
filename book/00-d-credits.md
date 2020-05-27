@@ -172,7 +172,7 @@ Iain McCurdy
 #### 08 OTHER COMMUNICATION
 
 *A. OPEN SOUND CONTROL*
-Alex Hofmann
+Alex Hofmann, Joachim Heintz
 
 *B. CSOUND AND ARDUINO*
 Iain McCurdy
@@ -234,8 +234,8 @@ François Pinot, Rory Walsh
 *B. PYTHON AND CSOUND*
 Andrés Cabrera, Joachim Heintz, Jim Aikin
 
-*C. LUA IN CSOUND*
-Michael Gogins
+*C. LUA AND CSOUND*
+Michael Gogins, Philipp Henkel
 
 *D. CSOUND IN IOS*
 Nicholas Arner, Nikhil Singh, Richard Boulanger, Alessandro Petrolati
@@ -304,5 +304,9 @@ Joachim Heintz, Iain McCurdy
 V.6 - Final Editing Team March-June 2015:
 
 Joachim Heintz, Iain McCurdy
+
+V.7 - Final Editing and Programming Team 2019/20:
+
+Joachim Heintz, Hlöðver Sigurðsson
 
 \newpage
