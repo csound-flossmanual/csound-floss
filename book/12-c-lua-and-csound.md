@@ -17,7 +17,7 @@ On Linux, the *luaCsnd.so* should be found in */usr/lib*, if you install Csound 
 Setting the Lua Path
 --------------------
 
-Once the *luaCsnd6.so* is there, it needs to be added to the Lua Path. Either put the *luaCsnd* object in a directory where Lua is searching by default, oradd these lines to the configuration file of your shell:
+Once the *luaCsnd6.so* is there, it needs to be added to the Lua Path. Either put the *luaCsnd* object in a directory where Lua is searching by default, or add these lines to the configuration file of your shell:
 
 Using Csound build directory:
 	
