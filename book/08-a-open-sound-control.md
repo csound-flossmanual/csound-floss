@@ -1,6 +1,53 @@
 08 A. OPEN SOUND CONTROL
 ========================
 
+Open Sound Control offers a more flexible, dynamic alternative to
+MIDI. It uses modern network communications, usually based on the user datagram
+transport layer protocol (UDP), and allows not only the communication between
+synthesisers but also between applications and remote computers.
+
+
+The Protocol
+------------
+
+The basic unit of OSC data is a message. This is sent to an address which follows the UNIX path convention, starting with a slash and creating branches at every following slash. The names inside this structure are free, but the convention is that it should fit to the content, for instance `/filter/rudi/cutoff` or `/Processing/sketch/RGB`. So, in contrast to MIDI, the address space is not predefined and can be changed dynamically.
+
+The OSC message must specify the type(s) of its argument(s). This is a list of all types which are available in Csound, and the signifier which Csound uses for this type:
+
+  Type                          Csound Signifier
+  ----------------------------- -----------------
+  audio                         a
+  character                     c
+  double                        d
+  float                         f
+  long integer 64-bit           h              
+  integer 32-bit                i           
+  string                        s
+  array (scalar)                A
+  table                         G
+
+
+Once data types are declared, messages can be sent and received. In OSC termi-
+nology, anything that sends a message is a client, and anything that receives it is a server. Csound can be both, in various ways, as it can:
+- send a message and receive it in another part of the same program;
+- receive a message which is sent by any other application on this computer (localhost) or anywhere in the network;
+- send a message to another application anywhere in the network.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 OPEN SOUND CONTROL - NETWORK COMMUNICATION
 ------------------------------------------
 
