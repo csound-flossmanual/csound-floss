@@ -41,6 +41,7 @@ Although these selections come from some experience in using and teaching Csound
 
 #### Line Smooth
 [sc_lag(ud)](https://csound.com/docs/manual/sc_lag.html) — exponential lag (with different smoothing times)  
+(traditional alternatives are [port(k)](https://csound.com/docs/manual/port.html) and [tonek](https://csound.com/docs/manual/tonek.html))  
 
 #### Sound Files / Samples
 [diskin](https://csound.com/docs/manual/diskin2.html) — sound file read/playback with different options  
