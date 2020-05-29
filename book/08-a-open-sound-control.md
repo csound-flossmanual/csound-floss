@@ -105,7 +105,7 @@ Here we catch this point, and get a printout with the time at which the message 
 Note that the time at which the message is received is necessarily slightly later than the time at which it is being sent. The time difference is usually around some milliseconds; it depends on the UDP transmission.
 
 
-More than one variables in a message
+More than one variable in a message
 ------------------------------------
 
 The string which specifies the data types which are being sent, can consist of more than one character. It was "i" in the previous example, as we sent an integer. When we want to send a float and a string, it will become "fs". This is the case in the next example; anything else is very similar to what was shown before.
@@ -157,5 +157,62 @@ The printout is here:
 
     kReceiveFloat = 1.234568
     SReceiveString = 'bla bla'
+
+
+
+Sending and Receiving Arrays
+----------------------------
+
+Instead of single data, OSC can also send and receive collections of data. The next example shows how an array is being sent once a second, and is being transformed for each [metro](https://csound.com/docs/manual/metro.html) tick. 
+
+
+   ***EXAMPLE 08A03_Send_receive_array.csd***
+
+~~~csound
+<CsoundSynthesizer>
+<CsOptions>
+-m 128
+</CsOptions>
+<CsInstruments>
+
+sr	= 44100
+ksmps = 32
+nchnls	= 2
+0dbfs	= 1
+
+giPortHandle OSCinit 47120
+
+instr Send
+ kSendTrigger init 0
+ kArray[] fillarray 1, 2, 3, 4, 5, 6, 7
+ if metro(1)==1 then
+  kSendTrigger += 1
+  kArray *= 2
+ endif
+ OSCsend kSendTrigger, "", 47120, "/exmp_1/int", "A", kArray
+endin
+
+instr Receive
+ kReceiveArray[] init 7
+ kGotIt OSClisten giPortHandle, "/exmp_1/int", "A", kReceiveArray
+ if kGotIt == 1 then
+  printarray kReceiveArray
+ endif
+endin
+
+</CsInstruments>
+<CsScore>
+i "Receive" 0 3
+i "Send" 0 3
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+~~~
+
+Each time the metro ticks, the array values are multiplied by two. So the printout is:
+
+    2.0000 4.0000 6.0000 8.0000 10.0000 12.0000 14.0000 
+    4.0000 8.0000 12.0000 16.0000 20.0000 24.0000 28.0000 
+    8.0000 16.0000 24.0000 32.0000 40.0000 48.0000 56.0000 
 
 
