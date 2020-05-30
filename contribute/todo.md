@@ -48,9 +48,6 @@ Edits
 - 07-d (reading midi)
     - can we include the midi file and the sound fonts for example 07D01?
     - add hint for any script or application for midi2score
-- 08-a (osc)
-    - could be more extended; perhaps take some of my chapter for the
-      csound book here
 - 09-b (csound in maxmsp) 
     - needs to be updated
 - 10-a (csoundqt) 
