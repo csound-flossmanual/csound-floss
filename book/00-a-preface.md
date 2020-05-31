@@ -45,17 +45,10 @@ simplest. You do not need to know any specific programming techniques or
 to be a computer scientist. The basics of the Csound language are a
 straightforward transfer of the signal flow paradigm to text.
 
-\newpage
-
 For example, to create a 400 Hz sine oscillator with an amplitude of
 0.2, this is the signal flow:
 
-
-`\begin{wrapfigure}[3]{r}{0.3\textwidth}`{=latex}
-`\begin{center}`{=latex}
-![](../resources/images/00-a-signal-flow.png){}
-`\end{center}`{=latex}
-`\end{wrapfigure}`{=latex}
+![](../resources/images/00-a-signal-flow.png)
 
 Here is a possible transformation of the signal graph into Csound code:
 
