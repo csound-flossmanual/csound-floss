@@ -121,18 +121,18 @@ the top of the source file. The example below shows a simple data
 structure for an opcode with one output and three inputs, plus a couple
 of private internal variables:
 
-~~~C
-    #include "csdl.h"
+~~~c
+#include "csdl.h"
 
-    typedef struct  _newopc {
+typedef struct  _newopc {
 
-    OPDS  h;
-    MYFLT *out;/* output pointer  */
-    MYFLT *in1,*in2,*in3; /* input pointers */
-    MYFLT  var1;  /* internal variables */
-    MYFLT  var2;
+OPDS  h;
+MYFLT *out;/* output pointer  */
+MYFLT *in1,*in2,*in3; /* input pointers */
+MYFLT  var1;  /* internal variables */
+MYFLT  var2;
 
-    } newopc;
+} newopc;
 ~~~
 
 ### Initialisation
@@ -146,12 +146,12 @@ the opcode dataspace. The following example shows an example
 initialisation function. It initialises one of the variables to 0 and
 the other to the third opcode input parameter.
 
-~~~C
-    int newopc_init(CSOUND *csound, newopc *p){
-     p->var1 = (MYFLT) 0;
-     p->var2 = *p->in3;
-    return OK;
-    }
+~~~c
+int newopc_init(CSOUND *csound, newopc *p){
+ p->var1 = (MYFLT) 0;
+ p->var2 = *p->in3;
+return OK;
+}
 ~~~
 
 ### Control-rate performance
@@ -165,14 +165,14 @@ the second input. The output is offset by the first input and the
 ramping is reset if it reaches the value of *var2* (which is set to the
 third input argument in the constructor above).
 
-~~~C
-    int newopc_process_control(CSOUND *csound, newopc *p){
-     MYFLT cnt = p->var1 + *(p->in2);
-     if(cnt > p->var2) cnt = (MYFLT) 0; /* check bounds */
-     *(p->out) = *(p->in1) + cnt; /* generate output */
-      p->var1 = cnt; /* keep the value of cnt */
-      return OK;
-    }
+~~~c
+int newopc_process_control(CSOUND *csound, newopc *p){
+ MYFLT cnt = p->var1 + *(p->in2);
+ if(cnt > p->var2) cnt = (MYFLT) 0; /* check bounds */
+ *(p->out) = *(p->in1) + cnt; /* generate output */
+  p->var1 = cnt; /* keep the value of cnt */
+  return OK;
+}
 ~~~
 
 ### Audio-rate performance
@@ -202,29 +202,29 @@ instrument, and act to ensure these are taken into account. Without
 this, the opcode would still work, but not support the sample-accurate
 mode.
 
-~~~C
-    int newopc_process_audio(CSOUND *csound, newopc *p){
-     int i, n = CS_KSMPS;
-     MYFLT *aout = p->out;  /* output signal */
-     MYFLT cnt = p->var1 + *(p->in2);
-     uint32_t offset = p->h.insdshead->ksmps_offset;
-     uint32_t early  = p->h.insdshead->ksmps_no_end;
+~~~c
+int newopc_process_audio(CSOUND *csound, newopc *p){
+ int i, n = CS_KSMPS;
+ MYFLT *aout = p->out;  /* output signal */
+ MYFLT cnt = p->var1 + *(p->in2);
+ uint32_t offset = p->h.insdshead->ksmps_offset;
+ uint32_t early  = p->h.insdshead->ksmps_no_end;
 
-     /* sample-accurate mode mechanism */
-     if(offset) memset(aout, '\0', offset*sizeof(MYFLT));
-     if(early) {
-            n -= early;
-            memset(&aout[n], '\0', early*sizeof(MYFLT));
-      }
+ /* sample-accurate mode mechanism */
+ if(offset) memset(aout, '\0', offset*sizeof(MYFLT));
+ if(early) {
+        n -= early;
+        memset(&aout[n], '\0', early*sizeof(MYFLT));
+  }
 
-      if(cnt > p->var2) cnt = (MYFLT) 0; /* check bounds */
+  if(cnt > p->var2) cnt = (MYFLT) 0; /* check bounds */
 
-      /* processing loop    */
-      for(i=offset; i < n; i++) aout[i] = *(p->in1) + cnt;
+  /* processing loop    */
+  for(i=offset; i < n; i++) aout[i] = *(p->in1) + cnt;
 
-       p->var1 = cnt; /* keep the value of cnt */
-       return OK;
-    }
+   p->var1 = cnt; /* keep the value of cnt */
+   return OK;
+}
 ~~~
 
 In order for Csound to be aware of the new opcode, we will have to
@@ -232,11 +232,11 @@ register it. This is done by filling an opcode registration structure
 `OENTRY` array called *localops* (which is static, meaning that only one
 such array exists in memory at a time):
 
-~~~C
-    static OENTRY localops[] = {
-    { "newopc", sizeof(newopc), 0, 7, "s", "kki",(SUBR) newopc_init,
-    (SUBR) newopc_process_control, (SUBR) newopc_process_audio }
-    };
+~~~c
+static OENTRY localops[] = {
+{ "newopc", sizeof(newopc), 0, 7, "s", "kki",(SUBR) newopc_init,
+(SUBR) newopc_process_control, (SUBR) newopc_process_audio }
+};
 ~~~
 
 ### Linkage
@@ -312,24 +312,24 @@ To run Csound with the new opcodes, we can use the
 \--opcode-lib=*libname* option.
 
 ~~~csound
-    <CsoundSynthesizer>
-    <CsOptions>
-    --opcode-lib=newopc.so  ; OSX: newopc.dylib; Windows: newopc.dll
-    </CsOptions>
-    <CsInstruments>
+<CsoundSynthesizer>
+<CsOptions>
+--opcode-lib=newopc.so  ; OSX: newopc.dylib; Windows: newopc.dll
+</CsOptions>
+<CsInstruments>
 
-    schedule 1,0,100,440
+schedule 1,0,100,440
 
-    instr 1
+instr 1
 
-    asig   newopc  0, 0.001, 1
-    ksig   newopc  1, 0.001, 1.5
-    aosc   oscili 1000, p4*ksig
-        out aosc*asig
+asig   newopc  0, 0.001, 1
+ksig   newopc  1, 0.001, 1.5
+aosc   oscili 1000, p4*ksig
+    out aosc*asig
 
-    endin
+endin
 
-    </CsInstruments>
-    </CsoundSynthesizer>
-    ;example by victor lazzarini
+</CsInstruments>
+</CsoundSynthesizer>
+;example by victor lazzarini
 ~~~

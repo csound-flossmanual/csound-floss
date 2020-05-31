@@ -150,57 +150,57 @@ User Interface
 
 The Csound for Android app has a tabbed user interface. The tabs include:
 
-:   ***EDITOR*** -- Built-in text editor for .csd and .html files.
+***EDITOR*** -- Built-in text editor for .csd and .html files.
 
 ![](../resources/images/12-e-editor.png){width=50%}
 
-:   ***MESSAGES*** -- Displays runtime messages from Csound in a scrolling display.
+***MESSAGES*** -- Displays runtime messages from Csound in a scrolling display.
 
 ![](../resources/images/12-e-messages.png){width=50%}
 
-:   ***HTML*** -- Displays the Web page specified by HTML code in the piece, may
-                  include interactive widgets, 3-dimensional graphics, etc., etc.
+***HTML*** -- Displays the Web page specified by HTML code in the piece, may
+              include interactive widgets, 3-dimensional graphics, etc., etc.
 
 ![](../resources/images/12-e-html.png){width=50%}
 
-:   ***WIDGETS*** -- Displays built-in widgets bound to control channels with
-                     predefined names.
+***WIDGETS*** -- Displays built-in widgets bound to control channels with
+                 predefined names.
 
 ![](../resources/images/12-e-widgets.png){width=50%}
 
-:   ***HELP*** -- Displays the online Csound Reference Manual in an embedded Web
-                  browser.
-:   ***ABOUT*** -- Displays the Csound home page in an embedded Web browser.
+***HELP*** -- Displays the online Csound Reference Manual in an embedded Web
+              browser.
+***ABOUT*** -- Displays the Csound home page in an embedded Web browser.
 
 ### Main Menu
 
 The app also has a top-level menu with the following commands:
 
-:  ***NEW...*** creates a blank template CSD file in the root directory
-   of the user's storage for the user to edit. The CSD file will be
-   remembered and performed by Csound.
+***NEW...*** creates a blank template CSD file in the root directory
+of the user's storage for the user to edit. The CSD file will be
+remembered and performed by Csound.
 
-:  ***OPEN...*** -- opens an existing CSD file in the root directory of
-   the user's storage. The user's storage filesystem can be navigated
-   to find other files.
+***OPEN...*** -- opens an existing CSD file in the root directory of
+the user's storage. The user's storage filesystem can be navigated
+to find other files.
 
-:  ***SAVE*** -- saves the current contents of the editor to its file.
+***SAVE*** -- saves the current contents of the editor to its file.
 
-:  ***RUN/STOP*** -- if a CSD file has been loaded, pushing the
-   button starts running Csound; if Csound is running, pushing the
-   button stops Csound. If the `<CsOptions>` element of the CSD file
-   contains `-odac`, Csound's audio output will go to the device audio
-   output. If the element contains `-osoundfilename`, Csound\'s audio
-   output will go to the file `soundfilename`, which should be a valid
-   Linux pathname in the user's storage filesystem.
+***RUN/STOP*** -- if a CSD file has been loaded, pushing the
+button starts running Csound; if Csound is running, pushing the
+button stops Csound. If the `<CsOptions>` element of the CSD file
+contains `-odac`, Csound's audio output will go to the device audio
+output. If the element contains `-osoundfilename`, Csound\'s audio
+output will go to the file `soundfilename`, which should be a valid
+Linux pathname in the user's storage filesystem.
 
-:  ***Save as ...*** -- saves the current contents of the editor to a new file.
+***Save as ...*** -- saves the current contents of the editor to a new file.
 
-:  ***Examples*** -- shows a number of example pieces that may be loaded
+***Examples*** -- shows a number of example pieces that may be loaded.
 
-:  ***User guide*** -- a minimal guide to setting up and using the app.
+***User guide*** -- a minimal guide to setting up and using the app.
 
-:  ***Privacy policy*** -- presents the Csound for Android app's privacy policy.
+***Privacy policy*** -- presents the Csound for Android app's privacy policy.
 
 The widgets are assigned control channel names *slider1* through *slider9*,
 *butt1* through *butt5*, *trackpad.x*, and *trackpad.y*. In addition, the
@@ -219,17 +219,18 @@ The area below the trackpad prints messages output by Csound as it runs.
 
 The Settings menu on your device offers the following choices:
 
-:   ***Audio driver***  -- selects an *Automatic* choice of the optimal audio
-                           driver for your device (this is the default),
-                           the older *OpenSL ES* driver which supports both
-                           audio input and audio output, and the newer *AAudio*
-                           driver that provides lower audio output latency on Oreo
-                           or later.
-:   ***Plugins***       -- an (additional) directory for plugin opcodes.
-:   ***Output***        -- overrides the default soundfile output directory.
-:   ***Samples***       -- overrides the default directory from which load sound samples.
-:   ***Analysis***      -- overrides the default directory from which to load analysis files.
-:   ***Include***       -- overrides the default directory from which to load Csound `#include` files.
+***Audio driver***  -- selects an *Automatic* choice of the optimal audio
+driver for your device (this is the default),
+the older *OpenSL ES* driver which supports both
+audio input and audio output, and the newer *AAudio*
+driver that provides lower audio output latency on Oreo
+or later.
+
+***Plugins*** -- an (additional) directory for plugin opcodes.
+***Output*** -- overrides the default soundfile output directory.
+***Samples*** -- overrides the default directory from which load sound samples.
+***Analysis*** -- overrides the default directory from which to load analysis files.
+***Include*** -- overrides the default directory from which to load Csound `#include` files.
 
 These settings are not required, but they can make using Csound easier
 and faster to use.
@@ -303,14 +304,14 @@ Create a blank line between `<CsInstruments>` and `</CsInstruments>` and
 type the following text:
 
 ~~~csound
-    sr = 44100
-    ksmps = 32
-    nchnls = 1
-    0dbfs = 1
-    instr 1
-     asignal poscil 0.2, 440
-     out asignal
-    endin
+sr = 44100
+ksmps = 32
+nchnls = 1
+0dbfs = 1
+instr 1
+ asignal poscil 0.2, 440
+ out asignal
+endin
 ~~~
 
 This is just about the simplest possible Csound orchestra. The orchestra
@@ -362,25 +363,25 @@ channels, with the same name as the control channel, at the top of the
 orchestra header, initialized to a value of zero:
 
 ~~~csound
-    gkslider1 init 0
-    gkslider2 init 0
-    gkslider3 init 0
-    gkslider4 init 0
-    gkslider5 init 0
-    gkslider6 init 0
-    gkslider7 init 0
-    gkslider8 init 0
-    gkslider9 init 0
-    gkbutt1 init 0
-    gkbutt2 init 0
-    gkbutt3 init 0
-    gkbutt4 init 0
-    gkbutt5 init 0
-    gktrackpadx init 0
-    gktrackpady init 0
-    gkaccelerometerx init 0
-    gkaccelerometery init 0
-    gkaccelerometerz init 0
+gkslider1 init 0
+gkslider2 init 0
+gkslider3 init 0
+gkslider4 init 0
+gkslider5 init 0
+gkslider6 init 0
+gkslider7 init 0
+gkslider8 init 0
+gkslider9 init 0
+gkbutt1 init 0
+gkbutt2 init 0
+gkbutt3 init 0
+gkbutt4 init 0
+gkbutt5 init 0
+gktrackpadx init 0
+gktrackpady init 0
+gkaccelerometerx init 0
+gkaccelerometery init 0
+gkaccelerometerz init 0
 ~~~
 
 Then write an *always-on* instrument that reads each of these control
@@ -388,33 +389,33 @@ channels into each of those global variables. At the top of the
 orchestra header:
 
 ~~~csound
-    alwayson "Controls"
+alwayson "Controls"
 ~~~
 
 As the next to last instrument in your orchestra:
 
 ~~~csound
-    instr Controls
-     gkslider1 chnget "slider1"
-     gkslider2 chnget "slider2"
-     gkslider3 chnget "slider3"
-     gkslider4 chnget "slider4"
-     gkslider5 chnget "slider5"
-     gkslider6 chnget "slider6"
-     gkslider7 chnget "slider7"
-     gkslider8 chnget "slider8"
-     gkslider9 chnget "slider9"
-     gkbutt1 chnget "butt1"
-     gkbutt2 chnget "butt2"
-     gkbutt3 chnget "butt3"
-     gkbutt4 chnget "butt4"
-     gkbutt5 chnget "butt5"
-     gktrackpadx chnget "trackpad.x"
-     gktrackpady chnget "trackpad.y"
-     gkaccelerometerx chnget "accelerometerX"
-     gkaccelerometery chnget "accelerometerY"
-     gkaccelerometerz chnget "accelerometerZ"
-    endin
+instr Controls
+ gkslider1 chnget "slider1"
+ gkslider2 chnget "slider2"
+ gkslider3 chnget "slider3"
+ gkslider4 chnget "slider4"
+ gkslider5 chnget "slider5"
+ gkslider6 chnget "slider6"
+ gkslider7 chnget "slider7"
+ gkslider8 chnget "slider8"
+ gkslider9 chnget "slider9"
+ gkbutt1 chnget "butt1"
+ gkbutt2 chnget "butt2"
+ gkbutt3 chnget "butt3"
+ gkbutt4 chnget "butt4"
+ gkbutt5 chnget "butt5"
+ gktrackpadx chnget "trackpad.x"
+ gktrackpady chnget "trackpad.y"
+ gkaccelerometerx chnget "accelerometerX"
+ gkaccelerometery chnget "accelerometerY"
+ gkaccelerometerz chnget "accelerometerZ"
+endin
 ~~~
 
 So far, everything is common to all pieces. Now, for each specific piece
@@ -427,51 +428,53 @@ continuously whether they are *on* or *off*. These examples are from
 
 At the top of the orchestra header:
 
-    alwayson "VariablesForControls"
+~~~csound
+alwayson "VariablesForControls"
+~~~
 
 As the very last instrument in your orchestra:
 
 ~~~csound
-    instr VariablesForControls
-    if gkslider1 > 0 then
-       gkFirstHarmonic = gkslider1 * 2
-       gkgrainDensity = gkslider1 * 400
-       gkratio2 = gkslider1 ;1/3
-    endif
-    if gkslider2 > 0 then
-       gkDistortFactor = gkslider2 * 2
-       gkgrainDuration = 0.005 + gkslider2 / 2
-       gkindex1 = gkslider2 * 4
-    endif
-    if gkslider3 > 0 then
-       gkVolume = gkslider3 * 5
-       gkgrainAmplitudeRange = gkslider3 * 300
-       gkindex2 = gkslider3 ;0.0125
-    endif
-    if gkslider4 > 0 then
-       gkgrainFrequencyRange = gkslider4 / 10
-    endif
-    if gktrackpady > 0 then
-       gkDelayModulation = gktrackpady * 2
-       ; gkGain = gktrackpady * 2 - 1
-    endif
-    if gktrackpadx > 0 then
-       gkReverbFeedback = (3/4) + (gktrackpadx / 4)
-       ; gkCenterHz = 100 + gktrackpadx * 3000
-    endif
-    kbutt1 trigger gkbutt1, .5, 0
-    if kbutt1 > 0 then
-       gkbritels = gkbritels / 1.5
-       gkbritehs = gkbritehs / 1.5
-       ; gkQ = gkQ / 2
-    endif
-    kbutt2 trigger gkbutt2, .5, 0
-    if kbutt2 > 0 then
-       gkbritels = gkbritels * 1.5
-       gkbritehs = gkbritehs * 1.5
-       ; gkQ = gkQ * 2
-    endif
-    endin
+a instr VariablesForControls
+ if gkslider1 > 0 then
+    gkFirstHarmonic = gkslider1 * 2
+    gkgrainDensity = gkslider1 * 400
+    gkratio2 = gkslider1 ;1/3
+ endif
+ if gkslider2 > 0 then
+    gkDistortFactor = gkslider2 * 2
+    gkgrainDuration = 0.005 + gkslider2 / 2
+    gkindex1 = gkslider2 * 4
+ endif
+ if gkslider3 > 0 then
+    gkVolume = gkslider3 * 5
+    gkgrainAmplitudeRange = gkslider3 * 300
+    gkindex2 = gkslider3 ;0.0125
+ endif
+ if gkslider4 > 0 then
+    gkgrainFrequencyRange = gkslider4 / 10
+ endif
+ if gktrackpady > 0 then
+    gkDelayModulation = gktrackpady * 2
+    ; gkGain = gktrackpady * 2 - 1
+ endif
+ if gktrackpadx > 0 then
+    gkReverbFeedback = (3/4) + (gktrackpadx / 4)
+    ; gkCenterHz = 100 + gktrackpadx * 3000
+ endif
+ kbutt1 trigger gkbutt1, .5, 0
+ if kbutt1 > 0 then
+    gkbritels = gkbritels / 1.5
+    gkbritehs = gkbritehs / 1.5
+    ; gkQ = gkQ / 2
+ endif
+ kbutt2 trigger gkbutt2, .5, 0
+ if kbutt2 > 0 then
+    gkbritels = gkbritels * 1.5
+    gkbritehs = gkbritehs * 1.5
+    ; gkQ = gkQ * 2
+ endif
+ endin
 ~~~
 
 Now, the controllers are re-mapped to sensible ranges, and have names
@@ -485,39 +488,39 @@ in CsoundQt, do not "remember" their positions and values from
 performance to performance.
 
 ~~~csound
-    gkratio1 init 1
-    gkratio2 init 1/3
-    gkindex1 init 1
-    gkindex2 init 0.0125
-    instr Phaser
-     insno = p1
-     istart = p2
-     iduration = p3
-     ikey = p4
-     ivelocity = p5
-     iphase = p6
-     ipan = p7
-     iamp = ampdb(ivelocity) * 8
-     iattack = gioverlap
-     idecay = gioverlap
-     isustain = p3 - gioverlap
-     p3 = iattack + isustain + idecay
-     kenvelope transeg 0.0, iattack / 2.0, 1.5, iamp / 2.0, iattack / 2.0,
-          -1.5, iamp, isustain, 0.0, iamp, idecay / 2.0, 1.5, iamp / 2.0,
-          idecay / 2.0, -1.5, 0
-     ihertz = cpsmidinn(ikey)
-     print insno, istart, iduration, ikey, ihertz, ivelocity, iamp, iphase, ipan
-     isine ftgenonce 0,0,65536,10,1
-     khertz = ihertz
-     ifunction1 = isine
-     ifunction2 = isine
-     a1,a2 crosspm gkratio1, gkratio2, gkindex1, gkindex2,
-                  khertz, ifunction1, ifunction2
-     aleft, aright pan2 a1+a2, ipan
-     adamping linseg 0, 0.03, 1, p3 - 0.1, 1, 0.07, 0
-     aleft = adamping * aleft * kenvelope
-     aright = adamping * aright * kenvelope
-     outleta "outleft", aleft
-     outleta "outright", aright
-    endin
+gkratio1 init 1
+gkratio2 init 1/3
+gkindex1 init 1
+gkindex2 init 0.0125
+instr Phaser
+ insno = p1
+ istart = p2
+ iduration = p3
+ ikey = p4
+ ivelocity = p5
+ iphase = p6
+ ipan = p7
+ iamp = ampdb(ivelocity) * 8
+ iattack = gioverlap
+ idecay = gioverlap
+ isustain = p3 - gioverlap
+ p3 = iattack + isustain + idecay
+ kenvelope transeg 0.0, iattack / 2.0, 1.5, iamp / 2.0, iattack / 2.0,
+      -1.5, iamp, isustain, 0.0, iamp, idecay / 2.0, 1.5, iamp / 2.0,
+      idecay / 2.0, -1.5, 0
+ ihertz = cpsmidinn(ikey)
+ print insno, istart, iduration, ikey, ihertz, ivelocity, iamp, iphase, ipan
+ isine ftgenonce 0,0,65536,10,1
+ khertz = ihertz
+ ifunction1 = isine
+ ifunction2 = isine
+ a1,a2 crosspm gkratio1, gkratio2, gkindex1, gkindex2,
+              khertz, ifunction1, ifunction2
+ aleft, aright pan2 a1+a2, ipan
+ adamping linseg 0, 0.03, 1, p3 - 0.1, 1, 0.07, 0
+ aleft = adamping * aleft * kenvelope
+ aright = adamping * aright * kenvelope
+ outleta "outleft", aleft
+ outleta "outright", aright
+endin
 ~~~

@@ -73,7 +73,7 @@
 \usepackage{letltxmacro}
 \LetLtxMacro{\OldIncludegraphics}{\includegraphics}
 \usepackage[export]{adjustbox}
-\renewcommand{\includegraphics}[2][]{\OldIncludegraphics[scale=1,keepaspectratio, max width={15.2cm}, max height={6cm}, #1]{#2}}
+\renewcommand{\includegraphics}[2][]{\OldIncludegraphics[#1, scale=1,keepaspectratio, max width={15.2cm}, max height={6cm}]{#2}}
 
 
 %% \setkeys{Gin}{width=\ScaleWidthIfNeeded,height=\ScaleHeightIfNeeded,keepaspectratio}%
