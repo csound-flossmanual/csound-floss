@@ -34,7 +34,7 @@
 \usepackage{listings}
 
 \definecolor{titlecolor}{RGB}{51,48,0}
-
+\definecolor{anchorcolor}{RGB}{111,81,155}
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
@@ -67,7 +67,7 @@
 \usepackage{letltxmacro}
 \LetLtxMacro{\OldIncludegraphics}{\includegraphics}
 \usepackage[export]{adjustbox}
-\renewcommand{\includegraphics}[2][]{\OldIncludegraphics[scale=1,keepaspectratio, max size={15.2cm}{9cm}, #1]{#2}}
+\renewcommand{\includegraphics}[2][]{\OldIncludegraphics[scale=1,keepaspectratio, max width={15.2cm}, max height={6cm}, #1]{#2}}
 
 
 %% \setkeys{Gin}{width=\ScaleWidthIfNeeded,height=\ScaleHeightIfNeeded,keepaspectratio}%
@@ -94,9 +94,10 @@
   pdfmenubar=true,
   pdfstartview=FitH,
   pdffitwindow=true,
-  colorlinks=false,
-  breaklinks=false,
+  colorlinks=true,
+  breaklinks=true,
   pdfcreator={LaTeX via pandoc},
+  allcolors=anchorcolor,
 }
 
 \usepackage{framed}

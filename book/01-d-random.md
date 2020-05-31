@@ -1364,9 +1364,7 @@ number *rand2* between 0 and 1 and accept *rnd1* only if *rand2* \<
 *f*(*rnd1*); otherwise we reject it. (see *Signals, Systems and Sound
 Synthesis*[^6] chapter 10.1.4.4)
 
-`\begin{center}`{=latex}
-![](../resources/images/01-d-random3.gif){height=7cm}
-`\end{center}`{=latex}
+![](../resources/images/01-d-random3.gif)
 
 ***EXAMPLE 01D10\_Rejection\_Sampling.csd***
 
