@@ -93,7 +93,7 @@ are left with what is known as a *discrete signal*, consisting of a
 collection of audio samples, as illustrated in the bottom half of the
 diagram.
 
-![Sampling of an analog signal](../resources/images/01-a-sampling.png){height=6cm}
+![Sampling of an analog signal](../resources/images/01-a-sampling.png)
 
 It is important to remember that each sample represents the amount of
 voltage, positive or negative, that was present in the signal at the
@@ -132,7 +132,7 @@ Aliasing
 
 Here is a graphical representation of aliasing.
 
-![Aliasing (red) of a high frequency (blue)](../resources/images/01-a-aliasing-1.png){height=6cm}
+![Aliasing (red) of a high frequency (blue)](../resources/images/01-a-aliasing-1.png)
 
 The sinusoidal waveform in blue is being sampled at the vertical black
 lines. The line that joins the red circles together is the captured
@@ -141,7 +141,7 @@ waveform express different frequencies.
 
 Here is another example:
 
-![Aliasing of a 30 kHz sine at 40 kHz sample rate](../resources/images/01-a-aliasing-2.png){height=6cm}
+![Aliasing of a 30 kHz sine at 40 kHz sample rate](../resources/images/01-a-aliasing-2.png)
 
 We can see that if the sample rate is 40 kHz there is no problem with
 sampling a signal that is 10 KHz. On the other hand, in the second
@@ -241,7 +241,7 @@ or down when being digitized.
 
 The figure below shows the quantization issue in simplified version, assuming a depth of only 3 bit. This is like a grid of 2^3^ = 8 possible levels which can be used for each sample. At each sampling period the soundcard plots an amplitude which is adjusted to the next possible vertical position. For a signal with lower amplitude the distortion would even be stronger.
 
-![*Wrong amplitude values due to insufficient bit depth resolution*](../resources/images/01-a-bitdepth.png){width=12cm}
+![*Wrong amplitude values due to insufficient bit depth resolution*](../resources/images/01-a-bitdepth.png)
 
  Quantization noise becomes most apparent
 when trying to represent low amplitude (quiet) sounds. Frequently a tiny
