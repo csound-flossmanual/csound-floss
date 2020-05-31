@@ -8,9 +8,11 @@ with import (builtins.fetchTarball {
 let
   texliveDeps = pkgs.texlive.combine {
    inherit (pkgs.texlive)
+     adjustbox
      beamer
      booktabs
      caption
+     collectbox
      ec
      etoolbox
      fancyvrb
