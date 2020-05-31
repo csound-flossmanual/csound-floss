@@ -39,7 +39,7 @@ samples in a control period (ksmps) will then no longer alter response
 behaviour.
 
 
-   ***EXAMPLE 14C01_Amplitude_Tracking_First_Principles.csd***
+***EXAMPLE 14C01_Amplitude_Tracking_First_Principles.csd***
 
 ~~~csound
 <CsoundSynthesizer>
@@ -80,7 +80,7 @@ i 1 0 5
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~csound
+~~~
 
 In practice it is not necessary for us to build our own amplitude
 tracker as Csound already offers several opcodes for the task.
@@ -197,7 +197,7 @@ define a threshold above which one thing happens and below which
 something else happens. A crude dynamic gating of the signal above could
 be implemented thus:
 
-   ***EXAMPLE 14C02_Simple_Dynamic_Gate.csd***
+***EXAMPLE 14C02_Simple_Dynamic_Gate.csd***
 
 ~~~csound
 <CsoundSynthesizer>
@@ -228,7 +228,7 @@ i 1 0 10
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~csound
+~~~
 
 Once a dynamic threshold has been defined, in this case 0.1, the RMS
 value is interrogated every k-cycle as to whether it is above or below
@@ -293,7 +293,7 @@ The example below tracks audio from the sound-card input channel 1 using
 this mechanism.
 
 
-   ***EXAMPLE 14C03_Dynamic_Trigger.csd***
+***EXAMPLE 14C03_Dynamic_Trigger.csd***
 
 ~~~csound
 <CsoundSynthesizer>
@@ -337,7 +337,7 @@ i 1 0 [3600*24*7]
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~csound
+~~~
 
 
 Pitch Tracking
@@ -484,7 +484,7 @@ terminal when onsets are detected which might assist in this fine
 tuning.
 
 
-   ***EXAMPLE 14C04_Drum_Replacement.csd***
+***EXAMPLE 14C04_Drum_Replacement.csd***
 
 ~~~csound
 <CsoundSynthesizer>
@@ -587,5 +587,4 @@ i 1 0 10
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~csound
-
+~~~

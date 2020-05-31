@@ -30,29 +30,29 @@ Creating a *csound~* Patch
     as your patch.
 4.  Add the following to the text file:\
 
-    ***EXAMPLE 09B01_maxcs_helloworld.csd ***
+***EXAMPLE 09B01_maxcs_helloworld.csd ***
 
 ~~~csound
-        <CsoundSynthesizer>
-        <CsInstruments>
-        ;Example by Davis Pyon
-        sr     = 44100
-        ksmps  = 32
-        nchnls = 2
-        0dbfs  = 1
+<CsoundSynthesizer>
+<CsInstruments>
+;Example by Davis Pyon
+sr     = 44100
+ksmps  = 32
+nchnls = 2
+0dbfs  = 1
 
-        instr 1
-        aNoise noise .1, 0
-               outch 1, aNoise, 2, aNoise
-        endin
+instr 1
+aNoise noise .1, 0
+       outch 1, aNoise, 2, aNoise
+endin
 
-        </CsInstruments>
-        <CsScore>
-        f0 86400
-        i1 0 86400
-        e
-        </CsScore>
-        </CsoundSynthesizer>
+</CsInstruments>
+<CsScore>
+f0 86400
+i1 0 86400
+e
+</CsScore>
+</CsoundSynthesizer>
 ~~~
 
 5.  Open the patch, press the bang button, then press the speaker icon.

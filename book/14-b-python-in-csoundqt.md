@@ -98,29 +98,31 @@ immediately.
 For the next methods, we first need some more code in our csd. So let
 your *cs_floss_1.csd* look like this:
 
-   ***EXAMPLE 14B01_run_pause_stop.csd***
+***EXAMPLE 14B01_run_pause_stop.csd***
 
-    <CsoundSynthesizer>
-    <CsOptions>
-    </CsOptions>
-    <CsInstruments>
-    sr = 44100
-    ksmps = 32
-    0dbfs = 1
-    nchnls = 1
+~~~csound
+<CsoundSynthesizer>
+<CsOptions>
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+0dbfs = 1
+nchnls = 1
 
-    giSine     ftgen      0, 0, 1024, 10, 1
+giSine     ftgen      0, 0, 1024, 10, 1
 
-    instr 1
-    kPitch     expseg     500, p3, 1000
-    aSine      poscil     .2, kPitch, giSine
-               out        aSine
-    endin
-    </CsInstruments>
-    <CsScore>
-    i 1 0 10
-    </CsScore>
-    </CsoundSynthesizer>
+instr 1
+kPitch     expseg     500, p3, 1000
+aSine      poscil     .2, kPitch, giSine
+           out        aSine
+endin
+</CsInstruments>
+<CsScore>
+i 1 0 10
+</CsScore>
+</CsoundSynthesizer>
+~~~
 
 This instrument performs a simple pitch glissando from 500 to 1000 Hz in
 ten seconds. Now make sure that this csd is the currently active tab in
@@ -154,27 +156,29 @@ instance.
 First, create a new file *cs_floss_2.csd*, for instance with this
 code:
 
-    <CsoundSynthesizer>
-    <CsOptions>
-    </CsOptions>
-    <CsInstruments>
-    sr = 44100
-    ksmps = 32
-    0dbfs = 1
-    nchnls = 1
+~~~csound
+<CsoundSynthesizer>
+<CsOptions>
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+0dbfs = 1
+nchnls = 1
 
-    giSine     ftgen      0, 0, 1024, 10, 1
+giSine     ftgen      0, 0, 1024, 10, 1
 
-    instr 1
-    kPitch     expseg     500, p3, 1000
-    aSine      poscil     .2, kPitch, giSine
-               out        aSine
-    endin
-    </CsInstruments>
-    <CsScore>
-    i 1 0 10
-    </CsScore>
-    </CsoundSynthesizer>
+instr 1
+kPitch     expseg     500, p3, 1000
+aSine      poscil     .2, kPitch, giSine
+           out        aSine
+endin
+</CsInstruments>
+<CsScore>
+i 1 0 10
+</CsScore>
+</CsoundSynthesizer>
+~~~
 
 Now get the index of these two tabs in executing
 `q.getDocument('cs_floss_1.csd')` and
@@ -343,48 +347,52 @@ modify our previous instrument first to make it more flexible:
 
 ***EXAMPLE 14B02_score_generated.csd***
 
-    <CsoundSynthesizer>
-    <CsOptions>
-    </CsOptions>
-    <CsInstruments>
-    sr = 44100
-    ksmps = 32
-    0dbfs = 1
-    nchnls = 1
+~~~csound
+<CsoundSynthesizer>
+<CsOptions>
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+0dbfs = 1
+nchnls = 1
 
-    giSine     ftgen      0, 0, 1024, 10, 1
+giSine     ftgen      0, 0, 1024, 10, 1
 
-    instr 1
-    iOctStart  =          p4 ;pitch in octave notation at start
-    iOctEnd    =          p5 ;and end
-    iDbStart   =          p6 ;dB at start
-    iDbEnd     =          p7 ;and end
-    kPitch     expseg     cpsoct(iOctStart), p3, cpsoct(iOctEnd)
-    kEnv       linseg     iDbStart, p3, iDbEnd
-    aSine      poscil     ampdb(kEnv), kPitch, giSine
-    iFad       random     p3/20, p3/5
-    aOut       linen      aSine, iFad, p3, iFad
-               out        aOut
-    endin
-    </CsInstruments>
-    <CsScore>
-    i 1 0 10 ;will be overwritten by the python score generator
-    </CsScore>
-    </CsoundSynthesizer>
+instr 1
+iOctStart  =          p4 ;pitch in octave notation at start
+iOctEnd    =          p5 ;and end
+iDbStart   =          p6 ;dB at start
+iDbEnd     =          p7 ;and end
+kPitch     expseg     cpsoct(iOctStart), p3, cpsoct(iOctEnd)
+kEnv       linseg     iDbStart, p3, iDbEnd
+aSine      poscil     ampdb(kEnv), kPitch, giSine
+iFad       random     p3/20, p3/5
+aOut       linen      aSine, iFad, p3, iFad
+           out        aOut
+endin
+</CsInstruments>
+<CsScore>
+i 1 0 10 ;will be overwritten by the python score generator
+</CsScore>
+</CsoundSynthesizer>
+~~~
 
 The following code will now insert 30 score events in the score section:
 
-    from random import uniform
-    numScoEvents = 30
-    sco = ''
-    for ScoEvent in range(numScoEvents):
-        start = uniform(0, 40)
-        dur = 2**uniform(-5, 3)
-        db1, db2 = [uniform(-36, -12) for x in range(2)]
-        oct1, oct2 = [uniform(6, 10) for x in range(2)]
-        scoLine = 'i 1 %f %f %f %f %d %d\n' % (start,dur,oct1,oct2,db1,db2)
-        sco = sco + scoLine
-    q.setSco(sco)
+~~~python
+from random import uniform
+numScoEvents = 30
+sco = ''
+for ScoEvent in range(numScoEvents):
+    start = uniform(0, 40)
+    dur = 2**uniform(-5, 3)
+    db1, db2 = [uniform(-36, -12) for x in range(2)]
+    oct1, oct2 = [uniform(6, 10) for x in range(2)]
+    scoLine = 'i 1 %f %f %f %f %d %d\n' % (start,dur,oct1,oct2,db1,db2)
+    sco = sco + scoLine
+q.setSco(sco)
+~~~
 
 This generates a texture with either falling or rising gliding pitches.
 The durations are set in a way that shorter durations have a bigger probability than larger ones. The volume and pitch ranges allow many
@@ -699,28 +707,29 @@ next three seconds in Preset 1, and finally again in Preset 0:
 
 ***EXAMPLE 14B03_presets.csd***
 
-    <CsoundSynthesizer>
-    <CsOptions>
-    -odac
-    </CsOptions>
-    <CsInstruments>
+~~~csound
+<CsoundSynthesizer>
+<CsOptions>
+-odac
+</CsOptions>
+<CsInstruments>
 
-    pyinit
+pyinit
 
-    instr loadPreset
-     index = p4
-     pycalli "q.loadPreset", index
-    endin
+instr loadPreset
+ index = p4
+ pycalli "q.loadPreset", index
+endin
 
-    </CsInstruments>
-    <CsScore>
-    i "loadPreset" 0 3 0
-    i "loadPreset" + . 1
-    i "loadPreset" + . 0
-    </CsScore>
-    </CsoundSynthesizer>
-    ;example by tarmo johannes and joachim heintz
-
+</CsInstruments>
+<CsScore>
+i "loadPreset" 0 3 0
+i "loadPreset" + . 1
+i "loadPreset" + . 0
+</CsScore>
+</CsoundSynthesizer>
+;example by tarmo johannes and joachim heintz
+~~~
 
 Csound Functions
 ----------------
@@ -813,77 +822,84 @@ At first an object of *QInputDialog* must be defined, then you can use its
 methods *getInt*, *getDouble*, *getItem* or *getText* to read the input in the
 form you need. This is a basic example:
 
-    from PythonQt.Qt import *
+~~~python
+from PythonQt.Qt import *
 
-    inpdia = QInputDialog()
-    myInt = inpdia.getInt(inpdia,"Example 1","How many?")
-    print myInt
-    # example by tarmo johannes
+inpdia = QInputDialog()
+myInt = inpdia.getInt(inpdia,"Example 1","How many?")
+print myInt
+# example by tarmo johannes
+~~~
 
 Note that the variable *myInt* is now set to a value which remains in
 your Python interpreter. Your Python Console may look like this when
 executing the code above, and then ask for the value of *myInt*:
 
-    py>
-    12
-    Evaluated 5 lines.
-    py> myInt
-    12
+~~~python
+py>
+12
+Evaluated 5 lines.
+py> myInt
+12
+~~~
 
 Depending on the value of myInt, you can do funny or serious things.
 This code re-creates the Dialog Box whenever the user enters the number
 1:
 
-    from PythonQt.Qt import *
+~~~python
+from PythonQt.Qt import *
 
-    def again():
-        inpdia = QInputDialog()
-        myInt = inpdia.getInt(inpdia,"Example 1","How many?")
-        if myInt == 1:
-            print "If you continue to enter '1'"
-            print "I will come back again and again."
-            again()
-        else:
-            print "Thanks - Leaving now."
-    again()
-    # example by joachim heintz
+def again():
+    inpdia = QInputDialog()
+    myInt = inpdia.getInt(inpdia,"Example 1","How many?")
+    if myInt == 1:
+        print "If you continue to enter '1'"
+        print "I will come back again and again."
+        again()
+    else:
+        print "Thanks - Leaving now."
+again()
+# example by joachim heintz
+~~~
 
 A simple example follows showing how an own GUI can be embedded in your
 Csound code. Here, Csound waits for the user input, and then prints out
 the entered value as the Csound variable giNumber:
 
 
-    ***EXAMPLE 14B04_dialog.csd***
+***EXAMPLE 14B04_dialog.csd***
 
-    <CsoundSynthesizer>
-    <CsOptions>
-    -n
-    </CsOptions>
-    <CsInstruments>
-    ksmps = 32
+~~~csound
+<CsoundSynthesizer>
+<CsOptions>
+-n
+</CsOptions>
+<CsInstruments>
+ksmps = 32
 
-    pyinit
-    pyruni {{
-    from PythonQt.Qt import *
-    dia = QInputDialog()
-    dia.setDoubleDecimals(4)
-    }}
+pyinit
+pyruni {{
+from PythonQt.Qt import *
+dia = QInputDialog()
+dia.setDoubleDecimals(4)
+}}
 
-    giNumber pyevali {{
-    dia.getDouble(dia,"CS question","Enter number: ")
-    }} ; get the number from Qt dialog
+giNumber pyevali {{
+dia.getDouble(dia,"CS question","Enter number: ")
+}} ; get the number from Qt dialog
 
-    instr 1
-            print giNumber
-    endin
+instr 1
+        print giNumber
+endin
 
-    </CsInstruments>
-    <CsScore>
-    i 1 0 0
-    </CsScore>
-    </CsoundSynthesizer>
-    ;example by tarmo johannes
-
+</CsInstruments>
+<CsScore>
+i 1 0 0
+</CsScore>
+</CsoundSynthesizer>
+;example by tarmo johannes
+~~~
 
 More complex examples can be found in CsoundQt's *Scripts* menu.
 
@@ -1002,5 +1018,3 @@ List of PyQcsObject Methods in CsoundQt
     int getNumChannels(int index = -1)
     MYFLT *getTableArray(int ftable, int index = -1)
     void registerProcessCallback(QString func, int skipPeriods = 0, int index = -1)
-
-

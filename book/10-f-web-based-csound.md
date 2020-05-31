@@ -20,15 +20,17 @@ is started with the following command:
 Alternatively, if using a frontend such as CsoundQT, it is possible run
 an empty CSD, with the *--port* in its CsOptions field:
 
-    <CsoundSynthesizer>
-    <CsOptions>
-    --port=1234
-    </CsOptions>
-    <CsInstruments>
-    </CsInstruments>
-    <CsScore>
-    </CsScore>
-    </CsoundSynthesizer>
+~~~csound
+<CsoundSynthesizer>
+<CsOptions>
+--port=1234
+</CsOptions>
+<CsInstruments>
+</CsInstruments>
+<CsScore>
+</CsScore>
+</CsoundSynthesizer>
+~~~
 
 This will start Csound in a daemon mode, waiting for any UDP messages in
 port 1234. Now with netcat, orchestra code can be sent to Csound. A
@@ -118,14 +120,14 @@ websites directory. Next, create an index.html file at the top level of
 the new websites directory that contains the following minimal html
 code:
 
-~~~Html
-    <html>
-    <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    </head>
-    <body>
-    </body>
-    </html>
+~~~html
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+<body>
+</body>
+</html>
 ~~~
 
 
@@ -134,23 +136,23 @@ code:
 We need to write some Javascript to create an instance of CsoundObj, so
 within the body tags ad new script tags and insert the following code:
 
-~~~Html
-    <html>
-    <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    </head>
-    <body>
-    <script src="libcsound.js"></script>
-    <script>
-    Module['noExitRuntime'] = true;
-    Module['_main'] = function() {
+~~~html
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+<body>
+<script src="libcsound.js"></script>
+<script>
+Module['noExitRuntime'] = true;
+Module['_main'] = function() {
 
-        var csoundObj = new CsoundObj();
+    var csoundObj = new CsoundObj();
 
-    };
-    </script>
-    </body>
-    </html>
+};
+</script>
+</body>
+</html>
 ~~~
 
 The *Module* functions within this code are related to how emscripten
@@ -177,30 +179,30 @@ virtual file system. In the emscripten/examples directory there is the
 the process of uploading files to the virtual file system. Copy
 *FileManager.js* to the root directory of the web page.
 
-~~~Html
-    <html>
-    <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    </head>
-    <body>
-    <script src="libcsound.js"></script>
-    <script src="FileManager.js"></script>
-    <script>
-    Module['noExitRuntime'] = true;
-    Module['_main'] = function() {
+~~~html
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+<body>
+<script src="libcsound.js"></script>
+<script src="FileManager.js"></script>
+<script>
+Module['noExitRuntime'] = true;
+Module['_main'] = function() {
 
-        var csoundObj = new CsoundObj();
+    var csoundObj = new CsoundObj();
 
-        var fileManger = new FileManager(['csd'], console.log);
+    var fileManger = new FileManager(['csd'], console.log);
 
-        fileManger.fileUploadFromServer("test.csd", function() {
+    fileManger.fileUploadFromServer("test.csd", function() {
 
-            csoundObj.compileCSD("test.csd");
-        });
-    };
-    </script>
-    </body>
-    </html>
+        csoundObj.compileCSD("test.csd");
+    });
+};
+</script>
+</body>
+</html>
 ~~~
 
 As can be seen in the code above, the file manager is instantiated with
@@ -225,39 +227,39 @@ Once the .csd file has been compiled csound can execute a performance.
 In the following code we will create an html button and add some code to
 the button so that when pressed it will run a performance of csound.
 
-~~~Html
-    <html>
-    <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    </head>
-    <body>
-    <script src="libcsound.js"></script>
-    <script src="FileManager.js"></script>
-    <script>
-    Module['noExitRuntime'] = true;
-    Module['_main'] = function() {
+~~~html
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+</head>
+<body>
+<script src="libcsound.js"></script>
+<script src="FileManager.js"></script>
+<script>
+Module['noExitRuntime'] = true;
+Module['_main'] = function() {
 
-        var csoundObj = new CsoundObj();
+    var csoundObj = new CsoundObj();
 
-        var fileManger = new FileManager(['csd'], console.log);
+    var fileManger = new FileManager(['csd'], console.log);
 
-        fileManger.fileUploadFromServer("test.csd", function() {
+    fileManger.fileUploadFromServer("test.csd", function() {
 
-            csoundObj.compileCSD("test.csd");
-        });
+        csoundObj.compileCSD("test.csd");
+    });
 
-        var startButton = document.createElement("BUTTON");
-        startButton.innerHTML = "Start Csound";
-        startButton.onclick = function() {
+    var startButton = document.createElement("BUTTON");
+    startButton.innerHTML = "Start Csound";
+    startButton.onclick = function() {
 
-            csoundObj.start();
-        };
-
-        document.body.appendChild(startButton);
+        csoundObj.start();
     };
-    </script>
-    </body>
-    </html>
+
+    document.body.appendChild(startButton);
+};
+</script>
+</body>
+</html>
 ~~~
 
 Here we can see that the button *startButton* is instantiated using the

@@ -131,18 +131,18 @@ cabal install csound-catalog --lib
 It will install csound-expression and batteries. If you want just the main library
 use csound-expression instead of csound-catalog.
 
-If your cabal version is lower than 3.0 version you can skip the flag `--lib`. 
+If your cabal version is lower than 3.0 version you can skip the flag `--lib`.
 The version of cabal can be checked with:
 
 ```
 cabal --version
 ```
 
-After that library is installed and is ready to be used. 
+After that library is installed and is ready to be used.
 You can try in the haskell interpreter to import the library and hear the greeting test sound:
 
 ```
-> ghci 
+> ghci
 > import Csound.Base
 > dac (testDrone3 220)
 ```
@@ -151,18 +151,23 @@ It works and you can hear the sound if you have installed evrything
 and the system audio is properly configured to work with default Csound settings.
 
 Next step to go would be to read through the [tutorial](https://github.com/spell-music/csound-expression/blob/master/tutorial/Index.md). The library covers almost all features of Csound so it is as huge as Csound but most
-concepts are easy to grasp and it is driven by compositions of small parts. 
+concepts are easy to grasp and it is driven by compositions of small parts.
 
 
 Links
 -----
 The library tutorial:
-<https://github.com/spell-music/csound-expression/blob/master/tutorial/Index.md>\
+<https://github.com/spell-music/csound-expression/blob/master/tutorial/Index.md>
+
 The library homepage on hackage (it's haskell stock of open source projects):
-<http://hackage.haskell.org/package/csound-expression>\
+<http://hackage.haskell.org/package/csound-expression>
+
 The library homepage on github:
-<http://github.com/anton-k/csound-expression/blob/master/tutorial/Index.md>\
-The csound-sampler library: <http://github.com/anton-k/csound-sampler>\
+<http://github.com/anton-k/csound-expression/blob/master/tutorial/Index.md>
+
+The csound-sampler library: <http://github.com/anton-k/csound-sampler>
+
 The csound-catalog library homepage on hackage:
-<http://hackage.haskell.org/package/csound-catalog>\
+<http://hackage.haskell.org/package/csound-catalog>
+
 Music made with Haskell and Csound: <http://soundcloud.com/anton-kho>

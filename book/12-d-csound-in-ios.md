@@ -1305,7 +1305,7 @@ The *channelName* string *freq* is the reference text used by the *chnget* opcod
 
 Since the control architecture is based on the callback mechanism and therefore depends on the user actions, we must send all values when Csound starts. We can use Csound's delegate:
 
-~~~C
+~~~c
 -(void)csoundObjDidStart {
 
     [_freq sendActionsForControlEvents:UIControlEventAllEvents];

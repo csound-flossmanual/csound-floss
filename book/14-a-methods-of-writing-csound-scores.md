@@ -163,17 +163,17 @@ arguments (= file names).
    ***EXAMPLE 14A01_Score_bin.csd***
 
 ~~~csound
-    <CsoundSynthesizer>
-    <CsInstruments>
-    instr 1
-    endin
-    </CsInstruments>
-    <CsScore bin="python3">
-    from sys import argv
-    print("File to read = '%s'" % argv[0])
-    print("File to write = '%s'" % argv[1])
-    </CsScore>
-    </CsoundSynthesizer>
+<CsoundSynthesizer>
+<CsInstruments>
+instr 1
+endin
+</CsInstruments>
+<CsScore bin="python3">
+from sys import argv
+print("File to read = '%s'" % argv[0])
+print("File to write = '%s'" % argv[1])
+</CsScore>
+</CsoundSynthesizer>
 ~~~
 
 When you execute this .csd file in the terminal, your output should
@@ -193,11 +193,11 @@ written:
 To test this, first save this file as *print.py* in the same folder
 where your .csd examples are:
 
-~~~Python
-    from sys import argv
-    print("Script = '%s'" % argv[0])
-    print("File to read = '%s'" % argv[1])
-    print("File to write = '%s'" % argv[2])
+~~~python
+from sys import argv
+print("Script = '%s'" % argv[0])
+print("File to read = '%s'" % argv[1])
+print("File to write = '%s'" % argv[2])
 ~~~
 
 Then run this csd:
@@ -205,14 +205,14 @@ Then run this csd:
    ***EXAMPLE 14A02_Score_bin_script.csd***
 
 ~~~csound
-    <CsoundSynthesizer>
-    <CsInstruments>
-    instr 1
-    endin
-    </CsInstruments>
-    <CsScore bin="python3 print.py">
-    </CsScore>
-    </CsoundSynthesizer>
+<CsoundSynthesizer>
+<CsInstruments>
+instr 1
+endin
+</CsInstruments>
+<CsScore bin="python3 print.py">
+</CsScore>
+</CsoundSynthesizer>
 ~~~
 
 The output should include these lines:
@@ -251,40 +251,40 @@ two statements will always generate the same values.
    ***EXAMPLE 14A03_Score_perlscript.csd***
 
 ~~~csound
-    <CsoundSynthesizer>
-    <CsInstruments>
-    ;example by tito latini
+<CsoundSynthesizer>
+<CsInstruments>
+;example by tito latini
 
-    instr 1
-      prints "amp = %f, freq = %f\n", p4, p5;
-    endin
+instr 1
+  prints "amp = %f, freq = %f\n", p4, p5;
+endin
 
-    </CsInstruments>
-    <CsScore bin="perl cs_sco_rand.pl">
+</CsInstruments>
+<CsScore bin="perl cs_sco_rand.pl">
 
-    i1  0  .01  rand()   [200 + rand(30)]
-    i1  +  .    rand()   [400 + rand(80)]
-    i1  +  .    rand()   [600 + rand(160)]
-    ;; SEED 123
-    i1  +  .    rand()   [750 + rand(200)]
-    i1  +  .    rand()   [210 + rand(20)]
-    e
+i1  0  .01  rand()   [200 + rand(30)]
+i1  +  .    rand()   [400 + rand(80)]
+i1  +  .    rand()   [600 + rand(160)]
+;; SEED 123
+i1  +  .    rand()   [750 + rand(200)]
+i1  +  .    rand()   [210 + rand(20)]
+e
 
-    </CsScore>
-    </CsoundSynthesizer>
+</CsScore>
+</CsoundSynthesizer>
 ~~~
 
-~~~Perl
-    # cs_sco_rand.pl
-    my ($in, $out) = @ARGV;
-    open(EXT, "<", $in);
-    open(SCO, ">", $out);
+~~~perl
+# cs_sco_rand.pl
+my ($in, $out) = @ARGV;
+open(EXT, "<", $in);
+open(SCO, ">", $out);
 
-    while (<EXT>) {
-      s/SEED\s+(\d+)/srand($1);$&/e;
-      s/rand\(\d*\)/eval $&/ge;
-      print SCO;
-    }
+while (<EXT>) {
+  s/SEED\s+(\d+)/srand($1);$&/e;
+  s/rand\(\d*\)/eval $&/ge;
+  print SCO;
+}
 ~~~
 
 Pysco
@@ -316,18 +316,20 @@ compositional environment.
 Only two changes are necessary to get started. First, the optional *bin* argument for the CsScore tag needs to specify "python pysco.py" . Second, all existing classical Csound score code works when placed inside the *score()*
 function.
 
-    <CsScore bin="python pysco.py">
+~~~csound
+<CsScore bin="python pysco.py">
 
-    score('''
-    f 1 0 8192 10 1
-    t 0 144
-    i 1 0.0 1.0 0.7 8.02
-    i 1 1.0 1.5 0.4 8.05
-    i 1 2.5 0.5 0.3 8.09
-    i 1 3.0 1.0 0.4 9.00
-    ''')
+score('''
+f 1 0 8192 10 1
+t 0 144
+i 1 0.0 1.0 0.7 8.02
+i 1 1.0 1.5 0.4 8.05
+i 1 2.5 0.5 0.3 8.09
+i 1 3.0 1.0 0.4 9.00
+''')
 
-    </CsScore>
+</CsScore>
+~~~
 
 Boiler plate code that is often associated with scripting and scoring,
 such as file management and string concatenation, has been conveniently
@@ -445,14 +447,16 @@ three of these features: the
 [range()](http://docs.python.org/2/tutorial/controlflow.html#the-range-function),
 and [random()](http://docs.python.org/2/library/random.html#random.random).
 
-    from random import random
+~~~python
+from random import random
 
-    score('t 0 160')
+score('t 0 160')
 
-    for time in range(8):
-        with cue(time):
-            frequency = 100 + random() * 900
-            event_i(1, 0, 1, 0.707, frequency)
+for time in range(8):
+    with cue(time):
+        frequency = 100 + random() * 900
+        event_i(1, 0, 1, 0.707, frequency)
+~~~
 
 Python's *for* statement combined with *range()* loops through the
 proceeding code block eight times by iterating through the list of
@@ -662,7 +666,7 @@ use and is extremely flexible making it suitable for use by those not
 experienced with high-level computer programming languages.
 
 
-### An example of simple granular synthesis with wave forms
+*** An example of simple granular synthesis with wave forms ***
 
 
     ;These lines go directly to the output file
@@ -705,27 +709,29 @@ experienced with high-level computer programming languages.
 
 The output is:
 
-    f1    0   16384   10   1                           ;sine wave
-    f2    0   16384   10   1 0 .5 0 .25 0 .125 0 .0625 ;odd partials (dec.)
-    f3    0   16384   10   1 .5 .25 .125 .0625         ;decreasing strength
-    f4    0   16384   10   1 1 1 1 1                   ;pulse
-    f5    0   16384   10   1 0 1 0 1                   ;odd
-    f82   0   16385   20   2   1                       ;grain envelope
-    ;I-block #1 (i1):
-    i1    0.000  0.200     0.000  3000.000     0.00     3
-    i1    0.010  0.200     0.063  2673.011     0.79     3
-    i1    0.020  0.199     0.253  2468.545     1.00     2
-    i1    0.030  0.199     0.553  2329.545     1.00     5
-    i1    0.040  0.198     1.033  2223.527     1.00     2
-    i1    0.050  0.198     1.550  2160.397     0.50     4
-    ........
-    ........
-    ........
-    i1    9.970  0.100   127.785  2342.706     0.48     1
-    i1    9.980  0.100    64.851  3200.637     1.00     1
-    i1    9.990  0.100     0.000  3847.285     1.00     2
+~~~csound
+f1    0   16384   10   1                           ;sine wave
+f2    0   16384   10   1 0 .5 0 .25 0 .125 0 .0625 ;odd partials (dec.)
+f3    0   16384   10   1 .5 .25 .125 .0625         ;decreasing strength
+f4    0   16384   10   1 1 1 1 1                   ;pulse
+f5    0   16384   10   1 0 1 0 1                   ;odd
+f82   0   16385   20   2   1                       ;grain envelope
+;I-block #1 (i1):
+i1    0.000  0.200     0.000  3000.000     0.00     3
+i1    0.010  0.200     0.063  2673.011     0.79     3
+i1    0.020  0.199     0.253  2468.545     1.00     2
+i1    0.030  0.199     0.553  2329.545     1.00     5
+i1    0.040  0.198     1.033  2223.527     1.00     2
+i1    0.050  0.198     1.550  2160.397     0.50     4
+........
+........
+........
+i1    9.970  0.100   127.785  2342.706     0.48     1
+i1    9.980  0.100    64.851  3200.637     1.00     1
+i1    9.990  0.100     0.000  3847.285     1.00     2
 
-    e
+e
+~~~
 
  nGen for Mac, Windows and Linux can be downloaded
 [here](http://mikelkuehn.com/index.php/ng)
