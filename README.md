@@ -39,6 +39,7 @@ yarn start
 - [Pandoc Official Manual](https://pandoc.org/MANUAL.html)
 - [Pandoc alternative manual](https://rmarkdown.rstudio.com/authoring_pandoc_markdown.html%23raw-tex)
 
-## Travis and Firebaseapp Build
-<https://travis-ci.com/csound-flossmanual/csound-floss>
-<https://csound-floss.firebaseapp.com>
+## Continuous Integration and Firebaseapp Build
+
+After each merge into develop, a preview of the manual is built and hosted
+as from firebase, it's available at: [https://csound-floss-dev.firebaseapp.com/](https://csound-floss-dev.firebaseapp.com/).
