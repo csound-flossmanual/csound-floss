@@ -4,7 +4,7 @@ import { equals } from "ramda";
 import React from "react";
 const {
   enableDynamicTheme,
-  disableDynamicTheme
+  disableDynamicTheme,
 } = require("../../vendor/darkreader.js");
 
 // https://codepen.io/aaroniker/pen/oaQdQZ
@@ -21,7 +21,7 @@ const toggleStyle = css`
       display: block;
       position: relative;
       background: #6f519b;
-      box-shadow: 0 8px 16px -1px rgba(#6f519b, 0.2);
+      box-shadow: 0 8px 16px -1px rgba(111, 81, 155, 0.2);
       &:before,
       &:after {
         content: "";
@@ -35,6 +35,7 @@ const toggleStyle = css`
         width: 18px;
         height: 18px;
         border-radius: 9px;
+        box-sizing: border-box;
         border: 5px solid #fff;
       }
       &:after {

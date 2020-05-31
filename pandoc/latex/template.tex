@@ -1,8 +1,8 @@
-\makeatletter
-\renewcommand{\@seccntformat}[1]{}
-\makeatother
-\PassOptionsToPackage{hyphens}{url}
-\PassOptionsToPackage{usenames,dvipsnames,svgnames*,x11names*}{xcolor}
+%% \makeatletter
+%% \renewcommand{\@seccntformat}[1]{}
+%% \makeatother
+%% \PassOptionsToPackage{hyphens}{url}
+%% \PassOptionsToPackage{usenames,dvipsnames,svgnames*,x11names*}{xcolor}
 
 
 %% documentclass
@@ -27,6 +27,15 @@
  bottom=24mm,
  }
 
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\usepackage{xcolor}
+\usepackage{listings}
+
+\definecolor{titlecolor}{RGB}{51,48,0}
+
+
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \usepackage{beamerarticle}
@@ -35,13 +44,23 @@
 \setstretch{1.25}
 
 \usepackage{fontspec}
-\usepackage[sfdefault]{roboto}
+
+\usepackage{titling}
+%% \usepackage[condensed]{roboto}
+\usepackage[default]{roboto}
+
 \usepackage[T1]{fontenc}
-\renewcommand{\rmdefault}{condensed}
-\renewcommand\thesection{}
-\renewcommand\thesubsection{}
+%% \renewcommand{\rmdefault}{condensed}
+%% \renewcommand\thesection{}
+%% \renewcommand\thesubsection{}
 \usepackage{FiraMono}
 \setmonofont{Fira Mono}
+
+\definecolor{MyBlue}{rgb}{0.1,0.1,1}
+
+\usepackage{sectsty}
+\chapterfont{\color{redz}}
+\sectionfont{\color{MyBlue}}
 
 \usepackage{caption}
 
@@ -52,24 +71,7 @@
 
 \usepackage{graphicx,grffile}
 
-\makeatletter
-\def\ScaleWidthIfNeeded{%
- \ifdim\Gin@nat@width>\linewidth
-    \linewidth
-  \else
-    \Gin@nat@width
-  \fi
-}
-\def\ScaleHeightIfNeeded{%
-  \ifdim\Gin@nat@height>0.5\textheight
-    0.5\textheight
-  \else
-    \Gin@nat@width
-  \fi
-}
-\makeatother
-
-\setkeys{Gin}{width=\ScaleWidthIfNeeded,height=\ScaleHeightIfNeeded,keepaspectratio}%
+%% \setkeys{Gin}{width=\ScaleWidthIfNeeded,height=\ScaleHeightIfNeeded,keepaspectratio}%
 
 
 % set default figure placement to htbp
@@ -89,21 +91,18 @@
 \setcounter{secnumdepth}{-2}
 
 \hypersetup{
-  pdfkeywords={$for(keywords)$$keywords$$sep$, $endfor$},
-  colorlinks=true,
-  breaklinks=true,
+  %% pdfkeywords={$for(keywords)$$keywords$$sep$, $endfor$},
+  pdftoolbar=true, % show Acrobat’s toolbar?
+  pdfmenubar=true, % show Acrobat’s menu?
+  pdffitwindow=true, % window fit to page when opened
+  colorlinks=false,
+  breaklinks=false,
   pdfcreator={LaTeX via pandoc},
 }
 
-\urlstyle{same}
-
-\usepackage{color}
-\usepackage{fancyvrb}
-\usepackage{xcolor}
-\usepackage{listings}
+%% \urlstyle{same}
 
 \usepackage{framed}
-\definecolor{shadecolor}{RGB}{248,248,248}
 \VerbatimFootnotes
 
 $if(highlighting-macros)$
@@ -129,9 +128,16 @@ $endfor$
 \makeatother
 
 \usepackage[raggedright]{titlesec}
-\titleformat{\paragraph}[hang]{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
 
 \newcommand{\passthrough}[1]{\lstset{mathescape=false}#1\lstset{mathescape=true}}
+
+\usepackage{titlesec}
+
+\titleformat*{\chapter}{\robotocondensed\color{titlecolor}\fontsize{20}{22}\Huge\selectfont\bfseries}
+\titleformat*{\section}{\robotocondensed\color{titlecolor}\fontsize{16}{16}\Large\selectfont\bfseries}
+\titleformat*{\subsection}{\robotocondensed\color{titlecolor}\fontsize{14}{16}\Large\selectfont\bfseries}
+%% \titleformat*{\subsection}{\large\bfseries\sffamily\color{redz}}
+
 \begin{document}
 $for(include-before)$
 $include-before$

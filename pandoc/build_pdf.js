@@ -11,12 +11,12 @@ const {
   RESOURCES_DIRECTORY,
 } = require("./constants");
 
-const allChapters = R.reject(
+const allChapters_ = R.reject(
   md => md.includes("00--aa-toc.md"),
   fg.sync([`${BOOK_DIRECTORY}/*.md`], { dot: false })
 ).sort();
 
-// const allChapters = R.take(10, allChapters_);
+const allChapters = R.take(10, allChapters_);
 
 const tmpDest = path.join(tmpdir(), "csound_flossmanual_single.md");
 
@@ -41,8 +41,8 @@ R.pipe(
 execSync(
   `pandoc ${tmpDest} -f ${MARKDOWN_EXTENSIONS.join("+")} \
       -N --template=pandoc/latex/template.tex \
-      --syntax-definition pandoc/csound-theme.xml \
-      --highlight-style tango \
+      --syntax-definition=pandoc/csound-theme.xml \
+      --highlight-style=tango \
       --top-level-division=chapter \
       --include-in-header pandoc/latex/chapter_break.tex \
       --include-in-header pandoc/latex/codesize.tex \
