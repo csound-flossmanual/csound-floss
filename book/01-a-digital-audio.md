@@ -11,7 +11,7 @@ medium can be described as sound waves. The simplest type of waveform,
 describing what is referred to as *simple harmonic motion*, is a sine
 wave.
 
-![](../resources/images/01-a-sinewave.png)
+![](../resources/images/01-a-sinewave_min.png)
 
 Each time the waveform signal goes above zero the molecules are in a state
 of compression meaning that each molecule within the waveform
