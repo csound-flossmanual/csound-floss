@@ -45,7 +45,7 @@
 
 \usepackage{fontspec}
 
-\usepackage{titling}
+%% \usepackage{titling}
 %% \usepackage[condensed]{roboto}
 \usepackage[default]{roboto}
 
@@ -56,12 +56,6 @@
 \usepackage{FiraMono}
 \setmonofont{Fira Mono}
 
-\definecolor{MyBlue}{rgb}{0.1,0.1,1}
-
-\usepackage{sectsty}
-\chapterfont{\color{redz}}
-\sectionfont{\color{MyBlue}}
-
 \usepackage{caption}
 
 % These lines are needed to make table captions work with longtable:
@@ -70,6 +64,11 @@
 \makeatother
 
 \usepackage{graphicx,grffile}
+\usepackage{letltxmacro}
+\LetLtxMacro{\OldIncludegraphics}{\includegraphics}
+\usepackage[export]{adjustbox}
+\renewcommand{\includegraphics}[2][]{\OldIncludegraphics[scale=1,keepaspectratio, max size={15.2cm}{9cm}, #1]{#2}}
+
 
 %% \setkeys{Gin}{width=\ScaleWidthIfNeeded,height=\ScaleHeightIfNeeded,keepaspectratio}%
 
@@ -91,16 +90,14 @@
 \setcounter{secnumdepth}{-2}
 
 \hypersetup{
-  %% pdfkeywords={$for(keywords)$$keywords$$sep$, $endfor$},
-  pdftoolbar=true, % show Acrobat’s toolbar?
-  pdfmenubar=true, % show Acrobat’s menu?
-  pdffitwindow=true, % window fit to page when opened
+  pdftoolbar=true,
+  pdfmenubar=true,
+  pdfstartview=FitH,
+  pdffitwindow=true,
   colorlinks=false,
   breaklinks=false,
   pdfcreator={LaTeX via pandoc},
 }
-
-%% \urlstyle{same}
 
 \usepackage{framed}
 \VerbatimFootnotes
