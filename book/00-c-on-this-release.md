@@ -19,6 +19,7 @@ The whole text has been revised. Many figures have been substituted or added. Ma
 - [08 A Open Sound Control](08-a-open-sound-control.md)
 - [10 B Cabbage](10-b-cabbage.md) (thanks to Rory Walsh)
 - [12 A Csound API](12-a-the-csound-api.md) (thanks to François Pinot)
+- [12 B Python and Csound](12-b-python-and-csound.md)
 - [12 C Lua and Csound](12-c-lua-and-csound.md) (thanks for Philipp Henkel)
 - [12 D Csound in iOS](12-d-csound-in-ios.md) (thanks to Alessandro Petrolati)
 - [12 E Csound on Android](12-e-csound-on-android.md) (thanks to Michael Gogins)
