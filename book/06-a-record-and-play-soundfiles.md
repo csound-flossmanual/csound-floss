@@ -121,7 +121,7 @@ After the mandatory file name or path string, we can pass some optional input ar
 
 
 
-   ***EXAMPLE 06A01_Play_soundfile.csd***
+***EXAMPLE 06A01_Play_soundfile.csd***
 
 ~~~csound
 <CsoundSynthesizer>
@@ -218,7 +218,7 @@ i 1 3.3 5 78
 ~~~
 
 
-Both Audio to Disk and Real-time Audio Output - *fout* with *monitor*
+Both Audio to Disk and RTAudio Output - *fout* with *monitor*
 ---------------------------------------------------------------------------------
 
 Recording audio output to disk whilst simultaneously monitoring in
@@ -234,7 +234,7 @@ read just in mono. *fout* can write audio in a number of formats and
 bit depths and it can also write multi-channel sound files.
 
 
-   ***EXAMPLE 06A03_Write_RT.csd***
+***EXAMPLE 06A03_Write_RT.csd***
 
 ~~~csound
 <CsoundSynthesizer>

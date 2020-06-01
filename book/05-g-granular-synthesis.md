@@ -52,7 +52,7 @@ The *Grain* instrument needs the following information in order to play back a s
 
 We start with the most simple implementation. We play back the sound with [diskin](https://csound.com/docs/manual/diskin.html) and apply a triangular envelope with the [linen](https://csound.com/docs/manual/linen.html) opcode. We pass the *grain duration* as *p3*, the *playback start* as *p4* and the *playback speed* as *p5*. We choose a constant grain duration of 50 ms, but in the first five examples different starting points, then in the other five examples from one starting point different playback speeds.
 
-   ***EXAMPLE 05G01_simple_grain.csd***
+***EXAMPLE 05G01_simple_grain.csd***
 
 ~~~csound
 <CsoundSynthesizer>
@@ -99,7 +99,7 @@ i .      10 .   .25    -1
 
 It is a tiring job to write a score line for each grain ... — no one will do this. But with but a small change we can read through the whole sound file by calling our *Grain* instrument only once! The technique we use in the next example is to start a new instance of the *Grain* instrument by the running instance, as long as the end of the sound file has not yet been reached. (This technique has been described in paragraph *Self-Triggering and Recursion* of chapter [03 C](03-d-control-structures.md).)
 
-   ***EXAMPLE 05G02_simple_grain_continuous.csd***
+***EXAMPLE 05G02_simple_grain_continuous.csd***
 
 ~~~csound
 <CsoundSynthesizer>
@@ -151,7 +151,7 @@ Table reading can be done by different methods in Csound. Have a look at chapter
 
 In the next example we reproduce the first example above to check the new code to the *Grain* instrument.
 
-   ***EXAMPLE 05G03_simple_grain_optimized.csd***
+***EXAMPLE 05G03_simple_grain_optimized.csd***
 
 ~~~csound
 <CsoundSynthesizer>
@@ -240,7 +240,7 @@ The first seven parameters are similar to the parameters for the *Grain* unit. G
 For triggering the single grains, we use the [metro](https://csound.com/docs/manual/metro.html) opcode. We call a grain on each trigger tick of the *metro*. This is a basic example; the code will be condensed later, but is kept here more explicit to show the functionality.
 
 
-   ***EXAMPLE 05G04_simple_granulator.csd***
+***EXAMPLE 05G04_simple_granulator.csd***
 
 ~~~csound
 <CsoundSynthesizer>
@@ -335,7 +335,11 @@ In this example, the phasor will start with an initial phase of *iStart/iFileLen
 It is very useful to add **random deviations** to some of the parameters for granular synthesis. This opens the space for many different structures and possibilities. We will apply here random deviations to these parameters of the *Granulator*:
 
 - *Pointer*. The pointer will "tremble" or "jump" depending on the range of the random deviation. The range is given in seconds. It is implemented in line 36 of the next example as
-    `kPointer = kPhasor*iSampleLen + rnd31:k(iPointerRndDev,0)`
+
+~~~csound
+kPointer = kPhasor*iSampleLen + rnd31:k(iPointerRndDev,0)
+~~~
+
 The opcode [rnd31](https://csound.com/docs/manual/rnd31.html) is a bipolar random generator which will output values between *-iPointerRndDev* and *+iPointerRndDev*. This is then added to the normal pointer position.
 - *Duration*. We will define here a maximum deviation in percent, related to the medium grain duration. 100% would mean that a grain duration can deviate between half and twice the medium duration. A medium duration of 20 ms would yield a random range of 10-40 ms in this case.
 - *Transposition*. We can add to the main transposition a bipolar random range. If, for example, the main transposition is 500 cent and the maximum random transposition is 300 cent, each grain will choose a value between 200 and 800 cent.
@@ -345,7 +349,7 @@ The opcode [rnd31](https://csound.com/docs/manual/rnd31.html) is a bipolar rando
 The next example demonstrates the five possibilities one by one, each parameter in three steps: at first with no random deviations, then with slight deviations, then with big ones.
 
 
-   ***EXAMAMPLE 05G05_random_deviations.csd***
+***EXAMAMPLE 05G05_random_deviations.csd***
 
 ~~~csound
 <CsoundSynthesizer>
@@ -449,7 +453,7 @@ It sounds like for normal use, the pointer, transposition and pan deviation are 
 After first prsenting the more instructional examples, this final one shows some of the potential applications for granular sounds. It uses the same parts of *The quick brown fox* as in the first example of this chapter, each which different sounds and combination of the parameters.
 
 
-   ***EXAMPLE 05G06_the_fox_universe.csd***
+***EXAMPLE 05G06_the_fox_universe.csd***
 
 ~~~csound
 <CsoundSynthesizer>
@@ -654,7 +658,7 @@ The time interval between writing and reading can be very short. If we do not tr
 So, in the following example, we will set the desired delay time to a small value. It has to be adjusted by the user depending on maximal tranposition and grain size.
 
 
-   ***EXAMPLE 05G07_live_granular.csd***
+***EXAMPLE 05G07_live_granular.csd***
 
 ~~~csound
 <CsoundSynthesizer>
@@ -768,7 +772,7 @@ example), with more of a percussive character (short attack, long decay)
 or *gate*-like (short attack, long sustain, short decay).
 
 
-   ***EXAMPLE 05G08_sndwarp.csd***
+***EXAMPLE 05G08_sndwarp.csd***
 
 ~~~csound
 <CsoundSynthesizer>
@@ -864,7 +868,7 @@ lowpass filter in each case encasing each note under a smooth arc.
 Finally a small amount of reverb is added to smooth the overall texture
 slightly
 
-   ***EXAMPLE 05G09_selfmade_grain.csd***
+ ***EXAMPLE 05G09_selfmade_grain.csd***
 
 ~~~csound
 <CsoundSynthesizer>
@@ -1002,7 +1006,7 @@ about what these transpositions are is printed to the terminal as each
 note begins.
 
 
-   ***EXAMPLE 05G10_granule.csd***
+***EXAMPLE 05G10_granule.csd***
 
 ~~~csound
 <CsoundSynthesizer>
@@ -1105,7 +1109,7 @@ buffer determines the delay time. We've used the fof2 opcode for this
 purpose here.
 
 
-   ***EXAMPLE 05G11_grain_delay.csd***
+***EXAMPLE 05G11_grain_delay.csd***
 
 ~~~csound
 <CsoundSynthesizer>
@@ -1183,7 +1187,7 @@ i 3 0 20
 </CsScore>
 </CsoundSynthesizer>
 ;example by Oeyvind Brandtsegg
-~~~csound
+~~~
 
 
 In the last example we will use the
@@ -1195,7 +1199,7 @@ the oldest opcode, *Grain2* is a more easy-to-use opcode, while
 *Grain3* offers more control.
 
 
-   ***EXAMPLE 05G12_grain.csd***
+***EXAMPLE 05G12_grain.csd***
 
 ~~~csound
 <CsoundSynthesizer>
@@ -1245,8 +1249,7 @@ i2 0 21 ; Reverb
 </CsScore>
 </CsoundSynthesizer>
 ;example by Bjørn Houdorf
-~~~csound
-
+~~~
 
 Several opcodes for granular synthesis have been considered in this
 chapter but this is in no way meant to suggest that these are the best,

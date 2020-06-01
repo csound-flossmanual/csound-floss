@@ -27,7 +27,7 @@ The spectrum of the carrier sound is shifted by plus and minus the modulator fre
 In the following example, first three static modulating frequencies are applied. As the voice itself has a somehow floating pitch, we already hear an always moving artificial speactrum component. This effect is emphasized in the second instrument which applies a random glissando for the modulating frequency. If the random movements are slow (first with 1 Hz, then 10 Hz), the pitch movements are still recognizable. If they are fast (100 Hz in the last call), the sound becomes noisy.
 
 
-   ***EXAMPLE 05F01_RM_modification.csd***
+***EXAMPLE 05F01_RM_modification.csd***
 
 ~~~csound
 <CsoundSynthesizer>
@@ -98,7 +98,7 @@ Bit Depth = 2
 This is the sounding result:
 
 
-   ***EXAMPLE 05F02_Wvshp_bit_crunch.csd***
+***EXAMPLE 05F02_Wvshp_bit_crunch.csd***
 
 ~~~csound
 <CsoundSynthesizer>
@@ -140,7 +140,7 @@ waveshaping synthesis. Finally, tables 8 and 9 approve that even a
 meaningful sentence and a nice music can regarded as noise ...
 
 
-   ***EXAMPLE 05F03_Wvshp_different_transfer_funs.csd***
+***EXAMPLE 05F03_Wvshp_different_transfer_funs.csd***
 
 ~~~csound
 <CsoundSynthesizer>
@@ -200,7 +200,7 @@ of distortion in the *kdist* parameter. Here is a simple example, using rather d
 ![](../resources/images/05-f-example-4.png)
 
 
-   ***EXAMPLE 05F04_distort.csd***
+***EXAMPLE 05F04_distort.csd***
 
 ~~~csound
 <CsoundSynthesizer>
