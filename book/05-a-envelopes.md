@@ -22,15 +22,17 @@ The simplest opcode for defining an envelope is
 single envelope segment as a straight line between a start value *ia* and an
 end value *ib* which has a given duration *idur*.
 
-    ares *line* ia, idur, ib
-    kres *line* ia, idur, ib
+~~~csound
+ares *line* ia, idur, ib
+kres *line* ia, idur, ib
+~~~
 
 In the following example *line* is used to create a simple envelope
 which is then used as the amplitude control of a *poscil* oscillator.
 This envelope starts with a value of 0.5 then over the course of 2
 seconds descends in linear fashion to zero.
 
-   ***EXAMPLE 05A01_line.csd***
+***EXAMPLE 05A01_line.csd***
 
 ~~~csound
 <CsoundSynthesizer>
@@ -66,7 +68,7 @@ with the value of p3 retrieved from the score, whatever that may be. The
 envelope will be stretched or contracted accordingly.
 
 
-   ***EXAMPLE 05A02_line_p3.csd***
+***EXAMPLE 05A02_line_p3.csd***
 
 ~~~csound
 <CsoundSynthesizer>
@@ -122,8 +124,10 @@ segments by adding further pairs of time durations followed envelope
 values. Provided we always end with a value and not a duration we can
 make this envelope as long as we like.
 
+~~~csound
     ares *linseg* ia, idur1, ib [, idur2] [, ic] [...]
     kres *linseg* ia, idur1, ib [, idur2] [, ic] [...]
+~~~
 
 In the next example a more complex amplitude envelope is employed by
 using the *linseg* opcode. This envelope is also note duration (p3)
@@ -139,7 +143,7 @@ envelope segment durations. If necessary, additional code could be
 employed to circumvent this from happening.
 
 
-   ***EXAMPLE 05A03_linseg.csd***
+***EXAMPLE 05A03_linseg.csd***
 
 ~~~csound
 <CsoundSynthesizer>
@@ -176,7 +180,7 @@ segments still adds up to p3 so the envelope will complete across the
 duration of each note regardless of duration.
 
 
-   ***EXAMPLE 05A04_linseg_p3_fractions.csd***
+***EXAMPLE 05A04_linseg_p3_fractions.csd***
 
 ~~~csound
 <CsoundSynthesizer>
@@ -228,7 +232,7 @@ beyond the end of their final segment is clear. The *linseg* envelope stays at z
       Only the phase of the signal is inverted.
 
 
-   ***EXAMPLE 05A05_line_vs_linseg.csd***
+***EXAMPLE 05A05_line_vs_linseg.csd***
 
 ~~~csound
 <CsoundSynthesizer>
@@ -286,7 +290,7 @@ The following example illustrates the difference between *line* and
 *expon* when applied as amplitude envelopes.
 
 
-   ***EXAMPLE 05A06_line_vs_expon.csd***
+***EXAMPLE 05A06_line_vs_expon.csd***
 
 ~~~csound
 <CsoundSynthesizer>
@@ -318,7 +322,7 @@ i 2 2 1 ; expon envelope
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~csound
+~~~
 
 ![](../resources/images/05-a-line-expon.png)
 
@@ -329,7 +333,7 @@ the score. The percussive *ping* sounds are perceived to be
 increasingly short.
 
 
-   ***EXAMPLE 05A07_expon_pings.csd***
+***EXAMPLE 05A07_expon_pings.csd***
 
 ~~~csound
 <CsoundSynthesizer>
@@ -396,7 +400,7 @@ released the note will be extended by 0.5 seconds in order to allow the
 final envelope segment to decay to zero.
 
 
-   ***EXAMPLE 05A08_linsegr.csd***
+***EXAMPLE 05A08_linsegr.csd***
 
 ~~~csound
 <CsoundSynthesizer>
@@ -441,7 +445,7 @@ The following example generates an amplitude envelope which uses the
 shape of the first half of a sine wave.
 
 
-   ***EXAMPLE 05A09_sine_env.csd***
+***EXAMPLE 05A09_sine_env.csd***
 
 ~~~csound
 <CsoundSynthesizer>
@@ -497,7 +501,9 @@ of a note, then sustains for ½ the durations of the and finally ramps
 down across the remaining ¼ duration of the note, we can implement this
 envelope using linseg thus:
 
-    kEnv linseg 0, p3/4, 0.9, p3/2, 0.9, p3/4, 0
+~~~csound
+kEnv linseg 0, p3/4, 0.9, p3/2, 0.9, p3/4, 0
+~~~
 
 The resulting envelope will look like this:
 
@@ -520,8 +526,10 @@ unless we remove the offset away form zero that the envelope employs. An
 envelope with similar input values to the linseg envelope above but
 created with expseg could use the following code:
 
+~~~csound
     kEnv expseg 0.001, p3/4, 0.901, p3/2, 0.901, p3/4, 0.001
     kEnv = kEnv – 0.001
+~~~
 
 and would look like this:
 
@@ -534,7 +542,9 @@ this time. Adding some lowpass filtering to the envelope signal can
 smooth these abrupt changes in direction. This could be done with, for
 example, the port opcode given a half-point value of 0.05.
 
-    kEnv port kEnv, 0.05
+~~~csound
+kEnv port kEnv, 0.05
+~~~
 
 The resulting envelope looks like this:
 
@@ -546,11 +556,15 @@ port has prevented the envelope from reaching zero. Extending the
 duration of the note or overlaying a second *anti-click* envelope
 should obviate this issue.
 
-    xtratim 0.1
+~~~csound
+xtratim 0.1
+~~~
 
 will extend the note by 1/10 of a second.
 
-    aRamp linseg 1, p3-0.1, 1, 0.1, 0
+~~~csound
+aRamp linseg 1, p3-0.1, 1, 0.1, 0
+~~~
 
 will provide a quick ramp down at the note conclusion if multiplied to
 the previously created envelope.
@@ -560,7 +574,9 @@ A more recently introduced alternative is the
 applies a cosine transfer function to each segment of the envelope.
 Using the following code:
 
-    kEnv cosseg 0, p3/4, 0.9, p3/2, 0.9, p3/4, 0
+~~~csound
+kEnv cosseg 0, p3/4, 0.9, p3/2, 0.9, p3/4, 0
+~~~
 
 the resulting envelope will look like this:
 
@@ -580,7 +596,9 @@ rising or falling. For example a positive curvature will result in a
 concave segment in a rising segment but a convex segment in a falling
 segment. The following code:
 
-    kEnv transeg 0, p3/4, -4, 0.9, p3/2, 0, 0.9, p3/4, -4, 0
+~~~csound
+kEnv transeg 0, p3/4, -4, 0.9, p3/2, 0, 0.9, p3/4, -4, 0
+~~~
 
 will produce the following envelope:
 
@@ -665,7 +683,7 @@ widgets, FLTK widgets or MIDI controllers. Suggested ranges for each of
 these values are given in the .csd.
 
 
-   ***EXAMPLE 05A10_lpshold_loopseg.csd***
+***EXAMPLE 05A10_lpshold_loopseg.csd***
 
 ~~~csound
 <CsoundSynthesizer>

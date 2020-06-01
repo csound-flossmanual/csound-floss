@@ -58,7 +58,7 @@ frequencies giving the impression of a space with hard walls, a value of
 of a space with soft surfaces such as thick carpets and heavy curtains.
 
 
-   ***EXAMPLE 05E01_freeverb.csd***
+***EXAMPLE 05E01_freeverb.csd***
 
 ~~~csound
 <CsoundSynthesizer>
@@ -98,7 +98,7 @@ i 5 0 300 ; start reverb
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~csound
+~~~
 
 
 The *second method* uses Csound's *zak patching system* to send audio from
@@ -114,18 +114,24 @@ header area using the
 opcode initializes both a and k rate channels; we must intialize at
 least one of each even if we don't require both.
 
-    zakinit    1, 1
+~~~csound
+zakinit    1, 1
+~~~
 
 The audio from the sound generating instrument is mixed into a zak audio
 channel the [zawm](https://csound.com/docs/manual/zawm.html) opcode
 like this:
 
-    zawm    aSig * iRvbSendAmt, 1
+~~~csound
+zawm    aSig * iRvbSendAmt, 1
+~~~
 
 This channel is read from in the reverb instrument using the
 [zar](https://csound.com/docs/manual/zar.html) opcode like this:
 
-    aInSig  zar   1
+~~~csound
+aInSig  zar   1
+~~~
 
 Because audio is begin mixed into our zak channel but it is never
 redefined (only mixed into) it needs to be cleared after we have
@@ -145,7 +151,7 @@ the Nyqvist frequency (sr/2) - it controls the cutoff frequencies of low
 pass filters within the algorithm.
 
 
-   ***EXAMPLE 05E02_reverbsc.csd***
+***EXAMPLE 05E02_reverbsc.csd***
 
 ~~~csound
 <CsoundSynthesizer>
@@ -188,7 +194,7 @@ i 5 0 12 ; start reverb
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~csound
+~~~
 
 *reverbsc* contains a mechanism to modulate delay times internally which
 has the effect of harmonically blurring sounds the longer they are
@@ -206,7 +212,7 @@ to allow Csound to interface with external programs using the software
 bus and the Csound API.
 
 
-   ***EXAMPLE 05E03_reverb_with_chn.csd***
+***EXAMPLE 05E03_reverb_with_chn.csd***
 
 ~~~csound
 <CsoundSynthesizer>
@@ -245,8 +251,7 @@ i 5 0 12 ; start reverb
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~csound
-
+~~~
 
 The Schroeder Reverb Design
 ---------------------------
@@ -297,7 +302,7 @@ synthesized drum sounds (bass drum, snare and closed hi-hat) produced by
 instruments 2 to 4.
 
 
-   ***EXAMPLE 05E04_schroeder_reverb.csd***
+***EXAMPLE 05E04_schroeder_reverb.csd***
 
 ~~~csound
 <CsoundSynthesizer>
@@ -407,8 +412,7 @@ e
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~csound
-
+~~~
 
 This chapter has introduced some of the more recent Csound opcodes for
 delay-line based reverb algorithms which in most situations can be used
