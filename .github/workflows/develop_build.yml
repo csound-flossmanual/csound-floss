@@ -1,4 +1,6 @@
 name: "CI:DEV"
+env:
+  REACT_APP_CSOUND_FLOSS_VERSION: $GITHUB_SHA
 on:
   push:
     branches:
@@ -27,27 +29,19 @@ jobs:
       run: yarn
     - name: Build the book website
       run: yarn build
-      env:
-        REACT_APP_CSOUND_FLOSS_VERSION: {{ GITHUB_SHA }}
     - name: Build pdf
       run: |
         yarn build:pdf
         mkdir -p build/build
         mv *.pdf build/build/csound-flossmanual-${REACT_APP_CSOUND_FLOSS_VERSION}.pdf
-      env:
-        REACT_APP_CSOUND_FLOSS_VERSION: {{ GITHUB_SHA }}
     - name: Build epub
       run: |
         yarn build:epub
         mv *.epub build/build/csound-flossmanual-${REACT_APP_CSOUND_FLOSS_VERSION}.epub
-      env:
-        REACT_APP_CSOUND_FLOSS_VERSION: {{ GITHUB_SHA }}
     - name: Build odt
       run: |
         yarn build:odt
         mv *.odt build/build/csound-flossmanual-${REACT_APP_CSOUND_FLOSS_VERSION}.odt
-      env:
-        REACT_APP_CSOUND_FLOSS_VERSION: {{ GITHUB_SHA }}
     - name: Compress dist to zip
       run: |
         nix-env -f '<nixpkgs>' -iA zip
