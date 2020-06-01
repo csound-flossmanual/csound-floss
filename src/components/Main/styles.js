@@ -75,13 +75,3 @@ export const loadingSpinner = css`
     }
   }
 `;
-
-export const alternativeDists = css`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  p {
-    font-size: 20px;
-    text-decoration: underline;
-  }
-`;

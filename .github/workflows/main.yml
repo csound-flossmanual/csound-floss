@@ -24,23 +24,33 @@ jobs:
       run: yarn
     - name: Build the book website
       run: yarn build
+      env:
+        REACT_APP_CSOUND_FLOSS_VERSION: 7.0.0-SNAPSHOT
     - name: Build pdf
       run: |
         yarn build:pdf
         mkdir -p build/build
-        mv *.pdf build/build/csound-flossmanual-7.0.0-SNAPSHOT.pdf
+        mv *.pdf build/build/csound-flossmanual-${REACT_APP_CSOUND_FLOSS_VERSION}.pdf
+      env:
+        REACT_APP_CSOUND_FLOSS_VERSION: 7.0.0-SNAPSHOT
     - name: Build epub
       run: |
         yarn build:epub
-        mv *.epub build/build/csound-flossmanual-7.0.0-SNAPSHOT.epub
+        mv *.epub build/build/csound-flossmanual-${REACT_APP_CSOUND_FLOSS_VERSION}.epub
+      env:
+        REACT_APP_CSOUND_FLOSS_VERSION: 7.0.0-SNAPSHOT
     - name: Build odt
       run: |
         yarn build:odt
-        mv *.odt build/build/csound-flossmanual-7.0.0-SNAPSHOT.odt
+        mv *.odt build/build/csound-flossmanual-${REACT_APP_CSOUND_FLOSS_VERSION}.odt
+      env:
+        REACT_APP_CSOUND_FLOSS_VERSION: 7.0.0-SNAPSHOT
     - name: Compress dist to zip
       run: |
         nix-env -f '<nixpkgs>' -iA zip
         zip -r dist.zip build
+      env:
+        REACT_APP_CSOUND_FLOSS_VERSION: 7.0.0-SNAPSHOT
     - name: Archive Production Artifact
       uses: actions/upload-artifact@master
       with:

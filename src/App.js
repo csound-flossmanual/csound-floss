@@ -11,7 +11,7 @@ import Console from "./components/Console";
 import { CsoundProvider } from "./CsoundContext";
 import { BookProvider } from "./BookContext";
 import routes from "./book_fragments/routes.json";
-import { findIndex, isEmpty, propEq } from "ramda";
+import { equals, findIndex, isEmpty, propEq } from "ramda";
 import { browserHistory } from "./history";
 
 function App() {
@@ -57,7 +57,7 @@ function App() {
           mobileMode ? "column" : "row"
         };}`}</style>
         <Router history={browserHistory}>
-          {!mobileMode && routeIndex > -1 && (
+          {!mobileMode && routeIndex > -1 && !equals(currentRoute, "/") && (
             <LeftNav routeIndex={routeIndex} />
           )}
           <Main

@@ -2,7 +2,8 @@
 import { jsx } from "@emotion/core";
 // eslint-disable-next-line no-unused-vars
 import React, { lazy, Suspense, useEffect, useState } from "react";
-import TOC from "../../book_fragments/00--aa-toc";
+import HomeScreen from "../HomeScreen";
+// import TOC from "../../book_fragments/00--aa-toc";
 import { Route, Switch } from "react-router-dom";
 import routes from "../../book_fragments/routes.json";
 import { map } from "ramda";
@@ -22,34 +23,6 @@ const LoadingSpinner = () => (
     <style>{"main {width: 100%;height:90vh;}"}</style>
     <div css={ß.loadingSpinner} />
   </div>
-);
-
-const HomeScreen = () => (
-  <React.Fragment>
-    <div css={ß.alternativeDists}>
-      <a
-        href={`/build/csound-flossmanual-7.0.0-SNAPSHOT.epub`}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <p>{`Read the EPUB version`}</p>
-      </a>
-      <a
-        href={`/build/csound-flossmanual-7.0.0-SNAPSHOT.pdf`}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <p>{`Read the PDF version`}</p>
-      </a>
-      <a
-        href={`/build/csound-flossmanual-7.0.0-SNAPSHOT.odt`}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <p>{`Download OpenDocument version`}</p>
-      </a>
-    </div>
-  </React.Fragment>
 );
 
 function Main({ currentRoute, mobileMode, setCurrentRoute }) {
@@ -83,7 +56,6 @@ function Main({ currentRoute, mobileMode, setCurrentRoute }) {
     <main css={mobileMode ? ß.mainMobile : ß.main}>
       <Suspense fallback={<LoadingSpinner />}>
         <div>
-          <HomeScreen />
           <Switch>
             {map(
               route => (
@@ -98,7 +70,7 @@ function Main({ currentRoute, mobileMode, setCurrentRoute }) {
               routes
             )}
             <Route path={"/"}>
-              <TOC />
+              <HomeScreen />
             </Route>
           </Switch>
         </div>
