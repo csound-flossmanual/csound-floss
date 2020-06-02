@@ -17,7 +17,7 @@ const HomeScreen = () => (
       <h3 style={{ marginTop: 0, fontWeight: 100 }}>
         {process.env.REACT_APP_CSOUND_FLOSS_VERSION
           ? `Version: ${process.env.REACT_APP_CSOUND_FLOSS_VERSION}`
-          : "Version: XXX"}
+          : ""}
       </h3>
     </div>
     <Link to={`/introduction/preface`}>
