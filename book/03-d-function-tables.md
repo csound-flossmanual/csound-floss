@@ -175,7 +175,7 @@ The syntax is explained below:
 
     giVar     ftgen     ifn, itime, isize, igen, iarg1 [, iarg2 [, ...]]
 
--   ***giVar***: a variable name. Each function is stored in an
+-   ***gir***: a variable name. Each function is stored in an
     i-variable. Usually you want to have access to it from every
     instrument, so a gi-variable (global initialization variable) is
     given.
