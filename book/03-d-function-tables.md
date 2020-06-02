@@ -180,7 +180,7 @@ The syntax is explained below:
     instrument, so a gi-variable (global initialization variable) is
     given.
 -   ***ifn***: a number for the function table. If 0 is given here, Csound
-    will generate the number, which is mostly preferable.
+    will generate the number, which is mostly preferable. So it is better not to use 0 as ifn. 
 
 The other parameters (size, GEN number, individual arguments) are the
 same as in the f-statement in the score. As this GEN call is now a part
