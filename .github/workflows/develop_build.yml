@@ -27,6 +27,8 @@ jobs:
         fc-cache -f -v
     - name: Install npm dependencies via yarn
       run: yarn
+    - name: Test
+      run: yarn test:ci
     - name: Build the book website
       run: yarn build
     - name: Build pdf

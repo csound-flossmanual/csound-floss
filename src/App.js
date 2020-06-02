@@ -43,7 +43,7 @@ function App() {
     };
   }, [setWindowWidth]);
 
-  const mobileMode = windowWidth < 800;
+  const mobileMode = windowWidth < 800 && currentRoute !== "/";
 
   return (
     <BookProvider>
