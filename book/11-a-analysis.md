@@ -42,8 +42,8 @@ formats, and for this Csound provides the sound analysis utilities
 [cvanal](https://csound.com/docs/manual/cvanal.html),
 [hetro](https://csound.com/docs/manual/hetro.html),
 [lpanal](https://csound.com/docs/manual/lpanal.html) and
-[pvanal.](https://csound.com/docs/manual/pvanal.html) By far the
-most commonly used of these is
+[pvanal](https://csound.com/docs/manual/pvanal.html). 
+The most commonly used of these is
 [pvanal](https://csound.com/docs/manual/pvanal.html) which, although
 originally written to provide analysis files for
 [pvoc](https://csound.com/docs/manual/pvoc.html) and its generation
@@ -53,6 +53,23 @@ opcodes.[^1]
 
 [^1]: See chapter [05 I](05-i-fourier-analysis-spectral-processing.md)
       for more information about these opcodes.
+
+We will explain in the following paragraphs the background and usage of these five different sound analysis utilities. 
+
+
+### atsa
+
+
+### cvanal
+
+
+### hetro
+
+
+### lpanal
+
+
+### pvanal
 
 This time as well as requiring an input sound file for analysis we will
 need to provide a name (and optionally the full address) for the output

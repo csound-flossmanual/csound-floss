@@ -172,8 +172,9 @@ The syntax is explained below:
       variables can be put as arguments into *ftgen* — imagine for instance
       a size for recording tables which you generate or pass as user input.
 
-
-    giVar     ftgen     ifn, itime, isize, igen, iarg1 [, iarg2 [, ...]]
+~~~csound
+gir     ftgen     ifn, itime, isize, igen, iarg1 [, iarg2 [, ...]]
+~~~
 
 -   ***gir***: a variable name. Each function is stored in an
     i-variable. Usually you want to have access to it from every
