@@ -24,6 +24,23 @@ yarn
 yarn start
 ```
 
+## Tests
+
+To run tests locally:
+
+```
+# Recommended
+yarn test
+
+# Alternatively (either)
+npx jest
+yarn jest
+
+# Avoid those two
+yarn add jest --global && jest
+npm i jest --globall && jest
+```
+
 ## Contributing
 - [Conventions for writing](contribute/conventions.md)
 - [Writing in Markdown](contribute/writing-in-markdown.md)
