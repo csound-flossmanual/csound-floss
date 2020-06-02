@@ -46,7 +46,7 @@ The Csound Document Structure
 A Csound document is structured into three main sections:
 
 -   **CsOptions**: Contains the configuration options for Csound. For
-    example using *-o dac* in this section will make Csound run in
+    example using *-odac* in this section will make Csound run in
     real-time instead of writing a sound file.
 -   **CsInstruments**: Contains the instrument definitions and
     optionally some global settings and definitions like sample rate,
