@@ -53,7 +53,9 @@ function Main({ currentRoute, mobileMode, setCurrentRoute }) {
   }, [onRouteChange]);
 
   return (
-    <main css={mobileMode ? ß.mainMobile : ß.main}>
+    <main
+      css={currentRoute === "/" ? ß.home : mobileMode ? ß.mainMobile : ß.main}
+    >
       <Suspense fallback={<LoadingSpinner />}>
         <div>
           <Switch>

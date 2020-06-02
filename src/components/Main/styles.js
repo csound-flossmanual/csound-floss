@@ -49,6 +49,16 @@ export const mainMobile = css`
   }
 `;
 
+export const home = css`
+  & > div {
+    position: absolute;
+    background-color: #fff;
+    margin-top: 24px;
+    margin-left: 24px;
+    padding: 32px;
+  }
+`;
+
 export const loadingSpinner = css`
   display: inline-block;
   width: 80px;
