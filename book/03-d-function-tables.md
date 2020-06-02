@@ -176,12 +176,12 @@ The syntax is explained below:
 gir     ftgen     ifn, itime, isize, igen, iarg1 [, iarg2 [, ...]]
 ~~~
 
--   ***gir***: a variable name. Each function is stored in an
-    i-variable. Usually you want to have access to it from every
-    instrument, so a gi-variable (global initialization variable) is
-    given.
--   ***ifn***: a number for the function table. If 0 is given here, Csound
-    will generate the number, which is mostly preferable.
+- ***gir***: a variable name. Each function is stored in an
+i-variable. Usually you want to have access to it from every
+instrument, so a gi-variable (global initialization variable) is
+given.  
+- ***ifn***: a number for the function table. If 0 is given here, Csound
+will generate the number, which is mostly preferable.
 
 The other parameters (size, GEN number, individual arguments) are the
 same as in the f-statement in the score. As this GEN call is now a part
