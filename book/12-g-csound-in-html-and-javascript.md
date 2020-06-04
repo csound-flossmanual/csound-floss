@@ -150,17 +150,26 @@ The JavaScript execution context of a Csound Web page contains Csound
 itself as a *csound* JavaScript object that has at least the following
 methods:
 
-    getVersion() [returns a number]
-    compileOrc(orchestra_code) and
-    evalCode(orchestra_code) [returns the numeric result of the evaluation]
-    readScore(score_lines)
-    setControlChannel(channel_name,number)
-    getControlChannel(channel_name) [returns a number representing the channel value]
-    message(text)
-    getSr() [returns a number]
-    getKsmps() [returns a number]
-    getNchnls() [returns a number]
-    isPlaying() [returns 1 if Csound is playing, 0 if not]
+~~~csound
+;; [returns a number]
+getVersion()
+;; [returns the numeric result of the evaluation]
+compileOrc(orchestra_code)
+evalCode(orchestra_code)
+readScore(score_lines)
+setControlChannel(channel_name,number)
+;; [returns a number representing the channel value]
+getControlChannel(channel_name)
+message(text)
+;; [returns a number]
+getSr()
+;; [returns a number]
+getKsmps()
+;; [returns a number]
+getNchnls()
+# [returns 1 if Csound is playing, 0 if not]
+isPlaying()
+~~~
 
 The front end contains a mechanism for forwarding JavaScript calls in
 the Web page's JavaScript context to native functions that are defined
@@ -650,7 +659,10 @@ endin
         />
       </td>
       <td>
-        <output for="sliderMasterLevel" id="sliderMasterLevelOutput">.5</output>
+        <output
+          for="sliderMasterLevel"
+          id="sliderMasterLevelOutput">.5
+        </output>
       </td>
     </tr>
 

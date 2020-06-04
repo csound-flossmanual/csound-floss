@@ -141,7 +141,7 @@ Now that the basics of the Csound language have been outlined, let's create a si
 The vco2 opcode models a voltage controlled oscillator. It provides users with an effective way of generating band-limited waveforms and can be the building blocks of many a synthesiser. Its syntax, taken from the Csound [reference](https://csound.github.io/docs/manual/vco2.html) manual, is given below. It is important to become au fait with the way opcodes are presented in the Csound reference manual. It, along with the the Cabbage widget reference are two documents that you will end up referencing time and time again as you start developing Cabbage instruments.
 
 ~~~csound
-    ares vco2 kamp, kcps [, imode] [, kpw] [, kphs] [, inyx]
+ares vco2 kamp, kcps [, imode] [, kpw] [, kphs] [, inyx]
 ~~~
 
 
@@ -160,7 +160,9 @@ In the traditional Csound context, we would start this instrument using a *score
 
 ~~~csound
 <Cabbage>
-form caption("Untitled") size(400, 300), colour(58, 110, 182), pluginID("def1")
+form caption("Untitled") size(400, 300), \
+  colour(58, 110, 182), \
+  pluginID("def1")
 keyboard bounds(8, 158, 381, 95)
 </Cabbage>
 <CsoundSynthesizer>
@@ -212,7 +214,9 @@ Note that the inputs to madsr are *i*-rate. They cannot change over the duration
 
 ~~~csound
 <Cabbage>
-form caption("Untitled") size(400, 300), colour(58, 110, 182), pluginID("def1")
+form caption("Untitled") size(400, 300), \
+  colour(58, 110, 182), \
+  pluginID("def1")
 keyboard bounds(8, 158, 381, 95)
 </Cabbage>
 <CsoundSynthesizer>
@@ -253,12 +257,20 @@ The values of the ADSR parameters can be set using widgets. A typical widget for
 
 ~~~csound
 <Cabbage>
-form caption("Simple Synth") size(450, 260), colour(58, 110, 182), pluginID("def1")
+form caption("Simple Synth") \
+  size(450, 260), \
+  colour(58, 110, 182), \
+  pluginID("def1")
 keyboard bounds(14, 120, 413, 95)
-rslider bounds(12, 14, 105, 101), channel("att"), range(0, 1, 0.01, 1, .01), text("Attack")
-rslider bounds(114, 14, 105, 101), channel("dec"), range(0, 1, 0.5, 1, .01), text("Decay")
-rslider bounds(218, 14, 105, 101), channel("sus"), range(0, 1, 0.5, 1, .01), text("Sustain")
-rslider bounds(322, 14, 105, 101), channel("rel"), range(0, 1, 0.7, 1, .01), text("Release")
+rslider bounds(12, 14, 105, 101), \
+  channel("att"), range(0, 1, 0.01, 1, .01), \
+  text("Attack")
+rslider bounds(114, 14, 105, 101), channel("dec"), \
+  range(0, 1, 0.5, 1, .01), text("Decay")
+rslider bounds(218, 14, 105, 101), channel("sus"), \
+  range(0, 1, 0.5, 1, .01), text("Sustain")
+rslider bounds(322, 14, 105, 101), channel("rel"), \
+  range(0, 1, 0.7, 1, .01), text("Release")
 </Cabbage>
 ~~~
 
@@ -301,14 +313,33 @@ Its first input argument is an a-rate variable. The next two arguments set the f
 
 ~~~csound
 <Cabbage>
-form caption("Simple Synth") size(450, 220), colour(58, 110, 182), pluginID("def1")
+form caption("Simple Synth") size(450, 220), \
+  colour(58, 110, 182), \
+  pluginID("def1")
 keyboard bounds(14, 88, 413, 95)
-rslider bounds(12, 14, 70, 70), channel("att"), range(0, 1, 0.01, 1, .01), text("Attack")
-rslider bounds(82, 14, 70, 70), channel("dec"), range(0, 1, 0.5, 1, .01), text("Decay")
-rslider bounds(152, 14, 70, 70), channel("sus"), range(0, 1, 0.5, 1, .01), text("Sustain")
-rslider bounds(222, 14, 70, 70), channel("rel"), range(0, 1, 0.7, 1, .01), text("Release")
-rslider bounds(292, 14, 70, 70), channel("cutoff"), range(0, 22000, 2000, .5, .01), text("Cut-Off")
-rslider bounds(360, 14, 70, 70), channel("res"), range(0, 1, 0.7, 1, .01), text("Resonance")
+rslider bounds(12, 14, 70, 70), \
+  channel("att"), \
+  range(0, 1, 0.01, 1, .01), \
+  text("Attack")
+rslider bounds(82, 14, 70, 70), \
+  channel("dec"), \
+  range(0, 1, 0.5, 1, .01), \
+  text("Decay")
+rslider bounds(152, 14, 70, 70), \
+  channel("sus"), \
+  range(0, 1, 0.5, 1, .01), \
+  text("Sustain")
+rslider bounds(222, 14, 70, 70), \
+  channel("rel"), \
+  range(0, 1, 0.7, 1, .01), \
+  text("Release")
+rslider bounds(292, 14, 70, 70), \
+  channel("cutoff"), \
+  range(0, 22000, 2000, .5, .01), \
+  text("Cut-Off")
+rslider bounds(360, 14, 70, 70), \
+  channel("res"), range(0, 1, 0.7, 1, .01), \
+  text("Resonance")
 </Cabbage>
 <CsoundSynthesizer>
 <CsOptions>
@@ -386,16 +417,42 @@ There are many further improvements that could be made to the simple instrument.
 
 ~~~csound
 <Cabbage>
-form caption("Simple Synth") size(310, 310), colour(58, 110, 182), pluginID("def1")
+form caption("Simple Synth") size(310, 310), \
+  colour(58, 110, 182), \
+  pluginID("def1")
 keyboard bounds(12, 164, 281, 95)
-rslider bounds(12, 14, 70, 70), channel("att"), range(0, 1, 0.01, 1, .01), text("Attack")
-rslider bounds(82, 14, 70, 70), channel("dec"), range(0, 1, 0.5, 1, .01), text("Decay")
-rslider bounds(152, 14, 70, 70), channel("sus"), range(0, 1, 0.5, 1, .01), text("Sustain")
-rslider bounds(222, 14, 70, 70), channel("rel"), range(0, 1, 0.7, 1, .01), text("Release")
-rslider bounds(12, 84, 70, 70), channel("cutoff"), range(0, 22000, 2000, .5, .01), text("Cut-Off")
-rslider bounds(82, 84, 70, 70), channel("res"), range(0, 1, 0.7, 1, .01), text("Resonance")
-rslider bounds(152, 84, 70, 70), channel("LFOFreq"), range(0, 10, 0, 1, .01), text("LFO Freq")
-rslider bounds(222, 84, 70, 70), channel("amp"), range(0, 1, 0.7, 1, .01), text("Amp")
+rslider bounds(12, 14, 70, 70), \
+  channel("att"), \
+  range(0, 1, 0.01, 1, .01), \
+  text("Attack")
+rslider bounds(82, 14, 70, 70), \
+  channel("dec"), \
+  range(0, 1, 0.5, 1, .01), \
+  text("Decay")
+rslider bounds(152, 14, 70, 70), \
+  channel("sus"), \
+  range(0, 1, 0.5, 1, .01), \
+  text("Sustain")
+rslider bounds(222, 14, 70, 70), \
+  channel("rel"), \
+  range(0, 1, 0.7, 1, .01), \
+  text("Release")
+rslider bounds(12, 84, 70, 70), \
+  channel("cutoff"), \
+  range(0, 22000, 2000, .5, .01), \
+  text("Cut-Off")
+rslider bounds(82, 84, 70, 70), \
+  channel("res"), \
+  range(0, 1, 0.7, 1, .01), \
+  text("Resonance")
+rslider bounds(152, 84, 70, 70), \
+  channel("LFOFreq"), \
+  range(0, 10, 0, 1, .01), \
+  text("LFO Freq")
+rslider bounds(222, 84, 70, 70), \
+  channel("amp"), \
+  range(0, 1, 0.7, 1, .01), \
+  text("Amp")
 </Cabbage>
 <CsoundSynthesizer>
 <CsOptions>
@@ -449,11 +506,25 @@ After you have named the new effect Cabage will generate a very simple instrumen
 
 ~~~csound
 <Cabbage>
-form size(280, 160), caption("Simple Reverb"), pluginID("plu1")
+form size(280, 160), \
+  caption("Simple Reverb"), \
+  pluginID("plu1")
 groupbox bounds(20, 12, 233, 112), text("groupbox")
-rslider bounds(32, 40, 68, 70), channel("size"), range(0, 1, .2, 1, 0.001), text("Size"), colour(2, 132, 0, 255),
-rslider bounds(102, 40, 68, 70), channel("fco"), range(1, 22000, 10000, 1, 0.001), text("Cut-Off"), colour(2, 132, 0, 255),
-rslider bounds(172, 40, 68, 70), channel("gain"), range(0, 1, .5, 1, 0.001), text("Gain"), colour(2, 132, 0, 255),
+rslider bounds(32, 40, 68, 70), \
+  channel("size"), \
+  range(0, 1, .2, 1, 0.001), \
+  text("Size"), \
+  colour(2, 132, 0, 255),
+rslider bounds(102, 40, 68, 70), \
+  channel("fco"), \
+  range(1, 22000, 10000, 1, 0.001), \
+  text("Cut-Off"), \
+  colour(2, 132, 0, 255),
+rslider bounds(172, 40, 68, 70), \
+  channel("gain"), \
+  range(0, 1, .5, 1, 0.001), \
+  text("Gain"), \
+  colour(2, 132, 0, 255),
 </Cabbage>
 <CsoundSynthesizer>
 <CsOptions>

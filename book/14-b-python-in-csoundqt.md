@@ -478,7 +478,10 @@ expressed either as channel name (*disp_chan_01*) as in the command
 above, or as uuid. As I got the string
 u\'{a71c0c67-3d54-4d4a-88e6-8df40070a7f5}\' as uuid, I can also write:
 
-    q.setWidgetProperty(u'{a71c0c67-3d54-4d4a-88e6-8df40070a7f5}', "QCS_label", "Hey Joeboe!")
+~~~python
+q.setWidgetProperty(u'{a71c0c67-3d54-4d4a-88e6-8df40070a7f5}',
+                    'QCS_label', 'Hey Joeboe!')
+~~~
 
 For humans, referring to the channel name as ID is certainly preferable.[^9]  But as the *createNew...* method returns the uuid, you can
 use it implicitely, for instance in this command:
@@ -909,112 +912,174 @@ List of PyQcsObject Methods in CsoundQt
 
 ### Load/Create/Activate a csd File
 
-    int loadDocument(QString name, bool runNow = false)
-    int getDocument(QString name = "")
-    int newDocument(QString name)
-    void setDocument(int index)
+~~~python
+int loadDocument(QString name, bool runNow = false)
+int getDocument(QString name = "")
+int newDocument(QString name)
+void setDocument(int index)
+~~~
 
 ### Play/Pause/Stop a csd File
 
-    void play(int index = -1, bool realtime = true)
-    void pause(int index = -1)
-    void stop(int index = -1)
-    void stopAll()
+~~~python
+void play(int index = -1, bool realtime = true)
+void pause(int index = -1)
+void stop(int index = -1)
+void stopAll()
+~~~
 
 ### Send Score Events
 
-    void sendEvent(int index, QString events)
-    void sendEvent(QString events)
-    void schedule(QVariant time, QVariant event)
+~~~python
+void sendEvent(int index, QString events)
+void sendEvent(QString events)
+void schedule(QVariant time, QVariant event)
+~~~
 
 ### Query File Name/Path
 
-    QString getFileName(int index = -1)
-    QString getFilePath(int index = -1)
+~~~python
+QString getFileName(int index = -1)
+QString getFilePath(int index = -1)
+~~~
 
 ### Get csd Text
 
-    QString getSelectedText(int index = -1, int section = -1)
-    QString getCsd(int index = -1)
-    QString getFullText(int index = -1)
-    QString getOrc(int index = -1)
-    QString getSco(int index = -1)
-    QString getWidgetsText(int index = -1)
-    QString getSelectedWidgetsText(int index = -1)
-    QString getPresetsText(int index = -1)
-    QString getOptionsText(int index = -1)
+~~~python
+QString getSelectedText(int index = -1, int section = -1)
+QString getCsd(int index = -1)
+QString getFullText(int index = -1)
+QString getOrc(int index = -1)
+QString getSco(int index = -1)
+QString getWidgetsText(int index = -1)
+QString getSelectedWidgetsText(int index = -1)
+QString getPresetsText(int index = -1)
+QString getOptionsText(int index = -1)
+~~~
 
 ### Set csd Text
 
-    void insertText(QString text, int index = -1, int section = -1)
-    void setCsd(QString text, int index = -1)
-    void setFullText(QString text, int index = -1)
-    void setOrc(QString text, int index = -1)
-    void setSco(QString text, int index = -1)
-    void setWidgetsText(QString text, int index = -1)
-    void setPresetsText(QString text, int index = -1)
-    void setOptionsText(QString text, int index = -1)
+~~~python
+void insertText(QString text, int index = -1, int section = -1)
+void setCsd(QString text, int index = -1)
+void setFullText(QString text, int index = -1)
+void setOrc(QString text, int index = -1)
+void setSco(QString text, int index = -1)
+void setWidgetsText(QString text, int index = -1)
+void setPresetsText(QString text, int index = -1)
+void setOptionsText(QString text, int index = -1)
+~~~
 
 ### Opcode Exists
 
-    bool opcodeExists(QString opcodeName)
+~~~python
+bool opcodeExists(QString opcodeName)
+~~~
 
 ### Create Widgets
 
-    QString createNewLabel(int x = 0, int y = 0, QString channel = QString(), int index = -1)
-    QString createNewDisplay(int x = 0, int y = 0, QString channel = QString(), int index = -1)
-    QString createNewScrollNumber(int x = 0, int y = 0, QString channel = QString(), int index = -1)
-    QString createNewLineEdit(int x = 0, int y = 0, QString channel = QString(), int index = -1)
-    QString createNewSpinBox(int x = 0, int y = 0, QString channel = QString(), int index = -1)
-    QString createNewSlider(QString channel, int index = -1)
-    QString createNewSlider(int x = 0, int y = 0, QString channel = QString(), int index = -1)
-    QString createNewButton(int x = 0, int y = 0, QString channel = QString(), int index = -1)
-    QString createNewKnob(int x = 0, int y = 0, QString channel = QString(), int index = -1)
-    QString createNewCheckBox(int x = 0, int y = 0, QString channel = QString(), int index = -1)
-    QString createNewMenu(int x = 0, int y = 0, QString channel = QString(), int index = -1)
-    QString createNewMeter(int x = 0, int y = 0, QString channel = QString(), int index = -1)
-    QString createNewConsole(int x = 0, int y = 0, QString channel = QString(), int index = -1)
-    QString createNewGraph(int x = 0, int y = 0, QString channel = QString(), int index = -1)
-    QString createNewScope(int x = 0, int y = 0, QString channel = QString(), int index = -1)
+~~~python
+QString createNewLabel(
+  int x = 0, int y = 0, QString channel = QString(), int index = -1
+)
+QString createNewDisplay(
+  int x = 0, int y = 0, QString channel = QString(), int index = -1
+)
+QString createNewScrollNumber(
+  int x = 0, int y = 0, QString channel = QString(), int index = -1
+)
+QString createNewLineEdit(
+  int x = 0, int y = 0, QString channel = QString(), int index = -1
+)
+QString createNewSpinBox(
+  int x = 0, int y = 0, QString channel = QString(), int index = -1
+)
+QString createNewSlider(
+  QString channel, int index = -1
+)
+QString createNewSlider(
+  int x = 0, int y = 0, QString channel = QString(), int index = -1
+)
+QString createNewButton(
+  int x = 0, int y = 0, QString channel = QString(), int index = -1
+)
+QString createNewKnob(
+  int x = 0, int y = 0, QString channel = QString(), int index = -1
+)
+QString createNewCheckBox(
+  int x = 0, int y = 0, QString channel = QString(), int index = -1
+)
+QString createNewMenu(
+  int x = 0, int y = 0, QString channel = QString(), int index = -1
+)
+QString createNewMeter(
+  int x = 0, int y = 0, QString channel = QString(), int index = -1
+)
+QString createNewConsole(
+  int x = 0, int y = 0, QString channel = QString(), int index = -1
+)
+QString createNewGraph(
+  int x = 0, int y = 0, QString channel = QString(), int index = -1
+)
+QString createNewScope(
+  int x = 0, int y = 0, QString channel = QString(), int index = -1
+)
+~~~
 
 ### Query Widgets
 
-    QVariant getWidgetProperty(QString widgetid, QString property, int index= -1)
-    double getChannelValue(QString channel, int index = -1)
-    QString getChannelString(QString channel, int index = -1)
-    QStringList listWidgetProperties(QString widgetid, int index = -1)
-    QStringList getWidgetUuids(int index = -1)
+~~~python
+QVariant getWidgetProperty(QString widgetid, QString property, int index= -1)
+double getChannelValue(QString channel, int index = -1)
+QString getChannelString(QString channel, int index = -1)
+QStringList listWidgetProperties(QString widgetid, int index = -1)
+QStringList getWidgetUuids(int index = -1)
+~~~
 
 ### Modify Widgets
 
-    void setWidgetProperty(QString widgetid, QString property, QVariant value, int index= -1)
-    void setChannelValue(QString channel, double value, int index = -1)
-    void setChannelString(QString channel, QString value, int index = -1)
+~~~python
+void setWidgetProperty(
+  QString widgetid, QString property, QVariant value, int index= -1
+)
+void setChannelValue(QString channel, double value, int index = -1)
+void setChannelString(QString channel, QString value, int index = -1)
+~~~
 
 ### Delete Widgets
 
-    bool destroyWidget(QString widgetid)
+~~~python
+bool destroyWidget(QString widgetid)
+~~~
 
 ### Presets
 
-    void loadPreset(int presetIndex, int index = -1)
+~~~python
+void loadPreset(int presetIndex, int index = -1)
+~~~
 
 ### Live Event Sheet
 
-    QuteSheet* getSheet(int index = -1, int sheetIndex = -1)
-    QuteSheet* getSheet(int index, QString sheetName)
+~~~python
+QuteSheet* getSheet(int index = -1, int sheetIndex = -1)
+QuteSheet* getSheet(int index, QString sheetName)
+~~~
 
 ### Csound / API
 
-    QString getVersion()
-    void refresh()
-    void setCsChannel(QString channel, double value, int index = -1)
-    void setCsChannel(QString channel, QString value, int index = -1)
-    double getCsChannel(QString channel, int index = -1)
-    QString getCsStringChannel(QString channel, int index = -1)
-    CSOUND* getCurrentCsound()
-    double getSampleRate(int index = -1)
-    int getKsmps(int index = -1)
-    int getNumChannels(int index = -1)
-    MYFLT *getTableArray(int ftable, int index = -1)
-    void registerProcessCallback(QString func, int skipPeriods = 0, int index = -1)
+~~~python
+QString getVersion()
+void refresh()
+void setCsChannel(QString channel, double value, int index = -1)
+void setCsChannel(QString channel, QString value, int index = -1)
+double getCsChannel(QString channel, int index = -1)
+QString getCsStringChannel(QString channel, int index = -1)
+CSOUND* getCurrentCsound()
+double getSampleRate(int index = -1)
+int getKsmps(int index = -1)
+int getNumChannels(int index = -1)
+MYFLT *getTableArray(int ftable, int index = -1)
+void registerProcessCallback(
+  QString func, int skipPeriods = 0, int index = -1
+)
+~~~

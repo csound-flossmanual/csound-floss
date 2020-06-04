@@ -192,18 +192,19 @@ tell Csound to play it as follows:
 
 
 ~~~c
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.csound = [[CsoundObj alloc] init];
-    //CsoundObj *csound is declared as a property in .h
-    NSString *pathToCsd = [[NSBundle mainBundle] pathForResource: @"test" ofType:@ "csd"];
-    [self.csound play:pathToCsd];
+- (void) viewDidLoad {
+  [super viewDidLoad];
+  self.csound = [[CsoundObj alloc] init];
+  // CsoundObj *csound is declared as a property in .h
+  NSString *pathToCsd =
+      [[NSBundle mainBundle] pathForResource:@"test" ofType:@"csd"];
+  [self.csound play:pathToCsd];
 }
 ~~~
 
 Note that in Swift, this is a little easier and we can simply use:
 
-~~~none
+~~~swift
 import UIKit
 class ViewController: UIViewController {
     var csound = CsoundObj()
@@ -230,15 +231,19 @@ use:
 
 ~~~c
 // Objective-C
-NSURL *docsDirURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+NSURL *docsDirURL = [[[NSFileManager defaultManager]
+    URLsForDirectory:NSDocumentDirectory
+           inDomains:NSUserDomainMask] lastObject];
 NSURL *file = [docsDirURL URLByAppendingPathComponent:@"outputFile.aif"];
-NSString *csdPath = [[NSBundle mainBundle] pathForResource:@"csdToRecord" ofType:@"csd"];
+NSString *csdPath =
+    [[NSBundle mainBundle] pathForResource:@"csdToRecord" ofType:@"csd"];
 [self.csound record:csdPath toURL:file];
 ~~~
 
-~~~none
+~~~swift
 // Swift
-let docsDirURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+let docsDirURL =
+  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
 let file = docsDirURL.appendingPathComponent("outFile.aif")
 let csdPath = Bundle.main.path(forResource: "csdFile", ofType: "csd")
 csound.record(csdPath, to: file)
@@ -249,14 +254,17 @@ already running to begin recording:
 
 ~~~c
 // Objective-C
-NSURL *docsDirURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+NSURL *docsDirURL = [[[NSFileManager defaultManager]
+    URLsForDirectory:NSDocumentDirectory
+           inDomains:NSUserDomainMask] lastObject];
 NSURL *file = [docsDirURL URLByAppendingPathComponent:@"outputFile.aif"];
 [self.csound recordToURL:file];
 ~~~
 
-~~~none
+~~~swift
 // Swift
-let docsDirURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+let docsDirURL =
+  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
 let file = docsDirURL.appendingPathComponent("outFile.aif")
 csound.record(to: file)
 ~~~
@@ -273,15 +281,19 @@ rather than a URL as its second argument. For example:
 
 ~~~c
 // Objective-C
-NSString *docsDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+NSString *docsDir = NSSearchPathForDirectoriesInDomains(
+    NSDocumentDirectory, NSUserDomainMask, YES)[0];
 NSString *file = [docsDir stringByAppendingPathComponent:@"outFile.aif"];
-NSString *csdPath = [[NSBundle mainBundle] pathForResource:@"csdFile" ofType:@"csd"];
+NSString *csdPath =
+    [[NSBundle mainBundle] pathForResource:@"csdFile" ofType:@"csd"];
 [self record:csdPath toFile:file];
 ~~~
 
-~~~none
+~~~swift
 // Swift
-let docsDir = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
+let docsDir = NSSearchPathForDirectoriesInDomains(
+  .documentDirectory, .userDomainMask, true
+)[0]
 let file = docsDir.appending("/outFile.aif")
 let csdPath = Bundle.main.path(forResource: "csdFile", ofType: "csd")
 csound.record(csdPath, toFile: file)
@@ -550,10 +562,13 @@ in the CsoundMomentaryButtonBinding class, which we access using:
 
 ~~~c
 // Objective-C
-[self.csoundUI addMomentaryButton:self.triggerButton forChannelName:"channelName"];
+[self.csoundUI
+  addMomentaryButton:self.triggerButton
+  forChannelName:"channelName"
+];
 ~~~
 
-~~~none
+~~~swift
 // Swift
 csoundUI.addMomentaryButton(triggerButton, forChannelName: "channelName")
 ~~~
@@ -601,10 +616,11 @@ To declare and initialize a CsoundMotion object, use:
 
 ~~~c
 // Objective-C
-CsoundMotion *csoundMotion = [[CsoundMotion alloc] initWithCsoundObj:self.csound];
+CsoundMotion *csoundMotion =
+  [[CsoundMotion alloc] initWithCsoundObj:self.csound];
 ~~~
 
-~~~none
+~~~swift
 // Swift
 var csoundMotion = CsoundMotion(csoundObj: csound)
 ~~~
@@ -626,7 +642,7 @@ basic interactions. To enable it, use:
 [csoundMotion enableAccelerometer];
 ~~~
 
-~~~none
+~~~swift
 // Swift
 csoundMotion.enableAccelerometer()
 ~~~
@@ -645,7 +661,7 @@ degrees of freedom. To enable it, use:
 [csoundMotion enableGyroscope];
 ~~~
 
-~~~none
+~~~swift
 // Swift
 csoundMotion.enableGyroscope()
 ~~~
@@ -665,7 +681,7 @@ attitude binding, use:
 [csoundMotion enableAttitude];
 ~~~
 
-~~~none
+~~~swift
 // Swift
 csoundMotion.enableAttitude()
 ~~~
@@ -799,20 +815,26 @@ this is typically where channel references are created. For example:
 // Objective-C
 // verbPtr and samplesPtr are instance variables of type float*
 
--(void)setup:(CsoundObj *)csoundObj {
-    verbPtr = [csoundObj getInputChannelPtr:@"verbMix" channelType:CSOUND_CONTROL_CHANNEL];
-    samplesPtr = [csoundObj getOutputChannelPtr:@"samples" channelType:CSOUND_AUDIO_CHANNEL];
+- (void) setup : (CsoundObj *)csoundObj {
+  verbPtr = [csoundObj getInputChannelPtr:@"verbMix"
+                              channelType:CSOUND_CONTROL_CHANNEL];
+  samplesPtr = [csoundObj getOutputChannelPtr:@"samples"
+                                  channelType:CSOUND_AUDIO_CHANNEL];
 }
 ~~~
 
-~~~none
+~~~swift
 // Swift
 var verbPtr: UnsafeMutablePointer<Float>?
 var samplesPtr: UnsafeMutablePointer<Float>?
 
 func setup(_ csoundObj: CsoundObj) {
-    verbPtr = csoundObj.getInputChannelPtr("verbMix", channelType: CSOUND_CONTROL_CHANNEL)
-    samplesPtr = csoundObj.getOutputChannelPtr("samples", channelType: CSOUND_AUDIO_CHANNEL)
+    verbPtr = csoundObj.getInputChannelPtr(
+      "verbMix", channelType: CSOUND_CONTROL_CHANNEL
+    )
+    samplesPtr = csoundObj.getOutputChannelPtr(
+      "samples", channelType: CSOUND_AUDIO_CHANNEL
+    )
 }
 ~~~
 
@@ -828,7 +850,7 @@ done using CsoundObj's removeBinding method:
 }
 ~~~
 
-~~~none
+~~~swift
 // Swift
 func cleanup() {
     csound.removeBinding(self)
@@ -848,7 +870,7 @@ pass (i.e. at the k-rate). For example:
 }
 ~~~
 
-~~~none
+~~~swift
 // Swift
 func updateValuesToCsound() {
     verbPtr?.pointee = verbSlider.value
@@ -873,7 +895,7 @@ back from Csound, we use the updateValuesFromCsound method.
 Note that in Swift, we have do a little extra work in order to get an
 array of samples that we can easily index into:
 
-~~~none
+~~~swift
 // Swift
 func updateValuesFromCsound() {
     let samps = samplesPtr?.pointee
@@ -909,16 +931,18 @@ UI work must be explicitly run on the main thread. For example:
 
 ~~~c
 // Objective-C
--(void)viewDidLoad {
-    [super viewDidLoad];
-    [self.csound addListener:self];
+- (void)viewDidLoad {
+  [super viewDidLoad];
+  [self.csound addListener:self];
 }
 - (void)csoundObjStarted:(CsoundObj *)csoundObj {
-    [self.runningLabel performSelectorOnMainThread:@selector(setText:) withObject:@"Csound Running" waitUntilDone:NO];
+  [self.runningLabel performSelectorOnMainThread:@selector(setText:)
+                                      withObject:@"Csound Running"
+                                   waitUntilDone:NO];
 }
 ~~~
 
-~~~none
+~~~swift
 // Swift
 override func viewDidLoad() {
     super.viewDidLoad()
@@ -943,7 +967,7 @@ selector, for instance:
 [self.csound setMessageCallbackSelector:@selector(printMessage:)];
 ~~~
 
-~~~none
+~~~swift
 // Swift
 csound.setMessageCallbackSelector(#selector(printMessage(_:)))
 ~~~
@@ -990,13 +1014,15 @@ The process demonstrated in the code examples below can be described as:
 Note that in Swift, we have to create a `CVaListPointer` (equivalent to a
 `va_list *` in C) for use with the `vsnprintf()` function:
 
-~~~none
+~~~swift
 // Swift
 func messageCallback(_ infoObj: NSValue) {
     var info = Message()
     infoObj.getValue(&info)
     let message = UnsafeMutablePointer<Int8>.allocate(capacity: 1024)
-    let va_ptr: CVaListPointer = CVaListPointer(_fromUnsafeMutablePointer: &(info.valist))
+    let va_ptr: CVaListPointer = CVaListPointer(
+      _fromUnsafeMutablePointer: &(info.valist)
+    )
     vsnprintf(message, 1024, info.format, va_ptr)
     let messageStr = String(cString: message)
     print(messageStr)
@@ -1042,7 +1068,7 @@ MidiWidgetsManager *widgetsManager = [[MidiWidgetsManager alloc] init];
 [widgetsManager openMidiIn];
 ~~~
 
-~~~none
+~~~swift
 // Swift
 let widgetsManager = MidiWidgetsManager()
 widgetsManager.add(cutoffSlider, forControllerNumber: 5)
@@ -1143,63 +1169,57 @@ In the first *XCode* project (*01\_csSetup*) we configure a Single View Applicat
 The code of *initializeAudio* function will enable the input/output audio:
 
 ~~~c
--(void)initializeAudio {
+- (void)initializeAudio {
 
-    /* Audio Session handler */
-    AVAudioSession* session = [AVAudioSession sharedInstance];
+  /* Audio Session handler */
+  AVAudioSession *session = [AVAudioSession sharedInstance];
 
-    NSError* error = nil;
-    BOOL success = NO;
+  NSError *error = nil;
+  BOOL success = NO;
 
-    success = [session setCategory:AVAudioSessionCategoryPlayAndRecord
-                       withOptions: (AVAudioSessionCategoryOptionMixWithOthers |
-                                     AVAudioSessionCategoryOptionDefaultToSpeaker)
-                             error:&error];
+  success = [session setCategory:AVAudioSessionCategoryPlayAndRecord
+                     withOptions:(
+                       AVAudioSessionCategoryOptionMixWithOthers |
+                       AVAudioSessionCategoryOptionDefaultToSpeaker)
+                     error:&error];
 
-    success = [session setActive:YES error:&error];
+  success = [session setActive:YES error:&error];
 
+  /* Sets Interruption Listner */
+  [[NSNotificationCenter defaultCenter]
+      addObserver:self
+         selector:@selector(InterruptionListener:)
+             name:AVAudioSessionInterruptionNotification
+           object:session];
 
-    /* Sets Interruption Listner */
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(InterruptionListener:)
-                                                 name:AVAudioSessionInterruptionNotification
-                                               object:session];
+  AudioComponentDescription defaultOutputDescription;
+  defaultOutputDescription.componentType = kAudioUnitType_Output;
+  defaultOutputDescription.componentSubType = kAudioUnitSubType_RemoteIO;
+  defaultOutputDescription.componentManufacturer =
+    kAudioUnitManufacturer_Apple;
+  defaultOutputDescription.componentFlags = 0;
+  defaultOutputDescription.componentFlagsMask = 0;
 
-    AudioComponentDescription defaultOutputDescription;
-    defaultOutputDescription.componentType = kAudioUnitType_Output;
-    defaultOutputDescription.componentSubType = kAudioUnitSubType_RemoteIO;
-    defaultOutputDescription.componentManufacturer =    kAudioUnitManufacturer_Apple;
-    defaultOutputDescription.componentFlags = 0;
-    defaultOutputDescription.componentFlagsMask = 0;
+  // Get the default playback output unit
+  AudioComponent HALOutput =
+      AudioComponentFindNext(NULL, &defaultOutputDescription);
+  NSAssert(HALOutput, @"Can't find default output");
 
-    // Get the default playback output unit
-    AudioComponent HALOutput = AudioComponentFindNext(NULL, &defaultOutputDescription);
-    NSAssert(HALOutput, @"Can't find default output");
+  // Create a new unit based on this that we will use for output
+  err = AudioComponentInstanceNew(HALOutput, &csAUHAL);
 
-    // Create a new unit based on this that we will use for output
-    err = AudioComponentInstanceNew(HALOutput, &csAUHAL);
+  // Enable IO for recording
+  UInt32 flag = 1;
+  err = AudioUnitSetProperty(csAUHAL, kAudioOutputUnitProperty_EnableIO,
+                             kAudioUnitScope_Input, 1, &flag, sizeof(flag));
+  // Enable IO for playback
+  err = AudioUnitSetProperty(csAUHAL, kAudioOutputUnitProperty_EnableIO,
+                             kAudioUnitScope_Output, 0, &flag, sizeof(flag));
 
-    // Enable IO for recording
-    UInt32 flag = 1;
-    err = AudioUnitSetProperty(csAUHAL,
-                               kAudioOutputUnitProperty_EnableIO,
-                               kAudioUnitScope_Input,
-                               1,
-                               &flag,
-                               sizeof(flag));
-    // Enable IO for playback
-    err = AudioUnitSetProperty(csAUHAL,
-                               kAudioOutputUnitProperty_EnableIO,
-                               kAudioUnitScope_Output,
-                               0,
-                               &flag,
-                               sizeof(flag));
+  err = AudioUnitInitialize(csAUHAL);
 
-    err = AudioUnitInitialize(csAUHAL);
-
-
-    /* AUDIOBUS and IAA  */
-    [self initializeAB_IAA];
+  /* AUDIOBUS and IAA  */
+  [self initializeAB_IAA];
 }
 ~~~
 
@@ -1243,20 +1263,21 @@ The main purpose of this simple example is to study how the user interface (UI) 
 The *UISwitch* object is connected with the *toggleOnOff*, which has the task to toggle on/off Csound in this way:
 
 ~~~c
--(IBAction)toggleOnOff:(id)component {
+- (IBAction)toggleOnOff:(id)component {
 
-    UISwitch* uiswitch = (UISwitch*)component;
+  UISwitch *uiswitch = (UISwitch *)component;
 
-    if(uiswitch.on) {
+  if (uiswitch.on) {
 
-        NSString *tempFile = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"csd"];
+    NSString *tempFile =
+        [[NSBundle mainBundle] pathForResource:@"test" ofType:@"csd"];
 
-        [self stopCsound];
-        [self startCsound:tempFile];
+    [self stopCsound];
+    [self startCsound:tempFile];
 
-    } else {
-        [self stopCsound];
-    }
+  } else {
+    [self stopCsound];
+  }
 }
 ~~~
 
@@ -1267,18 +1288,22 @@ As anticipated, the mechanism adopted is driven by events (callback). This means
 In this case the action is of type *Value Changed*. The Apple documentation concerning the UIControl framework should be consulted, for further clarification in this regard.
 
 ~~~c
--(IBAction)sliderAction:(id)sender {
+- (IBAction)sliderAction:(id)sender {
 
-    UISlider* sld = sender;
+  UISlider *sld = sender;
 
-    if (!_cs || !running)  return;
+  if (!_cs || !running)
+    return;
 
-    NSString* channelName = @"freq";
-    float *value;
-    csoundGetChannelPtr(_cs, &value, [channelName cStringUsingEncoding:NSASCIIStringEncoding],
-                        CSOUND_CONTROL_CHANNEL | CSOUND_INPUT_CHANNEL);
+  NSString *channelName = @"freq";
+  float *value;
+  csoundGetChannelPtr(
+    _cs, &value,
+    [channelName cStringUsingEncoding:NSASCIIStringEncoding],
+    CSOUND_CONTROL_CHANNEL | CSOUND_INPUT_CHANNEL
+  );
 
-    *value = (float) sld.value;
+  *value = (float)sld.value;
 }
 ~~~
 
@@ -1287,27 +1312,26 @@ As we can see, we get the pointer through *csoundGetChannelPtr*, this is relativ
 The allocation is done by dereferencing the pointer in this way:
 
 ~~~c
-	*value = (float) sld.value;
+*value = (float) sld.value;
 ~~~
 
 or
 
 ~~~c
-	value[0] = (float) sld.value;
+value[0] = (float) sld.value;
 ~~~
 
 
 The *channelName* string *freq* is the reference text used by the *chnget* opcode in the *instr 1* of the Csound Orchestra.
 
 ~~~csound
-	kfr chnget "freq"
+kfr chnget "freq"
 ~~~
 
 Since the control architecture is based on the callback mechanism and therefore depends on the user actions, we must send all values when Csound starts. We can use Csound's delegate:
 
 ~~~c
 -(void)csoundObjDidStart {
-
     [_freq sendActionsForControlEvents:UIControlEventAllEvents];
 }
 ~~~
@@ -1479,36 +1503,45 @@ nchnls = 2
 The two univocal strings are the placeholders for *sr* and *ksmps*. They begin with the semicolon character so that Csound recognizes it as a comment. The following function in Objective-C looks for the placeholders in the *myOrchestra.csd* and replaces them with new *sr* and *ksmps* values.
 
 ~~~c
--(void)csoundApplySrAndKsmpsSettings:(Float64)sr withBuffer:(Float64)ksmps  {
+- (void)csoundApplySrAndKsmpsSettings:(Float64)sr withBuffer:(Float64)ksmps
+{
 
-    NSString *pathAndName = [[[NSBundle mainBundle] resourcePath]
-                             stringByAppendingString:@"/myOrchestra.csd"];
+  NSString* pathAndName = [[[NSBundle mainBundle] resourcePath]
+    stringByAppendingString:@"/myOrchestra.csd"];
 
-    if ([[NSFileManager defaultManager] fileExistsAtPath:pathAndName]) {
-        NSString *myString = [[NSString alloc] initWithContentsOfFile:pathAndName
-                              	encoding:NSUTF8StringEncoding error:NULL];
+  if ([[NSFileManager defaultManager] fileExistsAtPath:pathAndName]) {
+    NSString* myString =
+      [[NSString alloc] initWithContentsOfFile:pathAndName
+                                      encoding:NSUTF8StringEncoding
+                                         error:NULL];
 
-        myString = [myString stringByReplacingOccurrencesOfString:@";;;;SR;;;;"
-                   		withString:[NSString stringWithFormat:@"sr = %f", sr]];
+    myString = [myString
+      stringByReplacingOccurrencesOfString:@";;;;SR;;;;"
+                                withString:[NSString
+                                            stringWithFormat:@"sr = %f", sr]];
 
-        myString = [myString stringByReplacingOccurrencesOfString:@";;;;KSMPS;;;;"
-							withString:[NSString stringWithFormat:@"ksmps = %f", ksmps]];
+    myString = [myString
+      stringByReplacingOccurrencesOfString:@";;;;KSMPS;;;;"
+                                withString:[NSString
+                                             stringWithFormat:@"ksmps = %f",
+                                                              ksmps]];
 
-        NSString *pathAndNameRUN = [NSString stringWithFormat:@"%@dspRUN.csd",
-        										NSTemporaryDirectory()];
+    NSString* pathAndNameRUN =
+      [NSString stringWithFormat:@"%@dspRUN.csd", NSTemporaryDirectory()];
 
-        NSError* error = nil;
+    NSError* error = nil;
 
-        //save copy of dspRUN.csd in library directory
-        [myString writeToFile:pathAndNameRUN
-                   atomically:NO
-                     encoding:NSUTF8StringEncoding
-                        error:&error];
+    // save copy of dspRUN.csd in library directory
+    [myString writeToFile:pathAndNameRUN
+               atomically:NO
+                 encoding:NSUTF8StringEncoding
+                    error:&error];
 
-        //Run Csound
-        [self startCsound:pathAndNameRUN];
+    // Run Csound
+    [self startCsound:pathAndNameRUN];
 
-    } else NSLog(@"file %@ Does Not Exists At Path!!!", pathAndName);
+  } else
+    NSLog(@"file %@ Does Not Exists At Path!!!", pathAndName);
 }
 ~~~
 
@@ -1531,34 +1564,26 @@ In order to solve this limitation we need a run-time control on the audio callba
 On the *Csound\_Render* we will evaluate the condition for which *slices* is < 1:
 
 ~~~c
-OSStatus  Csound_Perform(void *inRefCon,
-                         AudioUnitRenderActionFlags *ioActionFlags,
-                         const AudioTimeStamp *inTimeStamp,
-                         UInt32 dump,
-                         UInt32 inNumberFrames,
-                         AudioBufferList *ioData
-                         ) {
+OSStatus Csound_Perform(void *inRefCon,
+                        AudioUnitRenderActionFlags *ioActionFlags,
+                        const AudioTimeStamp *inTimeStamp, UInt32 dump,
+                        UInt32 inNumberFrames, AudioBufferList *ioData) {
 
+  //…
 
-    //…
-
-    /* CSOUND PERFORM */
-    if (slices < 1.0) {
-        /* inNumberFrames < ksmps */
-        Csound_Perform_DOWNSAMP(    inRefCon,
-                                ioActionFlags,
-                                inTimeStamp,
-                                dump,
-                                inNumberFrames,
-                                ioData);
-    } else {
-        /* inNumberFrames => ksmps */
-        for(int i = 0; i < (int)slices; ++i) {
-            ret = csoundPerformKsmps(cs);
-        }
+  /* CSOUND PERFORM */
+  if (slices < 1.0) {
+    /* inNumberFrames < ksmps */
+    Csound_Perform_DOWNSAMP(inRefCon, ioActionFlags, inTimeStamp, dump,
+                            inNumberFrames, ioData);
+  } else {
+    /* inNumberFrames => ksmps */
+    for (int i = 0; i < (int)slices; ++i) {
+      ret = csoundPerformKsmps(cs);
     }
+  }
 
-    //…
+  //…
 }
 ~~~
 
@@ -1571,62 +1596,61 @@ int slices = inNumberFrames / csoundGetKsmps(cs);
 Every time the *ksmps* (for some reason) is greater than BufferFrame,we will perform the *Csound\_Perform\_DOWNSAMP* procedure.
 
 ~~~c
-//Called when inNumberFrames < ksmps
-OSStatus  Csound_Perform_DOWNSAMP(void *inRefCon,
-                                  AudioUnitRenderActionFlags *ioActionFlags,
-                                  const AudioTimeStamp *inTimeStamp,
-                                  UInt32 dump,
-                                  UInt32 inNumberFrames,
-                                  AudioBufferList *ioData) {
-    AudioDSP *cdata = (__bridge AudioDSP*) inRefCon;
+// Called when inNumberFrames < ksmps
+OSStatus Csound_Perform_DOWNSAMP(
+  void *inRefCon,
+  AudioUnitRenderActionFlags *ioActionFlags,
+  const AudioTimeStamp *inTimeStamp, UInt32 dump,
+  UInt32 inNumberFrames,
+  AudioBufferList *ioData
+) {
+  AudioDSP *cdata = (__bridge AudioDSP *)inRefCon;
 
-    int ret = cdata->ret, nchnls = cdata->nchnls;
-    CSOUND *cs = cdata->_cs;
+  int ret = cdata->ret, nchnls = cdata->nchnls;
+  CSOUND *cs = cdata->_cs;
 
-    MYFLT *spin = csoundGetSpin(cs);
-    MYFLT *spout = csoundGetSpout(cs);
-    MYFLT *buffer;
+  MYFLT *spin = csoundGetSpin(cs);
+  MYFLT *spout = csoundGetSpout(cs);
+  MYFLT *buffer;
 
-    /* DOWNSAMPLING FACTOR */
-    int UNSAMPLING = csoundGetKsmps(cs)/inNumberFrames;
+  /* DOWNSAMPLING FACTOR */
+  int UNSAMPLING = csoundGetKsmps(cs) / inNumberFrames;
 
-    if (cdata->counter < UNSAMPLING-1) {
-        cdata->counter++;
+  if (cdata->counter < UNSAMPLING - 1) {
+    cdata->counter++;
+  } else {
+    cdata->counter = 0;
+
+    /* CSOUND PROCESS KSMPS */
+    if (!cdata->ret) {
+      /* PERFORM CSOUND */
+      cdata->ret = csoundPerformKsmps(cs);
+    } else {
+      cdata->running = false;
     }
-    else {
-        cdata->counter = 0;
+  }
 
-        /* CSOUND PROCESS KSMPS */
-        if(!cdata->ret) {
-            /* PERFORM CSOUND */
-            cdata->ret = csoundPerformKsmps(cs);
-        }
-        else {
-            cdata->running = false;
-        }
+  /* INCREMENTS DOWNSAMPLING COUNTER */
+  int slice_downsamp = inNumberFrames * cdata->counter;
+
+  /* COPY IN CSOUND SYSTEM SLICE INPUT */
+  for (int k = 0; k < nchnls; ++k) {
+    buffer = (MYFLT *)ioData->mBuffers[k].mData;
+    for (int j = 0; j < inNumberFrames; ++j) {
+      spin[(j + slice_downsamp) * nchnls + k] = buffer[j];
     }
+  }
 
-    /* INCREMENTS DOWNSAMPLING COUNTER */
-    int slice_downsamp = inNumberFrames * cdata->counter;
-
-    /* COPY IN CSOUND SYSTEM SLICE INPUT */
-    for (int k = 0; k < nchnls; ++k){
-        buffer = (MYFLT *) ioData->mBuffers[k].mData;
-        for(int j = 0; j < inNumberFrames; ++j) {
-            spin[(j+slice_downsamp)*nchnls+k] = buffer[j];
-        }
+  /* COPY OUT CSOUND KSMPS SLICE */
+  for (int k = 0; k < nchnls; ++k) {
+    buffer = (MYFLT *)ioData->mBuffers[k].mData;
+    for (int j = 0; j < inNumberFrames; ++j) {
+      buffer[j] = (MYFLT)spout[(j + slice_downsamp) * nchnls + k];
     }
+  }
 
-    /* COPY OUT CSOUND KSMPS SLICE */
-    for (int k = 0; k < nchnls; ++k) {
-        buffer = (MYFLT *) ioData->mBuffers[k].mData;
-        for(int j = 0; j < inNumberFrames; ++j) {
-            buffer[j] = (MYFLT) spout[(j+slice_downsamp)*nchnls+k];
-        }
-    }
-
-    cdata->ret = ret;
-    return  noErr;
+  cdata->ret = ret;
+  return noErr;
 }
 ~~~
 
@@ -1713,14 +1737,18 @@ In order to access the audio files in the app Resources folder, we need to setup
 ~~~c
 // Set Environment Sound Files Dir
 NSString *resourcesPath = [[NSBundle mainBundle] resourcePath];
-NSString* envFlag = @"--env:SFDIR+=";
+NSString *envFlag = @"--env:SFDIR+=";
 
-char* SFDIR = (char*)[[envFlag stringByAppendingString:resourcesPath] cStringUsingEncoding:NSASCIIStringEncoding];
+char *SFDIR = (char *)[[envFlag stringByAppendingString:resourcesPath]
+    cStringUsingEncoding:NSASCIIStringEncoding];
 
 envFlag = @"--env:SADIR+=";
-char* SADIR = (char*)[[envFlag stringByAppendingString:resourcesPath] cStringUsingEncoding:NSASCIIStringEncoding];
+char *SADIR = (char *)[[envFlag stringByAppendingString:resourcesPath]
+    cStringUsingEncoding:NSASCIIStringEncoding];
 
-char *argv[4] = { "csound", SFDIR, SADIR, (char*)[csdFilePath cStringUsingEncoding:NSASCIIStringEncoding]};
+char *argv[4] = {
+    "csound", SFDIR, SADIR,
+    (char *)[csdFilePath cStringUsingEncoding:NSASCIIStringEncoding]};
 
 ret = csoundCompile(_cs, 4, argv);
 ~~~
@@ -1728,7 +1756,7 @@ ret = csoundCompile(_cs, 4, argv);
 The interaction between Csound and the UI is two-way, the class method *drawWaveForm* draws the contents of the *genNum*.
 
 ~~~c
-    [waveView drawWaveFromCsoundGen:_cs genNumber:genNum];
+[waveView drawWaveFromCsoundGen:_cs genNumber:genNum];
 ~~~
 
 After calling this method, we need to enable an *NSTimer* object in order to read continuosly (pull) the phase value returned by Csound. Please examine the *loadSample\_1* function code for insights.
@@ -1755,7 +1783,7 @@ The timer is disabled when the DSP is switched off, in the timer-callback we get
 In the Orchestra we find the corresponding code for writing in the software bus.
 
 ~~~csound
-	chnset kfilposphas, "file_position_from_csound"
+chnset kfilposphas, "file_position_from_csound"
 ~~~
 
 ### Write into a Csound GEN table
@@ -1781,16 +1809,19 @@ csoundInputMessage(_cs, [score cStringUsingEncoding:NSASCIIStringEncoding]);
 The *instr 53* is kept active for UPDATE\_RES sec (0.1), the *maxalloc* opcode limits the number of simultaneous instances (notes). Thus, any score events which fall inside UPDATE\_RES time, are ignored.
 
 ~~~csound
-    maxalloc 53, 1  ;iPad UI Waveforms morphing only 1 instance
+maxalloc 53, 1  ;iPad UI Waveforms morphing only 1 instance
 ~~~
 
 This results in a sub-sampling of Csound's *instr 53*, compared to the UI pad-callback. The waveform display process is done by the Waveview class, it is a simplified version of the WaveDrawView class, introduced in the tutorial (**04_plotWaveForm**), that does not deserve particular investigation.
 As mentioned, the waveforms's interpolations are performed by Csound, followed by the *instr 53* code:
 
 ~~~csound
-tableimix giWaveTMP1, 0, giWaveSize, giSine, 0, 1.-p4, giTri, 0, p4
-tableimix giWaveTMP2, 0, giWaveSize, giSawSmooth, 0, 1.-p4, giSquareSmooth, 0, p4
-tableimix giWaveMORPH, 0, giWaveSize, giWaveTMP2, 0, 1.-p5, giWaveTMP1, 0, p5
+tableimix giWaveTMP1, 0, giWaveSize, giSine, \
+          0, 1.-p4, giTri, 0, p4
+tableimix giWaveTMP2, 0, giWaveSize, giSawSmooth, \
+          0, 1.-p4, giSquareSmooth, 0, p4
+tableimix giWaveMORPH, 0, giWaveSize, giWaveTMP2, \
+          0, 1.-p5, giWaveTMP1, 0, p5
 
 chnset giWaveMORPH , "wave_func_table"
 ~~~
@@ -1805,29 +1836,31 @@ The *APE\_MULTISLIDER* class returns, through its own delegate method *didValueC
 
 ~~~c
 MYFLT *tableNumFloat;
-csoundGetChannelPtr(_cs,  &tableNumFloat,
-								[@"harm_func_table" cStringUsingEncoding:NSASCIIStringEncoding],
-								CSOUND_CONTROL_CHANNEL | CSOUND_INPUT_CHANNEL);
+csoundGetChannelPtr(_cs, &tableNumFloat,
+                    [@"harm_func_table"
+                        cStringUsingEncoding:NSASCIIStringEncoding],
+                    CSOUND_CONTROL_CHANNEL | CSOUND_INPUT_CHANNEL);
 
 /* Contain the table num (i.e. giWaveHARM) */
-int tableNum = (int) *tableNumFloat;
+int tableNum = (int)*tableNumFloat;
 
 /* Contain the table (giWaveHARM) Pointer */
 MYFLT *tablePtr;
 int tableLength = csoundGetTable(_cs, &tablePtr, tableNum);
 
 /* Is invalid? Return */
-if (tableLength <= 0 || tableNum <= 0 || !tablePtr) return;
+if (tableLength <= 0 || tableNum <= 0 || !tablePtr)
+  return;
 
 /* Clear temporary array  */
 memset(srcHarmonic, 0, tableLength * sizeof(MYFLT));
 
 /* Generate an additive sinusoidal waveform with 16 harmonics */
-for(int i = 0; i < maxnum; ++i) {
-	[self appendHarm:i+1
-		Amp:(powf(value[i], 2.0))*average
-		SIZE:tableLength
-		DEST:srcHarmonic];
+for (int i = 0; i < maxnum; ++i) {
+  [self appendHarm:i + 1
+               Amp:(powf(value[i], 2.0)) * average
+              SIZE:tableLength
+              DEST:srcHarmonic];
 }
 
 /* Write array in the Csound Gen Memory (i.e. giWaveHARM) */
@@ -1849,8 +1882,10 @@ The steps involved are three:
 The first step must be done in the *runCsound* process, before calling *csoundCompile*.
 
 ~~~c
-csoundAppendOpcode(cs, "MOOGLADDER", sizeof(MOOGLADDER_OPCODE),
-                   0, 3, "a", "akk", iMOOGLADDER, kMOOGLADDER, aMOOGLADDER);
+csoundAppendOpcode(
+  cs, "MOOGLADDER", sizeof(MOOGLADDER_OPCODE),
+  0, 3, "a", "akk", iMOOGLADDER, kMOOGLADDER, aMOOGLADDER
+);
 ~~~
 
 This appends an opcode implemented by external software to Csound's internal opcode list. The opcode list is extended by one slot, and the parameters are copied into the new slot.

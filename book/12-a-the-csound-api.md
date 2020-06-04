@@ -183,16 +183,26 @@ int csoundGetChannelPtr(CSOUND *, MYFLT **p, const char *name,  int type);
 
 `CsoundGetChannelPtr()` stores a pointer to the specified channel of the bus in p. The channel pointer p is of type `MYFLT *`. The argument name is the name of the channel and the argument type is a bitwise OR of exactly one of the following values:
 
-~~~none
-CSOUND_CONTROL_CHANNEL - control data (one MYFLT value)
-CSOUND_AUDIO_CHANNEL   - audio data (ksmps MYFLT values)
-CSOUND_STRING_CHANNEL  - string data (MYFLT values with enough space to store csoundGetChannelDatasize()
-                            characters, including the NULL character at the end of the string)
+~~~c
+# control data (one MYFLT value)
+CSOUND_CONTROL_CHANNEL
 
-and at least one of these:
+# audio data (ksmps MYFLT values)
+CSOUND_AUDIO_CHANNEL
 
-CSOUND_INPUT_CHANNEL   - when you need Csound to accept incoming values from a host
-CSOUND_OUTPUT_CHANNEL  - when you need Csound to send outgoing values to a host
+# string data (MYFLT values with
+# enough space to store
+# csoundGetChannelDatasize())
+CSOUND_STRING_CHANNEL
+
+
+#characters, including the NULL character at the end of the string)
+#and at least one of these:
+
+# when you need Csound to accept incoming values from a host
+CSOUND_INPUT_CHANNEL
+# when you need Csound to send outgoing values to a host
+CSOUND_OUTPUT_CHANNEL
 ~~~
 
 If the call to `csoundGetChannelPtr()` is successful the function will return zero. If not, it will return a negative error code. We can now modify our previous code in order to send data from our application on a named software bus to an instance of Csound using `csoundGetChannelPtr()`.
@@ -295,29 +305,47 @@ It is particularly useful when dealing with string channels.
 Each time a named channel with callback is used (opcodes `invalue`, `outvalue`, `chnrecv`, and `chnsend`), the corresponding callback registered by one of those functions will be called:
 
 ~~~c
-void csoundSetInputChannelCallback(CSOUND *csound, channelCallback_t inputChannelCalback)
-void csoundSetOutputChannelCallback(CSOUND *csound, channelCallback_t outputChannelCalback)
+void csoundSetInputChannelCallback(
+  CSOUND *csound, channelCallback_t inputChannelCalback
+);
+void csoundSetOutputChannelCallback(
+  CSOUND *csound, channelCallback_t outputChannelCalback
+);
 ~~~
 
 ### Other Channel Functions
 
 ~~~c
-int csoundSetPvsChannel(CSOUND *, const PVSDATEXT *fin, const char *name), and
-int csoundGetPvsChannel(CSOUND *csound, PVSDATEXT *fout, const char *name)
+int csoundSetPvsChannel(
+  CSOUND *csound, const PVSDATEXT *fin, const char *name
+);
+int csoundGetPvsChannel(
+  CSOUND *csound, PVSDATEXT *fout, const char *name
+);
 
-int csoundSetControlChannelHints(CSOUND *, const char *name, controlChannelHints_t hints), and
-int csoundGetControlChannelHints(CSOUND *, const char *name, controlChannelHints_t *hints)
+int csoundSetControlChannelHints(
+  CSOUND *csound, const char *name, controlChannelHints_t hints
+);
+int csoundGetControlChannelHints(
+  CSOUND *csound, const char *name, controlChannelHints_t *hints
+);
 
-int *csoundGetChannelLock(CSOUND *, const char *name)
-int csoundKillInstance(CSOUND *csound, MYFLT instr, char *instrName, int mode, int allow_release)
-    kills off one or more running instances of an instrument.
+int *csoundGetChannelLock(CSOUND *csound, const char *name);
+# kills off one or more running instances of an instrument
+int csoundKillInstance(
+  CSOUND *csound, MYFLT instr, char *instrName, int mode, int allow_release
+);
 
-int csoundRegisterKeyboardCallback(CSOUND *,
-                                    int (*func)(void *userData, void *p, unsigned int type),
-                                    void *userData, unsigned int type), and
-void csoundRemoveKeyboardCallback(CSOUND *csound,
-                                    int (*func)(void *, void *, unsigned int))
-    replace csoundSetCallback() and csoundRemoveCallback().
+int csoundRegisterKeyboardCallback(
+  CSOUND *csound,
+  int (*func)(void *userData, void *p, unsigned int type),
+  void *userData, unsigned int type
+);
+# replace csoundSetCallback() and csoundRemoveCallback()
+void csoundRemoveKeyboardCallback(
+  CSOUND *csound,
+  int (*func)(void *, void *, unsigned int)
+);
 ~~~
 
 ## Score Events
@@ -439,14 +467,16 @@ Here is a more complete example which could be the base of a frontal application
 
 ~~~c
 #include <csound/csound.hpp>
+
 #include <csound/csPerfThread.hpp>
 
 #include <iostream>
+
 #include <string>
+
 using namespace std;
 
-class CsoundSession : public Csound
-{
+class CsoundSession : public Csound {
 public:
   CsoundSession(string const &csdFileName = "") : Csound() {
     m_pt = NULL;
@@ -458,9 +488,9 @@ public:
   };
 
   void startThread() {
-    if (Compile((char *)m_csd.c_str()) == 0 ) {
+    if (Compile((char *)m_csd.c_str()) == 0) {
       m_pt = new CsoundPerformanceThread(this);
-      m_pt->Play();
+      m_pt - > Play();
     }
   };
 
@@ -475,9 +505,9 @@ public:
 
   void stopPerformance() {
     if (m_pt) {
-      if (m_pt->GetStatus() == 0)
-        m_pt->Stop();
-      m_pt->Join();
+      if (m_pt - > GetStatus() == 0)
+        m_pt - > Stop();
+      m_pt - > Join();
       m_pt = NULL;
     }
     Reset();
@@ -487,7 +517,15 @@ public:
     string s;
     bool loop = true;
     while (loop) {
-      cout << endl << "l)oad csd; e(vent; r(ewind; t(oggle pause; s(top; p(lay; q(uit: ";
+      cout
+          << endl
+          << "l)oad csd; " +
+             "e(vent; " +
+             "r(ewind; " +
+             "t(oggle pause; " +
+             "s(top; " +
+             "p(lay; " +
+             "q(uit: ";
       char c = cin.get();
       switch (c) {
       case 'l':
@@ -497,16 +535,16 @@ public:
         break;
       case 'e':
         cout << "Enter a score event:";
-        cin.ignore(1000, '\n'); //a bit tricky, but well, this is C++!
+        cin.ignore(1000, '\n'); // a bit tricky, but well, this is C++!
         getline(cin, s);
-        m_pt->InputMessage(s.c_str());
+        m_pt - > InputMessage(s.c_str());
         break;
       case 'r':
         RewindScore();
         break;
       case 't':
         if (m_pt)
-          m_pt->TogglePause();
+          m_pt - > TogglePause();
         break;
       case 's':
         stopPerformance();
@@ -516,8 +554,8 @@ public:
         break;
       case 'q':
         if (m_pt) {
-          m_pt->Stop();
-          m_pt->Join();
+          m_pt - > Stop();
+          m_pt - > Join();
         }
         loop = false;
         break;
@@ -531,13 +569,12 @@ private:
   CsoundPerformanceThread *m_pt;
 };
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
   string csdName = "";
   if (argc > 1)
     csdName = argv[1];
   CsoundSession *session = new CsoundSession(csdName);
-  session->mainLoop();
+  session - > mainLoop();
 }
 ~~~
 
@@ -564,72 +601,65 @@ The best source of information is the csound.h header file. Let us review some i
 #include <vector>
 using namespace std;
 
-string orc1 =
-"instr 1              \n"
-"idur = p3            \n"
-"iamp = p4            \n"
-"ipch = cpspch(p5)    \n"
-"kenv linen  iamp, 0.05, idur, 0.1 \n"
-"a1   poscil kenv, ipch \n"
-"     out    a1         \n"
-"endin";
+string orc1 = "instr 1              \n"
+              "idur = p3            \n"
+              "iamp = p4            \n"
+              "ipch = cpspch(p5)    \n"
+              "kenv linen  iamp, 0.05, idur, 0.1 \n"
+              "a1   poscil kenv, ipch \n"
+              "     out    a1         \n"
+              "endin";
 
-string orc2 =
-"instr 1    \n"
-"idur = p3  \n"
-"iamp = p4  \n"
-"ipch = cpspch(p5)  \n"
-"a1 foscili iamp, ipch, 1, 1.5, 1.25  \n"
-"   out     a1      \n"
-"endin\n";
+string orc2 = "instr 1    \n"
+              "idur = p3  \n"
+              "iamp = p4  \n"
+              "ipch = cpspch(p5)  \n"
+              "a1 foscili iamp, ipch, 1, 1.5, 1.25  \n"
+              "   out     a1      \n"
+              "endin\n";
 
-string orc3 =
-"instr 1    \n"
-"idur = p3  \n"
-"iamp = p4  \n"
-"ipch = cpspch(p5-1)         \n"
-"kenv  linen    iamp, 0.05, idur, 0.1  \n"
-"asig  rand     0.45         \n"
-"afilt moogvcf2 asig, ipch*4, ipch/(ipch * 1.085)  \n"
-"asig  balance  afilt, asig  \n"
-"      out      kenv*asig    \n"
-"endin\n";
+string orc3 = "instr 1    \n"
+              "idur = p3  \n"
+              "iamp = p4  \n"
+              "ipch = cpspch(p5-1)         \n"
+              "kenv  linen    iamp, 0.05, idur, 0.1  \n"
+              "asig  rand     0.45         \n"
+              "afilt moogvcf2 asig, ipch*4, ipch/(ipch * 1.085)  \n"
+              "asig  balance  afilt, asig  \n"
+              "      out      kenv*asig    \n"
+              "endin\n";
 
-string sco1 =
-"i 1 0 1    0.5 8.00\n"
-"i 1 + 1    0.5 8.04\n"
-"i 1 + 1.5  0.5 8.07\n"
-"i 1 + 0.25 0.5 8.09\n"
-"i 1 + 0.25 0.5 8.11\n"
-"i 1 + 0.5  0.8 9.00\n";
+string sco1 = "i 1 0 1    0.5 8.00\n"
+              "i 1 + 1    0.5 8.04\n"
+              "i 1 + 1.5  0.5 8.07\n"
+              "i 1 + 0.25 0.5 8.09\n"
+              "i 1 + 0.25 0.5 8.11\n"
+              "i 1 + 0.5  0.8 9.00\n";
 
-string sco2 =
-"i 1 0 1    0.5 9.00\n"
-"i 1 + 1    0.5 8.07\n"
-"i 1 + 1    0.5 8.04\n"
-"i 1 + 1    0.5 8.02\n"
-"i 1 + 1    0.5 8.00\n";
+string sco2 = "i 1 0 1    0.5 9.00\n"
+              "i 1 + 1    0.5 8.07\n"
+              "i 1 + 1    0.5 8.04\n"
+              "i 1 + 1    0.5 8.02\n"
+              "i 1 + 1    0.5 8.00\n";
 
-string sco3 =
-"i 1 0 0.5  0.5 8.00\n"
-"i 1 + 0.5  0.5 8.04\n"
-"i 1 + 0.5  0.5 8.00\n"
-"i 1 + 0.5  0.5 8.04\n"
-"i 1 + 0.5  0.5 8.00\n"
-"i 1 + 0.5  0.5 8.04\n"
-"i 1 + 1.0  0.8 8.00\n";
+string sco3 = "i 1 0 0.5  0.5 8.00\n"
+              "i 1 + 0.5  0.5 8.04\n"
+              "i 1 + 0.5  0.5 8.00\n"
+              "i 1 + 0.5  0.5 8.04\n"
+              "i 1 + 0.5  0.5 8.00\n"
+              "i 1 + 0.5  0.5 8.04\n"
+              "i 1 + 1.0  0.8 8.00\n";
 
-void noMessageCallback(CSOUND* cs, int attr, const char *format, va_list valist)
-{
+void noMessageCallback(CSOUND *cs, int attr, const char *format,
+                       va_list valist) {
   // Do nothing so that Csound will not print any message,
   // leaving a clean console for our app
   return;
 }
 
-class CsoundSession : public Csound
-{
+class CsoundSession : public Csound {
 public:
-  CsoundSession(vector<string> & orc, vector<string> & sco) : Csound() {
+  CsoundSession(vector<string> &orc, vector<string> &sco) : Csound() {
     m_orc = orc;
     m_sco = sco;
     m_pt = NULL;
@@ -651,8 +681,7 @@ public:
       cout << GetNchnls() << ", " << Get0dBFS() << endl;
       m_pt = new CsoundPerformanceThread(this);
       m_pt->Play();
-    }
-    else {
+    } else {
       return;
     }
 
@@ -702,8 +731,7 @@ private:
   vector<string> m_sco;
 };
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
   vector<string> orc;
   orc.push_back(orc1);
   orc.push_back(orc2);
