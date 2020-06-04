@@ -72,12 +72,12 @@ iSfNum2      fluidLoad          "ADifferentSoundfont.sf2", giEngine, 1
              fluidProgramSelect giEngine, 14, iSfNum2, 0, 0
              fluidProgramSelect giEngine, 16, iSfNum2, 0, 0
 
-  instr 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16 ; fluid synths for channels 1-16
+instr 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16 ;fluid synths for channels 1-16
 iKey         notnum                 ; read in midi note number
 iVel         ampmidi            127 ; read in key velocity
 ; create a note played by the soundfont for this instrument
              fluidNote          giEngine, p1, iKey, iVel
-  endin
+endin
 
   instr 99 ; gathering of fluidsynth audio and audio output
 aSigL, aSigR fluidOut           giEngine      ; read all audio from soundfont

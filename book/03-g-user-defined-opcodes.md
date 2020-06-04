@@ -69,20 +69,20 @@ giSine    ftgen     0, 0, 2^10, 10, 1
           seed      0
 
   instr 1
-aDel      init      0; initialize delay signal
-iFb       =         .7; feedback multiplier
-aSnd      rand      .2; white noise
-kdB       randomi   -18, -6, .4; random movement between -18 and -6
-aSnd      =         aSnd * ampdb(kdB); applied as dB to noise
-kFiltFq   randomi   100, 1000, 1; random movement between 100 and 1000
-aFilt     reson    aSnd, kFiltFq, kFiltFq/5; applied as filter center frequency
-aFilt     balance   aFilt, aSnd; bring aFilt to the volume of aSnd
-aDelTm    randomi   .1, .8, .2; random movement between .1 and .8 as delay time
-aDel      vdelayx   aFilt + iFb*aDel, aDelTm, 1, 128; variable delay
-kdbFilt   randomi   -12, 0, 1; two random movements between -12 and 0 (dB) ...
-kdbDel    randomi   -12, 0, 1; ... for the filtered and the delayed signal
-aOut      =         aFilt*ampdb(kdbFilt) + aDel*ampdb(kdbDel); mix it
-          outs      aOut, aOut
+aDel init 0; initialize delay signal
+iFb = .7; feedback multiplier
+aSnd rand .2; white noise
+kdB randomi -18, -6, .4; random movement between -18 and -6
+aSnd = aSnd * ampdb(kdB); applied as dB to noise
+kFiltFq randomi 100, 1000, 1; random movement between 100 and 1000
+aFilt reson aSnd, kFiltFq, kFiltFq/5; applied as filter center frequency
+aFilt balance aFilt, aSnd; bring aFilt to the volume of aSnd
+aDelTm randomi .1, .8, .2; random movement between .1 and .8 as delay time
+aDel vdelayx aFilt + iFb*aDel, aDelTm, 1, 128; variable delay
+kdbFilt randomi -12, 0, 1; two random movements between -12 and 0 (dB) ...
+kdbDel randomi -12, 0, 1; ... for the filtered and the delayed signal
+aOut = aFilt*ampdb(kdbFilt) + aDel*ampdb(kdbDel); mix it
+outs aOut, aOut
   endin
 
 </CsInstruments>
@@ -124,20 +124,20 @@ giSine    ftgen     0, 0, 2^10, 10, 1
           seed      0
 
   opcode FiltFb, 0, 0
-aDel      init      0; initialize delay signal
-iFb       =         .7; feedback multiplier
-aSnd      rand      .2; white noise
-kdB       randomi   -18, -6, .4; random movement between -18 and -6
-aSnd      =         aSnd * ampdb(kdB); applied as dB to noise
-kFiltFq   randomi   100, 1000, 1; random movement between 100 and 1000
-aFilt     reson    aSnd, kFiltFq, kFiltFq/5; applied as filter center frequency
-aFilt     balance   aFilt, aSnd; bring aFilt to the volume of aSnd
-aDelTm    randomi   .1, .8, .2; random movement between .1 and .8 as delay time
-aDel      vdelayx   aFilt + iFb*aDel, aDelTm, 1, 128; variable delay
-kdbFilt   randomi   -12, 0, 1; two random movements between -12 and 0 (dB) ...
-kdbDel    randomi   -12, 0, 1; ... for the filtered and the delayed signal
-aOut      =         aFilt*ampdb(kdbFilt) + aDel*ampdb(kdbDel); mix it
-          out       aOut, aOut
+aDel init 0; initialize delay signal
+iFb = .7; feedback multiplier
+aSnd rand .2; white noise
+kdB randomi -18, -6, .4; random movement between -18 and -6
+aSnd = aSnd * ampdb(kdB); applied as dB to noise
+kFiltFq randomi 100, 1000, 1; random movement between 100 and 1000
+aFilt reson aSnd, kFiltFq, kFiltFq/5; applied as filter center frequency
+aFilt balance aFilt, aSnd; bring aFilt to the volume of aSnd
+aDelTm randomi .1, .8, .2; random movement between .1 and .8 as delay time
+aDel vdelayx aFilt + iFb*aDel, aDelTm, 1, 128; variable delay
+kdbFilt randomi -12, 0, 1; two random movements between -12 and 0 (dB) ...
+kdbDel randomi -12, 0, 1; ... for the filtered and the delayed signal
+aOut = aFilt*ampdb(kdbFilt) + aDel*ampdb(kdbDel); mix it
+out aOut, aOut
   endop
 
 instr 1
@@ -237,18 +237,18 @@ giSine    ftgen     0, 0, 2^10, 10, 1
 
   opcode FiltFb, a, a
 aSnd      xin
-aDel      init      0; initialize delay signal
-iFb       =         .7; feedback multiplier
-kdB       randomi   -18, -6, .4; random movement between -18 and -6
-aSnd      =         aSnd * ampdb(kdB); applied as dB to noise
-kFiltFq   randomi   100, 1000, 1; random movement between 100 and 1000
-aFilt     reson    aSnd, kFiltFq, kFiltFq/5; applied as filter center frequency
-aFilt     balance   aFilt, aSnd; bring aFilt to the volume of aSnd
-aDelTm    randomi   .1, .8, .2; random movement between .1 and .8 as delay time
-aDel      vdelayx   aFilt + iFb*aDel, aDelTm, 1, 128; variable delay
-kdbFilt   randomi   -12, 0, 1; two random movements between -12 and 0 (dB) ...
-kdbDel    randomi   -12, 0, 1; ... for the filtered and the delayed signal
-aOut      =         aFilt*ampdb(kdbFilt) + aDel*ampdb(kdbDel); mix it
+aDel init 0; initialize delay signal
+iFb = .7; feedback multiplier
+kdB randomi -18, -6, .4; random movement between -18 and -6
+aSnd = aSnd * ampdb(kdB); applied as dB to noise
+kFiltFq randomi 100, 1000, 1; random movement between 100 and 1000
+aFilt reson aSnd, kFiltFq, kFiltFq/5; applied as filter center frequency
+aFilt balance aFilt, aSnd; bring aFilt to the volume of aSnd
+aDelTm randomi .1, .8, .2; random movement between .1 and .8 as delay time
+aDel vdelayx aFilt + iFb*aDel, aDelTm, 1, 128; variable delay
+kdbFilt randomi -12, 0, 1; two random movements between -12 and 0 (dB) ...
+kdbDel randomi -12, 0, 1; ... for the filtered and the delayed signal
+aOut = aFilt*ampdb(kdbFilt) + aDel*ampdb(kdbDel); mix it
           xout      aOut
   endop
 
@@ -347,7 +347,7 @@ aSnd      =         aSnd * ampdb(kdB); applied as dB to noise
 kFiltFq   randomi   100, 1000, 1; random movement between 100 and 1000
 iQ        =         5
 iFb       =         .7; feedback multiplier
-aDelTm    randomi   .1, .8, .2; random movement between .1 and .8 as delay time
+aDelTm randomi .1, .8, .2; random movement between .1 and .8 as delay time
 aFilt, aDel FiltFb    aSnd, iFb, kFiltFq, iQ, 1, aDelTm
 kdbFilt   randomi   -12, 0, 1; two random movements between -12 and 0 (dB) ...
 kdbDel    randomi   -12, 0, 1; ... for the noise and the delay signal
@@ -362,7 +362,7 @@ aSnd      =         aSnd * ampdb(kdB); applied as dB to noise
 kFiltFq   randomi   100, 1000, 1; random movement between 100 and 1000
 iQ        =         5
 iFb       =         .7; feedback multiplier
-aDelTm    randomi   .1, .8, .2; random movement between .1 and .8 as delay time
+aDelTm randomi .1, .8, .2; random movement between .1 and .8 as delay time
 aFilt, aDel FiltFb    aSnd, iFb, kFiltFq, iQ, 1, aDelTm
 kdbFilt   randomi   -12, 0, 1; two random movements between -12 and 0 (dB) ...
 kdbDel    randomi   -12, 0, 1; ... for the noise and the delay signal
@@ -608,15 +608,15 @@ ia, ib, ic Defaults  10, 100
 ia, ib, ic Defaults  10, 100, 1000
            prints    "ia = %d, ib = %d, ic = %d\n", ia, ib, ic
 ka1, kb1, kc1, kd1 Defaults
-			printks   "ka = %d, kb = %d, kc = %.1f, kd = %d\n", 0, ka1, kb1, kc1, kd1
+printks   "ka = %d, kb = %d, kc = %.1f, kd = %d\n", 0, ka1, kb1, kc1, kd1
 ka2, kb2, kc2, kd2 Defaults 2
-			printks   "ka = %d, kb = %d, kc = %.1f, kd = %d\n", 0, ka2, kb2, kc2, kd2
+printks   "ka = %d, kb = %d, kc = %.1f, kd = %d\n", 0, ka2, kb2, kc2, kd2
 ka3, kb3, kc3, kd3 Defaults 2, 4
-			printks   "ka = %d, kb = %d, kc = %.1f, kd = %d\n", 0, ka3, kb3, kc3, kd3
+printks   "ka = %d, kb = %d, kc = %.1f, kd = %d\n", 0, ka3, kb3, kc3, kd3
 ka4, kb4, kc4, kd4 Defaults 2, 4, 6
-			printks   "ka = %d, kb = %d, kc = %.1f, kd = %d\n", 0, ka4, kb4, kc4, kd4
+printks   "ka = %d, kb = %d, kc = %.1f, kd = %d\n", 0, ka4, kb4, kc4, kd4
 ka5, kb5, kc5, kd5 Defaults 2, 4, 6, 8
-			printks   "ka = %d, kb = %d, kc = %.1f, kd = %d\n", 0, ka5, kb5, kc5, kd5
+printks   "ka = %d, kb = %d, kc = %.1f, kd = %d\n", 0, ka5, kb5, kc5, kd5
 			turnoff
 endin
 
@@ -666,9 +666,9 @@ nchnls = 2
   opcode Recursion, a, iip
 ;input: frequency, number of partials, first partial (default=1)
 ifreq, inparts, istart xin
-iamp      =         1/inparts/istart ;decreasing amplitudes for higher partials
+iamp = 1/inparts/istart ;decreasing amplitudes for higher partials
  if istart < inparts then ;if inparts have not yet reached
-acall     Recursion ifreq, inparts, istart+1 ;call another instance of this UDO
+acall Recursion ifreq, inparts, istart+1 ;call another instance of this UDO
  endif
 aout      oscils    iamp, ifreq*istart, 0 ;execute this partial
 aout      =         aout + acall ;add the audio signals
@@ -968,7 +968,7 @@ ifreq     =         ifreqgen + (ifreqdev*ifreqgen)/100; real frequency
 ixtratim1 random    0, p3; calculate additional time for this partial
 imaxamp   =         1/inumparts; maximum amplitude
 idbdev    random    -6, 0; random deviation in dB for this partial
-iamp      =        imaxamp * ampdb(idbdev-ipartnum); higher partials are softer
+iamp = imaxamp * ampdb(idbdev-ipartnum); higher partials are softer
 ipandev   random    -.1, .1; panning deviation
 ipan      =         ipan + ipandev
 aEnv      transeg   0, .005, 0, iamp, p3+ixtratim1-.005, -10, 0; envelope
@@ -1064,7 +1064,7 @@ kz2 init 0
 ;;
 kindx = 0
 while kindx < ksmps do
-  khp = (ain[kindx] - (2 * kR + kG) * kz1 - kz2) / (1 + (2 * kR * kG) + (kG * kG))
+  khp = (ain[kindx] - (2*kR+kG) * kz1 - kz2) / (1 + (2*kR*kG) + (kG*kG))
   kbp = kG * khp + kz1
   klp = kG * kbp + kz2
 
@@ -1109,7 +1109,7 @@ while kindx < ksmps do
 
   kR = aR[kindx]
 
-  khp = (ain[kindx] - (2 * kR + kG) * kz1 - kz2) / (1 + (2 * kR * kG) + (kG * kG))
+  khp = (ain[kindx] - (2*kR+kG) * kz1 - kz2) / (1 + (2*kR*kG) + (kG*kG))
   kbp = kG * khp + kz1
   klp = kG * kbp + kz2
 

@@ -317,7 +317,9 @@ the systems. We can excite the systems continuously by adding a value
 Example 4: Damped spring with random excitation (resonator with noise as
 input)
 
-    d = .01; s = 0; v = 0;  Table[a = -.3*s; v += a; v += RandomReal[{-1, 1}]; v *= (1 - d); s += v, {61}];
+    d = .01; s = 0; v = 0;  
+    Table[a = -.3*s; v += a; v += RandomReal[{-1, 1}]; 
+    v *= (1 - d); s += v, {61}];
 
 ![](../resources/images/04-g-physical-model-4.gif)
 
@@ -391,7 +393,8 @@ Example 6: *a* = *f*(*x*) = -- *c*~1~x + *c*~2~sin(*c*~3~x)
 
 ![](../resources/images/04-g-physical-model-7.gif)
 
-    d = .03; x = 0; v = 0;  Table[a = f[x]; v += a; v += RandomReal[{-.1, .1}]; v *= (1 - d);   x += v, {400}];
+    d = .03; x = 0; v = 0;  Table[a = f[x]; v += a; 
+    v += RandomReal[{-.1, .1}]; v *= (1 - d);   x += v, {400}];
 
 ![](../resources/images/04-g-physical-model-8.gif)
 

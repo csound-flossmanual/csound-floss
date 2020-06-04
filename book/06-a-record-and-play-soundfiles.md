@@ -257,7 +257,7 @@ aSig    poscil   aEnv, cpsmidinn(p4)         ; audio oscillator
 
   instr 2 ; write to a file (always on in order to record everything)
 aSig    monitor                              ; read audio from output bus
-        fout     "WriteToDisk2.wav",4,aSig   ; write audio to file (16bit mono)
+        fout "WriteToDisk2.wav",4,aSig   ; write audio to file (16bit mono)
   endin
 
 </CsInstruments>

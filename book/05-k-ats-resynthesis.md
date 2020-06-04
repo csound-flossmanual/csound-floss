@@ -354,10 +354,10 @@ idur ATSinfo iatsfile, 7        ;get duration
 
 ktime line 0, p3, idur          ;time pointer
 
-kfreq, kamp ATSread ktime, iatsfile, ipar        ;get frequency and amplitude values
-aamp        interp  kamp                         ;interpolate amplitude values
-afreq       interp  kfreq                        ;interpolate frequency values
-aout        oscil3  aamp*iamp, afreq*ifreq, itab ;synthesize with amp and freq scaling
+kfreq, kamp ATSread ktime, iatsfile, ipar ;get frequency and amplitude values
+aamp        interp  kamp                  ;interpolate amplitude values
+afreq       interp  kfreq                 ;interpolate frequency values
+aout oscil3 aamp*iamp, afreq*ifreq, itab ;synthesize with amp and freq scaling
 
             out     aout
 endin
@@ -431,7 +431,7 @@ idur       =          p6 ;ats file duration
 
 ktime      line       0, p3, idur ;time pointer
 
-kfreq, kamp ATSread   ktime, gS_ATS_file, ipar ;get frequency and amplitude values
+kfreq, kamp ATSread ktime, gS_ATS_file, ipar
 aamp       interp     kamp ;interpolate amplitude values
 afreq      interp     kfreq ;interpolate frequency values
 aout       oscil3     aamp*iamp, afreq, giSine ;synthesize with amp scaling
@@ -499,7 +499,7 @@ nchnls = 1
 0dbfs = 1
 
 instr 1
-itabc = p7                      ;table with the 25 critical band frequency edges
+itabc = p7              ;table with the 25 critical band frequency edges
 iscal = 1                       ;reson filter scaling factor
 iamp = p4                       ;amplitude scaler
 iband = p5                      ;energy band required
@@ -514,9 +514,9 @@ idur    ATSinfo iatsfile, 7     ;get duration
 
 ktime   line    0, p3, idur     ;time pointer
 
-ken     ATSreadnz ktime, iatsfile, iband        ;get frequency and amplitude values
+ken     ATSreadnz ktime, iatsfile, iband ;get frequency and amplitude values
 anoise  gauss 1
-aout    reson anoise*sqrt(ken), icf, ibw, iscal ;synthesize with amp and freq scaling
+aout    reson anoise*sqrt(ken), icf, ibw, iscal ;synthesize with scaling
 
         out aout*iamp
 endin
@@ -702,7 +702,7 @@ ktime   line    0, p3, idur     ;time pointer
 
         ATSbufread ktime, ifreq, iatsfile, ipars ;reads an ATS buffer
 
-kf1,ka1 ATSpartialtap ip1       ;get the amp values according each partial number
+kf1,ka1 ATSpartialtap ip1 ;get the amp values according each partial number
 af1     interp kf1
 aa1     interp ka1
 kf2,ka2 ATSpartialtap ip2       ;ditto
@@ -810,10 +810,10 @@ ifreqdev =      2^(p5/12)       ;frequency deviation (p5=semitones up or down)
 itable   =      p6              ;audio table
 
 /*here we deal with number of partials, offset and increment issues*/
-inpars  =       (p7 < 1 ? i_number_of_partials : p7)    ;inpars can not be <=0
-ipofst  =       (p8 < 0 ? 0 : p8)                       ;partial offset can not be < 0
-ipincr  =       (p9 < 1 ? 1 : p9)                       ;partial increment can not be <= 0
-imax    =       ipofst + inpars*ipincr                  ;max. partials allowed
+inpars  = (p7 < 1 ? i_number_of_partials : p7) ;inpars can not be <=0
+ipofst  =       (p8 < 0 ? 0 : p8)      ;partial offset can not be < 0
+ipincr  =       (p9 < 1 ? 1 : p9)      ;partial increment can not be <= 0
+imax    =       ipofst + inpars*ipincr  ;max. partials allowed
 
 if imax <= i_number_of_partials igoto OK
 ;if we are here, something is wrong!
@@ -827,9 +827,9 @@ OK: ;data is OK
 igatefn =      p10               ;amplitude scaling table
 
 ktime   linseg 0, p3, i_duration
-asig    ATSadd ktime, ifreqdev, iatsfile, itable, inpars, ipofst, ipincr, igatefn
-
-        out    asig*iamp
+asig ATSadd ktime, ifreqdev, iatsfile, itable, inpars, ipofst, ipincr, igatefn
+       
+ out    asig*iamp
 endin
 
 </CsInstruments>
@@ -841,7 +841,7 @@ endin
 ;audio table (sine)
 f1      0       16384   10      1
 ;some tables to test amplitude gating
-;f2 reduce progressively partials with amplitudes from 0.5 to 1 (-6dBFs to 0 dBFs)
+;f2 reduce progressively partials with amplitudes from 0.5 to 1
 ;and eliminate partials with amplitudes below 0.5 (-6dBFs)
 f2      0       1024     7      0 512 0 512 1
 ;f3 boost partials with amplitudes from 0 to 0.125 (-12dBFs)
@@ -923,10 +923,10 @@ endin
 #define ats_file #"../SourceMaterials/female-speech.ats"#
 
 ;   start dur  amp nbands bands_offset bands_incr atsfile
-i1  0     7.32 1   25     0            1          $ats_file     ;all bands
-i1  +     .    .   15     10           1          $ats_file     ;from 10 to 25 step 1
-i1  +     .    .   8      1            3          $ats_file     ;from 1 to 24 step 3
-i1  +     .    .   5      15           1          $ats_file     ;from 15 to 20 step 1
+i1  0     7.32 1   25     0            1       $ats_file ;all bands
+i1  +     .    .   15     10           1       $ats_file ;from 10 to 25 step 1
+i1  +     .    .   8      1            3       $ats_file ;from 1 to 24 step 3
+i1  +     .    .   5      15           1       $ats_file ;from 15 to 20 step 1
 
 e
 </CsScore>
@@ -978,9 +978,9 @@ inoislev =      p7              ;residual part gain
 
 /*here we deal with number of partials, offset and increment issues*/
 inpars   =      (p8 < 1 ? i_number_of_partials : p8) ;inpars can not be <=0
-ipofst   =      (p9 < 0 ? 0 : p9)                    ;partial offset can not be < 0
-ipincr   =      (p10 < 1 ? 1 : p10)                  ;partial increment can not be <= 0
-imax     =      ipofst + inpars*ipincr               ;max. partials allowed
+ipofst   =      (p9 < 0 ? 0 : p9)       ;partial offset can not be < 0
+ipincr   =      (p10 < 1 ? 1 : p10)     ;partial increment can not be <= 0
+imax     =      ipofst + inpars*ipincr  ;max. partials allowed
 
 if imax <= i_number_of_partials igoto OK
 ;if we are here, something is wrong!
@@ -993,7 +993,8 @@ OK: ;data is OK
 /********************************************************************/
 
 ktime   linseg     0, p3, i_duration
-asig    ATSsinnoi  ktime, isinlev, inoislev, ifreqdev, iatsfile, inpars, ipofst, ipincr
+asig    ATSsinnoi  ktime, isinlev, inoislev, ifreqdev, iatsfile, 
+                   inpars, ipofst, ipincr
 
         out        asig*iamp
 endin
@@ -1003,19 +1004,19 @@ endin
 ;change to put any ATS file you like
 #define ats_file #"../SourceMaterials/female-speech.ats"#
 
-;       start   dur     amp     freqdev sinlev  noislev npars   offset  pincr   atsfile
-i1      0       3.66    .79     0       1       0       0       0       1       $ats_file
+; start   dur   amp  freqdev sinlev  noislev npars   offset  pincr   atsfile
+i1  0     3.66  .79  0       1       0       0       0       1       $ats_file
 ;deterministic only
-i1      +       3.66    .79     0       0       1       0       0       1       $ats_file
+i1  +     3.66  .79  0       0       1       0       0       1       $ats_file
 ;residual only
-i1      +       3.66    .79     0       1       1       0       0       1       $ats_file
+i1  +     3.66  .79  0       1       1       0       0       1       $ats_file
 ;deterministic and residual
-;       start   dur     amp     freqdev sinlev  noislev npars   offset  pincr   atsfile
-i1      +       3.66    2.5     0       1       0       80      60      1       $ats_file
+;   start dur   amp  freqdev sinlev  noislev npars   offset  pincr   atsfile
+i1  +     3.66  2.5  0       1       0       80      60      1       $ats_file
 ;from partial 60 to partial 140, deterministic only
-i1      +       3.66    2.5     0       0       1       80      60      1       $ats_file
+i1  +     3.66  2.5  0       0       1       80      60      1       $ats_file
 ;from partial 60 to partial 140, residual only
-i1      +       3.66    2.5     0       1       1       80      60      1       $ats_file
+i1  +     3.66  2.5  0       1       1       80      60      1       $ats_file
 ;from partial 60 to partial 140, deterministic and residual
 e
 </CsScore>

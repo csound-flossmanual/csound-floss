@@ -64,11 +64,11 @@ massign 0,0
 
   instr 1
 kstatus, kchan, kdata1, kdata2  midiin            ;read in midi
-ktrigger  changed  kstatus, kchan, kdata1, kdata2 ;trigger if midi data changes
+ktrigger changed kstatus, kchan, kdata1, kdata2 ;trigger if midi data change
  if ktrigger=1 && kstatus!=0 then          ;if status byte is non-zero...
 ; -- print midi data to the terminal with formatting --
- printks "status:%d%tchannel:%d%tdata1:%d%tdata2:%d%n"\
-                                    ,0,kstatus,kchan,kdata1,kdata2
+ printks "status:%d%tchannel:%d%tdata1:%d%tdata2:%d%n",
+          0,kstatus,kchan,kdata1,kdata2
  endif
   endin
 

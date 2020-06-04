@@ -39,7 +39,7 @@ the table read by a table-lookup oscillator.
 
     gipos ftgen 1, 0, 128, 10, 1 ;Position Initial Shape: Sine wave range -1 to 1
     gimass ftgen 2, 0, 128, -7, 1, 128, 1 ;Masses: Constant value 1
-    gistiff ftgen 3, 0, 128, -7, 0, 64, 100, 64, 0 ;Stiffness: Unipolar triangle range to 100
+    gistiff ftgen 3, 0, 128, -7, 0, 64, 100, 64, 0 ;Stiffness: triangle
     gidamp ftgen 4, 0, 128, -7, 1, 128, 1 ;Damping: Constant value 1
     givel ftgen 5, 0, 128, -2, 0 ;Velocity: Initially constant value 0
 
@@ -156,7 +156,7 @@ ksmps = 32
 0dbfs = 1
 
 gipos ftgen 0,0,128,10,1,1,1,1,1,1     ;Initial Position Shape: impulse-like
-gimass ftgen 0,0,128,-5,0.0001,128,.01 ;Masses: exponential from 0.0001 to 0.01
+gimass ftgen 0,0,128,-5,0.0001,128,.01 ;Masses: exponential 0.0001 to 0.01
 gistiff ftgen 0,0,128,-7,0,64,100,64,0 ;Stiffness; triangle range 0 to 100
 gidamp ftgen 0,0,128,-7,1,128,1        ;Damping; constant value 1
 givel ftgen 0,0,128,-7,0,128,0         ;Initial Velocity; constant value 0
@@ -178,7 +178,7 @@ ioverlap   =          ifftsize / 4
 iwinsize   =          ifftsize
 iwinshape  =          1; von-Hann window
 aBuzz      buzz       iamp, kfrq, 32, gisin
-fBuzz      pvsanal    aBuzz, ifftsize, ioverlap, iwinsize, iwinshape; fft-analysis
+fBuzz      pvsanal    aBuzz, ifftsize, ioverlap, iwinsize, iwinshape ;fft
 fMask      pvsmaska   fBuzz, gipos, 1
 aOut       pvsynth    fMask; resynthesize
 aOut       linen      aOut, .1, p3, 1
@@ -328,11 +328,11 @@ nchnls=2
 0dbfs=1
 
 instr 1
-ipos       ftgen      1, 0, 128, 10, 1 ; Initial Shape, sine wave range -1 to 1;
+ipos       ftgen      1, 0, 128, 10, 1 ; Initial Shape, sine
 imass      ftgen      2, 0, 128, -7, 1, 128, 1 ;Masses(adj.), constant value 1
-istiff     ftgen      3, 0, 128, -7, 0, 64, 100, 64, 0 ;Stiffness; unipolar triangle range 0 to 100
+istiff     ftgen      3, 0, 128, -7, 0, 64, 100, 64, 0 ;Stiffness triangle
 idamp      ftgen      4, 0, 128, -7, 1, 128, 1; ;Damping; constant value 1
-ivel       ftgen      5, 0, 128, -7, 0, 128, 0 ;Initial Velocity; constant value 0
+ivel       ftgen      5, 0, 128, -7, 0, 128, 0 ;Initial Velocity 0
 iamp       =          0.2
 a1         scantable  iamp, 60, ipos, imass, istiff, idamp, ivel
            outs       a1, a1
@@ -578,7 +578,8 @@ istrngth = 0.
 ain = 0
 idisp = 0
 id = 8
-scanu 1, irate, ifnvel, ifnmass, ifnstif, ifncentr, ifndamp, imass, istif, icentr, idamp, ileft, iright, ipos, istrngth, ain, idisp, id
+scanu 1, irate, ifnvel, ifnmass, ifnstif, ifncentr, ifndamp, imass, istif,
+      icentr, idamp, ileft, iright, ipos, istrngth, ain, idisp, id
 scanu 1,.007,6,2,3,4,5, 2, 1.10 ,.10 ,0 ,.1 ,.5, 0, 0,ain,1,2;
 iamp = .2
 ifreq = 200

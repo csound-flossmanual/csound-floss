@@ -137,7 +137,7 @@ idata1    init      p6
 idata2    init      p7
 kskip     init      0
  if kskip=0 then
-          midiout   istatus, ichan, idata1, idata2; send raw midi data (note on)
+   midiout   istatus, ichan, idata1, idata2; send raw midi data (note on)
 kskip     =         1; ensure that the note on will only be executed once
  endif
 krelease  release; normally output is zero, on final k pass output is 1
@@ -207,7 +207,7 @@ krelease  release       ; normally zero, on final k pass this will output 1
 iCCnum    =         p7
 kCCval    line      0, p3, 127.1  ; continuous controller data function
 kCCval    =         int(kCCval)   ; convert data function to integers
-ktrig     changed   kCCval        ; generate a trigger each time kCCval changes
+ktrig     changed   kCCval      ; generate a trigger each time kCCval changes
  if ktrig=1 then                  ; if kCCval has changed...
           midiout   176, ichan, iCCnum, kCCval  ; ...send a controller message
  endif

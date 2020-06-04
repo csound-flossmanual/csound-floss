@@ -156,7 +156,7 @@ endif
 ;mix oscillators
 aMix       sum          aSig1,aSig2
 ;lowpass filter
-kFiltEnv   expsegr      0.0001,iFAtt,iCPS*iCF,iFDec,iCPS*iCF*iFSus,iFRel,0.0001
+kFiltEnv expsegr 0.0001,iFAtt,iCPS*iCF,iFDec,iCPS*iCF*iFSus,iFRel,0.0001
 aOut       moogladder   aMix, kFiltEnv, kRes
 
 ;amplitude envelope
@@ -299,10 +299,10 @@ schedkwhen ktrig,0,0,2,0,kdur,cpsoct(koct) ;trigger a note in instrument 2
   endin
 
   instr 2 ; subtractive synthesis instrument
-aNoise  pinkish  1                  ;a noise source sound: pink noise
-kGap    rspline  0.3,0.05,0.2,2     ;time gap between impulses
-aPulse  mpulse   15, kGap           ;a train of impulses
-kCFade  rspline  0,1,0.1,1          ;crossfade point between noise and impulses
+aNoise  pinkish  1                ;a noise source sound: pink noise
+kGap    rspline  0.3,0.05,0.2,2   ;time gap between impulses
+aPulse  mpulse   15, kGap         ;a train of impulses
+kCFade  rspline  0,1,0.1,1        ;crossfade point between noise and impulses
 aInput  ntrpol   aPulse,aNoise,kCFade;implement crossfade
 
 ; cutoff frequencies for low and highpass filters
@@ -316,7 +316,7 @@ aInput    buthp    aInput, cpsoct(kHPF_CF)
 aInput    buthp    aInput, cpsoct(kHPF_CF)
 
 kcf     rspline  p4*1.05,p4*0.95,0.01,0.1 ; fundemental
-; bandwidth for each filter is created individually as a random spline function
+;bandwidth for each filter is created individually as a random spline function
 kbw1    rspline  0.00001,10,0.2,1
 kbw2    rspline  0.00001,10,0.2,1
 kbw3    rspline  0.00001,10,0.2,1
@@ -590,8 +590,10 @@ instr 1
   aForm4   reson     aInput, kCF4, kBW4*kBW, 1     ; formant 4
   aForm5   reson     aInput, kCF5, kBW5*kBW, 1     ; formant 5
 
-  ; formants are mixed and multiplied both by intensity values derived from tables and by the on-screen gain controls for each formant
-  aMix     sum       aForm1*ampdbfs(kDB1),aForm2*ampdbfs(kDB2),aForm3*ampdbfs(kDB3),aForm4*ampdbfs(kDB4),aForm5*ampdbfs(kDB5)
+  ; formants are mixed and multiplied both by intensity values derived 
+  ; from tables and by the on-screen gain controls for each formant
+  aMix     sum     aForm1*ampdbfs(kDB1), aForm2*ampdbfs(kDB2),
+       aForm3*ampdbfs(kDB3), aForm4*ampdbfs(kDB4), aForm5*ampdbfs(kDB5)
   kEnv     linseg    0,3,1,p3-6,1,3,0     ; an amplitude envelope
            outs      aMix*kEnv, aMix*kEnv ; send audio to outputs
 endin

@@ -217,7 +217,7 @@ instr    1
  kRms    rms     aSig                ; scan rms
  iThreshold =    0.1                 ; rms threshold
  kGate   =       kRms > iThreshold ? 1 : 0  ; gate either 1 or zero
- aGate   interp  kGate   ; interpolate to create smoother on->off->on switching
+ aGate   interp  kGate ; interpolate to create smoother on->off->on switching
  aSig    =       aSig * aGate        ; multiply signal by gate
          out     aSig, aSig          ; send to output
 endin
@@ -317,7 +317,7 @@ instr   1
  kChange  =       kRms - kRmsPrev    ; change
  if(kTimer>iWait) then               ; if we are beyond the wait time...
   kTrig   =       kChange > iThresh ? 1 : 0 ; trigger if threshold exceeded
-  kTimer  =       kTrig == 1 ? 0 : kTimer ; reset timer when a trigger generated
+  kTimer  =  kTrig == 1 ? 0 : kTimer ; reset timer when a trigger generated
  else                     ; otherwise (we are within the wait time buffer)
   kTimer  +=      ksmps              ; increment timer
   kTrig   =       0                  ; cancel trigger
@@ -504,7 +504,7 @@ instr   1
  iThreshold = 0.05
  iWait      = 0.1*sr
  kTimer     init iWait+1
- iSampTim =       0.02                ; time across which RMS change is measured
+ iSampTim =       0.02             ; time across which RMS change is measured
  kRms   rms     asig ,20
  kRmsPrev       delayk  kRms,iSampTim ; rms from earlier
  kChange =      kRms - kRmsPrev       ; change (+ve or -ve)

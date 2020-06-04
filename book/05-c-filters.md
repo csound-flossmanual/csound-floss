@@ -473,7 +473,7 @@ elseif kType == $LOWRES then
 elseif kType == $REZZY then
    aout     rezzy ain, kcfq, kres
 elseif kType == $SVFILTER then
-  aout, ahigh, aband  svfilter ain, kcfq, (499 / 10) * kres + 1 ; rescales to make it musical
+  aout, ahigh, aband  svfilter ain, kcfq, (499 / 10) * kres + 1 ; rescale
 elseif kType == $VLOWRES then
     aout    vlowres ain, kcfq, kres, 2, 0
 elseif kType == $STATEVAR then
@@ -608,7 +608,7 @@ endin
 opcode DumpNotes, 0, iiSi
 iNum, iFilterType, SFile, iMixLevel xin
 idt = 30
-Sstr    sprintf {{i "%s" %f %f "%s" %f}}, "Dump", idt * iNum, idt, SFile, iMixLevel
+Sstr sprintf {{i "%s" %f %f "%s" %f}}, "Dump", idt*iNum, idt, SFile, iMixLevel
         scoreline_i Sstr
         event_i "i", "Notes", idt * iNum, 0, iFilterType
 endop

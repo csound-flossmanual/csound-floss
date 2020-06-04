@@ -64,8 +64,8 @@ instr Receive
  kReceiveValue init 0
  kGotIt OSClisten giPortHandle, "/exmp_1/int", "i", kReceiveValue
  if kGotIt == 1 then
-  printf "Message Received for '/exmp_1/int' at time %f: kReceiveValue = %d\n",
-         1, times:k(), kReceiveValue
+  printf "Message Received for '%s' at time %f: kReceiveValue = %d\n",
+         1, "/exmp_1/int", times:k(), kReceiveValue
  endif
 endin
 
@@ -102,8 +102,8 @@ The [OSCsend](https://csound.com/docs/manual/OSCsend.html) opcode will send a me
 On the receiver side, we find the *giPortHandle* which was returned by *OSCinit*, and the address string again, as well as the expected type, here "i" for integer. Note that the value which is received is on the *input* side of the opcode. So *kReceiveValue* must be initialized before, which is done in line 21. Whenever *OSClisten* receives a message, the *kGotIt* output variable will become 1 (otherwise it is zero).
 
     if kGotIt == 1 then
-     printf "Message Received for '/exmp_1/int' at time %f: kReceiveValue = %d\n",
-            1, times:k(), kReceiveValue
+     printf "Message Received for '/exmp_1/int' at time %f: \
+     kReceiveValue = %d\n", 1, times:k(), kReceiveValue
     endif
 
 Here we catch this point, and get a printout with the time at which the message has been received. As our listening instrument starts first, and the sending instrument after one second, we will see a message like this one in the console:
@@ -144,7 +144,8 @@ endin
 instr Receive
  kReceiveFloat init 0
  SReceiveString init ""
- kGotIt OSClisten giPortHandle, "/exmp_2/more", "fs", kReceiveFloat, SReceiveString
+ kGotIt OSClisten giPortHandle, "/exmp_2/more", "fs", 
+                  kReceiveFloat, SReceiveString
  if kGotIt == 1 then
   printf "kReceiveFloat = %f\nSReceiveString = '%s'\n", 
          1, kReceiveFloat, SReceiveString

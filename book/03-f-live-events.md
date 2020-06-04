@@ -243,7 +243,7 @@ i    1.2  ^+2  -10  .2   700 ;another instance of instr 1
 i   -1.2  ^+2  0             ;turn off 1.2
 ; -- turn off 1.1 (dot = same as the same p-field above)
 i   -1.1  ^+1  .
-s                            ;end of a section, so time begins from new at zero
+s                            ;end of a section, so time again starts at zero
 i    1    1    1    .2   800
 r 5                          ;repeats the following line (until the next "s")
 i    1   .25  .25   .2   900
@@ -358,7 +358,8 @@ nchnls = 2
 
       ; -- create a FLTK panel --
           FLpanel   "Trigger By FLTK Button", 300, 100, 100, 100
-      ; -- trigger instr 1 (equivalent to the score line "i 1 0 1")k1, ih1   FLbutton  "Push me!", 0, 0, 1, 150, 40, 10, 25, 0, 1, 0, 1
+      ; -- trigger instr 1 (equivalent to the score line "i 1 0 1")
+k1, ih1   FLbutton  "Push me!", 0, 0, 1, 150, 40, 10, 25, 0, 1, 0, 1
       ; -- trigger instr 2
 k2, ih2   FLbutton  "Quit", 0, 0, 1, 80, 40, 200, 25, 0, 2, 0, 1
           FLpanelEnd; end of the FLTK panel section
@@ -999,7 +1000,7 @@ this code ...
 
 ... you will get this error message in the console:
 
-    error:  Unable to find opcode entry for 'event_i' with matching argument types:
+    error: Unable to find opcode entry for 'event_i' with matching argument types:
     Found: (null) event_i SccS
 
 With *scoreline_i* sending strings is also possible. This opcode takes one or
@@ -1041,7 +1042,8 @@ call my\_instr, and would do nothing in the other control cycles. The
 schedkwhen opcode simplifies such typical use cases, and adds some other
 useful arguments. This is the syntax:
 
-    schedkwhen kTrigger, kMinTim, kMaxNum, kInsrNum (or "InstrName"), kStart, kDur [, kp4] [, kp5] [...]
+    schedkwhen kTrigger, kMinTim, kMaxNum, kInsrNum (or "InstrName"), 
+    kStart, kDur [, kp4] [, kp5] [...]
 
 The kMinTim parameter specifies the time which has to be spent between
 two subsequent calls of the subinstrument. This is often quite useful as

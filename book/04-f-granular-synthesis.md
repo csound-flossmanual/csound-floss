@@ -436,7 +436,8 @@ instr 1 ;grain generating instrument 1
   kDelayRange   transeg    0,1,0,0,  p3-1,4,0.03
   kDelay        gauss      kDelayRange
   ;                                  p1 p2 p3   p4
-                schedkwhen kTrig,0,0,3, abs(kDelay), kDur,kForm ;trigger a note (grain) in instr 3
+  ;trigger a note (grain) in instr 3
+                schedkwhen kTrig,0,0,3, abs(kDelay), kDur,kForm 
 endin
 
 instr 2 ;grain generating instrument 2
@@ -544,10 +545,9 @@ instr 1
   ;a different waveform chosen once every 10 seconds
   kFn     randomh 1,5.99,0.1
   ;print info. to the terminal
-          printks "CPS:%5.2F%TDur:%5.2F%TDensity:%5.2F%TWaveform:%1.0F%n",1,\
-                     kCPS,kGDur,kDens,kFn
-  aSig    grain3  kCPS, kPhs, kFmd, kPmd, kGDur, kDens, iMaxOvr, kFn, giWFn, \
-                    0, 0
+          printks "CPS:%5.2F%TDur:%5.2F%TDensity:%5.2F%TWaveform:%1.0F%n",
+                  1, kCPS, kGDur, kDens, kFn
+  aSig grain3 kCPS, kPhs, kFmd, kPmd, kGDur, kDens, iMaxOvr, kFn, giWFn, 0, 0
           out     aSig*0.06
 endin
 
@@ -603,7 +603,7 @@ instr 1
   kFn     =       1
   ;print info. to the terminal
           printks "Random Phase:%5.2F%TPitch Random:%5.2F%n",1,kPmd,kFmd
-  aSig    grain3  kCPS, kPhs, kFmd, kPmd, kGDur, kDens, iMaxOvr, kFn, giWFn, 0, 0
+  aSig grain3 kCPS, kPhs, kFmd, kPmd, kGDur, kDens, iMaxOvr, kFn, giWFn, 0, 0
           out     aSig*0.06
 endin
 

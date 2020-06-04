@@ -50,14 +50,14 @@ nchnls = 1
 gisine ftgen 0,0,2^12,10,1
 
   instr 1 ; 1 impulse (midi channel 1)
-prints "instrument/midi channel: %d%n",p1 ; print instrument number to terminal
-reset:                                    ; label 'reset'
-     timout 0, 1, impulse                 ; jump to 'impulse' for 1 second
-     reinit reset                         ; reninitialise pass from 'reset'
-impulse:                                  ; label 'impulse'
-aenv expon     1, 0.3, 0.0001             ; a short percussive envelope
-aSig poscil    aenv, 500, gisine          ; audio oscillator
-     out       aSig                       ; audio to output
+prints "instrument/midi channel: %d%n",p1 ;print instrument number to terminal
+reset:                                    ;label 'reset'
+     timout 0, 1, impulse                 ;jump to 'impulse' for 1 second
+     reinit reset                         ;reninitialise pass from 'reset'
+impulse:                                  ;label 'impulse'
+aenv expon     1, 0.3, 0.0001             ;a short percussive envelope
+aSig poscil    aenv, 500, gisine          ;audio oscillator
+     out       aSig                       ;audio to output
   endin
 
   instr 2 ; 2 impulses (midi channel 2)
@@ -134,10 +134,10 @@ massign 3,2  ; channel 3 notes directed to instr 2
 
   instr 1 ; 1 impulse (midi channel 1)
 iChn midichn                                  ; discern what midi channel
-prints "channel:%d%tinstrument: %d%n",iChn,p1 ; print instr num and midi channel
+prints "channel:%d%tinstrument: %d%n",iChn,p1 ; print instr and midi channel
 reset:                                        ; label 'reset'
      timout 0, 1, impulse                     ; jump to 'impulse' for 1 second
-     reinit reset                             ; reninitialize pass from 'reset'
+     reinit reset                             ; reinitialize pass from 'reset'
 impulse:                                      ; label 'impulse'
 aenv expon     1, 0.3, 0.0001                 ; a short percussive envelope
 aSig poscil    aenv, 500, gisine              ; audio oscillator
@@ -153,8 +153,8 @@ reset:
 impulse:
 aenv expon     1, 0.3, 0.0001
 aSig poscil    aenv, 500, gisine
-a2   delay     aSig, 0.15                      ; delay generates a 2nd impulse
-     out       aSig+a2                         ; mix two impulses at the output
+a2   delay     aSig, 0.15                    ; delay generates a 2nd impulse
+     out       aSig+a2                       ; mix two impulses at the output
   endin
 
   instr 3 ; 3 impulses (midi channel 3)
@@ -298,10 +298,10 @@ nchnls = 1
 0dbfs = 1
 
           massign   0, 1 ;assign all incoming midi to instr 1
-giInstrs  ftgen     0, 0, -5, -2, 2, 3, 4, 10, 100 ;instruments to be triggered
+giInstrs ftgen 0, 0, -5, -2, 2, 3, 4, 10, 100 ;instruments to be triggered
 
  opcode MidiTrig, 0, io
-;triggers the first inum instruments in the function table ifn by a midi event,
+;triggers the first inum instruments in the function table ifn by a midi event
 ; with fractional numbers containing channel and note number information
 
 ; -- if inum=0 or not given, all instrument numbers in ifn are triggered

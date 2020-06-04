@@ -788,7 +788,8 @@ endin
 
 instr PlayTheBells
  iMidiPitch random 60,70
- schedule("Risset_Bell",0,random:i(2,8),mtof:i(iMidiPitch),random:i(-30,-10),30,6)
+ schedule("Risset_Bell",0,random:i(2,8),mtof:i(iMidiPitch),
+          random:i(-30,-10),30,6)
  if p4 > 0 then
   schedule("PlayTheBells",random:i(1/10,1/4),1,p4-1)
  endif

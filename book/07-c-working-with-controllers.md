@@ -35,8 +35,8 @@ also the modulation wheel on a midi keyboard.
 ksmps = 32
 
   instr 1
-kCtrl    ctrl7    1,1,0,127    ; read in controller 1 on channel 1
-kTrigger changed  kCtrl        ; if 'kCtrl' changes generate a trigger ('bang')
+kCtrl    ctrl7    1,1,0,127  ; read in controller 1 on channel 1
+kTrigger changed  kCtrl      ; if 'kCtrl' changes generate a trigger ('bang')
  if kTrigger=1 then
 ; Print kCtrl to console with formatting, but only when its value changes.
 printks "Controller Value: %d%n", 0, kCtrl
@@ -95,24 +95,24 @@ giSine  ftgen  0,0,2^10,10,1  ; a sine wave
 
   instr 1
 ; -- pitch bend --
-kPchBnd  pchbend  0,4                ; read in pitch bend (range -2 to 2)
-kTrig1   changed  kPchBnd            ; if 'kPchBnd' changes generate a trigger
+kPchBnd  pchbend  0,4               ;read in pitch bend (range -2 to 2)
+kTrig1   changed  kPchBnd           ;if 'kPchBnd' changes generate a trigger
  if kTrig1=1 then
-printks "Pitch Bend:%f%n",0,kPchBnd  ; print kPchBnd to console when it changes
+printks "Pitch Bend:%f%n",0,kPchBnd ;print kPchBnd to console when it changes
  endif
 
 ; -- aftertouch --
-kAfttch  aftouch 0,0.9               ; read in aftertouch (range 0 to 0.9)
-kTrig2   changed kAfttch             ; if 'kAfttch' changes generate a trigger
+kAfttch  aftouch 0,0.9              ;read in aftertouch (range 0 to 0.9)
+kTrig2   changed kAfttch            ;if 'kAfttch' changes generate a trigger
  if kTrig2=1 then
-printks "Aftertouch:%d%n",0,kAfttch  ; print kAfttch to console when it changes
+printks "Aftertouch:%d%n",0,kAfttch ;print kAfttch to console when it changes
  endif
 
 ; -- create a sound --
-iNum     notnum                      ; read in MIDI note number
+iNum     notnum                     ;read in MIDI note number
 ; MIDI note number + pitch bend are converted to cycles per seconds
 aSig     poscil   0.1,cpsmidinn(iNum+kPchBnd),giSine
-         out      aSig               ; audio to output
+         out      aSig              ;audio to output
   endin
 
 </CsInstruments>
@@ -258,15 +258,15 @@ nchnls = 1
 0dbfs = 1
 
 giSine   ftgen    0,0,2^12,10,1
-         initc7   1,1,1          ; initialize CC 1 to its max. level
+         initc7   1,1,1          ;initialize CC 1 to its max. level
 
   instr 1
-iCps      cpsmidi                ; read in midi pitch in cycles-per-second
-iAmp      ampmidi 1              ; read in note velocity - re-range 0 to 1
-kVol      ctrl7   1,1,0,1        ; read in CC 1, chan. 1. Re-range from 0 to 1
-kPortTime linseg  0,0.001,0.01   ; create a value that quickly ramps up to 0.01
-kVol      portk   kVol,kPortTime ; create a filtered version of kVol
-aVol      interp  kVol           ; create an a-rate version of kVol
+iCps      cpsmidi                ;read in midi pitch in cycles-per-second
+iAmp      ampmidi 1              ;read in note velocity - re-range 0 to 1
+kVol      ctrl7   1,1,0,1        ;read in CC 1, chan. 1. Re-range from 0 to 1
+kPortTime linseg 0,0.001,0.01    ;create a value that quickly ramps up to .01
+kVol      portk   kVol,kPortTime ;create a filtered version of kVol
+aVol      interp  kVol           ;create an a-rate version of kVol
 aSig      poscil  iAmp*aVol,iCps,giSine
           out     aSig
   endin
@@ -304,8 +304,8 @@ giCos   ftgen    0,0,2^12,11,1 ; a cosine wave
   instr 1
 iNum      notnum                   ; read in midi note number
 iAmp      ampmidi 0.1              ; read in note velocity - range 0 to 0.2
-kVol      ctrl7   1,1,0,1          ; read in CC 1, chan. 1. Re-range from 0 to 1
-kPortTime linseg  0,0.001,0.01     ; create a value that quickly ramps up to 0.01
+kVol      ctrl7   1,1,0,1          ; read in CC 1, chn 1. Re-range from 0 to 1
+kPortTime linseg 0,0.001,0.01   ; create a value that quickly ramps up to 0.01
 kVol      portk   kVol, kPortTime  ; create filtered version of kVol
 aVol      interp  kVol             ; create an a-rate version of kVol.
 iRange    =       2                ; pitch bend range in semitones

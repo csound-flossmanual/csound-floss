@@ -301,8 +301,8 @@ kVec2      vaget      1, aSine
 kVec3      vaget      2, aSine
 kVec4      vaget      3, aSine
 kVec5      vaget      4, aSine
-           printks    "kVec1 = % f, kVec2 = % f, kVec3 = % f, kVec4 = % f, kVec5 = % f\n",\
-                      0, kVec1, kVec2, kVec3, kVec4, kVec5
+printks "kVec1 = % f, kVec2 = % f, kVec3 = % f, kVec4 = % f, kVec5 = % f\n",
+        0, kVec1, kVec2, kVec3, kVec4, kVec5
 endin
 </CsInstruments>
 <CsScore>
@@ -501,8 +501,10 @@ endif
  instr Called
 iNumCall = p4
 kRndVal random 0, 10
-prints "Initialization value of kRnd in call %d = %.3f\n", iNumCall, i(kRndVal)
-printks "  New random value of kRnd generated in call %d = %.3f\n", 0, iNumCall, kRndVal
+prints "Initialization value of kRnd in call %d = %.3f\n", 
+       iNumCall, i(kRndVal)
+printks "  New random value of kRnd generated in call %d = %.3f\n",
+        0, iNumCall, kRndVal
 turnoff
  endin
 
@@ -565,7 +567,8 @@ kIndex = 0
 prints "Initialization value of kIndx in call %d = %d\n", iNumCall, i(kIndex)
   ;perform the while-loop until kIndex equals five
 while kIndex < lenarray(gkArray) do
-  printf "Index %d of gkArray has value %d\n", kIndex+1, kIndex, gkArray[kIndex]
+  printf "Index %d of gkArray has value %d\n", 
+         kIndex+1, kIndex, gkArray[kIndex]
   kIndex += 1
 od
   ;last value of kIndex is 5 because of increment
@@ -1408,7 +1411,8 @@ instr PrintSampleIf
  kIndx = 0
  while kIndx < ksmps do
   if aRnd[kIndx] > 0.99 then
-   printf "Block = %2d, Sample = %4d, Value = %f\n", kSmpCnt, kBlkCnt, kSmpCnt, aRnd[kIndx]
+   printf "Block = %2d, Sample = %4d, Value = %f\n", 
+          kSmpCnt, kBlkCnt, kSmpCnt, aRnd[kIndx]
   endif
   kIndx += 1
   kSmpCnt += 1

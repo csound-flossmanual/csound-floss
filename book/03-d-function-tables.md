@@ -338,7 +338,7 @@ nchnls = 2
 0dbfs = 1
 
 giSine    ftgen     0, 0, 2^10, 10, 1
-giSaw     ftgen     0, 0, 2^10, 10, 1, -1/2, 1/3, -1/4, 1/5, -1/6, 1/7, -1/8, 1/9
+giSaw     ftgen     0, 0, 2^10, 10, 1,-1/2,1/3,-1/4,1/5,-1/6,1/7,-1/8,1/9
 giSquare  ftgen     0, 0, 2^10, 10, 1, 0, 1/3, 0, 1/5, 0, 1/7, 0, 1/9
 giTri     ftgen     0, 0, 2^10, 10, 1, 0, -1/9, 0, 1/25, 0, -1/49, 0, 1/81
 giImp     ftgen     0, 0, 2^10, 10, 1, 1, 1, 1, 1, 1, 1, 1, 1
@@ -576,7 +576,7 @@ output directly as writing pointer. Below is an alternative version of
 instrument 1 from the previous example, this time using phasor to
 generate the index values:
 
-    instr 1; recording of a random frequency movement for 5 seconds, and playing it
+    instr 1; rec/play of a random frequency movement for 5 seconds
     kFreq     randomi   400, 1000, 1; random frequency
     aSnd      oscil3    .2, kFreq, giWave; play it
               outs      aSnd, aSnd
@@ -854,7 +854,7 @@ nchnls = 2
 0dbfs = 1
 
 giWave    ftgen     1, 0, 2^7, 10, 1; sine with 128 points
-giControl ftgen     2, 0, -kr, 2, 0; size for 1 second of recording control data
+giControl ftgen 2, 0, -kr, 2, 0; size for 1 second of recording control data
           seed      0
 
   instr 1; saving giWave at i-time

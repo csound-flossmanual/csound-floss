@@ -792,7 +792,7 @@ a1, a2, a3, a4, a5, a6, a7, a8 bformdec1 iSetup,
 aSnd[]     diskin     "ClassGuit.wav"
 kAzim      line       0, p3, 360
 iSetup     =          4 ;octogon
-aw, ax, ay, az, ar, as, at, au, av, ak, al, am, an, ao, ap, aq bformenc1 aSnd, kAzim, 0
+aw,ax,ay,az,ar,as,at,au,av,ak,al,am,an,ao,ap,aq bformenc1 aSnd, kAzim, 0
 a1, a2, a3, a4, a5, a6, a7, a8 bformdec1 iSetup,
         aw, ax, ay, az, ar, as, at, au, av, ak, al, am, an, ao, ap, aq
            out        a1, a2, a3, a4, a5, a6, a7, a8
@@ -1103,17 +1103,17 @@ endop
 instr 1
 asnd    rand            p4
 ares    reson           asnd,p5,p6,1
-kaz     line            0,p3,p7*360             ;turns around p7 times in p3 seconds
+kaz     line            0,p3,p7*360  ;turns around p7 times in p3 seconds
                 ambi2D_encode_n asnd,10,kaz
 endin
 
 instr 2
 asnd    oscil           p4,p5,1
-kaz     line            0,p3,p7*360             ;turns around p7 times in p3 seconds
+kaz     line            0,p3,p7*360   ;turns around p7 times in p3 seconds
                 ambi2D_encode_n asnd,10,kaz
 endin
 
-instr 10        ;decode all insruments (the first 4 speakers of a 18 speaker setup)
+instr 10 ;decode all instruments (the first 4 speakers of a 18 speaker setup)
 a1,a2           ambi2D_decode_basic     10,0,20
 a3,a4           ambi2D_decode_basic     10,40,60
                 outc    a1,a2,a3,a4
@@ -1212,9 +1212,9 @@ iWeight2D     array  0.5,0,0,0,0,0,0,0,0,0,0,0,
         0.8,0.4,0.114286,0.0142857,0,0,0,0,0,0,0,0,
         0.833333,0.47619,0.178571,0.0396825,0.00396825,0,0,0,0,0,0,0,
         0.857143,0.535714,0.238095,0.0714286,0.012987,0.00108225,0,0,0,0,0,0,
-        0.875,0.583333,0.291667,0.1060601,0.0265152,0.00407925,0.000291375,0,0,0,0,0,
-        0.888889,0.622222,0.339394,0.141414,0.043512,0.009324,0.0012432,
-        0.0000777,0,0,0,0,
+        0.875,0.583333,0.291667,0.1060601,0.0265152,0.00407925,0.000291375,
+        0,0,0,0,0, 0.888889,0.622222,0.339394,0.141414,0.043512,
+        0.009324,0.0012432, 0.0000777,0,0,0,0,
         0.9,0.654545,0.381818,0.176224,0.0629371,0.0167832,0.00314685,
         0.000370218,0.0000205677,0,0,0,
         0.909091,0.681818,0.41958,0.20979,0.0839161,0.0262238,0.0061703,
@@ -1241,7 +1241,7 @@ zakinit 7, 1
 instr 1
 asnd    rand            p4
 ares    reson           asnd,p5,p6,1
-kaz     line            0,p3,p7*360             ;turns around p7 times in p3 seconds
+kaz     line            0,p3,p7*360  ;turns around p7 times in p3 seconds
                 ambi2D_encode_n         asnd,3,kaz
 endin
 
@@ -1407,7 +1407,7 @@ nchnls  =  8
 0dbfs      = 1
 
 #include "../SourceMaterials/ambisonics2D_udos.txt"
-#include "../SourceMaterials/ambisonics_utilities.txt" ;opcodes Absorb and Doppler
+#include "../SourceMaterials/ambisonics_utilities.txt" ;Absorb and Doppler
 
 /* these opcodes are included in "ambisonics2D_udos.txt"
 opcode xy_to_ad, kk, kk
@@ -1449,7 +1449,7 @@ adop    Doppler  .2*aabs,kdist
         ambi2D_enc_dist adop,5,kaz,kdist
 endin
 
-instr 10        ;decode all insruments
+instr 10        ;decode all instruments
 a1,a2,a3,a4,
 a5,a6,a7,a8     ambi2D_dec_inph 5,0,45,90,135,180,225,270,315
                 outc            a1,a2,a3,a4,a5,a6,a7,a8
@@ -1613,18 +1613,18 @@ endop
 ; speaker positions in function table ifn
 opcode  ambi_decode,    a,ii
 iorder,ifn xin
-                xout ambi_decode1(iorder,table(1,ifn),table(2,ifn))
+ xout ambi_decode1(iorder,table(1,ifn),table(2,ifn))
 endop
 opcode  ambi_decode,    aa,ii
 iorder,ifn xin
-                xout                            ambi_decode1(iorder,table(1,ifn),table(2,ifn)),
-                ambi_decode1(iorder,table(3,ifn),table(4,ifn))
+ xout ambi_decode1(iorder,table(1,ifn),table(2,ifn)),
+      ambi_decode1(iorder,table(3,ifn),table(4,ifn))
 endop
 opcode  ambi_decode,    aaa,ii
 iorder,ifn xin
-                xout ambi_decode1(iorder,table(1,ifn),table(2,ifn)),
-                ambi_decode1(iorder,table(3,ifn),table(4,ifn)),
-                ambi_decode1(iorder,table(5,ifn),table(6,ifn))
+xout ambi_decode1(iorder,table(1,ifn),table(2,ifn)),
+     ambi_decode1(iorder,table(3,ifn),table(4,ifn)),
+     ambi_decode1(iorder,table(5,ifn),table(6,ifn))
 endop
 
 instr 1
@@ -1979,18 +1979,20 @@ kx = kdist*cos(kel)*cos(kaz)
 ky = kdist*cos(kel)*sin(kaz)
 kz = kdist*sin(kel)
 ispeaker[] array 0,
-  table(3,ifn)*cos(($$M\_PI/180)*table(2,ifn))*cos(($$M\_PI/180)*table(1,ifn)),
-  table(3,ifn)*cos(($$M\_PI/180)*table(2,ifn))*sin(($$M\_PI/180)*table(1,ifn)),
-  table(3,ifn)*sin(($$M\_PI/180)*table(2,ifn)),
-  table(6,ifn)*cos(($$M\_PI/180)*table(5,ifn))*cos(($$M\_PI/180)*table(4,ifn)),
-  table(6,ifn)*cos(($$M\_PI/180)*table(5,ifn))*sin(($$M\_PI/180)*table(4,ifn)),
-  table(6,ifn)*sin(($$M\_PI/180)*table(5,ifn)),
-  table(9,ifn)*cos(($$M\_PI/180)*table(8,ifn))*cos(($$M\_PI/180)*table(7,ifn)),
-  table(9,ifn)*cos(($$M\_PI/180)*table(8,ifn))*sin(($$M\_PI/180)*table(7,ifn)),
-  table(9,ifn)*sin(($$M\_PI/180)*table(8,ifn)),
-  table(12,ifn)*cos(($$M\_PI/180)*table(11,ifn))*cos(($$M\_PI/180)*table(10,ifn)),
-  table(12,ifn)*cos(($$M\_PI/180)*table(11,ifn))*sin(($$M\_PI/180)*table(10,ifn)),
-  table(12,ifn)*sin(($$M\_PI/180)*table(11,ifn))
+table(3,ifn)*cos(($$M\_PI/180)*table(2,ifn))*cos(($$M\_PI/180)*table(1,ifn)),
+table(3,ifn)*cos(($$M\_PI/180)*table(2,ifn))*sin(($$M\_PI/180)*table(1,ifn)),
+table(3,ifn)*sin(($$M\_PI/180)*table(2,ifn)),
+table(6,ifn)*cos(($$M\_PI/180)*table(5,ifn))*cos(($$M\_PI/180)*table(4,ifn)),
+table(6,ifn)*cos(($$M\_PI/180)*table(5,ifn))*sin(($$M\_PI/180)*table(4,ifn)),
+table(6,ifn)*sin(($$M\_PI/180)*table(5,ifn)),
+table(9,ifn)*cos(($$M\_PI/180)*table(8,ifn))*cos(($$M\_PI/180)*table(7,ifn)),
+table(9,ifn)*cos(($$M\_PI/180)*table(8,ifn))*sin(($$M\_PI/180)*table(7,ifn)),
+table(9,ifn)*sin(($$M\_PI/180)*table(8,ifn)),
+table(12,ifn)*cos(($$M\_PI/180)*table(11,ifn))*\
+  cos(($$M\_PI/180)*table(10,ifn)),
+table(12,ifn)*cos(($$M\_PI/180)*table(11,ifn))*\
+  sin(($$M\_PI/180)*table(10,ifn)),
+table(12,ifn)*sin(($$M\_PI/180)*table(11,ifn))
 
 idsmax   table   0,ifn
 kdist    =       kdist+0.000001

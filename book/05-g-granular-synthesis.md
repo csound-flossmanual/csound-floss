@@ -514,7 +514,8 @@ instr F
  chnset(50, Chan("GrainDur",id))
  chnset(40, Chan("Density",id))
  chnset(100,Chan("TransposRndDev",id))
- chnset(linseg:k(-30,3,-10,p3-6,-10,3,-30)+randomi:k(-10,10,1/3), Chan("Volume",id))
+ chnset(linseg:k(-30,3,-10,p3-6,-10,3,-30)+randomi:k(-10,10,1/3),
+                 Chan("Volume",id))
  chnset(.5, Chan("Pan",id))
  chnset(.5, Chan("PanRndDev",id))
  schedule("Granulator",0,p3,id,iStart)
@@ -529,7 +530,8 @@ instr Ox
  chnset(50, Chan("GrainDur",id))
  chnset(40, Chan("Density",id))
  chnset(-2000,Chan("Transpos",id))
- chnset(linseg:k(-20,3,-10,p3-6,-10,3,-30)+randomi:k(-10,0,1/3), Chan("Volume",id))
+ chnset(linseg:k(-20,3,-10,p3-6,-10,3,-30)+randomi:k(-10,0,1/3),
+        Chan("Volume",id))
  chnset(randomi:k(.2,.8,1/5,2,.8), Chan("Pan",id))
  schedule("Granulator",0,p3,id,iStart)
  schedule("Output",0,p3+3,id,.9)
@@ -543,7 +545,8 @@ instr Jum
  chnset(50, Chan("GrainDur",id))
  chnset(40, Chan("Density",id))
  chnset(transeg:k(p4,p3/3,0,p4,p3/2,5,3*p4),Chan("Transpos",id))
- chnset(linseg:k(0,1,-10,p3-7,-10,6,-50)+randomi:k(-10,0,1,3), Chan("Volume",id))
+ chnset(linseg:k(0,1,-10,p3-7,-10,6,-50)+randomi:k(-10,0,1,3),
+        Chan("Volume",id))
  chnset(p5, Chan("Pan",id))
  schedule("Granulator",0,p3,id,iStart)
  schedule("Output",0,p3+3,id,.7)
@@ -823,13 +826,15 @@ aSigL,aSigR sndwarpst  kamp,ktimewarp,kresample,ifn1,ibeg, \
 i 1  0    10 1  1   1     1     "No time stretch. No pitch shift."
 i 1  10.5 10 2  2   1     1     "%nTime stretch x 2."
 i 1  21   20 1  20  1     1     \
-                 "%nGradually increasing time stretch factor from x 1 to x 20."
+          "%nGradually increasing time stretch factor from x 1 to x 20."
 i 1  41.5 10 1  1   2     2     "%nPitch shift x 2 (up 1 octave)."
 i 1  52   10 1  1   0.5   0.5   "%nPitch shift x 0.5 (down 1 octave)."
 i 1  62.5 10 1  1   4     0.25  \
- "%nPitch shift glides smoothly from 4 (up 2 octaves) to 0.25 (down 2 octaves)."
+ "%nPitch shift glides smoothly from 4 (up 2 octaves)\
+ to 0.25 (down 2 octaves)."
 i 1  73   15 4  4   1     1     \
-"%nA chord containing three transpositions: unison, +5th, +10th. (x4 time stretch.)"
+"%nA chord containing three transpositions:\
+ unison, +5th, +10th. (x4 time stretch.)"
 i 1  73   15 4  4   [3/2] [3/2] ""
 i 1  73   15 4  4   3     3     ""
 e
@@ -1083,7 +1088,7 @@ aRvbL,aRvbR reverbsc   gaSendL,gaSendR,0.85,8000
 ; p1 p2  p3   p4  p5    p6    p7    p8    p9
 i 1  0   48   1   1     1     1     4    "pitches: all unison"
 i 1  +   .    1   0.5   0.25  2     4    \
-  "%npitches: 1(unison) 0.5(down 1 octave) 0.25(down 2 octaves) 2(up 1 octave)"
+ "%npitches: 1(unison) 0.5(down 1 octave) 0.25(down 2 octaves) 2(up 1 octave)"
 i 1  +   .    1   2     4     8     4    "%npitches: 1 2 4 8"
 i 1  +   .    1   [3/4] [5/6] [4/3] 4    "%npitches: 1 3/4 5/6 4/3"
 i 1  +   .    1   1     1     1     0    "%npitches: all random"
@@ -1171,7 +1176,7 @@ instr 3
   kdur    = 2.5 / kfund ; duration relative to grain rate
   kris    = 0.5*kdur
   kdec    = 0.5*kdur
-  kphs    = (gkstart/giTablen)-(kDelTim/(giTablen/sr)) ; calculate grain phase based on delay time
+  kphs    = (gkstart/giTablen)-(kDelTim/(giTablen/sr)) ;grain phase
   kgliss  = 0
   a1     fof2 1, kfund, kform, koct, kband, kris, kdur, kdec, 100, \
       giLive, giSigRise, 86400, kphs, kgliss
@@ -1215,7 +1220,7 @@ nchnls = 2
 ; First we hear each grain, but later on it sounds more like a drum roll.
 gareverbL  init       0
 gareverbR  init       0
-giFt1      ftgen      0, 0, 1025, 20, 2, 1 ; GEN20, Hanning window for grain envelope
+giFt1 ftgen 0, 0, 1025, 20, 2, 1 ; GEN20, Hanning window for grain envelope
 giFt2      ftgen      0, 0, 0, 1, "fox.wav", 0, 0, 0
 
 instr 1 ; Granular synthesis of soundfile

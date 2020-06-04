@@ -627,23 +627,23 @@ iPrint     =          1
 
   ;calculate iMidiPch and iDur depending on type
   if iDistrib == 0 then
-           printf_i   "%s", iPrint, "... uniform distribution:\n"
-           printf_i   "%s", iPrint, "EQUAL LIKELIHOOD OF ALL PITCHES AND DURATIONS\n"
+printf_i   "%s", iPrint, "... uniform distribution:\n"
+printf_i   "%s", iPrint, "EQUAL LIKELIHOOD OF ALL PITCHES AND DURATIONS\n"
 iMidiPch   random     iMinPch, iMaxPch ;midi note
 iDur       random     iMinDur, iMaxDur ;duration
   elseif iDistrib == 1 then
-           printf_i    "... linear low distribution with %d units:\n", iPrint, iUnits
-           printf_i    "%s", iPrint, "LOWER NOTES AND LONGER DURATIONS PREFERRED\n"
+printf_i    "... linear low distribution with %d units:\n", iPrint, iUnits
+printf_i    "%s", iPrint, "LOWER NOTES AND LONGER DURATIONS PREFERRED\n"
 iMidiPch   linrnd_low iMinPch, iMaxPch, iUnits
 iDur       linrnd_high iMinDur, iMaxDur, iUnits
   elseif iDistrib == 2 then
-           printf_i    "... linear high distribution with %d units:\n", iPrint, iUnits
-           printf_i    "%s", iPrint, "HIGHER NOTES AND SHORTER DURATIONS PREFERRED\n"
+printf_i    "... linear high distribution with %d units:\n", iPrint, iUnits
+printf_i    "%s", iPrint, "HIGHER NOTES AND SHORTER DURATIONS PREFERRED\n"
 iMidiPch   linrnd_high iMinPch, iMaxPch, iUnits
 iDur       linrnd_low iMinDur, iMaxDur, iUnits
   else
-           printf_i    "... triangular distribution with %d units:\n", iPrint, iUnits
-           printf_i    "%s", iPrint, "MEDIUM NOTES AND DURATIONS PREFERRED\n"
+printf_i    "... triangular distribution with %d units:\n", iPrint, iUnits
+printf_i    "%s", iPrint, "MEDIUM NOTES AND DURATIONS PREFERRED\n"
 iMidiPch   trirnd     iMinPch, iMaxPch, iUnits
 iDur       trirnd     iMinDur, iMaxDur, iUnits
   endif
@@ -865,23 +865,23 @@ iPrint     =          1
 
   ;calculate iMidiPch and iDur depending on type
   if iDistrib == 0 then
-           printf_i   "%s", iPrint, "... uniform distribution:\n"
-           printf_i   "%s", iPrint, "EQUAL LIKELINESS OF ALL PITCHES AND DURATIONS\n"
+printf_i   "%s", iPrint, "... uniform distribution:\n"
+printf_i   "%s", iPrint, "EQUAL LIKELINESS OF ALL PITCHES AND DURATIONS\n"
 iScaleIndx random     0, giLenScale-.0001 ;midi note
 iDurIndx   random     0, giLenDurs-.0001 ;duration
   elseif iDistrib == 1 then
-           printf_i   "... linear low distribution with %d units:\n", iPrint, iUnits
-           printf_i   "%s", iPrint, "LOWER NOTES AND LONGER DURATIONS PREFERRED\n"
+printf_i   "... linear low distribution with %d units:\n", iPrint, iUnits
+printf_i   "%s", iPrint, "LOWER NOTES AND LONGER DURATIONS PREFERRED\n"
 iScaleIndx linrnd_low 0, giLenScale-.0001, iUnits
 iDurIndx   linrnd_low 0, giLenDurs-.0001, iUnits
   elseif iDistrib == 2 then
-           printf_i   "... linear high distribution with %d units:\n", iPrint, iUnits
-           printf_i   "%s", iPrint, "HIGHER NOTES AND SHORTER DURATIONS PREFERRED\n"
+printf_i   "... linear high distribution with %d units:\n", iPrint, iUnits
+printf_i   "%s", iPrint, "HIGHER NOTES AND SHORTER DURATIONS PREFERRED\n"
 iScaleIndx linrnd_high 0, giLenScale-.0001, iUnits
 iDurIndx   linrnd_high 0, giLenDurs-.0001, iUnits
            else
-           printf_i   "... triangular distribution with %d units:\n", iPrint, iUnits
-           printf_i   "%s", iPrint, "MEDIUM NOTES AND DURATIONS PREFERRED\n"
+printf_i   "... triangular distribution with %d units:\n", iPrint, iUnits
+printf_i   "%s", iPrint, "MEDIUM NOTES AND DURATIONS PREFERRED\n"
 iScaleIndx trirnd     0, giLenScale-.0001, iUnits
 iDurIndx   trirnd     0, giLenDurs-.0001, iUnits
   endif
@@ -995,7 +995,7 @@ iIndex     =          0
 iIndex     +=         1
 iAccum     +=         iLine[iIndex]
  enduntil
-           printf_i   "Random number = %.3f, next element = %c!\n", 1, iVal, iIndex+97
+printf_i "Random number = %.3f, next element = %c!\n", 1, iVal, iIndex+97
 endin
 </CsInstruments>
 <CsScore>
@@ -1277,12 +1277,13 @@ kDens *= kDensMult
 kDens     =         kDens > giHighestDens*1.5 ? giHighestDens*1.5 : kDens
 kDens     =         kDens < giLowestDens/1.5 ? giLowestDens/1.5 : kDens
    ;change direction if maxima are crossed
-  if (kDens > giHighestDens && gkDensDir > 0) || (kDens < giLowestDens && gkDensDir < 0) then
+  if (kDens > giHighestDens && gkDensDir > 0) || 
+      (kDens < giLowestDens && gkDensDir < 0) then
 gkDensDir =         -gkDensDir
    if kDens > giHighestDens then
-          printks   " Density touched upper border - now becoming less dense.\n", 0
+printks   " Density touched upper border - now becoming less dense.\n", 0
           else
-          printks   " Density touched lower border - now becoming more dense.\n", 0
+printks   " Density touched lower border - now becoming more dense.\n", 0
    endif
   endif
  endif
@@ -1775,21 +1776,22 @@ ksmps = 32
 nchnls = 1
 0dbfs = 1
 
-giNotes ftgen   0,0,-100,-17,0,48, 15,53, 30,55, 40,60, 50,63, 60,65, 79,67, 85,70, 90,72, 96,75
+giNotes ftgen   0,0,-100,-17,0,48, 15,53, 30,55, 40,60, 50,63, 
+                60,65, 79,67, 85,70, 90,72, 96,75
 giDurs  ftgen   0,0,-100,-17,0,2, 30,0.5, 75,1, 90,1.5
 
   instr 1
-kDur  init        0.5             ; initial rhythmic duration
-kTrig metro       2/kDur          ; metronome freq. 2 times inverse of duration
-kNdx  trandom     kTrig,0,1       ; create a random index upon each metro 'click'
+kDur  init        0.5         ; initial rhythmic duration
+kTrig metro       2/kDur      ; metronome freq. 2 times inverse of duration
+kNdx  trandom     kTrig,0,1   ; create a random index upon each metro 'click'
 kDur  table       kNdx,giDurs,1   ; read a note duration value
       schedkwhen  kTrig,0,0,2,0,1 ; trigger a note!
   endin
 
   instr 2
-iNote table     rnd(1),giNotes,1                 ; read a random value from the function table
+iNote table rnd(1),giNotes,1 ; read a random value from the function table
 aEnv  linsegr   0, 0.005, 1, p3-0.105, 1, 0.1, 0 ; amplitude envelope
-iPlk  random    0.1, 0.3                         ; point at which to pluck the string
+iPlk  random    0.1, 0.3 ; point at which to pluck the string
 iDtn  random    -0.05, 0.05                      ; random detune
 aSig  wgpluck2  0.98, 0.2, cpsmidinn(iNote+iDtn), iPlk, 0.06
       out       aSig * aEnv

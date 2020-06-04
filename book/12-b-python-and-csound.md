@@ -247,7 +247,8 @@ Python in Csound using the Python Opcodes
 -----------------------------------------
 
 
-The second part of this chapter, discussing the old Python opcodes in Csound, is based on Andrés Cabrera's article *Using Python inside Csound, An introduction to the Python opcodes*.[^1] All examples below are to be executed in a Terminal. If using CsoundQt, choose *Run in Term* instead of *Run*. It should be noted that all examples here are using Python 2.
+The second part of this chapter, discussing the old Python opcodes in Csound, is based on Andrés Cabrera's article *Using Python inside Csound, An introduction to the Python opcodes*.[^1] 
+All examples below are to be executed in a Terminal. If using CsoundQt, choose *Run in Term* instead of *Run*. It should be noted that all examples here are using Python 2. There is a [plugin](https://github.com/csound/plugins) to port the Python opcodes to Python 3. There is also an [example](https://github.com/csound/plugins/blob/master/py/examples/embeddedCtcsound.csd) how to embed *ctcsound* in the Python opcodes.
 
 
 [^1]: Csound Journal Issue 6, Spring 2007:
@@ -669,10 +670,12 @@ instr 1 ;local python variable 'value'
  pylassigni "value", p4
  if timeinstk() == 1 then
   kvalue pyleval "value"
-  printks "Python variable 'value' in instr %d, instance %d, at start = %d\n", 0, p1, frac(p1)*10, kvalue
+  printks "Python variable 'value' in instr %d, instance %d, at start = %d\n",
+           0, p1, frac(p1)*10, kvalue
  elseif release() == 1 then
   kvalue pyleval "value"
-  printks "Python variable 'value' in instr %d, instance %d, at end = %d\n", 0, p1, frac(p1)*10, kvalue
+  printks "Python variable 'value' in instr %d, instance %d, at end = %d\n",
+           0, p1, frac(p1)*10, kvalue
  endif
 endin
 
@@ -680,10 +683,12 @@ instr 2 ;global python variable 'value'
  pyassigni "value", p4
  if timeinstk() == 1 then
   kvalue pyeval "value"
-  printks "Python variable 'value' in instr %d, instance %d, at start = %d\n", 0, p1, frac(p1)*10, kvalue
+  printks "Python variable 'value' in instr %d, instance %d, at start = %d\n",
+           0, p1, frac(p1)*10, kvalue
  elseif release() == 1 then
   kvalue pyeval "value"
-  printks "Python variable 'value' in instr %d, instance %d, at end = %d\n", 0, p1, frac(p1)*10, kvalue
+  printks "Python variable 'value' in instr %d, instance %d, at end = %d\n",
+           0, p1, frac(p1)*10, kvalue
  endif
 endin
 
@@ -806,10 +811,10 @@ instr 1  ;Markov chain reader and note spawner
 ;p4 = frequency of note generation
 ;p5 = octave
 ioct init p5
-klastnote init 0 ;Used to remember last note played (start at first note of scale)
+klastnote init 0 ;Used to remember last note played
 ktrig metro p4 ;generate a trigger with frequency p4
 knewnote pycall1t ktrig, "get_new_note", klastnote ;get new note from chain
-schedkwhen ktrig, 0, 10, 2, 0, 0.2, knewnote, ioct ;launch note on instrument 2
+schedkwhen ktrig, 0, 10, 2, 0, 0.2, knewnote, ioct ;launch note on instr 2
 klastnote = knewnote ;New note is now the old note
 endin
 

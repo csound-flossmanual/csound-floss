@@ -203,7 +203,8 @@ instr 2
 endin
 
 instr 3
- prints  "Applying the ratio of %f (adding %d Hertz) to %d Hertz!\n", p5, p4*p5, p4
+ prints  "Applying the ratio of %f (adding %d Hertz) to %d Hertz!\n", 
+         p5, p4*p5, p4
  asig    poscil  .2, p4*p5
  aout linen asig, 0, p3, p3
  outs aout, aout
@@ -285,7 +286,8 @@ instr Play
  iMidiKey = p4
  iFreq mtof iMidiKey
  S_name mton iMidiKey
- printf_i "Midi Note = %d, Frequency = %f, Note name = %s\n", 1, iMidiKey, iFreq, S_name
+ printf_i "Midi Note = %d, Frequency = %f, Note name = %s\n", 
+          1, iMidiKey, iFreq, S_name
  aPluck pluck .2, iFreq, iFreq, 0, 1
  aOut linen aPluck, 0, p3, p3/2
  aL, aR pan2 aOut, (iMidiKey-61)/10
