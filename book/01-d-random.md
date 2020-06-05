@@ -1738,7 +1738,7 @@ endin
 <CsScore>
 t 0 80
 \#define SCORE(i) \#
-i $$i 0 1   60
+i $i 0 1   60
 i .  + 2.5 69
 i .  + 0.5 67
 i .  + 0.5 65
