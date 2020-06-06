@@ -158,12 +158,11 @@ kMyVar    =         kMyVar + 1
 aMyVar    oscils    .2, 400, 0
           outs      aMyVar, aMyVar
 ;S-variable updated just at init-time
-SMyVar1   sprintf   "This string is updated just at init-time:
-                     kMyVar = %d\n", i(kMyVar)
+SMyVar1 sprintf "This string is updated just at init-time: kMyVar = %d\n",
+                i(kMyVar)
           printf    "%s", kMyVar, SMyVar1
 ;S-variable updated at each control-cycle
-SMyVar2   sprintfk  "This string is updated at k-time:
-                     kMyVar = %d\n", kMyVar
+SMyVar2 sprintfk "This string is updated at k-time: kMyVar = %d\n", kMyVar
           printf    "%s", kMyVar, SMyVar2
   endin
 
@@ -180,12 +179,11 @@ kMyVar    =         kMyVar + 1
 aMyVar    oscils    .3, 600, 0
           outs      aMyVar, aMyVar
 ;S-variable updated just at init-time
-SMyVar1   sprintf   "This string is updated just at init-time:
-                     kMyVar = %d\n", i(kMyVar)
+SMyVar1 sprintf "This string is updated just at init-time: kMyVar = %d\n",
+                i(kMyVar)
           printf    "%s", kMyVar, SMyVar1
 ;S-variable updated at each control-cycle
-SMyVar2   sprintfk  "This string is updated at k-time:
-                     kMyVar = %d\n", kMyVar
+SMyVar2 sprintfk "This string is updated at k-time: kMyVar = %d\n", kMyVar
           printf    "%s", kMyVar, SMyVar2
   endin
 
@@ -258,12 +256,11 @@ giMyVar   =         giMyVar + 1
 gkMyVar   =         gkMyVar + 1
           printk    0, gkMyVar
  ;global S-variable updated just at init-time
-gSMyVar1  sprintf   "This string is updated just at init-time:
-                     gkMyVar = %d\n", i(gkMyVar)
+gSMyVar1 sprintf "This string is updated just at init-time: gkMyVar = %d\n",
+                 i(gkMyVar)
           printf    "%s", gkMyVar, gSMyVar1
  ;global S-variable updated at each control-cycle
-gSMyVar2  sprintfk  "This string is updated at k-time:
-                     gkMyVar = %d\n", gkMyVar
+gSMyVar2 sprintfk "This string is updated at k-time: gkMyVar = %d\n", gkMyVar
           printf    "%s", gkMyVar, gSMyVar2
   endin
 
