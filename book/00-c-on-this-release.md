@@ -15,7 +15,7 @@ The whole text has been revised. Many figures have been substituted or added. Ma
 - [04 H Scanned Synthesis](04-h-scanned-synthesis.md)
 - [05 G Granular Synthesis](05-g-granular-synthesis.md)
 - [05 H Convolution](05-h-convolution.md)
-- [05 I FFT](05-i-fourier-analysis-spectral-processing.md)
+- [05 I Spectral Processing](05-i-fourier-analysis-spectral-processing.md)
 - [08 A Open Sound Control](08-a-open-sound-control.md)
 - [10 B Cabbage](10-b-cabbage.md) (thanks to Rory Walsh)
 - [12 A Csound API](12-a-the-csound-api.md) (thanks to François Pinot)
