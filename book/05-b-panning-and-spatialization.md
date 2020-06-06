@@ -184,15 +184,15 @@ aPanR    =       sqrt(aPan)
 
  if imethod=3 then
 ;------------------------ method 3 --------------------------
-aPanL    =       cos(aPan*$$M\_PI\_2)
-aPanR    =       sin(aPan*$$M\_PI\_2)
+aPanL    =       cos(aPan*$M\_PI\_2)
+aPanR    =       sin(aPan*$M\_PI\_2)
 ;------------------------------------------------------------
  endif
 
  if imethod=4 then
 ;------------------------ method 4 --------------------------
-aPanL   =  cos((aPan + 0.5) * $$M\_PI\_2)
-aPanR   =  sin((aPan + 0.5) * $$M\_PI\_2)
+aPanL   =  cos((aPan + 0.5) * $M\_PI\_2)
+aPanR   =  sin((aPan + 0.5) * $M\_PI\_2)
 ;------------------------------------------------------------
  endif
 

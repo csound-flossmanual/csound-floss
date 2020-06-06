@@ -341,7 +341,7 @@ setksmps 1
 avel    init    0               ;velocity
 ax      init    0               ;deflection x
 ain,kf,kdamp    xin
-kc      =       2-sqrt(4-kdamp\^2)*cos(kf*2*$$M\_PI/sr)
+kc      =       2-sqrt(4-kdamp\^2)*cos(kf*2*$M\_PI/sr)
 aacel   =       -kc*ax
 avel    =       avel+aacel+ain
 avel    =       avel*(1-kdamp)
@@ -533,7 +533,7 @@ opcode v_d_p, a, akk
  av init 0
  ax init 0
  ain,kfr,kmu xin
- kc = 2-2*cos(kfr*2*$$M_PI/sr)
+ kc = 2-2*cos(kfr*2*$M_PI/sr)
  aa = -kc*ax + kmu*(1-ax*ax)*av
  av = av + aa
  ax = ax + av + ain
@@ -1056,32 +1056,32 @@ aL,aR   pan2            aSig,kPan
 
 \#define gliss(dur'Kstrt'Kend'b'scan1'scan2)
 \#
-i 1 0     20 $$Kstrt $$b $$scan1 $$scan2
-i 1 \^+0.05 $$dur >     $$b $$scan1 $$scan2
-i 1 \^+0.05 $$dur >     $$b $$scan1 $$scan2
-i 1 \^+0.05 $$dur >     $$b $$scan1 $$scan2
-i 1 \^+0.05 $$dur >     $$b $$scan1 $$scan2
-i 1 \^+0.05 $$dur >     $$b $$scan1 $$scan2
-i 1 \^+0.05 $$dur >     $$b $$scan1 $$scan2
-i 1 \^+0.05 $$dur >     $$b $$scan1 $$scan2
-i 1 \^+0.05 $$dur >     $$b $$scan1 $$scan2
-i 1 \^+0.05 $$dur >     $$b $$scan1 $$scan2
-i 1 \^+0.05 $$dur >     $$b $$scan1 $$scan2
-i 1 \^+0.05 $$dur >     $$b $$scan1 $$scan2
-i 1 \^+0.05 $$dur >     $$b $$scan1 $$scan2
-i 1 \^+0.05 $$dur >     $$b $$scan1 $$scan2
-i 1 \^+0.05 $$dur >     $$b $$scan1 $$scan2
-i 1 \^+0.05 $$dur >     $$b $$scan1 $$scan2
-i 1 \^+0.05 $$dur >     $$b $$scan1 $$scan2
-i 1 \^+0.05 $$dur $$Kend $$b $$scan1 $$scan2
+i 1 0     20 $Kstrt $b $scan1 $scan2
+i 1 \^+0.05 $dur >     $b $scan1 $scan2
+i 1 \^+0.05 $dur >     $b $scan1 $scan2
+i 1 \^+0.05 $dur >     $b $scan1 $scan2
+i 1 \^+0.05 $dur >     $b $scan1 $scan2
+i 1 \^+0.05 $dur >     $b $scan1 $scan2
+i 1 \^+0.05 $dur >     $b $scan1 $scan2
+i 1 \^+0.05 $dur >     $b $scan1 $scan2
+i 1 \^+0.05 $dur >     $b $scan1 $scan2
+i 1 \^+0.05 $dur >     $b $scan1 $scan2
+i 1 \^+0.05 $dur >     $b $scan1 $scan2
+i 1 \^+0.05 $dur >     $b $scan1 $scan2
+i 1 \^+0.05 $dur >     $b $scan1 $scan2
+i 1 \^+0.05 $dur >     $b $scan1 $scan2
+i 1 \^+0.05 $dur >     $b $scan1 $scan2
+i 1 \^+0.05 $dur >     $b $scan1 $scan2
+i 1 \^+0.05 $dur >     $b $scan1 $scan2
+i 1 \^+0.05 $dur $Kend $b $scan1 $scan2
 \#
-$$gliss(15'40'400'0.0755'0.1'2)
+$gliss(15'40'400'0.0755'0.1'2)
 b 5
-$$gliss(2'80'800'0.755'0'0.1)
+$gliss(2'80'800'0.755'0'0.1)
 b 10
-$$gliss(3'10'100'0.1'0'0)
+$gliss(3'10'100'0.1'0'0)
 b 15
-$$gliss(40'40'433'0'0.2'5)
+$gliss(40'40'433'0'0.2'5)
 e
 </CsScore>
 </CsoundSynthesizer>
