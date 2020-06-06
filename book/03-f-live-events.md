@@ -973,14 +973,15 @@ i-rate or a k-rate opcode?"
 
 ### i-rate Versions: *schedule*, *event_i*, *scoreline_i*
 
-If you need an i-rate opcode to trigger an instrument event, *schedule* is
+If you need an i-rate opcode to trigger an instrument event, 
+[schedule](https://csound.com/docs/manual/schedule.html) is
 the most basic choice. You use it actually exactly the same as writing
-any score event; just separting the parameter fields by commas rather by
+any score event; just seperating the parameter fields by commas rather by
 spaces:
 
     schedule iInstrNum (or "InstrName"), iStart, iDur [, ip4] [, ip5] [...]
 
-*event_i* is very similar:
+[event_i](https://csound.com/docs/manual/event_i.html) is very similar:
 
     event_i "i", iInstrNum (or "InstrName"), iStart, iDur [, ip4] [, ip5] [...]
 
@@ -1003,10 +1004,8 @@ this code ...
     error: Unable to find opcode entry for 'event_i' with matching argument types:
     Found: (null) event_i SccS
 
-With *scoreline_i* sending strings is also possible. This opcode takes one or
-more lines of score statements which follow the same conventions as if
-written in the score section itself.[^3] If you enclose the line(s) by *{{*
-and *}}*, you can include as many strings in it as you wish:
+With 
+[scoreline_i](https://csound.com/docs/manual/scoreline_i.html) sending strings is also possible. This opcode takes one or more lines of score statements which follow the same conventions as if written in the score section itself.[^3] If you enclose the line(s) by *{{* and *}}*, you can include as many strings in it as you wish:
 
 
 [^3]:  This means that score parameter fields are separated by spaces, not
@@ -1017,12 +1016,15 @@ and *}}*, you can include as many strings in it as you wish:
                   i "bla" 1 1 "brown" "earth"
                 }}
 
-### k-rate versions: *event*, *scoreline*, *schedkwhen*
+### k-rate versions: *schedulek*, *event*, *scoreline*, *schedkwhen*
 
-If you need a k-rate opcode to trigger an instrument event, *event* is the
-basic choice. Its syntax is very similar to *event_i*, but as described
-above, it works at k-rate and you can also change all its arguments at
-k-rate:
+If you need a k-rate opcode to trigger an instrument event, 
+[schedulek](https://csound.com/docs/manual/schedulek.html) is the basic choice as k-variant of *schedule*:
+
+    schedulek kInstrNum (or "InstrName"), kStart, kDur [, kp4] [, kp5] [...]
+
+The advantage of *schedulek* against *event* is the possibility to pass strings as p-fields. On the other hand, 
+[event](https://csound.com/docs/manual/event.html) can not only generate instrument events, but also other score events. For instrument events, the syntax is:
 
     event "i", kInstrNum (or "InstrName"), kStart, kDur [, kp4] [, kp5] [...]
 
@@ -1034,13 +1036,12 @@ would be:
 
     kTrigger  metro    1 ;"ticks" once a second
     if kTrigger == 1 then ;if it ticks
-      event "i", "my_instr", 0, 1 ;call the instrument
+     schedulek "my_instr", 0, 1 ;call the instrument
     endif
 
 In other words: This code would only use one control-cycle per second to
 call my\_instr, and would do nothing in the other control cycles. The
-schedkwhen opcode simplifies such typical use cases, and adds some other
-useful arguments. This is the syntax:
+[schedkwhen](https://csound.com/docs/manual/schedkwhen.html) opcode simplifies such typical use cases, and adds some other useful arguments. This is the syntax:
 
     schedkwhen kTrigger, kMinTim, kMaxNum, kInsrNum (or "InstrName"), 
     kStart, kDur [, kp4] [, kp5] [...]
@@ -1065,8 +1066,8 @@ instead of four:
     schedkwhen kTrigger, 0, 0, "my_instr", 0, 1
 
 Only, you cannot pass strings as p-fields via schedkwhen (and event).
-So, very much similar as described above for i-rate opcodes, scoreline
-fills this gap. Usually we will use it with a condition,  as we did for
+So, very much similar as described above for i-rate opcodes, 
+[scoreline](https://csound.com/docs/manual/scoreline.html) fills this gap (as well as *schedulek*). Usually we will use it with a condition,  as we did for
 the event opcode:
 
     kTrigger  metro    1 ;"ticks" once a second
