@@ -99,7 +99,7 @@ a start value to an (included) end value. Here are some examples:
 The [=](https://csound.com/docs/manual/assign.html) operator copies any existing array to a new variable. The example shows how a global array is copied into a local one depending on a score p-field: If *p4* is set to 1, *iArr\[\]* is set to the content of *gi_Arr_1*; if *p4* is 2, it gets the content of *gi_Arr_2*. The content of *iArr\[\]* is then sent to instr *Play* in a [while](https://csound.com/docs/manual/while.html) loop.
 
 
-   ***EXAMPLE 04E01_CopyArray.csd***
+   ***EXAMPLE 03E01_CopyArray.csd***
 
 ~~~csound
 <CsoundSynthesizer>
@@ -302,7 +302,7 @@ will return *"two"*.
 
 The [directory](https://csound.com/docs/manual/directory.html) opcode looks for all files in a directory and returns an array containing the file names:
 
-   ***EXAMPLE 04E04_Directory.csd***
+   ***EXAMPLE 03E04_Directory.csd***
 
 ~~~csound
 <CsoundSynthesizer>
