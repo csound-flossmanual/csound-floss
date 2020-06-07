@@ -11,7 +11,7 @@ medium can be described as sound waves. The simplest type of waveform,
 describing what is referred to as *simple harmonic motion*, is a sine
 wave.
 
-![](../resources/images/01-a-sinewave.png)
+![Sine wave](../resources/images/01-a-sinewave.png){width=95%}
 
 Each time the waveform signal goes above zero the molecules are in a state
 of compression meaning that each molecule within the waveform
@@ -93,7 +93,7 @@ are left with what is known as a *discrete signal*, consisting of a
 collection of audio samples, as illustrated in the bottom half of the
 diagram.
 
-![Sampling of an analog signal](../resources/images/01-a-sampling.png)
+![Sampling of an analog signal](../resources/images/01-a-sampling.png){width=70%}
 
 It is important to remember that each sample represents the amount of
 voltage, positive or negative, that was present in the signal at the
@@ -139,7 +139,7 @@ lines. The line that joins the red circles together is the captured
 waveform. As you can see, the captured waveform and the original
 waveform express different frequencies.
 
-Here is another example:
+Here is another example, showing for a sample rate of 40 kHz in the upper section a sine of 10 kHz, and in the lower section a sine of 30 kHz:
 
 ![Aliasing of a 30 kHz sine at 40 kHz sample rate](../resources/images/01-a-aliasing-2.png)
 

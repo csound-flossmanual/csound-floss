@@ -48,15 +48,15 @@ straightforward transfer of the signal flow paradigm to text.
 For example, to create a 400 Hz sine oscillator with an amplitude of
 0.2, this is the signal flow:
 
-![](../resources/images/00-a-signal-flow.png)
+![Simple signal flow](../resources/images/00-a-signal-flow.png){width=20%}
 
 Here is a possible transformation of the signal graph into Csound code:
 
 ~~~csound
-    instr   Sine
-     aSig poscil  0.2, 400
-     out     aSig
-    endin
+instr Sine
+ aSig poscil 0.2, 400
+ out aSig
+endin
 ~~~
 
 The oscillator is represented by the opcode
@@ -72,9 +72,9 @@ code in an even more condensed fashion using so-called *functional
 syntax*, as shown below:
 
 ~~~csound
-    instr Sine
-     out poscil:a(0.2, 400)
-    endin
+instr Sine
+ out poscil:a(0.2, 400)
+endin
 ~~~
 
 We will use both, traditional and functional style, throughout this textbook. More details on functional style can be found in chapter
