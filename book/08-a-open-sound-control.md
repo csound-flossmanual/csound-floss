@@ -329,4 +329,5 @@ The examples in this chapter were simple demonstrations of how different data ty
 - [OSCcount](https://csound.com/docs/manual/OSCcount.html) returns the count of OSC messages currently unread.  
 - [OSCraw](https://csound.com/docs/manual/OSCraw.html) listens for all messages at a given port.  
 - [OSCbundle](https://csound.com/docs/manual/OSCbundle.html) sends OSC messages in a bundle rather than single messages.  
+- There is a variant of *OSCsend* called *OSCsend_lo* which uses the liblo library.
 

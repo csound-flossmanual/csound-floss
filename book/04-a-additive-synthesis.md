@@ -547,9 +547,9 @@ base - and as a reference to its author - we take as our starting point,
 the *bell-like* sound created by Jean-Claude Risset in his *Sound
 Catalogue*.[^2]
 
-[2]: Jean-Claude Risset, Introductory Catalogue of Computer Synthesized
-     Sounds (1969), cited after Dodge/Jerse, Computer Music, New York /
-     London 1985, p.94
+[^2]: Jean-Claude Risset, Introductory Catalogue of Computer Synthesized
+      Sounds (1969), cited after Dodge/Jerse, Computer Music, New York /
+      London 1985, p.94
 
    ***EXAMPLE 04A07_Risset_variations.csd***
 
