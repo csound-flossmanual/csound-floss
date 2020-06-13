@@ -10,7 +10,7 @@
     "csound-manual-react": "^1.0.0-alpha8",
     "csound-wasm": "^6.14.0-alpha14",
     "he": "^1.2.0",
-    "history": "^5.0.0",
+    "history": "^4.10.1",
     "html-to-jsx": "^0.0.4",
     "htmlparser2": "^4.1.0",
     "mathjax-node": "^2.1.1",
