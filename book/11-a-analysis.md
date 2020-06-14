@@ -69,21 +69,77 @@ The *cvanal* utility analyses an impulse response for usage in the old [concolve
 
 ### hetro
 
-The hetrodyne filter analysis can be understood as simplified and adjustable Fourier Transform. Although this utility is originally designed for the usage in the [adsyn](https://csound.com/docs/manual/adsyn.html) opcode, it can be used to get data from any harmonic sound for additive synthesis. 
+The hetrodyne filter analysis can be understood as one way of applying the Fourier Transform.[^1] Its attempt is to reconstruct a number of partial tracks in a time-breakpoint manner. The breakpoints are measured in milliseconds. 
+Although this utility is originally designed for the usage in the [adsyn](https://csound.com/docs/manual/adsyn.html) opcode, it can be used to get data from any harmonic sound for additive synthesis. 
 
-The usage of *hetro* follows the utility standard:
+[^1]: Cf. Curtis Roads, The Computer Music Tutorial, Cambridge MA: MIT Press 1996, 548-549;
+James Beauchamp, Analysis, Synthesis and Perception of Musical Sounds, New York:Springer 2007, 5-12
+
+The usage of *hetro* follows the general utility standard:
 
     hetro [flags] infilename outfilename
 
 But the adjustment of some *flags* is crucial here depending on the desired usage of the analysis:
 
-- **-f** *begfreq*: This is the estimated frequency of the fundamental. The default is 100 Hz, but it should be adjusted as good as possible to the real fundamental frequency as good as possible.  
+- **-f** *begfreq*: This is the estimated frequency of the fundamental. The default is 100 Hz, but it should be adjusted as good as possible to the real fundamental frequency of the input sound.  
 - **-h** *partials*: This is the number of partials the utility will analyze and write in the output file. The default number of 10 is quite low and will usually result in a dull sound in the resynthesis.  
 - **-n** *brkpts*: This is the number of breakpoints for the analysis. These breakpoints are initially evenly spread over the duration, and then reduced and adjusted by the algorithm. The default number of 256 is reasonable for most usage, but can be massively reduced for some sounds and usages.  
-- **-m** *minamp*: The *hetro* utility uses the old Csound amplitude convention where 0 dB is set to 32767. This has to be considered here, where a minimal amplitude is set below which a partial is considered dormant. So the default 64 means -54 dB; other common values are 128 (-48 dB), 32 (-60 dB) or 0 (no thresholding).
+- **-m** *minamp*: The *hetro* utility uses the old Csound amplitude convention where 0 dB is set to 32767. This has to be considered in this option, in which a minimal amplitude is set. Below this amplitude a partial is considered dormant. So the default 64 corresponds to -54 dB; other common values are 128 (-48 dB), 32 (-60 dB) or 0 (no thresholding).
  
+As an example, we start the utility with these parameters:
 
 ![HETRO Utility in CsoundQt](../resources/images/11-a-hetro.png)
+
+This is the output of the analysis in the Csound console:
+
+~~~
+util hetro:
+audio sr = 44100, monaural
+opening WAV infile resources/SourceMaterials/BratscheMono.wav
+analysing 359837 sample frames (8.2 secs)
+analyzing harmonic #0
+freq estimate  220.0, max found  220.0, rel amp 1039228.8
+analyzing harmonic #1
+freq estimate  440.0, max found  443.5, rel amp 358754.9
+analyzing harmonic #2
+freq estimate  660.0, max found  660.0, rel amp 329786.0
+analyzing harmonic #3
+freq estimate  880.0, max found  880.0, rel amp 253682.2
+analyzing harmonic #4
+freq estimate 1100.0, max found 1147.5, rel amp 188708.2
+analyzing harmonic #5
+freq estimate 1320.0, max found 1320.0, rel amp 51153.9
+analyzing harmonic #6
+freq estimate 1540.0, max found 1564.8, rel amp 52575.5
+analyzing harmonic #7
+freq estimate 1760.0, max found 1760.0, rel amp 149709.0
+analyzing harmonic #8
+freq estimate 1980.0, max found 1980.0, rel amp 162766.8
+analyzing harmonic #9
+freq estimate 2200.0, max found 2200.0, rel amp 71892.1
+scale = 0.013184
+harmonic #0:	amp points 10, 	frq points 10,	peakamp 13701
+harmonic #1:	amp points 10, 	frq points 10,	peakamp 4730
+harmonic #2:	amp points 10, 	frq points 10,	peakamp 4348
+harmonic #3:	amp points 10, 	frq points 10,	peakamp 3344
+harmonic #4:	amp points 9, 	frq points 9,	peakamp 2488
+harmonic #5:	amp points 10, 	frq points 10,	peakamp 674
+harmonic #6:	amp points 9, 	frq points 9,	peakamp 693
+harmonic #7:	amp points 10, 	frq points 10,	peakamp 1974
+harmonic #8:	amp points 9, 	frq points 9,	peakamp 2146
+harmonic #9:	amp points 9, 	frq points 9,	peakamp 948
+wrote 848 bytes to resources/SourceMaterials/BratscheMono.het
+~~~
+
+The file *BratscheMono.het* starts with `HETRO 10` as first line, showing that 10 partial track data will follow. The amplitude data lines begin with -1, the frequency data lines begin with -2.  This is start and end of the first two lines, slightly formatted to show the breakpoints:
+
+~~~
+-1, 0,0,   815,3409, 1631,11614, 2447,12857, ... , 7343,0,   32767
+-2, 0,220, 815,217,  1631,218,   2447,219, ...   , 7343,217, 32767
+~~~
+
+After the starting -1 or -2, the time-value pairs are written. Here we have at 0 ms an amplitude of 0 and a frequency of 220. At 815 ms we have amplitude of 3409 and frequency of 217. At 7343 ms, near the end of this file, we have amplitude of 0 and frequency of 217, followed in both cases by 32767 (as additional line ending signifier).
+
 
 ### lpanal
 
