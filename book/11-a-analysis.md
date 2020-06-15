@@ -143,34 +143,22 @@ After the starting -1 or -2, the time-value pairs are written. Here we have at 0
 
 ### lpanal
 
+Linear Prediction Coding has been developed for the analysis and resynthesis of speech.[^2] 
+The [lpanal](https://csound.com/docs/manual/lpanal.html) utility performs the analysis, which will then be used by the [LPC Resynthesis Opcodes](https://csound.com/docs/manual/SpectralLpcresyn.html). The defaults can be seen in the following screenshot:
+
+[^2]: Cf. Curtis Roads, The Computer Music Tutorial, Cambridge MA: MIT Press 1996, 200-210
+
+![LPANAL Utility in CsoundQt](../resources/images/11-a-lpanal.png)
+
+It should be mentioned that in 2020 Victor Lazzarini wrote a bunch of opcodes which apply real-time (streaming) linear prediction analysis. The complement of the old lpanal utility is the [lpcanal](https://csound.com/docs/manual/lpcanal.html) opcode.
+
 
 ### pvanal
 
-This time as well as requiring an input sound file for analysis we will
-need to provide a name (and optionally the full address) for the output
-file. Using *pvanal's* command flags we can have full control over
-typical FFT conversion parameters such as FFT size, overlap, window type
-etc. as well as additional options that may prove useful such as the
-ability to select a fragment of a larger sound file for the analysis. In
-the following illustration we shall make use of just one flag, -s, for
-selecting which channel of the input sound file to analyse, all other
-flag values shall assume their default values which should work fine in
-most situations.
+The [pvanal](https://csound.com/docs/manual/pvanal.html) utility performs a Short-Time Fourier Transform over a sound file. It will produce a *.pvx* file which can be used by the old *pv*-opcodes. Nowadays the *pvs*-opcodes are mostly in use; see chapter [05 I](05-i-fourier-analysis-spectral-processing.md) of this book. Nevertheless, the *pvanal* utility provides a simple option to perform FFT and write the result in a file.
 
-     pvanal -s1 mysound.wav myanalysis.pvx
+The main parameter are few; the defaults can be seen here:
 
-*pvanal* will analyse the first (left if stereo) channel of the input sound file *mysound.wav* (and in this case as no full address has been provided
-it will need to be in either the current working directory or
-[SSDIR](https://csound.com/docs/manual/CommandEnvironment.html)),
-and a name has been provided for the output file *myanalysis.pvx*,
-which, as no full address has been given, will be placed in the current
-working directory. While *pvanal* is running it will print a running momentary and finally inform us once the process is complete.
+![PVANAL Utility in CsoundQt](../resources/images/11-a-pvanal.png)
 
-If you use CsoundQt you can have direct access to *pvanal* with all its
-options through the *utilities* button in the toolbar. Once opened it
-will reveal a dialogue window looking something like this:
-
-![](../resources/images/11-a-csoundqtpvanal.jpg)
-
-Especially helpful is the fact that we are also automatically provided
-with *pvanal*'s manual page.
+The binary data of a *.pvx* file can be converted in a text file via the [pvlook](https://csound.com/docs/manual/pvlook.html) utility.
