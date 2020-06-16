@@ -109,7 +109,7 @@ const PlayControls = ({ initialEditorState, currentEditorState }) => {
       libcsound = await esModule.default();
       // eslint-disable-next-line
       await libcsound.setMessageCallback(log => {
-        console.log(log);
+        // console.log(log);
         csoundDispatch({ type: "STORE_LOG", log });
       });
       await libcsound.setCsoundPlayStateChangeCallback(change =>
@@ -200,7 +200,7 @@ const PlayControls = ({ initialEditorState, currentEditorState }) => {
 };
 
 const CodeElement = ({ data }) => {
-  console.log(decode(data || ""));
+  // console.log(decode(data || ""));
   const initialEditorState = decode(data || "");
   const [state, setState] = useState(initialEditorState);
 
