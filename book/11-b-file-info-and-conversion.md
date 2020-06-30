@@ -97,6 +97,22 @@ The [hetro](https://csound.com/docs/manual/hetro.html) utility will create an [s
 
 ### src_conv
 
+Sample rate conversion is an everyday's situation in electronic music production. The 
 [src_conv](https://csound.com/docs/manual/src_conv.html) 
+utility is based on Eric de Castro Lopo's 
+[libsamplerate](https://github.com/erikd/libsamplerate). It offers five quality levels where 1 is the worst and 5 the best. The general syntax is here:
 
+    src_conv [flags] infile
 
+The most important flags are:
+- **Q** conversion quality (1-5, default=3)
+- **-o** name of the output file (default is *test.wav*)
+- **-r** output sample rate
+- **-s** or **-3** or **-f** output bit depth (16 (=default) / 24 / 32 bit)
+- **-W** for *.wav* as output format (other options are *-A* = aiff and *-J* = ircam)
+
+To convert the sample rate of *fox.wav* in best quality to 48 kHz and writing a 32 bit output file as *best_fox.wav* we write:
+
+~~~
+src_conv -r 48000 -o best_fox.wav -W -Q5 -f fox.wav 
+~~~
