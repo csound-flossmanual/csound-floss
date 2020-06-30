@@ -1,7 +1,6 @@
 TO DO
 =====
 
-- test all examples
 - go through all examples and
     - replace some instrument numbers by names
     - introduce some functional style
@@ -52,9 +51,6 @@ Edits
     - needs to be updated
 - 10-a (csoundqt) 
     - describe some use cases here. perhaps more links to csoundqt's website
-- 11-a (utility: analysis)
-    - add short description about atsa etc
-- 11-b and 11-c also more explanation
 - 14-a (score methods)
     - perhaps mark Cmask etc as historical tools
 - 14-b (python csoundqt)
