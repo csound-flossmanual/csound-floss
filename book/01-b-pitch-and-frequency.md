@@ -10,12 +10,12 @@ Pitch and frequency are related but different terms.[^1] *Pitch* is used by musi
 Frequencies
 -----------
 
-As mentioned in the previous chapter, frequency is defined as the number
-of cycles or periods per second. The SI unit is Hertz where 1 Hertz means 1 period per second. If a tone has a frequency of 100 Hz it completes 100 cycles every second. If a tone has a frequency of 200 Hz it completes 200 cycles every second.
+As mentioned in the previous chapter, *frequency* is defined as the *number
+of cycles* or periods *per second*. The SI unit is *Hertz* where 1 Hertz means 1 period per second. If a tone has a frequency of 100 Hz it completes 100 cycles every second. If a tone has a frequency of 200 Hz it completes 200 cycles every second.
 
 Given a tone's frequency, the time for one period can be calculated straightforwardly. For 100 periods per seconds (100 Hz), the time for one period is 1/100 or 0.01 seconds. For 200 periods per second (200 Hz), the time for each period is only half as much: 1/200 or 0.005 seconds. Mathematically, the period is the reciprocal of the frequency and vice versa. In equation form, this is expressed as follows:
 
-$Frequency = \frac{1}{Period}$
+$Frequency = \frac{1}{Period}$  
 $Period = \frac{1}{Frequency}$
 
 
@@ -35,7 +35,7 @@ For instance, a sine wave of 1000 Hz has a length of approximately 340/1000 m = 
 
 ### Periodic and Nonperiodic Sounds
 
-Not all sounds are periodic. In fact, periodic sounds are only one end of a spectrum. The other end is noise. In between is a continuum which can be described from both points of view: a periodic sound which has noisy parts, or a noise which has periodic parts. The following example shows these aspects in one of their numerous possibilities. It starts with a sine tone of 1000 Hz and slowly adds aperiodicity. This is done by changing the frequency of the sine oscillator faster and faster, and in a wider and wider range.  At the end noise is reached. The other way, from noise to a periodic tone, is shown with a band filter the band width of which is at first 10000 Hz around a center frequency of 1000 Hz, i.e. essentially not altering the white noise. Then the band width decreases dramatically (from 10000 Hz to 0.1 Hz) so that at the end a sine tone is nearly reached.
+Not all sounds are periodic. In fact, periodic sounds are only one end of a range. The other end is noise. In between is a continuum which can be described from both points of view: a periodic sound which has noisy parts, or a noise which has periodic parts. The following example shows these aspects in one of their numerous possibilities. It starts with a sine tone of 1000 Hz and slowly adds aperiodicity. This is done by changing the frequency of the sine oscillator faster and faster, and in a wider and wider range.  At the end noise is reached. The other way, from noise to a periodic tone, is shown with a band filter. Its band width is at first 10000 Hz around a center frequency of 1000 Hz, i.e. essentially not altering the white noise. Then the band width decreases dramatically (from 10000 Hz to 0.1 Hz) so that at the end a sine tone is nearly reached.
 
    ***EXAMPLE 01B01_PeriodicAperiodic.csd***
 
@@ -52,21 +52,21 @@ nchnls = 2
 ksmps = 32
 
 instr SineToNoise
- kMinFreq expseg 1000, p3*1/5, 1000, p3*3/5, 20, p3*1/5, 20
- kMaxFreq expseg 1000, p3*1/5, 1000, p3*3/5, 20000, p3*1/5, 20000
- kRndFreq expseg 1, p3*1/5, 1, p3*3/5, 10000, p3*1/5, 10000
- aFreq randomi kMinFreq, kMaxFreq, kRndFreq
- aSine poscil .1, aFreq
- aOut linen aSine, .5, p3, 1
- out aOut, aOut
+ kMinFreq = expseg:k(1000, p3*1/5, 1000, p3*3/5, 20, p3*1/5, 20)
+ kMaxFreq = expseg:k(1000, p3*1/5, 1000, p3*3/5, 20000, p3*1/5, 20000)
+ kRndFreq = expseg:k(1, p3*1/5, 1, p3*3/5, 10000, p3*1/5, 10000)
+ aFreq = randomi:a(kMinFreq, kMaxFreq, kRndFreq)
+ aSine = poscil:a(.1, aFreq)
+ aOut = linen:a(aSine, .5, p3, 1)
+ out(aOut, aOut)
 endin
 
 instr NoiseToSine
- aNoise rand .1, 2, 1
- kBw expseg 10000, p3*1/5, 10000, p3*3/5, .1, p3*1/5, .1
- aFilt reson aNoise, 1000, kBw, 2
- aOut linen aFilt, .5, p3, 1
- out aOut, aOut
+ aNoise = rand:a(.1, 2, 1)
+ kBw = expseg:k(10000, p3*1/5, 10000, p3*3/5, .1, p3*1/5, .1)
+ aFilt = reson:a(aNoise, 1000, kBw, 2)
+ aOut = linen:a(aFilt, .5, p3, 1)
+ out(aOut, aOut)
 endin
 
 </CsInstruments>
@@ -96,7 +96,7 @@ It is generally stated that the human ear can hear sounds in the range
 due to a condition known as presbyacusis, or age related hearing loss.
 Most adults can hear frequencies up to about 16 kHz while most children can hear beyond
 this. At the lower end of the spectrum the human ear does not respond to
-frequencies below 20 Hz, and very low frequencies need more power to be heard than medium or high frequencies. (This is explained more in detail in the paragraph about the Fletscher-Munson-Curves in the [next chapter](01-c-intensities.md).)
+frequencies below 20 Hz, and very low frequencies need more power to be heard than medium or high frequencies. (This is explained more in detail in the paragraph about the *Fletscher-Munson-Curves* in the [next chapter](01-c-intensities.md).)
 
 So, in the following example, you will not hear the first (10 Hz) tone,
 and probably not the last (20 kHz) one, but hopefully the other ones
@@ -157,9 +157,7 @@ Intervals in music describe the distance between two notes. When dealing
 with standard musical notation it is easy to determine an interval
 between two adjacent notes. For example a perfect 5th is always made up
 of seven semitones, so seven adjacent keys on a keyboard. When dealing with Hz values things are different. A difference of say 100 Hz does not always equate to the same musical interval. This is because musical intervals are
-represented as ratios between two frequencies. An octave for example is always
-2:1. That is to say every time you double a Hz value you will jump up by
-a musical interval of an octave.
+represented as *ratios* between two frequencies. An octave for example is always defines by the ratio 2:1. That is to say every time you double a Hz value you will jump up by a musical interval of an octave.
 
 Consider the following. A flute can play the note A4 at 440 Hz. If the
 player plays A5 an octave above it at 880 Hz the difference in Hz

@@ -169,11 +169,10 @@ ksmps = 32
 nchnls = 2
 0dbfs = 1
 
-//wave form with harmonics 1, 10, 20
+//wave form with harmonics 1, 11 and 22
 giHarmonics ftgen 0, 0, 8192, 9, 1,.1,0, 11,.1,0, 22,1,0
 
 instr 1
-print sr-1990*22
  asig poscil .1, p4
  out asig, asig
 endin
@@ -185,9 +184,11 @@ endin
 
 </CsInstruments>
 <CsScore>
-i 1 0 2 1000 ;1000 Hz tone
-i 1 3 2 43100 ;43100 Hz tone sounds like 1000 Hz because of aliasing
-i 2 6 4 1990 ;1990 Hz results in 1990*22=43780 Hz so aliased 320 Hz
+i 1 0 2 1000 ;1000 Hz sine
+i 1 3 2 43100 ;43100 Hz sine sounds like 1000 Hz because of aliasing
+i 2 6 4 1990 ;1990 Hz with harmonics 1, 11 and 22
+             ;results in 1990*22=43780 Hz so aliased 320 Hz
+             ;for the highest harmonic
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
@@ -241,7 +242,7 @@ or down when being digitized.
 
 The figure below shows the quantization issue in simplified version, assuming a depth of only 3 bit. This is like a grid of 2^3^ = 8 possible levels which can be used for each sample. At each sampling period the soundcard plots an amplitude which is adjusted to the next possible vertical position. For a signal with lower amplitude the distortion would even be stronger.
 
-![*Wrong amplitude values due to insufficient bit depth resolution*](../resources/images/01-a-bitdepth.png)
+![*Inaccurate amplitude values due to insufficient bit depth resolution*](../resources/images/01-a-bitdepth.png)
 
  Quantization noise becomes most apparent
 when trying to represent low amplitude (quiet) sounds. Frequently a tiny
@@ -261,7 +262,7 @@ ADC / DAC
 ---------
 
 The entire process, as described above, of taking an analogue signal and
-converting it to a digital signal is referred to as analogue to digital
-conversion, or ADC. Of course digital to analogue conversion, DAC, is
+converting it to a digital signal is referred to as *analogue to digital
+conversion*, or ADC. Of course *digital to analogue conversion*, DAC, is
 also possible. This is how we get to hear our music through our PC\'s
 headphones or speakers. If a sound is played back or streamed, the software will send a series of numbers to the soundcard. The soundcard converts these numbers back to voltage. When the voltages reaches the loudspeaker they cause the loudspeaker's membrane to move inwards and outwards. This induces a disturbance in the air around the speaker — compressions and rarefactions as described at the beginning of this chapter — resulting in what we perceive as sound.

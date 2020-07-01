@@ -33,8 +33,8 @@ moving, and how you can create and modify them on your own. Moreover,
 there are many pre-built random opcodes in Csound which can be used out
 of the box (see the
 [overview](http://wwws.csound.com/docs/manual/SiggenNoise.html) in the
-Csound Manual). The final section of this chapter introduces some
-musically interesting applications of them.
+Csound Manual and the
+[Opcode Guide](15-a-opcode-guide.md)). The final section of this chapter introduces some musically interesting applications of them.
 
 ### Random Without History
 
@@ -163,7 +163,7 @@ Two more general notes about this:
         ksmps = 32
         nchnls = 2
         0dbfs = 1
-        seed = 0 ;seeding from current time
+        seed 0 ;seeding from current time
 
 2.  Random number generation in Csound can be done at any rate. The type
     of the output variable tells you whether you are generating random

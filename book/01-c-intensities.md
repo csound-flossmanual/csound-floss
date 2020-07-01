@@ -88,7 +88,7 @@ $10 \cdot  log_{10} \left(\frac{P}{P_0}\right)^2 = 2 \cdot  10 \cdot  log_{10} \
 
 Working with digital audio means working with *amplitudes*. Any audio
 signal is a sequence of amplitudes. What we generate in Csound and write
-either to the DAC in realtime or to a sound file, are again nothing but
+either to the DAC in realtime or to a sound file, is again nothing but
 a sequence of amplitudes. As amplitudes are directly related to the
 sound pressure deviations, all the relationships between sound intensity
 and sound pressure can be transferred to relationships between sound
@@ -133,7 +133,7 @@ sense to set this level to the threshold of hearing. This is done, as we
 saw, by setting the SIL to 10^-12^ W/m^2^, and the SPL to 2·10^-5^ Pa.
 
 When working with digital sound within a computer, this method for
-defining 0dB will not make any sense. The loudness of the sound produced
+defining 0 dB will not make any sense. The loudness of the sound produced
 in the computer will ultimately depend on the amplification and the
 speakers, and the amplitude level set in your audio editor or in Csound
 will only apply an additional, and not an absolute, sound level control.
