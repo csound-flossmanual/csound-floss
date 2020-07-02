@@ -7,6 +7,8 @@
 yarn
 # then build with
 yarn build
+# build pdf with
+yarn build:pdf
 ```
 
 ### Requirements

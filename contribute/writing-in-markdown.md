@@ -102,6 +102,8 @@ by a newline as:
     [^1]: this is the footnote text
           and this is the text continued
 
+see [here](https://pandoc.org/MANUAL.html#footnotes) for more details.
+
 
 # 7. MATH FORMULAS
 
