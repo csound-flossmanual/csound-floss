@@ -23,18 +23,18 @@ let
      framed
      hyperref
      listings
-     metafont
      mdwtools # <-- footnote.sty
+     metafont
      parskip
      pgf
      plstmary
      psnfss
      roboto
+     scheme-basic
      sectsty
      setspace
-     scheme-basic
-     stmaryrd
      stix
+     stmaryrd
      titlesec
      translator
      unicode-math

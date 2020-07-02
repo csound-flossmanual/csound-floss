@@ -51,14 +51,7 @@
 
 \usepackage{fontspec}
 
-%% \usepackage{titling}
-%% \usepackage[condensed]{roboto}
-\usepackage[default]{roboto}
-
-\usepackage[T1]{fontenc}
-%% \renewcommand{\rmdefault}{condensed}
-%% \renewcommand\thesection{}
-%% \renewcommand\thesubsection{}
+\usepackage[sfdefault]{roboto}
 \usepackage{FiraMono}
 \setmonofont{Fira Mono}
 
@@ -75,10 +68,6 @@
 \usepackage[export]{adjustbox}
 \renewcommand{\includegraphics}[2][]{\OldIncludegraphics[#1, scale=1,keepaspectratio, max width={15.2cm}, max height={6cm}]{#2}}
 
-
-%% \setkeys{Gin}{width=\ScaleWidthIfNeeded,height=\ScaleHeightIfNeeded,keepaspectratio}%
-
-
 % set default figure placement to htbp
 \makeatletter
 \def\fps@figure{htbp}
@@ -88,11 +77,12 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
-\usepackage[colorlinks]{hyperref}
+\usepackage{hyperref}
+%% \usepackage[colorlinks]{hyperref}
 \usepackage{longtable,booktabs}
 \usepackage{footnote}
 \makesavenoteenv{longtable}
-
+\usepackage{unicode-math}
 \setcounter{secnumdepth}{-2}
 
 \hypersetup{
@@ -141,8 +131,8 @@ $endfor$
 \titleformat*{\chapter}{\robotocondensed\color{titlecolor}\fontsize{20}{22}\selectfont\bfseries}
 \titleformat*{\section}{\robotocondensed\color{titlecolor}\fontsize{16}{19}\selectfont\bfseries}
 \titleformat*{\subsection}{\robotocondensed\color{titlecolor}\fontsize{14}{16}\selectfont\bfseries}
-%% \titleformat*{\subsection}{\large\bfseries\sffamily\color{redz}}
 
+\let\\=\newline
 \begin{document}
 $for(include-before)$
 $include-before$

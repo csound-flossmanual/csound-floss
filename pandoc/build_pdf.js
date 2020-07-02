@@ -47,6 +47,7 @@ execSync(
       --include-in-header pandoc/latex/chapter_break.tex \
       --include-in-header pandoc/latex/codesize.tex \
       --pdf-engine=xelatex \
+      --wrap=preserve \
       --filter=pandoc/filters/pdf_interlinks.js \
       --filter=pandoc/filters/pdf_codeblocks.js \
       -o ${PDF_OUTPUT}`,
