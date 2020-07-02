@@ -46,8 +46,8 @@ execSync(
       --top-level-division=chapter \
       --include-in-header pandoc/latex/chapter_break.tex \
       --include-in-header pandoc/latex/codesize.tex \
+      --include-in-header pandoc/latex/disable_float.tex \
       --pdf-engine=xelatex \
-      --wrap=preserve \
       --filter=pandoc/filters/pdf_interlinks.js \
       --filter=pandoc/filters/pdf_codeblocks.js \
       -o ${PDF_OUTPUT}`,

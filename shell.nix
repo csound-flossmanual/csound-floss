@@ -27,6 +27,7 @@ let
      metafont
      parskip
      pgf
+     placeins
      plstmary
      psnfss
      roboto

@@ -8,7 +8,6 @@ const BOOK_DIRECTORY = path.resolve(__dirname, "../book");
 const RESOURCES_DIRECTORY = path.resolve(__dirname, "../resources");
 const MARKDOWN_EXTENSIONS = [
   "markdown",
-  "hard_line_breaks",
   "line_blocks",
   "escaped_line_breaks",
   "smart",
@@ -19,7 +18,6 @@ const MARKDOWN_EXTENSIONS = [
   "yaml_metadata_block",
   "implicit_figures",
   "tex_math_dollars",
-  "implicit_figures",
   "link_attributes",
   "inline_notes",
   "citations",
