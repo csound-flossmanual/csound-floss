@@ -62,30 +62,31 @@ be used by Csound.
    ***EXAMPLE 02B01\_DocStruct.csd***
 
 ~~~csound
-<CsoundSynthesizer>; START OF A CSOUND FILE
+<CsoundSynthesizer>     ; START OF CSOUND FILE
 
-<CsOptions> ; CSOUND CONFIGURATION
--odac
-</CsOptions>
+<CsOptions>             ; START OF CSOUND CONFIGURATION
+ -odac ; realtime audio output
+</CsOptions>            ; END OF CSOUND CONFIGURATION
 
-<CsInstruments> ; INSTRUMENT DEFINITIONS GO HERE
+<CsInstruments>         ; START OF INSTRUMENT DEFINITIONS
 
-; Set the audio sample rate to 44100 Hz
-sr = 44100
+sr = 44100 ; set audio sample rate to 44100 Hz
+ksmps = 64 ; set audio vector size to 64 samples
+nchnls = 2 ; set number of channels to 2 (stereo)
+0dbfs = 1  ; set zero dB full scale as 1
 
-instr 1
-; a 440 Hz Sine Wave
-aSin      poscil    0dbfs/4, 440
-          out       aSin
+instr 1 ; play a 440 Hz Sine Wave
+ aSin  poscil  0dbfs/4, 440
+       out  aSin
 endin
-</CsInstruments>
 
-<CsScore> ; SCORE EVENTS GO HERE
-i 1 0 1
+</CsInstruments>        ; END OF INSTRUMENT DEFINITIONS
+
+<CsScore>               ; START OF SCORE EVENTS
+i 1 0 1 ; start instrument 1 at time 0 for 1 second
 </CsScore>
 
-</CsoundSynthesizer> ; END OF THE CSOUND FILE
-; Anything after a semicolon is ignored by Csound
+</CsoundSynthesizer>    ; END OF THE CSOUND FILE
 ~~~
 
 Comments, which are lines of text that Csound will ignore, are started
@@ -95,11 +96,11 @@ be made by encasing them between \"/\*\" and  \"\*/\".
 Opcodes
 -------
 
-*Opcodes* or *Unit generators* are the basic building blocks of
+*Opcodes* or *Unit Generators* are the basic building blocks of
 Csound. Opcodes can do many things like produce oscillating signals,
 filter signals, perform mathematical functions or even turn on and off
 instruments. Opcodes, depending on their function, will take inputs and
-outputs. Each input or output is called, in programming terms, an
+produce outputs. Each input or output is called, in programming terms, an
 *argument*. Opcodes always take input arguments on the right and
 output their results on the left, like this:
 
@@ -123,14 +124,22 @@ other programming languages:
 
     aSin = poscil(0dbfs/4,440)
 
+Or better, as more explicit (declaring the audio rate output): [^3]
+
+    aSin = poscil:a(0dbfs/4,440)
+
 Many opcodes include optional input arguments and occasionally optional
 output arguments. These will always be placed after the essential
 arguments. In the Csound Manual documentation they are indicated using
-square brackets \"\[\]\". If optional input arguments are omitted they
+square brackets \"\[ \]\". If optional input arguments are omitted they
 are replaced with the default values indicated in the Csound Manual. The
 addition of optional output arguments normally initiates a different
 mode of that opcode: for example, a stereo as opposed to mono version of
 the opcode.
+
+    aMono         diskin  "mono_file.wav" 
+    aLeft, aRight diskin  "stereo_file.wav"
+
 
 Variables
 ---------
@@ -154,13 +163,13 @@ which are variables beginning with the letter **a**.
 
 In the example above, the
 [buzz](http://csound.github.io/docs/manual/html/buzz.html)
-opcode produces a complex waveform as signal *aSource*. This signal is
+opcode produces a complex waveform as signal `aSource`. This signal is
 fed into the
 [moogladder](http://csound.github.io/docs/manual/html/moogladder.html)
-opcode, which in turn produces the signal *aFiltered*. The
+opcode, which in turn produces the signal `aFiltered`. The
 [out](http://csound.github.io/docs/manual/html/out.html) opcode
 takes this signal, and sends it to the output whether that be to the
-speakers or to a rendered file.
+realtime audio output or to a rendered file.
 
 Other common variable types are **k** variables which store control
 signals, which are updated less frequently than audio signals, and **i**
@@ -174,9 +183,7 @@ Csound Journal.
 Using the Manual
 ----------------
 
-The [Csound Reference
-Manual](http://csound.github.io/docs/manual/index.html) is a
-comprehensive source regarding Csound's syntax and opcodes. All opcodes
+The [Csound Reference Manual](http://csound.github.io/docs/manual/index.html) is a comprehensive source regarding Csound's syntax and opcodes. All opcodes
 have their own manual entry describing their syntax and behavior, and
 the manual contains a detailed reference on the Csound language and
 options.
@@ -191,5 +198,6 @@ the manual.
 
 [^1]:  Its characteristics are described in detail in section 03 CSOUND
     LANGUAGE.
-[^2]:  For instance using the schedule or event
-    opcode.
+[^2]:  For instance using the schedule or event opcode.
+[^3]:  See [chapter 03 I](03-i-functional-syntax.md) for more 
+    information about functional style in Csound.

@@ -211,8 +211,8 @@ executed as an independent process. The result should be the same - the
 </CsOptions>
 <CsInstruments>
 instr 1
-aSin      poscil    0dbfs/4, 440
-          out       aSin
+ aSin  poscil  0dbfs/4, 440
+       out     aSin
 endin
 </CsInstruments>
 <CsScore>
@@ -304,10 +304,10 @@ nchnls = 2
 0dbfs  = 1
 
 instr    1
- icps cpsmidi
- klev chnget  "level"
- a1   poscil klev*0.2,icps
-      outs   a1,a1
+ icps  cpsmidi
+ klev  chnget  "level"
+ a1    poscil  klev*0.2,icps
+       outs    a1,a1
 endin
 
 </CsInstruments>
