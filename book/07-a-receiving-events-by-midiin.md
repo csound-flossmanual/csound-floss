@@ -25,7 +25,7 @@ line:
 just after the header statement (sometimes referred to as instrument 0).
 
 For this example to work you will need to ensure that you have activated
-live midi input within Csound, either by using the
+live midi input within Csound by using the
 [-M flag](https://csound.com/docs/manual/CommandFlagsCategory.html#FlagsCatMinusUpperM). You will also need to
 make sure that you have a midi keyboard or controller connected. You may
 also want to include the
