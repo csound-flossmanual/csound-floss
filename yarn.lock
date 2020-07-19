@@ -1655,27 +1655,27 @@
     semver "^7.3.2"
     tsutils "^3.17.1"
 
-"@wasmer/wasi@^0.10.1":
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/@wasmer/wasi/-/wasi-0.10.2.tgz#4bd79bcae88cfa23224c21b6af7ef6d2a07081eb"
-  integrity sha512-zEcZnGmPcO+b6o95W+uF4AK4oGBvBaM6oyyIOH1Kv/Sigy/knRMmawHWPDdJlImYmea7NLvn6PwdN+XJBYSz5A==
+"@wasmer/wasi@^0.11.2":
+  version "0.11.2"
+  resolved "https://registry.yarnpkg.com/@wasmer/wasi/-/wasi-0.11.2.tgz#86a560fce03adbb422c47b8bb3025a2f541b6d48"
+  integrity sha512-9Oi68ZsD8HTZRjWj5VvnhN0dLL6nSacrgGvdwJeHd9q5bMrlFaXTckQAYm84zXJWg+b5yeFhaEZqGEhe7q4VFQ==
   dependencies:
     browser-process-hrtime "^1.0.0"
     buffer-es6 "^4.9.3"
     path-browserify "^1.0.0"
     randomfill "^1.0.4"
 
-"@wasmer/wasm-transformer@^0.10.1":
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/@wasmer/wasm-transformer/-/wasm-transformer-0.10.2.tgz#1f69a4a9766974f1b170de7ad4d46e2f0d2ffec6"
-  integrity sha512-cWctY14yLCJrNDrQfWVVlvrblYffwb8PVxsHnvdcbsaA8j8il0I7u/qzaGDA6k4jeN5Hd3QKWM4x+M1AJ6hOwg==
+"@wasmer/wasm-transformer@^0.11.2":
+  version "0.11.2"
+  resolved "https://registry.yarnpkg.com/@wasmer/wasm-transformer/-/wasm-transformer-0.11.2.tgz#a0dc06a9ca639554074a781c3fcf10d9335cb78b"
+  integrity sha512-AnolBBNOYQZU8ju048ItkqiMJpB6WQsW0rRTCAX0lA4awkVUybReh40AQwO8yk/fznbeth/v3tfETcAqkq0uJQ==
   dependencies:
     wasm-feature-detect "^1.2.2"
 
-"@wasmer/wasmfs@^0.10.1":
-  version "0.10.2"
-  resolved "https://registry.yarnpkg.com/@wasmer/wasmfs/-/wasmfs-0.10.2.tgz#d82a3ff3dfd304c8c51177b1a1a710047779fa19"
-  integrity sha512-/sH64+/nyWwqY+gJO+q5qMrEG9SaTxmqr8jVvB6fiLOKEPCFnp9Dz+4dhc9O9W1tjScmcf15yGpZ+196w2m/6A==
+"@wasmer/wasmfs@^0.11.2":
+  version "0.11.2"
+  resolved "https://registry.yarnpkg.com/@wasmer/wasmfs/-/wasmfs-0.11.2.tgz#d07e21557ae32680720ce83c8347da0fcfbdd810"
+  integrity sha512-Xf9E5crb1KF2nFVpRBt6i7GaI2nRvpRU/G/9jj5sut9kgNo/BSMG2Ehbld2PCj3Kj8eO62MMKT7M/X5rgnsHVg==
   dependencies:
     memfs "3.0.4"
     pako "^1.0.11"
@@ -2810,7 +2810,7 @@ buffer@^4.3.0:
     ieee754 "^1.1.4"
     isarray "^1.0.0"
 
-buffer@^5.5.0:
+buffer@^5.5.0, buffer@^5.6.0:
   version "5.6.0"
   resolved "https://registry.yarnpkg.com/buffer/-/buffer-5.6.0.tgz#a31749dc7d81d84db08abf937b6b8c4033f62786"
   integrity sha512-/gDYp/UtU0eA1ys8bOs9J6a+E/KWIY+DZ+Q2WESNUA0jFRsJOc0SNUO6xJ5SGA1xueg3NL65W6s+NY5l9cunuw==
@@ -3519,18 +3519,20 @@ csound-manual-react@^1.0.0-alpha8:
     webpack "^4.41.5"
     webpack-cli "^3.3.10"
 
-csound-wasm@^6.14.0-alpha15:
-  version "6.14.0-alpha9"
-  resolved "https://registry.yarnpkg.com/csound-wasm/-/csound-wasm-6.14.0-alpha9.tgz#5e3678ad74eda2c00c5d5426e84fd447cfe6c08e"
-  integrity sha512-jq6ZJO12gPQrD8eWHdAhmChxQLDJRIC+DUmB0AmSf+sVyj0ry4AwA8jSzTiH6aM+YA7vrzYDWXx/97cIYAHhjg==
+csound-wasm@^6.14.0-alpha16:
+  version "6.14.0-alpha16"
+  resolved "https://registry.yarnpkg.com/csound-wasm/-/csound-wasm-6.14.0-alpha16.tgz#033e1ade34824f8cbed3f089c36f07bbe6a80af4"
+  integrity sha512-r1tUAt5Pf7Y8MeJU2m6NQLrjWESKG9QH/b2n/DM1FVlZrFWGDyFl/lj4sUyvjyX2eM7JF0oR9PSlxN35jCRsbA==
   dependencies:
-    "@wasmer/wasi" "^0.10.1"
-    "@wasmer/wasm-transformer" "^0.10.1"
-    "@wasmer/wasmfs" "^0.10.1"
-    buffer "^5.5.0"
+    "@wasmer/wasi" "^0.11.2"
+    "@wasmer/wasm-transformer" "^0.11.2"
+    "@wasmer/wasmfs" "^0.11.2"
+    buffer "^5.6.0"
+    get-user-media-promise "^1.1.4"
     pako "^1.0.11"
     path-browserify "^1.0.1"
-    web-midi-api "^2.0.7"
+    ramda "^0.27.0"
+    web-midi-api "^2.0.8"
 
 css-blank-pseudo@^0.1.4:
   version "0.1.4"
@@ -5159,6 +5161,11 @@ get-stream@^4.0.0:
   dependencies:
     pump "^3.0.0"
 
+get-user-media-promise@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/get-user-media-promise/-/get-user-media-promise-1.1.4.tgz#cf6b460bbf23b6b273c329899d0dc0d901e719a6"
+  integrity sha512-k49YuV2z0d3gKHLPTFKYfzEA9kduuQk7YBf8ev2dxrKk+DhMyuzfQnK9ZSxkEhE/jv3BZY62M0eICWa7lak9nw==
+
 get-value@^2.0.3, get-value@^2.0.6:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/get-value/-/get-value-2.0.6.tgz#dc15ca1c672387ca76bd37ac0a395ba2042a2c28"
@@ -6213,10 +6220,10 @@ istanbul-reports@^2.2.6:
   dependencies:
     html-escaper "^2.0.0"
 
-jazz-midi@^1.7.2:
-  version "1.7.2"
-  resolved "https://registry.yarnpkg.com/jazz-midi/-/jazz-midi-1.7.2.tgz#5cf4c259127a8337d4dd31bb81cdcc14d3dd2b3c"
-  integrity sha512-pBTGVBsyp7UgZnELes21nHkSyHp5r4AKdpR7B3LPhikT1QQ17o4zHISDKk3Xsoi9iIJRp/8rMzOMmxPVADQXnA==
+jazz-midi@^1.7.3:
+  version "1.7.3"
+  resolved "https://registry.yarnpkg.com/jazz-midi/-/jazz-midi-1.7.3.tgz#8c928062c81031c8a8636e6c87d43d5891bb2eb7"
+  integrity sha512-3+V4ZxmYainXoHDaevDBexHQumD3ONlbUgo6zmUXb6VKlJ05XxM+7Xhv7HPbWSOuVTV+gpTV9CI25PwUZJRy/w==
 
 jest-changed-files@^24.9.0:
   version "24.9.0"
@@ -6783,13 +6790,13 @@ jsx-ast-utils@^2.2.1, jsx-ast-utils@^2.2.3:
     array-includes "^3.0.3"
     object.assign "^4.1.0"
 
-jzz@^1.0.0:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/jzz/-/jzz-1.0.6.tgz#f20896c3e909f4a0e80ada6ce08598c20adad9b2"
-  integrity sha512-drC7gw05VuEOO8MDW7PQE1n5mJpEG1WxzmlATrdY2bUniGX6JWlydoa2EONRZ1DbV8RHsg9Y/P/qLEWbN2REEw==
+jzz@^1.0.7:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/jzz/-/jzz-1.0.9.tgz#a4c8782ee5cbd39d03b74f402b4847a1279cd728"
+  integrity sha512-yvmo8kuUShGsffIwC8L2sTkuGYH83p6+VGsay++nbUPpxiANGZmlKg+kU/51wpJ42vj/5mr8JgQ9l/hrRvmyHw==
   dependencies:
     "@types/webmidi" "^2.0.4"
-    jazz-midi "^1.7.2"
+    jazz-midi "^1.7.3"
 
 killable@^1.0.1:
   version "1.0.1"
@@ -11207,12 +11214,12 @@ wbuf@^1.1.0, wbuf@^1.7.3:
   dependencies:
     minimalistic-assert "^1.0.0"
 
-web-midi-api@^2.0.7:
-  version "2.0.7"
-  resolved "https://registry.yarnpkg.com/web-midi-api/-/web-midi-api-2.0.7.tgz#7941304fa35317ae802ebf6a97e85db83600526a"
-  integrity sha512-/tx1aNuPu6dYOOfn5q+ttU1uJAQZAm4xzr3xDM9WpjE5UzjD7UCW7NiWKl+YLtUxR30MxO8nt0ey9914/GcCVA==
+web-midi-api@^2.0.8:
+  version "2.0.8"
+  resolved "https://registry.yarnpkg.com/web-midi-api/-/web-midi-api-2.0.8.tgz#ec15483640c2423703f7fea438f29baba03a1b79"
+  integrity sha512-enCNTytwLyKVUsbjDf3drBnWVWBtEI4O1OT+vxc1eFokJfwgy/ktDoSsTiHcObuxXy+kxt6dDfh1saH3z+KBXw==
   dependencies:
-    jzz "^1.0.0"
+    jzz "^1.0.7"
 
 webidl-conversions@^4.0.2:
   version "4.0.2"
