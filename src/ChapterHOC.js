@@ -107,13 +107,17 @@ const ChapterHOC = ({ children }) => {
   useEffect(() => {
     bookDispatch({ type: "setSections", sections: subSections });
     updateScrollPoints();
+    return () => setScrollPoints([]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [bookDispatch]);
 
   useEffect(() => {
     window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      onScroll.cancel();
+    };
+  }, [onScroll]);
 
   return <>{children}</>;
 };
