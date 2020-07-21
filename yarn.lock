@@ -3240,6 +3240,11 @@ combined-stream@^1.0.6, combined-stream@~1.0.6:
   dependencies:
     delayed-stream "~1.0.0"
 
+comlink@^4.3.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/comlink/-/comlink-4.3.0.tgz#80b3366baccd87897dab3638ebfcfae28b2f87c7"
+  integrity sha512-mu4KKKNuW8TvkfpW/H88HBPeILubBS6T94BdD1VWBXNXfiyqVtwUCVNO1GeNOBTsIswzsMjWlycYr+77F5b84g==
+
 commander@^2.11.0, commander@^2.20.0:
   version "2.20.3"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
@@ -3519,16 +3524,16 @@ csound-manual-react@^1.0.0-alpha8:
     webpack "^4.41.5"
     webpack-cli "^3.3.10"
 
-csound-wasm@^6.14.0-alpha17:
-  version "6.14.0-alpha17"
-  resolved "https://registry.yarnpkg.com/csound-wasm/-/csound-wasm-6.14.0-alpha17.tgz#30d21151c8e609862afda453ce796db0389ad2d8"
-  integrity sha512-peRDj/L8L9ruUvIT+5t8Sj9Ty5/ja7st4tDPpS3GO6+A5lDEAt8mSaCu0T9TNUlXvKPq411qpuVYQPJaiZYkUw==
+csound-wasm@^6.14.0-alpha19:
+  version "6.14.0-alpha19"
+  resolved "https://registry.yarnpkg.com/csound-wasm/-/csound-wasm-6.14.0-alpha19.tgz#20c6e7268172da5df0f01306b9aea971e6f049cf"
+  integrity sha512-7+4hdosT4Pkdlgqdtbz/xtZamkhmMtDKwJ3JRWULJKvR0Lv40I0Tf3qkefyiRfCuykJogwl++qFC1yUM2e352g==
   dependencies:
     "@wasmer/wasi" "^0.11.2"
     "@wasmer/wasm-transformer" "^0.11.2"
     "@wasmer/wasmfs" "^0.11.2"
     buffer "^5.6.0"
-    get-user-media-promise "^1.1.4"
+    comlink "^4.3.0"
     pako "^1.0.11"
     path-browserify "^1.0.1"
     ramda "^0.27.0"
@@ -5160,11 +5165,6 @@ get-stream@^4.0.0:
   integrity sha512-GMat4EJ5161kIy2HevLlr4luNjBgvmj413KaQA7jt4V8B4RDsfpHk7WQ9GVqfYyyx8OS/L66Kox+rJRNklLK7w==
   dependencies:
     pump "^3.0.0"
-
-get-user-media-promise@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/get-user-media-promise/-/get-user-media-promise-1.1.4.tgz#cf6b460bbf23b6b273c329899d0dc0d901e719a6"
-  integrity sha512-k49YuV2z0d3gKHLPTFKYfzEA9kduuQk7YBf8ev2dxrKk+DhMyuzfQnK9ZSxkEhE/jv3BZY62M0eICWa7lak9nw==
 
 get-value@^2.0.3, get-value@^2.0.6:
   version "2.0.6"
