@@ -46,6 +46,9 @@
 \fancyhead[LE,RO]{\robotocondensed\color{titlecolor}\textsl{\rightmark}}
 \fancyhead[LO,RE]{\robotocondensed\color{titlecolor}\textsl{\leftmark}}
 
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{#1}}
+
 \usepackage{beamerarticle}
 \usepackage{wrapfig}
 \usepackage{setspace}
@@ -89,7 +92,7 @@
 \usepackage{footnote}
 \usepackage{chngcntr}
 %% \fancyfoot[C]{\robotocondensed\color{titlecolor}\thepage}
-\counterwithin*{footnote}{subsection}
+\counterwithin*{footnote}{chapter}
 %% These two are to compensate for
 %% internal counter changes
 \counterwithout{section}{chapter}
@@ -152,6 +155,9 @@ $endfor$
 \newcommand{\passthrough}[1]{\lstset{mathescape=false}#1\lstset{mathescape=true}}
 
 \usepackage{titlesec}
+\titleformat{\chapter}[display] {\normalfont\bfseries}{}{0pt}{\fontsize{20}{22}}
+\titleformat{\section}[display]{\normalfont\bfseries}{}{0pt}{\fontsize{16}{19}}
+\titleformat{\subsection}[display]{\normalfont\bfseries}{}{0pt}{\fontsize{14}{16}}
 
 \titleformat*{\chapter}{\robotocondensed\color{titlecolor}\fontsize{20}{22}\selectfont\bfseries}
 \titleformat*{\section}{\robotocondensed\color{titlecolor}\fontsize{16}{19}\selectfont\bfseries}
