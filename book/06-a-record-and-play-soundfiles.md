@@ -12,13 +12,12 @@ This method of sound file playback is therefore good for playing back
 very long, or parts of very long, sound files. It is perhaps less well
 suited to playing back sound files where dense polyphony, multiple
 iterations and rapid random access to the file is required. In these
-situations reading from a function table (buffer) is preferable.[^1]
-
-[^1]: As this is a matter of speed, it depends both, on the complexity of
-      the csound file(s) you are running, and the speed of the hard disk.
-      A Solid State Disk is much faster than a traditional HDD, so a Csound
-      file with a lot of *diskin* processes may run fine on a SSD which
-      did not run on a HDD.
+situations reading from a function table (buffer) is preferable.^[
+As this is a matter of speed, it depends both, on the complexity of
+the csound file(s) you are running, and the speed of the hard disk.
+A Solid State Disk is much faster than a traditional HDD, so a Csound
+file with a lot of *diskin* processes may run fine on a SSD which
+did not run on a HDD.]
 
 
 ### Sound File Name, Absolute or Relative Path
@@ -94,10 +93,10 @@ Since Csound6, however, we have the second option mentioned on Csound's manual p
 
     ar1[] diskin ...
 
-If the output variable name is followed by square brackets, *diskin* will write its output in an audio *array*.[^2] The *size* (*length*) of this array mirrors the number of channels in the audio file: 1 for a mono file, 2 for a stereo file, 4 for a quadro file, etc.
-
-[^2]: Chapter [03 E](03-e-arrays.md) gives more explanations about arrays
-      in Csound.
+If the output variable name is followed by square brackets, *diskin* will write its output in an audio *array*.^[
+Chapter [03 E](03-e-arrays.md) gives more explanations about arrays in Csound.
+] The *size* (*length*) of this array mirrors the number of channels in the audio file:
+1 for a mono file, 2 for a stereo file, 4 for a quadro file, etc.
 
 This is a very convenient method to avoid the mismatch error between output arguments and file channels. In the example below we will use this method. We write the audio in an array and will only use the first element for the output. So this will work with any number of channels for the input file.
 

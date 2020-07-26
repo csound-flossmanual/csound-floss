@@ -6,9 +6,9 @@ programming languages. The addition of unit generators (opcodes) and
 function tables is generally the most common type of extension to the
 language. This is possible through two basic mechanisms: user-defined
 opcodes (UDOs), written in the Csound language itself and
-pre-compiled/binary opcodes, written in C or C++.[^1]
+pre-compiled/binary opcodes, written in C or C++.^[
+For UDOs compare chapter [03 G](03-g-user-defined-opcodes.md)]
 
-[^1]: For UDOs compare chapter [03 G](03-g-user-defined-opcodes.md)
 
 To facilitate the latter case, Csound offers a simple opcode development
 API, from which dynamically-loadable, or *plugin* unit generators can be
@@ -18,7 +18,8 @@ written as classes derived from a template ("pseudo-virtual") base class
 OpcodeBase. In the case of C opcodes, we normally supply a module
 according to a basic description. The sections on plugin opcodes will
 use the C language. For those interested in object-oriented programming,
-alternative C++ class implementations for the examples discussed in this text can be extrapolated from the original C code.
+alternative C++ class implementations for the examples discussed in
+this text can be extrapolated from the original C code.
 
 You may find additional information and examples at Csound's
 [Opcode SDK](https://github.com/csound/opcode_sdk) repository.

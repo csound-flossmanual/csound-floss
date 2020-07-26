@@ -8,11 +8,8 @@ modulation, ring modulation and waveshaping is given in chapters
 modulate the amplitude of a signal in a variety of ways, they can also
 be used for the modification of non-synthesized sound. In this chapter
 we will explore amplitude modulation, ring modulation and waveshaping as
-applied to non-synthesized sound.[^1]
-
-[^1]: This is the same for Granular Synthesis which can either be
-      "pure" synthesis or applied on sampled sound.
-
+applied to non-synthesized sound.^[This is the same for Granular Synthesis
+which can either be "pure" synthesis or applied on sampled sound.]
 
 
 AMPLITUDE AND RING MODULATION

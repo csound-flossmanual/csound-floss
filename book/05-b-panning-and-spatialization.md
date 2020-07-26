@@ -6,7 +6,7 @@ The location is an important characteristics of real-world sounds. We can someti
 This is shown at a very simple example. First we hear a percussive sound from both speakers. We will not recognize any pattern. Then we hear one beat from left speaker followed by three beats from right speaker. We will recognize this as 3/4 beats, with the first beat on the left speaker. Finally we hear a random sequence of left and right channel. We will hear this as something like a dialog between two players.
 
 
-   ***EXAMPLE 05B01\_routing.csd***
+   ***EXAMPLE 05B01_routing.csd***
 
 ~~~csound
 <CsoundSynthesizer>
@@ -97,11 +97,9 @@ equal amplitude in both the left and the right channels. This way the
 signal can be continuously panned between the left and right channels.
 
 The problem with this method is that the overall power drops as the
-sound is panned to the middle.[^1]
-
-[^1]: The reason has been touched in chapter
-      [01C](01-c-intensities.md): The sound intensity is not proportional
-      to the amplitude but to the squared amplitude.
+sound is panned to the middle.^[The reason has been touched in chapter
+[01C](01-c-intensities.md): The sound intensity is not proportional
+to the amplitude but to the squared amplitude.]
 
 One possible solution to this problem is to take the square root of the
 panning variable for each channel before multiplying it to the audio
@@ -120,11 +118,11 @@ curve and a less immediate drop in power as the sound is panned away
 from the extremities. This can be implemented using the code shown
 below.
 
-    aSigL  =     aSig * cos(kPan*$$M\_PI\_2)
-    aSigR  =     aSig * sin(kPan*$$M\_PI\_2)
+    aSigL  =     aSig * cos(kPan*$M_PI_2)
+    aSigR  =     aSig * sin(kPan*$M_PI_2)
            outs  aSigL, aSigR
 
-(Note that *\\$M\_PI\_2* is one of
+(Note that *\\$M_PI_2* is one of
 [Csound\'s built in macros](https://csound.com/docs/manual/define.html)
 and is equivalent to $\pi/2$.)
 
@@ -136,8 +134,8 @@ addressing. This method is an elaboration of the previous one and makes
 use of a different 90 degree section of a sine wave. It is implemented
 using the following code:
 
-    aSigL  =     aSig * cos((kPan + 0.5) * $$M\_PI\_2)
-    aSigR  =     aSig * sin((kPan + 0.5) * $$M\_PI\_2)
+    aSigL  =     aSig * cos((kPan + 0.5) * $M_PI_2)
+    aSigR  =     aSig * sin((kPan + 0.5) * $M_PI_2)
            outs  aSigL, aSigR
 
 The following example demonstrates all these methods one after the other
@@ -184,15 +182,15 @@ aPanR    =       sqrt(aPan)
 
  if imethod=3 then
 ;------------------------ method 3 --------------------------
-aPanL    =       cos(aPan*$M\_PI\_2)
-aPanR    =       sin(aPan*$M\_PI\_2)
+aPanL    =       cos(aPan*$M_PI_2)
+aPanR    =       sin(aPan*$M_PI_2)
 ;------------------------------------------------------------
  endif
 
  if imethod=4 then
 ;------------------------ method 4 --------------------------
-aPanL   =  cos((aPan + 0.5) * $M\_PI\_2)
-aPanR   =  sin((aPan + 0.5) * $M\_PI\_2)
+aPanL   =  cos((aPan + 0.5) * $M_PI_2)
+aPanR   =  sin((aPan + 0.5) * $M_PI_2)
 ;------------------------------------------------------------
  endif
 
@@ -433,15 +431,13 @@ The *output section* will work as before, so it is a matter of some seconds to c
 VBAP
 ----
 
-Vector Base Amplitude Panning[^2]  can be described as a method which
+Vector Base Amplitude Panning^[First described by Ville Pulkki in 1997:
+Ville Pulkki, Virtual source positioning using vector base amplitude panning,
+in: Journal of the Audio Engeneering Society, 45(6), 456-466] can be described as a method which
 extends stereo panning to more than two speakers. The number of speakers
 is, in general, arbitrary. Standard layouts such as quadrophonic, octophonic or 5.1 configuration can be used, but in fact any number
 of speakers can be positioned even in irregular distances from each
 other. Speakers arranged at different heights can as well be part of an VBAP loudspeaker array.
-
-[2]: First described by Ville Pulkki in 1997: Ville Pulkki, Virtual
-     source positioning using vector base amplitude panning, in: Journal
-     of the Audio Engeneering Society, 45(6), 456-466
 
 VBAP is robust and simple, and has proven its flexibility and reliability. Csound offers different opcodes which have evolved from the original implementation to flexibel setups using audio arrays. The introduction here will explain the usage from the first steps on.
 
@@ -548,14 +544,13 @@ becomes unintentionally smaller and smaller.
 
 To alleviate this tendency, Ville Pulkki has introduced an additional
 parameter, called *spread*, which has a range of zero to hundred
-percent.[^3]  The "ascetic" form of VBAP we have seen in the previous
+percent.^[Ville Pulkki, Uniform spreading of amplitude panned virtual sources,
+in: Proceedings of the 1999 IEEE Workshop on Applications of Signal
+Processing to Audio and Acoustics, Mohonk Montain House, New Paltz]
+The "ascetic" form of VBAP we have seen in the previous
 example, means: no spread (0%). A spread of 100% means that all speakers
 are active, and the information about where the sound comes from is
 nearly lost.
-
-[3]: Ville Pulkki, Uniform spreading of amplitude panned virtual sources,
-     in: Proceedings of the 1999 IEEE Workshop on Applications of Signal
-     Processing to Audio and Acoustics, Mohonk Montain House, New Paltz
 
 The *kspread* input parameter is the second of three optionel parameters of the *vbap* opcode:
 
@@ -670,12 +665,11 @@ Ambisonics is another technique to distribute a virtual sound source in
 space. The main difference to VBAP is that Ambisonics is shaping a *sound field* rather than working with different intensitties to locate sounds.
 
 There are excellent sources for the discussion of Ambisonics
-online which explain its background and parameters.[^3] These topice are also covered later in this chapter when Ambisoncs UDOs are introduced.
+online which explain its background and parameters.^[For instance www.ambisonic.net or
+www.icst.net/research/projects/ambisonics-theory]
+These topice are also covered later in this chapter when Ambisoncs UDOs are introduced.
 We will focus here first on the basic practicalities of using
 the Ambisonics opcodes *bformenc1* and *bformdec1* in Csound.
-
-[^3]: For instance www.ambisonic.net or
-      www.icst.net/research/projects/ambisonics-theory
 
 Two steps are required for distributing a sound via Ambisonics. At first the sound source and its localisation are *encoded*. The result of this step is a so-called *B-format*. In the second step this *B-format* is *decoded* to match a certain loudspeaker setup.
 
@@ -738,12 +732,10 @@ Decoding is performed by the line:
 The inputs for the decoder are the same *aw, ax, ay, az*, which were
 the results of the encoding process, and an additional *iSetup*
 parameter. Currently the Csound decoder only works with some standard
-setups for the speaker: *iSetup = 4* refers to an octogon.[^4] So the
+setups for the speaker: *iSetup = 4* refers to an octogon.^[
+See www.csound.com/docs/manual/bformdec1.html for more details.] So the
 final eight audio signals *a1, ..., a8* are being produced using this
 decoder, and are then sent to the speakers.
-
-[^4]: See www.csound.com/docs/manual/bformdec1.html for more details.
-
 
 ### Different Orders
 
@@ -826,12 +818,9 @@ after decoding. The *B format* of order *n* can be decoded in any order.
 
 The text files *ambisonics_udos.txt*, *ambisonics2D_udos.txt*,
 *AEP_udos.txt* and *utilities.txt* must be located in the same
-folder as the csd files or included with full path.[^5]
-
-[^5]: These files can be downloaded together with the entire examples (some of
-      them for CsoundQt) from
-      <(https://www.zhdk.ch/index.php?id=icst_ambisonicsudo>
-
+folder as the csd files or included with full path.^[
+These files can be downloaded together with the entire examples (some of
+them for CsoundQt) from <(https://www.zhdk.ch/index.php?id=icst_ambisonicsudo>]
 
 ### Introduction
 
@@ -920,10 +909,10 @@ $\ \ = \frac{2}{n} · (\frac{1}{2} W_0 + W_{1,1}cos(ϕ_i) + W_{1,2}sin(ϕ_i) + W
 
 (If more than n speakers are used, we can use the same formula.)
 
-In the following Csound example *udo\_ambisonics2D\_1.csd* the UDO
-*ambi2D\_encode\_1a* produces the 3 channels W, X and Y (*a0, a11, a12*)
+In the following Csound example *udo_ambisonics2D_1.csd* the UDO
+*ambi2D_encode_1a* produces the 3 channels W, X and Y (*a0, a11, a12*)
 from an input sound and the angle ψ (azimuth *kaz*), the UDO
-*ambi2D\_decode\_1\_8* decodes them to 8 speaker signals *a1, a2, ..., a8*.
+*ambi2D_decode_1_8* decodes them to 8 speaker signals *a1, a2, ..., a8*.
 The inputs of the decoder are the 3 channels *a0, a11, a12* and the 8
 angles of the speakers.
 
@@ -947,7 +936,7 @@ nchnls  =  8
 ; produces the 3 channels 1st order; input: asound, kazimuth
 opcode  ambi2D_encode_1a, aaa, ak
 asnd,kaz        xin
-kaz = $$M\_PI*kaz/180
+kaz = $M_PI*kaz/180
 a0      =       asnd
 a11     =       cos(kaz)*asnd
 a12     =       sin(kaz)*asnd
@@ -957,14 +946,14 @@ endop
 ; decodes 1st order to a setup of 8 speakers at angles i1, i2, ...
 opcode  ambi2D_decode_1_8, aaaaaaaa, aaaiiiiiiii
 a0,a11,a12,i1,i2,i3,i4,i5,i6,i7,i8      xin
-i1 = $$M\_PI*i1/180
-i2 = $$M\_PI*i2/180
-i3 = $$M\_PI*i3/180
-i4 = $$M\_PI*i4/180
-i5 = $$M\_PI*i5/180
-i6 = $$M\_PI*i6/180
-i7 = $$M\_PI*i7/180
-i8 = $$M\_PI*i8/180
+i1 = $M_PI*i1/180
+i2 = $M_PI*i2/180
+i3 = $M_PI*i3/180
+i4 = $M_PI*i4/180
+i5 = $M_PI*i5/180
+i6 = $M_PI*i6/180
+i7 = $M_PI*i7/180
+i8 = $M_PI*i8/180
 a1      =       (.5*a0 + cos(i1)*a11 + sin(i1)*a12)*2/3
 a2      =       (.5*a0 + cos(i2)*a11 + sin(i2)*a12)*2/3
 a3      =       (.5*a0 + cos(i3)*a11 + sin(i3)*a12)*2/3
@@ -1035,7 +1024,7 @@ zakinit 21, 1
 opcode  ambi2D_encode_3, 0, ak
 asnd,kaz        xin
 
-kaz = $$M\_PI*kaz/180
+kaz = $M_PI*kaz/180
 
                 zawm            asnd,0
                 zawm            cos(kaz)*asnd,1         ;a11
@@ -1050,7 +1039,7 @@ endop
 ; encoding arbitrary order n(zakinit 2*n+1, 1)
 opcode  ambi2D_encode_n, 0, aik
 asnd,iorder,kaz xin
-kaz = $$M\_PI*kaz/180
+kaz = $M_PI*kaz/180
 kk =    iorder
 c1:
         zawm    cos(kk*kaz)*asnd,2*kk-1
@@ -1064,7 +1053,7 @@ endop
 ; basic decoding for arbitrary order n for 1 speaker
 opcode  ambi2D_decode_basic, a, ii
 iorder,iaz      xin
-iaz = $$M\_PI*iaz/180
+iaz = $M_PI*iaz/180
 igain   =       2/(2*iorder+1)
 kk =    iorder
 a1      =       .5*zar(0)
@@ -1079,8 +1068,8 @@ endop
 ; decoding for 2 speakers
 opcode  ambi2D_decode_basic, aa, iii
 iorder,iaz1,iaz2        xin
-iaz1 = $$M\_PI*iaz1/180
-iaz2 = $$M\_PI*iaz2/180
+iaz1 = $M_PI*iaz1/180
+iaz2 = $M_PI*iaz2/180
 igain   =       2/(2*iorder+1)
 kk =    iorder
 a1      =       .5*zar(0)
@@ -1188,7 +1177,7 @@ nchnls  =  4
 
 opcode  ambi2D_encode_n, 0, aik
 asnd,iorder,kaz xin
-kaz = $$M\_PI*kaz/180
+kaz = $M_PI*kaz/180
 kk =    iorder
 c1:
         zawm    cos(kk*kaz)*asnd,2*kk-1
@@ -1225,7 +1214,7 @@ iWeight2D     array  0.5,0,0,0,0,0,0,0,0,0,0,0,
         0.00392951,0.000748478,0.000102065,0.00000887523,0.000000369801
 
 iorder,iaz1     xin
-iaz1 = $$M\_PI*iaz1/180
+iaz1 = $M_PI*iaz1/180
 kk =    iorder
 a1      =       .5*zar(0)
 c1:
@@ -1330,8 +1319,8 @@ nchnls  =  8
 
 opcode    ambi2D_enc_dist_n, 0, aikk
 asnd,iorder,kaz,kdist    xin
-kaz = $$M\_PI*kaz/180
-kaz    =            (kdist < 0 ? kaz + $$M\_PI : kaz)
+kaz = $M_PI*kaz/180
+kaz    =            (kdist < 0 ? kaz + $M_PI : kaz)
 kdist =        abs(kdist)+0.0001
 kgainW    =        taninv(kdist*1.5707963) / (kdist*1.5708)        ;pi/2
 kgainHO =    (1 - exp(-kdist))*kgainW
@@ -1414,7 +1403,7 @@ opcode xy_to_ad, kk, kk
 kx,ky        xin
 kdist =    sqrt(kx*kx+ky*ky)
 kaz         taninv2    ky,kx
-            xout        180*kaz/$$M\_PI, kdist
+            xout        180*kaz/$M_PI, kdist
 endop
 
 opcode Absorb, a, ak
@@ -1525,8 +1514,8 @@ zakinit 9, 1    ; zak space with the 9 channel B-format second order
 
 opcode  ambi_encode, 0, aikk
 asnd,iorder,kaz,kel     xin
-kaz = $$M\_PI*kaz/180
-kel = $$M\_PI*kel/180
+kaz = $M_PI*kaz/180
+kel = $M_PI*kel/180
 kcos_el = cos(kel)
 ksin_el = sin(kel)
 kcos_az = cos(kaz)
@@ -1559,8 +1548,8 @@ endop
 ; decoding of order iorder for 1 speaker at position iaz,iel,idist
 opcode  ambi_decode1, a, iii
 iorder,iaz,iel  xin
-iaz = $$M\_PI*iaz/180
-iel = $$M\_PI*iel/180
+iaz = $M_PI*iaz/180
+iel = $M_PI*iel/180
 a0=zar(0)
         if      iorder > 0 goto c0
 aout = a0
@@ -1689,8 +1678,8 @@ iWeight3D     array  0.333333,0,0,0,0,0,0,0,
       0.8,0.509091,0.254545,0.0979021,0.027972,0.0055944,0.0006993,0.00004114
 
 iorder,iaz,iel    xin
-iaz = $$M\_PI*iaz/180
-iel = $$M\_PI*iel/180
+iaz = $M_PI*iaz/180
+iel = $M_PI*iel/180
 a0=zar(0)
     if    iorder > 0 goto c0
 aout = a0
@@ -1807,9 +1796,9 @@ zakinit 81, 1        ; zak space with the 11 channels of the B-format
 
 opcode    ambi3D_enc_dist1, 0, aikkk
 asnd,iorder,kaz,kel,kdist    xin
-kaz = $$M\_PI*kaz/180
-kel = $$M\_PI*kel/180
-kaz    =        (kdist < 0 ? kaz + $$M\_PI : kaz)
+kaz = $M_PI*kaz/180
+kel = $M_PI*kel/180
+kaz    =        (kdist < 0 ? kaz + $M_PI : kaz)
 kel    =        (kdist < 0 ? -kel : kel)
 kdist =    abs(kdist)+0.00001
 kgainW    =    taninv(kdist*1.5708) / (kdist*1.5708)
@@ -1973,26 +1962,26 @@ endop
 
 opcode AEP, aaaa, akikkk
 ain,korder,ifn,kaz,kel,kdist    xin
-kaz = $$M\_PI*kaz/180
-kel = $$M\_PI*kel/180
+kaz = $M_PI*kaz/180
+kel = $M_PI*kel/180
 kx = kdist*cos(kel)*cos(kaz)
 ky = kdist*cos(kel)*sin(kaz)
 kz = kdist*sin(kel)
 ispeaker[] array 0,
-table(3,ifn)*cos(($$M\_PI/180)*table(2,ifn))*cos(($$M\_PI/180)*table(1,ifn)),
-table(3,ifn)*cos(($$M\_PI/180)*table(2,ifn))*sin(($$M\_PI/180)*table(1,ifn)),
-table(3,ifn)*sin(($$M\_PI/180)*table(2,ifn)),
-table(6,ifn)*cos(($$M\_PI/180)*table(5,ifn))*cos(($$M\_PI/180)*table(4,ifn)),
-table(6,ifn)*cos(($$M\_PI/180)*table(5,ifn))*sin(($$M\_PI/180)*table(4,ifn)),
-table(6,ifn)*sin(($$M\_PI/180)*table(5,ifn)),
-table(9,ifn)*cos(($$M\_PI/180)*table(8,ifn))*cos(($$M\_PI/180)*table(7,ifn)),
-table(9,ifn)*cos(($$M\_PI/180)*table(8,ifn))*sin(($$M\_PI/180)*table(7,ifn)),
-table(9,ifn)*sin(($$M\_PI/180)*table(8,ifn)),
-table(12,ifn)*cos(($$M\_PI/180)*table(11,ifn))*\
-  cos(($$M\_PI/180)*table(10,ifn)),
-table(12,ifn)*cos(($$M\_PI/180)*table(11,ifn))*\
-  sin(($$M\_PI/180)*table(10,ifn)),
-table(12,ifn)*sin(($$M\_PI/180)*table(11,ifn))
+table(3,ifn)*cos(($M_PI/180)*table(2,ifn))*cos(($M_PI/180)*table(1,ifn)),
+table(3,ifn)*cos(($M_PI/180)*table(2,ifn))*sin(($M_PI/180)*table(1,ifn)),
+table(3,ifn)*sin(($M_PI/180)*table(2,ifn)),
+table(6,ifn)*cos(($M_PI/180)*table(5,ifn))*cos(($M_PI/180)*table(4,ifn)),
+table(6,ifn)*cos(($M_PI/180)*table(5,ifn))*sin(($M_PI/180)*table(4,ifn)),
+table(6,ifn)*sin(($M_PI/180)*table(5,ifn)),
+table(9,ifn)*cos(($M_PI/180)*table(8,ifn))*cos(($M_PI/180)*table(7,ifn)),
+table(9,ifn)*cos(($M_PI/180)*table(8,ifn))*sin(($M_PI/180)*table(7,ifn)),
+table(9,ifn)*sin(($M_PI/180)*table(8,ifn)),
+table(12,ifn)*cos(($M_PI/180)*table(11,ifn))*\
+  cos(($M_PI/180)*table(10,ifn)),
+table(12,ifn)*cos(($M_PI/180)*table(11,ifn))*\
+  sin(($M_PI/180)*table(10,ifn)),
+table(12,ifn)*sin(($M_PI/180)*table(11,ifn))
 
 idsmax   table   0,ifn
 kdist    =       kdist+0.000001

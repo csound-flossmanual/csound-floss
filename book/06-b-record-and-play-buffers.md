@@ -234,13 +234,18 @@ Encapsulating Record and Play Buffer Functionality to a UDO
 -----------------------------------------------------------
 
 Recording and playing back of buffers can also be encapsulated into a
-User Defined Opcode (UDO).[^1] We will show here a version which in a way *re-invents the wheel* as it creates an own sample-by-sample increment for reading and writing the buffer rather than using a pointer. This is mostly meant as example how open this field is for different user implementations, and how easy it is to create own applications based on the fundamental functionalities of table reading and writing.
+User Defined Opcode (UDO).^[See Chapter [03 G](03-g-user-defined-opcodes.md) for more information
+about writing UDOs in Csound.] We will show here a version which in a way *re-invents the wheel*
+as it creates an own sample-by-sample increment for reading and writing the buffer rather than
+using a pointer. This is mostly meant as example how open this field is for different user
+implementations, and how easy it is to create own applications based on the fundamental
+functionalities of table reading and writing.
 
-[^1]: See Chapter [03 G](03-g-user-defined-opcodes.md) for more information
-      about writing UDOs in Csound.
 
-
-One way to write compact Csound code is to follow the principle *one job per line* (of code). For defining *one job* of a good size, we will mostly need a UDO which combines some low-level tasks and also allows us to apply a memorizable name for this job. So often the principle *one job per line* results in *one UDO per line*.
+One way to write compact Csound code is to follow the principle *one job per line* (of code).
+For defining *one job* of a good size, we will mostly need a UDO which combines some low-level
+tasks and also allows us to apply a memorizable name for this job.
+So often the principle *one job per line* results in *one UDO per line*.
 
 The *jobs* in the previous example can be described as follows:
 
@@ -249,7 +254,9 @@ The *jobs* in the previous example can be described as follows:
 3. Record input channel 1 to table if 'r' key is pressed.
 4. Play back table if 'p' key is pressed and output.
 
-Let us go step by step through this list, before we finally write this instrument in four lines of code. Step **1** we already did in the previous example; we only wrap the GEN routine in a UDO which gets the time as input and returns the buffer variable as output. Anything else is hidden.
+Let us go step by step through this list, before we finally write this instrument in four
+lines of code. Step **1** we already did in the previous example; we only wrap the GEN routine
+in a UDO which gets the time as input and returns the buffer variable as output. Anything else is hidden.
 
     opcode createBuffer, i, i
      ilen xin
@@ -257,50 +264,59 @@ Let us go step by step through this list, before we finally write this instrumen
      xout ift
     endop
 
-Step **2** is the only one which is a normal Csound code line, consisting of the [sensekey](https://csound.com/docs/manual/sensekey.html) opcode. Due to the implementation of *sensekey*, there should only be one *sensekey* in a Csound orchestra.
+Step **2** is the only one which is a normal Csound code line, consisting of the
+[sensekey](https://csound.com/docs/manual/sensekey.html) opcode. Due to the implementation of *sensekey*,
+there should only be one *sensekey* in a Csound orchestra.
 
     kKey, kDown sensekey
 
-Step **3** consists of two parts. We will write one UDO for both. The first UDO writes to a buffer if it gets a signal to do so. We choose here a very low-level way of writing an audio signal to a buffer. Instead of creating an index, we just increment the single index numbers. To continue the process at the end of the buffer, we apply the *modulo* operation to the incremented numbers.[^2]
+Step **3** consists of two parts. We will write one UDO for both. The first UDO writes to a buffer if it
+gets a signal to do so. We choose here a very low-level way of writing an audio signal to a buffer. Instead
+of creating an index, we just increment the single index numbers. To continue the process at the end of
+the buffer, we apply the *modulo* operation to the incremented numbers.^[The symbol for the
+[modulo operation](https://en.wikipedia.org/wiki/Modulo_operation)
+is *%*. The result is the *remainder* in a division: *1 % 3 = 1*,
+*4 % 3 = 1*, *7 % 3 = 1* etc.]
 
-[^2]: The symbol for the
-      [modulo operation](https://en.wikipedia.org/wiki/Modulo_operation)
-      is *%*. The result is the *remainder* in a division: *1 % 3 = 1*,
-      *4 % 3 = 1*, *7 % 3 = 1* etc.
-
-    opcode recordBuffer, 0, aik
-     ain, ift, krec  xin
-     setksmps  1 ;k=a here in this UDO
-     kndx init 0 ;initialize index
-     if krec == 1 then
-      tablew ain, a(kndx), ift
-      kndx = (kndx+1) % ftlen(ift)
-     endif
-    endop
+~~~csound
+opcode recordBuffer, 0, aik
+ ain, ift, krec  xin
+ setksmps  1 ;k=a here in this UDO
+ kndx init 0 ;initialize index
+ if krec == 1 then
+  tablew ain, a(kndx), ift
+  kndx = (kndx+1) % ftlen(ift)
+ endif
+endop
+~~~
 
 The second UDO ouputs *1* as long as a key is pressed. Its input consists of the ASCII key which is selected, and of the output of the *sensekey* opcode.
 
-    opcode keyPressed, k, kki
-     kKey, kDown, iAscii xin
-     kPrev init 0 ;previous key value
-     kOut = (kKey == iAscii || (kKey == -1 && kPrev == iAscii) ? 1 : 0)
-     kPrev = (kKey > 0 ? kKey : kPrev)
-     kPrev = (kPrev == kKey && kDown == 0 ? 0 : kPrev)
-     xout kOut
-    endop
+~~~csound
+opcode keyPressed, k, kki
+ kKey, kDown, iAscii xin
+ kPrev init 0 ;previous key value
+ kOut = (kKey == iAscii || (kKey == -1 && kPrev == iAscii) ? 1 : 0)
+ kPrev = (kKey > 0 ? kKey : kPrev)
+ kPrev = (kPrev == kKey && kDown == 0 ? 0 : kPrev)
+ xout kOut
+endop
+~~~
 
 The reading procedure in step **4** is in fact the same as was used for writing. We only have to replace the opcode for writing *tablew* with the opcode for reading *table*.
 
-    opcode playBuffer, a, ik
-     ift, kplay  xin
-     setksmps  1 ;k=a here in this UDO
-     kndx init 0 ;initialize index
-     if kplay == 1 then
-      aRead table a(kndx), ift
-      kndx = (kndx+1) % ftlen(ift)
-     endif
-     xout aRead
-    endop
+~~~csound
+opcode playBuffer, a, ik
+ ift, kplay  xin
+ setksmps  1 ;k=a here in this UDO
+ kndx init 0 ;initialize index
+ if kplay == 1 then
+  aRead table a(kndx), ift
+  kndx = (kndx+1) % ftlen(ift)
+ endif
+ xout aRead
+endop
+~~~
 
 Note that you must disable the key repeats on your computer keyboard for the following example (in CsoundQt, disable "Allow key repeats" in *Configuration -\> General*). Press the *r* key as long as you want to record, and the *p* key for playing back. Both, record and playback, is done circular.
 
@@ -375,7 +391,10 @@ we could also write:
 
     iBuffer createBuffer 3
 
-To plug the audio signal from channel 1 directly into the *recordBuffer* UDO, we plug the *inch(1)* directly into the first input. Similar the output of the *keyPressed* UDO as third input. For more information about functional style coding, see chapter [03 I](03-i-functional-syntax.md).
+To plug the audio signal from channel 1 directly into the *recordBuffer* UDO,
+we plug the *inch(1)* directly into the first input. Similar the output of the
+*keyPressed* UDO as third input. For more information about functional style coding,
+see chapter [03 I](03-i-functional-syntax.md).
 
 
 
@@ -396,7 +415,8 @@ intended as the kernel mechanism for building a sampler.
 
 For reading multichannel files of more than two channels, the more
 recent [loscilx](https://csound.com/docs/manual/loscilx.html) exists
-as an excellent option. It can also be used for mono or stereo, and it can — similar to diskin — write its output in an audio array.
+as an excellent option. It can also be used for mono or stereo,
+and it can — similar to diskin — write its output in an audio array.
 
 loscil and loscil3 will only allow looping points to be defined at
 i-time. [lposcil](https://csound.com/docs/manual/lposcil.html),
@@ -411,7 +431,8 @@ sample stored in function tables.
 [mincer](https://csound.com/docs/manual/mincer.html) and
 [temposcal](https://csound.com/docs/manual/temposcal.html) use
 streaming vocoder techniques to faciliate independent pitch and
-time-stretch control during playback (this area is covered more fully in chapter [05 I](05-i-fourier-analysis-spectral-processing.md).
+time-stretch control during playback (this area is covered more fully in
+chapter [05 I](05-i-fourier-analysis-spectral-processing.md).
 [sndwarp](https://csound.com/docs/manual/sndwarp.html) and
 [sndwarpst](https://csound.com/docs/manual/sndwarpst.html)
 similiarly faciliate independent pitch and playback speed control but

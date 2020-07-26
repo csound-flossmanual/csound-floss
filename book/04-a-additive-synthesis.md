@@ -1,9 +1,17 @@
 04 A. ADDITIVE SYNTHESIS
 ========================
 
-Jean Baptiste Joseph Fourier (1768-1830) claimed in this treatise *Théorie analytique de la chaleur* (1822) that any periodic function can be described perfectly as a sum of weighted sine waves. The frequencies of these *harmonics* are integer multiples of the fundamental frequency.
+Jean Baptiste Joseph Fourier (1768-1830) claimed in this treatise
+*Théorie analytique de la chaleur* (1822) that any periodic function
+can be described perfectly as a sum of weighted sine waves.
+The frequencies of these *harmonics* are integer multiples of the fundamental frequency.
 
-As we can easily produce sine waves of different amplitudes in digital sound synthesis, the *Fourier Synthesis* or *Additive Synthesis* may sound the universal key for creating interesting sounds. But first, not all sounds are periodic. *Noise* as very important part of the sounding world represents the other pole which is essentially non-periodic. And dealing with single sine waves means dealing with a lot of data and reqirements.
+As we can easily produce sine waves of different amplitudes in digital sound synthesis,
+the *Fourier Synthesis* or *Additive Synthesis* may sound the universal key for
+creating interesting sounds. But first, not all sounds are periodic.
+*Noise* as very important part of the sounding world represents the other pole
+which is essentially non-periodic. And dealing with single sine waves means
+dealing with a lot of data and reqirements.
 
 Nonetheless, additive synthesis can provide unusual and interesting
 sounds and the power of modern computers and their ability to manage
@@ -398,13 +406,12 @@ are various methods to circumvent the inflexibility of table-based
 additive synthesis such as morphing between several tables (for example
 by using the [ftmorf](http://www.csound.com/docs/manual/ftmorf.html)
 opcode) or by filtering the result. Next we shall consider another
-approach: triggering one instance of a sub-instrument[^1]  for each
+approach: triggering one instance of a sub-instrument^[This term is
+used here in a general manner. There is also a Csound opcode
+[subinstr](https://csound.com/docs/manual/subinstr.html),
+which has some more specific meanings.] for each
 partial, and exploring the possibilities of creating a spectrally
 dynamic sound using this technique.
-
-[^1]:  This term is used here in a general manner. There is also a Csound
-      opcode [subinstr](https://csound.com/docs/manual/subinstr.html),
-      which has some more specific meanings.
 
 Let us return to the second instrument (04A02.csd) which had already
 made use of some abstractions and triggered one instrument instance for
@@ -545,11 +552,8 @@ following parameters can be affected:
 The following example demonstrates the effect of these variations. As a
 base - and as a reference to its author - we take as our starting point,
 the *bell-like* sound created by Jean-Claude Risset in his *Sound
-Catalogue*.[^2]
-
-[^2]: Jean-Claude Risset, Introductory Catalogue of Computer Synthesized
-      Sounds (1969), cited after Dodge/Jerse, Computer Music, New York /
-      London 1985, p.94
+Catalogue*.^[Jean-Claude Risset, Introductory Catalogue of Computer Synthesized
+Sounds (1969), cited after Dodge/Jerse, Computer Music, New York/London 1985, p.94]
 
    ***EXAMPLE 04A07_Risset_variations.csd***
 

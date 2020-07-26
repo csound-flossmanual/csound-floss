@@ -9,7 +9,8 @@ hard drive instead of as live audio sent to the audio hardware. This
 gives you the possibility to hear the results of very complex processes
 which your computer can't produce in realtime. Or you want to render
 something in Csound to import it in an audio editor, or as the final
-result of a "tape" piece.[^1]
+result of a "tape" piece.^[or bit-depth, see the section about 
+Bit-depth Resolution in chapter 01A (Digital Audio)]
 
 Csound can render to formats like wav, aiff or ogg (and other less
 popular ones), but not mp3 due to its patent and licencing problems.
@@ -129,6 +130,3 @@ i 1 0 10
 </CsoundSynthesizer>
 ;example by joachim heintz
 ~~~
-
-[^1]:  or bit-depth, see the section about Bit-depth Resolution in chapter
-    01A (Digital Audio)

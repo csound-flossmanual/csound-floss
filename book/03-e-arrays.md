@@ -75,12 +75,9 @@ In conjunction with a previously defined two-dimensional array, *fillarray* can 
     iArr[][] init 2, 3
     iArr fillarray 1, 2, 3, -1, -2, -3
 
-This results in a 2D array (matrix) with the elements 1 2 3 as first row, and -1 -2 -3 as second row.[^1]
-
-[^1]:  Another method to fill a matrix is to use the
-       [setrow](https://csound.com/docs/manual/setrow.html) opcode.
-       This will be covered later in this chapter.
-
+This results in a 2D array (matrix) with the elements 1 2 3 as first row, and -1 -2 -3 as second row.^[Another method to fill a matrix is to use the
+[setrow](https://csound.com/docs/manual/setrow.html) opcode.
+This will be covered later in this chapter.]
 
 ### *genarray*
 
@@ -166,10 +163,9 @@ Most arrays which are typed by the user to hold data will be either i-rate or
 k-rate. An i-array can only be modified at init-time, and any operation
 on it is only performed once, at init-time. A k-array can be modified
 during the performance, and any (k-) operation on it will be performed
-in every k-cycle (!).[^2] Here is a simple example showing the difference:
-
-[^2]: More detailed explanation about i- and k-rate can be found in
-      chapter [03 A](03-a-initialization-and-performance-pass.md)
+in every k-cycle (!).^[More detailed explanation about i- and k-rate
+can be found in chapter [03 A](03-a-initialization-and-performance-pass.md)]
+Here is a simple example showing the difference:
 
 
    ***EXAMPLE 03E02_i_k_arrays.csd***
@@ -285,13 +281,13 @@ input file.
 ### Strings
 
 Arrays of strings can be very useful in many situations, for
-instance while working with file paths.[^3] The array can be filled by one of the ways described above, for instance:
+instance while working with file paths.^[You cannot currently have 
+a mixture of numbers and strings in an array, but you can convert 
+a string to a number with the
+[strtod](https://csound.com/docs/manual/strtod.html) opcode.]
+The array can be filled by one of the ways described above, for instance:
 
     S_array[] fillarray "one", "two", "three"
-
-[^3]:  You cannot currently have a mixture of numbers and strings in an
-       array, but you can convert a string to a number with the
-       [strtod](https://csound.com/docs/manual/strtod.html) opcode.
 
 
 In this case, *S_array* is of length 3. The elements can be accessed by indexing as usual, for instance
@@ -824,16 +820,14 @@ Some care is needed to use these opcodes correctly:
 
 Here is an example that implements a spectral high-pass filter. The
 f-signal is written to an array and the amplitudes of the first 40 bins
-are then zeroed.[^4]  This is only done when a new frame writes its
+are then zeroed.^[As sample rate is here 44100, and fftsize is 2048,
+each bin has a frequency range of 44100 / 2048 = 21.533 Hz.
+Bin 0 looks for frequencies around 0 Hz, bin 1 for frequencies around
+21.533 Hz, bin 2 around 43.066 Hz, and so on. So setting the first 40 bin
+amplitudes to 0 means that no frequencies will be resynthesized
+which are lower than bin 40 which is centered at 40 \* 21.533 =
+861.328 Hz.] This is only done when a new frame writes its
 values to the array so as not to waste rendering power.
-
-[^4]:  As sample rate is here 44100, and fftsize is 2048, each bin has a
-       frequency range of 44100 / 2048 = 21.533 Hz. Bin 0 looks for
-       frequencies around 0 Hz, bin 1 for frequencies around 21.533 Hz, bin
-       2 around 43.066 Hz, and so on. So setting the first 40 bin
-       amplitudes to 0 means that no frequencies will be resynthesized
-       which are lower than bin 40 which is centered at 40 \* 21.533 =
-       861.328 Hz.
 
    ***EXAMPLE 03E07_pvs_to_from_array.csd***
 
@@ -1221,10 +1215,8 @@ and element 4 has been selected randomly, and copied into the output array at fi
 
 This procedure is repeated again and again; in the next run only looking amongst six rather than seven elements.
 
-As Csound has no random opcode for integers, this is first defined as helper function: *RndInt* returns a random integer between *iStart* and *iEnd* (included).[^5]
-
-[^5]: More UDOs can be found at <https://github.com/csudo/csudo/>,
-      <https://github.com/kunstmusik/libsyi> and other places.
+As Csound has no random opcode for integers, this is first defined as helper function: *RndInt* returns a random integer between *iStart* and *iEnd* (included).^[More UDOs can be found at <https://github.com/csudo/csudo/>,
+<https://github.com/kunstmusik/libsyi> and other places.]
 
    ***EXAMPLE 03E09_Shuffle.csd***
 

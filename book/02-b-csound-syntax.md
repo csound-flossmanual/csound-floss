@@ -31,13 +31,16 @@ time 0, for 2 seconds you will use:
     i 1 0 2
 
 Note that orchestra and score are two completely different types of
-code. The orchestra contains the actual Csound code.[^1] The instruments
+code. The orchestra contains the actual Csound code.^[ 
+Its characteristics are described in detail in section 03 CSOUND LANGUAGE.
+] The instruments
 are written in the Csound Programming Language. The score is mainly a
 list of events. The Score Language is poor and offers only some very
 basic tools.
 
 In modern Csound code, the score often remains empty. The events derive
-from orchestra code,[^2] or from real-time interaction, like MIDI, OSC,
+from orchestra code,^[For instance using the schedule or event opcode.] or 
+from real-time interaction, like MIDI, OSC,
 mouse clicks or any other live input.
 
 The Csound Document Structure
@@ -124,7 +127,9 @@ other programming languages:
 
     aSin = poscil(0dbfs/4,440)
 
-Or better, as more explicit (declaring the audio rate output): [^3]
+Or better, as more explicit (declaring the audio rate output): ^[
+See [chapter 03 I](03-i-functional-syntax.md) for more 
+information about functional style in Csound.]
 
     aSin = poscil:a(0dbfs/4,440)
 
@@ -195,9 +200,3 @@ pressing Shift+F1. [WinXsound](http://winxound.codeplex.com) ,
 [Cabbage](http://cabbageaudio.com/) and
 [Blue](http://blue.kunstmusik.com/) also provide easy access to
 the manual.
-
-[^1]:  Its characteristics are described in detail in section 03 CSOUND
-    LANGUAGE.
-[^2]:  For instance using the schedule or event opcode.
-[^3]:  See [chapter 03 I](03-i-functional-syntax.md) for more 
-    information about functional style in Csound.

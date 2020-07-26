@@ -94,15 +94,17 @@ this is the way an image is specified with caption and resizing:
 
 # 6. FOOTNOTES
 
-inside the text use `[^1]` for the first footnote in the chapter.
+inside the text use `^[]` for footnotes in the chapter.
     
-the footnote itself is then written below the paragraph preceded 
-by a newline as:
+the footnote itself should be written inline within the
+paragraph from which it's refered to, the pandoc engine
+will automatically give it a number and place the
+footnote to the bottom of a given page:
 
-    [^1]: this is the footnote text
-          and this is the text continued
+    FooBar was a proof Einstein did.^[Middle Earth Magazine, 1900, vol.3]
+    FooBar turned out to be a placeholder for a text in pandoc document.
 
-see [here](https://pandoc.org/MANUAL.html#footnotes) for more details.
+see [here](https://pandoc.org/MANUAL.html#footnotes) for more details on inline-footnotes.
 
 
 # 7. MATH FORMULAS

@@ -7,7 +7,7 @@
 
 %% documentclass
 \renewcommand{\linethickness}{0.05pt}
-\documentclass[UTF8,17pt,english,a4,handout]{book}
+\documentclass[UTF8,17pt,english,a4,twoside,openright]{book}
 
 \usepackage{textcomp} % provide euro and other symbols
 \usepackage{parskip} % sensible indent and break in paragraphs
@@ -39,10 +39,12 @@
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhead{}
-\fancyfoot{}
+
+%% \fancyfoot{}
+%% \fancyfoot[C]{\robotocondensed\color{titlecolor}\thepage}
+
 \fancyhead[LE,RO]{\robotocondensed\color{titlecolor}\textsl{\rightmark}}
 \fancyhead[LO,RE]{\robotocondensed\color{titlecolor}\textsl{\leftmark}}
-\fancyfoot[C]{\robotocondensed\color{titlecolor}\thepage}
 
 \usepackage{beamerarticle}
 \usepackage{wrapfig}
@@ -79,11 +81,32 @@
 
 \usepackage{hyperref}
 %% \usepackage[colorlinks]{hyperref}
+
+%% \setcounter{secnumdepth}{-2}
+
+%% FOOTER STUFF
 \usepackage{longtable,booktabs}
 \usepackage{footnote}
+\usepackage{chngcntr}
+%% \fancyfoot[C]{\robotocondensed\color{titlecolor}\thepage}
+\counterwithin*{footnote}{subsection}
+%% These two are to compensate for
+%% internal counter changes
+\counterwithout{section}{chapter}
+%% \counterwithout{figure}{chapter}
+%% \counterwithout{table}{chapter}
+
+%% https://tex.stackexchange.com/a/141938
+\addtolength{\footnotesep}{2mm}
+\renewcommand{\thefootnote}{\textbf{\arabic{footnote}}}
+\usepackage[flushmargin]{footmisc}
+\newcommand{\hr}{\begin{center} \line(1,0){450} \end{center}}
+%% END OF FOOTER STUFF
+
+
 \makesavenoteenv{longtable}
 \usepackage{unicode-math}
-\setcounter{secnumdepth}{-2}
+
 
 \hypersetup{
   pdftoolbar=true,
@@ -97,7 +120,7 @@
 }
 
 \usepackage{framed}
-\VerbatimFootnotes
+%% \VerbatimFootnotes
 
 $if(highlighting-macros)$
 $highlighting-macros$
@@ -120,6 +143,8 @@ $endfor$
 
 \makeatletter
 \patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+%% https://tex.stackexchange.com/a/444226
+\renewcommand{\@seccntformat}[1]{}
 \makeatother
 
 \usepackage[raggedright]{titlesec}

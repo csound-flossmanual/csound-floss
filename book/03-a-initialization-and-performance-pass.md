@@ -74,17 +74,24 @@ As you see, the local variables *iLocal* do have different meanings in
 the context of their instrument, whereas *giGlobal* is known everywhere
 and in the same way. It is also worth mentioning that the performance
 time of the instruments (p3) is zero. This makes sense, as the
-instruments are called, but only the init-pass is performed.[^1]
+instruments are called, but only the init-pass is performed.^[
+You would not get any other result if you set p3 to 1 or any other
+value, as nothing is done here except
+initialization.]
 
 
 ### Performance Pass
 
 After having assigned initial values to all variables, Csound starts the
-actual performance. As music is a variation of values in time,[^2]  audio
-signals are producing values which vary in time. In all digital audio,
+actual performance. As music is a variation of values in time,^[
+For the physical result which comes out of the loudspeakers or
+headphones, the variation is the variation of air
+pressure.]  audio signals are producing values which vary in time.
+In all digital audio,
 the time unit is given by the sample rate, and one sample is the
-smallest possible time atom. For a sample rate of 44100 Hz,[^3]  one
-sample comes up to the duration of 1/44100 = 0.0000227 seconds.
+smallest possible time atom. For a sample rate of 44100 Hz,^[
+44100 samples per second] one sample comes up to the duration of
+1/44100 = 0.0000227 seconds.
 
 So, performance for an audio application means basically: calculate all
 the samples which are finally being written to the output. You can
@@ -107,16 +114,25 @@ samples. The samples are shown at the bottom line. Above are the control
 ticks, one for each ten samples. The top two lines show the times for
 both clocks in seconds. In the upmost line you see that the first
 control cycle has been finished at 0.000227 seconds, the second one at
-0.000454 seconds, and so on.[^4]
+0.000454 seconds, and so on.^[These are by the way the times which
+Csound reports if you ask for the control cycles.
+The first control cycle in this example \(sr=44100, ksmps=10\)
+would be reported as 0.00027 seconds, not as 0.00000 seconds.]
 
 ![](../resources/images/03-a-sr-kr-time3.png){width=80%}
 
 The rate (frequency) of these ticks is called the control rate in
-Csound. By historical reason,[^5]  it is called *kontrol rate* instead
+Csound. By historical reason,^[As Richard Boulanger explains,
+in early Csound a line starting with *c* was a comment line.
+So it was not possible to abbreviate control variables as cAnything
+(http://csound.1045644.n5.nabble.com/OT-why-is-control-rate-called-kontrol-rate-td5720858.html\#a5720866).] it is called *kontrol rate* instead
 of control rate, and abbreviated as *kr* instead of cr. Each of the
 calculation cycles is called a *k-cycle*. The block size or vector
 size is given by the *ksmps* parameter, which means: how many samples
-(smps) are collected for one k-cycle.[^6]
+(smps) are collected for one k-cycle.^[As the k-rate is directly
+depending on sample rate (sr) and ksmps (kr = sr/ksmps),
+it is probably the best style to specify sr and ksmps in the header,
+but not kr.]
 
 Let us see some code examples to illustrate these basic contexts.
 
@@ -162,20 +178,24 @@ control cycle, the counter is increased by one. What we see here, is the
 typical behaviour of a loop. The loop has not been set explicitely, but
 works implicitely because of the continuous recalculation of all
 k-variables. So we can also speak about the k-cycles as an implicit (and
-time-triggered) k-loop.[^7]  Try changing the ksmps value from 4410 to
-8820 and to 2205 and observe the difference.
+time-triggered) k-loop.^[This must not be confused with a \'real\'
+k-loop where inside one single k-cycle a loop is performed.
+See chapter 03C (section Loops) for examples.]  Try changing the ksmps
+value from 4410 to 8820 and to 2205 and observe the difference.
 
 The next example reads the incrementation of *kCount* as rising
 frequency. The first instrument, called Rise, sets the k-rate frequency
 *kFreq* to the initial value of 100 Hz, and then adds 10 Hz in every new
 k-cycle. As ksmps=441, one k-cycle takes 1/100 second to perform. So in
 3 seconds, the frequency rises from 100 to 3100 Hz. At the last k-cycle,
-the final frequency value is printed out.[^8]  - The second instrument,
-Partials, increments the counter by one for each k-cycle, but only sets
-this as new frequency for every 100 steps. So the frequency stays at 100
-Hz for one second, then at 200 Hz for one second, and so on. As the
-resulting frequencies are in the ratio 1 : 2 : 3 ..., we hear partials
-based on a 100 Hz fundamental, from the first partial up to the 31st.
+the final frequency value is printed out.^[The value is 3110 instead of
+3100 because it has already been incremented by 10.]
+The second instrument, Partials, increments the counter by one for each
+k-cycle, but only sets this as new frequency for every 100 steps.
+So the frequency stays at 100Hz for one second, then at 200 Hz for one
+second, and so on. As the resulting frequencies are in the ratio
+1 : 2 : 3 ..., we hear partials based on a 100 Hz fundamental, from the
+first partial up to the 31st.
 The opcode printk2 prints out the frequency value whenever it has
 changed.
 
@@ -280,10 +300,11 @@ Outputs:
 
 One k-cycle consists of [ksmps](https://csound.com/docs/manual/ksmps.html) audio samples. The single samples are processed in a block, called audio vector. If *ksmps=32*, for each audio signal 32 samples are processed in every k-cycle.
 
-There are different opcodes to print out k-variables.[^9] There is no
-opcode in Csound to print out the audio vector directly, but we can use
-the *vaget* opcode to see what is happening inside one control cycle
-with the audio samples.
+There are different opcodes to print out k-variables.^[See the manual page
+for printk, printk2, printks, printf to know more about the differences.]
+There is no opcode in Csound to print out the audio vector directly,
+but we can use the *vaget* opcode to see what is happening inside one
+control cycle with the audio samples.
 
    ***EXAMPLE 03A05\_Audio\_vector.csd***
 
@@ -976,7 +997,8 @@ i "Fantastic_FM" 0 1
 Note that the score has not the same order. But internally, Csound
 transforms all names to numbers, in the order they are written from top
 to bottom. The numbers are reported on the top of Csound's
-output:[^10]
+output:^[If you want to know the number in an instrument,
+use the nstrnum opcode.]
 
     instr Grain_machine uses instrument number 1
     instr Fantastic_FM uses instrument number 2
@@ -1069,7 +1091,8 @@ only work at *i-time* or *i-rate*, and others which only work at
 *k-rate* or *k-time*. For instance, if the user wants to print the
 value of any variable, (s)he thinks: *OK - print it out.* But Csound
 replies: *Please, tell me first if you want to print an i- or a
-k-variable*.[^11]
+k-variable*.^[See the following section 03B about the variable types
+for more on this subject.]
 
 The [print](http://csound.com/docs/manual/print.html)
 opcode just prints variables which are updated at each initialization
@@ -1769,34 +1792,3 @@ the general answer is clear: Use i-rate if something has to be done only
 once, or in a somehow punctual manner. Use k-rate if something has to be
 done continuously, or if you must regard what happens during the
 performance.
-
-[^1]:  You would not get any other result if you set p3 to 1 or any other
-    value, as nothing is done here except
-    initialization.
-[^2]:  For the physical result which comes out of the loudspeakers or
-    headphones, the variation is the variation of air
-    pressure.
-[^3]:  44100 samples per second
-[^4]:  These are by the way the times which Csound reports if you ask for
-    the control cycles. The first control cycle in this example
-    (sr=44100, ksmps=10) would be reported as 0.00027 seconds, not as
-    0.00000 seconds.
-[^5]:  As Richard Boulanger explains, in early Csound a line starting with
-    *c* was a comment line. So it was not possible to abbreviate
-    control variables as cAnything
-    (http://csound.1045644.n5.nabble.com/OT-why-is-control-rate-called-kontrol-rate-td5720858.html\#a5720866).
-[^6]:  As the k-rate is directly depending on sample rate (sr) and ksmps
-    (kr = sr/ksmps), it is probably the best style to specify sr and
-    ksmps in the header, but not
-    kr.
-[^7]:  This must not be confused with a \'real\' k-loop where inside one
-    single k-cycle a loop is performed. See chapter 03C (section Loops)
-    for examples.
-[^8]:  The value is 3110 instead of 3100 because it has already been
-    incremented by 10.
-[^9]:  See the manual page for printk, printk2, printks, printf to know
-    more about the differences.
-[^10]: If you want to know the number in an instrument, use the nstrnum
-    opcode.
-[^11]: See the following section 03B about the variable types for more on
-    this subject.

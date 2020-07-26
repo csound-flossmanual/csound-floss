@@ -43,10 +43,9 @@ executed just once by using
 the [turnoff](https://csound.com/docs/manual/turnoff.html) opcode.
 Alternative approaches would be to set the status byte to zero after the
 first *k pass* or to embed the *midiout* within a conditional
-(*if - then*)[^1] so that its rate of execution can be controlled in
-some way.
+(*if - then*)^[See chapter [03 C](03-c-control-structures.md) for details.]
+so that its rate of execution can be controlled in some way.
 
-[^1]: See chapter [03 C](03-c-control-structures.md) for details.
 
 Another thing we need to be aware of is that midi notes do not contain
 any information about note duration; instead the device playing the note

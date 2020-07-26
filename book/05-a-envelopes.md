@@ -226,10 +226,11 @@ segment.
 This difference is illustrated in the following example. The *linseg*
 and *line* envelopes of instruments 1 and 2 appear to be the same but
 the difference in their behaviour as described above when they continue
-beyond the end of their final segment is clear. The *linseg* envelope stays at zero, whilst the *line* envelope continues through zero to negative range, thus ending at -0.2.[^1]
-
-[^1]: Negative values for the envelope have the same loudness.
-      Only the phase of the signal is inverted.
+beyond the end of their final segment is clear. 
+The *linseg* envelope stays at zero, whilst the *line* envelope continues
+through zero to negative range, thus ending at
+-0.2.^[Negative values for the envelope have the same loudness.
+Only the phase of the signal is inverted.]
 
 
 ***EXAMPLE 05A05_line_vs_linseg.csd***
@@ -277,14 +278,14 @@ expon and expseg
 exponential shapes rather than linear shapes. *expon* and *expseg* can
 often be more musically useful for envelopes that define amplitude or
 frequency as they will reflect the logarithmic nature of how these
-parameters are perceived.[^2] On account of the mathematics that are used to
+parameters are perceived.^[See chapter
+[01 C](01-c-intensities.md) for some background information.]
+On account of the mathematics that are used to
 define these curves, we cannot define a value of zero at any node in the
 envelope and an envelope cannot cross the zero axis. If we require a
 value of zero we can instead provide a value very close to zero. If we
 still really need zero we can always subtract the offset value from the
 entire envelope in a subsequent line of code.
-
-[^2]: See chapter [01 C](01-c-intensities.md) for some background information.
 
 The following example illustrates the difference between *line* and
 *expon* when applied as amplitude envelopes.

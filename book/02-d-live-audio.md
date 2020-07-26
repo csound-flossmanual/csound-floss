@@ -35,8 +35,9 @@ endin
 </CsoundSynthesizer>
 ~~~
 
-The input (-i) and output (-o) devices will be listed seperately.[^1]
-Specify your input device with the *-iadc* flag and the number of your
+The input (-i) and output (-o) devices will be listed seperately.^[
+You may have to run -iadc999 and -odac999 seperately.] Specify 
+your input device with the *-iadc* flag and the number of your
 input device, and your output device with the *-odac* flag and the
 number of your output device. For instance, if you select one of the
 devices from the list above both, for input and output, you may include
@@ -75,7 +76,20 @@ Tuning Performance and Latency
 Live performance and latency depend mainly on the sizes of the software
 and the hardware buffers. They can be set in the \<CsOptions\> using the
 -B flag for the hardware buffer, and the -b flag for the software
-buffer.[^2]  For instance, this statement sets the hardware buffer size
+buffer.^[As Victor Lazzarini explains (mail to Joachim Heintz, 19 march
+2013), the role of -b and -B varies between the Audio Modules: \"1.
+For portaudio, -B is only used to suggest a latency to the backend,
+whereas -b is used to set the actual buffersize. 2. For coreaudio,
+-B is used as the size of the internal circular buffer, and -b is
+used for the actual IO buffer size. 3. For jack, -B is used to
+determine the number of buffers used in conjunction with -b , num =
+(N + M + 1) / M. -b is the size of each buffer. 4. For alsa, -B is
+the size of the buffer size, -b is the period size (a buffer is
+divided into periods). 5. For pulse, -b is the actual buffersize
+passed to the device, -B is not used. In other words, -B is not too
+significant in 1), not used in 5), but has a part to play in 2), 3)
+and 4), which is functionally similar.\"]  For instance, 
+this statement sets the hardware buffer size
 to 512 samples and the software buffer size to 128 sample:
 
     -B512 -b128
@@ -86,11 +100,18 @@ value which is set in the header of the \<CsInstruments\> section. By
 this value, you define how many samples are processed every Csound
 control cycle.
 
-Try your realtime performance with -B512, -b128 and ksmps=32.[^3]  With a
-software buffer of 128 samples, a hardware buffer of 512 and a sample
-rate of 44100 you will have around 12ms latency, which is usable for
-live keyboard playing. If you have problems with either the latency or
-the performance, tweak the values as described
+Try your realtime performance with -B512, -b128 and ksmps=32.^[
+It is always preferable to use power-of-two values for ksmps (which
+is the same as \"block size\" in PureData or \"vector size\" in
+Max). Just with ksmps = 1, 2, 4, 8, 16 \... you will take advantage
+of the \"full duplex\" audio, which provides best real time audio.
+Make sure your ksmps divides your buffer size with no remainder. So,
+for -b 128, you can use ksmps = 128, 64, 32, 16, 8, 4, 2
+or 1.]  With a software buffer of 128 samples, a hardware buffer of
+512 and a sample rate of 44100 you will have around 12ms latency,
+which is usable for live keyboard playing.
+If you have problems with either the latency or the performance,
+tweak the values as described
 [here](http://csound.github.io/docs/manual/html/UsingOptimizing.html).
 
 
@@ -175,25 +196,3 @@ i 1 0 3600
 Live Audio is frequently used with live devices like widgets or MIDI.
 You will find various examples in the example collections of your
 preferred frontend.
-
-[^1]:  You may have to run -iadc999 and -odac999 seperately.
-[^2]:  As Victor Lazzarini explains (mail to Joachim Heintz, 19 march
-    2013), the role of -b and -B varies between the Audio Modules: \"1.
-    For portaudio, -B is only used to suggest a latency to the backend,
-    whereas -b is used to set the actual buffersize. 2. For coreaudio,
-    -B is used as the size of the internal circular buffer, and -b is
-    used for the actual IO buffer size. 3. For jack, -B is used to
-    determine the number of buffers used in conjunction with -b , num =
-    (N + M + 1) / M. -b is the size of each buffer. 4. For alsa, -B is
-    the size of the buffer size, -b is the period size (a buffer is
-    divided into periods). 5. For pulse, -b is the actual buffersize
-    passed to the device, -B is not used. In other words, -B is not too
-    significant in 1), not used in 5), but has a part to play in 2), 3)
-    and 4), which is functionally similar.\"
-[^3]:  It is always preferable to use power-of-two values for ksmps (which
-    is the same as \"block size\" in PureData or \"vector size\" in
-    Max). Just with ksmps = 1, 2, 4, 8, 16 \... you will take advantage
-    of the \"full duplex\" audio, which provides best real time audio.
-    Make sure your ksmps divides your buffer size with no remainder. So,
-    for -b 128, you can use ksmps = 128, 64, 32, 16, 8, 4, 2
-    or 1.

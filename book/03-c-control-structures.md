@@ -93,7 +93,10 @@ want to read both with a stereo output. For the real stereo ones that
 means: use [diskin](https://csound.com/docs/manual/diskin.html)
  (soundin / diskin2) with two output arguments. For the
 mono ones it means: use it with one
-output argument, and throw it to both output channels:[^1]
+output argument, and throw it to both output channels:^[
+The modern way to solve this is to work with an audio array as
+output of diskin. But nevertheless the example shows a typical
+usage of the i-rate if branching.]
 
    ***EXAMPLE 03C01\_IfThen\_i.csd***
 
@@ -184,7 +187,9 @@ i 1 0 30
 
 If you need an if-statement to give a value to an (i- or k-) variable,
 you can also use a traditional short form in parentheses: [(a v b ? x :
-y)](http://www.csound.com/docs/manual/equals.html).[^2]  It asks whether
+y)](http://www.csound.com/docs/manual/equals.html).^[
+Since the release of the new parser (Csound 5.14), the expression
+can also be written without parentheses.]  It asks whether
 the condition a or b is true. If a, the value is set to x; if b, to y.
 For instance, the last example could be written in this way:
 
@@ -1301,8 +1306,9 @@ The idea for using this internal time as measurement for time loops is this:
      and reset the *kTime* variable to the next desired time.
 
 The next example does exactly the same as example 03C21 with the help of
-the *metro* opcode did, but now by using the internal clock.[^3]
-
+the *metro* opcode did, but now by using the internal clock.^[
+To say the truth, *metro* is more precise. But this can be neglected
+for live situations for which this approach is mainly meant to be used.]
 
 
    ***EXAMPLE 03C23_Timeloop_Internal_Clock.csd***
@@ -1480,13 +1486,3 @@ i "Play" 0 3 20
 ~~~
 
 Recursion is in particular important for User Defined Opcodes. Recursive UDOs will be explained in chapter [03 G](03-g-user-defined-opcodes.md). They follow the same principles as shown here.
-
-
-
-[^1]: The modern way to solve this is to work with an audio array as
-      output of diskin. But nevertheless the example shows a typical
-      usage of the i-rate if branching.
-[^2]:  Since the release of the new parser (Csound 5.14), the expression
-      can also be written without parentheses.
-[^3]: To say the truth, *metro* is more precise. But this can be neglected
-      for live situations for which this approach is mainly meant to be used.

@@ -224,17 +224,16 @@ narrowed to the point where almost pure tones are audible. The crucial
 difference is that the noise source always induces instability in the
 amplitude and frequency of tones produced - it is this quality that
 makes this sort of subtractive synthesis sound much more organic than a simple
-additive synthesis equivalent.[^1] If the bandwidths are widened, then more
+additive synthesis equivalent.^[It has been shown in the
+[chapter about additive synthesis](04-a-additive-synthesis.md)
+how this quality can be applied to additive synthesis by
+slight random deviations.] If the bandwidths are widened, then more
 of the characteristic of the noise source comes through and the tone
 becomes *airier* and less distinct; if the bandwidths are narrowed,
 the resonating tones become clearer and steadier. By varying the
 bandwidths interesting metamorphoses of the resultant sound are
 possible.
 
-[^1]: It has been shown in the
-      [chapter about additive synthesis](04-a-additive-synthesis.md)
-      how this quality can be applied to additive synthesis by
-      slight random deviations.
 
 22 [reson](http://www.csounds.com/manual/html/reson.html) filters are
 used for the bandpass filters on account of their ability to ring and

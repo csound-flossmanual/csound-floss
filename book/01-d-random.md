@@ -13,7 +13,7 @@ and distributions and demonstrates their use in musical examples.
 ### Random is Different
 
 The term *random* derives from the idea of a horse that is running so
-fast it becomes *out of control* or *beyond predictability*.[^1]  Yet
+fast it becomes *out of control* or *beyond predictability*.^[<http://www.etymonline.com/index.php?term=random>]  Yet
 there are different ways in which to run fast and to be out of control;
 therefore there are different types of randomness.
 
@@ -114,7 +114,10 @@ after as many steps as are given by the size of the generator. If a
 steps. If you listen carefully to the following example, you will hear a
 repetition in the structure of the white noise (which is the result of
 uniformly distributed amplitudes) after about 1.5 seconds in the first
-note.[^2]  In the second note, there is no perceivable repetition as the
+note.^[Because the sample rate is 44100 samples per second. 
+       So a repetition after 65536 samples will lead to a 
+       repetition after 65536/44100 = 1.486 seconds.]
+ In the second note, there is no perceivable repetition as the
 random generator now works with a 31-bit number.
 
    ***EXAMPLE 01D02\_white\_noises.csd***
@@ -191,8 +194,13 @@ pseudo-random generator. But there are many situations you will not want
 a uniformly distributed random, but any other shape. Some of these
 shapes are quite common, but you can actually build your own shapes
 quite easily in Csound. The next examples demonstrate how to do this.
-They are based on the chapter in Dodge/Jerse[^3]  which also served as a
-model for many random number generator opcodes in Csound.[^4]
+They are based on the chapter in Dodge/Jerse^[
+Charles Dodge and Thomas A. Jerse, Computer Music, New York 1985,
+Chapter 8.1, in particular page 269-278.] which also served as a
+model for many random number generator opcodes in Csound.^[
+Most of them have been written by Paris Smaragdis in 1995: betarnd,
+bexprnd, cauchy, exprnd, gauss, linrand, pcauchy, poisson, trirand,
+unirand and weibull.]
 
 #### Linear
 
@@ -710,8 +718,14 @@ e 99999 ;make possible to perform long (exit will be automatically)
 ~~~
 
 With this method we can build probability distributions which are very
-similar to exponential or gaussian distributions.[^5]  Their shape can
-easily be formed by the number of sub-units used.
+similar to exponential or gaussian distributions.^[
+According to Dodge/Jerse, the usual algorithms for exponential and
+gaussian are:  
+Exponential: Generate a uniformly distributed number
+between 0 and 1 and take its natural logarithm.  
+Gauss: Take the mean of uniformly distributed numbers 
+and scale them by the standard deviation.] Their 
+shape can easily be formed by the number of sub-units used.
 
 ### Scalings
 
@@ -1363,7 +1377,9 @@ the interval \[0, 1\]. Of these we accept a proportion corresponding to
 proportion of *f*(0.32) = 0.82. We do this by generating a new random
 number *rand2* between 0 and 1 and accept *rnd1* only if *rand2* \<
 *f*(*rnd1*); otherwise we reject it. (see *Signals, Systems and Sound
-Synthesis*[^6] chapter 10.1.4.4)
+Synthesis*^[
+Neukom, Martin. Signals, systems and sound synthesis. Bern: Peter
+Lang, 2013. Print.] chapter 10.1.4.4)
 
 ![](../resources/images/01-d-random3.gif)
 
@@ -1807,20 +1823,3 @@ e
 </CsoundSynthesizer>
 ;example by Iain McCurdy
 ~~~
-
-[^1]: <http://www.etymonline.com/index.php?term=random>
-[^2]: Because the sample rate is 44100 samples per second. So a
-      repetition after 65536 samples will lead to a repetition after
-      65536/44100 = 1.486 seconds.
-[^3]: Charles Dodge and Thomas A. Jerse, Computer Music, New York 1985,
-      Chapter 8.1, in particular page 269-278.
-[^4]: Most of them have been written by Paris Smaragdis in 1995: betarnd,
-      bexprnd, cauchy, exprnd, gauss, linrand, pcauchy, poisson, trirand,
-      unirand and weibull.
-[^5]: According to Dodge/Jerse, the usual algorithms for exponential and
-      gaussian are: Exponential: Generate a uniformly distributed number
-      between 0 and 1 and take its natural logarithm. Gauss: Take the mean
-      of uniformly distributed numbers and scale them by the standard
-      deviation.
-[^6]: Neukom, Martin. Signals, systems and sound synthesis. Bern: Peter
-      Lang, 2013. Print.

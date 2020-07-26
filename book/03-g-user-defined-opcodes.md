@@ -836,19 +836,18 @@ i 1 0 10
 ~~~
 
 The next example permutes a series of numbers randomly each
-time it is called. For this purpose, one random element of the input array [^1]
-is taken and written to the first position of the output array. Then
-all elements which are "right of" this one random element are copied
+time it is called. For this purpose, one random element of
+the input array^[More precisely the random element is taken
+from a *copy* of the input array. This copy is always created
+by the UDO, so the original array is left untouched. This is
+visible in the last line of the printout.] is taken and
+written to the first position of the output array. Then all
+elements which are "right of" this one random element are copied
 one position to the left. As result the previously chosen
 element is being overwritten, and the number of values to read is
 shrinked by one. This process is done again and again, until each
 *old* element has placed to a (potentially) *new* position in the
 resulting output array.
-
-[^1]: More precisely the random element is taken from a *copy* of
-      the input array. This copy is always created by the UDO, so
-      the original array is left untouched. This is visible in the
-      last line of the printout.
 
 
    ***EXAMPLE 03G12_ArrPermRnd.csd***

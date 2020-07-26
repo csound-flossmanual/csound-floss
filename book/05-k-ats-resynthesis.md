@@ -8,21 +8,17 @@ The ATS Technique
 
 The *ATS* technique (*Analysis-Transformation-Synthesis*) was developed
 by Juan Pampin. A comprehensive explanation of this technique can be
-found in his *ATS Theory*[^1] but, essentially, it may be said that it
+found in his *ATS Theory*^[Juan Pampin, 2011, 
+[ATS_theory](http://wiki.dxarts.washington.edu/groups/general/wiki/39f07/attachments/55bd6/ATS_theory.pdf)]
+but, essentially, it may be said that it
 represents two aspects of the analyzed signal: the deterministic part
 and the stochastic or residual part. This model was initially conceived
-by Julius Orion Smith and Xavier Serra,[^2] but *ATS* refines certain
+by Julius Orion Smith and Xavier Serra,^[Xavier Serra and Julius O. Smith III, 1990,
+A Sound Analysis/Synthesis System Based on a Deterministic plus Stochastic Decomposition,
+Computer Music Journal, Vol.14, 4, MIT Press, USA] but *ATS* refines certain
 aspects of it, such as the weighting of the spectral components on the
-basis of their *Signal-to-Mask-Ratio (SMR)*.[^3]
-
-[^1]: Juan Pampin, 2011, [ATS_theory](http://wiki.dxarts.washington.edu/groups/general/wiki/39f07/attachments/55bd6/ATS_theory.pdf)
-
-[^2]: Xavier Serra and Julius O. Smith III, 1990, A Sound Analysis/Synthesis
-      System Based on a Deterministic plus Stochastic Decomposition,
-      Computer Music Journal, Vol.14, 4, MIT Press, USA
-
-[^3]: Eberhard Zwicker and Hugo Fastl, 1990, Psychoacoustics, Facts and
-      Models. Springer, Berlin, Heidelberg
+basis of their *Signal-to-Mask-Ratio (SMR)*.^[Eberhard Zwicker and Hugo Fastl,
+1990, Psychoacoustics, Facts and Models. Springer, Berlin, Heidelberg]
 
 The deterministic part consists in sinusoidal trajectories with varying
 amplitude, frequency and phase. It is achieved by means of the
@@ -34,9 +30,7 @@ subtracting the deterministic signal from the original signal. For such
 purposes, the deterministic part is synthesized preserving the phase
 alignment of its components in the second step of the analysis. The
 residual part is represented with noise variable energy values along the
-25 critical bands.[^4]
-
-[^4]: Cf. Zwicker/Fastl (above footnote)
+25 critical bands.^[Cf. Zwicker/Fastl (above footnote)]
 
 
 The ATS technique has the following advantages:
@@ -280,18 +274,15 @@ Synthesizing ATS Analysis Files
 
 The synthesis techniques that are usually applied in order to get a
 synthesized sound that resembles the original sound as much as possible
-are detailed explained in Pampin 2011[^5] and di Liscia 2013[^6].
+are detailed explained in Pampin 2011^[Juan Pampin, 2011,
+ATS_theory (see footnote 1)] and di Liscia 2013^[Oscar Pablo Di Liscia, 2013,
+A Pure Data toolkit for real-time synthesis of ATS spectral data
+<http://lac.linuxaudio.org/2013/papers/26.pdf>].
 However, it is worth pointing out that once the proper data is stored in
 an analysis file, the user is free to read and apply to this data any
 reasonable transformation/synthesis technique/s, thereby facilitating
 the creation of new and interesting sounds that need not be similar nor
 resemble the original sound.
-
-[^5]: Juan Pampin, 2011, ATS_theory (see footnote 1)
-
-[^6]: Oscar Pablo Di Liscia, 2013, A Pure Data toolkit for real-time
-      synthesis of ATS spectral data
-      <http://lac.linuxaudio.org/2013/papers/26.pdf>
 
 
 ### Csound Opcodes for Reading ATS Data Files

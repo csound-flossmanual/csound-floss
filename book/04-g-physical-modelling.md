@@ -33,11 +33,8 @@ to implement two classical models from first principles and then
 introduce a number of Csound's ready made physical modelling opcodes.
 
 
-The Mass-Spring Model[^1]
+The Mass-Spring Model^[The explanation here follows chapter 8.1.1 of Martin Neukom's *Signale Systeme Klangsynthese* (Bern 2003)]
 -------------------------
-
-[^1]:  The explanation here follows chapter 8.1.1 of Martin Neukom's
-       *Signale Systeme Klangsynthese* (Bern 2003)
 
 Many oscillating processes in nature can be modelled as connections of
 masses and springs. Imagine one mass-spring unit which has been set into
@@ -65,18 +62,14 @@ $a_2 = (a_1 + (a_1 - a_0)) - c * a_1 = 1 - 0.2 = 0.8$
 ![](../resources/images/04-g-01bild2a.png){width=50%}
 
 Csound can easily calculate the values by simply applying the formulae.
-For the first k-cycle[^2], they are set via the
+For the first k-cycle^[See chapter [03A](03-a-initialization-and-performance-pass.md)
+for more information about Csound's performance loops.], they are set via the
 [init](https://csound.com/docs/manual/init.html) opcode. After
 calculating the new state, *a1* becomes *a0* and *a2* becomes *a1* for
 the next k-cycle. In the next csd the new values will be printed five
 times per second (the states are named here as *k0/k1/k2* instead of
 *a0/a1/a2*, because k-rate values are needed for printing instead of
 audio samples).
-
-[^2]:  See chapter
-       [03A](03-a-initialization-and-performance-pass.md)
-       for more information about Csound's performance loops.
-
 
    ***EXAMPLE 04G01_Mass_spring_sine.csd***
 

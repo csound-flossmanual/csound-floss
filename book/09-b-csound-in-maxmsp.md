@@ -265,10 +265,8 @@ To get the MIDI pitch, we use the opcode
 the FM modulation factor, we use
 [midic7](https://csound.com/docs/manual/midic7.html) in order to
 read the last known value of MIDI CC number one (mapped to the range
-\[0,10\]).[^1]
-
-[^1]: Csound's MIDI options and opcodes are described in detail in
-      section 7 of this manual.
+\[0,10\]).^[Csound's MIDI options and opcodes are described in detail in
+section 7 of this manual.]
 
 Notice that in the score section of the Csound file, we no longer have the
 statement *i1 0 86400* as we had in earlier examples. The score section is left empty here, so that instrument 1 is compiled but not activated. Activation is done via MIDI here.

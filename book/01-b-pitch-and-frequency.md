@@ -1,10 +1,7 @@
 01 B. PITCH AND FREQUENCY
 =========================
 
-Pitch and frequency are related but different terms.[^1] *Pitch* is used by musicians to describe the "height" of a tone, most obvious on a keyboard. *Frequency* is a technical term. We will start with the latter and then return to pitch in some of its numerous aspects, including intervals, tuning systems and different conversions between pitch and frequency in Csound.
-
-[^1]: Similar to *volume* and *amplitude* -- see
-      [next chapter](01-c-intensities.md).
+Pitch and frequency are related but different terms.^[Similar to *volume* and *amplitude* -- see [next chapter](01-c-intensities.md).] *Pitch* is used by musicians to describe the "height" of a tone, most obvious on a keyboard. *Frequency* is a technical term. We will start with the latter and then return to pitch in some of its numerous aspects, including intervals, tuning systems and different conversions between pitch and frequency in Csound.
 
 
 Frequencies
@@ -201,7 +198,7 @@ instr 2
 endin
 
 instr 3
- prints  "Applying the ratio of %f (adding %d Hertz) to %d Hertz!\n", 
+ prints  "Applying the ratio of %f (adding %d Hertz) to %d Hertz!\n",
          p5, p4*p5, p4
  asig    poscil  .2, p4*p5
  aout linen asig, 0, p3, p3
@@ -231,20 +228,14 @@ i 3 17 1 800 [3/2]
 
 ### Equal tempered scale
 
-As some readers will know, the current preferred method of tuning western instruments is based on equal temperament. Essentially this means that all octaves are split into 12 equal intervals, called semitones. Therefore a semitone has a ratio of 2^1/12^, which is approximately 1.059463.[^2] The next semitone will have the ratio 2^2/12^ (1.122462...), the third one 2^3/12^ (1.189207...), and so on. The exponents increase linear (1/12, 2/12, 3/12, ...), thus yielding the same proportion between each subsequent semitone.
+As some readers will know, the current preferred method of tuning western instruments is based on equal temperament. Essentially this means that all octaves are split into 12 equal intervals, called semitones. Therefore a semitone has a ratio of 2^1/12^, which is approximately 1.059463.^[2^1/12^ is the same as $\sqrt[12]{2}$ thus the number which yields 2 if multiplied by itself 12 times.] The next semitone will have the ratio 2^2/12^ (1.122462...), the third one 2^3/12^ (1.189207...), and so on. The exponents increase linear (1/12, 2/12, 3/12, ...), thus yielding the same proportion between each subsequent semitone.
 
 So what about the reference to logarithms? As stated previously, logarithms are shorthand for exponents. 2^1/12^ = 1.059463 can also be written as log~2~(1.059463) = 1/12. Therefore, frequencies representing musical scales or intervals can be described on a logarithmic scale. The linear progression of the exponents (with base 2) as 1/12, 2/12, 3/12 ... represent the linear progression of semitones.
-
-[^2]: 2^1/12^ is the same as $\sqrt[12]{2}$ thus the number which yields 2 if multiplied by itself 12 times.
 
 
 ### MIDI Notes
 
-The equal-tempered scale is present on each [MIDI](https://www.midi.org/) keyboard. So the most common way to work with pitches is to use MIDI note numbers. In MIDI speak A4 (= 440 Hz) is MIDI note 69.[^3] The semitone below, called A flat or G sharp, is MIDI note 68, and so on. The MIDI notes 1-127 cover the frequency range from 9 Hz to 12544 Hz which is pretty well suited to the human hearing (and to a usual grand piano which would correspond to MIDI keys 21-108).
-
-[^3]: Caution: like many standards there is occasional disagreement about
-      the mapping between frequency and octave number. You may occasionally
-      encounter A 440 Hz being described as A3.
+The equal-tempered scale is present on each [MIDI](https://www.midi.org/) keyboard. So the most common way to work with pitches is to use MIDI note numbers. In MIDI speak A4 (= 440 Hz) is MIDI note 69.^[Caution: like many standards there is occasional disagreement about the mapping between frequency and octave number. You may occasionally encounter A 440 Hz being described as A3.] The semitone below, called A flat or G sharp, is MIDI note 68, and so on. The MIDI notes 1-127 cover the frequency range from 9 Hz to 12544 Hz which is pretty well suited to the human hearing (and to a usual grand piano which would correspond to MIDI keys 21-108).
 
 Csound can easily deal with MIDI notes and comes with functions that
 will convert MIDI notes to Hertz values (*mtof*) and back again (*ftom*). The next example shows a small chromatic melody which is given as MIDI notes in the array iMidiKeys[], and then converted to the corresponding frequencies, related to the definition of A4 (440 Hz as default). The opcode [mton](https://csound.com/docs/manual/mton.html) returns the note names.
@@ -284,7 +275,7 @@ instr Play
  iMidiKey = p4
  iFreq mtof iMidiKey
  S_name mton iMidiKey
- printf_i "Midi Note = %d, Frequency = %f, Note name = %s\n", 
+ printf_i "Midi Note = %d, Frequency = %f, Note name = %s\n",
           1, iMidiKey, iFreq, S_name
  aPluck pluck .2, iFreq, iFreq, 0, 1
  aOut linen aPluck, 0, p3, p3/2

@@ -1,10 +1,15 @@
 05 I. FOURIER ANALYSIS / SPECTRAL PROCESSING
 ============================================
 
-An audio signal can be described as continuous changes of amplitudes in time.[^1] This is what we call *time-domain*. With a Fourier Transform (FT), we can transfer this time-domain signal to the *frequency domain*. This can, for instance, be used to analyze and visualize the spectrum of the signal. Fourier transform and subsequent manipulations in the frequency domain open a wide area of far-reaching sound transformations, like time stretching, pitch shifting, cross synthesis and any kind of spectral modification.
-
-[^1]: *Silence* in the digital domain is not only when the ampltitudes are
-      always zero. Silence is any constant amplitude, it be 0 or 1 or -0.2.
+An audio signal can be described as continuous changes of amplitudes in time.^[
+*Silence* in the digital domain is not only when the ampltitudes are
+always zero. Silence is any constant amplitude, it be 0 or 1 or -0.2.]
+This is what we call *time-domain*. With a Fourier Transform (FT),
+we can transfer this time-domain signal to the *frequency domain*.
+This can, for instance, be used to analyze and visualize the spectrum of the signal.
+Fourier transform and subsequent manipulations in the frequency domain open a wide
+area of far-reaching sound transformations, like time stretching, pitch shifting,
+cross synthesis and any kind of spectral modification.
 
 
 General Aspects
@@ -15,59 +20,95 @@ Fourier Transform is a complex method. We will describe here in short what is mo
 
 ### FT, STFT, DFT and FFT
 
-As described in chapter [04 A](04-a-additive-synthesis.md), the mathematician J.B. Fourier (1768-1830) developed a method to approximate periodic functions by weighted sums of the trigonometric functions *sine* and *cosine*. As many sounds, for instance a violin or a flute tone, can be described as *periodic functions*,[^2] we should be able to analyse their spectral components by means of the Fourier Transform.
+As described in chapter [04 A](04-a-additive-synthesis.md), the mathematician
+J.B. Fourier (1768-1830) developed a method to approximate periodic functions
+by weighted sums of the trigonometric functions *sine* and *cosine*.
+As many sounds, for instance a violin or a flute tone, can be described as *periodic functions*,^[
+To put this simply: If we *zoom* into recordings of any pitched sound,
+we will see periodic repetitions. If a flute is playing a 440 Hz (A4)
+tone, we will see every 2.27 milliseconds (1/440 second) the same shape.] we should be able
+to analyse their spectral components by means of the Fourier Transform.
 
-[^2]: To put this simply: If we *zoom* into recordings of any pitched sound,
-      we will see periodic repetitions. If a flute is playing a 440 Hz (A4)
-      tone, we will see every 2.27 milliseconds (1/440 second) the same shape.
+As continuous changes are inherent to sounds, the FT used in musical applications follows
+a principle which is well known from film or video. The continuous flow of time is divided
+into a number of fixed *frames*. If this number is big enough (at least 20 frames per second),
+the continuous flow can reasonably be divided to this sequence of FT *snapshots*.
+This is called the *Short Time Fourier Transform (STFT)*.
 
-As continuous changes are inherent to sounds, the FT used in musical applications follows a principle which is well known from film or video. The continuous flow of time is divided into a number of fixed *frames*. If this number is big enough (at least 20 frames per second), the continuous flow can reasonably be divided to this sequence of FT *snapshots*. This is called the *Short Time Fourier Transform (STFT)*.
-
-Some care has to be taken to minimise the side effects of cutting the time into snippets. Firstly an *envelope* for the analysis frame is applied. As one analysis frame is often called *window*, the envelope shapes are called *window function*, *window shape* or *window type*. Most common are the *Hamming* and the *von Hann* (or *Hanning*) window functions:
+Some care has to be taken to minimise the side effects of cutting the time into snippets.
+Firstly an *envelope* for the analysis frame is applied. As one analysis frame is often called *window*,
+the envelope shapes are called *window function*, *window shape* or *window type*.
+Most common are the *Hamming* and the *von Hann* (or *Hanning*) window functions:
 
 ![Hamming and Hanning window (1024 samples)](../resources/images/05-i-fft-wins.png){width=70%}
 
-Secondly the analysis windows are not put side by side but as *overlapping* each other. The minimal overlap would be to start the next window at the middle of the previous one. More common is to have four overlaps which would result in this image:[^3]
+Secondly the analysis windows are not put side by side but as *overlapping* each other.
+The minimal overlap would be to start the next window at the middle of the previous one.
+More common is to have four overlaps which would result in this image:^[
+It can be a good choice to have 8 overlaps if CPU speed allows it.]
 
 ![Four overlapping Hanning windows (each of size=1024 samples)](../resources/images/05-i-overlap.png)
 
-[^3]: It can be a good choice to have 8 overlaps if CPU speed allows it.
 
-We already measured the size of the analysis window in these figures in samples rather than in milliseconds. As we are dealing with *digital* audio, the Fourier Transform has become a *Digital Fourier Transform* (*DFT*). It offers some simplifications compared to the analogue FT as the number of amplitudes in one frame is finite. And moreover, there is a considerable gain of speed in the calculation if the window size is a power of two. This version of the DFT is called *Fast Fourier Transform* (*FFT*) and is implemented in all audio programming languages.
+We already measured the size of the analysis window in these figures in samples rather than in milliseconds.
+As we are dealing with *digital* audio, the Fourier Transform has become a *Digital Fourier Transform* (*DFT*).
+It offers some simplifications compared to the analogue FT as the number of amplitudes in one frame is finite.
+And moreover, there is a considerable gain of speed in the calculation if the window size is a power of two.
+This version of the DFT is called *Fast Fourier Transform* (*FFT*) and is implemented in all audio programming languages.
 
 
 ### Window Size, Bins and Time-Frequency-Tradeoff
 
-Given that one FFT analysis window size should last about 10-50 ms and that a power-of-two number of samples must be matched, for *sr=44100* the sizes 512, 1024 or 2048 samples would be most suitable for one FFT window, thus resulting in a window length of about 11, 23 and 46 milliseconds respectively. Whether a smaller or lager window size is better, depends on different decisions.
+Given that one FFT analysis window size should last about 10-50 ms and that a power-of-two number of
+samples must be matched, for *sr=44100* the sizes 512, 1024 or 2048 samples would be most suitable for
+one FFT window, thus resulting in a window length of about 11, 23 and 46 milliseconds respectively.
+Whether a smaller or lager window size is better, depends on different decisions.
 
-First thing to know about this is that the frequency resolution in a FFT analysis window directly relates to its size. This is based on two aspects: the fundamental frequency and the number of potenial harmonics which are analysed and weighted via the Fourier Transform.
+First thing to know about this is that the frequency resolution in a FFT analysis window directly
+relates to its size. This is based on two aspects: the fundamental frequency and the number of potenial
+harmonics which are analysed and weighted via the Fourier Transform.
 
-The *fundamental frequency* of one given FFT window is the inverse of its size in seconds related to the sample rate. For *sr=44100* Hz, the fundamental frequencies are:
+The *fundamental frequency* of one given FFT window is the inverse of its size in seconds related
+to the sample rate. For *sr=44100* Hz, the fundamental frequencies are:
 
 - 86.13 Hz for a window size of 512 samples
 - 43.07 Hz for a window size of 1024 samples
 - 21.53 Hz for a window size of 2048 sample.
 
-It is obvious that a larger window is better for frequency analysis at least for low frequencies. This is even more the case as the estimated harmonics which are scanned by the Fourier Transform are *integer multiples* of the fundamental frequency.[^4] These estimated harmonics or partials are usually called *bins* in FT terminology. So, again for *sr=44100* Hz, the bins are:
-
-[^4]: Remember that FT is based on the assumption that the signal to be
-      analysed is a periodic function.
+It is obvious that a larger window is better for frequency analysis at least for low frequencies.
+This is even more the case as the estimated harmonics which are scanned by the Fourier Transform
+are *integer multiples* of the fundamental frequency.^[
+Remember that FT is based on the assumption that the signal to be
+analysed is a periodic function.] These estimated harmonics or partials are usually called *bins*
+in FT terminology. So, again for *sr=44100* Hz, the bins are:
 
 - bin 1 = 86.13 Hz, bin 2 = 172.26 Hz, bin 3 = 258.40 Hz for size=512
 - bin 1 = 43.07 Hz, bin 2 = 86.13 Hz, bin 3 = 129.20 Hz for size=1024
 - bin 1 = 21.53 Hz, bin 2 = 43.07 Hz, bin 3 = 64.60 Hz for size=2048
 
-This means that a larger window is not only better to analyse low frequencies, it also has a better frequency resolution in general. In fact, the window of size 2048 samples has 1024 analysis bins from the fundamental frequency 21.53 Hz to the Nyquist frequency 22050 Hz, each of them covering a frequency range of 21.53 Hz, whilst the window of size 512 samples has 256 analysis bins from the fundamental frequency 86.13 Hz to the Nyquist frequency 22050 Hz, each of them covering a frequency range of 86.13 Hz.[^5]
-
-[^5]: For both, the *bin 0* is to be added which analyses the energy at 0 Hz.
-      So in general the number of bins is half of the window size plus one:
-      257 bins for size 512, 513 bins for size 1924, 1025 bins for size 2048.
+This means that a larger window is not only better to analyse low frequencies, it also has a better
+frequency resolution in general. In fact, the window of size 2048 samples has 1024 analysis bins
+from the fundamental frequency 21.53 Hz to the Nyquist frequency 22050 Hz, each of them covering
+a frequency range of 21.53 Hz, whilst the window of size 512 samples has 256 analysis bins from
+the fundamental frequency 86.13 Hz to the Nyquist frequency 22050 Hz,
+each of them covering a frequency range of 86.13 Hz.^[
+For both, the *bin 0* is to be added which analyses the energy at 0 Hz.
+So in general the number of bins is half of the window size plus one:  
+257 bins for size 512, 513 bins for size 1924, 1025 bins for size 2048.]
 
 ![Bins up to 1000 Hz for different window sizes](../resources/images/05-i-bins.png)
 
-Why then not always use the larger window? — Because a larger window needs more time, or in other words: the time resolution is worse for a window size of 2048, is fair for a window size of 1024 and is better for a window size of 512.
+Why then not always use the larger window? — Because a larger window needs more time,
+or in other words: the time resolution is worse for a window size of 2048,
+is fair for a window size of 1024 and is better for a window size of 512.
 
-This dilemma is known as *time-frequency tradeoff*. We must decide for each FFT situation whether the frequency resolution or the time resolution is more important. If, for instance, we have long piano chords with low frequencies, we may use the bigger window size. If we analyse spoken words of a female voice, we may use the smaller window size. Or to put it very pragmatic: We will use the medium FFT size (1024 samples) first, and in case we experience unsatisfying results (bad frequency response or smearing time resolution) we will change the window size.
+This dilemma is known as *time-frequency tradeoff*. We must decide for each FFT situation
+whether the frequency resolution or the time resolution is more important. If, for instance,
+we have long piano chords with low frequencies, we may use the bigger window size.
+If we analyse spoken words of a female voice, we may use the smaller window size.
+Or to put it very pragmatic: We will use the medium FFT size (1024 samples) first,
+and in case we experience unsatisfying results (bad frequency response or
+smearing time resolution) we will change the window size.
 
 
 FFT in Csound
@@ -108,14 +149,13 @@ There are several opcodes to perform this transform. The most simple one is
   FFT frame starts (often refered to as *hop size*). Usually it is 1/4
   of the FFT size, so for instance 256 samples for a FFT size of 1024.
 - *iwinsize* is the size of the analysis window. Usually this is set to
-  the same size as *ifftsize*.[^6]
+  the same size as *ifftsize*.^[
+It can be an integral multiple of *ifftsize*, so a window twice as
+large as the FFT size would be possible and may improve the quality
+of the anaylysis. But it also induces more latency which usually
+is not desirable.]
 - *iwintype* is the shape of the analysis window. 0 will use a Hamming
   window, 1 will use a von-Hann (or Hanning) window.
-
-[^6]: It can be an integral multiple of *ifftsize*, so a window twice as
-      large as the FFT size would be possible and may improve the quality
-      of the anaylysis. But it also induces more latency which usually
-      is not desirable.
 
 The first example covers two typical situations:
 
@@ -198,9 +238,8 @@ resynthesis:
 #### Alternatives and Time Stretching: *pvstanal* / *pvsbufread*
 
 Working with *pvsanal* to create an f-signal is easy and straightforward. But if we are using an already existing sound file, we are missing one of the interesting possibilities in working with FFT: time stretching. This we can obtain most simple when we use
-[pvstanal](https://csound.com/docs/manual/pvstanal.html) instead. The *t* in *pvs**t**anal* stands for *table*. This opcode performs FFT on a sound which has been loaded in a table.[^7] These are the main parameters:
-
-[^7]: The table can also be recorded in live performance.
+[pvstanal](https://csound.com/docs/manual/pvstanal.html) instead. The *t* in *pvs**t**anal* stands for *table*. This opcode performs FFT on a sound which has been loaded in a table.^[The table can also be recorded in live performance.]
+These are the main parameters:
 
 - *ktimescal* is the time scaling ratio. 1 means normal speed, 0.5 means half
   speed, 2 means double speed.

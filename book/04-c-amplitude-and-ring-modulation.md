@@ -7,15 +7,14 @@ In *Amplitude Modulation* (AM) the amplitude of a *Carrier* oscillator is modula
 ![Basic Model of Amplitude Modulation](../resources/images/04-c-am.png){width=50%}
 
 If this modulation is in the sub-audio range (less than 15 Hz), it is perceived
-as periodic volume modification.[^1]
-Volume-modulation above approximately 15 Hz are perceived as timbre changes. So called *sidebands* appear. This transition is showed in the following example. The modulation frequency starts at 2 Hz and moves over 20 seconds to 100 Hz.
-
-[^1]: For classical string instruments there is a *bow vibrato* which
-      resembles this effect. If the *DC Offset* is weak in comparison
-      to the modulation output, the comparison in classical music is
-      the *tremolo* effect. Also *pulsation* is often used to describe
-      AM with low frequencies.
-
+as periodic volume modification.^[For classical string instruments there is a
+*bow vibrato* which resembles this effect. If the *DC Offset* is weak in
+comparison to the modulation output, the comparison in classical music is
+the *tremolo* effect. Also *pulsation* is often used to describe
+AM with low frequencies.] Volume-modulation above approximately 15 Hz are
+perceived as timbre changes. So called *sidebands* appear.
+This transition is showed in the following example.
+The modulation frequency starts at 2 Hz and moves over 20 seconds to 100 Hz.
 
    ***EXAMPLE 04C01_Simple_AM.csd***
 
@@ -101,18 +100,18 @@ i "AM2" 11 10
 ; example by Alex Hofmann and joachim heintz
 ~~~
 
-At the end of this example, when the *DC Offset* was zero, we reached Ring Modulation (RM). Ring Modulation can thus be considered as special case of Amplitude Modulation, without any DC Offset. This is the very simple model:[^2]
-
-[^2]: Here expressed as multiplication. The alternative would be to feed
-      the modulator's output in the amplitude input of the carrier.
+At the end of this example, when the *DC Offset* was zero, we reached Ring Modulation (RM).
+Ring Modulation can thus be considered as special case of Amplitude Modulation,
+without any DC Offset. This is the very simple model:^[Here expressed as multiplication.
+The alternative would be to feed the modulator's output in the amplitude input of the carrier.]
 
 ![<small>*Ring Modulation as Multiplication of two Signals*</small>](../resources/images/04-c-rm.png){width=70%}
 
-If Ring Modulation happens in the sub-audio domain (less than 10 Hz), it will be perceived as *tremolo*.[^3] If it happens in the audio-domain, we get a sound with *only* the sidebands.
-
-[^3]: Note that the frequency of this tremolo in RM will be perceived twice as
-      much as the frequency in AM because every half sine in the modulating
-      signal is perceived as an own period.
+If Ring Modulation happens in the sub-audio domain (less than 10 Hz), it will be perceived as
+*tremolo*.^[Note that the frequency of this tremolo in RM will be perceived twice as
+much as the frequency in AM because every half sine in the modulating signal
+is perceived as an own period.] If it happens in the audio-domain,
+we get a sound with *only* the sidebands.
 
 
 AM/RM of Complex Sounds

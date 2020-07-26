@@ -21,10 +21,9 @@ passed directly as an argument to the *print* opcode, without needing to
 be stored at any point as a variable.
 
 This alternative way of formulating code can now be used with many
-opcodes in Csound6.[^1] First we shall look at some examples.
-
-[^1]: The main restriction is that it can only be used by opcodes which
-      have only one output (not two or more).
+opcodes in Csound6.^[The main restriction is that it can only be
+used by opcodes which have only one output (not two or more).]
+First we shall look at some examples.
 
 The traditional way of applying a fade and a sliding pitch (glissando)
 to a tone is something like this:
@@ -117,10 +116,9 @@ i 1 0 5
 ;example by joachim heintz
 ~~~
 
-Or if you prefer the "all-in-one" solution:[^2]
-
-[^2]: Please note that these two examples are not really correct,
-      because the rates of the opcodes are not specified.
+Or if you prefer the "all-in-one" solution:^[Please note that
+these two examples are not really correct, because the rates
+of the opcodes are not specified.]
 
    ***EXAMPLE 03I03_functional_syntax_2.csd***
 
@@ -151,13 +149,9 @@ Declare your color: i, k or a?
 -------------------------------
 
 Most of the Csound opcodes work not only at one rate. You can, for
-instance, produce random numbers at i-, k- or a-rate:[^3]
-
-[^3]:  See chapter
-       [03A Initialization and Performance Pass]
-       (03-a-initialization-and-performance-pass.md)
-       for a more thorough explanation.
-
+instance, produce random numbers at i-, k- or a-rate:^[See chapter
+[03A Initialization and Performance Pass](03-a-initialization-and-performance-pass.md)
+for a more thorough explanation.]
 
     ires      random    imin, imax
     kres      random    kmin, kmax
@@ -195,11 +189,9 @@ i 1 0 3
 ;example by joachim heintz
 ~~~
 
-But why is the *random* opcode here performing at i-rate, and not at k- or a-rate? This is, so to say, pure random --- it happens because in the Csound soruces the i-rate variant of this opcode is written first.[^4] If the k-rate variant were first, the above code failed.
-
-[^4]: See <https://github.com/csound/csound/blob/develop/Opcodes/uggab.c>,
-      line 2085
-
+But why is the *random* opcode here performing at i-rate, and not at k- or a-rate? This is, so to say, pure random --- it happens because in the Csound soruces the i-rate variant of this opcode is written first.^[See
+<https://github.com/csound/csound/blob/develop/Opcodes/uggab.c>,
+line 2085] If the k-rate variant were first, the above code failed.
 
 So it is both, clearer and actually required, to explicitly declare at which rate a function is to be performed. This code claims that *poscil* runs at a-rate, *linseg* and *expseg* run at k-rate, and *random* runs at i-rate here:
 

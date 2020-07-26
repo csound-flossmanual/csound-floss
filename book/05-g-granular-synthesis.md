@@ -35,17 +35,20 @@ The *Grain* instrument needs the following information in order to play back a s
 3. **Duration**. The duration for one grain is usually in the range 20-50 ms, but can be smaller or bigger for special effects. In Csound this parameter is passed to the instrument as *p3* in its call, measured in seconds.
 4. **Speed of Playback**. This parameter is used by *diskin* and similar opcodes: 1 means the normal speed, 2 means double speed, 1/2 means half speed. This would result in no pitch change (1), octave higher (2) and octave lower(1/2). Negative numbers mean reverse playback.
 5. **Volume**. We will measure it in *dB*, where 0 dB means to play back the sound as it is recorded.
-6. **Envelope**. Each grain needs an envelope which starts and ends at zero, to ensure that there will be no clicks. These are some frequently used envelopes:[^1]
-![](../resources/images/05-g-grain-envs.png)
-7. **Spatial Position**. Each grain will be send to a certain point in space. For stereo, it will be a panning position between 0 (left) and 1 (right).
+6. **Envelope**. Each grain needs an envelope which starts and ends at zero, to ensure that there will be no clicks.
+These are some frequently used envelopes:^[The function tables have been created with this code:  
+i0 ftgen 1, 0, 8192, 20, 3, 1  
+i0 ftgen 2, 0, 8192, 9, 1/2, 1, 0  
+i0 ftgen 3, 0, 8192, 20, 2, 1  
+i0 ftgen 4, 0, 8192, 20, 6, 1  
+i0 ftgen 5, 0, 8192, 20, 9, 1  
+i0 ftgen 6, 0, 8192, 20, 9, 1, 5  ]
 
-[^1]: The function tables have been created with this code:
-      i0 ftgen 1, 0, 8192, 20, 3, 1
-      i0 ftgen 2, 0, 8192, 9, 1/2, 1, 0
-      i0 ftgen 3, 0, 8192, 20, 2, 1
-      i0 ftgen 4, 0, 8192, 20, 6, 1
-      i0 ftgen 5, 0, 8192, 20, 9, 1
-      i0 ftgen 6, 0, 8192, 20, 9, 1, 5
+
+![](../resources/images/05-g-grain-envs.png)
+
+
+7. **Spatial Position**. Each grain will be send to a certain point in space. For stereo, it will be a panning position between 0 (left) and 1 (right).
 
 
 #### Simple Grain Implementation
@@ -202,14 +205,13 @@ i .      10 .   .25    -1
 
 Some comments to this code:
 
-- Line 12-13: The sample *fox.wav* is loaded into function table *giSample* via [GEN](https://csound.com/docs/manual/ScoreGenRef.html) routine [01](https://csound.com/docs/manual/GEN01.html). Note that we are using here -1 instead of 1 because we don't want to normalize the sound.[^2] \
+- Line 12-13: The sample *fox.wav* is loaded into function table *giSample* via [GEN](https://csound.com/docs/manual/ScoreGenRef.html) routine [01](https://csound.com/docs/manual/GEN01.html). Note that we are using here -1 instead of 1 because we don't want to normalize the sound.^[
+This decision is completely up to the user.] \
 The triangular shape is loaded via [GEN 20](https://csound.com/docs/manual/GEN20.html) which offers a good selection of different envelope shapes.
 - Line 14: `giSampleLen = ftlen(giSample)/sr`. This calculates the length of the sample in seconds, as length of the function table divided by the sample rate. It makes sense to store this in a global variable because we are using it in the *Grain* instrument again and again.
-- Line 23: `aEnv = poscil3:a(ampdb(iVolume),1/p3,giEnv)`. The envelope (as audio signal) is reading the table *giEnv* in which a triangular shape is stored. We set the amplitude of the oscillator to `ampdb(iVolume)`, so to the amplitude equivalent of the *iVolume* decibel value. The frequency of the oscillator is *1/p3* because we want to read the envelope exactly once during the performance time of this instrument instance.
-- Line 24: `aSound = poscil3:a(aEnv,iSpeed/giSampleLen,giSample,iStart/giSampleLen)`. Again this is a [poscil3](https://csound.com/docs/manual/poscil3.html) oscillator reading a table. The table is here *giSample*; the amplitude of the oscillator is the *aEnv* signal we produced. The frequency of reading the table in normal speed is *1/giSampleLen*; if we include the speed changes, it is *iSpeed/giSampleLen*. The starting point to read the table is given to the oscillator as phase value (0=start to 1=end of the table). So we must divide *iStart* by *giSampleLen* to get this value.
-
-[^2]: This decision is completely up to the user.
-
+- Line 23:`aEnv = poscil3:a(ampdb(iVolume),1/p3,giEnv)`. The envelope (as audio signal) is reading the table *giEnv* in which a triangular shape is stored. We set the amplitude of the oscillator to `ampdb(iVolume)`, so to the amplitude equivalent of the *iVolume* decibel value. The frequency of the oscillator is *1/p3* because we want to read the envelope exactly once during the performance time of this instrument instance.
+- Line 24: `aSound = poscil3:a(aEnv,iSpeed/giSampleLen, \\
+giSample,iStart/giSampleLen)`. Again this is a [poscil3](https://csound.com/docs/manual/poscil3.html) oscillator reading a table. The table is here *giSample*; the amplitude of the oscillator is the *aEnv* signal we produced. The frequency of reading the table in normal speed is *1/giSampleLen*; if we include the speed changes, it is *iSpeed/giSampleLen*. The starting point to read the table is given to the oscillator as phase value (0=start to 1=end of the table). So we must divide *iStart* by *giSampleLen* to get this value.
 
 ### The Granulator Unit
 
@@ -230,9 +232,9 @@ The first seven parameters are similar to the parameters for the *Grain* unit. G
 6. **Envelope**. The grain envelope must be stored in a function table. We will pass the name or number of the table to the *Grain* instrument.
 7. **Spatial Position**. For now, we will use a fixed pan position between 0 (left) and 1 (right), as we did for the *Grain* instrument.
 8. **Density**. This is the number of grains per second, so the unit is Hz.
-9. **Distribution**. This is a continuum between sychronous granular synthesis, in which all grains are equally distributed, and asynchronous, in which the distribution is irregular or scattered.[^3] We will use 0 for synchronous and 1 for asynchronous granular synthesis.
-
-[^3]: As maximum irregularity we will consider a random position between the regular position of a grain and the regular position of the next neighbouring grain. (Half of this irregularity will be a random position between own regular and half of the distance to the neighbouring regular position.)
+9. **Distribution**. This is a continuum between sychronous granular synthesis,
+in which all grains are equally distributed, and asynchronous, in which the distribution is
+irregular or scattered.^[As maximum irregularity we will consider a random position between the regular position of a grain and the regular position of the next neighbouring grain. (Half of this irregularity will be a random position between own regular and half of the distance to the neighbouring regular position.)] We will use 0 for synchronous and 1 for asynchronous granular synthesis.
 
 
 #### Simple Granulator Implementation

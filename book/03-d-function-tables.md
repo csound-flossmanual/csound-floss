@@ -37,12 +37,11 @@ and flexible use of function tables.
 How to Generate a Function Table
 --------------------------------
 
-Each function table must be created **before** it can be used.[^1] Even if
+Each function table must be created **before** it can be used.^[
+Nevertheless function tables can be created at any time during
+the Csound performance, for instance via `event "f" ...`] Even if
 you want to write values later, you must first create an empty table,
 because you must initially reserve some space in memory for it.
-
-[^1]: Nevertheless function tables can be created at any time during
-      the Csound performance, for instance via `event "f" ...`
 
 Each creation of a function table in Csound is performed by one of the
 **GEN Routines**. Each GEN Routine generates a function table in a
@@ -82,7 +81,9 @@ parameters after the **f** are as follows:
     in the early days of Csound only power-of-two sizes were possible
     for function tables (2, 4, 8, 16, \...); nowadays almost all GEN
     Routines accepts other sizes, but these non-power-of-two sizes
-    must be declared as negative numbers![^2]
+    must be declared as negative numbers!^[At least this is still the 
+safest method to declare a non-power-of-two size for the table, 
+although for many GEN routines also positive numbers work.]
 -   ***2***: the number of the GEN Routine which is used to generate the
     table, and here is another important point which must be borne in
     mind: **by default, Csound normalizes the table values.** This means
@@ -95,9 +96,6 @@ parameters after the **f** are as follows:
 -   ***v1 v2 v3 ...***: the values which are written into the function
     table.
 
-[^2]: At least this is still the safest method to declare a non-power-
-of-two size for the table, although for many GEN routines also positive
-numbers work.
 
 The example below demonstrates how the values \[1.1 2.2 3.3 5.5 8.8
 13.13 21.21\] can be stored in a function table using
@@ -160,17 +158,16 @@ number).
 
 Using the [ftgen](http://www.csound.com/docs/manual/ftgen.html) opcode
 is a more modern way of creating a function table, which is generally
-preferable to the old way of writing an f-statement in the score.[^3]
+preferable to the old way of writing an f-statement in the score.^[
+*ftgen* is preferred mainly because you can refer to the function
+table by a variable name and must not deal with constant tables
+numbers. This will enhance the portability of orchestras and better
+facilitate the combining of multiple orchestras. It can also enhance
+the readability of an orchestra if a function table is located in
+the code nearer the instrument that uses it. And, last but not least,
+variables can be put as arguments into *ftgen* — imagine for instance
+a size for recording tables which you generate or pass as user input.]
 The syntax is explained below:
-
-[^3]: *ftgen* is preferred mainly because you can refer to the function
-      table by a variable name and must not deal with constant tables
-      numbers. This will enhance the portability of orchestras and better
-      facilitate the combining of multiple orchestras. It can also enhance
-      the readability of an orchestra if a function table is located in
-      the code nearer the instrument that uses it. And, last but not least,
-      variables can be put as arguments into *ftgen* — imagine for instance
-      a size for recording tables which you generate or pass as user input.
 
 ~~~csound
 gir     ftgen     ifn, itime, isize, igen, iarg1 [, iarg2 [, ...]]
@@ -709,15 +706,14 @@ interpolates linearly, whilst
 interpolation (which is generally preferable but is computationally
 slightly more expensive) and when CPU cycles are no object,
 [tablexkt](http://www.csound.com/docs/manual/tablexkt.html) can be used
-for ultimate interpolating quality.[^4]
+for ultimate interpolating quality.^[For a general introduction 
+about interpolation, see for instance 
+http://en.wikipedia.org/wiki/Interpolation]
 
 Examples of the use of the
 [table](http://www.csound.com/docs/manual/table.html) opcodes can be
 found in the earlier examples in the *How to Write Values to a Function Table*
 section.
-
-[^4]:  For a general introduction about interpolation, see for instance
-       http://en.wikipedia.org/wiki/Interpolation
 
 ### Oscillators
 

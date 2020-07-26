@@ -1,17 +1,15 @@
 14 B. PYTHON IN CSOUNDQT
 ========================
 
-If CsoundQt is built with PythonQt support,[^1]  it enables a lot of new
+If CsoundQt is built with PythonQt support,^[If not, have a look at the
+[releases](https://github.com/CsoundQt/CsoundQt/releases) page.
+Python 2.7 must be installed, too. For building CsoundQt with
+Python support, have a look at the descriptions in
+[CsoundQt's Wiki](https://github.com/CsoundQt/CsoundQt/wiki).]
+it enables a lot of new
 possibilities, mostly in three main fields: interaction with the
 CsoundQt interface, interaction with widgets and using classes from Qt
 libraries to build custom interfaces in python.
-
-[^1]: If not, have a look at the
-      [releases](https://github.com/CsoundQt/CsoundQt/releases)
-      page. Python 2.7 must be installed, too.
-      For building CsoundQt with
-      Python support, have a look at the descriptions in
-      [CsoundQt's Wiki](https://github.com/CsoundQt/CsoundQt/wiki).
 
 
 If you start CsoundQt and can open the panels *Python Console* and
@@ -32,10 +30,8 @@ in the sources.
 
 It enables the control of a large part of CsoundQt's possibilities from
 the python interpreter, the python scratchpad, from scripts or from
-inside of a running Csound file via Csound's python opcodes.[^2]
-
-[^2]:  See chapter [12 B](12-b-python-and-csound.md)
-       for more information on the python opcodes and ctcsound.
+inside of a running Csound file via Csound's python opcodes.^[See chapter
+[12 B](12-b-python-and-csound.md) for more information on the python opcodes and ctcsound.]
 
 By default, a *PyQcsObject* is already available in the python
 interpreter of CsoundQt called "q". To use any of its methods, we  can use a form like
@@ -56,12 +52,10 @@ File and Control Access
 
 If you have CsoundQt running on your computer, you should type the
 following code examples in the Python Console (if only one line) or the
-Python Scratch Pad (if more than one line of code).[^3]
-
-[^3]: To evaluate multiple lines of Python code in the Scratch Pad,
-      choose either Edit-\>Evaluate Section (Alt+E), or select and choose
-      Edit-\>Evaluate Selection (Alt+Shift+E).
-
+Python Scratch Pad (if more than one line of code).^[To evaluate multiple
+lines of Python code in the Scratch Pad, choose either
+Edit-\>Evaluate Section (Alt+E), or select and choose
+Edit-\>Evaluate Selection (Alt+Shift+E).]
 
 ### Create or Load a *csd* File
 
@@ -187,11 +181,9 @@ this:
 
 ![](../resources/images/14-b-02.png)
 
-So in my case the indices are 3 and 4.[^4]  Now you can start, pause and
-stop any of these files with tasks like these:
-
-[^4]:  If you have less or more csd tabs already while creating the new
-       files, the index will be lower or higher.
+So in my case the indices are 3 and 4.^[If you have less or more csd tabs
+already while creating the new files, the index will be lower or higher.] 
+Now you can start, pause and stop any of these files with tasks like these:
 
     q.play(3)
     q.play(4)
@@ -225,11 +217,9 @@ This should trigger instrument 1 for two seconds.
 
 ### Query File Name or Path
 
-In case you need to know the name[^5]  or the path of a csd file, you
+In case you need to know the name^[Different to most usages, *name* means here
+the full path including the file name.] or the path of a csd file, you
 have these functions:
-
-[^5]: Different to most usages, *name* means here the full path
-      including the file name.
 
     getFileName()
     getFilePath()
@@ -436,38 +426,34 @@ This should be the result:
 ![](../resources/images/14-b-06.png)
 
 A new label has been created---without opening the properties
-dialog---at position x=200 y=100[^6] with the name *second_label*. If
-you want to create a widget not in the active document, but in another
+dialog---at position x=200 y=100^[Pixels from left and from top.] with the
+name *second_label*. If you want to create a widget not in the active document, but in another
 tab, you can also specify the tab index. The following command will create a
 widget at the same position and with the same name in the first tab:
 
-[^6]: Pixels from left and from top.
 
     q.createNewLabel(200, 100, "second_label", 0)
 
 
 ### Setting the Specific Properties
 
-Each widget has a xy position and a channel name.[^7]  But the other
+Each widget has a xy position and a channel name.^[Only a label does not
+have a channel name. So as we saw, in case of a label
+the name is its displayed text.] But the other
 properties depend on the type of widget. A Display has name, width and
 height, but no resolution like a SpinBox. The function setWidgetProperty
 refers to a widget via its ID and sets a property. Let us try this for a
 Display widget. This command creates a Display widget with channel name
 \"disp\_chan\_01\" at position x=50 y=150:
 
-[^7]: Only a label does not have a channel name. So as we saw, in case of
-      a label the name is its displayed text.
-
     q.createNewDisplay(50, 150, "disp_chan_01")
 
 ![](../resources/images/14-b-07.png)
 
-And this sets the text to a new string:[^8]
-
-[^8]: For the main property of a widget (text for a Display, number for
-      Sliders, SpinBoxes etc) you can also use the setChannelString and
-      setChannelValue method. See below at *Getting and Setting Channel
-      Values*
+And this sets the text to a new string:^[For the main property of a widget
+(text for a Display, number for Sliders, SpinBoxes etc) you can also use the
+setChannelString and setChannelValue method.
+See below at *Getting and Setting Channel Values*]
 
     q.setWidgetProperty("disp_chan_01", "QCS_label", "Hey Joe!")
 
@@ -483,12 +469,11 @@ q.setWidgetProperty(u'{a71c0c67-3d54-4d4a-88e6-8df40070a7f5}',
                     'QCS_label', 'Hey Joeboe!')
 ~~~
 
-For humans, referring to the channel name as ID is certainly preferable.[^9]  But as the *createNew...* method returns the uuid, you can
-use it implicitely, for instance in this command:
-
-[^9]: Note that two widgets can share the same channel name (for instance
-      a slider and a spinbox). In this case, referring to a widget via its
-      channel name is not possible at all.
+For humans, referring to the channel name as ID is certainly preferable.^[
+Note that two widgets can share the same channel name
+(for instance a slider and a spinbox). In this case, referring to a widget
+via its channel name is not possible at all.] But as the *createNew...*
+method returns the uuid, you can use it implicitely, for instance in this command:
 
     q.setWidgetProperty(q.createNewLabel(70, 70, "WOW"), "QCS_fontsize", 18)
 
@@ -645,12 +630,10 @@ display:
     py> q.createNewDisplay(50, 10, "message")
     u'{a51b438f-f671-4108-8cdb-982387074e4d}'
 
-Now we will ask for the values of these widgets[^11]  with the methods
+Now we will ask for the values of these widgets^[Here again accessed
+by the channel name. Of course accessing by uuid would also be possible
+(and more safe, as explained above).] with the methods
 *getChannelValue* and *getChannelString*:
-
-[^11]: Here again accessed by the channel name. Of course accessing by
-       uuid would also be possible (and more safe, as explained above).
-
 
     py> q.getChannelValue('level')
     0.0

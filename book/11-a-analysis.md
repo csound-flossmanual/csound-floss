@@ -69,11 +69,11 @@ The *cvanal* utility analyses an impulse response for usage in the old [concolve
 
 ### hetro
 
-The hetrodyne filter analysis can be understood as one way of applying the Fourier Transform.[^1] Its attempt is to reconstruct a number of partial tracks in a time-breakpoint manner. The breakpoints are measured in milliseconds. 
+The hetrodyne filter analysis can be understood as one way of applying the Fourier Transform.^[Cf. Curtis Roads,
+The Computer Music Tutorial, Cambridge MA: MIT Press 1996, 548-549;  
+James Beauchamp, Analysis, Synthesis and Perception of Musical Sounds, New York:Springer 2007, 5-12]
+Its attempt is to reconstruct a number of partial tracks in a time-breakpoint manner. The breakpoints are measured in milliseconds. 
 Although this utility is originally designed for the usage in the [adsyn](https://csound.com/docs/manual/adsyn.html) opcode, it can be used to get data from any harmonic sound for additive synthesis. 
-
-[^1]: Cf. Curtis Roads, The Computer Music Tutorial, Cambridge MA: MIT Press 1996, 548-549;
-James Beauchamp, Analysis, Synthesis and Perception of Musical Sounds, New York:Springer 2007, 5-12
 
 The usage of *hetro* follows the general utility standard:
 
@@ -143,10 +143,11 @@ After the starting -1 or -2, the time-value pairs are written. Here we have at 0
 
 ### lpanal
 
-Linear Prediction Coding has been developed for the analysis and resynthesis of speech.[^2] 
-The [lpanal](https://csound.com/docs/manual/lpanal.html) utility performs the analysis, which will then be used by the [LPC Resynthesis Opcodes](https://csound.com/docs/manual/SpectralLpcresyn.html). The defaults can be seen in the following screenshot:
-
-[^2]: Cf. Curtis Roads, The Computer Music Tutorial, Cambridge MA: MIT Press 1996, 200-210
+Linear Prediction Coding has been developed for the analysis and resynthesis of speech.^[Cf. Curtis Roads,
+The Computer Music Tutorial, Cambridge MA: MIT Press 1996, 200-210] The [lpanal](https://csound.com/docs/manual/lpanal.html)
+utility performs the analysis, which will then be used by the
+[LPC Resynthesis Opcodes](https://csound.com/docs/manual/SpectralLpcresyn.html).
+The defaults can be seen in the following screenshot:
 
 ![LPANAL Utility in CsoundQt](../resources/images/11-a-lpanal.png)
 

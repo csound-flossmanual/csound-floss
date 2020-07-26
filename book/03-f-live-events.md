@@ -876,16 +876,14 @@ to trigger instrument events. Should I use event, scoreline, schedule or
 schedkwhen? Should I use event or event\_i?
 
 Let us start with the latter, which actually leads to the general
-question about *i-rate* and *k-rate* opcodes.[^1] In short: Using
-**event\_i** (the i-rate version) will only trigger an event **once**,
-when the instrument in which this opcode works is initiated. Using
-**event** (the k-rate version) will trigger an event potentially **again
-and again**, as long as the instrument runs, in each control cycle. This
-is a very simple example:
-
-[^1]:  See chapter [03A](03-a-initialization-and-performance-pass.md)
-       about Initialization and Performance Pass for a
-       detailed discussion.
+question about *i-rate* and *k-rate* opcodes.^[See chapter
+[03A](03-a-initialization-and-performance-pass.md) about
+Initialization and Performance Pass for a detailed discussion.]
+In short: Using **event\_i** (the i-rate version) will only trigger
+an event **once**, when the instrument in which this opcode works is
+initiated. Using **event** (the k-rate version) will trigger an event
+potentially **again and again**, as long as the instrument runs,
+in each control cycle. This is a very simple example:
 
 
    ***EXAMPLE 03F12_event_i_vs_event.csd***
@@ -943,12 +941,10 @@ instrument *Called_i* is only performed once, because it is done with
 *event_i*: at initialization only. But instrument *Call_k* calls one
 instance of *Called_k* in each control cycle; so for the duration of
 0.01 seconds of running instrument *Call_k*, fourteen instances of
-instrument *Called_k* are being started.[^2] So this is the output:
-
-[^2]:  As for a sample rate of 44100 Hz (sr=44100) and a control period od
-       32 samples (ksmps=32), we have 1378 control periods in one second.
-       So 0.01 seconds will perform 14 control cycles.
-
+instrument *Called_k* are being started.^[As for a sample rate of 
+44100 Hz (sr=44100) and a control period of 32 samples (ksmps=32),
+we have 1378 control periods in one second. So 0.01 seconds will
+perform 14 control cycles.] So this is the output:
 
     Instance #1 of Called_i is starting!
     Instance #1 of Called_k is starting!
@@ -965,7 +961,6 @@ instrument *Called_k* are being started.[^2] So this is the output:
     Instance #12 of Called_k is starting!
     Instance #13 of Called_k is starting!
     Instance #14 of Called_k is starting!
-
 
 So the first (and probably most important) decision in asking "which
 opcode should I use", is the answer to the question: "Do I need an
@@ -1004,12 +999,12 @@ this code ...
     error: Unable to find opcode entry for 'event_i' with matching argument types:
     Found: (null) event_i SccS
 
-With 
-[scoreline_i](https://csound.com/docs/manual/scoreline_i.html) sending strings is also possible. This opcode takes one or more lines of score statements which follow the same conventions as if written in the score section itself.[^3] If you enclose the line(s) by *{{* and *}}*, you can include as many strings in it as you wish:
-
-
-[^3]:  This means that score parameter fields are separated by spaces, not
-       by commas.
+With [scoreline_i](https://csound.com/docs/manual/scoreline_i.html) 
+sending strings is also possible. This opcode takes one or more lines
+of score statements which follow the same conventions as if written
+in the score section itself.^[This means that score parameter fields
+are separated by spaces, not by commas.] 
+If you enclose the line(s) by *{{* and *}}*, you can include as many strings in it as you wish:
 
     scoreline_i {{
                   i "bla" 0 1 "blu" "sound"
@@ -1023,8 +1018,11 @@ If you need a k-rate opcode to trigger an instrument event,
 
     schedulek kInstrNum (or "InstrName"), kStart, kDur [, kp4] [, kp5] [...]
 
-The advantage of *schedulek* against *event* is the possibility to pass strings as p-fields. On the other hand, 
-[event](https://csound.com/docs/manual/event.html) can not only generate instrument events, but also other score events. For instrument events, the syntax is:
+The advantage of *schedulek* against *event* is the possibility to pass
+strings as p-fields. On the other hand,
+[event](https://csound.com/docs/manual/event.html)
+can not only generate instrument events, but also other score events.
+For instrument events, the syntax is:
 
     event "i", kInstrNum (or "InstrName"), kStart, kDur [, kp4] [, kp5] [...]
 
@@ -1041,7 +1039,8 @@ would be:
 
 In other words: This code would only use one control-cycle per second to
 call my\_instr, and would do nothing in the other control cycles. The
-[schedkwhen](https://csound.com/docs/manual/schedkwhen.html) opcode simplifies such typical use cases, and adds some other useful arguments. This is the syntax:
+[schedkwhen](https://csound.com/docs/manual/schedkwhen.html) opcode simplifies
+such typical use cases, and adds some other useful arguments. This is the syntax:
 
     schedkwhen kTrigger, kMinTim, kMaxNum, kInsrNum (or "InstrName"), 
     kStart, kDur [, kp4] [, kp5] [...]
@@ -1067,8 +1066,9 @@ instead of four:
 
 Only, you cannot pass strings as p-fields via schedkwhen (and event).
 So, very much similar as described above for i-rate opcodes, 
-[scoreline](https://csound.com/docs/manual/scoreline.html) fills this gap (as well as *schedulek*). Usually we will use it with a condition,  as we did for
-the event opcode:
+[scoreline](https://csound.com/docs/manual/scoreline.html)
+fills this gap (as well as *schedulek*). Usually we will use it with a
+condition,  as we did for the event opcode:
 
     kTrigger  metro    1 ;"ticks" once a second
     if kTrigger == 1 then
