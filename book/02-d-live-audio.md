@@ -95,7 +95,7 @@ to 512 samples and the software buffer size to 128 sample:
     -B512 -b128
 
 The other factor which affects Csound's live performance is the
-[ksmps](http://csound.github.io/docs/manual/html/ksmps.html)
+[ksmps](https://csound.com/docs/manual/ksmps.html)
 value which is set in the header of the \<CsInstruments\> section. By
 this value, you define how many samples are processed every Csound
 control cycle.
@@ -112,7 +112,7 @@ or 1.]  With a software buffer of 128 samples, a hardware buffer of
 which is usable for live keyboard playing.
 If you have problems with either the latency or the performance,
 tweak the values as described
-[here](http://csound.github.io/docs/manual/html/UsingOptimizing.html).
+[here](https://csound.com/docs/manual/UsingOptimizing.html).
 
 
 The \"\--realtime\" Option
