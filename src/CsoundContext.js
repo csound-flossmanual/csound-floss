@@ -42,13 +42,15 @@ const reducer = (state, action) => {
     }
     case "HANDLE_PLAY_STATE_CHANGE": {
       switch (action.change) {
-        case "realtimePerformanceEnded": {
+        case "realtimePerformanceEnded":
+        case "renderEnded": {
           return pipe(
             assoc("isPaused", false),
             assoc("isPlaying", false)
           )(state);
         }
-        case "realtimePerformanceStarted": {
+        case "realtimePerformanceStarted":
+        case "renderStarted": {
           return pipe(
             assoc("isPaused", false),
             assoc("isPlaying", true),
