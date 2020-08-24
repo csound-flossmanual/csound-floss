@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@emotion/core": "^10.0.28",
+    "@emotion/core": "^10.0.35",
     "chokidar": "^3.4.1",
     "codemirror": "^5.54.0",
     "core-js": "^3.6.5",
