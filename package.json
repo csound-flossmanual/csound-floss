@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@emotion/core": "^10.0.28",
+    "@emotion/core": "^10.0.35",
     "chokidar": "^3.4.1",
-    "codemirror": "^5.54.0",
+    "codemirror": "^5.57.0",
     "core-js": "^3.6.5",
     "csound-manual-react": "^1.0.0-alpha15",
     "csound-wasm": "^6.14.0-1",
@@ -23,14 +23,14 @@
     "react-dom": "^16.13.1",
     "react-mathjax": "^1.0.1",
     "react-perfect-scrollbar": "^1.5.8",
-    "react-rnd": "^10.1.10",
+    "react-rnd": "^10.2.2",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "react-select": "^3.1.0",
     "react-side-effect": "^2.1.0",
     "react-sticky-footer": "^0.1.0-rc3",
     "resize-observer-polyfill": "^1.5.1",
-    "throttle-debounce": "^2.2.1"
+    "throttle-debounce": "^2.3.0"
   },
   "resolutions": {
     "html-to-jsx/cheerio": "^1.0.0-rc.3",
