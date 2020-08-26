@@ -30,7 +30,7 @@
     "react-side-effect": "^2.1.0",
     "react-sticky-footer": "^0.1.0-rc3",
     "resize-observer-polyfill": "^1.5.1",
-    "throttle-debounce": "^2.2.1"
+    "throttle-debounce": "^2.3.0"
   },
   "resolutions": {
     "html-to-jsx/cheerio": "^1.0.0-rc.3",
