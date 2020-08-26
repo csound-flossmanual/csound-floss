@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@emotion/core": "^10.0.35",
-    "chokidar": "^3.4.1",
+    "chokidar": "^3.4.2",
     "codemirror": "^5.57.0",
     "core-js": "^3.6.5",
     "csound-manual-react": "^1.0.0-alpha15",
