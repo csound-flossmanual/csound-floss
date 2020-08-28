@@ -16,19 +16,14 @@ to an integrated help system. A frontend can also expand possibilities
 by providing tools to build interactive interfaces (GUI widgets) as
 well, sometimes, as advanced compositional tools.
 
-In 2009 the Csound developers decided to include
+From 2009 to 2019, the 
 [CsoundQt](http://csoundqt.github.io)
-as the standard frontend to be included with the Csound distribution, so
-you will already have this frontend if you have installed any of the
-pre-built versions of Csound. Conversely if you install a frontend you
-will usually require a separate installation of Csound in order for it
-to function. If you experience any problems with CsoundQt, or simply
-prefer another frontend design, try
-[Cabbage](http://cabbageaudio.com/),
-[WinXound](http://winxound.codeplex.com)
-or
-[Blue](http://blue.kunstmusik.com/)
-as alternatives. Section 10 of this manual provides more information
+frontend was included in the Csound installer. Since Csound 6.15 (August 2020) the Csound installer only contains "pure" Csound, without any frontend. This means that Csound will work from the Command Line after installing, but the user must download the frontend seperately. These are the download pages:  
+- CsoundQt: <https://github.com/CsoundQt/CsoundQt/releases>  
+- Cabbage: <https://cabbageaudio.com/download/>  
+- Blue: <https://blue.kunstmusik.com/#download>  
+
+Section 10 of this manual provides more information
 about the frontends.
 
 How to Download and Install Csound
@@ -75,29 +70,13 @@ installation process. This will invoke 8 simple steps:
 9.  A window informs you that installation is complete. You can click
     *Finish*.
 
-This installer will also automatically install CsoundQt which can be
-used as a frontend for your work with Csound (Csound is not run by
-double-clicking Csound.exe).
-
-You can create addional shorcuts to the CsoundQt executable by locating
-it in its default location, C:\\Program Files (x86)\\Csound6\\bin, and
-right-clicking it and selecting \'Pin to Start\' or \'Pin to Taskbar\'
-as desired. You can create a desktop shortcut by right-clicking and
-dragging the CsoundQt executable onto the desktop and selecting *Create
-Shortcuts Here* from the menu that pops up.
-
-Other frontends for Csound, such as Cabbage and WinXound, need to be
-downloaded and installed separately.
 
 ### Mac OS X
 
 The Mac OS X installers are the files ending in *.dmg*, for instance
 *Csound6.14.0-MacOS_x86_64.dmg*. When you double click the downloaded
-file, you will have a disk image on your desktop, with the Csound
-installer, CsoundQt and a *readme* file. Double-click the installer and
-follow the instructions. Csound and the basic Csound utilities will be
-installed. To install the CsoundQt frontend, you only need to move it to
-your Applications folder.
+file, you will have a disk image on your desktop with the Csound
+installer. Double-click the installer and follow the instructions. Csound and the basic Csound utilities will be installed. 
 
 ### Linux and others
 
