@@ -61,6 +61,8 @@ const ensureSourceMaterials = async (exampleString, loadedSamples) => {
 };
 
 const checkIfPlayIsPossible = () => {
+  return true;
+  /*
   const hasSAB = typeof SharedArrayBuffer !== "undefined";
   const hasAudioCtx = typeof AudioNode !== "undefined";
   const hasWorklets = typeof AudioWorkletNode !== "undefined";
@@ -78,6 +80,7 @@ Chromium and GoogleChromse versions later than 78 should work.
 Firefox support will hopefully arrive soon.`);
     return false;
   }
+*/
 };
 
 const PlayControls = ({ initialEditorState, currentEditorState }) => {
@@ -96,9 +99,9 @@ const PlayControls = ({ initialEditorState, currentEditorState }) => {
   ] = useCsound();
 
   const onPlay = async () => {
-    if (!checkIfPlayIsPossible()) {
-      return;
-    }
+    // if (!checkIfPlayIsPossible()) {
+    //   return;
+    // }
     if (isPaused) {
       onPause();
       return;
@@ -126,10 +129,11 @@ const PlayControls = ({ initialEditorState, currentEditorState }) => {
       await libcsound.csoundReset(csound);
     }
     const fetchesResources = await ensureSourceMaterials(
-      initialEditorState,
+      currentEditorState,
       loadedSamples
     );
     const newResources = Object.keys(fetchesResources) || [];
+
     newResources.length > 0 &&
       csoundDispatch({ type: "CONJ_LOADED_SAMPLES", newSamples: newResources });
     await asyncForEach(newResources, async fileName => {
