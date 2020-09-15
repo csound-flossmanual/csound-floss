@@ -8,7 +8,7 @@
     "codemirror": "^5.57.0",
     "core-js": "^3.6.5",
     "csound-manual-react": "^1.0.0-alpha15",
-    "csound-wasm": "^6.14.0-4",
+    "csound-wasm": "^6.14.0-5",
     "filesize": "^6.1.0",
     "he": "^1.2.0",
     "history": "^4.10.1",
@@ -41,7 +41,7 @@
     "html-to-jsx/cheerio/lodash": "^4.17.15"
   },
   "scripts": {
-    "start": "node pandoc/development.js",
+    "start": "HTTPS=true node pandoc/development.js",
     "build": "node pandoc/build.js",
     "build:pdf": "node pandoc/build_pdf.js",
     "build:epub": "node pandoc/build_epub.js",
