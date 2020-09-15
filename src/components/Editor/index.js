@@ -123,9 +123,11 @@ const PlayControls = ({ initialEditorState, currentEditorState }) => {
     await asyncForEach(newResources, async fileName => {
       await libcsound.copyToFs(fetchesResources[fileName], fileName);
     });
+    // forcing 2 channel output until I track down the bug
+    await libcsound.csoundSetOption(csound, "--nchnls=2");
     await libcsound.csoundCompileCsdText(csound, currentEditorState);
     await libcsound.csoundStart(csound);
-  }, [libcsound, loadedSamples]);
+  }, [libcsound, loadedSamples, currentEditorState]);
 
   const onPause = async () => {
     const newPauseState = !isPaused;
