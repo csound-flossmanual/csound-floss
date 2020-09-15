@@ -1,11 +1,50 @@
 // eslint-disable-next-line no-unused-vars
 import React, { createContext, useContext, useReducer } from "react";
-import { append, assoc, concat, pipe, when } from "ramda";
+import { lookup as mimeLookup } from "mime-types";
+import {
+  append,
+  assoc,
+  concat,
+  filter,
+  isEmpty,
+  pipe,
+  reject,
+  when,
+} from "ramda";
 
 export const CsoundStateContext = createContext();
 export const CsoundDispatchContext = createContext();
 CsoundStateContext.displayName = "CsoundStateContext";
 CsoundStateContext.displayName = "CsoundStateContext";
+
+const handleEndOfPerformance = async (
+  csoundDispatch,
+  libcsound,
+  loadedSamples
+) => {
+  const files = await libcsound.lsFs();
+  const newFiles = reject(f => loadedSamples.includes(f), files);
+
+  if (!isEmpty(newFiles)) {
+    const newFilesDetails = filter(f => newFiles.includes(f.name))(
+      await libcsound.llFs()
+    );
+    const newFilesWithBlobs = await Promise.all(
+      newFilesDetails.map(async f => {
+        const arrayBuffer = await libcsound.readFromFs(f.name);
+        const mimeType = mimeLookup(f.name);
+        const blob = new Blob([arrayBuffer], { type: mimeType });
+        const url = (window.URL || window.webkitURL).createObjectURL(blob);
+        return { type: mimeType, url, ...f };
+      })
+    );
+
+    csoundDispatch({
+      type: "NOTIFY_NEW_FILES",
+      filesGenerated: newFilesWithBlobs,
+    });
+  }
+};
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -31,6 +70,19 @@ const reducer = (state, action) => {
         state
       );
     }
+    case "NOTIFY_NEW_FILES": {
+      return pipe(
+        assoc("filesystemDialogOpen", true),
+        assoc("filesGenerated", action.filesGenerated)
+      )(state);
+    }
+    case "CLOSE_FILES_DIALOG": {
+      action.filesGenerated.forEach(state.libcsound.rmrfFs);
+      return pipe(
+        assoc("filesystemDialogOpen", false),
+        assoc("filesGenerated", [])
+      )(state);
+    }
     case "CLOSE_LOG_DIALOG": {
       return pipe(
         assoc("logDialogOpen", false),
@@ -51,6 +103,11 @@ const reducer = (state, action) => {
         }
         case "realtimePerformanceStarted":
         case "renderStarted": {
+          handleEndOfPerformance(
+            action.csoundDispatch,
+            state.libcsound,
+            state.loadedSamples
+          ).then(() => {});
           return pipe(
             assoc("isPaused", false),
             assoc("isPlaying", true),
@@ -91,8 +148,10 @@ export const CsoundProvider = ({ children }) => {
     isPaused: false,
     isPlaying: false,
     loadedSamples: [],
-    logDialogOpen: false, // process.env.NODE_ENV === "production" ? false : true,
+    logDialogOpen: false,
     logDialogClosed: false,
+    filesystemDialogOpen: false,
+    filesGenerated: [],
     logs: [],
   });
 

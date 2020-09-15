@@ -28,3 +28,7 @@
   position: relative;
   margin: 0 6px;
 }
+
+.ReactModalPortal > div {
+  z-index: 1000;
+}

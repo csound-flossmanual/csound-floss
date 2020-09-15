@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useBookDispatch } from "./BookContext";
+import ReactAudioPlayer from "react-audio-player";
+import useCsound from "./CsoundContext";
+import filesize from "filesize";
+import Modal from "react-modal";
 import {
   append,
   assocPath,
@@ -12,6 +16,19 @@ import {
   reduce,
 } from "ramda";
 import { debounce } from "throttle-debounce";
+
+Modal.setAppElement("#root");
+
+const modalStyle = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
 
 function getIndexToIns(arr, num) {
   let index = arr
@@ -119,7 +136,42 @@ const ChapterHOC = ({ children }) => {
     };
   }, [onScroll]);
 
-  return <>{children}</>;
+  const [
+    { filesystemDialogOpen, filesGenerated },
+    csoundDispatch,
+  ] = useCsound();
+
+  return (
+    <div>
+      <Modal
+        isOpen={filesystemDialogOpen}
+        style={modalStyle}
+        onRequestClose={() =>
+          csoundDispatch({ type: "CLOSE_FILES_DIALOG", filesGenerated })
+        }
+      >
+        <>
+          <strong>Csound generated the following file(s):</strong>
+          {filesGenerated.map((f, i) => (
+            <div key={i}>
+              <hr />
+              <p>
+                {f.name + " - " + filesize(f.stat.size) + " - "}
+                <a href={f.url} download={f.name}>{`Download`}</a>
+              </p>
+              {f.type.startsWith("audio") && (
+                <ReactAudioPlayer src={f.url} controls />
+              )}
+              <br />
+
+              <hr />
+            </div>
+          ))}
+        </>
+      </Modal>
+      {children}
+    </div>
+  );
 };
 
 export default ChapterHOC;

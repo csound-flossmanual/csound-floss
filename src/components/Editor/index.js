@@ -2,7 +2,7 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 // eslint-disable-next-line no-unused-vars
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import useCsound from "../../CsoundContext";
 import { decode } from "he";
 import { Controlled as CodeMirror } from "react-codemirror2";
@@ -62,25 +62,6 @@ const ensureSourceMaterials = async (exampleString, loadedSamples) => {
 
 const checkIfPlayIsPossible = () => {
   return true;
-  /*
-  const hasSAB = typeof SharedArrayBuffer !== "undefined";
-  const hasAudioCtx = typeof AudioNode !== "undefined";
-  const hasWorklets = typeof AudioWorkletNode !== "undefined";
-  if (hasSAB && hasAudioCtx && hasWorklets) {
-    return true;
-  } else {
-    alert(`Your browser doesn't have some or all of following
-features needed to play csound via webassembly.
-
-           1. SharedArrayBuffer ${hasSAB ? "Found" : "Not Found"}
-           2. AudioContext ${hasAudioCtx ? "Found" : "Not Found"}
-           3. AudioWorkletNode ${hasWorklets ? "Found" : "Not Found"}
-
-Chromium and GoogleChromse versions later than 78 should work.
-Firefox support will hopefully arrive soon.`);
-    return false;
-  }
-*/
 };
 
 const PlayControls = ({ initialEditorState, currentEditorState }) => {
@@ -98,7 +79,7 @@ const PlayControls = ({ initialEditorState, currentEditorState }) => {
     csoundDispatch,
   ] = useCsound();
 
-  const onPlay = async () => {
+  const onPlay = useCallback(async () => {
     // if (!checkIfPlayIsPossible()) {
     //   return;
     // }
@@ -115,9 +96,13 @@ const PlayControls = ({ initialEditorState, currentEditorState }) => {
       await libcsound.setMessageCallback(log => {
         csoundDispatch({ type: "STORE_LOG", log });
       });
-      await libcsound.setCsoundPlayStateChangeCallback(change =>
-        csoundDispatch({ type: "HANDLE_PLAY_STATE_CHANGE", change })
-      );
+      await libcsound.setCsoundPlayStateChangeCallback(async change => {
+        csoundDispatch({
+          type: "HANDLE_PLAY_STATE_CHANGE",
+          change,
+          csoundDispatch,
+        });
+      });
       csound = await libcsound.csoundCreate();
       await libcsound.csoundInitialize(0);
       csoundDispatch({ type: "STORE_LIBCSOUND", libcsound });
@@ -133,7 +118,6 @@ const PlayControls = ({ initialEditorState, currentEditorState }) => {
       loadedSamples
     );
     const newResources = Object.keys(fetchesResources) || [];
-
     newResources.length > 0 &&
       csoundDispatch({ type: "CONJ_LOADED_SAMPLES", newSamples: newResources });
     await asyncForEach(newResources, async fileName => {
@@ -141,7 +125,7 @@ const PlayControls = ({ initialEditorState, currentEditorState }) => {
     });
     await libcsound.csoundCompileCsdText(csound, currentEditorState);
     await libcsound.csoundStart(csound);
-  };
+  }, [libcsound, loadedSamples]);
 
   const onPause = async () => {
     const newPauseState = !isPaused;

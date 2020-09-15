@@ -275,6 +275,6 @@ i 1 3.1 5 67
 i 1 3.2 5 73
 i 1 3.3 5 78
 </CsScore>
-</CsoundSynthesizer
+</CsoundSynthesizer>
 ;example written by Iain McCurdy
 ~~~
