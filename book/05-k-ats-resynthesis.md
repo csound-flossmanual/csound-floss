@@ -188,7 +188,7 @@ endin
 </CsInstruments>
 <CsScore>
 ;change to put any ATS file you like
-#define ats_file #"../SourceMaterials/basoon-C4.ats"#
+#define ats_file #"basoon-C4.ats"#
 ;       st      dur     atsfile
 i1      0       0       $ats_file
 e
@@ -357,7 +357,7 @@ endin
 <CsScore>
 ; sine wave table
 f 1 0 16384 10 1
-#define atsfile #"../SourceMaterials/flute-A5.ats"#
+#define atsfile #"flute-A5.ats"#
 
 ;       start   dur     amp     freq    par     tab     atsfile
 i1      0       3       1       1       1       1       $atsfile
@@ -393,7 +393,7 @@ ksmps   = 32
 nchnls  = 1
 0dbfs   = 1
 
-gS_ATS_file =         "../SourceMaterials/flute-A5.ats" ;ats file
+gS_ATS_file =         "flute-A5.ats" ;ats file
 giSine     ftgen      0, 0, 16384, 10, 1 ; sine wave table
 
 
@@ -521,7 +521,7 @@ f2 0 32 -2 0 100 200 300 400 510 630 770 920 1080 1270 1480 1720 2000 2320 \
            2700 3150 3700 4400 5300 6400 7700 9500 12000 15500 20000
 
 ;an ats file name
-#define atsfile #"../SourceMaterials/female-speech.ats"#
+#define atsfile #"female-speech.ats"#
 
 ;a macro that synthesize the noise data along all the 25 critical bands
 #define all_bands(start'dur'amp'bw'file)
@@ -638,7 +638,7 @@ endin
 <CsScore>
 ; sine wave table
 f 1 0 16384 10 1
-#define atsfile #"../SourceMaterials/test.ats"#
+#define atsfile #"test.ats"#
 
 ;  start dur amp freq atab atsfile
 i1 0     3   1   440  1    $atsfile     ;first partial
@@ -718,7 +718,7 @@ endin
 <CsScore>
 ; sine wave table
 f 1 0 16384 10 1
-#define atsfile #"../SourceMaterials/oboe-A5.ats"#
+#define atsfile #"oboe-A5.ats"#
 
 ;   start dur amp freq atab part#1 part#2 part#3 part#4 atsfile
 i1  0     3   10  1    1    1      5      11     13     $atsfile
@@ -827,7 +827,7 @@ endin
 <CsScore>
 
 ;change to put any ATS file you like
-#define ats_file #"../SourceMaterials/basoon-C4.ats"#
+#define ats_file #"basoon-C4.ats"#
 
 ;audio table (sine)
 f1      0       16384   10      1
@@ -911,7 +911,7 @@ endin
 <CsScore>
 
 ;change to put any ATS file you like
-#define ats_file #"../SourceMaterials/female-speech.ats"#
+#define ats_file #"female-speech.ats"#
 
 ;   start dur  amp nbands bands_offset bands_incr atsfile
 i1  0     7.32 1   25     0            1       $ats_file ;all bands
@@ -993,7 +993,7 @@ endin
 </CsInstruments>
 <CsScore>
 ;change to put any ATS file you like
-#define ats_file #"../SourceMaterials/female-speech.ats"#
+#define ats_file #"female-speech.ats"#
 
 ; start   dur   amp  freqdev sinlev  noislev npars   offset  pincr   atsfile
 i1  0     3.66  .79  0       1       0       0       0       1       $ats_file
@@ -1051,8 +1051,8 @@ nchnls = 1
 0dbfs = 1
 
 ;ATS files
-#define ats1 #"../SourceMaterials/flute-A5.ats"#
-#define ats2 #"../SourceMaterials/oboe-A5.ats"#
+#define ats1 #"flute-A5.ats"#
+#define ats2 #"oboe-A5.ats"#
 
 
 instr 1
