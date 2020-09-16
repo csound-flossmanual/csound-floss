@@ -177,7 +177,7 @@ function MobileNav({ routeIndex }) {
         zIndex: 1000,
         backgroundColor: "rgba(255,255,255,.8)",
         padding: "12px",
-        width: "calc(100% - 24px)",
+        width: "100vw",
       }}
     >
       <div css={rootStyle}>
