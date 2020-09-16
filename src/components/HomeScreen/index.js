@@ -60,6 +60,16 @@ const HomeScreen = () => (
         <p>{`Download OpenDocument version`}</p>
       </a>
     </div>
+    <div>
+      <hr style={{ backgroundColor: "#333", height: 2 }} />
+      <a
+        href={`https://csound-flossmanual.github.io`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <p>{`List of all releases`}</p>
+      </a>
+    </div>
   </div>
 );
 
