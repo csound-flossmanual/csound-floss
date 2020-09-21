@@ -1902,7 +1902,7 @@
   dependencies:
     wasm-feature-detect "^1.2.2"
 
-"@wasmer/wasmfs@^0.11.2":
+"@wasmer/wasmfs@0.11.2":
   version "0.11.2"
   resolved "https://registry.yarnpkg.com/@wasmer/wasmfs/-/wasmfs-0.11.2.tgz#d07e21557ae32680720ce83c8347da0fcfbdd810"
   integrity sha512-Xf9E5crb1KF2nFVpRBt6i7GaI2nRvpRU/G/9jj5sut9kgNo/BSMG2Ehbld2PCj3Kj8eO62MMKT7M/X5rgnsHVg==
@@ -3750,15 +3750,15 @@ csound-manual-react@^1.0.0-alpha15:
     webpack "^4.43.0"
     webpack-cli "^3.3.11"
 
-csound-wasm@^6.14.0-1:
-  version "6.14.0-1"
-  resolved "https://registry.yarnpkg.com/csound-wasm/-/csound-wasm-6.14.0-1.tgz#be38992208bda74b0db6862ee1ba01700f5d436e"
-  integrity sha512-6f1yI4xCRJ0aa2SXFNl3H5gjOv5TDm+6CIQZyBwYp+fhUupk7UQyAYQ3FjRSe6Lmp5bmx3YYF+c3DKyZ319AgQ==
+csound-wasm@^6.14.0-6:
+  version "6.14.0-6"
+  resolved "https://registry.yarnpkg.com/csound-wasm/-/csound-wasm-6.14.0-6.tgz#7a31c837f15cbc7499472eeae27f32eb63e76780"
+  integrity sha512-VIjJSNeLOBQrlcQVdsKcQiqjnphoC2NOggITzwmwrxqJNDUUOctJcctfUvbIbbZ2MWvG6DP/sv1w3P6RBrrizg==
   dependencies:
     "@rollup/plugin-strip" "^2.0.0"
     "@wasmer/wasi" "^0.11.2"
     "@wasmer/wasm-transformer" "^0.11.2"
-    "@wasmer/wasmfs" "^0.11.2"
+    "@wasmer/wasmfs" "0.11.2"
     buffer "^5.6.0"
     comlink "^4.3.0"
     pako "^1.0.11"
