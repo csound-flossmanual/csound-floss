@@ -3750,10 +3750,10 @@ csound-manual-react@^1.0.0-alpha15:
     webpack "^4.43.0"
     webpack-cli "^3.3.11"
 
-csound-wasm@^6.15.0-3:
-  version "6.15.0-3"
-  resolved "https://registry.yarnpkg.com/csound-wasm/-/csound-wasm-6.15.0-3.tgz#e688de27dd949015c54dee01b046d6bc927dca4e"
-  integrity sha512-SvcHC6rUZw2dCBHmgQYcTHm9pvYkXoZ9oW9npkXnVFQRdv6P4dlTg4hvgi8j8+APGso03Fn4F3AcOV8biU7M4Q==
+csound-wasm@^6.15.0-4:
+  version "6.15.0-4"
+  resolved "https://registry.yarnpkg.com/csound-wasm/-/csound-wasm-6.15.0-4.tgz#44c2efb16c1f7fe7a386133ce5e66bc47cfc8d44"
+  integrity sha512-LiH/IfsI5ley/sQrV9Npju7VKr9cMvIXVkZZ/4th1TEZvnXQRczcxjfTjQPvLmsnold8YKTVMtl/FPQK73sVxA==
   dependencies:
     "@rollup/plugin-strip" "^2.0.0"
     "@wasmer/wasi" "^0.11.2"
