@@ -16,7 +16,7 @@
     "htmlparser2": "^4.1.0",
     "mathjax-node": "^2.1.1",
     "mime-types": "^2.1.27",
-    "pandoc-filter": "^2.0.0",
+    "pandoc-filter": "^2.0.2",
     "pandoc-filter-promisified": "^0.1.0",
     "ramda": "^0.27.1",
     "react": "^16.13.1",

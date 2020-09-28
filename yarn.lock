@@ -1767,11 +1767,6 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.0.25.tgz#7ad8b00a1206d6c9e94810e49f3115f0bcc30456"
   integrity sha512-okMqUHqrMlGOxfDZliX1yFX5MV6qcd5PpRz96XYtjkM0Ws/hwg23FMUqt6pETrVRZS+EKUB5HY19mmo54EuQbA==
 
-"@types/node@^13.13.0":
-  version "13.13.15"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.13.15.tgz#fe1cc3aa465a3ea6858b793fd380b66c39919766"
-  integrity sha512-kwbcs0jySLxzLsa2nWUAGOd/s21WU1jebrEdtzhsj1D4Yps1EOuyI1Qcu+FD56dL7NRNIJtDDjcqIG22NwkgLw==
-
 "@types/parse-json@^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@types/parse-json/-/parse-json-4.0.0.tgz#2f8bb441434d163b35fb8ffdccd7138927ffb8c0"
@@ -8083,12 +8078,11 @@ pandoc-filter-promisified@^0.1.0:
   dependencies:
     get-stdin "~0.1.0"
 
-pandoc-filter@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/pandoc-filter/-/pandoc-filter-2.0.0.tgz#5f53648a6626886478afe853eb4dfa8dd38e7b48"
-  integrity sha512-+Jp50Bh9bEdp+QV7HoQZ/8MwG6LIApWdt0eC18bgxbeL6siVYsJ0ynhKEEGE3TK1htfst+1SMI39TEIPs3oTTg==
+pandoc-filter@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/pandoc-filter/-/pandoc-filter-2.0.2.tgz#371990d3a01d0a25191ed390bb2b0f6a852b9cdf"
+  integrity sha512-PRovUOBe+5+z3j7ykca2MOEFvE9n9bo6wN9FsnK0wFA5kEFu0bxfQ5eIKvX+phGNJwXKns8hOWIA5hsDUQ5RDQ==
   dependencies:
-    "@types/node" "^13.13.0"
     get-stdin "~7.0.0"
 
 parallel-transform@^1.1.0:
