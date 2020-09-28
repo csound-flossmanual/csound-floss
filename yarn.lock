@@ -9289,10 +9289,10 @@ raw-body@2.4.0:
     iconv-lite "0.4.24"
     unpipe "1.0.0"
 
-re-resizable@6.3.2:
-  version "6.3.2"
-  resolved "https://registry.yarnpkg.com/re-resizable/-/re-resizable-6.3.2.tgz#27cc984af6ea5dbafd2b79f64c5224a6e1722fbe"
-  integrity sha512-ngxe4XBSb46vfwXjAwpURacVDig/pPt1kHRhcKlRRIoGICmo4aQHr725jurezepp1pm5jSC6iQhyLYfx3zOC3w==
+re-resizable@6.6.1:
+  version "6.6.1"
+  resolved "https://registry.yarnpkg.com/re-resizable/-/re-resizable-6.6.1.tgz#654a0edc1977e5d025c777a97f5555ef4bccea7f"
+  integrity sha512-ttWVasZ9X7c0ir0+4YK47tkmm9EAFssW07YLkeLzG5HCOuFgFAlSVzMlzAH0h3i6hDShQCHHJecVx5rk+snoFA==
   dependencies:
     fast-memoize "^2.5.1"
 
@@ -9431,12 +9431,12 @@ react-perfect-scrollbar@^1.5.8:
     perfect-scrollbar "^1.5.0"
     prop-types "^15.6.1"
 
-react-rnd@^10.2.2:
-  version "10.2.2"
-  resolved "https://registry.yarnpkg.com/react-rnd/-/react-rnd-10.2.2.tgz#378017178179c9e6cdca57280dee22cf48925b5a"
-  integrity sha512-UoQnNehseKEspimfPFaO0gN0vSVJ8uCZeG39nCibUVyGTjZ5d+bnY/zHEp9SObHQ9tKW4vFSa9+8Mf7QZrQrUw==
+react-rnd@^10.2.3:
+  version "10.2.3"
+  resolved "https://registry.yarnpkg.com/react-rnd/-/react-rnd-10.2.3.tgz#db39b5f487e25a45f2b9c73ed697110f3cafb520"
+  integrity sha512-bdoEk899vuOSzpp8zJkAaybpr2mn5rH1TXd0ARrdBXJcv8oNoEogXEGGsL2Q3y+lG1KwUkDZ4HUcXpX8AqESBA==
   dependencies:
-    re-resizable "6.3.2"
+    re-resizable "6.6.1"
     react-draggable "4.4.3"
     tslib "2.0.0"
 
