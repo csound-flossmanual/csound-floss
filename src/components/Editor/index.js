@@ -17,7 +17,7 @@ require("codemirror/lib/codemirror.css");
 require("codemirror/theme/neo.css");
 
 function timeout(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 const PlayControlsLoadingSpinner = () => (
@@ -42,7 +42,7 @@ async function asyncForEach(array, callback) {
 
 const ensureSourceMaterials = async (exampleString, loadedSamples) => {
   const fetchedResources = {};
-  await asyncForEach(SourceMaterials, async fileName => {
+  await asyncForEach(SourceMaterials, async (fileName) => {
     if (!loadedSamples.includes(fileName)) {
       if (exampleString.includes(fileName)) {
         // One special case for 04H08_Scan_tablesize.csd
@@ -93,10 +93,10 @@ const PlayControls = ({ initialEditorState, currentEditorState }) => {
       libcsound = await esModule.default();
 
       // eslint-disable-next-line
-      await libcsound.setMessageCallback(log => {
+      await libcsound.setMessageCallback((log) => {
         csoundDispatch({ type: "STORE_LOG", log });
       });
-      await libcsound.setCsoundPlayStateChangeCallback(async change => {
+      await libcsound.setCsoundPlayStateChangeCallback(async (change) => {
         csoundDispatch({
           type: "HANDLE_PLAY_STATE_CHANGE",
           change,
@@ -120,14 +120,14 @@ const PlayControls = ({ initialEditorState, currentEditorState }) => {
     const newResources = Object.keys(fetchesResources) || [];
     newResources.length > 0 &&
       csoundDispatch({ type: "CONJ_LOADED_SAMPLES", newSamples: newResources });
-    await asyncForEach(newResources, async fileName => {
+    await asyncForEach(newResources, async (fileName) => {
       await libcsound.copyToFs(fetchesResources[fileName], fileName);
     });
     // forcing 2 channel output until I track down the bug
     await libcsound.csoundSetOption(csound, "--nchnls=2");
     await libcsound.csoundCompileCsdText(csound, currentEditorState);
     await libcsound.csoundStart(csound);
-  }, [libcsound, loadedSamples, currentEditorState]);
+  }, [libcsound, loadedSamples, currentEditorState, isPaused]);
 
   const onPause = async () => {
     const newPauseState = !isPaused;
