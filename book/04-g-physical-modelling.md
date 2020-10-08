@@ -1047,27 +1047,27 @@ aL,aR   pan2            aSig,kPan
 ;t 0 90 1 30 2 60 5 90 7 30
 ; p4 = stiffness (pitch)
 
-\#define gliss(dur'Kstrt'Kend'b'scan1'scan2)
-\#
+#define gliss(dur'Kstrt'Kend'b'scan1'scan2)
+#
 i 1 0     20 $Kstrt $b $scan1 $scan2
-i 1 \^+0.05 $dur >     $b $scan1 $scan2
-i 1 \^+0.05 $dur >     $b $scan1 $scan2
-i 1 \^+0.05 $dur >     $b $scan1 $scan2
-i 1 \^+0.05 $dur >     $b $scan1 $scan2
-i 1 \^+0.05 $dur >     $b $scan1 $scan2
-i 1 \^+0.05 $dur >     $b $scan1 $scan2
-i 1 \^+0.05 $dur >     $b $scan1 $scan2
-i 1 \^+0.05 $dur >     $b $scan1 $scan2
-i 1 \^+0.05 $dur >     $b $scan1 $scan2
-i 1 \^+0.05 $dur >     $b $scan1 $scan2
-i 1 \^+0.05 $dur >     $b $scan1 $scan2
-i 1 \^+0.05 $dur >     $b $scan1 $scan2
-i 1 \^+0.05 $dur >     $b $scan1 $scan2
-i 1 \^+0.05 $dur >     $b $scan1 $scan2
-i 1 \^+0.05 $dur >     $b $scan1 $scan2
-i 1 \^+0.05 $dur >     $b $scan1 $scan2
-i 1 \^+0.05 $dur $Kend $b $scan1 $scan2
-\#
+i 1 ^+0.05 $dur >     $b $scan1 $scan2
+i 1 ^+0.05 $dur >     $b $scan1 $scan2
+i 1 ^+0.05 $dur >     $b $scan1 $scan2
+i 1 ^+0.05 $dur >     $b $scan1 $scan2
+i 1 ^+0.05 $dur >     $b $scan1 $scan2
+i 1 ^+0.05 $dur >     $b $scan1 $scan2
+i 1 ^+0.05 $dur >     $b $scan1 $scan2
+i 1 ^+0.05 $dur >     $b $scan1 $scan2
+i 1 ^+0.05 $dur >     $b $scan1 $scan2
+i 1 ^+0.05 $dur >     $b $scan1 $scan2
+i 1 ^+0.05 $dur >     $b $scan1 $scan2
+i 1 ^+0.05 $dur >     $b $scan1 $scan2
+i 1 ^+0.05 $dur >     $b $scan1 $scan2
+i 1 ^+0.05 $dur >     $b $scan1 $scan2
+i 1 ^+0.05 $dur >     $b $scan1 $scan2
+i 1 ^+0.05 $dur >     $b $scan1 $scan2
+i 1 ^+0.05 $dur $Kend $b $scan1 $scan2
+#
 $gliss(15'40'400'0.0755'0.1'2)
 b 5
 $gliss(2'80'800'0.755'0'0.1)
