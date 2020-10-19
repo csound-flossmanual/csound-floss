@@ -607,7 +607,7 @@ endin
 
 opcode DumpNotes, 0, iiSi
 iNum, iFilterType, SFile, iMixLevel xin
-idt = 30
+idt = 20
 Sstr sprintf {{i "%s" %f %f "%s" %f}}, "Dump", idt*iNum, idt, SFile, iMixLevel
         scoreline_i Sstr
         event_i "i", "Notes", idt * iNum, 0, iFilterType
@@ -635,17 +635,6 @@ DumpNotes 13, $MVCLPF3 ,    "mvclpf3-dubstep.wav",  iMixLevel
 turnoff
 endin
 
-instr Main
-iVolume = 0.2
-iReverbFeedback = 0.3
-iMixLevel       = p4
-
-aoutL, aoutR Reverb gaOut, gaOut, iReverbFeedback, iMixLevel
-outs (iVolume * aoutL), (iVolume * aoutR)
-
-gaOut = 0
-endin
-
 instr Dump
 SFile       = p4
 iMixLevel   = p5
@@ -655,6 +644,15 @@ iReverbFeedback = 0.85
 
 aoutL, aoutR Reverb gaOut, gaOut, iReverbFeedback, iMixLevel
 fout SFile, 14, (iVolume * aoutL), (iVolume * aoutR)
+endin
+
+instr Main
+iVolume = 0.2
+iReverbFeedback = 0.3
+iMixLevel       = p4
+
+aoutL, aoutR Reverb gaOut, gaOut, iReverbFeedback, iMixLevel
+outs (iVolume * aoutL), (iVolume * aoutR)
 
 gaOut = 0
 endin
