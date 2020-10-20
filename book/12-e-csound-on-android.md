@@ -224,12 +224,11 @@ driver for your device (this is the default),
 the older *OpenSL ES* driver which supports both
 audio input and audio output, and the newer *AAudio*
 driver that provides lower audio output latency on Oreo
-or later.
-
-***Plugins*** -- an (additional) directory for plugin opcodes.
-***Output*** -- overrides the default soundfile output directory.
-***Samples*** -- overrides the default directory from which load sound samples.
-***Analysis*** -- overrides the default directory from which to load analysis files.
+or later.  
+***Plugins*** -- an (additional) directory for plugin opcodes.  
+***Output*** -- overrides the default soundfile output directory.  
+***Samples*** -- overrides the default directory from which load sound samples.  
+***Analysis*** -- overrides the default directory from which to load analysis files.  
 ***Include*** -- overrides the default directory from which to load Csound `#include` files.
 
 These settings are not required, but they can make using Csound easier
