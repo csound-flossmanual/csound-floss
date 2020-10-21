@@ -235,6 +235,19 @@ These settings are not required, but they can make using Csound easier
 and faster to use.
 
 
+### Path for Samples
+
+To read a sample from the internal storage, add `/storage/emulated/0/locationofyoursample` to Csound's search path via the `--env:SSDIR` flag in the `<CsOptions>` tag of your *.csd* file, for instance:
+
+~~~csound
+<CsOptions>
+--env:SSDIR+=/storage/emulated/0/SAMPLES
+</CsOptions>
+~~~
+
+
+
+
 Loading and Performing a Piece
 -------------------------------
 
