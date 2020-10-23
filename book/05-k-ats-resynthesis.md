@@ -9,7 +9,7 @@ The ATS Technique
 The *ATS* technique (*Analysis-Transformation-Synthesis*) was developed
 by Juan Pampin. A comprehensive explanation of this technique can be
 found in his *ATS Theory*^[Juan Pampin, 2011, 
-[ATS_theory](http://wiki.dxarts.washington.edu/groups/general/wiki/39f07/attachments/55bd6/ATS_theory.pdf)]
+[ATS_theory](https://dxarts.washington.edu/sites/dxarts/files/documents/wiki/ats_theory.pdf)]
 but, essentially, it may be said that it
 represents two aspects of the analyzed signal: the deterministic part
 and the stochastic or residual part. This model was initially conceived
@@ -94,6 +94,7 @@ So, after the header, an ATS file with frame type 4,  *np* number of
 partials and *nf* frames will have:
 
     Frame 1:
+        time tag
         Amp.of partial 1,   Freq. of partial 1, Phase of partial 1
         ..................................................................
         ..................................................................
@@ -107,6 +108,7 @@ partials and *nf* frames will have:
     ......................................................................
 
     Frame nf:
+        time tag
         Amp.of partial 1,   Freq. of partial 1, Phase of partial 1
         ..................................................................
         ..................................................................
@@ -125,12 +127,14 @@ partials will need:
 values of 10 partials along 100 frames.
 - 25 * 100 double floats for storing the noise information of the 25
 critical bands along 100 frames.
+- 100 double floats for storing the time tag information for each frame
 
         Header:                10 * 8     =       80 bytes
         Deterministic data:  3000 * 8     =    24000 bytes
         Residual data:       2500 * 8     =    20000 bytes
+        Time tags data            100     =      800 bytes
 
-        Total:       80 + 24000 + 20000   =    44080 bytes
+        Total: 80 + 24000 + 20000 + 800   =    44880 bytes
 
 The following Csound code shows how to retrieve the data of the header
 of an ATS file.
@@ -219,14 +223,14 @@ at <https://github.com/jamezilla/ats/tree/master/ats>
 
 Another very good GUI program that can be used for such purposes is
 Qatsh, a Qt 4 port by Jean-Philippe Meuret. This one can be obtained
-at <http://sourceforge.net/apps/trac/speed-dreams/browser/subprojects/soundeditor/trunk?rev=5250>
+at <https://sourceforge.net/p/speed-dreams/code/HEAD/tree/subprojects/soundeditor/>
 
 
 ### Parameters Explanation and Proper Analysis Settings
 
 The analysis parameters are somewhat numerous, and must be carefully
 tuned in order to obtain good results.  A detailed explanation of the
-meaning of these parameters can be found at <http://musica.unq.edu.ar/personales/odiliscia/software/ATSH-doc.htm%20>
+meaning of these parameters can be found at <https://csound.com/docs/manual/UtilityAtsa.html>
 
 In order to get a good analysis, the sound to be analysed should meet
 the following requirements:
