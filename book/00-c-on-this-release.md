@@ -33,7 +33,7 @@ The explanations and examples try to find a balance between *no previous knowled
 
 Since the first release of this textbook in 2010, Iain McCurdy was my compagnion in the attempt to keep it up to date and improve it. He showed us all how Csound can sound, and the best parts of this book (both descriptions and examples) are his work. His inexhaustible collection of [Csound Realtime Examples](http://iainmccurdy.org/csound.html) should be used all the time, in my opinion.
 
-Previous releases can be found at [http://files.csound-tutorial.net/floss\_manual](http://files.csound-tutorial.net/floss_manual), as well as the current csd files and audio samples.
+Previous releases can be found at [https://github.com/csound-flossmanual/csound-flossmanual.github.io](https://github.com/csound-flossmanual/csound-flossmanual.github.io), as well as the current csd files and audio samples.
 
 I hope the ones who still enjoy reading texts find this resource useful to learn more about music and realizing their music in Csound.
 
