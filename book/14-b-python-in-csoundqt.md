@@ -150,6 +150,8 @@ instance.
 First, create a new file *cs_floss_2.csd*, for instance with this
 code:
 
+***EXAMPLE 14B02_tabs.csd***
+
 ~~~csound
 <CsoundSynthesizer>
 <CsOptions>
@@ -335,7 +337,7 @@ very pleasant to use CsoundQt's Python scripting for this task. Let us
 modify our previous instrument first to make it more flexible:
 
 
-***EXAMPLE 14B02_score_generated.csd***
+***EXAMPLE 14B03_score_generated.csd***
 
 ~~~csound
 <CsoundSynthesizer>
@@ -854,7 +856,7 @@ Csound code. Here, Csound waits for the user input, and then prints out
 the entered value as the Csound variable giNumber:
 
 
-***EXAMPLE 14B04_dialog.csd***
+***EXAMPLE 14B05_dialog.csd***
 
 ~~~csound
 <CsoundSynthesizer>

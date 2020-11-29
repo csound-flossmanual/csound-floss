@@ -158,6 +158,8 @@ endin
 
 In the traditional Csound context, we would start this instrument using a *score statement*. We'll learn about score statements later, but because we are building a synthesiser that will be played with a MIDI keyboard, our score section will not be very complex. In fact, it will only contain one line of code. *f0 z* is a special score statement that instructs Csound to listen for events for an extremely long time. Below is the entire source code, including a simple Cabbage section for the instrument presented above.
 
+   ***EXAMPLE 10B01_cabbage_1.csd***
+
 ~~~csound
 <Cabbage>
 form caption("Untitled") size(400, 300), \
@@ -212,6 +214,8 @@ kres madsr iatt, idec, islev, irel
 
 Note that the inputs to madsr are *i*-rate. They cannot change over the duration of a note. There are several places in the instrument code where the output of this opcode can be used. It could be applied directly to the first input argument of the vco2 opcode, or it can be placed in the line with the out opcode. Both are valid approaches.
 
+   ***EXAMPLE 10B02_cabbage_2.csd***
+
 ~~~csound
 <Cabbage>
 form caption("Untitled") size(400, 300), \
@@ -256,7 +260,6 @@ f0 z
 The values of the ADSR parameters can be set using widgets. A typical widget for such control is a slider of some sort. They all behave in more or less the same way. Their job is to send numbers to Csound on a fixed channel. Each widget that is capable of controlling some aspect of an instrument must have a channel set using the `channel()` identifier. In the following code 4 rsliders are created. Each one has a unique `channel()` set, and they all have the same range. More details on sliders can be found in the widget reference section.
 
 ~~~csound
-<Cabbage>
 form caption("Simple Synth") \
   size(450, 260), \
   colour(58, 110, 182), \
@@ -271,7 +274,6 @@ rslider bounds(218, 14, 105, 101), channel("sus"), \
   range(0, 1, 0.5, 1, .01), text("Sustain")
 rslider bounds(322, 14, 105, 101), channel("rel"), \
   range(0, 1, 0.7, 1, .01), text("Release")
-</Cabbage>
 ~~~
 
 ![](../resources/images/10-b-cabbagefirstsynth1.gif)
@@ -310,6 +312,8 @@ asig moogladder ain, kcf, kres
 ~~~
 
 Its first input argument is an a-rate variable. The next two arguments set the filter cut-off frequency and the amount of resonance to be added to the signal. Both of these can be k-rate variables, thus allowing them to be changed during the note. Cut-off and resonance controls can easily be added to our instrument. To do so we need to add two more sliders to our Cabbage section of code. We'll also need to add two more `chnget` opcodes and a `moogladder` to our Csound code. One thing to note about the cut-off slider is that it should be exponential. As the users increases the slider, it should increment in larger and larger steps. We can do this be setting the sliders *skew* value to .5. More details about this can be found in the slider widget reference page.
+
+   ***EXAMPLE 10B03_cabbage_3.csd***
 
 ~~~csound
 <Cabbage>
@@ -415,6 +419,8 @@ The output of the LFO is multiplied by the value of *kCutOff*. The frequency of 
 
 There are many further improvements that could be made to the simple instrument. For example, a second `vco2` could be added to create a detune effect which will add some depth to the synth's sound. One could also an ADSR to control the filter envelope, allowing the user an option to switch between modes. If you do end up with something special why not share it on the Cabbage recipes forum!
 
+   ***EXAMPLE 10B04_cabbage_4.csd***
+
 ~~~csound
 <Cabbage>
 form caption("Simple Synth") size(310, 310), \
@@ -503,6 +509,8 @@ Cabbage effects are used to process incoming audio. To do this we make use of th
 After you have named the new effect Cabage will generate a very simple instrument that takes an incoming stream of audio and outputs directly, without any modification or further processing. In order to do some processing we can add some Csound code the instrument. The code presented below is for a simple reverb unit. We assign the incoming sample data to two variables, i.e., aInL and aInR. We then process the incoming signal through the reverbsc opcode. Some GUI widgets have also been added to provide users with access to various parameter. See the previous section on creating your first synth if you are not sure about how to add GUI widgets.
 
 ### Example
+
+   ***EXAMPLE 10B05_cabbage_5.csd***
 
 ~~~csound
 <Cabbage>

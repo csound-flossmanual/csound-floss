@@ -159,13 +159,13 @@ therefore a greater number of stronger partials will be created. The
 ratio is calculated randomly between two limits, which can be adjusted.
 
 
-   ***EXAMPLE 09A03_pdcs_midi.csd ***
+   ***EXAMPLE 09A03_pdcs_midi.csd***
 
 ~~~csound
+<CsoundSynthesizer>
 <CsOptions>
 -+rtmidi=null -M0
 </CsOptions>
-<CsoundSynthesizer>
 <CsInstruments>
 sr      =  44100
 ksmps   =  8

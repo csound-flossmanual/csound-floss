@@ -362,12 +362,11 @@ analog input range (0-1023) will have to be divided by four.
    ***EXAMPLE 08B03_Serial_Read.csd***
 
 ~~~csound
+<CsoundSynthesizer>
 ; Example written by Matt Ingalls
-; CSOUND CODE:
 ; run with a commandline something like:
 ; csound --opcode-lib=serialOpcodes.dylib serialdemo.csd -odac -iadc
 
-<CsoundSynthesizer>
 <CsOptions>
 </CsOptions>
 ;--opcode-lib=serialOpcodes.dylib -odac

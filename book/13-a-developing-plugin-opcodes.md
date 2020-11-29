@@ -312,6 +312,8 @@ Windows (MinGW+MSYS):
 To run Csound with the new opcodes, we can use the
 \--opcode-lib=*libname* option.
 
+***EXAMPLE 13A01_newop.csd***
+
 ~~~csound
 <CsoundSynthesizer>
 <CsOptions>

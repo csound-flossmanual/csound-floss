@@ -351,7 +351,7 @@ The opcode [rnd31](https://csound.com/docs/manual/rnd31.html) is a bipolar rando
 The next example demonstrates the five possibilities one by one, each parameter in three steps: at first with no random deviations, then with slight deviations, then with big ones.
 
 
-***EXAMAMPLE 05G05_random_deviations.csd***
+***EXAMPLE 05G05_random_deviations.csd***
 
 ~~~csound
 <CsoundSynthesizer>

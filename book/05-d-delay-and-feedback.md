@@ -438,6 +438,7 @@ As an advanced insight into sample-by-sample processing in Csound, we end here w
 - Line 25: The element in the array to which the read index "kread_ptr*  points is copied to the appropriate element of the delayed audio signal. As *kread_ptr* starts with 1 (not 0), at first it can only copy zeros.
 - Line 27-28: Both pointers are incremented by one and then the *modulo* is taken. This ensures that the array is not read or written beyond its boundaries, but used as a circular buffer.
 
+   ***EXAMPLE 05D08_custom_delay_line.csd***
 
 ~~~csound
 <CsoundSynthesizer>

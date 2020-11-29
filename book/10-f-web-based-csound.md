@@ -20,6 +20,8 @@ is started with the following command:
 Alternatively, if using a frontend such as CsoundQT, it is possible run
 an empty CSD, with the *--port* in its CsOptions field:
 
+   ***EXAMPLE 10F01_csound_udp.csd***
+
 ~~~csound
 <CsoundSynthesizer>
 <CsOptions>

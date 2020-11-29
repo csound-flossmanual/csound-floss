@@ -330,12 +330,14 @@ pleasing user interface.
 First the entire piece is presented, then the parts are discussed
 separately.
 
+***EXAMPLE 12G03_Extended_HTML.csd***
+
 ~~~csound
+<CsoundSynthesizer>
 ; Example about using CSS in html section of CSD
 ; By Michael Gogins 2016
 ; Reformatted for flossmanual by Hlödver Sigurdsson
 
-<CsoundSynthesizer>
 <CsOptions>
 -odac
 </CsOptions>

@@ -834,7 +834,7 @@ Another approach to retrieve a selection of bins is done by the opcode [pvstrace
 This is a simple example first which lets *pvstrace* play in sequence the 1, 2, 4, 8 and 16 loudest bins.
 
 
-   ***EXAMPLE 05I11_pvstrace_simple***
+   ***EXAMPLE 05I11_pvstrace_simple.csd***
 
 ~~~csound
 <CsoundSynthesizer>

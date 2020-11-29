@@ -110,6 +110,8 @@ The first thing we will do so that we can play a *.csd* file is add our
 this case named *test.csd*) that plays a sine tone with a frequency of
 440Hz for ten seconds. Sample Csound code for this is:
 
+   ***EXAMPLE 12D01_iOS_simple.csd***
+
 ~~~csound
 <CsoundSynthesizer>
 <CsOptions>
