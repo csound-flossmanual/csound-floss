@@ -121,7 +121,7 @@ oscillator and data from controller two (Arduino analog 1) varies its
 pitch across a four octave range.
 
 
-   ***EXAMPLE 08B01Pd_to_Csound.csd***
+   ***EXAMPLE 08B01_Pd_to_Csound.csd***
 
 ~~~csound
 <CsoundSynthesizer>

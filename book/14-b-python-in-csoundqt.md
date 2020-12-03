@@ -693,7 +693,7 @@ see the widgets for the first three seconds in Preset 0, then for the
 next three seconds in Preset 1, and finally again in Preset 0:
 
 
-***EXAMPLE 14B03_presets.csd***
+***EXAMPLE 14B04_presets.csd***
 
 ~~~csound
 <CsoundSynthesizer>

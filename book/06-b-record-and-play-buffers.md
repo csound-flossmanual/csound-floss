@@ -92,7 +92,7 @@ to use this example.
    ***EXAMPLE 06B02_sndloop.csd***
 
 ~~~csound
-<CsoundSynthesize>
+<CsoundSynthesizer>
 <CsOptions>
 ; real-time audio in and out are both activated
 -iadc -odac

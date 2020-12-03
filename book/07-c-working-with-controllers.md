@@ -244,7 +244,7 @@ as well as performing this conversion, interpolates values in the gaps
 between k-cycles.
 
 
-   ***EXAMPLE 07C0\_smoothing.csd***
+   ***EXAMPLE 07C04_smoothing.csd***
 
 ~~~csound
 <CsoundSynthesizer>
