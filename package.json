@@ -46,6 +46,7 @@
     "build:pdf": "node pandoc/build_pdf.js",
     "build:epub": "node pandoc/build_epub.js",
     "build:odt": "node pandoc/build_odt.js",
+    "extract:examples": "node pandoc/extract_csd_examples.js",
     "test": "jest",
     "test:ci": "jest --ci"
   },
