@@ -1,5 +1,6 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { css } from "@emotion/core";
+import { css } from "@emotion/react";
 
 export const root = css`
   max-width: 800px;

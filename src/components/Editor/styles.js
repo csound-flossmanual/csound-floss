@@ -1,7 +1,8 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { css } from "@emotion/core";
+import { css } from "@emotion/react";
 
-export const codeMirror = isCsd => css`
+export const codeMirror = (isCsd) => css`
   margin-top: 12px;
   white-space: pre-wrap;
   margin-bottom: 24px;

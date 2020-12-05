@@ -1,5 +1,6 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { jsx } from "@emotion/core";
+import { jsx } from "@emotion/react";
 // eslint-disable-next-line no-unused-vars
 import React from "react";
 // import pwaLogo from "../../assets/pwa_wikimedia.png";
@@ -33,8 +34,9 @@ const HomeScreen = () => (
     <hr style={{ backgroundColor: "#333", height: 2 }} />
     <div css={ß.grid}>
       <a
-        href={`/build/csound-flossmanual-${process.env
-          .REACT_APP_CSOUND_FLOSS_VERSION || "dev"}.epub`}
+        href={`/build/csound-flossmanual-${
+          process.env.REACT_APP_CSOUND_FLOSS_VERSION || "dev"
+        }.epub`}
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -42,8 +44,9 @@ const HomeScreen = () => (
         <p>{`Download the EPUB version`}</p>
       </a>
       <a
-        href={`/build/csound-flossmanual-${process.env
-          .REACT_APP_CSOUND_FLOSS_VERSION || "dev"}.pdf`}
+        href={`/build/csound-flossmanual-${
+          process.env.REACT_APP_CSOUND_FLOSS_VERSION || "dev"
+        }.pdf`}
         target="_blank"
         rel="noopener noreferrer"
       >
@@ -51,8 +54,9 @@ const HomeScreen = () => (
         <p>{`Download the PDF version`}</p>
       </a>
       <a
-        href={`/build/csound-flossmanual-${process.env
-          .REACT_APP_CSOUND_FLOSS_VERSION || "dev"}.odt`}
+        href={`/build/csound-flossmanual-${
+          process.env.REACT_APP_CSOUND_FLOSS_VERSION || "dev"
+        }.odt`}
         target="_blank"
         rel="noopener noreferrer"
       >

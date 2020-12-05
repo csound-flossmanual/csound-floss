@@ -1,5 +1,6 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { css } from "@emotion/core";
+import { css } from "@emotion/react";
 
 export const hr = css`
   margin-top: 8px;

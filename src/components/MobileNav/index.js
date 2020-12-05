@@ -1,5 +1,6 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import { css, jsx } from "@emotion/react";
 // eslint-disable-next-line no-unused-vars
 import React, { lazy, Suspense, useEffect, useState } from "react";
 import { navigate } from "../../history";
@@ -81,15 +82,15 @@ const groupBadgeStyles = {
   textAlign: "center",
 };
 
-const formatGroupLabel = data => (
+const formatGroupLabel = (data) => (
   <div style={groupStyles}>
     <span>{data.label}</span>
     <span style={groupBadgeStyles}>{data.options.length}</span>
   </div>
 );
 
-const trim = s => s.replace(/^\s+|\s+$/g, "");
-const capitalize = s => {
+const trim = (s) => s.replace(/^\s+|\s+$/g, "");
+const capitalize = (s) => {
   if (typeof s !== "string") return "";
   return (
     s.charAt(0).toUpperCase() + " - " + s.charAt(2).toUpperCase() + s.slice(3)
@@ -108,12 +109,12 @@ const createSelectDataChapter = (route, chapterNumber) => ({
   label: `${chapterNumber} - ${route.name}`,
 });
 
-const createSelectDataSection = route => ({
+const createSelectDataSection = (route) => ({
   value: route.url,
   label: moduleToName(route.module),
 });
 
-const getChapterData = chapterNum => {
+const getChapterData = (chapterNum) => {
   const raw = filter(
     propEq("chapter", chapterNum),
     reject(propEq("module", "00--aa-toc"), routes)
@@ -126,7 +127,7 @@ const getChapterData = chapterNum => {
 const getAllChapters = () => {
   const numChapters = reduce(max, -Infinity, map(prop("chapter"), routes));
   const routesWithoutTOC = reject(propEq("module", "00--aa-toc"), routes);
-  return map(n =>
+  return map((n) =>
     createSelectDataChapter(
       find(propEq("chapter", n), routesWithoutTOC),
       n || 0
@@ -153,7 +154,7 @@ function MobileNav({ routeIndex }) {
       isSearchable={false}
       menuPosition={"fixed"}
       menuPlacement={isBottomReached ? "bottom" : "top"}
-      onChange={e => (typeof e.value === "string" ? navigate(e.value) : null)}
+      onChange={(e) => (typeof e.value === "string" ? navigate(e.value) : null)}
       styles={{
         container: (provided, state) =>
           Object.assign(provided, selectContainer),

@@ -1,5 +1,6 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { jsx } from "@emotion/core";
+import { jsx } from "@emotion/react";
 import React from "react";
 import { Link } from "react-router-dom";
 import useBook from "../../BookContext";
@@ -34,9 +35,9 @@ const IconArrowRight = () => (
   <span style={{ fontFamily: "FontAwesome" }}>&#xf101;</span>
 );
 
-const trim = s => s.replace(/^\s+|\s+$/g, "");
+const trim = (s) => s.replace(/^\s+|\s+$/g, "");
 
-const capitalize = s => {
+const capitalize = (s) => {
   if (typeof s !== "string") return "";
   return (
     s.charAt(0).toUpperCase() + " - " + s.charAt(2).toUpperCase() + s.slice(3)
@@ -61,10 +62,7 @@ const trimSubChapterLetter = pipe(replace(/^[A-Z]\s?-?/g, ""), trim);
 const makeNavName = ({ module = "", name }) => {
   const split = module.match(/^[0-9]+-+[a-zA-Z]/g);
   return split.length > 0
-    ? split[0]
-        .replace("-", ".")
-        .replace(/^0/g, "")
-        .toUpperCase()
+    ? split[0].replace("-", ".").replace(/^0/g, "").toUpperCase()
     : "";
 };
 
@@ -73,12 +71,12 @@ const createSelectDataChapter = (route, chapterNumber) => ({
   label: `${chapterNumber} - ${route.name}`,
 });
 
-const createSelectDataSection = route => ({
+const createSelectDataSection = (route) => ({
   value: route.url,
   label: moduleToName(route.module),
 });
 
-const getChapterData = chapterNum => {
+const getChapterData = (chapterNum) => {
   const raw = filter(
     propEq("chapter", chapterNum),
     reject(propEq("module", "00--aa-toc"), routes)
@@ -91,7 +89,7 @@ const getChapterData = chapterNum => {
 const getAllChapters = () => {
   const numChapters = reduce(max, -Infinity, map(prop("chapter"), routes));
   const routesWithoutTOC = reject(propEq("module", "00--aa-toc"), routes);
-  return map(n =>
+  return map((n) =>
     createSelectDataChapter(
       find(propEq("chapter", n), routesWithoutTOC),
       n || 1
@@ -230,7 +228,7 @@ function LeftNav({ routeIndex }) {
     return (
       <li key={index} css={ß.chapterItem}>
         <Link
-          onClick={e => isActive && e.preventDefault()}
+          onClick={(e) => isActive && e.preventDefault()}
           to={value}
           style={{
             pointerEvents: isActive ? "none" : "inherit",

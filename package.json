@@ -4,11 +4,13 @@
   "private": true,
   "dependencies": {
     "@emotion/core": "^11.0.0",
+    "@emotion/react": "^11.1.1",
     "chokidar": "^3.4.3",
     "codemirror": "^5.58.3",
     "core-js": "^3.8.0",
     "csound-manual-react": "^1.0.0-alpha16",
     "csound-wasm": "^6.15.0-5",
+    "dom-serializer": "^1.2.0",
     "filesize": "^6.1.0",
     "he": "^1.2.0",
     "history": "^4.10.1",
@@ -38,6 +40,7 @@
   },
   "resolutions": {
     "html-to-jsx/cheerio": "^1.0.0-rc.3",
+    "html-to-jsx/cheerio/dom-serializer": "^1.2.0",
     "html-to-jsx/cheerio/lodash": "^4.17.15"
   },
   "scripts": {

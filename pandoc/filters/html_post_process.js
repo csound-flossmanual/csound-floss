@@ -3,11 +3,11 @@ const { DomHandler, DomUtils, Parser } = require("htmlparser2");
 const mjAPI = require("mathjax-node");
 const { buildLink } = require("../utils");
 
-const isAbsoluteUrl = url => /^https?:\/\//i.test(url);
+const isAbsoluteUrl = (url) => /^https?:\/\//i.test(url);
 
-const newArray = arr => arr.map(a => Object.assign({}, a));
+const newArray = (arr) => arr.map((a) => Object.assign({}, a));
 
-const parse = str => {
+const parse = (str) => {
   let result;
   const handler = new DomHandler((error, dom) => {
     if (error) {
@@ -23,8 +23,8 @@ const parse = str => {
   return result;
 };
 
-const insertLinkElement = dom => {
-  DomUtils.findAll(elem => elem.name === "a", dom).forEach(elem => {
+const insertLinkElement = (dom) => {
+  DomUtils.findAll((elem) => elem.name === "a", dom).forEach((elem) => {
     if (
       elem.attribs.href &&
       !isAbsoluteUrl(elem.attribs.href) &&
@@ -40,8 +40,8 @@ const insertLinkElement = dom => {
   return dom;
 };
 
-const fixPreTags = dom => {
-  DomUtils.findAll(elem => elem.name === "pre", dom).forEach(elem => {
+const fixPreTags = (dom) => {
+  DomUtils.findAll((elem) => elem.name === "pre", dom).forEach((elem) => {
     if (
       R.hasPath(["children", 0, "name"], elem) &&
       R.path(["children", 0, "name"], elem) === "code"
@@ -53,7 +53,7 @@ const fixPreTags = dom => {
   return dom;
 };
 
-const escapeCodeData = str =>
+const escapeCodeData = (str) =>
   str
     .replace(/\\n/g, "\\\\n")
     .replace(/\\'/g, "\\\\'")
@@ -64,8 +64,8 @@ const escapeCodeData = str =>
     .replace(/\\b/g, "\\\\b")
     .replace(/\\f/g, "\\\\f");
 
-const fixCodeTags = dom => {
-  DomUtils.findAll(elem => elem.name === "code", dom).forEach(elem => {
+const fixCodeTags = (dom) => {
+  DomUtils.findAll((elem) => elem.name === "code", dom).forEach((elem) => {
     if (R.pathOr("", ["attribs", "class"], elem).match(/^sourceCode +/g)) {
       elem.name = "CodeElement";
       elem.attribs.data = DomUtils.getText(elem);
@@ -90,11 +90,11 @@ const fixCodeTags = dom => {
   return dom;
 };
 
-const wrapMathJax = dom => {
+const wrapMathJax = (dom) => {
   DomUtils.findAll(
-    elem => R.pathOr("", ["attribs", "class"], elem).startsWith("math"),
+    (elem) => R.pathOr("", ["attribs", "class"], elem).startsWith("math"),
     dom
-  ).forEach(elem => {
+  ).forEach((elem) => {
     if (R.hasPath(["children", 0, "data"], elem)) {
       elem.name = "MathJax.Node";
       elem.attribs = R.pipe(
@@ -120,5 +120,6 @@ module.exports = R.pipe(
   fixPreTags,
   fixCodeTags,
   wrapMathJax,
-  elems => DomUtils.getOuterHTML(elems, { decodeEntities: true, xmlMode: true })
+  (elems) =>
+    DomUtils.getOuterHTML(elems, { decodeEntities: true, xmlMode: true })
 );

@@ -1,5 +1,6 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { jsx } from "@emotion/core";
+import { jsx } from "@emotion/react";
 // eslint-disable-next-line no-unused-vars
 import React, { lazy, Suspense, useEffect, useState } from "react";
 import HomeScreen from "../HomeScreen";
@@ -60,7 +61,7 @@ function Main({ currentRoute, mobileMode, setCurrentRoute }) {
         <div>
           <Switch>
             {map(
-              route => (
+              (route) => (
                 <Route
                   path={route.url}
                   key={route.module}

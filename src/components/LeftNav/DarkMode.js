@@ -1,5 +1,6 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { jsx, css } from "@emotion/core";
+import { jsx, css } from "@emotion/react";
 import { equals } from "ramda";
 import React from "react";
 const {
@@ -137,7 +138,7 @@ const getLocalStorageVal = () =>
   typeof window.localStorage.getItem === "function" &&
   equals(window.localStorage.getItem("dark_mode_enabled"), "1");
 
-const setLocalStorageState = enabled =>
+const setLocalStorageState = (enabled) =>
   typeof window.localStorage !== "undefined" &&
   typeof window.localStorage.setItem === "function" &&
   window.localStorage.setItem("dark_mode_enabled", enabled ? "1" : "0");

@@ -1,6 +1,7 @@
 /* eslint-disable */
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { jsx } from "@emotion/core";
+import { jsx } from "@emotion/react";
 // eslint-disable-next-line no-unused-vars
 import React, { useCallback, useState } from "react";
 import useCsound from "../../CsoundContext";

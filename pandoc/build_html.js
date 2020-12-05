@@ -30,8 +30,8 @@ function execMarkdownToHtml(fileName) {
   );
   const htmlString = readFileWithFallback(tmpDest);
   const escapedHtmlString = htmlString
-    .replace(/{/g, "&#123;")
-    .replace(/}/g, "&#125;")
+    .replace(/{/g, "&amp;#123;")
+    .replace(/}/g, "&amp;#125;")
     .replace(/\\n/g, "\\n")
     .replace(/\\'/g, "\\'")
     .replace(/\\"/g, '\\"')

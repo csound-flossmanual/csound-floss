@@ -1,5 +1,6 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { css } from "@emotion/core";
+import { css } from "@emotion/react";
 
 export const main = css`
   padding: 48px 12px;

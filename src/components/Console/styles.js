@@ -1,5 +1,6 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
-import { css } from "@emotion/core";
+import { css } from "@emotion/react";
 
 const shadow = css`
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),

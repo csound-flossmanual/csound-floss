@@ -11,9 +11,9 @@ const allChapters = fg.sync([`${BOOK_DIRECTORY}/*.md`], { dot: false });
 const buildAllHtml = () => {
   ensureEmptyDir(JSX_OUTPUT);
   R.pipe(
-    R.map(chapter => execMarkdownToHtml(chapter)),
+    R.map((chapter) => execMarkdownToHtml(chapter)),
     JSON.stringify,
-    json => fs.writeFileSync(path.join(JSX_OUTPUT, `routes.json`), json)
+    (json) => fs.writeFileSync(path.join(JSX_OUTPUT, `routes.json`), json)
   )(allChapters);
 };
 
