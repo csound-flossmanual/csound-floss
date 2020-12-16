@@ -820,7 +820,7 @@ The text files *ambisonics_udos.txt*, *ambisonics2D_udos.txt*,
 *AEP_udos.txt* and *utilities.txt* must be located in the same
 folder as the csd files or included with full path.^[
 These files can be downloaded together with the entire examples (some of
-them for CsoundQt) from <(https://www.zhdk.ch/index.php?id=icst_ambisonicsudo>]
+them for CsoundQt) from https://www.zhdk.ch/5382]
 
 ### Introduction
 
