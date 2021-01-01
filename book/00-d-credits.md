@@ -1,6 +1,22 @@
 CREDITS
 =======
 
+This textbook is a collective effort. If someone's name is missing in the list below. please contact us.
+
+The goal of this work is to share knowledge about the Free (Libre) Open Source Software Csound 
+for anyone. So any usage which contributes to this goal is welcome. The license below is to
+serve this goal. If you are not sure about a usage, please contact us, and we will find a solution.
+
+#### LICENSE
+
+copyright (c) 2020 by Joachim Heintz and contributors
+
+The content of this book is released under creative commons license **CC-BY 4.0**. 
+In short, anyone is allowed to copy, redistribute and transform the content,
+as long as appropriate credit is given to the source. For more information see
+[https://creativecommons.org/licenses/by/4.0/](https://creativecommons.org/licenses/by/4.0/).
+
+
 
 #### 00 INTRODUCTION
 
@@ -278,8 +294,6 @@ Joachim Heintz, Stefano Bonetti
 
 <hr/>
 
-\newpage
-
 
 V.1 - Final Editing Team in March 2011:
 
@@ -309,4 +323,4 @@ V.7 - Final Editing and Programming Team 2019/20:
 
 Joachim Heintz, Hlöðver Sigurðsson
 
-\newpage
+
