@@ -258,7 +258,7 @@ A frequently occuring error is that instead of setting the k-variable as
 statements has one significant difference. *kCount init 0* sets the
 value for kCount to zero only in the init pass, without affecting it
 during the performance pass. *kCount = 0* sets the value for kCount to
-zero again and again, in each performance cycle. So the increment always
+zero again and again, in each control cycle. So the increment always
 starts from the same point, and nothing really happens:
 
    ***EXAMPLE 03A04\_Perf-pass\_no\_incr.csd***
