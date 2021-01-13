@@ -32,10 +32,14 @@ The [Csound Journal](http://csoundjournal.com/index.html)
 is a main source for different aspects of working with Csound.
 
 
-Mailing Lists and Bug Tracker
------------------------------
+Forums and Mailing Lists
+------------------------
 
-Main place for questions and informations is the Csound Mailing List. To
+The main forum to put questions concerning the usage of Csound is the 
+[**Csound Forum**](https://forum.csound.com). It has categories and different possibilities how to 
+put questions (or help qith answers).
+
+The traditional place for questions and answers is the Csound Mailing List. To
 subscribe to the **Csound User** Discussion List, go to
 <https://listserv.heanet.ie/cgi-bin/wa?A0=CSOUND>. After subscribing,
 put questions at csound\@listserv.heanet.ie. You can search in the list
@@ -52,14 +56,24 @@ browse the list archive
 **Csound Developer** Discussions:
 <https://listserv.heanet.ie/cgi-bin/wa?A0=CSOUND-DEV>
 
-**Blue**: <http://sourceforge.net/mail/?group_id=74382>
+**Blue**: <https://lists.sourceforge.net/mailman/listinfo/bluemusic-users>
 
 **Cabbage** <http://forum.cabbageaudio.com/>
 
-Please report any **bug** you experienced in **Csound** at
-<http://github.com/csound/csound/issues>, and a **CsoundQt** related bug
-at
-<http://sourceforge.net/tracker/?func=browse&group_id=227265&atid=1070588>.
+
+Bug Tracker
+-----------
+
+It should be distinguished whether an issue belongs to Csound or to one of the frontends.
+Rule of thumb: If an issue has nothing to do with a graphical element or any frontend-specific
+feature, it belongs to Csound. Otherwise it belongs to CsoundQt, Cabbage ot Blue.
+
+Links for the issue trackers:  
+- [Core Csound](https://github.com/csound/csound/issues)  
+- [CsoundQt](https://github.com/CsoundQt/CsoundQt/issues)  
+- [Cabbage](https://forum.cabbageaudio.com/)  
+- [Blue](http://www.github.com/kunstmusik/blue/issues)  
+
 Every bug report is an important contribution.
 
 
