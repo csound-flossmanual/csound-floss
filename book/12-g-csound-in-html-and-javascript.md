@@ -9,11 +9,11 @@ in at least the following environments:
 
 1. [CsoundQt](https://csoundqt.github.io/), described in [10 A](10-a-csoundqt.md).
 2. The Csound for Android app, described in [12 E](12-e-csound-on-android.md).
-3. The [csound.node](https://github.com/gogins/csound-extended/tree/develop/csound.node) extension for [NW.js](https://nwjs.io/).
+3. The [csound.node](https://github.com/gogins/csound-extended-node) extension for [NW.js](https://nwjs.io/).
 4. Csound built for WebAssembly, which has two slightly different forms:
 
    1. The canonical build, described in [10 F](10-f-web-based-csound.md).
-   2. The [csound-extended](https://github.com/gogins/csound-extended/tree/develop/WebAssembly) build.
+   2. The [csound-extended](https://github.com/gogins/csound-extended-wasm/releases/tag/v2.0.0) build.
 
 For instructions on installing any of these environments, please consult the
 documentation provided in the links mentioned above.
