@@ -122,7 +122,7 @@ stored in a container called *aSin*. The order of the arguments is
 important: the first input to *poscil* will always be amplitude and the
 second input will always be read by Csound as frequency.
 
-Since Csound6, the code can be written in a way which is knows from many
+Since Csound6, the code can be written in a way which is known from many
 other programming languages:
 
     aSin = poscil(0dbfs/4,440)
