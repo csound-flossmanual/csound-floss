@@ -55,6 +55,7 @@ jobs:
         with:
           name: dist
           path: dist.zip
+
   deploy-dev:
     if: github.event_name == 'push'
     name: DeployDev
@@ -76,4 +77,4 @@ jobs:
         with:
           args: deploy -P develop --only hosting
         env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN_DEV }}
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY_DEV }}
