@@ -319,7 +319,7 @@ aSig     poscil   aEnv, 500
 </CsInstruments>
 <CsScore>
 i 1 0 2 ; line envelope
-i 2 2 1 ; expon envelope
+i 2 2 2 ; expon envelope
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
