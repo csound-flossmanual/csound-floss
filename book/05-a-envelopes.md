@@ -393,12 +393,20 @@ opcodes wait until a held note is turned off before executing their
 final envelope segment. To facilitate this mechanism they extend the
 duration of the note so that this final envelope segment can complete.
 
-The following example uses midi input (either hardware or virtual) to
-activate notes. The use of the *linsegr* envelope means that after the
-short attack stage lasting 0.1 seconds, the penultimate value of 1 will
-be held as long as the note is sustained but as soon as the note is
-released the note will be extended by 0.5 seconds in order to allow the
-final envelope segment to decay to zero.
+The typical situation for using one of these opcodes is when using a 
+midi keyboard. When a key is released, a fade-out must be applied to 
+avoid clicks. Another typical situation is shown in the next example: 
+a running instrument is turned off by another instrument. Similar to the 
+midi keyboard usage, the instrument must add in this case a release segment 
+to avoid clicks. The example shows both: how it sounds without release, and
+how it sounds with release. This is done via the last parameter of 
+the [turnoff2](https://csound.com/docs/manual/linenr.html) opcode. If *krelease* 
+is set to zero, it will not allow the instrument it terminates to
+performs its release segment. This results in audible clicks on the first run.
+The second run (after creating a new cluster of random notes in the middle range)
+instead allows the release segment (in setting *krelease* to 1), so each 
+of the notes gets a soft fade-out. (This example can be changed to be used
+via midi keyboard; follow the comments in the code in this case.)
 
 
 ***EXAMPLE 05A08_linsegr.csd***
@@ -406,29 +414,67 @@ final envelope segment to decay to zero.
 ~~~csound
 <CsoundSynthesizer>
 <CsOptions>
--odac -+rtmidi=virtual -M0
-; activate real time audio and MIDI (virtual midi device)
+-odac
 </CsOptions>
 <CsInstruments>
+
 sr = 44100
-ksmps = 32
+ksmps = 64
 nchnls = 2
 0dbfs = 1
+seed 0
 
-  instr 1
-icps     cpsmidi
-;                 attack-|sustain-|-release
-aEnv     linsegr  0, 0.01,  0.1,    0.5,0; envelope that senses note releases
-aSig     poscil   aEnv, icps             ; audio oscillator
-         out      aSig, aSig             ; audio sent to output
-  endin
+instr Generate
+ //create and start 10 instances of instr Play
+ indx = 0
+ while indx < 10 do
+  schedule "Play", 0, 15
+  indx += 1
+ od
+endin
+
+instr Play
+ iMidiNote random 60, 72
+ //use the following line instead when using midi input
+ ;iMidiNote notnum
+ ;                 attack-|sustain-|-release
+ aEnv     linsegr  0, 0.01,  0.1,    0.5,0; envelope that senses note releases
+ aSig     poscil   aEnv, mtof:i(iMidiNote); audio oscillator
+          out      aSig, aSig             ; audio sent to output
+endin
+
+instr TurnOff_noRelease
+ //turn off the ten instances from instr Play starting from the oldest one
+ //and do not allow the release segment to be performed (result: clicks)
+ kTrigFreq init 1
+ kTrig metro kTrigFreq
+ if kTrig == 1 then
+  kRelease = 0 ;no release allowed
+  turnoff2 "Play", 1, kRelease
+ endif
+endin
+
+instr TurnOff_withRelease
+ //turn off the ten instances from instr Play starting from the oldest one
+ //and do allow the release segment to be performed (no clicks any more)
+ kTrigFreq init 1
+ kTrig metro kTrigFreq
+ if kTrig == 1 then
+  kRelease = 1 ;release allowed
+  turnoff2 "Play", 1, 1
+ endif
+endin
 
 </CsInstruments>
 <CsScore>
-e 240 ; csound performance for 4 minutes
+//for real-time midi input, comment out all score lines
+i "Generate" 0 0
+i "TurnOff_noRelease" 1 11
+i "Generate" 15 0
+i "TurnOff_withRelease" 16 11
 </CsScore>
 </CsoundSynthesizer>
-;example by Iain McCurdy
+;example by joachim heintz
 ~~~
 
 
