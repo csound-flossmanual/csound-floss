@@ -71,7 +71,7 @@ const HomeScreen = () => (
         target="_blank"
         rel="noopener noreferrer"
       >
-        <p>{`List of all releases`}</p>
+        <p>{`List and zip files of all releases and materials`}</p>
       </a>
     </div>
   </div>
