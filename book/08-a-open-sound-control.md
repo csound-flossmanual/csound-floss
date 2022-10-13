@@ -331,3 +331,69 @@ The examples in this chapter were simple demonstrations of how different data ty
 - [OSCbundle](https://csound.com/docs/manual/OSCbundle.html) sends OSC messages in a bundle rather than single messages.  
 - There is a variant of *OSCsend* called *OSCsend_lo* which uses the liblo library.
 
+
+
+Practical Examples
+------------------
+
+We will show here some examples for the communication between Csound and [Processing](https://processing.org). Processing is a well-established programming language for any kind of image processing, including video recording and playback. The OSC library for Processing is called *oscP5*. After installing this library, it can be used for both, sending and receiving Open Sound Control messages in any way.
+
+### Video Playback
+
+We may start the video in Processing with a Csound message like this:
+
+    instr 1
+	  OSCsend(1,"",12000,"/launch2/start","i",1)
+    endin
+    schedule(1,0,1)
+
+This means that we send the integer 1 to the address "launch2/start" on port 12000.
+
+To receive this message in Processing, we import the oscP5 library and create a new OscP5 instance which listens to port 12000:
+
+    import oscP5.*;
+    OscP5 oscP5;
+    oscP5 = new OscP5(this,12000);
+    
+Then we use the `pluck()` method which passes the OSC messages of a certain address (here "/launch2/start") to a method with a user-defined name. We call it "startVideo" here:
+
+    oscP5.plug(this,"startVideo","/launch2/start");
+    
+All we have to do now is to wrap Processing's video `play()` message in this `startVideo` method. This is the full example code, referring to the video "launch2.mp4" which can be found in the Processing examples:
+
+~~~processing
+//import the video and osc library
+import processing.video.*; 
+import oscP5.*;
+//create objects
+OscP5 oscP5;
+Movie movie;
+
+void setup() {
+  size(560, 406);
+  background(0);
+  // load the video
+  movie = new Movie(this,"launch2.mp4");
+  //receive OSC
+  oscP5 = new OscP5(this,12000);
+  //pass the message to the startVideo method
+  oscP5.plug(this,"startVideo","/launch1/start");
+}
+
+//activate video playback when startVideo receives 1
+void startVideo(int onOff) {
+    if (onOff == 1) {
+    movie.play();
+  }
+}
+
+//callback function to read new frames
+void movieEvent(Movie m) {
+  m.read();
+}
+
+//show it
+void draw() {
+  image(movie, 0, 0, width, height);
+}
+~~~
