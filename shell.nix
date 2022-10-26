@@ -49,8 +49,8 @@ let
     haskellPackages.pandoc
     tetex
     texliveDeps
-    nodejs
-    yarn
+    nodejs-16_x
+    (yarn.override { nodejs = pkgs.nodejs-16_x; })
   ];
 in pkgs.symlinkJoin {
   name = "csound-floss-build-deps";
