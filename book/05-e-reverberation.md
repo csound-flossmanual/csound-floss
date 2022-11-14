@@ -273,7 +273,7 @@ and ringing artefacts. The results produced by the freeverb opcode are
 very smooth but a criticism might be that it is lacking in character and
 is more suggestive of a plate reverb than of a real room.
 
-![](../resources/images/05-e-soundmod-schroeder-min.jpg)
+![](../resources/images/05-e-soundmod-schroeder.jpg)
 
 The next example implements the basic Schroeder reverb with four
 parallel comb filters followed by three series allpass filters. This
