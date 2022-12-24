@@ -22,3 +22,4 @@ python-env
 __tmp*
 examples
 examples.zip
+*.ipynb_checkpoints
