@@ -333,23 +333,22 @@ The examples in this chapter were simple demonstrations of how different data ty
 
 
 
-Practical Examples
-------------------
+Practical Examples with Processing
+----------------------------------
 
 We will show here some examples for the communication between Csound and [Processing](https://processing.org). Processing is a well-established programming language for any kind of image processing, including video recording and playback. The OSC library for Processing is called *oscP5*. After installing this library, it can be used for both, sending and receiving Open Sound Control messages in any way.
 
-### Video Playback
+### Csound to Processing: Video Playback
 
-We may start the video in Processing with a Csound message like this:
+We often want to use visuals in connection with audio. A simple case is that we have a live electronic setup and at a certain point we want to start a video. We may want to start the video in Processing with a Csound message like this:
 
-    instr 1
+    instr StartVideo
 	  OSCsend(1,"",12000,"/launch2/start","i",1)
     endin
-    schedule(1,0,1)
 
 This means that we send the integer 1 to the address "launch2/start" on port 12000.
 
-To receive this message in Processing, we import the oscP5 library and create a new OscP5 instance which listens to port 12000:
+To receive this message in Processing, we import the `oscP5` library and create a new `OscP5` instance which listens to port 12000:
 
     import oscP5.*;
     OscP5 oscP5;
@@ -377,7 +376,7 @@ void setup() {
   //receive OSC
   oscP5 = new OscP5(this,12000);
   //pass the message to the startVideo method
-  oscP5.plug(this,"startVideo","/launch1/start");
+  oscP5.plug(this,"startVideo","/launch2/start");
 }
 
 //activate video playback when startVideo receives 1
@@ -397,3 +396,98 @@ void draw() {
   image(movie, 0, 0, width, height);
 }
 ~~~
+
+To start the video by hitting any key we can write something like this on the Csound side:
+
+~~~
+instr ReceiveKey 
+ kKey, kPressed sensekey
+ if kPressed==1 then
+  schedulek("StartVideo",0,1)  
+ endif
+endin
+schedule("ReceiveKey",0,-1)
+
+instr StartVideo
+ OSCsend(1,"",12000,"/launch2/start","i",1)
+endin
+~~~
+
+
+### Processing to Csound: Mouse Pressed
+
+We start with a simple example for swapped roles: Processing is now the sender of the OSC message, and Csound the receiver.
+
+For processing, sending OSC is recommended by using this method:
+
+	oscP5.send(OscMessage, myRemoteLocation)
+	
+where `myRemoteLocation` is a `NetAddress` which is created by the library `netP5`. This is the code for sending an integer count whenever the mouse is pressed via OSC. The message is sent on port 12002 to the address "/P5/pressed".
+
+~~~processing
+//import oscP5 and netP5 libraries
+import oscP5.*;
+import netP5.*;
+//initialize objects
+OscP5 oscP5;
+NetAddress myRemoteLocation;
+
+int count;
+
+void setup(){
+  size(600, 400);
+  //create OSC object, listening at port 12001
+  oscP5 = new OscP5(this,12001); 
+  //create NetAddress for sending: localhost at port 12002
+  myRemoteLocation = new NetAddress("127.0.0.1",12002);
+  //initialize variable for count
+  count = 0;
+}
+
+void mousePressed(){
+  //create new OSC message when mouse is pressed
+  OscMessage pressed = new OscMessage("/P5/pressed");
+  //add count to the message
+  count += 1;
+  pressed.add(count);
+  //send it
+  oscP5.send(pressed, myRemoteLocation);
+}
+
+void draw(){
+}
+~~~
+
+The following Csound code receives the messages and prints the count numbers:
+
+   ***EXAMPLE 08A06_receive_mouse_pressed.csd***
+
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-odac
+</CsOptions>
+<CsInstruments>
+
+sr = 44100
+ksmps = 64
+nchnls = 2
+0dbfs = 1
+
+instr ReceiveOSC
+ iPort = OSCinit(12002)
+ kAns, kMess[] OSClisten iPort, "/P5/pressed", "i"
+ printf "Mouse in Processing pressed %d times!\n", kAns, kMess[0]
+endin
+schedule("ReceiveOSC",0,-1)
+
+</CsInstruments>
+<CsScore>
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+~~~
+
+
+### Processing to Csound: Moving Lines
+
