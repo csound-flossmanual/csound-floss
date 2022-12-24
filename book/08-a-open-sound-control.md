@@ -491,3 +491,174 @@ schedule("ReceiveOSC",0,-1)
 
 ### Processing to Csound: Moving Lines
 
+For showing one simple example for the many possibilities to connect Processing's interactive visuals with Csound, we will use the *Distance 1D* example as basic. It shows two thin ans two thick lines which move on the screen in a speed which depends on the mouse position. We slightly modify the speed so that the four lines have four different speeds. Rather than ...
+
+~~~processing
+xpos1 += mx/16;
+xpos2 += mx/64;
+xpos3 -= mx/16;
+xpos4 -= mx/64;
+~~~
+
+... we write:
+
+~~~processing
+xpos1 += mx/16;
+xpos2 += mx/60;
+xpos3 -= mx/18;
+xpos4 -= mx/64;
+~~~
+
+And we send the x-positions of the four lines via the address "/P5/xpos" in this way:
+
+~~~processing
+//create OSC message and add the four x-positions
+OscMessage xposMessage = new OscMessage("/P5/xpos");
+xposMessage.add(xpos1); 
+xposMessage.add(xpos2); 
+xposMessage.add(xpos3); 
+xposMessage.add(xpos4); 
+//send it
+oscP5.send(xposMessage, myRemoteLocation); 
+~~~
+
+This is the complete Processing code:
+
+~~~processing
+//import oscP5 and netP5 libraries
+import oscP5.*;
+import netP5.*;
+//initialize objects
+OscP5 oscP5;
+NetAddress myRemoteLocation;
+
+//variables for the x position of the four lines
+//(adapted from processings Basics>Math>Distance 1D example) 
+float xpos1;
+float xpos2;
+float xpos3;
+float xpos4;
+int thin = 8;
+int thick = 36;
+
+void setup(){
+  size(640, 360);
+  noStroke();
+  xpos1 = width/2;
+  xpos2 = width/2;
+  xpos3 = width/2;
+  xpos4 = width/2;
+  //create OSC object, listening at port 12001
+  oscP5 = new OscP5(this,12001); 
+  //create NetAddress for sending: localhost at port 12002
+  myRemoteLocation = new NetAddress("127.0.0.1",12002);
+}
+
+void draw(){
+  //create movement depending on mouse position
+  background(0);
+  float mx = mouseX * 0.4 - width/5.0;
+  fill(102);
+  rect(xpos2, 0, thick, height/2);
+  rect(xpos4, height/2, thick, height/2);
+  fill(204);
+  rect(xpos1, 0, thin, height/2);
+  rect(xpos3, height/2, thin, height/2);	
+  xpos1 += mx/16;
+  xpos2 += mx/60;
+  xpos3 -= mx/18;
+  xpos4 -= mx/64;
+  if(xpos1 < -thin)  { xpos1 =  width; }
+  if(xpos1 >  width) { xpos1 = -thin; }
+  if(xpos2 < -thick) { xpos2 =  width; }
+  if(xpos2 >  width) { xpos2 = -thick; }
+  if(xpos3 < -thin)  { xpos3 =  width; }
+  if(xpos3 >  width) { xpos3 = -thin; }
+  if(xpos4 < -thick) { xpos4 =  width; }
+  if(xpos4 >  width) { xpos4 = -thick; }
+  
+  //create OSC message and add the four x-positions
+  OscMessage xposMessage = new OscMessage("/P5/xpos");
+  xposMessage.add(xpos1); 
+  xposMessage.add(xpos2); 
+  xposMessage.add(xpos3); 
+  xposMessage.add(xpos4); 
+  //send it
+  oscP5.send(xposMessage, myRemoteLocation); 
+}
+~~~
+
+On the Csound side, we receive the four x-positions on "/p5/xpos" as floating point numbers and write it to the global array *gkPos*:
+
+    kAns,gkPos[] OSClisten iPort, "/P5/xpos", "ffff"
+
+Each line in the Processing sketch is played by one instance of instrument "Line" in this way:  
+- the thick lines have a lower pitch than the thin lines  
+- in the middle of the canvas the sounds are louder (-20 dB compared to -40 dB at borders)
+- in the middle of the canvas the pitch is higher (one octave compared to the left/right)
+
+To achieve this, we build a function table *iTriangle* with 640 points (as much as the Processing canvas has x-points), containing a straight line from zero at left and right, to one in the middle:
+
+![iTriangle function table](../resources/images/08-a-table.sv){width=50%}
+
+The incoming x position is used for both, the volume (dB) and the pitch (MIDI). A vibrato is added to the sine waves (smaller but faster for higher pitches) to the sine waves, and the panning reflects the position of the lines between left and right.
+
+   ***EXAMPLE 08A07_P5_Csound_OSC.csd***
+
+~~~
+<CsoundSynthesizer>
+<CsOptions>
+-odac
+</CsOptions>
+<CsInstruments>
+
+sr = 44100
+ksmps = 64
+nchnls = 2
+0dbfs = 1
+
+instr GetLinePositions
+ //initialize port to receive OSC messages
+ iPort = OSCinit(12002)
+ //write the four x-positions in the global array gkPos
+ kAns,gkPos[] OSClisten iPort, "/P5/xpos", "ffff"
+ //call four instances of the instrument Line
+ indx = 0
+ while indx < 4 do
+  schedule("Line",0,9999,indx+1)
+  indx += 1
+ od
+endin
+schedule("GetLinePositions",0,-1)
+
+instr Line
+ iLine = p4 //line 1-4 in processing
+ kPos = gkPos[iLine-1]
+ //table for volume (db) and pitch (midi)
+ iTriangle = ftgen(0,0,641,-7,0,320,1,320,0)
+ //volume is -40 db left/right and -20 in the middle of the screen
+ kVolDb = tablei:k(kPos,iTriangle)*30 - 40
+ //reduce by 4 db for the higher pitches (line 1 and 3)
+ kVolDb = (iLine % 2 != 0) ? kVolDb-4 : kVolDb
+ //base pitch is midi 50 for thick and 62 for thin lines
+ iMidiBasePitch = (iLine % 2 == 0) ? 50 : 62
+ //pitch is one octave plus iLine higher in the middle
+ kMidiPitch = table:k(kPos,iTriangle)*12 + iMidiBasePitch+iLine
+ //vibrato depending on line number
+ kVibr = randi:k(iLine/4, 100/iLine,2)
+ //generate sound and apply gentle fade in
+ aSnd = poscil:a(ampdb(kVolDb),mtof:k(kMidiPitch+kVibr))
+ aSnd *= linseg:a(0,1,1)
+ //panning follows position on screen
+ aL, aR pan2 aSnd, kPos/640
+ out(aL,aR)
+endin
+
+</CsInstruments>
+<CsScore>
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+~~~
+
+Open Sound Control is the way to communicate between Processing and Csound as independent applications. Another way for connecting these extensive libraries for image and audio processing is by using JavaScript, and run both in a browser. Have a look at chapter [10 F](10-f-web-based-csound.md) and [12 G](12-g-csound-in-html-and-javascript.md) for more information.
