@@ -47,6 +47,7 @@ let
     fontconfig
     fira
     haskellPackages.pandoc
+    librsvg
     tetex
     texliveDeps
     nodejs-18_x
