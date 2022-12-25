@@ -5,7 +5,7 @@ import { jsx } from "@emotion/react";
 import React, { lazy, Suspense, useEffect, useState } from "react";
 import HomeScreen from "../HomeScreen";
 // import TOC from "../../book_fragments/00--aa-toc";
-import { Route, Switch } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import routes from "../../book_fragments/routes.json";
 import { map } from "ramda";
 import { browserHistory } from "../../history";
@@ -57,27 +57,27 @@ function Main({ currentRoute, mobileMode, setCurrentRoute }) {
     <main
       css={currentRoute === "/" ? ß.home : mobileMode ? ß.mainMobile : ß.main}
     >
-      <Suspense fallback={<LoadingSpinner />}>
-        <div>
-          <Switch>
-            {map(
-              (route) => (
-                <Route
-                  path={route.url}
-                  key={route.module}
-                  component={lazy(() =>
-                    import(`../../book_fragments/${route.module}`)
-                  )}
-                />
-              ),
-              routes
-            )}
-            <Route path={"/"}>
-              <HomeScreen />
-            </Route>
-          </Switch>
-        </div>
-      </Suspense>
+      <div>
+        <Routes>
+          {map((route) => {
+            const LazyComp = lazy(() =>
+              import(`../../book_fragments/${route.module}`)
+            );
+            return (
+              <Route
+                path={route.url}
+                key={route.module}
+                element={
+                  <Suspense fallback={<LoadingSpinner />}>
+                    <LazyComp />
+                  </Suspense>
+                }
+              />
+            );
+          }, routes)}
+          <Route path="/" element={<HomeScreen />} />
+        </Routes>
+      </div>
     </main>
   );
 }

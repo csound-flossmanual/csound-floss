@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React, { createContext, useContext, useReducer } from "react";
-import { lookup as mimeLookup } from "mime-types";
+import { getType as mimeLookup } from "mime/lite";
 import {
   append,
   assoc,
@@ -23,14 +23,14 @@ const handleEndOfPerformance = async (
   loadedSamples
 ) => {
   const files = await libcsound.lsFs();
-  const newFiles = reject(f => loadedSamples.includes(f), files);
+  const newFiles = reject((f) => loadedSamples.includes(f), files);
 
   if (!isEmpty(newFiles)) {
-    const newFilesDetails = filter(f => newFiles.includes(f.name))(
+    const newFilesDetails = filter((f) => newFiles.includes(f.name))(
       await libcsound.llFs()
     );
     const newFilesWithBlobs = await Promise.all(
-      newFilesDetails.map(async f => {
+      newFilesDetails.map(async (f) => {
         const arrayBuffer = await libcsound.readFromFs(f.name);
         const mimeType = mimeLookup(f.name);
         const blob = new Blob([arrayBuffer], { type: mimeType });
@@ -112,7 +112,7 @@ const reducer = (state, action) => {
             assoc("isPaused", false),
             assoc("isPlaying", true),
             assoc("isLoading", false),
-            when(s => !s.logDialogClosed, assoc("logDialogOpen", true))
+            when((s) => !s.logDialogClosed, assoc("logDialogOpen", true))
           )(state);
         }
         case "realtimePerformancePaused": {

@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const toc = require("../toc.json");
 
-const deleteFolderRecursive = dirPath => {
+const deleteFolderRecursive = (dirPath) => {
   if (fs.existsSync(dirPath)) {
     fs.readdirSync(dirPath).forEach((file, index) => {
       const curPath = path.join(dirPath, file);
@@ -17,14 +17,14 @@ const deleteFolderRecursive = dirPath => {
   }
 };
 
-const ensureEmptyDir = dirPath => {
+const ensureEmptyDir = (dirPath) => {
   if (fs.existsSync(dirPath)) {
     deleteFolderRecursive(dirPath);
   }
   fs.mkdirSync(dirPath, { recursive: true });
 };
 
-const readFileWithFallback = filePath => {
+const readFileWithFallback = (filePath) => {
   if (fs.existsSync(filePath)) {
     return fs.readFileSync(filePath).toString();
   } else {
@@ -43,17 +43,17 @@ const makeWrapChapterInTemplate = () => {
     `${prepend.replace("CHANGEME", title)}${chapter}${append}`;
 };
 
-const startsWithChapterMark = url => /^\d\d/i.test(url);
+const startsWithChapterMark = (url) => /^\d\d/i.test(url);
 
-const toTitleCase = phrase => {
+const toTitleCase = (phrase) => {
   return phrase
     .toLowerCase()
     .split(" ")
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
 };
 
-const buildLink = url => {
+const buildLink = (url) => {
   const urlWithoutHash = url.replace(/#+.*/, "");
   if (urlWithoutHash.endsWith(".md") && startsWithChapterMark(urlWithoutHash)) {
     const chapterNumber = parseInt(urlWithoutHash.match(/^\d\d/i).toString());

@@ -3,7 +3,7 @@
 import { jsx } from "@emotion/react";
 // eslint-disable-next-line no-unused-vars
 import React, { lazy, Suspense, useEffect, useState } from "react";
-import { Router } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import ResizeObserver from "resize-observer-polyfill";
 import MobileNav from "./components/MobileNav";
 import Main from "./components/Main";
@@ -57,7 +57,7 @@ function App() {
         <style>{`#root {flex-direction: ${
           mobileMode ? "column" : "row"
         };}`}</style>
-        <Router history={browserHistory}>
+        <BrowserRouter history={browserHistory}>
           {!mobileMode && routeIndex > -1 && !equals(currentRoute, "/") && (
             <LeftNav routeIndex={routeIndex} />
           )}
@@ -67,7 +67,7 @@ function App() {
             setCurrentRoute={setCurrentRoute}
           />
           {mobileMode && <MobileNav routeIndex={routeIndex} />}
-        </Router>
+        </BrowserRouter>
         <Console />
       </CsoundProvider>
     </BookProvider>

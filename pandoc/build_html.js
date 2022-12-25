@@ -43,10 +43,12 @@ function execMarkdownToHtml(fileName) {
 
   const processedHtmlString = postProcessHtml(escapedHtmlString);
   // evil and neccecary hack
+  // console.log(processedHtmlString);
   const jsxElements = html2jsx(processedHtmlString)
-    .replace(/&amp;/g, "&")
-    .replace(/CodeElement data=\"/g, "CodeElement data={`")
-    .replace(/\"><\/CodeElement>/g, "`}></CodeElement>");
+    .replaceAll("&amp;", "&")
+    .replaceAll('CodeElement data="', "CodeElement data={`")
+    .replaceAll('">undefined</CodeElement>', "`}></CodeElement>")
+    .replaceAll('"></CodeElement>', "`}></CodeElement>");
 
   const linkData = buildLink(path.basename(fileName));
 
