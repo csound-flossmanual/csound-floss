@@ -11,19 +11,19 @@ The basic unit of OSC data is a _message_. This is being sent to an _address_ wh
 
 The OSC message must specify the type(s) of its argument(s). This is a list of all types which are available in Csound, and the signifier which Csound uses for this type:
 
-Data Type Csound Signifier
 
----
+  Data Type                     Csound Signifier
+  ----------------------------- -----------------
+  audio                         a
+  character                     c
+  double                        d
+  float                         f
+  long integer 64-bit           h              
+  integer 32-bit                i           
+  string                        s
+  array (scalar)                A
+  table                         G
 
-audio a
-character c
-double d
-float f
-long integer 64-bit h  
- integer 32-bit i  
- string s
-array (scalar) A
-table G
 
 Once data types are declared, messages can be sent and received. In OSC terminology, anything that sends a message is a client, and anything that receives a message is a server. Csound can be both. Usually it will communicate with another application either as client or as server. It can, for instance, receive data from [Processing](https://processing.org/), or it can send data to [Inscore](http://inscore.sourceforge.net/).
 
@@ -580,7 +580,7 @@ Each line in the Processing sketch is played by one instance of instrument "Line
 
 To achieve this, we build a function table _iTriangle_ with 640 points (as much as the Processing canvas has x-points), containing a straight line from zero at left and right, to one in the middle:
 
-![iTriangle function table](../resources/images/08-a-table.svg){width=50%}
+![iTriangle function table](../resources/images/08-a-table.svg)
 
 The incoming x position is used for both, the volume (dB) and the pitch (MIDI). A vibrato is added to the sine waves (smaller but faster for higher pitches) to the sine waves, and the panning reflects the position of the lines between left and right.
 
