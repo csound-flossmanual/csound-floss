@@ -548,7 +548,8 @@ endin
 
       function on_sliderMasterLevel(value) {
         var numberValue = parseFloat(value);
-        document.querySelector("#sliderMasterLevelOutput").value = numberValue;
+        document.querySelector("#sliderMasterLevelOutput").value = \
+          numberValue;
         csound.setControlChannel("gk_MasterLevel", numberValue);
       }
     </script>
