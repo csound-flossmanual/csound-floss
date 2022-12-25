@@ -599,7 +599,7 @@ Each line in the Processing sketch is played by one instance of instrument "Line
 
 To achieve this, we build a function table *iTriangle* with 640 points (as much as the Processing canvas has x-points), containing a straight line from zero at left and right, to one in the middle:
 
-![iTriangle function table](../resources/images/08-a-table.sv){width=50%}
+![iTriangle function table](../resources/images/08-a-table.svg){width=50%}
 
 The incoming x position is used for both, the volume (dB) and the pitch (MIDI). A vibrato is added to the sine waves (smaller but faster for higher pitches) to the sine waves, and the panning reflects the position of the lines between left and right.
 
