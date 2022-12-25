@@ -1,5 +1,4 @@
-02 D. LIVE AUDIO
-================
+# 02 D. LIVE AUDIO
 
 Similar to the MIDI configuration, the standard Csound frontends
 [CsoundQt](http://csoundqt.github.io), [Cabbage](http://cabbageaudio.com/) and
@@ -7,8 +6,7 @@ Similar to the MIDI configuration, the standard Csound frontends
 The following description is useful to understand what happens behind
 the curtains, and must be regarded if you use Csound via Command Line.
 
-Select the Audio Device
------------------------
+## Select the Audio Device
 
 Csound relates to the various inputs and outputs of sound devices
 installed on your computer as a numbered list. If you wish to send or
@@ -18,9 +16,9 @@ that is you can trick Csound into providing you with a list of available
 devices by trying to run Csound using an obviously out of range device
 number, like this:
 
-   ***EXAMPLE 02D01\_GetDeviceList.csd***
+**_EXAMPLE 02D01_GetDeviceList.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -iadc999 -odac999
@@ -33,12 +31,12 @@ endin
 <CsScore>
 </CsScore>
 </CsoundSynthesizer>
-~~~
+```
 
 The input (-i) and output (-o) devices will be listed seperately.^[
-You may have to run -iadc999 and -odac999 seperately.] Specify 
-your input device with the *-iadc* flag and the number of your
-input device, and your output device with the *-odac* flag and the
+You may have to run -iadc999 and -odac999 seperately.] Specify
+your input device with the _-iadc_ flag and the number of your
+input device, and your output device with the _-odac_ flag and the
 number of your output device. For instance, if you select one of the
 devices from the list above both, for input and output, you may include
 something like
@@ -54,14 +52,12 @@ to write:
     -iadc -odac
 
 If you have no real-time (microphone) input, you only need to declare
-*-odac*. Without this option, Csound will not produce real-time audio
+_-odac_. Without this option, Csound will not produce real-time audio
 output, but write to an audio file as output instead.
 
+## Select the Audio Driver
 
-Select the Audio Driver
------------------------
-
-The RT (= real-time) output module can be set with the *-+rtaudio*
+The RT (= real-time) output module can be set with the _-+rtaudio_
 flag. If you don't use this flag, the PortAudio driver will be used.
 Other possible drivers are jack and alsa (Linux), mme (Windows) or
 CoreAudio (Mac). So, this sets your audio driver to mme instead of Port
@@ -69,9 +65,7 @@ Audio:
 
     -+rtaudio=mme
 
-
-Tuning Performance and Latency
-------------------------------
+## Tuning Performance and Latency
 
 Live performance and latency depend mainly on the sizes of the software
 and the hardware buffers. They can be set in the \<CsOptions\> using the
@@ -88,7 +82,7 @@ the size of the buffer size, -b is the period size (a buffer is
 divided into periods). 5. For pulse, -b is the actual buffersize
 passed to the device, -B is not used. In other words, -B is not too
 significant in 1), not used in 5), but has a part to play in 2), 3)
-and 4), which is functionally similar.\"]  For instance, 
+and 4), which is functionally similar.\"] For instance,
 this statement sets the hardware buffer size
 to 512 samples and the software buffer size to 128 sample:
 
@@ -107,20 +101,18 @@ Max). Just with ksmps = 1, 2, 4, 8, 16 \... you will take advantage
 of the \"full duplex\" audio, which provides best real time audio.
 Make sure your ksmps divides your buffer size with no remainder. So,
 for -b 128, you can use ksmps = 128, 64, 32, 16, 8, 4, 2
-or 1.]  With a software buffer of 128 samples, a hardware buffer of
+or 1.] With a software buffer of 128 samples, a hardware buffer of
 512 and a sample rate of 44100 you will have around 12ms latency,
 which is usable for live keyboard playing.
 If you have problems with either the latency or the performance,
 tweak the values as described
 [here](https://csound.com/docs/manual/UsingOptimizing.html).
 
-
-The \"\--realtime\" Option
---------------------------
+## The \"\--realtime\" Option
 
 When you have instruments that have substantial sections that could
 block out execution, for instance with code that loads buffers from
-files or creates big tables, you can try the option *\--realtime*.
+files or creates big tables, you can try the option _\--realtime_.
 
 This option will give your audio processing the priority over other
 tasks to be done. It places all initialisation code on a separate
@@ -135,9 +127,7 @@ audio performance, and also to reduce the effect on scheduling these
 other tasks, it is recommended that small ksmps and buffer sizes, for
 example ksmps=16, 32, or 64, -b32 or 64, and -B256 or 512.
 
-
-Csound Can Produce Extreme Dynamic Range!
------------------------------------------
+## Csound Can Produce Extreme Dynamic Range!
 
 Csound can **produce extreme dynamic range**, so keep an eye on the
 level you are sending to your output. The number which describes the
@@ -147,9 +137,7 @@ assignment in the \<CsInstruments\> header. There is no limitation, if
 you set 0dbfs = 1 and send a value of 32000, **this can damage your
 ears and speakers!**
 
-
-Using Live Audio Input and Output
----------------------------------
+## Using Live Audio Input and Output
 
 To process audio from an external source (for example a microphone), use
 the [inch](http://csound.github.io/docs/manual/html/inch.html)
@@ -160,9 +148,9 @@ gives you all necessary flexibility. The following example takes a live
 audio input and transforms its sound using ring modulation. The Csound
 Console should output five times per second the input amplitude level.
 
-   ***EXAMPLE 02D02\_LiveInput.csd***
+**_EXAMPLE 02D02_LiveInput.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 ;CHANGE YOUR INPUT AND OUTPUT DEVICE NUMBER HERE IF NECESSARY!
@@ -191,7 +179,7 @@ i 1 0 3600
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
 Live Audio is frequently used with live devices like widgets or MIDI.
 You will find various examples in the example collections of your

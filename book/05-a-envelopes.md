@@ -1,10 +1,9 @@
-05 A. ENVELOPES
-===============
+# 05 A. ENVELOPES
 
 Envelopes are used to define how a value evolves over time. In early
 synthesisers, envelopes were used to define the changes in amplitude in
 a sound across its duration thereby imbuing sounds characteristics such
-as *percussive*, or *sustaining*. Envelopes are also commonly used
+as _percussive_, or _sustaining_. Envelopes are also commonly used
 to modulate filter cutoff frequencies and the frequencies of oscillators
 but in reality we are only limited by our imaginations in regard to what
 they can be used for.
@@ -14,27 +13,26 @@ ones which emulate the classic ADSR (attack-decay-sustain-release)
 envelopes found on hardware and commercial software synthesizers. A
 selection of these opcodes types shall be introduced here.
 
-line
-----
+## line
 
 The simplest opcode for defining an envelope is
 [line](https://csound.com/docs/manual/line.html). It describes a
-single envelope segment as a straight line between a start value *ia* and an
-end value *ib* which has a given duration *idur*.
+single envelope segment as a straight line between a start value _ia_ and an
+end value _ib_ which has a given duration _idur_.
 
-~~~csound
+```csound
 ares *line* ia, idur, ib
 kres *line* ia, idur, ib
-~~~
+```
 
-In the following example *line* is used to create a simple envelope
-which is then used as the amplitude control of a *poscil* oscillator.
+In the following example _line_ is used to create a simple envelope
+which is then used as the amplitude control of a _poscil_ oscillator.
 This envelope starts with a value of 0.5 then over the course of 2
 seconds descends in linear fashion to zero.
 
-***EXAMPLE 05A01_line.csd***
+**_EXAMPLE 05A01_line.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -57,8 +55,7 @@ i 1 0 2 ; instrument 1 plays a note for 2 seconds
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
-
+```
 
 The envelope in the above example assumes that all notes played by this
 instrument will be 2 seconds long. In practice it is often beneficial to
@@ -67,10 +64,9 @@ some way. In the next example the duration of the envelope is replaced
 with the value of p3 retrieved from the score, whatever that may be. The
 envelope will be stretched or contracted accordingly.
 
+**_EXAMPLE 05A02_line_p3.csd_**
 
-***EXAMPLE 05A02_line_p3.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -97,7 +93,7 @@ i 1  3    4
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
+```
 
 It may not be disastrous if a envelope's duration does not match p3 and
 indeed there are many occasions when we want an envelope duration to be
@@ -108,29 +104,28 @@ then the envelope will complete before the note ends (the consequences
 of this latter situation will be looked at in more detail later on in
 this section).
 
-*line* (and most of Csound's envelope generators) can output either **k**
+_line_ (and most of Csound's envelope generators) can output either **k**
 or **a**-rate variables. k-rate envelopes are computationally cheaper than
 a-rate envelopes but in envelopes with fast moving segments quantisation
 can occur if they output a k-rate variable, particularly when the
 control rate is low, which in the case of amplitude envelopes can lead
 to clicking artefacts or distortion.
 
-linseg
-------
+## linseg
 
 [linseg](https://csound.com/docs/manual/linseg.html) is an
-elaboration of *line* and allows us to add an arbitrary number of
+elaboration of _line_ and allows us to add an arbitrary number of
 segments by adding further pairs of time durations followed envelope
 values. Provided we always end with a value and not a duration we can
 make this envelope as long as we like.
 
-~~~csound
+```csound
     ares *linseg* ia, idur1, ib [, idur2] [, ic] [...]
     kres *linseg* ia, idur1, ib [, idur2] [, ic] [...]
-~~~
+```
 
 In the next example a more complex amplitude envelope is employed by
-using the *linseg* opcode. This envelope is also note duration (p3)
+using the _linseg_ opcode. This envelope is also note duration (p3)
 dependent but in a more elaborate way. An attack-decay stage is defined
 using explicitly declared time durations. A release stage is also
 defined with an explicitly declared duration. The sustain stage is the
@@ -142,10 +137,9 @@ important that p3 is not less than the sum of all explicitly defined
 envelope segment durations. If necessary, additional code could be
 employed to circumvent this from happening.
 
+**_EXAMPLE 05A03_linseg.csd_**
 
-***EXAMPLE 05A03_linseg.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -171,7 +165,7 @@ i 1 2 5
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
+```
 
 The next example illustrates an approach that can be taken whenever it
 is required that more than one envelope segment duration be p3
@@ -179,10 +173,9 @@ dependent. This time each segment is a fraction of p3. The sum of all
 segments still adds up to p3 so the envelope will complete across the
 duration of each note regardless of duration.
 
+**_EXAMPLE 05A04_linseg_p3_fractions.csd_**
 
-***EXAMPLE 05A04_linseg_p3_fractions.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -209,33 +202,31 @@ i 1 3   5
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
+```
 
-Different behaviour in linear continuation
-------------------------------------------
+## Different behaviour in linear continuation
 
 The next example highlights an important difference in the behaviours of
-*line* and *linseg* when p3 exceeds the duration of an envelope.
+_line_ and _linseg_ when p3 exceeds the duration of an envelope.
 
-When a note continues beyond the end of the final value of a *linseg*
-defined envelope the final value of that envelope is held. A *line*
+When a note continues beyond the end of the final value of a _linseg_
+defined envelope the final value of that envelope is held. A _line_
 defined envelope behaves differently in that instead of holding its
 final value it continues in the trajectory defined by its one and only
 segment.
 
-This difference is illustrated in the following example. The *linseg*
-and *line* envelopes of instruments 1 and 2 appear to be the same but
+This difference is illustrated in the following example. The _linseg_
+and _line_ envelopes of instruments 1 and 2 appear to be the same but
 the difference in their behaviour as described above when they continue
-beyond the end of their final segment is clear. 
-The *linseg* envelope stays at zero, whilst the *line* envelope continues
+beyond the end of their final segment is clear.
+The _linseg_ envelope stays at zero, whilst the _line_ envelope continues
 through zero to negative range, thus ending at
 -0.2.^[Negative values for the envelope have the same loudness.
 Only the phase of the signal is inverted.]
 
+**_EXAMPLE 05A05_line_vs_linseg.csd_**
 
-***EXAMPLE 05A05_line_vs_linseg.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -265,17 +256,16 @@ i 2 5 4 ; line envelope
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy and joachim heintz
-~~~
+```
 
 ![](../resources/images/05-a-line-linseg.png)
 
-expon and expseg
-----------------
+## expon and expseg
 
 [expon](https://csound.com/docs/manual/expon.html) and
 [expseg](https://csound.com/docs/manual/expseg.html) are versions of
-*line* and *linseg* that instead produce envelope segments with concave
-exponential shapes rather than linear shapes. *expon* and *expseg* can
+_line_ and _linseg_ that instead produce envelope segments with concave
+exponential shapes rather than linear shapes. _expon_ and _expseg_ can
 often be more musically useful for envelopes that define amplitude or
 frequency as they will reflect the logarithmic nature of how these
 parameters are perceived.^[See chapter
@@ -287,13 +277,12 @@ value of zero we can instead provide a value very close to zero. If we
 still really need zero we can always subtract the offset value from the
 entire envelope in a subsequent line of code.
 
-The following example illustrates the difference between *line* and
-*expon* when applied as amplitude envelopes.
+The following example illustrates the difference between _line_ and
+_expon_ when applied as amplitude envelopes.
 
+**_EXAMPLE 05A06_line_vs_expon.csd_**
 
-***EXAMPLE 05A06_line_vs_expon.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -323,20 +312,19 @@ i 2 2 2 ; expon envelope
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
+```
 
 ![](../resources/images/05-a-line-expon.png)
 
-The nearer our *near-zero* values are to zero the quicker the curve
+The nearer our _near-zero_ values are to zero the quicker the curve
 will appear to reach zero. In the next example smaller and smaller
 envelope end values are passed to the expon opcode using p4 values in
-the score. The percussive *ping* sounds are perceived to be
+the score. The percussive _ping_ sounds are perceived to be
 increasingly short.
 
+**_EXAMPLE 05A07_expon_pings.csd_**
 
-***EXAMPLE 05A07_expon_pings.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -364,18 +352,17 @@ e
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
+```
 
 ![](../resources/images/05-a-expseg-versions.png)
 
-Note that *expseg* does not behave like linseg in that it will not hold
+Note that _expseg_ does not behave like linseg in that it will not hold
 its last final value if p3 exceeds its entire duration, instead it
-continues its curving trajectory in a manner similar to *line* (and
-*expon*). This could have dangerous results if used as an amplitude
+continues its curving trajectory in a manner similar to _line_ (and
+_expon_). This could have dangerous results if used as an amplitude
 envelope.
 
-Envelopes with release segment
-------------------------------
+## Envelopes with release segment
 
 When dealing with notes with an indefinite duration at the time of
 initiation (such as midi activated notes or score activated notes with a
@@ -393,25 +380,24 @@ opcodes wait until a held note is turned off before executing their
 final envelope segment. To facilitate this mechanism they extend the
 duration of the note so that this final envelope segment can complete.
 
-The typical situation for using one of these opcodes is when using a 
-midi keyboard. When a key is released, a fade-out must be applied to 
-avoid clicks. Another typical situation is shown in the next example: 
-a running instrument is turned off by another instrument. Similar to the 
-midi keyboard usage, the instrument must add in this case a release segment 
+The typical situation for using one of these opcodes is when using a
+midi keyboard. When a key is released, a fade-out must be applied to
+avoid clicks. Another typical situation is shown in the next example:
+a running instrument is turned off by another instrument. Similar to the
+midi keyboard usage, the instrument must add in this case a release segment
 to avoid clicks. The example shows both: how it sounds without release, and
-how it sounds with release. This is done via the last parameter of 
-the [turnoff2](https://csound.com/docs/manual/linenr.html) opcode. If *krelease* 
+how it sounds with release. This is done via the last parameter of
+the [turnoff2](https://csound.com/docs/manual/linenr.html) opcode. If _krelease_
 is set to zero, it will not allow the instrument it terminates to
 performs its release segment. This results in audible clicks on the first run.
 The second run (after creating a new cluster of random notes in the middle range)
-instead allows the release segment (in setting *krelease* to 1), so each 
+instead allows the release segment (in setting _krelease_ to 1), so each
 of the notes gets a soft fade-out. (This example can be changed to be used
 via midi keyboard; follow the comments in the code in this case.)
 
+**_EXAMPLE 05A08_linsegr.csd_**
 
-***EXAMPLE 05A08_linsegr.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -475,11 +461,9 @@ i "TurnOff_withRelease" 16 11
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
-
-Envelopes in Function Tables
-----------------------------
+## Envelopes in Function Tables
 
 Sometimes designing our envelope shape in a function table can provide
 us with shapes that are not possible using Csound's envelope generating
@@ -491,10 +475,9 @@ note.
 The following example generates an amplitude envelope which uses the
 shape of the first half of a sine wave.
 
+**_EXAMPLE 05A09_sine_env.csd_**
 
-***EXAMPLE 05A09_sine_env.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -528,11 +511,9 @@ e 7.1
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
+```
 
-
-Comparison of the Standard Envelope Opcodes
--------------------------------------------
+## Comparison of the Standard Envelope Opcodes
 
 The precise shape of the envelope of a sound, whether that envelope
 refers to its amplitude, its pitch or any other parameter, can be
@@ -548,9 +529,9 @@ of a note, then sustains for ½ the durations of the and finally ramps
 down across the remaining ¼ duration of the note, we can implement this
 envelope using linseg thus:
 
-~~~csound
+```csound
 kEnv linseg 0, p3/4, 0.9, p3/2, 0.9, p3/4, 0
-~~~
+```
 
 The resulting envelope will look like this:
 
@@ -573,10 +554,10 @@ unless we remove the offset away form zero that the envelope employs. An
 envelope with similar input values to the linseg envelope above but
 created with expseg could use the following code:
 
-~~~csound
+```csound
     kEnv expseg 0.001, p3/4, 0.901, p3/2, 0.901, p3/4, 0.001
     kEnv = kEnv – 0.001
-~~~
+```
 
 and would look like this:
 
@@ -584,14 +565,14 @@ and would look like this:
 
 In this example the offset above zero has been removed. This time we can
 see that the sound will build in a rather more natural and expressive
-way, however the change from *crescendo* to *sustain* is even more abrupt
+way, however the change from _crescendo_ to _sustain_ is even more abrupt
 this time. Adding some lowpass filtering to the envelope signal can
 smooth these abrupt changes in direction. This could be done with, for
 example, the port opcode given a half-point value of 0.05.
 
-~~~csound
+```csound
 kEnv port kEnv, 0.05
-~~~
+```
 
 The resulting envelope looks like this:
 
@@ -600,18 +581,18 @@ The resulting envelope looks like this:
 The changes to and from the sustain portion have clearly been improved
 but close examination of the end of the envelope reveals that the use of
 port has prevented the envelope from reaching zero. Extending the
-duration of the note or overlaying a second *anti-click* envelope
+duration of the note or overlaying a second _anti-click_ envelope
 should obviate this issue.
 
-~~~csound
+```csound
 xtratim 0.1
-~~~
+```
 
 will extend the note by 1/10 of a second.
 
-~~~csound
+```csound
 aRamp linseg 1, p3-0.1, 1, 0.1, 0
-~~~
+```
 
 will provide a quick ramp down at the note conclusion if multiplied to
 the previously created envelope.
@@ -621,9 +602,9 @@ A more recently introduced alternative is the
 applies a cosine transfer function to each segment of the envelope.
 Using the following code:
 
-~~~csound
+```csound
 kEnv cosseg 0, p3/4, 0.9, p3/2, 0.9, p3/4, 0
-~~~
+```
 
 the resulting envelope will look like this:
 
@@ -637,15 +618,15 @@ through zero.
 Another alternative that offers enhanced user control and that might in
 many situations provide more natural results is the
 [transeg](https://csound.com/docs/manual/transeg.html) opcode.
-*transeg* allows us to specify the curvature of each segment but it should
+_transeg_ allows us to specify the curvature of each segment but it should
 be noted that the curvature is dependent upon whether the segment is
 rising or falling. For example a positive curvature will result in a
 concave segment in a rising segment but a convex segment in a falling
 segment. The following code:
 
-~~~csound
+```csound
 kEnv transeg 0, p3/4, -4, 0.9, p3/2, 0, 0.9, p3/4, -4, 0
-~~~
+```
 
 will produce the following envelope:
 
@@ -662,10 +643,7 @@ exponentially as reflected in the envelope also. Similar attack and
 release characteristics can be observed in the slight pitch envelopes
 expressed by wind instruments.
 
-
-
-*lpshold*, *loopseg* and *looptseg* - A Csound TB303
-----------------------------------------------------
+## _lpshold_, _loopseg_ and _looptseg_ - A Csound TB303
 
 The next example introduces three of Csound's looping opcodes,
 [lpshold](https://csound.com/docs/manual/lpshold.html),
@@ -674,7 +652,7 @@ The next example introduces three of Csound's looping opcodes,
 
 These opcodes generate envelopes which are looped at a rate
 corresponding to a defined frequency. What they each do could also be
-accomplished using the *envelope from table* technique outlined in an
+accomplished using the _envelope from table_ technique outlined in an
 earlier example but these opcodes provide the added convenience of
 encapsulating all the required code in one line without the need for
 [phasors](https://csound.com/docs/manual/phasor.html),
@@ -682,7 +660,7 @@ encapsulating all the required code in one line without the need for
 [ftgens](https://csound.com/docs/manual/ftgen.html). Furthermore all
 of the input arguments for these opcodes can be modulated at k-rate.
 
-*lpshold* generates an envelope in which each break point is held
+_lpshold_ generates an envelope in which each break point is held
 constant until a new break point is encountered. The resulting envelope
 will contain horizontal line segments. In our example this opcode will
 be used to generate the notes (as MIDI note numbers) for a looping
@@ -698,28 +676,28 @@ find it convenient to contrive to have them all add up to 1, or to 100
 -- either is equally valid. The other looping envelope opcodes discussed
 here use the same method for defining segment durations.
 
-*loopseg* allows us to define a looping envelope with linear segments.
+_loopseg_ allows us to define a looping envelope with linear segments.
 In this example it is used to define the amplitude envelope for each
-individual note. Take note that whereas the *lpshold* envelope used to
+individual note. Take note that whereas the _lpshold_ envelope used to
 define the pitches of the melody repeats once per phrase, the amplitude
 envelope repeats once for each note of the melody, therefore its
 frequency is 16 times that of the melody envelope (there are 16 notes in
 our melodic phrase).
 
-*looptseg* is an elaboration of *loopseg* in that is allows us to define
+_looptseg_ is an elaboration of _loopseg_ in that is allows us to define
 the shape of each segment individually, whether that be convex, linear
-or concave. This aspect is defined using the *type* parameters. A
-*type* value of 0 denotes a linear segement, a positive value denotes
+or concave. This aspect is defined using the _type_ parameters. A
+_type_ value of 0 denotes a linear segement, a positive value denotes
 a convex segment with higher positive values resulting in increasingly
 convex curves. Negative values denote concave segments with increasing
 negative values resulting in increasingly concave curves. In this
-example *looptseg* is used to define a filter envelope which, like the
-amplitude envelope, repeats for every note. The addition of the *type*
+example _looptseg_ is used to define a filter envelope which, like the
+amplitude envelope, repeats for every note. The addition of the _type_
 parameter allows us to modulate the sharpness of the decay of the filter
 envelope. This is a crucial element of the TB303 design.
 
-Other crucial features of this instrument, such as *note on/off* and
-*hold* for each step, are also implemented using *lpshold*.
+Other crucial features of this instrument, such as _note on/off_ and
+_hold_ for each step, are also implemented using _lpshold_.
 
 A number of the input parameters of this example are modulated
 automatically using the
@@ -729,10 +707,9 @@ could be replaced by linkages to other controls such as CsoundQt/Cabbage/Blue
 widgets, FLTK widgets or MIDI controllers. Suggested ranges for each of
 these values are given in the .csd.
 
+**_EXAMPLE 05A10_lpshold_loopseg.csd_**
 
-***EXAMPLE 05A10_lpshold_loopseg.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac ;activates real time sound output
@@ -801,8 +778,8 @@ i 1 0 3600 ; instr 1 plays for 1 hour
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
+```
 
 Hopefully this final example has provided some idea as to the extend of
 parameters that can be controlled using envelopes and also an allusion
-to their importance in the generation of musical *gesture*.
+to their importance in the generation of musical _gesture_.

@@ -1,9 +1,8 @@
-03 D. FUNCTION TABLES
-=====================
+# 03 D. FUNCTION TABLES
 
-*Note: This chapter was written before arrays had been introduced into
+_Note: This chapter was written before arrays had been introduced into
 Csound. Now the usage of arrays is in some situations preferable to
-using function tables. Have a look in chapter [03 E](03-e-arrays.md) to see how you can use arrays.*<br>
+using function tables. Have a look in chapter [03 E](03-e-arrays.md) to see how you can use arrays._<br>
 
 A function table is essentially the same as what other audio programming
 languages might call a buffer, a table, a list or an array. It is a
@@ -14,14 +13,12 @@ to size-1. For instance, if you have a function table with a size of 7,
 and the numbers [1.1, 2.2, 3.3, 5.5, 8.8, 13.13, 21.21] in
 it, this is the relation of value and index:
 
+---
 
+VALUE 1.1 2.2 3.3 5.5 8.8 13.13 21.21
+INDEX 0 1 2 3 4 5 6
 
-  -------- ------ ------ ------ ------ ------ -------- --------
-   VALUE    1.1    2.2    3.3    5.5    8.8    13.13    21.21
-   INDEX    0      1      2      3      4      5        6
-  -------- ------ ------ ------ ------ ------ -------- --------
-
-
+---
 
 So, if you want to retrieve the value 13.13, you must point to the value
 stored under index 5.
@@ -34,8 +31,7 @@ function table, and then play it back. There are many more applications,
 all using the fast access (because function tables are stored in RAM)
 and flexible use of function tables.
 
-How to Generate a Function Table
---------------------------------
+## How to Generate a Function Table
 
 Each function table must be created **before** it can be used.^[
 Nevertheless function tables can be created at any time during
@@ -74,28 +70,27 @@ This is the traditional way of creating a function table by use of an
 the use of "i score events" to call instrument instances). The input
 parameters after the **f** are as follows:
 
--   **\#**: a number (as positive integer) for this function table;
--   ***time***: at what time, in relation to the passage of the score, the
-    function table is created (usually 0: from the beginning);
--   ***size***: the size of the function table. A little care is required:
-    in the early days of Csound only power-of-two sizes were possible
-    for function tables (2, 4, 8, 16, \...); nowadays almost all GEN
-    Routines accepts other sizes, but these non-power-of-two sizes
-    must be declared as negative numbers!^[At least this is still the 
-safest method to declare a non-power-of-two size for the table, 
-although for many GEN routines also positive numbers work.]
--   ***2***: the number of the GEN Routine which is used to generate the
-    table, and here is another important point which must be borne in
-    mind: **by default, Csound normalizes the table values.** This means
-    that the maximum is scaled to +1 if positive, and to -1 if negative.
-    All other values in the table are then scaled by the same factor
-    that was required to scale the maximum to +1 or -1. To **prevent**
-    Csound from normalizing, a **negative** number can be given as GEN
-    number (in this example, the GEN routine number will be given as -2
-    instead of 2).
--   ***v1 v2 v3 ...***: the values which are written into the function
-    table.
-
+- **\#**: a number (as positive integer) for this function table;
+- **_time_**: at what time, in relation to the passage of the score, the
+  function table is created (usually 0: from the beginning);
+- **_size_**: the size of the function table. A little care is required:
+  in the early days of Csound only power-of-two sizes were possible
+  for function tables (2, 4, 8, 16, \...); nowadays almost all GEN
+  Routines accepts other sizes, but these non-power-of-two sizes
+  must be declared as negative numbers!^[At least this is still the
+  safest method to declare a non-power-of-two size for the table,
+  although for many GEN routines also positive numbers work.]
+- **_2_**: the number of the GEN Routine which is used to generate the
+  table, and here is another important point which must be borne in
+  mind: **by default, Csound normalizes the table values.** This means
+  that the maximum is scaled to +1 if positive, and to -1 if negative.
+  All other values in the table are then scaled by the same factor
+  that was required to scale the maximum to +1 or -1. To **prevent**
+  Csound from normalizing, a **negative** number can be given as GEN
+  number (in this example, the GEN routine number will be given as -2
+  instead of 2).
+- **_v1 v2 v3 ..._**: the values which are written into the function
+  table.
 
 The example below demonstrates how the values \[1.1 2.2 3.3 5.5 8.8
 13.13 21.21\] can be stored in a function table using
@@ -103,9 +98,9 @@ an f-statement in the score. Two versions are created: an unnormalised
 version (table number 1) and an normalised version (table number 2). The
 difference in their contents will be demonstrated.
 
-   ***EXAMPLE 03D01_Table_norm_notNorm.csd***
+**_EXAMPLE 03D01_Table_norm_notNorm.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -nm0
@@ -129,7 +124,7 @@ i 1 0 0 2; prints function table 2
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
 Prints:
 
@@ -169,16 +164,16 @@ variables can be put as arguments into *ftgen* — imagine for instance
 a size for recording tables which you generate or pass as user input.]
 The syntax is explained below:
 
-~~~csound
+```csound
 gir     ftgen     ifn, itime, isize, igen, iarg1 [, iarg2 [, ...]]
-~~~
+```
 
-- ***gir***: a variable name. Each function is stored in an
-i-variable. Usually you want to have access to it from every
-instrument, so a gi-variable (global initialization variable) is
-given.  
-- ***ifn***: a number for the function table. If 0 is given here, Csound
-will generate the number, which is mostly preferable.
+- **_gir_**: a variable name. Each function is stored in an
+  i-variable. Usually you want to have access to it from every
+  instrument, so a gi-variable (global initialization variable) is
+  given.
+- **_ifn_**: a number for the function table. If 0 is given here, Csound
+  will generate the number, which is mostly preferable.
 
 The other parameters (size, GEN number, individual arguments) are the
 same as in the f-statement in the score. As this GEN call is now a part
@@ -188,9 +183,9 @@ of the orchestra, each argument is separated from the next by a comma
 So this is the same example as above, but now with the function tables
 being generated in the orchestra header:
 
-   ***EXAMPLE 03D02_Table_ftgen.csd***
+**_EXAMPLE 03D02_Table_ftgen.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -nm0
@@ -216,52 +211,52 @@ i 1 0 0 2; prints function table 2
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
 ### GEN01: Importing a Soundfile
 
 [GEN01](http://www.csound.com/docs/manual/GEN01.html) is used for
 importing soundfiles stored on disk into the computer's RAM, ready
 for use by a number of Csound's opcodes in the orchestra. A typical
-*ftgen* statement for this import might be the following:
+_ftgen_ statement for this import might be the following:
 
     varname             ifn itime isize igen Sfilnam       iskip iformat ichn
     giFile    ftgen     0,  0,    0,    1,   "myfile.wav", 0,    0,      0
 
--   ***varname***, ***ifn***, ***itime***: These arguments have the same
-    meaning as explained above in reference to GEN02. Note that on this
-    occasion the function table number (*ifn*) has been defined using a
-    zero. This means that Csound will automatically assign a unique
-    function table number. This number will also be held by the variable
-    *giFile* which we will normally use to reference the function table
-    anyway so its actual value will not be important to us. If you are
-    interested you can print the value of *giFile* out. If no other
-    tables are defined, it will be 101 and subsequent tables, also using
-    automatically assigned table  numbers, will follow accordingly: 102,
-    103 etc.
--   ***isize***: Usually you won't know the length of your soundfile in
-    samples, and want to have a table length which includes exactly all
-    the samples. This is done by setting **isize** to **0**.
--   ***igen***: As explained in the previous subchapter, this is always
-    the place for indicating the number of the GEN Routine which must be
-    used. As always, a positive number means normalizing, which is often
-    convenient for audio samples.
--   ***Sfilnam***: The name of the soundfile in double quotes. Similar to
-    other audio programming languages, Csound recognizes just the name
-    if your .csd and the soundfile are in the same folder. Otherwise,
-    give the full path. (You can also include the folder via the
-    *SSDIR* variable, or add the folder via the
-    *--env:SSDIR+=/path/to/sounds* option.)
--   ***iskip***: The time in seconds you want to skip at the beginning of
-    the soundfile. 0 means reading from the beginning of the file.
--   ***iformat***: The format of the amplitude samples in the soundfile,
-    e.g. 16 bit, 24 bit etc. Usually providing 0 here is sufficient, in
-    which case Csound will read the sample format form the soundfile
-    header.
--   ***ichn***: 1 = read the first channel of the soundfile into the
-    table, 2 = read the second channel, etc. 0 means that all channels
-    are read. Note that only certain opcodes are able to properly make
-    use of multichannel audio stored in function tables.
+- **_varname_**, **_ifn_**, **_itime_**: These arguments have the same
+  meaning as explained above in reference to GEN02. Note that on this
+  occasion the function table number (_ifn_) has been defined using a
+  zero. This means that Csound will automatically assign a unique
+  function table number. This number will also be held by the variable
+  _giFile_ which we will normally use to reference the function table
+  anyway so its actual value will not be important to us. If you are
+  interested you can print the value of _giFile_ out. If no other
+  tables are defined, it will be 101 and subsequent tables, also using
+  automatically assigned table numbers, will follow accordingly: 102,
+  103 etc.
+- **_isize_**: Usually you won't know the length of your soundfile in
+  samples, and want to have a table length which includes exactly all
+  the samples. This is done by setting **isize** to **0**.
+- **_igen_**: As explained in the previous subchapter, this is always
+  the place for indicating the number of the GEN Routine which must be
+  used. As always, a positive number means normalizing, which is often
+  convenient for audio samples.
+- **_Sfilnam_**: The name of the soundfile in double quotes. Similar to
+  other audio programming languages, Csound recognizes just the name
+  if your .csd and the soundfile are in the same folder. Otherwise,
+  give the full path. (You can also include the folder via the
+  _SSDIR_ variable, or add the folder via the
+  _--env:SSDIR+=/path/to/sounds_ option.)
+- **_iskip_**: The time in seconds you want to skip at the beginning of
+  the soundfile. 0 means reading from the beginning of the file.
+- **_iformat_**: The format of the amplitude samples in the soundfile,
+  e.g. 16 bit, 24 bit etc. Usually providing 0 here is sufficient, in
+  which case Csound will read the sample format form the soundfile
+  header.
+- **_ichn_**: 1 = read the first channel of the soundfile into the
+  table, 2 = read the second channel, etc. 0 means that all channels
+  are read. Note that only certain opcodes are able to properly make
+  use of multichannel audio stored in function tables.
 
 The following example loads a short sample into RAM via a function table
 and then plays it. Reading the
@@ -269,9 +264,9 @@ function table here is done using the
 [poscil3](http://www.csound.com/docs/manual/poscil3.html) opcode,
 as one of many choices in Csound.
 
-   ***EXAMPLE 03D03\_Sample\_to\_table.csd***
+**_EXAMPLE 03D03_Sample_to_table.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac --env:SSDIR=../SourceMaterials
@@ -297,7 +292,7 @@ i "PlayOnce" 0 1
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
 ### GEN10: Creating a Waveform
 
@@ -308,7 +303,7 @@ waveform will then be read by an oscillator to produce a sound.
 There are many GEN Routines which can be used to achieve this. The
 simplest one is [GEN10](http://www.csound.com/docs/manual/GEN10.html).
 It produces a waveform by adding sine waves which have the \"harmonic\"
-frequency relationship 1 : 2 : 3  : 4 ... After the usual arguments for
+frequency relationship 1 : 2 : 3 : 4 ... After the usual arguments for
 function table number, start, size and gen routine number, which are the
 first four arguments in
 [ftgen](http://www.csound.com/docs/manual/ftgen.html) for all GEN
@@ -321,9 +316,9 @@ sinusoids. This is done in the next example by instruments 1-5.
 Instrument 6 uses the sine wavetable twice: for generating both the
 sound and the envelope.
 
-   ***EXAMPLE 03D04_Standard_waveforms_with_GEN10.csd***
+**_EXAMPLE 03D04_Standard_waveforms_with_GEN10.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -387,12 +382,11 @@ i "Sine_with_env" 20 3
 </CsScore>
 </CsoundSynthesizer>
 ;Example by Joachim Heintz
-~~~
+```
 
 ![](../resources/images/03-d-waveforms.png)
 
-How to Write Values to a Function Table
----------------------------------------
+## How to Write Values to a Function Table
 
 As we have seen, GEN Routines generate function tables, and by doing
 this, they write values into them according to various methods, but in
@@ -422,25 +416,25 @@ write to the table (i-, k- or a-variables):
     tablew    ksig, kndx, ifn [, ixmode] [, ixoff] [, iwgmode]
     tablew    asig, andx, ifn [, ixmode] [, ixoff] [, iwgmode]
 
--   ***isig***, ***ksig***, ***asig*** is the value (variable) you want to
-    write into a specified location of the table;
--   ***indx***, ***kndx***, ***andx*** is the location (index) where you will
-    write the value;
--   ***ifn*** is the function table you want to write to;
--   ***ixmode*** gives the choice to write by raw indices (counting from 0
-    to size-1), or by a normalized writing mode in which the start and
-    end of each table are always referred as 0 and 1 (not depending on
-    the length of the table). The default is ixmode=0 which means the
-    raw index mode. A value not equal to zero for ixmode changes to the
-    normalized index mode.
--   ***ixoff*** (default=0) gives an index offset. So, if indx=0 and
-    ixoff=5, you will write at index 5.
--   ***iwgmode*** tells what you want to do if your index is larger than
-    the size of the table. If iwgmode=0 (default), any index larger than
-    possible is written at the last possible index. If iwgmode=1, the
-    indices are wrapped around. For instance, if your table size is 8,
-    and your index is 10, in the wraparound mode the value will be
-    written at index 2.
+- **_isig_**, **_ksig_**, **_asig_** is the value (variable) you want to
+  write into a specified location of the table;
+- **_indx_**, **_kndx_**, **_andx_** is the location (index) where you will
+  write the value;
+- **_ifn_** is the function table you want to write to;
+- **_ixmode_** gives the choice to write by raw indices (counting from 0
+  to size-1), or by a normalized writing mode in which the start and
+  end of each table are always referred as 0 and 1 (not depending on
+  the length of the table). The default is ixmode=0 which means the
+  raw index mode. A value not equal to zero for ixmode changes to the
+  normalized index mode.
+- **_ixoff_** (default=0) gives an index offset. So, if indx=0 and
+  ixoff=5, you will write at index 5.
+- **_iwgmode_** tells what you want to do if your index is larger than
+  the size of the table. If iwgmode=0 (default), any index larger than
+  possible is written at the last possible index. If iwgmode=1, the
+  indices are wrapped around. For instance, if your table size is 8,
+  and your index is 10, in the wraparound mode the value will be
+  written at index 2.
 
 Here are some examples for i-, k- and a-rate values.
 
@@ -452,11 +446,9 @@ in the header (filled with zeros), then instrument 1 calculates the
 values in an i-time loop and writes them to the table using tableiw.
 Instrument 2 simply prints all the values in a list to the terminal.
 
+**_EXAMPLE 03D05_Write_Fibo_to_table.csd_**
 
-
-   ***EXAMPLE 03D05_Write_Fibo_to_table.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -nm0
@@ -495,7 +487,7 @@ i 2 0 0
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
 ### k-Rate Example
 
@@ -504,9 +496,9 @@ be used to record any kind of user input, for instance by MIDI or
 widgets. It can also be used to record random movements of k-signals,
 like here:
 
-   ***EXAMPLE 03D06_Record_ksig_to_table.csd***
+**_EXAMPLE 03D06_Record_ksig_to_table.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -554,7 +546,7 @@ i 2 6 5
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
 As you see, this typical case of writing k-values to a table requires a
 changing value for the index, otherwise tablew will continually
@@ -568,23 +560,24 @@ you want a phasor to move from 0 to 1 in 5 seconds, you must set the
 frequency to 1/5. Upon reaching 1, the phasor will wrap-around to zero
 and begin again. Note that phasor can also be given a negative frequency
 in which case it moves in reverse from 1 to zero then wrapping around to
-1. By setting the *ixmode* argument of *tablew* to 1, you can use the phasor
-output directly as writing pointer. Below is an alternative version of
-instrument 1 from the previous example, this time using phasor to
-generate the index values:
 
-    instr 1; rec/play of a random frequency movement for 5 seconds
-    kFreq     randomi   400, 1000, 1; random frequency
-    aSnd      oscil3    .2, kFreq, giWave; play it
-              outs      aSnd, aSnd
-    ;;record the k-signal with a phasor as index
-              prints    "RECORDING!%n"
-     ;create a writing pointer in the table,
-     ;moving in 5 seconds from index 0 to the end
-    kindx     phasor    1/5
-     ;write the k-signal
-              tablew    kFreq, kindx, giFt, 1
-    endin
+1.  By setting the _ixmode_ argument of _tablew_ to 1, you can use the phasor
+    output directly as writing pointer. Below is an alternative version of
+    instrument 1 from the previous example, this time using phasor to
+    generate the index values:
+
+        instr 1; rec/play of a random frequency movement for 5 seconds
+        kFreq     randomi   400, 1000, 1; random frequency
+        aSnd      oscil3    .2, kFreq, giWave; play it
+                  outs      aSnd, aSnd
+        ;;record the k-signal with a phasor as index
+                  prints    "RECORDING!%n"
+         ;create a writing pointer in the table,
+         ;moving in 5 seconds from index 0 to the end
+        kindx     phasor    1/5
+         ;write the k-signal
+                  tablew    kFreq, kindx, giFt, 1
+        endin
 
 ### a-Rate Example
 
@@ -594,9 +587,9 @@ index that changes at a-rate. The next example first records a randomly
 generated audio signal and then plays it back. It then records the live
 audio input for 5 seconds and subsequently plays it back.
 
-   ***EXAMPLE 03D07\_Record\_audio\_to\_table.csd***
+**_EXAMPLE 03D07_Record_audio_to_table.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -iadc -odac
@@ -666,10 +659,9 @@ i 4 20 5 ; play back the recording of live audio
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
-How to Retrieve Values from a Function Table
---------------------------------------------
+## How to Retrieve Values from a Function Table
 
 There are two methods of reading table values. You can either use the
 [table](http://www.csound.com/docs/manual/table.html) /
@@ -706,13 +698,13 @@ interpolates linearly, whilst
 interpolation (which is generally preferable but is computationally
 slightly more expensive) and when CPU cycles are no object,
 [tablexkt](http://www.csound.com/docs/manual/tablexkt.html) can be used
-for ultimate interpolating quality.^[For a general introduction 
-about interpolation, see for instance 
+for ultimate interpolating quality.^[For a general introduction
+about interpolation, see for instance
 http://en.wikipedia.org/wiki/Interpolation]
 
 Examples of the use of the
 [table](http://www.csound.com/docs/manual/table.html) opcodes can be
-found in the earlier examples in the *How to Write Values to a Function Table*
+found in the earlier examples in the _How to Write Values to a Function Table_
 section.
 
 ### Oscillators
@@ -735,9 +727,9 @@ and an a-rate signal from a buffer with
 [poscil3](http://www.csound.com/docs/manual/html/poscil3.html) (an
 oscillator with a cubic interpolation):
 
-   ***EXAMPLE 03D08_RecPlay_ak_signals.csd***
+**_EXAMPLE 03D08_RecPlay_ak_signals.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -iadc -odac
@@ -809,11 +801,9 @@ i 4 20 5
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
-
-Saving the Contents of a Function Table to a File
--------------------------------------------------
+## Saving the Contents of a Function Table to a File
 
 A function table exists only as long as you run the Csound instance
 which has created it. If Csound terminates, all the data is lost. If you
@@ -822,9 +812,7 @@ There are several cases, depending firstly on whether you write at
 i-time or at k-time and secondly on what kind of file you want to write
 to.
 
-
-
-### Writing a File in Csound's *ftsave* Format at i-Time or k-Time
+### Writing a File in Csound's _ftsave_ Format at i-Time or k-Time
 
 Any function table in Csound can be easily written to a file using the
 [ftsave](http://www.csound.com/docs/manual/ftsave.html) (i-time) or
@@ -839,9 +827,9 @@ same folder as your .csd: "i-tim_save.txt" saves function table 1 (a
 sine wave) at i-time; "k-time_save.txt" saves function table 2 (a
 linear increment produced during the performance) at k-time.
 
-   ***EXAMPLE 03D09\_ftsave.csd***
+**_EXAMPLE 03D09_ftsave.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsInstruments>
 sr = 44100
@@ -874,13 +862,12 @@ i 3 1 .1
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
-The counterpart to *ftsave*/*ftsavek* are the
+The counterpart to _ftsave_/_ftsavek_ are the
 [ftload](http://www.csound.com/docs/manual/ftload.html)/
 [ftloadk](http://www.csound.com/docs/manual/ftloadk.html)
 opcodes. You can use them to load the saved files into function tables.
-
 
 ### Writing a Soundfile from a Recorded Function Table
 
@@ -897,10 +884,9 @@ values and writing them as an audio signal to disk. After this is done,
 the instrument is turned off by executing the
 [turnoff](http://www.csounds.com/manual/html/turnoff.html) statement.
 
+**_EXAMPLE 03D10_Table_to_soundfile.csd_**
 
-   ***EXAMPLE 03D10_Table_to_soundfile.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -i adc
@@ -945,7 +931,7 @@ i 2 7 0
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
 ### Other GEN Routine Highlights
 
@@ -964,7 +950,7 @@ envelope in breakpoint fashion but it allows the user to specify the
 curvature of each segment individually (concave - straight - convex).
 
 [GEN17](https://csound.com/docs/manual/GEN17.html),
- [GEN41](https://csound.com/docs/manual/GEN41.html) and
+[GEN41](https://csound.com/docs/manual/GEN41.html) and
 [GEN42](https://csound.com/docs/manual/GEN42.html) are used the
 generate histogram-type functions which may prove useful in algorithmic
 composition and work with probabilities.
@@ -979,8 +965,7 @@ version of the [gbuzz](https://csound.com/docs/manual/gbuzz.html)
 opcode and as it is a fixed waveform (unlike gbuzz) it can be a useful
 and efficient sound source in subtractive synthesis.
 
-GEN08
------
+## GEN08
 
     f # time size 8 a n1 b n2 c n3 d ...
 
@@ -995,32 +980,21 @@ defined. Here are some examples of GEN08 tables:
 
 ![](../resources/images/03-d-gen08-1.png)
 
-
     f 1 0 1024 8 0 1 1 1023 0
-
 
 ![](../resources/images/03-d-gen08-2.png)
 
-
     f 2 0 1024 8 0 97 1 170 0.583 757 0
 
-
 ![](../resources/images/03-d-gen08-3.png)
-
 
     f 3 0 1024 8 0 1 0.145 166 0.724 857 0
 
 ![](../resources/images/03-d-gen08-4.png)
 
-
     f 4 0 1024 8 0 1 0.079 96 0.645 927 0
 
-
-
-
-
-GEN16
------
+## GEN16
 
     f # time size 16 val1 dur1 type1 val2 [dur2 type2 val3 ... typeX valN]
 
@@ -1035,37 +1009,25 @@ examples of GEN16 function tables:
 
 ![](../resources/images/03-d-gen16-1.png)
 
-
     f 1 0 1024 16 0 512 20 1 512 20 0
-
 
 ![](../resources/images/03-d-gen16-2.png)
 
-
     f 2 0 1024 16 0 512 4 1 512 4 0
-
 
 ![](../resources/images/03-d-gen16-3.png)
 
-
     f 3 0 1024 16 0 512 0 1 512 0 0
-
 
 ![](../resources/images/03-d-gen16-4.png)
 
-
     f 4 0 1024 16 0 512 -4 1 512 -4 0
-
 
 ![](../resources/images/03-d-gen16-5.png)
 
-
     f 5 0 1024 16 0 512 -20 1 512 -20 0
 
-
-
-GEN19
------
+## GEN19
 
     f # time size  19  pna   stra  phsa  dcoa  pnb strb  phsb  dcob  ...
 
@@ -1078,24 +1040,15 @@ of waveforms for use by audio oscillators other applications might be
 the creation of functions for LFOs and window functions for envelopes in
 granular synthesis. Below are some examples of GEN19:
 
-
 ![](../resources/images/03-d-gen19-1.png)
-
 
     f 1 0 1024 19 1 1 0 0 20 0.1 0 0
 
-
 ![](../resources/images/03-d-gen19-2.png)
-
 
     f 2 0 1024 -19 0.5 1 180 1
 
-
-
-
-
-GEN30
------
+## GEN30
 
     f # time size  30  src  minh maxh [ref_sr] [interp]
 
@@ -1115,20 +1068,14 @@ Here are some examples of GEN30 function tables (the first table is
 actually a GEN07 generated sawtooth, the second two are GEN30
 band-limited versions of the first):
 
-
 ![](../resources/images/03-d-gen30-1.png)
-
 
      f 1 0 1024 7 1 1024 -1
 
-
 ![](../resources/images/03-d-gen30-2.png)
-
 
     f 2 0 1024 30 1 1 20
 
-
 ![](../resources/images/03-d-gen30-3.png)
-
 
     f 3 0 1024 30 1 2 20

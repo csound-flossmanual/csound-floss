@@ -1,10 +1,8 @@
-08 C. CSOUND VIA UDP
-====================
+# 08 C. CSOUND VIA UDP
 
-Using Csound via UDP with the *--port* Option
----------------------------------------------
+## Using Csound via UDP with the _--port_ Option
 
-The *--port=N* option allows users to send orchestras to be compiled
+The _--port=N_ option allows users to send orchestras to be compiled
 on-the-fly by Csound via UDP connection. This way, Csound can be started
 with no instruments, and will listen to messages sent to it. Many
 programs are capable of sending UDP messages, and scripting languages,
@@ -12,17 +10,17 @@ such as Python, can also be used for this purpose. The simplest way of
 trying out this option is via the netcat program, which can be used in
 the terminal via the nc command.
 
-Let's explore this as an example of the *--port* option. First, Csound
+Let's explore this as an example of the _--port_ option. First, Csound
 is started with the following command:
 
     $ csound -odac --port=1234
 
 Alternatively, if using a frontend such as CsoundQt, it is possible run
-an empty CSD, with the *--port* in its CsOptions field:
+an empty CSD, with the _--port_ in its CsOptions field:
 
-   ***EXAMPLE 10F01_csound_udp.csd***
+**_EXAMPLE 10F01_csound_udp.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 --port=1234
@@ -32,7 +30,7 @@ an empty CSD, with the *--port* in its CsOptions field:
 <CsScore>
 </CsScore>
 </CsoundSynthesizer>
-~~~
+```
 
 This will start Csound in a daemon mode, waiting for any UDP messages in
 port 1234. Now with netcat, orchestra code can be sent to Csound. A

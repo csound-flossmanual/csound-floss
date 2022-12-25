@@ -1,5 +1,4 @@
-05 G. GRANULAR SYNTHESIS
-========================
+# 05 G. GRANULAR SYNTHESIS
 
 This chapter will focus upon granular synthesis used as a DSP technique
 upon recorded sound files and will introduce techniques including time
@@ -10,54 +9,47 @@ granular synthesis using simple waveforms please refer to chapter
 
 We will start with a self-made granulator which we build step by step. It may help to understand the main parameters, and to see upon which decisions the different opcode designs are built. In the second part of this chapter we will introduce some of the many Csound opcodes for granular synthesis, in typical use cases.
 
-
-A Self-Made Granulator
-----------------------
+## A Self-Made Granulator
 
 It is perfectly possible to build one's own granular machine in Csound code, without using one of the many opcodes for granular synthesis. This machine will certainly run slower than a native opcode. But for understanding what is happening, and being able to implement own ideas, this is a very instructive approach.
 
-Granular synthesis can be described as a sequence of small sound snippets. So we can think of two units: One unit is managing the sequence, the other unit is performing one grain. Let us call the first unit *Granulator*, and the second unit *Grain*. The *Granulator* will manage the sequence of grains in calling the *Grain* unit again and again, with different parameters:
+Granular synthesis can be described as a sequence of small sound snippets. So we can think of two units: One unit is managing the sequence, the other unit is performing one grain. Let us call the first unit _Granulator_, and the second unit _Grain_. The _Granulator_ will manage the sequence of grains in calling the _Grain_ unit again and again, with different parameters:
 
 ![](../resources/images/05-g-scheme.png)
 
 In Csound, we implement this architecture as two instruments. We will start with the instrument which performs one grain.
 
-
 ### The Grain Unit
-
 
 #### Parameters for One Grain
 
-The *Grain* instrument needs the following information in order to play back a single grain:
+The _Grain_ instrument needs the following information in order to play back a single grain:
 
 1. **Sound**. In the most simple version this is a sound file on the hard disk. More flexible and fast is a sample which has been stored in a buffer (function table). We can also record this buffer in real time and through this perform live granular synthesis.
-2. **Point in Sound to start playback**. In the most simple version, this is the same as the *skiptime* for playing back sound from hard disk via [diskin](https://csound.com/docs/manual/diskin.html). Usually we will choose seconds as unit for this parameter.
-3. **Duration**. The duration for one grain is usually in the range 20-50 ms, but can be smaller or bigger for special effects. In Csound this parameter is passed to the instrument as *p3* in its call, measured in seconds.
-4. **Speed of Playback**. This parameter is used by *diskin* and similar opcodes: 1 means the normal speed, 2 means double speed, 1/2 means half speed. This would result in no pitch change (1), octave higher (2) and octave lower(1/2). Negative numbers mean reverse playback.
-5. **Volume**. We will measure it in *dB*, where 0 dB means to play back the sound as it is recorded.
+2. **Point in Sound to start playback**. In the most simple version, this is the same as the _skiptime_ for playing back sound from hard disk via [diskin](https://csound.com/docs/manual/diskin.html). Usually we will choose seconds as unit for this parameter.
+3. **Duration**. The duration for one grain is usually in the range 20-50 ms, but can be smaller or bigger for special effects. In Csound this parameter is passed to the instrument as _p3_ in its call, measured in seconds.
+4. **Speed of Playback**. This parameter is used by _diskin_ and similar opcodes: 1 means the normal speed, 2 means double speed, 1/2 means half speed. This would result in no pitch change (1), octave higher (2) and octave lower(1/2). Negative numbers mean reverse playback.
+5. **Volume**. We will measure it in _dB_, where 0 dB means to play back the sound as it is recorded.
 6. **Envelope**. Each grain needs an envelope which starts and ends at zero, to ensure that there will be no clicks.
-These are some frequently used envelopes:^[The function tables have been created with this code:  
-i0 ftgen 1, 0, 8192, 20, 3, 1  
-i0 ftgen 2, 0, 8192, 9, 1/2, 1, 0  
-i0 ftgen 3, 0, 8192, 20, 2, 1  
-i0 ftgen 4, 0, 8192, 20, 6, 1  
-i0 ftgen 5, 0, 8192, 20, 9, 1  
-i0 ftgen 6, 0, 8192, 20, 9, 1, 5  ]
-
+   These are some frequently used envelopes:^[The function tables have been created with this code:
+   i0 ftgen 1, 0, 8192, 20, 3, 1
+   i0 ftgen 2, 0, 8192, 9, 1/2, 1, 0
+   i0 ftgen 3, 0, 8192, 20, 2, 1
+   i0 ftgen 4, 0, 8192, 20, 6, 1
+   i0 ftgen 5, 0, 8192, 20, 9, 1
+   i0 ftgen 6, 0, 8192, 20, 9, 1, 5 ]
 
 ![](../resources/images/05-g-grain-envs.png)
 
-
 7. **Spatial Position**. Each grain will be send to a certain point in space. For stereo, it will be a panning position between 0 (left) and 1 (right).
-
 
 #### Simple Grain Implementation
 
-We start with the most simple implementation. We play back the sound with [diskin](https://csound.com/docs/manual/diskin.html) and apply a triangular envelope with the [linen](https://csound.com/docs/manual/linen.html) opcode. We pass the *grain duration* as *p3*, the *playback start* as *p4* and the *playback speed* as *p5*. We choose a constant grain duration of 50 ms, but in the first five examples different starting points, then in the other five examples from one starting point different playback speeds.
+We start with the most simple implementation. We play back the sound with [diskin](https://csound.com/docs/manual/diskin.html) and apply a triangular envelope with the [linen](https://csound.com/docs/manual/linen.html) opcode. We pass the _grain duration_ as _p3_, the _playback start_ as _p4_ and the _playback speed_ as _p5_. We choose a constant grain duration of 50 ms, but in the first five examples different starting points, then in the other five examples from one starting point different playback speeds.
 
-***EXAMPLE 05G01_simple_grain.csd***
+**_EXAMPLE 05G01_simple_grain.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -98,13 +90,13 @@ i .      10 .   .25    -1
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
-It is a tiring job to write a score line for each grain ... — no one will do this. But with but a small change we can read through the whole sound file by calling our *Grain* instrument only once! The technique we use in the next example is to start a new instance of the *Grain* instrument by the running instance, as long as the end of the sound file has not yet been reached. (This technique has been described in paragraph *Self-Triggering and Recursion* of chapter [03 C](03-d-control-structures.md).)
+It is a tiring job to write a score line for each grain ... — no one will do this. But with but a small change we can read through the whole sound file by calling our _Grain_ instrument only once! The technique we use in the next example is to start a new instance of the _Grain_ instrument by the running instance, as long as the end of the sound file has not yet been reached. (This technique has been described in paragraph _Self-Triggering and Recursion_ of chapter [03 C](03-d-control-structures.md).)
 
-***EXAMPLE 05G02_simple_grain_continuous.csd***
+**_EXAMPLE 05G02_simple_grain_continuous.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -140,23 +132,22 @@ e 5 ;stops performance after 5 seconds
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
-
+```
 
 #### Improvements
 
-The *Grain* instrument works but it has some weaknesses:
+The _Grain_ instrument works but it has some weaknesses:
 
 - Rather than being played back from disk, the sound should be put in a buffer (function table) and played back from there. This is faster and gives more flexibility, for instance in filling the buffer with real-time recording.
 - The envelope should also be read from a function table. Again, this is faster and offers more flexibility. In case we want to change the envelope, we simply use another function table, without changing any code of the instrument.
 
 Table reading can be done by different methods in Csound. Have a look at chapter [03 D](03-d-function-tables.md) for details. We will use reading the tables with the [poscil3](https://csound.com/docs/manual/poscil3.html) oscillator here. This should give a very good result in sound quality.
 
-In the next example we reproduce the first example above to check the new code to the *Grain* instrument.
+In the next example we reproduce the first example above to check the new code to the _Grain_ instrument.
 
-***EXAMPLE 05G03_simple_grain_optimized.csd***
+**_EXAMPLE 05G03_simple_grain_optimized.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -201,50 +192,47 @@ i .      10 .   .25    -1
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
 Some comments to this code:
 
-- Line 12-13: The sample *fox.wav* is loaded into function table *giSample* via [GEN](https://csound.com/docs/manual/ScoreGenRef.html) routine [01](https://csound.com/docs/manual/GEN01.html). Note that we are using here -1 instead of 1 because we don't want to normalize the sound.^[
-This decision is completely up to the user.] \
-The triangular shape is loaded via [GEN 20](https://csound.com/docs/manual/GEN20.html) which offers a good selection of different envelope shapes.
-- Line 14: `giSampleLen = ftlen(giSample)/sr`. This calculates the length of the sample in seconds, as length of the function table divided by the sample rate. It makes sense to store this in a global variable because we are using it in the *Grain* instrument again and again.
-- Line 23:`aEnv = poscil3:a(ampdb(iVolume),1/p3,giEnv)`. The envelope (as audio signal) is reading the table *giEnv* in which a triangular shape is stored. We set the amplitude of the oscillator to `ampdb(iVolume)`, so to the amplitude equivalent of the *iVolume* decibel value. The frequency of the oscillator is *1/p3* because we want to read the envelope exactly once during the performance time of this instrument instance.
+- Line 12-13: The sample _fox.wav_ is loaded into function table _giSample_ via [GEN](https://csound.com/docs/manual/ScoreGenRef.html) routine [01](https://csound.com/docs/manual/GEN01.html). Note that we are using here -1 instead of 1 because we don't want to normalize the sound.^[
+  This decision is completely up to the user.] \
+  The triangular shape is loaded via [GEN 20](https://csound.com/docs/manual/GEN20.html) which offers a good selection of different envelope shapes.
+- Line 14: `giSampleLen = ftlen(giSample)/sr`. This calculates the length of the sample in seconds, as length of the function table divided by the sample rate. It makes sense to store this in a global variable because we are using it in the _Grain_ instrument again and again.
+- Line 23:`aEnv = poscil3:a(ampdb(iVolume),1/p3,giEnv)`. The envelope (as audio signal) is reading the table _giEnv_ in which a triangular shape is stored. We set the amplitude of the oscillator to `ampdb(iVolume)`, so to the amplitude equivalent of the _iVolume_ decibel value. The frequency of the oscillator is _1/p3_ because we want to read the envelope exactly once during the performance time of this instrument instance.
 - Line 24: `aSound = poscil3:a(aEnv,iSpeed/giSampleLen, \\
-giSample,iStart/giSampleLen)`. Again this is a [poscil3](https://csound.com/docs/manual/poscil3.html) oscillator reading a table. The table is here *giSample*; the amplitude of the oscillator is the *aEnv* signal we produced. The frequency of reading the table in normal speed is *1/giSampleLen*; if we include the speed changes, it is *iSpeed/giSampleLen*. The starting point to read the table is given to the oscillator as phase value (0=start to 1=end of the table). So we must divide *iStart* by *giSampleLen* to get this value.
+giSample,iStart/giSampleLen)`. Again this is a [poscil3](https://csound.com/docs/manual/poscil3.html) oscillator reading a table. The table is here _giSample_; the amplitude of the oscillator is the _aEnv_ signal we produced. The frequency of reading the table in normal speed is _1/giSampleLen_; if we include the speed changes, it is _iSpeed/giSampleLen_. The starting point to read the table is given to the oscillator as phase value (0=start to 1=end of the table). So we must divide _iStart_ by _giSampleLen_ to get this value.
 
 ### The Granulator Unit
 
-The main job for the *Granulator* is to call the *Grain* unit again and again over time. The *grain density* and the *grain distribution* direct this process. The other parameters are basically the same as in the *Grain* unit.
+The main job for the _Granulator_ is to call the _Grain_ unit again and again over time. The _grain density_ and the _grain distribution_ direct this process. The other parameters are basically the same as in the _Grain_ unit.
 
-As granular synthesis is a mass structure, one of its main features is to deal with variations. Each parameter usually deviates in a given range. We will at first build the *Granulator* in the most simple way, without these deviations, and then proceed to more interesting, variative structures.
-
+As granular synthesis is a mass structure, one of its main features is to deal with variations. Each parameter usually deviates in a given range. We will at first build the _Granulator_ in the most simple way, without these deviations, and then proceed to more interesting, variative structures.
 
 #### Parameters for the Granulator
 
-The first seven parameters are similar to the parameters for the *Grain* unit. Grain density and grain distribution are added at the end of the list.
+The first seven parameters are similar to the parameters for the _Grain_ unit. Grain density and grain distribution are added at the end of the list.
 
-1. **Sound**. The sound must be loaded in a function table. We pass the variable name or number of this table to the *Grain* instrument.
+1. **Sound**. The sound must be loaded in a function table. We pass the variable name or number of this table to the _Grain_ instrument.
 2. **Pointer in Sound**. Usually we will have a moving pointer position here. We will use a simple line in the next example, moving from start to end of the sound in a certain duration. Later we will implement a moving pointer driven by speed.
-3. **Duration**. We will use milliseconds as unit here and then change it to seconds when we call the *Grain* instrument.
-4. **Pitch Shift (Transposition)**. This is the speed of reading the sound in the *Grain* units, resulting in a pitch shift or transposition. We will use *Cent* as unit here, and change the value internally to the corresponding speed: cent=0 -> speed=1, cent=1200 -> speed=2, cent=-1200 -> speed=0.5.
-5. **Volume**. We will measure it in *dB* as for the *Grain* unit. But the resulting volume will also depend on the grain density, as overlapping grains will add their amplitudes.
-6. **Envelope**. The grain envelope must be stored in a function table. We will pass the name or number of the table to the *Grain* instrument.
-7. **Spatial Position**. For now, we will use a fixed pan position between 0 (left) and 1 (right), as we did for the *Grain* instrument.
+3. **Duration**. We will use milliseconds as unit here and then change it to seconds when we call the _Grain_ instrument.
+4. **Pitch Shift (Transposition)**. This is the speed of reading the sound in the _Grain_ units, resulting in a pitch shift or transposition. We will use _Cent_ as unit here, and change the value internally to the corresponding speed: cent=0 -> speed=1, cent=1200 -> speed=2, cent=-1200 -> speed=0.5.
+5. **Volume**. We will measure it in _dB_ as for the _Grain_ unit. But the resulting volume will also depend on the grain density, as overlapping grains will add their amplitudes.
+6. **Envelope**. The grain envelope must be stored in a function table. We will pass the name or number of the table to the _Grain_ instrument.
+7. **Spatial Position**. For now, we will use a fixed pan position between 0 (left) and 1 (right), as we did for the _Grain_ instrument.
 8. **Density**. This is the number of grains per second, so the unit is Hz.
 9. **Distribution**. This is a continuum between sychronous granular synthesis,
-in which all grains are equally distributed, and asynchronous, in which the distribution is
-irregular or scattered.^[As maximum irregularity we will consider a random position between the regular position of a grain and the regular position of the next neighbouring grain. (Half of this irregularity will be a random position between own regular and half of the distance to the neighbouring regular position.)] We will use 0 for synchronous and 1 for asynchronous granular synthesis.
-
+   in which all grains are equally distributed, and asynchronous, in which the distribution is
+   irregular or scattered.^[As maximum irregularity we will consider a random position between the regular position of a grain and the regular position of the next neighbouring grain. (Half of this irregularity will be a random position between own regular and half of the distance to the neighbouring regular position.)] We will use 0 for synchronous and 1 for asynchronous granular synthesis.
 
 #### Simple Granulator Implementation
 
-For triggering the single grains, we use the [metro](https://csound.com/docs/manual/metro.html) opcode. We call a grain on each trigger tick of the *metro*. This is a basic example; the code will be condensed later, but is kept here more explicit to show the functionality.
+For triggering the single grains, we use the [metro](https://csound.com/docs/manual/metro.html) opcode. We call a grain on each trigger tick of the _metro_. This is a basic example; the code will be condensed later, but is kept here more explicit to show the functionality.
 
+**_EXAMPLE 05G04_simple_granulator.csd_**
 
-***EXAMPLE 05G04_simple_granulator.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m128
@@ -302,27 +290,26 @@ i "Granulator" 0 3
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
 Some comments:
 
-- Line 13: We use a half sine here, generated by [GEN09](https://csound.com/docs/manual/GEN09.html). Other envelopes are available via [GEN20](https://csound.com/docs/manual/GEN20.html). As we used a high-quality interpolating oscillator in the *Grain* instrument for reading the envelope, the table size is kept rather small.
-- Line 18: The length of the sample is calculated here not as a global variable, but once in this instrument. This would allow to pass the *iSndTab* as *p*-field without changing the code.
-- Line 30: The irregularity is applied as random offset to the regular position of the grain. The range of the offset is from zero to *iDistribution/iDensity*. For *iDensity=50Hz* and *iDistribution=1*, for instance, the maximum offset would be 1/50 seconds.
-- Line 31-32: The [schedulek](https://csound.com/docs/manual/schedulek.html) opcode is used here. It has been introduced in Csound 6.14; for older versions of Csound, [event](https://csound.com/docs/manual/event.html) can be used as well: `event("i","Grain",kOffset, ...)` would be the code then. Note that we divide the *iGrainDur* by 1000, because it was given in milliseconds. For the transformation of the *cent* input to a multiplier, we simply use the [cent](https://csound.com/docs/manual/cent.html) opcode.
+- Line 13: We use a half sine here, generated by [GEN09](https://csound.com/docs/manual/GEN09.html). Other envelopes are available via [GEN20](https://csound.com/docs/manual/GEN20.html). As we used a high-quality interpolating oscillator in the _Grain_ instrument for reading the envelope, the table size is kept rather small.
+- Line 18: The length of the sample is calculated here not as a global variable, but once in this instrument. This would allow to pass the _iSndTab_ as _p_-field without changing the code.
+- Line 30: The irregularity is applied as random offset to the regular position of the grain. The range of the offset is from zero to _iDistribution/iDensity_. For _iDensity=50Hz_ and _iDistribution=1_, for instance, the maximum offset would be 1/50 seconds.
+- Line 31-32: The [schedulek](https://csound.com/docs/manual/schedulek.html) opcode is used here. It has been introduced in Csound 6.14; for older versions of Csound, [event](https://csound.com/docs/manual/event.html) can be used as well: `event("i","Grain",kOffset, ...)` would be the code then. Note that we divide the _iGrainDur_ by 1000, because it was given in milliseconds. For the transformation of the _cent_ input to a multiplier, we simply use the [cent](https://csound.com/docs/manual/cent.html) opcode.
 
 It is suggested to change some values in this example, and to listen to the result; for instance:
 
-1. Change `kPointer = linseg:k(0,iSampleLen,iSampleLen)` (line 19) to `kPointer = linseg:k(0,iSampleLen*2,iSampleLen)` or to `kPointer = linseg:k(0,iSampleLen*5,iSampleLen)` (increase p3 in the score then, too). This change will increase the time in which the pointer moves from start to end of the sound file. This is called **time stretching**, and is one of the main features of granular synthesis. If a smaller duration for the pointer is used (e.g. `iSampleLen/2` or `iSampleLen/5`) we apply *time compression*.
+1. Change `kPointer = linseg:k(0,iSampleLen,iSampleLen)` (line 19) to `kPointer = linseg:k(0,iSampleLen*2,iSampleLen)` or to `kPointer = linseg:k(0,iSampleLen*5,iSampleLen)` (increase p3 in the score then, too). This change will increase the time in which the pointer moves from start to end of the sound file. This is called **time stretching**, and is one of the main features of granular synthesis. If a smaller duration for the pointer is used (e.g. `iSampleLen/2` or `iSampleLen/5`) we apply _time compression_.
 
-2. Change *iGrainDur* (line 20) from 30 ms to a bigger or smaller value. For very small values (below 10 ms) artifacts arise.
+2. Change _iGrainDur_ (line 20) from 30 ms to a bigger or smaller value. For very small values (below 10 ms) artifacts arise.
 
-3. Set *iDensity* (line 29) to 10 Hz or less and change the *iDistribution* (line 26). A distribution of 0 should give a perfectly regular sequence of grains, whereas 1 should result in irregularity.
-
+3. Set _iDensity_ (line 29) to 10 Hz or less and change the _iDistribution_ (line 26). A distribution of 0 should give a perfectly regular sequence of grains, whereas 1 should result in irregularity.
 
 #### Improvements and Random Deviations
 
-The preferred method for the moving pointer in the *Granulator* instrument is a [phasor](https://csound.com/docs/manual/phasor.html). It is the best approach for real-time use. It can run for an unlimited time and can easily move backwards. As input for the phasor, technically its frequency, we will put the speed in the usual way: 1 means normal speed, 0 is freeze, -1 is backwards reading in normal speed. As optional parameter we can set a start position of the pointer.
+The preferred method for the moving pointer in the _Granulator_ instrument is a [phasor](https://csound.com/docs/manual/phasor.html). It is the best approach for real-time use. It can run for an unlimited time and can easily move backwards. As input for the phasor, technically its frequency, we will put the speed in the usual way: 1 means normal speed, 0 is freeze, -1 is backwards reading in normal speed. As optional parameter we can set a start position of the pointer.
 
 All we have to do for implementing this in Csound is to take the sound file length in account for both, the pointer position and the start position:
 
@@ -332,28 +319,28 @@ All we have to do for implementing this in Csound is to take the sound file leng
     kPhasor = phasor:a(kSpeed/iFileLen,iStart/iFileLen)
     kPointer = kPhasor*iFileLen
 
-In this example, the phasor will start with an initial phase of *iStart/iFileLen* = 0.5. The *kPhasor* signal which is always 0-1, will move in the frequency *kSpeed/iFileLen*, here 1/2. The *kPhasor* will then be multiplied by two, so will become 0-2 for *kPointer*.
+In this example, the phasor will start with an initial phase of _iStart/iFileLen_ = 0.5. The _kPhasor_ signal which is always 0-1, will move in the frequency _kSpeed/iFileLen_, here 1/2. The _kPhasor_ will then be multiplied by two, so will become 0-2 for _kPointer_.
 
-It is very useful to add **random deviations** to some of the parameters for granular synthesis. This opens the space for many different structures and possibilities. We will apply here random deviations to these parameters of the *Granulator*:
+It is very useful to add **random deviations** to some of the parameters for granular synthesis. This opens the space for many different structures and possibilities. We will apply here random deviations to these parameters of the _Granulator_:
 
-- *Pointer*. The pointer will "tremble" or "jump" depending on the range of the random deviation. The range is given in seconds. It is implemented in line 36 of the next example as
+- _Pointer_. The pointer will "tremble" or "jump" depending on the range of the random deviation. The range is given in seconds. It is implemented in line 36 of the next example as
 
-~~~csound
+```csound
 kPointer = kPhasor*iSampleLen + rnd31:k(iPointerRndDev,0)
-~~~
+```
 
-The opcode [rnd31](https://csound.com/docs/manual/rnd31.html) is a bipolar random generator which will output values between *-iPointerRndDev* and *+iPointerRndDev*. This is then added to the normal pointer position.
-- *Duration*. We will define here a maximum deviation in percent, related to the medium grain duration. 100% would mean that a grain duration can deviate between half and twice the medium duration. A medium duration of 20 ms would yield a random range of 10-40 ms in this case.
-- *Transposition*. We can add to the main transposition a bipolar random range. If, for example, the main transposition is 500 cent and the maximum random transposition is 300 cent, each grain will choose a value between 200 and 800 cent.
-- *Volume*. A maximum decibel deviation (also bipolar) can be added to the main volume.
-- *Spatial Position*. In addition to the main spatial position (in the stereo field 0-1), we can add a bipolar maximum deviation. If the main position is 0.5 and the maximum deviation is 0.2, each grain will have a panning position between 0.3 and 0.7.
+The opcode [rnd31](https://csound.com/docs/manual/rnd31.html) is a bipolar random generator which will output values between _-iPointerRndDev_ and _+iPointerRndDev_. This is then added to the normal pointer position.
+
+- _Duration_. We will define here a maximum deviation in percent, related to the medium grain duration. 100% would mean that a grain duration can deviate between half and twice the medium duration. A medium duration of 20 ms would yield a random range of 10-40 ms in this case.
+- _Transposition_. We can add to the main transposition a bipolar random range. If, for example, the main transposition is 500 cent and the maximum random transposition is 300 cent, each grain will choose a value between 200 and 800 cent.
+- _Volume_. A maximum decibel deviation (also bipolar) can be added to the main volume.
+- _Spatial Position_. In addition to the main spatial position (in the stereo field 0-1), we can add a bipolar maximum deviation. If the main position is 0.5 and the maximum deviation is 0.2, each grain will have a panning position between 0.3 and 0.7.
 
 The next example demonstrates the five possibilities one by one, each parameter in three steps: at first with no random deviations, then with slight deviations, then with big ones.
 
+**_EXAMPLE 05G05_random_deviations.csd_**
 
-***EXAMPLE 05G05_random_deviations.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m128
@@ -445,19 +432,17 @@ i .           46 .     0       0        0      0  .5 ;±0.5 maximum
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
 It sounds like for normal use, the pointer, transposition and pan deviation are most interesting to apply.
 
-
 #### Final Example
 
-After first prsenting the more instructional examples, this final one shows some of the potential applications for granular sounds. It uses the same parts of *The quick brown fox* as in the first example of this chapter, each which different sounds and combination of the parameters.
+After first prsenting the more instructional examples, this final one shows some of the potential applications for granular sounds. It uses the same parts of _The quick brown fox_ as in the first example of this chapter, each which different sounds and combination of the parameters.
 
+**_EXAMPLE 05G06_the_fox_universe.csd_**
 
-***EXAMPLE 05G06_the_fox_universe.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m128
@@ -643,16 +628,15 @@ i "Whole" 118 5.4
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
 Some comments:
 
-- Line 12-16: The User-Defined Opcode (UDO) *Chan* puts a string and an ID together to a combined string: `Chan("PointerSpeed",1)` returns `"PointerSpeed_1"`. This is nothing but a more readable version of `sprintf("%s_%d", "PointerSpeed", 1)`.
-- Line 20-24: The whole architecture of this example is based on software channels. The instr *Quick* schedules one instance of instr *Granulator*. While this instance is still running, the instr *Brown* schedules another instance of instr *Granulator*. Both, *Quick* and *Brown* want to send their specific values to their instance of instr *Granulator*. This is done by an ID which is added to the channel name. For the pointer speed, instr *Quick* uses the channel "PointerSpeed_1" whereas instr *Brown* uses the channel "PointerSpeed_2". So each of the instruments *Quick*, *Brown* etc. have to get a unique ID. This is done with the global variable *gi_ID*. When instr *Quick* starts, it sets its own variable *id* to the value of *gi_ID* (which is 1 in this moment), and then sets *gi_ID* to 2. So when instr *Brown* starts, it sets its own *id* as 2 and sets *gi_ID* to 3 for future use by instrument *F*.
-- Line 34: Each of the instruments which provide the different parameters, like instr *Quick* here, call an instance of instr *Granulator* and pass the ID to it, as well as the pointer start in the sample: `schedule("Granulator",0,p3,id,iStart)`. The *id* is passed here as fourth parameter, so instr *Granulator* will read  `id = p4` in line 112 to receive th ID, and `iStart = p5` in line 116, to receive the pointer start.
-- Line 35: As we want to add some reverb, but with different reverb time for each structure, we start one instance of instr *Output* here. Again it will pass the own ID to the instance of instr *Output*, and also the reverb time. In line 162-163 we see how these values are received: `id = p4` and `iRvrbTim = p5`
-- Line 157-158: Instr *Grain* does not output the audio signal directly, but sends it via [chnmix](https://csound.com/docs/manual/chnmix.html) to the instance of instr *Output* with the same ID. See line 164-165 for the complementary code in instr *Output*. Note that we must use *chnmix* not *chnset* here because we muss add all audio in the overlapping grains (try to substitute *chnmix* by *chnset* to hear the difference). The zeroing of each audio channel at the end of the chain by [chnclear](https://csound.com/docs/manual/chnclear.html) is also important (cmment out line 168 to hear the difference).
-
+- Line 12-16: The User-Defined Opcode (UDO) _Chan_ puts a string and an ID together to a combined string: `Chan("PointerSpeed",1)` returns `"PointerSpeed_1"`. This is nothing but a more readable version of `sprintf("%s_%d", "PointerSpeed", 1)`.
+- Line 20-24: The whole architecture of this example is based on software channels. The instr _Quick_ schedules one instance of instr _Granulator_. While this instance is still running, the instr _Brown_ schedules another instance of instr _Granulator_. Both, _Quick_ and _Brown_ want to send their specific values to their instance of instr _Granulator_. This is done by an ID which is added to the channel name. For the pointer speed, instr _Quick_ uses the channel "PointerSpeed_1" whereas instr _Brown_ uses the channel "PointerSpeed_2". So each of the instruments _Quick_, _Brown_ etc. have to get a unique ID. This is done with the global variable _gi_ID_. When instr _Quick_ starts, it sets its own variable _id_ to the value of _gi_ID_ (which is 1 in this moment), and then sets _gi_ID_ to 2. So when instr _Brown_ starts, it sets its own _id_ as 2 and sets _gi_ID_ to 3 for future use by instrument _F_.
+- Line 34: Each of the instruments which provide the different parameters, like instr _Quick_ here, call an instance of instr _Granulator_ and pass the ID to it, as well as the pointer start in the sample: `schedule("Granulator",0,p3,id,iStart)`. The _id_ is passed here as fourth parameter, so instr _Granulator_ will read `id = p4` in line 112 to receive th ID, and `iStart = p5` in line 116, to receive the pointer start.
+- Line 35: As we want to add some reverb, but with different reverb time for each structure, we start one instance of instr _Output_ here. Again it will pass the own ID to the instance of instr _Output_, and also the reverb time. In line 162-163 we see how these values are received: `id = p4` and `iRvrbTim = p5`
+- Line 157-158: Instr _Grain_ does not output the audio signal directly, but sends it via [chnmix](https://csound.com/docs/manual/chnmix.html) to the instance of instr _Output_ with the same ID. See line 164-165 for the complementary code in instr _Output_. Note that we must use _chnmix_ not _chnset_ here because we muss add all audio in the overlapping grains (try to substitute _chnmix_ by _chnset_ to hear the difference). The zeroing of each audio channel at the end of the chain by [chnclear](https://csound.com/docs/manual/chnclear.html) is also important (cmment out line 168 to hear the difference).
 
 #### Live Input
 
@@ -662,10 +646,9 @@ The time interval between writing and reading can be very short. If we do not tr
 
 So, in the following example, we will set the desired delay time to a small value. It has to be adjusted by the user depending on maximal tranposition and grain size.
 
+**_EXAMPLE 05G07_live_granular.csd_**
 
-***EXAMPLE 05G07_live_granular.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -iadc -m128
@@ -713,17 +696,15 @@ endin
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
-We only use some of the many parameters here; others can be added easily. As we chose one second for the table, we can simplify some calculations. Most important is to know for instr *Granulator* the current position of the write pointer, and to start playback *giDelay* milliseconds (here 1 ms) after it. For this, we write the current write pointer position to a global variable *gaWritePointer* in instr *Record* and get the start for one grain by
+We only use some of the many parameters here; others can be added easily. As we chose one second for the table, we can simplify some calculations. Most important is to know for instr _Granulator_ the current position of the write pointer, and to start playback _giDelay_ milliseconds (here 1 ms) after it. For this, we write the current write pointer position to a global variable _gaWritePointer_ in instr _Record_ and get the start for one grain by
 
     kPointer = k(gaWritePointer)-giDelay/1000
 
 After having built this self-made granulator step by step, we will look now into some Csound opcodes for sample-based granular synthesis.
 
-
-Csound Opcodes for Granular Synthesis
--------------------------------------
+## Csound Opcodes for Granular Synthesis
 
 Csound offers a wide range of opcodes for sound granulation. Each has
 its own strengths and weaknesses and suitability for a particular task.
@@ -733,33 +714,32 @@ Some are easier to use than others, some, such as
 extremely complex and are, at least in terms of the number of input
 arguments they demand, amongst Csound's most complex opcodes.
 
-
 ### sndwarp - Time Stretching and Pitch Shifting
 
 [sndwarp](https://csound.com/docs/manual/sndwarp.html)
 may not be Csound's newest or most advanced opcode for sound
 granulation but it is quite easy to use and is certainly up to the task
-of time stretching and pitch shifting. *sndwarp* has two modes by which we
+of time stretching and pitch shifting. _sndwarp_ has two modes by which we
 can modulate time stretching characteristics, one in which we define a
-*stretch factor*, a value of 2 defining a stretch to twice the normal
+_stretch factor_, a value of 2 defining a stretch to twice the normal
 length, and the other in which we directly control a pointer into the
-file. The following example uses *sndwarp's* first mode to produce a
+file. The following example uses _sndwarp's_ first mode to produce a
 sequence of time stretches and pitch shifts. An overview of each
-procedure will be printed to the terminal as it occurs. *sndwarp* does not
+procedure will be printed to the terminal as it occurs. _sndwarp_ does not
 allow for k-rate modulation of grain size or density so for this level
 we need to look elsewhere.
 
 You will need to make sure that a sound file is available to sndwarp via
 a GEN01 function table. You can replace the one used in this example
 with one of your own by replacing the reference to
-*ClassicalGuitar.wav*. This sound file is stereo therefore instrument
+_ClassicalGuitar.wav_. This sound file is stereo therefore instrument
 1 uses the stereo version
 [sndwarpst](https://csound.com/docs/manual/sndwarpst.html).
 A mismatch between the number
 of channels in the sound file and the version of sndwarp used will
 result in playback at an unexpected pitch.
 
-sndwarp describes grain size as *window size* and it is defined in
+sndwarp describes grain size as _window size_ and it is defined in
 samples so therefore a window size of 44100 means that grains will last
 for 1s each (when sample rate is set at 44100). Window size
 randomization (irandw) adds a random number within that range to the
@@ -774,12 +754,11 @@ function table according to which it will apply an amplitude envelope to
 each grain. By using different function tables we can alternatively
 create softer grains with gradual attacks and decays (as in this
 example), with more of a percussive character (short attack, long decay)
-or *gate*-like (short attack, long sustain, short decay).
+or _gate_-like (short attack, long sustain, short decay).
 
+**_EXAMPLE 05G08_sndwarp.csd_**
 
-***EXAMPLE 05G08_sndwarp.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m128
@@ -843,7 +822,7 @@ e
 </CsScore>
 </CsoundSynthesizer>
 ;example written by Iain McCurdy
-~~~
+```
 
 The next example uses sndwarp's other timestretch mode with which we
 explicitly define a pointer position from where in the source file
@@ -875,9 +854,9 @@ lowpass filter in each case encasing each note under a smooth arc.
 Finally a small amount of reverb is added to smooth the overall texture
 slightly
 
- ***EXAMPLE 05G09_selfmade_grain.csd***
+**_EXAMPLE 05G09_selfmade_grain.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac --env:SSDIR+=../SourceMaterials
@@ -954,15 +933,14 @@ i 3  0  3600 ; reverb instrument
 </CsScore>
 </CsoundSynthesizer>
 ;example written by Iain McCurdy
-~~~
-
+```
 
 ### granule - Clouds of Sound
 
 The [granule](https://csound.com/docs/manual/granule.html) opcode is
 one of Csound's most complex opcodes requiring up to 22 input arguments
 in order to function. Only a few of these arguments are available during
-performance (*k-rate*) so it is less well suited for real-time modulation,
+performance (_k-rate_) so it is less well suited for real-time modulation,
 for real-time a more nimble implementation such as
 [syncgrain](https://csound.com/docs/manual/syncgrain.html),
 [fog](https://csound.com/docs/manual/fog.html), or
@@ -982,9 +960,9 @@ following example
 move the grain gap and grain size parameters through a variety of
 different states across the duration of each note.
 
-With *granule* we define a number of grain streams for the opcode using its
-*ivoice* input argument. This will also have an effect on the density
-of the texture produced. Like *sndwarp's* first timestretching mode,
+With _granule_ we define a number of grain streams for the opcode using its
+_ivoice_ input argument. This will also have an effect on the density
+of the texture produced. Like _sndwarp's_ first timestretching mode,
 granule also has a stretch ratio parameter. Confusingly it works the
 other way around though, a value of 0.5 will slow movement through the
 file by 1/2, 2 will double is and so on. Increasing grain gap will also
@@ -992,7 +970,7 @@ slow progress through the sound file. granule also provides up to four
 pitch shift voices so that we can create chord-like structures without
 having to use more than one iteration of the opcode. We define the
 number of pitch shifting voices we would like to use using the
-*ipshift* parameter. If this is given a value of zero, all pitch
+_ipshift_ parameter. If this is given a value of zero, all pitch
 shifting intervals will be ignored and grain-by-grain transpositions
 will be chosen randomly within the range +/-1 octave. granule contains
 built-in randomizing for several of it parameters in order to easier
@@ -1012,10 +990,9 @@ the four pitch transpositions are explored in each note. Information
 about what these transpositions are is printed to the terminal as each
 note begins.
 
+**_EXAMPLE 05G10_granule.csd_**
 
-***EXAMPLE 05G10_granule.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m128
@@ -1099,8 +1076,7 @@ i 2 0 [48*5+2]; reverb instrument
 </CsScore>
 </CsoundSynthesizer>
 ;example written by Iain McCurdy
-~~~
-
+```
 
 ### Grain delay effect with fof2
 
@@ -1115,10 +1091,9 @@ relationship between the write position and the read position in the
 buffer determines the delay time. We've used the fof2 opcode for this
 purpose here.
 
+**_EXAMPLE 05G11_grain_delay.csd_**
 
-***EXAMPLE 05G11_grain_delay.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 --env:SSDIR+=../SourceMaterials
@@ -1194,21 +1169,19 @@ i 3 0 20
 </CsScore>
 </CsoundSynthesizer>
 ;example by Oeyvind Brandtsegg
-~~~
-
+```
 
 In the last example we will use the
 [grain](https://csound.com/docs/manual/grain.html) opcode. This
 opcode is part of a little group of opcodes which also includes
 [grain2](https://csound.com/docs/manual/grain2.html) and
-[grain3](https://csound.com/docs/manual/grain3.html). *grain* is
-the oldest opcode, *Grain2* is a more easy-to-use opcode, while
-*Grain3* offers more control.
+[grain3](https://csound.com/docs/manual/grain3.html). _grain_ is
+the oldest opcode, _Grain2_ is a more easy-to-use opcode, while
+_Grain3_ offers more control.
 
+**_EXAMPLE 05G12_grain.csd_**
 
-***EXAMPLE 05G12_grain.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
  -o dac  --env:SSDIR+=../SourceMaterials
@@ -1256,7 +1229,7 @@ i2 0 21 ; Reverb
 </CsScore>
 </CsoundSynthesizer>
 ;example by Bjørn Houdorf
-~~~
+```
 
 Several opcodes for granular synthesis have been considered in this
 chapter but this is in no way meant to suggest that these are the best,
@@ -1273,4 +1246,4 @@ synthesis type synchronous granulation but with sound files and
 [partikkel](https://csound.com/docs/manual/partikkel.html) offers a
 comprehensive control of grain characteristics on a grain-by-grain basis
 inspired by Curtis Roads' encyclopedic book on granular synthesis
-*Microsound*.
+_Microsound_.

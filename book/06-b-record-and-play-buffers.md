@@ -1,8 +1,6 @@
-06 B. RECORD AND PLAY BUFFERS
-=============================
+# 06 B. RECORD AND PLAY BUFFERS
 
-Playing Audio from RAM - *flooper2*
------------------------------------
+## Playing Audio from RAM - _flooper2_
 
 Csound offers many opcodes for playing back sound files that have first
 been loaded into a function table (and therefore are loaded into RAM).
@@ -12,21 +10,20 @@ some are simpler and less fully featured.
 One of the newer and easier to use opcodes for this task is
 [flooper2](https://csound.com/docs/manual/flooper2.html). As its
 name might suggest it is intended for the playback of files with
-looping. *flooper2* can also apply a cross-fade between the end and
+looping. _flooper2_ can also apply a cross-fade between the end and
 the beginning of the loop in order to smooth the transition where
 looping takes place.
 
 In the following example a sound file that has been loaded into a
 [GEN01](https://csound.com/docs/manual/GEN01.html)
-function table is played back using *flooper2*. The opcode also
+function table is played back using _flooper2_. The opcode also
 includes a parameter for modulating playback speed/pitch. There is
 also the option of modulating the loop points at k-rate. In this example
-the entire file is simply played and looped. As always, you can replace the sound file with one of your own. Note that *GEN01* accepts mono or stereo files; the number of output arguments for *flooper2* must correspond with the mono or stereo table.
+the entire file is simply played and looped. As always, you can replace the sound file with one of your own. Note that _GEN01_ accepts mono or stereo files; the number of output arguments for _flooper2_ must correspond with the mono or stereo table.
 
+**_EXAMPLE 06B01_flooper2.csd_**
 
-   ***EXAMPLE 06B01_flooper2.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac ; activate real-time audio
@@ -62,11 +59,9 @@ e
 </CsScore>
 </CsoundSynthesizer>
 ; example written by Iain McCurdy
-~~~
+```
 
-
-Csound's Built-in Record-Play Buffer - *sndloop*
-------------------------------------------------
+## Csound's Built-in Record-Play Buffer - _sndloop_
 
 Csound has an opcode called
 [sndloop](https://csound.com/docs/manual/sndloop.html) which
@@ -74,8 +69,8 @@ provides a simple method of recording some audio into a buffer and then
 playing it back immediately. The duration of audio storage required is
 defined when the opcode is initialized. In the following example two
 seconds is provided. Once activated, as soon as two seconds of live
-audio has been recorded by *sndloop*, it immediately begins playing it
-back in a loop. *sndloop* allows us to modulate the speed/pitch of the
+audio has been recorded by _sndloop_, it immediately begins playing it
+back in a loop. _sndloop_ allows us to modulate the speed/pitch of the
 played back audio as well as providing the option of defining a
 crossfade time between the end and the beginning of the loop. In the
 example pressing "r" on the computer keyboard activates record
@@ -88,10 +83,9 @@ playback will be reversed.
 You will need to have a microphone connected to your computer in order
 to use this example.
 
+**_EXAMPLE 06B02_sndloop.csd_**
 
-   ***EXAMPLE 06B02_sndloop.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 ; real-time audio in and out are both activated
@@ -133,16 +127,14 @@ i 1 0 3600 ; instr 1 plays for 1 hour
 </CsScore>
 </CsoundSynthesizer>
 ;example written by Iain McCurdy
-~~~
+```
 
-
-Recording to and Playback from a Function Table
------------------------------------------------
+## Recording to and Playback from a Function Table
 
 Writing to and reading from buffers can also be achieved through the use
 of Csound's opcodes for table reading and writing operations. Although
 the procedure is a little more complicated than that required for
-*sndloop* it is ultimately more flexible. In the next example separate
+_sndloop_ it is ultimately more flexible. In the next example separate
 instruments are used for recording to the table and for playing back
 from the table. Another instrument which runs constantly scans for
 activity on the computer keyboard and activates the record or playback
@@ -151,22 +143,21 @@ instruments accordingly. For writing to the table we will use the
 reading from the table we will use the
 [table](https://csound.com/docs/manual/table.html) opcode (if we
 were to modulate the playback speed it would be better to use one of
-Csound's interpolating variations of *table* such as
+Csound's interpolating variations of _table_ such as
 [tablei](https://csound.com/docs/manual/tablei.html) or
 [table3](https://csound.com/docs/manual/table3.html). Csound writes
 individual values to table locations, the exact table locations being
-defined by an *index*. For writing continuous audio to a table this
-index will need to be continuously moving to the next location for every sample. This moving index (or *pointer*) can be created with an a-rate
+defined by an _index_. For writing continuous audio to a table this
+index will need to be continuously moving to the next location for every sample. This moving index (or _pointer_) can be created with an a-rate
 [line](https://csound.com/docs/manual/line.html) or a
 [phasor](https://csound.com/docs/manual/phasor.html). The next
-example uses *line*. When using Csound's table operation opcodes we
+example uses _line_. When using Csound's table operation opcodes we
 first need to create that table, either in the orchestra header or in
 the score. The duration of the audio buffer in seconds is multiplied by the sample rate to calculate the proper table size.
 
+**_EXAMPLE 06B03_RecPlayToTable.csd_**
 
-   ***EXAMPLE 06B03_RecPlayToTable.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 ; real-time audio in and out are both activated
@@ -227,27 +218,24 @@ i 1 0 3600 ; Sense keyboard activity. Start recording - playback.
 </CsScore>
 </CsoundSynthesizer>
 ;example written by Iain McCurdy
-~~~
+```
 
-
-Encapsulating Record and Play Buffer Functionality to a UDO
------------------------------------------------------------
+## Encapsulating Record and Play Buffer Functionality to a UDO
 
 Recording and playing back of buffers can also be encapsulated into a
 User Defined Opcode (UDO).^[See Chapter [03 G](03-g-user-defined-opcodes.md) for more information
-about writing UDOs in Csound.] We will show here a version which in a way *re-invents the wheel*
+about writing UDOs in Csound.] We will show here a version which in a way _re-invents the wheel_
 as it creates an own sample-by-sample increment for reading and writing the buffer rather than
 using a pointer. This is mostly meant as example how open this field is for different user
 implementations, and how easy it is to create own applications based on the fundamental
 functionalities of table reading and writing.
 
-
-One way to write compact Csound code is to follow the principle *one job per line* (of code).
-For defining *one job* of a good size, we will mostly need a UDO which combines some low-level
+One way to write compact Csound code is to follow the principle _one job per line_ (of code).
+For defining _one job_ of a good size, we will mostly need a UDO which combines some low-level
 tasks and also allows us to apply a memorizable name for this job.
-So often the principle *one job per line* results in *one UDO per line*.
+So often the principle _one job per line_ results in _one UDO per line_.
 
-The *jobs* in the previous example can be described as follows:
+The _jobs_ in the previous example can be described as follows:
 
 1. Create a buffer of a certain length.
 2. Watch keyboard input.
@@ -265,20 +253,20 @@ in a UDO which gets the time as input and returns the buffer variable as output.
     endop
 
 Step **2** is the only one which is a normal Csound code line, consisting of the
-[sensekey](https://csound.com/docs/manual/sensekey.html) opcode. Due to the implementation of *sensekey*,
-there should only be one *sensekey* in a Csound orchestra.
+[sensekey](https://csound.com/docs/manual/sensekey.html) opcode. Due to the implementation of _sensekey_,
+there should only be one _sensekey_ in a Csound orchestra.
 
     kKey, kDown sensekey
 
 Step **3** consists of two parts. We will write one UDO for both. The first UDO writes to a buffer if it
 gets a signal to do so. We choose here a very low-level way of writing an audio signal to a buffer. Instead
 of creating an index, we just increment the single index numbers. To continue the process at the end of
-the buffer, we apply the *modulo* operation to the incremented numbers.^[The symbol for the
+the buffer, we apply the _modulo_ operation to the incremented numbers.^[The symbol for the
 [modulo operation](https://en.wikipedia.org/wiki/Modulo_operation)
-is *%*. The result is the *remainder* in a division: *1 % 3 = 1*,
-*4 % 3 = 1*, *7 % 3 = 1* etc.]
+is _%_. The result is the _remainder_ in a division: _1 % 3 = 1_,
+_4 % 3 = 1_, _7 % 3 = 1_ etc.]
 
-~~~csound
+```csound
 opcode recordBuffer, 0, aik
  ain, ift, krec  xin
  setksmps  1 ;k=a here in this UDO
@@ -288,11 +276,11 @@ opcode recordBuffer, 0, aik
   kndx = (kndx+1) % ftlen(ift)
  endif
 endop
-~~~
+```
 
-The second UDO ouputs *1* as long as a key is pressed. Its input consists of the ASCII key which is selected, and of the output of the *sensekey* opcode.
+The second UDO ouputs _1_ as long as a key is pressed. Its input consists of the ASCII key which is selected, and of the output of the _sensekey_ opcode.
 
-~~~csound
+```csound
 opcode keyPressed, k, kki
  kKey, kDown, iAscii xin
  kPrev init 0 ;previous key value
@@ -301,11 +289,11 @@ opcode keyPressed, k, kki
  kPrev = (kPrev == kKey && kDown == 0 ? 0 : kPrev)
  xout kOut
 endop
-~~~
+```
 
-The reading procedure in step **4** is in fact the same as was used for writing. We only have to replace the opcode for writing *tablew* with the opcode for reading *table*.
+The reading procedure in step **4** is in fact the same as was used for writing. We only have to replace the opcode for writing _tablew_ with the opcode for reading _table_.
 
-~~~csound
+```csound
 opcode playBuffer, a, ik
  ift, kplay  xin
  setksmps  1 ;k=a here in this UDO
@@ -316,14 +304,13 @@ opcode playBuffer, a, ik
  endif
  xout aRead
 endop
-~~~
+```
 
-Note that you must disable the key repeats on your computer keyboard for the following example (in CsoundQt, disable "Allow key repeats" in *Configuration -\> General*). Press the *r* key as long as you want to record, and the *p* key for playing back. Both, record and playback, is done circular.
+Note that you must disable the key repeats on your computer keyboard for the following example (in CsoundQt, disable "Allow key repeats" in _Configuration -\> General_). Press the _r_ key as long as you want to record, and the _p_ key for playing back. Both, record and playback, is done circular.
 
+**_EXAMPLE 06B04_BufRecPlay_UDO.csd_**
 
-   ***EXAMPLE 06B04_BufRecPlay_UDO.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -i adc -o dac -m128
@@ -381,7 +368,7 @@ i 1 0 1000
 </CsScore>
 </CsoundSynthesizer>
 ;example written by joachim heintz
-~~~
+```
 
 We use mostly the functional style of writing Csound code here. Instead of
 
@@ -391,18 +378,15 @@ we could also write:
 
     iBuffer createBuffer 3
 
-To plug the audio signal from channel 1 directly into the *recordBuffer* UDO,
-we plug the *inch(1)* directly into the first input. Similar the output of the
-*keyPressed* UDO as third input. For more information about functional style coding,
+To plug the audio signal from channel 1 directly into the _recordBuffer_ UDO,
+we plug the _inch(1)_ directly into the first input. Similar the output of the
+_keyPressed_ UDO as third input. For more information about functional style coding,
 see chapter [03 I](03-i-functional-syntax.md).
 
-
-
-Further Opcodes for Investigation
----------------------------------
+## Further Opcodes for Investigation
 
 Csound contains a wide range of opcodes that offer a variety of
-*ready-made* methods of playing back audio held in a function table.
+_ready-made_ methods of playing back audio held in a function table.
 The oldest group of these opcodes are
 [loscil](https://csound.com/docs/manual/loscil.html) and
 [loscil3](https://csound.com/docs/manual/loscil3.html). Despite

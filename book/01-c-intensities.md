@@ -1,27 +1,24 @@
-01 C. INTENSITIES
-=================
+# 01 C. INTENSITIES
 
-As musicians we are dealing with volume, loudness, sound intensity. (In classical western music called *dynamics*, designated as *forte*, *piano* and its variants.) In digital audio, however, we are dealing with *amplitudes*. We are asked, for instance, to set the amplitude of an oscillator. Or we see this message at the end of a Csound performance in the console telling us the "overall amps" (= amplitudes):
+As musicians we are dealing with volume, loudness, sound intensity. (In classical western music called _dynamics_, designated as _forte_, _piano_ and its variants.) In digital audio, however, we are dealing with _amplitudes_. We are asked, for instance, to set the amplitude of an oscillator. Or we see this message at the end of a Csound performance in the console telling us the "overall amps" (= amplitudes):
 
 ![Csound console printout](../resources/images/01-c-overall-amps.png)
 
-Amplitudes are related to sound intensities, but in a more complicated way than we may think. This chapter starts with some essentials about measuring intensities and the *decibel* (*dB*) scale. It continues with *rms* measurement and ends with the *Fletcher-Munson* curves.
+Amplitudes are related to sound intensities, but in a more complicated way than we may think. This chapter starts with some essentials about measuring intensities and the _decibel_ (_dB_) scale. It continues with _rms_ measurement and ends with the _Fletcher-Munson_ curves.
 
-
-Real World Intensities and Amplitudes
--------------------------------------
+## Real World Intensities and Amplitudes
 
 ### SIL — Sound Intensity Level
 
 There are many ways to describe a sound physically. One of the most
-common is the *Sound Intensity Level* (SIL). It describes the amount of
-power on a certain surface, so its unit is Watts per square meter *W/m^2^*.
+common is the _Sound Intensity Level_ (SIL). It describes the amount of
+power on a certain surface, so its unit is Watts per square meter _W/m^2^_.
 
 The range of human hearing is about 10^-12^ W/m^2^
 at the threshold of hearing to 10^0^ W/m^2^
 at the threshold of pain. For ordering this immense range, and to
 facilitate the measurement of one sound intensity based upon its ratio
-with another, a logarithmic scale is used. The unit *Bel* describes the
+with another, a logarithmic scale is used. The unit _Bel_ describes the
 relation of one intensity $I$ to a reference
 intensity $I_0$ as follows:
 
@@ -47,7 +44,6 @@ $10 \cdot \log_{10} \frac{I}{I_0}$
 I~0~ = 10 ^-12^ W/m^2^*
 </p></center>
 
-
 ### SPL — Sound Pressure Level
 
 While the sound intensity level is useful in describing the way in which
@@ -57,7 +53,7 @@ particles and by this they increase and decrease the localized air
 pressure. These deviations are measured and transformed by a microphone.
 But what is the relationship between the sound pressure
 deviations and the sound intensity? The answer is: sound intensity
-changes $I$ are proportional to the *square* of the sound pressure changes
+changes $I$ are proportional to the _square_ of the sound pressure changes
 $P$. As a formula:
 
 <center>
@@ -86,7 +82,7 @@ $10 \cdot  log_{10} \left(\frac{P}{P_0}\right)^2 = 2 \cdot  10 \cdot  log_{10} \
 
 ### Sound Intensity and Amplitudes
 
-Working with digital audio means working with *amplitudes*. Any audio
+Working with digital audio means working with _amplitudes_. Any audio
 signal is a sequence of amplitudes. What we generate in Csound and write
 either to the DAC in realtime or to a sound file, is again nothing but
 a sequence of amplitudes. As amplitudes are directly related to the
@@ -120,15 +116,12 @@ The most useful thing to bear in mind is that when we double an
 amplitude this will provide a change of +6 dB, or when we halve an
 amplitude this will provide a change of -6 dB.
 
-
-
-What is 0 dB?
--------------
+## What is 0 dB?
 
 As described in the last section, any dB scale - for intensities,
-pressures or amplitudes - is just a way to describe a *relationship*. To
+pressures or amplitudes - is just a way to describe a _relationship_. To
 have any sort of quantitative measurement you will need to know the
-reference value referred to as *0 dB*. For real world sounds, it makes
+reference value referred to as _0 dB_. For real world sounds, it makes
 sense to set this level to the threshold of hearing. This is done, as we
 saw, by setting the SIL to 10^-12^ W/m^2^, and the SPL to 2·10^-5^ Pa.
 
@@ -137,7 +130,7 @@ defining 0 dB will not make any sense. The loudness of the sound produced
 in the computer will ultimately depend on the amplification and the
 speakers, and the amplitude level set in your audio editor or in Csound
 will only apply an additional, and not an absolute, sound level control.
-Nevertheless, there *is* a rational reference level for the amplitudes.
+Nevertheless, there _is_ a rational reference level for the amplitudes.
 In a digital system, there is a strict limit for the maximum number you
 can store as amplitude. This maximum possible level is normally used as
 the reference point for 0 dB.
@@ -154,14 +147,11 @@ Usually you should use this statement in the orchestra header:
 
 This means: "Set the level for zero dB as full scale to 1 as reference
 value." Note that for historical reasons the default value in Csound is
-not 1 but 32768. So you must have this *0dbfs=1* statement in your
+not 1 but 32768. So you must have this _0dbfs=1_ statement in your
 header if you want to use the amplitude convention used by most modern
 audio programming environments.
 
-
-
-dB Scale Versus Linear Amplitude
---------------------------------
+## dB Scale Versus Linear Amplitude
 
 Now we will consider some practical consequences of what we have
 discussed so far. One major point is that for achieving perceivably
@@ -171,9 +161,9 @@ equivalent. The following example shows a linear rise of the amplitudes
 from 0 to 1, and then a linear rise of the dB's from -80 to 0 dB, both
 over 10 seconds.
 
-   ***EXAMPLE 01C01\_db\_vs\_linear.csd***
+**_EXAMPLE 01C01_db_vs_linear.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -206,17 +196,14 @@ i 2 11 10
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
 The first note, which employs a linear rise in amplitude, is perceived
 as rising quickly in intensity with the rate of increase slowing
 quickly. The second note, which employs a linear rise in decibels, is
 perceived as a more constant rise in intensity.
 
-
-
-RMS Measurement
----------------
+## RMS Measurement
 
 Sound intensity depends on many factors. One of the most important is
 the effective mean of the amplitudes in a certain time span. This is
@@ -244,16 +231,16 @@ And the resulting RMS value is $\sqrt{0.5} = 0.707$.
 
 The [rms](http://www.csound.com/docs/manual/rms.html) opcode in Csound
 calculates the RMS power in a certain time span, and smoothes the values
-in time according to the *ihp* parameter: the higher this value is (the
+in time according to the _ihp_ parameter: the higher this value is (the
 default is 10 Hz), the quicker this measurement will respond to changes,
 and vice versa. This opcode can be used to implement a self-regulating
 system, in which the rms opcode prevents the system from exploding. Each
 time the rms value exceeds a certain value, the amount of feedback is
 reduced. This is an example^[cf Martin Neukom, Signale Systeme Klangsynthese, Zürich 2003, p.383]\:
 
-   ***EXAMPLE 01C02_rms_feedback_system.csd***
+**_EXAMPLE 01C02_rms_feedback_system.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -273,7 +260,7 @@ instr 1
  if p4 == 1 then                               ;choose between two sines ...
   adel1     poscil    0.0523, 0.023, giSine
   adel2     poscil    0.073, 0.023, giSine,.5
- else                                          ;... or a random movement 
+ else                                          ;... or a random movement
                                                ;for the delay lines
   adel1     randi     0.05, 0.1, 2
   adel2     randi     0.08, 0.2, 2
@@ -294,12 +281,9 @@ i 1 61 . 2          ;two random movements of delay with feedback
 </CsScore>
 </CsoundSynthesizer>
 ;example by Martin Neukom, adapted by Joachim Heintz
-~~~
+```
 
-
-
-Fletcher-Munson Curves
-----------------------
+## Fletcher-Munson Curves
 
 The range of human hearing is roughly from 20 to 20000 Hz, but within
 this range, the hearing is not equally sensitive to intensity. The most
@@ -307,8 +291,8 @@ sensitive region is around 3000 Hz. If a sound is operating in the upper
 or lower limits of this range, it will need greater intensity in order
 to be perceived as equally loud.
 
-These curves of equal loudness are mostly called *Fletcher-Munson
-Curves* because of the paper of H. Fletcher and W. A. Munson in 1933.
+These curves of equal loudness are mostly called _Fletcher-Munson
+Curves_ because of the paper of H. Fletcher and W. A. Munson in 1933.
 They look like this:
 
 ![](../resources/images/01-c-fletcher-munson.png){width=70%}
@@ -326,9 +310,9 @@ this test will also depend upon the quality of your speaker hardware. If
 your speakers do not provide adequate low frequency response, you will
 not hear anything in the bass region.
 
-   ***EXAMPLE 01C03_FletcherMunson.csd***
+**_EXAMPLE 01C03_FletcherMunson.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -353,7 +337,7 @@ i 1 6 20 20  20000
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
 It is very important to bear in mind when designing instruments that the
 perceived loudness of a sound will depend upon its frequency content.

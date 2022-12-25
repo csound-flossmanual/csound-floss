@@ -2,6 +2,9 @@
   "name": "csound_floss",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=17.0.0"
+  },
   "dependencies": {
     "@emotion/core": "^11.0.0",
     "@emotion/react": "^11.1.1",
@@ -51,17 +54,14 @@
     "build:odt": "node pandoc/build_odt.js",
     "extract:examples": "node pandoc/extract_csd_examples.js",
     "test": "jest",
-    "test:ci": "jest --ci"
+    "test:ci": "jest --ci",
+    "prettify": "npx prettier --write ./book"
   },
   "eslintConfig": {
     "extends": "react-app"
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
+    "production": [">0.2%", "not dead", "not op_mini all"],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
@@ -69,6 +69,7 @@
     ]
   },
   "devDependencies": {
-    "fast-glob": "^3.2.4"
+    "fast-glob": "^3.2.4",
+    "prettier": "^2.8.1"
   }
 }

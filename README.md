@@ -12,10 +12,10 @@ yarn build:pdf
 ```
 
 ### Requirements
-- pandoc 2.3+
-- nodejs 12_0x
-- yarn
 
+- pandoc 2.3+
+- nodejs 17.x or later
+- yarn 1.x but no later (make sure it's less than 2.x)
 
 ## Developing
 
@@ -44,17 +44,20 @@ npm i jest --globall && jest
 ```
 
 ## Contributing
+
 - [Conventions for writing](contribute/conventions.md)
 - [Writing in Markdown](contribute/writing-in-markdown.md)
 - [Todo list](contribute/todo.md)
 
 ## Writing Tools
+
 - [Panwriter: a GUI for editing Pandoc files](https://panwriter.com/)
 - [Atom Package for Pandoc edit and preview](https://atom.io/packages/pandoc)
 - [Emacs Mode for editing Pandoc files](http://joostkremers.github.io/pandoc-mode/)
 - [Vim plugin for Pandoc integration and utilities](https://github.com/vim-pandoc/vim-pandoc)
 
 ## Further Read
+
 - [Pandoc Official Manual](https://pandoc.org/MANUAL.html)
 - [Pandoc alternative manual](https://rmarkdown.rstudio.com/authoring_pandoc_markdown.html%23raw-tex)
 

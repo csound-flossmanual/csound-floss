@@ -1,5 +1,4 @@
-03 G. USER DEFINED OPCODES
-==========================
+# 03 G. USER DEFINED OPCODES
 
 Opcodes are the core units of everything that Csound does. They are like
 little machines that do a job, and programming is akin to connecting
@@ -7,7 +6,7 @@ these little machines to perform a larger job. An opcode usually has
 something which goes into it: the inputs or arguments, and usually it
 has something which comes out of it: the output which is stored in one
 or more variables. Opcodes are written in the programming language C
-(that is where the name *Csound* comes from). If you want to create a
+(that is where the name _Csound_ comes from). If you want to create a
 new opcode in Csound, you must write it in C. How to do this is
 described in the
 [Extending Csound](13-a-developing-plugin-opcodes.md)
@@ -18,14 +17,14 @@ of the
 
 There is, however, a way of writing your own opcodes in the Csound
 Language itself. The opcodes which are written in this way, are called
-*User Defined Opcodes* or *UDO*s. A *UDO* behaves in the same way as a
+_User Defined Opcodes_ or *UDO*s. A _UDO_ behaves in the same way as a
 standard opcode: it has input arguments, and usually one or more output
 variables. It runs at i-time or at k-time. You use them as part of the
 Csound Language after you have defined and loaded them.
 
 User Defined Opcodes have many valuable properties. They make your
 instrument code clearer because they allow you to create abstractions
-of  blocks of code. Once a *UDO* has been defined it can be recalled and
+of blocks of code. Once a _UDO_ has been defined it can be recalled and
 repeated many times within an orchestra, each repetition requiring only
 a single line of code. *UDO*s allow you to build up your own library of
 functions you need and return to frequently in your work. In this way,
@@ -45,16 +44,15 @@ have a look at the end of chapter
 [03E](03-e-arrays.md) to see their usage and naming
 conventions.
 
-Transforming Csound Instrument Code to a User Defined Opcode
-------------------------------------------------------------
+## Transforming Csound Instrument Code to a User Defined Opcode
 
 Writing a User Defined Opcode is actually very easy and straightforward.
 It mainly means to extract a portion of usual Csound instrument code,
 and put it in the frame of a UDO. Let us start with the instrument code:
 
-   ***EXAMPLE 03G01_Pre_UDO.csd***
+**_EXAMPLE 03G01_Pre_UDO.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -91,12 +89,12 @@ i 1 0 60
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
 This is a filtered noise, and its delay, which is fed back again into
-the delay line at a certain ratio *iFb*. The filter is moving as *kFiltFq*
+the delay line at a certain ratio _iFb_. The filter is moving as _kFiltFq_
 randomly between 100 and 1000 Hz. The volume of the filtered noise is
-moving as *kdB* randomly between -18 dB and -6 dB. The delay time moves
+moving as _kdB_ randomly between -18 dB and -6 dB. The delay time moves
 between 0.1 and 0.8 seconds, and then both signals are mixed together.
 
 ### Basic Example
@@ -107,9 +105,9 @@ encapsulated: where the UDO code will begin and end? The first solution
 could be a radical, and possibly bad, approach: to transform the whole
 instrument into a UDO.
 
-   ***EXAMPLE 03G02_All_to_UDO.csd***
+**_EXAMPLE 03G02_All_to_UDO.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -150,7 +148,7 @@ i 1 0 60
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
 Before we continue the discussion about the quality of this
 transformation, we should have a look at the syntax first. The general
@@ -175,7 +173,7 @@ block of a normal instrument definition, for a UDO the **opcode ...
 endop** keywords begin and end the UDO definition block. In the
 instrument, the UDO is called like a normal opcode by using its name,
 and in the same line the input arguments are listed on the right and the
-output arguments on the left. In the previous a example, *FiltFb* has
+output arguments on the left. In the previous a example, _FiltFb_ has
 no input and output arguments so it is called by just using its name:
 
     instr 1
@@ -192,8 +190,8 @@ advisable to include this line in the UDO:
 This statement writes the audio signal aOut from inside the UDO to the
 output device. Imagine you want to change the output channels, or you
 want to add any signal modifier after the opcode. This would be
-impossible with this statement. So instead of including the *out*
-opcode, we give the *FiltFb* UDO an audio output:
+impossible with this statement. So instead of including the _out_
+opcode, we give the _FiltFb_ UDO an audio output:
 
     xout      aOut
 
@@ -202,7 +200,7 @@ statement of a UDO definition works like the "outlets" in PD or Max,
 sending the result(s) of an opcode back to the caller instrument.
 
 Now let us consider the UDO's input arguments, choose which processes
-should be carried out within the *FiltFb* unit, and what aspects would
+should be carried out within the _FiltFb_ unit, and what aspects would
 offer greater flexibility if controllable from outside the UDO. First,
 the **aSnd** parameter should not be restricted to a white noise with
 amplitude 0.2, but should be an input (like a "signal inlet" in
@@ -212,17 +210,17 @@ PD/Max). This is implemented using the line:
 
 Both the output and the input type must be declared in the first line of
 the UDO definition, whether they are i-, k- or a-variables. So instead
-of *opcode FiltFb, 0, 0* the statement has changed now to *opcode
-FiltFb, a, a*, because we have both input and output as a-variable.
+of _opcode FiltFb, 0, 0_ the statement has changed now to _opcode
+FiltFb, a, a_, because we have both input and output as a-variable.
 
 The UDO is now much more flexible and logical: it takes any audio input,
 it performs the filtered delay and feedback processing, and returns the
 result as another audio signal. In the next example, instrument 1 does
 exactly the same as before. Instrument 2 has live input instead.
 
-   ***EXAMPLE 03G03_UDO_more_flex.csd***
+**_EXAMPLE 03G03_UDO_more_flex.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 </CsOptions>
@@ -270,12 +268,11 @@ i 1 0 60 ;change to i 2 for live audio input
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
-
+```
 
 ### Is There an Optimal Design for a User Defined Opcode?
 
-Is this now the optimal version of the *FiltFb* User Defined Opcode?
+Is this now the optimal version of the _FiltFb_ User Defined Opcode?
 Obviously there are other parts of the opcode definiton which could be
 controllable from outside: the feedback multiplier **iFb**, the random
 movement of the input signal **kdB**, the random movement of the filter
@@ -296,15 +293,15 @@ reusability, but may be unnecessarily complicated.
 Perhaps it is the best solution to have one abstract definition which
 performs one task, and to create a derivative - also as UDO - fine tuned
 for the particular project you are working on. The final example
-demonstrates the definition of a general and more abstract UDO *FiltFb*,
+demonstrates the definition of a general and more abstract UDO _FiltFb_,
 and its various applications: instrument 1 defines the specifications in
-the instrument itself; instrument 2 uses a second UDO *Opus123_FiltFb*
-for this purpose; instrument 3 sets the general *FiltFb* in a new
+the instrument itself; instrument 2 uses a second UDO _Opus123_FiltFb_
+for this purpose; instrument 3 sets the general _FiltFb_ in a new
 context of two varying delay lines with a buzz sound as input signal.
 
-   ***EXAMPLE 03G04_UDO_calls_UDO.csd***
+**_EXAMPLE 03G04_UDO_calls_UDO.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -401,7 +398,7 @@ i 3 62 120
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
 The good thing about the different possibilities of writing a more
 specified UDO, or a more generalized: You needn't decide this at the
@@ -416,8 +413,7 @@ it easier to adapt the UDO at a later time. What are the inputs
 What are the outputs? - How you do this, is up to you and depends on
 your style and your preference.
 
-How to Use the User Defined Opcode Facility in Practice
--------------------------------------------------------
+## How to Use the User Defined Opcode Facility in Practice
 
 In this section, we will address the main points of using UDOs: what you
 must bear in mind when loading them, what special features they offer,
@@ -427,14 +423,14 @@ language with them.
 ### Loading User Defined Opcodes in the Orchestra Header
 
 As can be seen from the examples above, User Defined Opcodes must be
-defined in the orchestra header (which is sometimes called *instrument
-0*).
+defined in the orchestra header (which is sometimes called _instrument
+0_).
 
 You can load as many User Defined Opcodes into a Csound orchestra as you
 wish. As long as they do not depend on each other, their order is
-arbitrarily. If UDO *Opus123_FiltFb* uses the UDO *FiltFb* for its
-definition (see the example above), you must first load *FiltFb*, and
-then *Opus123_FiltFb*. If not, you will get an error like this:
+arbitrarily. If UDO _Opus123_FiltFb_ uses the UDO _FiltFb_ for its
+definition (see the example above), you must first load _FiltFb_, and
+then _Opus123_FiltFb_. If not, you will get an error like this:
 
     orch compiler:
             opcode  Opus123_FiltFb  a       a
@@ -449,23 +445,23 @@ by an
 statement. What you must do is the following:
 
 1.  Save your opcode definitions in a plain text file, for instance
-    *MyOpcodes.txt*.
+    _MyOpcodes.txt_.
 2.  If this file is in the same directory as your .csd file, you can
     just call it by the statement:
 
         #include "MyOpcodes.txt"
 
-3.  If *MyOpcodes.txt* is in a different directory, you must call it
+3.  If _MyOpcodes.txt_ is in a different directory, you must call it
     by the full path name, for instance:
 
         #include "/Users/me/Documents/Csound/UDO/MyOpcodes.txt"
 
-As always, make sure that the *#include* statement is the last one in
+As always, make sure that the _#include_ statement is the last one in
 the orchestra header, and that the logical order is accepted if one
 opcode depends on another.
 
 If you work with User Defined Opcodes a lot, and build up a collection
-of them, the *#include* feature allows you easily import several or all
+of them, the _#include_ feature allows you easily import several or all
 of them to your .csd file.
 
 ### The setksmps Feature
@@ -480,9 +476,9 @@ number of samples per control cycle in the UDO. In the following
 example, the print statement in the UDO prints ten times compared to one
 time in the instrument, because ksmps in the UDO is 10 times smaller:
 
-   ***EXAMPLE 03G06_UDO_setksmps.csd***
+**_EXAMPLE 03G06_UDO_setksmps.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -nm0
@@ -507,33 +503,32 @@ i 1 0 2
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
-
+```
 
 ### Default Arguments
 
 For i-time arguments, you can use a simple feature to set default
 values:
 
--   *o* (instead of *i*) defaults to 0
--   *p* (instead of *i*) defaults to 1
--   *j* (instead of *i*) defaults to -1
+- _o_ (instead of _i_) defaults to 0
+- _p_ (instead of _i_) defaults to 1
+- _j_ (instead of _i_) defaults to -1
 
 For k-time arguments, you can use since Csound 5.18 these default
 values:
 
--   *O* (instead of *k*) defaults to 0
--   *P* (instead of *k*) defaults to 1
--   *V* (instead of *k*) defaults to 0.5
--   *J* (instead of *k*) defaults to -1
+- _O_ (instead of _k_) defaults to 0
+- _P_ (instead of _k_) defaults to 1
+- _V_ (instead of _k_) defaults to 0.5
+- _J_ (instead of _k_) defaults to -1
 
 So you can omit these arguments - in this case the default values will
 be used. If you give an input argument instead, the default value will
 be overwritten:
 
-   ***EXAMPLE 03G07_UDO_default_args.csd***
+**_EXAMPLE 03G07_UDO_default_args.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -nm0
@@ -562,24 +557,23 @@ i 1 0 0
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
-
+```
 
 ### Overloading
 
 Extending this example a bit shows an important feature of *UDO*s.
 If we have different input and/or output types, we can use the
-**same** name for the *UDO*. Csound will choose the appropriate version
+**same** name for the _UDO_. Csound will choose the appropriate version
 depending on the context. This is a well-known practice in many
-programming languages as *overloading a function*.
+programming languages as _overloading a function_.
 
-In the simple example below, the *i*-rate and the *k*-rate version of
-the UDO are both called *Default*. Depending on the variable type and the
+In the simple example below, the _i_-rate and the _k_-rate version of
+the UDO are both called _Default_. Depending on the variable type and the
 number of outputs, the correct version is used by Csound.
 
-   ***EXAMPLE 03G08_UDO_overloading.csd***
+**_EXAMPLE 03G08_UDO_overloading.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -nm0
@@ -626,7 +620,7 @@ i 1 0 1
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
 Prints:
 
@@ -640,7 +634,6 @@ Prints:
     ka = 2, kb = 4, kc = 6.0, kd = -1
     ka = 2, kb = 4, kc = 6.0, kd = 8
 
-
 ### Recursive User Defined Opcodes
 
 Recursion means that a function can call itself. This is a feature which
@@ -651,9 +644,9 @@ example of generating eight partials by a recursive UDO. See the last
 example in the next section for a more musical application of a
 recursive UDO.
 
-   ***EXAMPLE 03G09_Recursive_UDO.csd***
+**_EXAMPLE 03G09_Recursive_UDO.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 </CsOptions>
@@ -687,10 +680,9 @@ i 1 0 1
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
-Examples
---------
+## Examples
 
 We will focus here on some examples which will hopefully show the wide
 range of User Defined Opcodes. Some of them are adaptions of examples
@@ -699,7 +691,7 @@ from previous chapters about the Csound Syntax.
 ### Play A Mono Or Stereo Soundfile
 
 Csound is often very strict and gives errors where other applications
-might *turn a blind eye*. This is also the case if you read a
+might _turn a blind eye_. This is also the case if you read a
 soundfile using Csound's
 [diskin](http://www.csound.com/docs/manual/diskin.html) opcode.
 If your soundfile is mono, you must use the mono version, which has one
@@ -718,11 +710,11 @@ FilePlay either returns one audio signal (if the file is
 stereo it uses just the first channel), or it returns two
 audio signals (if the file is mono it duplicates this to both channels).
 We can use the default arguments to make this opcode behave exactly as
-a *tolerant diskin* ...
+a _tolerant diskin_ ...
 
-   ***EXAMPLE 03G10_UDO_FilePlay.csd***
+**_EXAMPLE 03G10_UDO_FilePlay.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac --env:SSDIR+=../SourceMaterials
@@ -774,23 +766,21 @@ i 2 4 4
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
-
+```
 
 ### Change the Content of a Function Table
 
-In example *03C11_Table_random_dev.csd*, a function table has been
+In example _03C11_Table_random_dev.csd_, a function table has been
 changed at performance time, once a second, by random deviations. This
 can be easily transformed to a User Defined Opcode. It takes the
 function table variable, a trigger signal, and the random deviation in
 percent as input. In each control cycle where the trigger signal is
-*1*, the table values are read. The random deviation is applied, and
+_1_, the table values are read. The random deviation is applied, and
 the changed values are written again into the table.
 
+**_EXAMPLE 03G11_UDO_rand_dev.csd_**
 
-   ***EXAMPLE 03G11_UDO_rand_dev.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -833,7 +823,7 @@ i 1 0 10
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
 The next example permutes a series of numbers randomly each
 time it is called. For this purpose, one random element of
@@ -846,13 +836,12 @@ elements which are "right of" this one random element are copied
 one position to the left. As result the previously chosen
 element is being overwritten, and the number of values to read is
 shrinked by one. This process is done again and again, until each
-*old* element has placed to a (potentially) *new* position in the
+_old_ element has placed to a (potentially) _new_ position in the
 resulting output array.
 
+**_EXAMPLE 03G12_ArrPermRnd.csd_**
 
-   ***EXAMPLE 03G12_ArrPermRnd.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -nm0
@@ -910,7 +899,7 @@ i "Print" .05 .01
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
 Prints (for example):
 
@@ -920,7 +909,6 @@ Prints (for example):
     1 12 10 11 9 5 4 8 6 7 2 3
     7 12 8 2 10 4 5 1 11 3 6 9
     1 2 3 4 5 6 7 8 9 10 11 12
-
 
 ### A Recursive User Defined Opcode for Additive Synthesis
 
@@ -935,9 +923,9 @@ values for one note, and triggers the event. Then instrument 11 is
 called which feeds the UDO with the values and passes the audio signals
 to the output.
 
-   ***EXAMPLE 03G13_UDO_Recursive_AddSynth.csd***
+**_EXAMPLE 03G13_UDO_Recursive_AddSynth.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -1011,8 +999,7 @@ i 1 0 300
 </CsScore>
 </CsoundSynthesizer>
 ;Example by Joachim Heintz
-~~~
-
+```
 
 ### Filter implementation via Sample-by-Sample Processing
 
@@ -1028,9 +1015,9 @@ name is defined here twice; first with the input types aKK (one audio
 signal and two k-signals with initialization), then with the input types
 aaa.
 
-   ***EXAMPLE 03G14_UDO_zdf_svf.csd***
+**_EXAMPLE 03G14_UDO_zdf_svf.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 </CsOptions>
@@ -1145,4 +1132,4 @@ i 1 0 10
 </CsScore>
 </CsoundSynthesizer>
 ;example by steven yi
-~~~
+```

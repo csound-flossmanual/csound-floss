@@ -1,13 +1,11 @@
-14 C. AMPLITUDE AND PITCH TRACKING
-==================================
+# 14 C. AMPLITUDE AND PITCH TRACKING
 
 Tracking the amplitude of an audio signal is a relatively simple
 procedure but simply following the amplitude values of the waveform is
 unlikely to be useful. An audio waveform will be bipolar, expressing
 both positive and negative values, so to start with, some sort of
 rectifying of the negative part of the signal will be required. The most
-common method of achieving this is to square it (raise to the power of
-2) and then to take the square root. Squaring any negative values will
+common method of achieving this is to square it (raise to the power of 2) and then to take the square root. Squaring any negative values will
 provide positive results (-2 squared equals 4). Taking the square root
 will restore the absolute values.
 
@@ -38,10 +36,9 @@ the size of the array. Changing control rate (kr) or number of audio
 samples in a control period (ksmps) will then no longer alter response
 behaviour.
 
+**_EXAMPLE 14C01_Amplitude_Tracking_First_Principles.csd_**
 
-***EXAMPLE 14C01_Amplitude_Tracking_First_Principles.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -dm128 -odac
@@ -80,7 +77,7 @@ i 1 0 5
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
+```
 
 In practice it is not necessary for us to build our own amplitude
 tracker as Csound already offers several opcodes for the task.
@@ -97,14 +94,14 @@ on whether the amplitude is rising or falling.
 A quick comparison of these three opcodes and the original method from
 first principles is given below:
 
-The sound file used in all three comparisons is *fox.wav* which can be
+The sound file used in all three comparisons is _fox.wav_ which can be
 found as part of the Csound HTML Manual download. This sound is someone
 saying: "the quick brown fox jumps over the lazy dog".
 
 ![](../resources/images/14-c-fox.png)
 
 First of all by employing the technique exemplified in example
-*14C01*, the amplitude following signal is overlaid upon the source
+_14C01_, the amplitude following signal is overlaid upon the source
 signal:
 
 ![](../resources/images/14-c-homebrew.png)
@@ -152,12 +149,12 @@ a sample-and-hold mechanism when outputting the tracked amplitude. This
 can result in a stepped output that might require addition lowpass
 filtering before use. We actually defined the period, the duration for
 which values are held, using its second input argument. The update rate
-will be one over the period.  In the following example the audio is
+will be one over the period. In the following example the audio is
 amplitude tracked using the following line:
 
     aRms    follow    aSig, 0.01
 
- with the following result:
+with the following result:
 
 ![](../resources/images/14-c-follow.png)
 
@@ -185,10 +182,7 @@ This technique can be used to extend the duration of short input sound
 events or triggers. Note that the attack and release times for follow2
 can also be modulated at k-rate.
 
-
-
-Dynamic Gating and Amplitude Triggering
----------------------------------------
+## Dynamic Gating and Amplitude Triggering
 
 Once we have traced the changing amplitude of an audio signal it is
 straightforward to use specific changes in that function to trigger
@@ -197,9 +191,9 @@ define a threshold above which one thing happens and below which
 something else happens. A crude dynamic gating of the signal above could
 be implemented thus:
 
-***EXAMPLE 14C02_Simple_Dynamic_Gate.csd***
+**_EXAMPLE 14C02_Simple_Dynamic_Gate.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -dm128 -odac
@@ -228,17 +222,17 @@ i 1 0 10
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
+```
 
 Once a dynamic threshold has been defined, in this case 0.1, the RMS
 value is interrogated every k-cycle as to whether it is above or below
 this value. If it is above, then the variable kGate adopts a value of
-*1* (open) or if below, kGate is zero (closed). This on/off switch
+_1_ (open) or if below, kGate is zero (closed). This on/off switch
 could just be multiplied to the audio signal to turn it on or off
 according to the status of the gate but clicks would manifest each time
 the gates opens or closes so some sort of smoothing or ramping of the
 gate signal is required. In this example I have simply interpolated it
-using the *interp* opcode to create an a-rate signal which is then
+using the _interp_ opcode to create an a-rate signal which is then
 multiplied to the original audio signal. This means that a linear ramp
 with be added across the duration of a k-cycle in audio samples -- in
 this case 32 samples. A more elaborate approach might involve portamento
@@ -257,7 +251,7 @@ where the user wishes to sense sound event onsets and convert them to
 triggers but in more complex situations, in particular when a new sound
 event occurs whilst the previous event is still sounding and pushing the
 RMS above the threshold, this mechanism will fail. In these cases
-triggering needs to depend upon dynamic *change* rather than absolute
+triggering needs to depend upon dynamic _change_ rather than absolute
 RMS values. If we consider a two-event sound file where two notes sound
 on a piano, the second note sounding while the first is still decaying,
 triggers generated using the RMS threshold mechanism from the previous
@@ -271,14 +265,14 @@ prevent quietly played notes from generating triggers.
 It will often be more successful to use magnitudes of amplitude increase
 to decide whether to generate a trigger or not. The two critical values
 in implementing such a mechanism are the time across which a change will
-be judged (*iSampTim* in the example) and the amount of amplitude
-increase that will be required to generate a trigger (*iThresh*). An
+be judged (_iSampTim_ in the example) and the amount of amplitude
+increase that will be required to generate a trigger (_iThresh_). An
 additional mechanism to prevent double triggerings if an amplitude
 continues to increase beyond the time span of a single sample period
 will also be necessary. What this mechanism will do is to bypass the
 amplitude change interrogation code for a user-definable time period
 immediately after a trigger has been generated (iWait). A timer which
-counts elapsed audio samples (*kTimer*) is used to time how long to wait
+counts elapsed audio samples (_kTimer_) is used to time how long to wait
 before retesting amplitude changes.
 
 If we pass our piano sound file through this instrument, the results
@@ -292,10 +286,9 @@ note.
 The example below tracks audio from the sound-card input channel 1 using
 this mechanism.
 
+**_EXAMPLE 14C03_Dynamic_Trigger.csd_**
 
-***EXAMPLE 14C03_Dynamic_Trigger.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -dm0 -iadc -odac
@@ -337,11 +330,9 @@ i 1 0 [3600*24*7]
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
+```
 
-
-Pitch Tracking
---------------
+## Pitch Tracking
 
 Csound currently provides five opcode options for pitch tracking. In
 ascending order of newness they are:
@@ -384,11 +375,11 @@ instrument and from note to note. In general lower notes will have a
 longer attack. However we do not really want to overestimate the
 duration of this attack stage as this will result in a sluggish pitch
 tracker. Another specialised situation is the tracking of pitch in
-singing -- we may want to gate sibilant elements (*sss*, *t* etc.).
+singing -- we may want to gate sibilant elements (_sss_, _t_ etc.).
 pvscent can be useful in detecting the difference between vowels and
 sibilants.
 
-*pitch* is the oldest of the pitch tracking opcodes on offer and
+_pitch_ is the oldest of the pitch tracking opcodes on offer and
 provides the widest range of input parameters.
 
     koct, kamp pitch asig, iupdte, ilo, ihi, idbthresh [, ifrqs] [, iconf]
@@ -397,24 +388,24 @@ provides the widest range of input parameters.
 This makes it somewhat more awkward to use initially (although many of
 its input parameters are optional) but some of its options facilitate
 quite specialised effects. Firstly it outputs its tracking signal in
-*oct* format. This might prove to be a useful format but conversion to
+_oct_ format. This might prove to be a useful format but conversion to
 other formats is easy anyway. Apart from a number of parameters intended
 to fine tune the production of an accurate signal it allows us to
 specify the number of octave divisions used in quantising the output.
 For example if we give this a value of 12 we have created the basis of a
-simple chromatic *autotune* device. We can also quantise the procedure
-in the time domain using its *update period* input. Material with
+simple chromatic _autotune_ device. We can also quantise the procedure
+in the time domain using its _update period_ input. Material with
 quickly changing pitch or vibrato will require a shorter update period
 (which will demand more from the CPU). It has an input control for
-*threshold of detection* which can be used to filter out and disregard
+_threshold of detection_ which can be used to filter out and disregard
 pitch and amplitude tracking data beneath this limit. Pitch is capable
 of very good pitch and amplitude tracking results in real-time.
 
-*pitchamdf* uses the so-called *Average Magnitude Difference Function*
+_pitchamdf_ uses the so-called _Average Magnitude Difference Function_
 method. It is perhaps slightly more accurate than pitch as a general
 purpose pitch tracker but its CPU demand is higher.
 
-*pvspitch* uses streaming FFT technology to track pitch. It takes an
+_pvspitch_ uses streaming FFT technology to track pitch. It takes an
 f-signal as input which will have to be created using the pvsanal
 opcode. At this step the choice of FFT size will have a bearing upon the
 performance of the pvspitch pitch tracker. Smaller FFT sizes will allow
@@ -426,7 +417,7 @@ tries to discern pitch. pvspitch works well in real-time but it does
 have a tendency to jump its output to the wrong octave -- an octave too
 high -- particularly when encountering vibrato.
 
-*ptrack* also makes uses of streaming FFT but takes an normal audio signal
+_ptrack_ also makes uses of streaming FFT but takes an normal audio signal
 as input, performing the FFT analysis internally. We still have to
 provide a value for FFT size with the same considerations mentioned
 above. ptrack is based on an algorithm by Miller Puckette, the
@@ -436,16 +427,16 @@ tracking values when pitch is changing quickly or when encountering
 vibrato. Median filtering (using the mediank opcode) and filtering of
 outlying values might improve the results.
 
-*plltrack* uses a phase-locked loop algorithm in detecting pitch. plltrack
+_plltrack_ uses a phase-locked loop algorithm in detecting pitch. plltrack
 is another efficient real-time option for pitch tracking. It has a
 tendency to gliss up and down from very low frequency values at the
 start and end of notes, i.e. when encountering silence. This effect can
-be minimised by increasing its *feedback* parameter but this can also
+be minimised by increasing its _feedback_ parameter but this can also
 make pitch tracking unstable over sustained notes.
 
-In conclusion, *pitch* is probably still the best choice as a general
-purpose pitch tracker, *pitchamdf* is also a good choice. *pvspitch*, *ptrack*
-and *plltrack* all work well in real-time but might demand additional
+In conclusion, _pitch_ is probably still the best choice as a general
+purpose pitch tracker, _pitchamdf_ is also a good choice. _pvspitch_, _ptrack_
+and _plltrack_ all work well in real-time but might demand additional
 processing to remove errors.
 
 [pvscent](https://csound.com/docs/manual/pvscent.html) and
@@ -473,20 +464,19 @@ sounds. The drum loop used is beats.wav which can be found with the
 download of the Csound HTML manual (and within the Csound download
 itself). This loop is not ideal as some of the instruments coincide with
 one another -- for example, the first consists of a bass drum and a
-snare drum played together. The *beat replacer* will inevitably make a
+snare drum played together. The _beat replacer_ will inevitably make a
 decision one way or the other but is not advanced enough to detect both
 instruments playing simultaneously. The critical stage is the series of
-*if ... elseifs ...* at the bottom of instrument 1 where decisions are
+_if ... elseifs ..._ at the bottom of instrument 1 where decisions are
 made about instruments' identities according to what centroid band they
 fall into. The user can fine tune the boundary division values to modify
 the decision making process. centroid values are also printed to the
 terminal when onsets are detected which might assist in this fine
 tuning.
 
+**_EXAMPLE 14C04_Drum_Replacement.csd_**
 
-***EXAMPLE 14C04_Drum_Replacement.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -dm0 -odac
@@ -587,4 +577,4 @@ i 1 0 10
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
+```

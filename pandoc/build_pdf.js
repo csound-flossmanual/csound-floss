@@ -12,13 +12,15 @@ const {
 } = require("./constants");
 
 const allChapters = R.reject(
-  md => md.includes("00--aa-toc.md"),
+  (md) => md.includes("00--aa-toc.md"),
   fg.sync([`${BOOK_DIRECTORY}/*.md`], { dot: false })
 ).sort();
 
 // const allChapters = R.take(10, allChapters_);
 
 const tmpDest = path.join(tmpdir(), "csound_flossmanual_single.md");
+
+console.log({ tmpDest });
 
 const deleteLinesHack = [
   "![](https://gogins.github.io/csound-extended/scrims.html){width=100% height=600px object-fit=contain}",
@@ -34,8 +36,8 @@ R.pipe(
       chapter.replace(/\.\.\/resources\//g, `${RESOURCES_DIRECTORY}/`)
     );
   }, ""),
-  x => R.reduce((a, v) => a.replace(v, ""), x, deleteLinesHack),
-  singleMd => fs.writeFileSync(tmpDest, singleMd)
+  (x) => R.reduce((a, v) => a.replace(v, ""), x, deleteLinesHack),
+  (singleMd) => fs.writeFileSync(tmpDest, singleMd)
 )(allChapters);
 
 execSync(

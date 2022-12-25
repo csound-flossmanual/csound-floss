@@ -1,46 +1,44 @@
-03 B. LOCAL AND GLOBAL VARIABLES
-================================
+# 03 B. LOCAL AND GLOBAL VARIABLES
 
-Variable Types
---------------
+## Variable Types
 
 In Csound, there are several types of variables. It is important to
 understand the differences between these types. There are
 
--   **initialization** variables, which are updated at each
-    initialization pass, i.e. at the beginning of each note or score
-    event. They start with the character **i**. To this group count also
-    the score parameter fields, which always starts with a **p**,
-    followed by any number: *p1* refers to the first parameter field in
-    the score, *p2* to the second one, and so on.
--   **control** variables, which are updated at each control cycle
-    during the performance of an instrument. They start with the
-    character **k**.
--   **audio** variables, which are also updated at each control cycle,
-    but instead of a single number (like control variables) they consist
-    of a vector (a collection of numbers), having in this way one number
-    for each sample. They start with the character **a**.
--   **string** variables, which are updated either at i-time or at
-    k-time (depending on the opcode which produces a string). They start
-    with the character **S**.
+- **initialization** variables, which are updated at each
+  initialization pass, i.e. at the beginning of each note or score
+  event. They start with the character **i**. To this group count also
+  the score parameter fields, which always starts with a **p**,
+  followed by any number: _p1_ refers to the first parameter field in
+  the score, _p2_ to the second one, and so on.
+- **control** variables, which are updated at each control cycle
+  during the performance of an instrument. They start with the
+  character **k**.
+- **audio** variables, which are also updated at each control cycle,
+  but instead of a single number (like control variables) they consist
+  of a vector (a collection of numbers), having in this way one number
+  for each sample. They start with the character **a**.
+- **string** variables, which are updated either at i-time or at
+  k-time (depending on the opcode which produces a string). They start
+  with the character **S**.
 
 Except these four standard types, there are two other variable types
 which are used for spectral processing:
 
--   **f**-variables are used for the streaming phase vocoder opcodes
-    (all starting with the characters **pvs**), which are very important
-    for doing realtime FFT (Fast Fourier Transform) in Csound. They are
-    updated at k-time, but their values depend also on the FFT
-    parameters like frame size and overlap. Examples for using *f*-sigs
-    can be found in chapter [05 I](05-i-fourier-analysis-spectral-processing.md).
--   **w**-variables are used in some older spectral processing opcodes.
+- **f**-variables are used for the streaming phase vocoder opcodes
+  (all starting with the characters **pvs**), which are very important
+  for doing realtime FFT (Fast Fourier Transform) in Csound. They are
+  updated at k-time, but their values depend also on the FFT
+  parameters like frame size and overlap. Examples for using _f_-sigs
+  can be found in chapter [05 I](05-i-fourier-analysis-spectral-processing.md).
+- **w**-variables are used in some older spectral processing opcodes.
 
 The following example exemplifies all the variable types (except the
 w-type):
 
-   ***EXAMPLE 03B01\_Variable\_types.csd***
+**_EXAMPLE 03B01_Variable_types.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 --env:SSDIR+=../SourceMaterials -o dac
@@ -109,7 +107,7 @@ i 5     4     1
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
 You can think of variables as named connectors between opcodes. You can
 connect the output from an opcode to the input of another. The type of
@@ -124,17 +122,16 @@ page about
 [Types, Constants and Variables](https://csound.com/docs/manual/OrchKvar.html) in the
 [Canonical Csound Manual](https://csound.com/docs/manual/index.html).
 
-Local Scope
------------
+## Local Scope
 
 The **scope** of these variables is usually the **instrument** in which
 they are defined. They are **local** variables. In the following
 example, the variables in instrument 1 and instrument 2 have the same
 names, but different values.
 
-   ***EXAMPLE 03B02\_Local\_scope.csd***
+**_EXAMPLE 03B02_Local_scope.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -194,7 +191,7 @@ i 2 1 .3
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
 This is the output (first the output at init-time by the print opcode,
 then at each k-cycle the output of printk and the two printf opcodes):
@@ -224,19 +221,16 @@ then at each k-cycle the output of printk and the two printf opcodes):
     This string is updated at k-time: kMyVar = 103
     B  1.000 ..  1.300 T  1.300 TT  1.300 M:  0.29998  0.29998
 
-
-
-Global Scope
-------------
+## Global Scope
 
 If you need variables which are recognized beyond the scope of an
 instrument, you must define them as **global**. This is done by
 prefixing the character **g** before the types i, k, a or S. See the
 following example:
 
-   ***EXAMPLE 03B03\_Global\_scope.csd***
+**_EXAMPLE 03B03_Global_scope.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsInstruments>
 sr = 44100
@@ -284,7 +278,7 @@ i 2 0 .3
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
 The output shows the global scope, as instrument 2 uses the values which
 have been changed by instrument 1 in the same control cycle:
@@ -312,9 +306,7 @@ have been changed by instrument 1 in the same control cycle:
     Instr 1 tells: 'This string is updated just at init-time: gkMyVar = 0'
     Instr 1 tells: 'This string is updated at k-time: gkMyVar = 5'
 
-
-How To Work With Global Audio Variables
----------------------------------------
+## How To Work With Global Audio Variables
 
 Some special considerations must be taken if you work with global audio
 variables. Actually, Csound behaves basically the same whether you work
@@ -329,9 +321,9 @@ the next examples and just go to the last one of this section.
 It should be understood first that a global audio variable is treated
 the same by Csound if it is applied like a local audio signal:
 
-   ***EXAMPLE 03B04\_Global\_audio\_intro.csd***
+**_EXAMPLE 03B04_Global_audio_intro.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -357,7 +349,7 @@ i 2 0 3
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
 Of course there is no need to use a global variable in this case. If you
 do it, you risk your audio will be overwritten by an instrument with a
@@ -365,9 +357,9 @@ higher number using the same variable name. In the following example,
 you will just hear a 600 Hz sine tone, because the 400 Hz sine of
 instrument 1 is overwritten by the 600 Hz sine of instrument 2:
 
-   ***EXAMPLE 03B05\_Global\_audio\_overwritten.csd***
+**_EXAMPLE 03B05_Global_audio_overwritten.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -398,7 +390,7 @@ i 3 0 3
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
 In general, you will use a global audio variable like a bus to which
 several local audio signal can be **added**. It's this addition of a
@@ -406,9 +398,9 @@ global audio signal to its previous state which can cause some trouble.
 Let's first see a simple example of a control signal to understand what
 is happening:
 
-   ***EXAMPLE 03B06\_Global\_audio\_added.csd***
+**_EXAMPLE 03B06_Global_audio_added.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsInstruments>
 sr = 44100
@@ -429,16 +421,16 @@ i 1 0 1
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
 In this case, the \"sum bus\" kSum increases at each control cycle by 1,
 because it adds the kAdd signal (which is always 1) in each k-pass to
 its previous state. It is no different if this is done by a local
 k-signal, like here, or by a global k-signal, like in the next example:
 
-   ***EXAMPLE 03B07\_Global\_control\_added.csd***
+**_EXAMPLE 03B07_Global_control_added.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsInstruments>
 sr = 44100
@@ -464,7 +456,7 @@ i 2 0 1
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
 What happens when working with audio signals instead of control signals
 in this way, repeatedly adding a signal to its previous state? Audio
@@ -484,9 +476,9 @@ you will get a signal which is twice as strong:
 add them. This is shown in the next example with a local audio variable,
 and then in the following example with a global audio variable.
 
-   ***EXAMPLE 03B08\_Local\_audio\_add.csd***
+**_EXAMPLE 03B08_Local_audio_add.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -516,9 +508,9 @@ i 1 0 1
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
- prints:
+prints:
 
      i   1 time     0.10000:     0.10000
      i   1 time     0.20000:     0.20000
@@ -531,10 +523,9 @@ i 1 0 1
      i   1 time     0.90000:     0.89999
      i   1 time     1.00000:     0.99999
 
+**_EXAMPLE 03B09_Global_audio_add.csd_**
 
-   ***EXAMPLE 03B09\_Global\_audio\_add.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -569,7 +560,7 @@ i 2 0 1
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
 In both cases, you get a signal which increases each 1/10 second,
 because you have 10 control cycles per second (ksmps=4410), and the
@@ -589,7 +580,6 @@ control cycle being the same as in the previous one</small>*](../resources/image
 ![*<small>Partly self-erasing global audio signal because of phase inversions in
 two subsequent control cycles</small>*](../resources/images/03-b-add-freq15hz-1.png)
 
-
 So the result of all is: If you work with global audio variables in a
 way that you add several local audio signals to a global audio variable
 (which works like a bus), you must **clear** this global bus at each
@@ -601,11 +591,9 @@ first, and then clear them in an \"always on\" instrument with the
 highest number of all the instruments used. This is an example of a
 typical situation:
 
+**_EXAMPLE 03B10_Global_with_clear.csd_**
 
-
-   ***EXAMPLE 03B10\_Global\_with\_clear.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -677,11 +665,9 @@ i 100 0 20
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
-
-The *chn* Opcodes for Global Variables
-----------------------------------------
+## The _chn_ Opcodes for Global Variables
 
 Instead of using the traditional g-variables for any values or signals
 which are to transfer between several instruments, many users prefer
@@ -697,9 +683,9 @@ clearing an audio variable, the
 [chnclear](https://csound.com/docs/manual/chnclear.html) opcode can
 be used.
 
-   ***EXAMPLE 03B11\_Chn\_demo.csd***
+**_EXAMPLE 03B11_Chn_demo.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -779,4 +765,4 @@ i 100 0 20
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```

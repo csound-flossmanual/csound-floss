@@ -1,5 +1,4 @@
-07 A. RECEIVING EVENTS BY MIDIIN
-================================
+# 07 A. RECEIVING EVENTS BY MIDIIN
 
 Csound provides a variety of opcodes, such as
 [cpsmidi](https://csound.com/docs/manual/cpsmidi.html),
@@ -46,10 +45,9 @@ note number. If a midi controller event has been received then data byte
 1 gives us the controller number and data byte 2 gives us the controller
 value.
 
+**_EXAMPLE 07A01_midiin_print.csd_**
 
-   ***EXAMPLE 07A01_midiin_print.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -Ma -m128
@@ -78,12 +76,12 @@ i 1 0 3600 ; instr 1 plays for 1 hour
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
+```
 
-The principle advantage of using the *midiin* opcode is that, unlike
-opcodes such as *cpsmidi*, *ampmidi* and *ctrl7* which only receive
-specific midi data types on a specific channel, *midiin* "listens" to
+The principle advantage of using the _midiin_ opcode is that, unlike
+opcodes such as _cpsmidi_, _ampmidi_ and _ctrl7_ which only receive
+specific midi data types on a specific channel, _midiin_ "listens" to
 all incoming data including system exclusive messages. In situations
 where elaborate Csound instrument triggering mappings that are beyond
 the capabilities of the default triggering mechanism are required, then
-the use of *midiin* might be beneficial.
+the use of _midiin_ might be beneficial.

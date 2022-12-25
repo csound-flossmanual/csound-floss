@@ -1,5 +1,4 @@
-12 E. CSOUND ON ANDROID
-=======================
+# 12 E. CSOUND ON ANDROID
 
 There is no essential difference between running Csound on a computer and
 running it on a smartphone. Csound has been available on the Android platform
@@ -9,11 +8,11 @@ Yi in the summer of 2013.
 
 The following packages are available for Android:
 
-1.  The *CsoundAndroid library*, which is intended to be used by
+1.  The _CsoundAndroid library_, which is intended to be used by
     developers for creating apps based on Csound. This is available for
     download at [Csound's download page](https://csound.com/download.html).
 
-2.  The *Csound for Android app*, which is a self-contained environment
+2.  The _Csound for Android app_, which is a self-contained environment
     for creating, editing, debugging, and performing Csound pieces on Android.
     The app includes a number of built-in example pieces. This is available
     from the [Google Play store](https://play.google.com/store/apps/details?id=com.csounds.Csound6),
@@ -25,8 +24,7 @@ documentation contained therein.
 
 This chapter is about the Csound for Android app.
 
-The Csound for Android app
---------------------------
+## The Csound for Android app
 
 The Csound for Android app permits the user, on any Android
 device that is powerful enough, including most tablets and the most
@@ -43,7 +41,7 @@ are pre-assigned to control channels which can be read using Csound's
 
 The app also contains an embedded Web browser, based on WebKit, that
 implements most features of the HTML5 standard. This embedded browser can
-run Csound pieces written as *.html* files. In addition, the app can render HTML and JavaScript code that is contained in an optional `<html>` element of a regular .csd file.
+run Csound pieces written as _.html_ files. In addition, the app can render HTML and JavaScript code that is contained in an optional `<html>` element of a regular .csd file.
 
 In both cases, the JavaScript context of the Web page will contain a global
 Csound object with a JavaScript interface that implements useful functions
@@ -71,9 +69,7 @@ Android:
     time/frequency analysis and resynthesis tasks, and for other
     purposes.
 
-
-Installing the App
-------------------
+## Installing the App
 
 There are several ways to install the Csound for Android app. You can download it using
 your device, or you can download it to a computer and transfer it to
@@ -88,7 +84,7 @@ to get it from the [Google Play Store](https://play.google.com/store/apps/detail
 
 #### Preparing Your Device
 
-Using the *Csound for Android app* is similar to using an application on a regular computer. You need to be able to browse the file system.
+Using the _Csound for Android app_ is similar to using an application on a regular computer. You need to be able to browse the file system.
 
 There are a number of free and paid apps that give users the ability to
 browse the Linux file system that exists on all Android devices. If you
@@ -142,51 +138,49 @@ CsoundApplication-release.apk file, and you should be presented with a choice of
 Select the Install action. The installer will ask for certain
 permissions, which you should give.
 
-
-User Interface
---------------
+## User Interface
 
 ### Tabs
 
 The Csound for Android app has a tabbed user interface. The tabs include:
 
-***EDITOR*** -- Built-in text editor for .csd and .html files.
+**_EDITOR_** -- Built-in text editor for .csd and .html files.
 
 ![](../resources/images/12-e-editor.png){width=50%}
 
-***MESSAGES*** -- Displays runtime messages from Csound in a scrolling display.
+**_MESSAGES_** -- Displays runtime messages from Csound in a scrolling display.
 
 ![](../resources/images/12-e-messages.png){width=50%}
 
-***HTML*** -- Displays the Web page specified by HTML code in the piece, may
-              include interactive widgets, 3-dimensional graphics, etc., etc.
+**_HTML_** -- Displays the Web page specified by HTML code in the piece, may
+include interactive widgets, 3-dimensional graphics, etc., etc.
 
 ![](../resources/images/12-e-html.png){width=50%}
 
-***WIDGETS*** -- Displays built-in widgets bound to control channels with
-                 predefined names.
+**_WIDGETS_** -- Displays built-in widgets bound to control channels with
+predefined names.
 
 ![](../resources/images/12-e-widgets.png){width=50%}
 
-***HELP*** -- Displays the online Csound Reference Manual in an embedded Web
-              browser.
-***ABOUT*** -- Displays the Csound home page in an embedded Web browser.
+**_HELP_** -- Displays the online Csound Reference Manual in an embedded Web
+browser.
+**_ABOUT_** -- Displays the Csound home page in an embedded Web browser.
 
 ### Main Menu
 
 The app also has a top-level menu with the following commands:
 
-***NEW...*** creates a blank template CSD file in the root directory
+**_NEW..._** creates a blank template CSD file in the root directory
 of the user's storage for the user to edit. The CSD file will be
 remembered and performed by Csound.
 
-***OPEN...*** -- opens an existing CSD file in the root directory of
+**_OPEN..._** -- opens an existing CSD file in the root directory of
 the user's storage. The user's storage filesystem can be navigated
 to find other files.
 
-***SAVE*** -- saves the current contents of the editor to its file.
+**_SAVE_** -- saves the current contents of the editor to its file.
 
-***RUN/STOP*** -- if a CSD file has been loaded, pushing the
+**_RUN/STOP_** -- if a CSD file has been loaded, pushing the
 button starts running Csound; if Csound is running, pushing the
 button stops Csound. If the `<CsOptions>` element of the CSD file
 contains `-odac`, Csound's audio output will go to the device audio
@@ -194,73 +188,66 @@ output. If the element contains `-osoundfilename`, Csound\'s audio
 output will go to the file `soundfilename`, which should be a valid
 Linux pathname in the user's storage filesystem.
 
-***Save as ...*** -- saves the current contents of the editor to a new file.
+**_Save as ..._** -- saves the current contents of the editor to a new file.
 
-***Examples*** -- shows a number of example pieces that may be loaded.
+**_Examples_** -- shows a number of example pieces that may be loaded.
 
-***User guide*** -- a minimal guide to setting up and using the app.
+**_User guide_** -- a minimal guide to setting up and using the app.
 
-***Privacy policy*** -- presents the Csound for Android app's privacy policy.
+**_Privacy policy_** -- presents the Csound for Android app's privacy policy.
 
-The widgets are assigned control channel names *slider1* through *slider9*,
-*butt1* through *butt5*, *trackpad.x*, and *trackpad.y*. In addition, the
-accelerometer on the Android device is available as *accelerometerX*,
-*accelerometerY*, and *accelerometerZ*.
+The widgets are assigned control channel names _slider1_ through _slider9_,
+_butt1_ through _butt5_, _trackpad.x_, and _trackpad.y_. In addition, the
+accelerometer on the Android device is available as _accelerometerX_,
+_accelerometerY_, and _accelerometerZ_.
 
 The values of these widgets are normalized between 0 and 1, and can be
-read into Csound during performance using the *chnget* opcode, like this:
+read into Csound during performance using the _chnget_ opcode, like this:
 
     kslider1_value chnget "slider1"
 
 The area below the trackpad prints messages output by Csound as it runs.
 
-
 ### Settings Menu
 
 The Settings menu on your device offers the following choices:
 
-***Audio driver***  -- selects an *Automatic* choice of the optimal audio
+**_Audio driver_** -- selects an _Automatic_ choice of the optimal audio
 driver for your device (this is the default),
-the older *OpenSL ES* driver which supports both
-audio input and audio output, and the newer *AAudio*
+the older _OpenSL ES_ driver which supports both
+audio input and audio output, and the newer _AAudio_
 driver that provides lower audio output latency on Oreo
 or later.  
-***Plugins*** -- an (additional) directory for plugin opcodes.  
-***Output*** -- overrides the default soundfile output directory.  
-***Samples*** -- overrides the default directory from which load sound samples.  
-***Analysis*** -- overrides the default directory from which to load analysis files.  
-***Include*** -- overrides the default directory from which to load Csound `#include` files.
+**_Plugins_** -- an (additional) directory for plugin opcodes.  
+**_Output_** -- overrides the default soundfile output directory.  
+**_Samples_** -- overrides the default directory from which load sound samples.  
+**_Analysis_** -- overrides the default directory from which to load analysis files.  
+**_Include_** -- overrides the default directory from which to load Csound `#include` files.
 
 These settings are not required, but they can make using Csound easier
 and faster to use.
 
-
 ### Path for Samples
 
-To read a sample from the internal storage, add `/storage/emulated/0/locationofyoursample` to Csound's search path via the `--env:SSDIR` flag in the `<CsOptions>` tag of your *.csd* file, for instance:
+To read a sample from the internal storage, add `/storage/emulated/0/locationofyoursample` to Csound's search path via the `--env:SSDIR` flag in the `<CsOptions>` tag of your _.csd_ file, for instance:
 
-~~~csound
+```csound
 <CsOptions>
 --env:SSDIR+=/storage/emulated/0/SAMPLES
 </CsOptions>
-~~~
+```
 
-
-
-
-Loading and Performing a Piece
--------------------------------
+## Loading and Performing a Piece
 
 ### Example Pieces
 
-From the app's menu, select the *Examples* command, then select one
-of the listed examples, for example *Xanadu* by Joseph Kung. You may
-then click on the *RUN* button to perform the example, or the
-*EDITOR* tab to view the code for the piece. If you want to
-experiment with the piece, you can use the *Save as...* command to
+From the app's menu, select the _Examples_ command, then select one
+of the listed examples, for example _Xanadu_ by Joseph Kung. You may
+then click on the _RUN_ button to perform the example, or the
+_EDITOR_ tab to view the code for the piece. If you want to
+experiment with the piece, you can use the _Save as..._ command to
 save a copy on your device's file system under a different name. You
 can then edit the piece and save your changes.
-
 
 ### Running an Existing Piece
 
@@ -271,26 +258,24 @@ have reasonably high quality audio playback capabilities, so this can
 work quite well.
 
 Just to prove that everything is working, start the Csound for Android app. Go
-to the app menu, select the *Examples* item, select the *Xanadu*
-example, and it will be loaded into Csound. Then click on the *RUN*
-command. Its name should change to *STOP*, and Csound's runtime messages
-should begin to scroll down the *MESSAGES* tab. At the same time, you should
+to the app menu, select the _Examples_ item, select the _Xanadu_
+example, and it will be loaded into Csound. Then click on the _RUN_
+command. Its name should change to _STOP_, and Csound's runtime messages
+should begin to scroll down the _MESSAGES_ tab. At the same time, you should
 hear the piece play. You can stop the performance at any time by selecting the
-*STOP* command, or you can let the performance complete on its own.
+_STOP_ command, or you can let the performance complete on its own.
 
 That's all there is to it. You can scroll up and down in the messages
 pane if you need to find a particular message, such as an error or
 warning.
 
 If you want to look at the text of the piece, or edit it, select the
-*Edit* button. If you have installed Jota, that editor should open with
+_Edit_ button. If you have installed Jota, that editor should open with
 the text of the piece, which you can save, or not. You can edit the
 piece with the this editor, and any changes you make and save will be
 performed the next time you start the piece.
 
-
-Creating a New Piece
---------------------
+## Creating a New Piece
 
 This example will take you through the process of creating a new Csound
 piece, step by step. Obviously, this piece is not going to reveal
@@ -298,13 +283,13 @@ anything like the full power of Csound. It is only intended to get you
 to the point of being able to create, edit, and run a Csound piece that
 will actually make sound on your Android device -- from scratch.
 
-Run the *Csound for Android* app and select the *NEW...* command. You should be
+Run the _Csound for Android_ app and select the _NEW..._ command. You should be
 presented with an file dialog asking you for a filename for your piece. Type in
-*toot.csd*, and select the *SAVE* button. The file will be stored in the root
+_toot.csd_, and select the _SAVE_ button. The file will be stored in the root
 directory of your user storage on your device. You can save the file to
 another place if you like.
 
-The text editor should open with a *template* CSD file. Your job is to
+The text editor should open with a _template_ CSD file. Your job is to
 fill out this template to hear something.
 
 Create a blank line between `<CsOptions>` and `</CsOptions>`, and type
@@ -315,7 +300,7 @@ during Csound's performance (`-m3`).
 Create a blank line between `<CsInstruments>` and `</CsInstruments>` and
 type the following text:
 
-~~~csound
+```csound
 sr = 44100
 ksmps = 32
 nchnls = 1
@@ -324,7 +309,7 @@ instr 1
  asignal poscil 0.2, 440
  out asignal
 endin
-~~~
+```
 
 This is just about the simplest possible Csound orchestra. The orchestra
 header specifies an audio signal sampling rate of 44,100 frames per
@@ -338,22 +323,20 @@ Create a blank line between `<CsScore>` and `</CsScore>` and type:
 
 This means play instrument 1 starting at time 0 for 5 seconds.
 
-Select the app's *SAVE* button.
+Select the app's _SAVE_ button.
 
-Select the Csound app's *RUN* button. You should hear a loud sine
+Select the Csound app's _RUN_ button. You should hear a loud sine
 tone for 5 seconds. If you don't hear anything, perhaps your device
 doesn't support audio at 44100 Hertz, so try `sr = 48000` instead.
 
 If you want to save your audio output to a soundfile named `test.wav`,
 change `-odac` above to, for example, `-o/storage/emulated/0/Music/test.wav`. Android is fussy about
 writing to device storage, so you may need to use exactly the directory printed
-in the ***MESSAGES*** tab when the app starts.
+in the **_MESSAGES_** tab when the app starts.
 
 That's it!
 
-
-Using the Widgets
------------------
+## Using the Widgets
 
 This section shows how to use the built-in widgets of the Csound for
 Android app for controlling Csound in performance. For instructions on
@@ -374,7 +357,7 @@ The first step is to declare one global variable for each of the control
 channels, with the same name as the control channel, at the top of the
 orchestra header, initialized to a value of zero:
 
-~~~csound
+```csound
 gkslider1 init 0
 gkslider2 init 0
 gkslider3 init 0
@@ -394,19 +377,19 @@ gktrackpady init 0
 gkaccelerometerx init 0
 gkaccelerometery init 0
 gkaccelerometerz init 0
-~~~
+```
 
-Then write an *always-on* instrument that reads each of these control
+Then write an _always-on_ instrument that reads each of these control
 channels into each of those global variables. At the top of the
 orchestra header:
 
-~~~csound
+```csound
 alwayson "Controls"
-~~~
+```
 
 As the next to last instrument in your orchestra:
 
-~~~csound
+```csound
 instr Controls
  gkslider1 chnget "slider1"
  gkslider2 chnget "slider2"
@@ -428,25 +411,25 @@ instr Controls
  gkaccelerometery chnget "accelerometerY"
  gkaccelerometerz chnget "accelerometerZ"
 endin
-~~~
+```
 
 So far, everything is common to all pieces. Now, for each specific piece
-and specific set of instruments, write another *always-on* instrument that
+and specific set of instruments, write another _always-on_ instrument that
 will map the controller values to the names and ranges required for your
 actual instruments. This code, in addition, can make use of the peculiar
 button widgets, which only signal changes of state and do not report
-continuously whether they are *on* or *off*. These examples are from
-*Gogins/Drone-IV.csd*.
+continuously whether they are _on_ or _off_. These examples are from
+_Gogins/Drone-IV.csd_.
 
 At the top of the orchestra header:
 
-~~~csound
+```csound
 alwayson "VariablesForControls"
-~~~
+```
 
 As the very last instrument in your orchestra:
 
-~~~csound
+```csound
 a instr VariablesForControls
  if gkslider1 > 0 then
     gkFirstHarmonic = gkslider1 * 2
@@ -487,7 +470,7 @@ a instr VariablesForControls
     ; gkQ = gkQ * 2
  endif
  endin
-~~~
+```
 
 Now, the controllers are re-mapped to sensible ranges, and have names
 that make sense for your instruments. They can be used as follows. Note
@@ -499,7 +482,7 @@ necessary because the widgets in the Csound for Android app, unlike say the widg
 in CsoundQt, do not "remember" their positions and values from
 performance to performance.
 
-~~~csound
+```csound
 gkratio1 init 1
 gkratio2 init 1/3
 gkindex1 init 1
@@ -535,4 +518,4 @@ instr Phaser
  outleta "outleft", aleft
  outleta "outright", aright
 endin
-~~~
+```

@@ -1,12 +1,10 @@
-02 A. MAKE CSOUND RUN
-=====================
+# 02 A. MAKE CSOUND RUN
 
-Csound and Frontends
---------------------
+## Csound and Frontends
 
 The core element of Csound is an audio engine for the Csound language.
 It has no graphical interface and it is designed to take Csound text
-files (called *.csd files*) and produce audio, either in realtime, or
+files (called _.csd files_) and produce audio, either in realtime, or
 by writing to a file. It can still be used in this way but most users
 nowadays prefer to use Csound via a frontend. A frontend is an
 application which assists you in writing code and running Csound. Beyond
@@ -16,18 +14,18 @@ to an integrated help system. A frontend can also expand possibilities
 by providing tools to build interactive interfaces (GUI widgets) as
 well, sometimes, as advanced compositional tools.
 
-From 2009 to 2019, the 
+From 2009 to 2019, the
 [CsoundQt](http://csoundqt.github.io)
-frontend was included in the Csound installer. Since Csound 6.15 (August 2020) the Csound installer only contains "pure" Csound, without any frontend. This means that Csound will work from the Command Line after installing, but the user must download the frontend seperately. These are the download pages:  
-- CsoundQt: <https://github.com/CsoundQt/CsoundQt/releases>  
-- Cabbage: <https://cabbageaudio.com/download/>  
-- Blue: <https://blue.kunstmusik.com/#download>  
+frontend was included in the Csound installer. Since Csound 6.15 (August 2020) the Csound installer only contains "pure" Csound, without any frontend. This means that Csound will work from the Command Line after installing, but the user must download the frontend seperately. These are the download pages:
+
+- CsoundQt: <https://github.com/CsoundQt/CsoundQt/releases>
+- Cabbage: <https://cabbageaudio.com/download/>
+- Blue: <https://blue.kunstmusik.com/#download>
 
 Section 10 of this manual provides more information
 about the frontends.
 
-How to Download and Install Csound
-----------------------------------
+## How to Download and Install Csound
 
 To get Csound you first need to download the package for your system
 from the Download page of the Csound project:
@@ -38,15 +36,15 @@ choose the appropriate version.
 
 ### Windows
 
-Windows installers are the ones ending in *.exe*. Look for the latest
+Windows installers are the ones ending in _.exe_. Look for the latest
 version of Csound and find a file which should be called something like:
-*64bit Full Installer v6.14.0.*
+_64bit Full Installer v6.14.0._
 
 After you have downloaded the installer simply double-click it to start the
 installation process. This will invoke 8 simple steps:
 
 1.  A welcome screen advises you to close other programs.
-2.  After reading and accepting the licence agreement click *Next*.
+2.  After reading and accepting the licence agreement click _Next_.
 3.  Select the destination for the Csound program files. The default
     is C:\\Program Files (x86)\\Csound6.
 4.  Choose the components to be installed. Currently (ver. 6.13) there
@@ -58,7 +56,7 @@ installation process. This will invoke 8 simple steps:
     within Pure Data. To do this will require installing [Pure
     Data](https://puredata.info/downloads).
 5.  **Select Start Menu Folder** allows you to define a folder name
-    other than the default *Csound 6* for the folder containing the
+    other than the default _Csound 6_ for the folder containing the
     various Csound components. Alternatively you can choose not to
     create a start menu folder.
 6.  Next there is an option to add the Csound application directory to
@@ -68,15 +66,14 @@ installation process. This will invoke 8 simple steps:
     will be made to your system.
 8.  Upon clicking install the installation takes place.
 9.  A window informs you that installation is complete. You can click
-    *Finish*.
-
+    _Finish_.
 
 ### Mac OS X
 
-The Mac OS X installers are the files ending in *.dmg*, for instance
-*Csound6.14.0-MacOS_x86_64.dmg*. When you double click the downloaded
+The Mac OS X installers are the files ending in _.dmg_, for instance
+_Csound6.14.0-MacOS_x86_64.dmg_. When you double click the downloaded
 file, you will have a disk image on your desktop with the Csound
-installer. Double-click the installer and follow the instructions. Csound and the basic Csound utilities will be installed. 
+installer. Double-click the installer and follow the instructions. Csound and the basic Csound utilities will be installed.
 
 ### Linux and others
 
@@ -94,50 +91,49 @@ file in the Csound sources or in the
 
 If you would just like to run Csound on your iPad, there is an app for
 iOS called
-[CsoundPad](http://itunes.apple.com/app/csoundpad/id861008380?mt=8\#)
+[CsoundPad](http://itunes.apple.com/app/csoundpad/id861008380?mt=8#)
 
 If you are a developer, Csound can be run in an iOS app that you are
 programming by including the Csound-for-iOS files in your Xcode project.
-The *SDK* can be found on the [Csound Download Page](https://csound.com/download), for instance *Csound6.14.0-iOS.zip*. It contains an archive of an example project and a PDF manual.
+The _SDK_ can be found on the [Csound Download Page](https://csound.com/download), for instance _Csound6.14.0-iOS.zip_. It contains an archive of an example project and a PDF manual.
 
 Some sample projects:
 
--   AudioKit
-    ([http://audiokit.io](http://audiokit.io/))
-    is an Objective-C and Swift framework for building iOS and OSX apps
-    using Csound as the audio engine.
--   csGrain, developed by the Boulanger Labs
-    (<http://www.boulangerlabs.com>), is a complex audio effects app
-    that works with audio files or live audio input.
--   Portable Dandy, an innovative sampler synthesiser for iOS (see
-    <http://www.barefoot-coders.com>).
--   iPulsaret, an impressive synthesizer app (see
-    <http://www.densitytigs.com>).
+- AudioKit
+  ([http://audiokit.io](http://audiokit.io/))
+  is an Objective-C and Swift framework for building iOS and OSX apps
+  using Csound as the audio engine.
+- csGrain, developed by the Boulanger Labs
+  (<http://www.boulangerlabs.com>), is a complex audio effects app
+  that works with audio files or live audio input.
+- Portable Dandy, an innovative sampler synthesiser for iOS (see
+  <http://www.barefoot-coders.com>).
+- iPulsaret, an impressive synthesizer app (see
+  <http://www.densitytigs.com>).
 
 ### Android
 
 If you want to play your .csd files on your Android smartphone or
-tablet, follow the *Android App* link on Csound's Download page. This
+tablet, follow the _Android App_ link on Csound's Download page. This
 leads you to the Google Play Store from which you can install it for
 free. Chapter [12E](12-e-csound-on-android)
 in this manual describes how to use Csound on Android.
 
-If you are a developer, download the *Android SDK*, for instance *Csound6.14.0-Android.zip*.
+If you are a developer, download the _Android SDK_, for instance _Csound6.14.0-Android.zip_.
 
 On Google\'s Play Store there are some apps that use Csound. Below is a
 small sample of such apps:
 
--   DIY Sound Salad, developed by Zatchu
-    [(http://zatchu.com/category/story/](http://www.zatchu.com)),
-    is a multi sample record and playback app. Quite enjoyable to use.
--   Chime Pad, developed by Arthur B. Hunkins
-    (<http://www.arthunkins.com>), is a soothing chime player app.
--   Psycho Flute developed by Brian Redfern (source code available at
-    <http://github.com/bredfern/PsychoFlute>), it is a physical
-    modelling flute synth. Both fun and interesting.
+- DIY Sound Salad, developed by Zatchu
+  [(http://zatchu.com/category/story/](http://www.zatchu.com)),
+  is a multi sample record and playback app. Quite enjoyable to use.
+- Chime Pad, developed by Arthur B. Hunkins
+  (<http://www.arthunkins.com>), is a soothing chime player app.
+- Psycho Flute developed by Brian Redfern (source code available at
+  <http://github.com/bredfern/PsychoFlute>), it is a physical
+  modelling flute synth. Both fun and interesting.
 
-Install Problems?
------------------
+## Install Problems?
 
 If, for any reason, you can't find the CsoundQt frontend on your system
 after install, or if you want to install the most recent version of
@@ -147,8 +143,7 @@ any install problems, consider joining the
 [Csound Mailing List](https://listserv.heanet.ie/cgi-bin/wa?A0=CSOUND)
 to report your issues, or use any other community channel.
 
-The Csound Reference Manual
----------------------------
+## The Csound Reference Manual
 
 The Csound Reference Manual is an indispensable companion to Csound. It
 is available in various formats from the same place as the Csound
@@ -157,8 +152,7 @@ It can also be browsed online at
 <https://csound.com/docs/manual/index.html>. Many frontends will
 provide you with direct and easy access to it.
 
-How to Execute a Simple Example
--------------------------------
+## How to Execute a Simple Example
 
 ### **Using CsoundQt**
 
@@ -168,11 +162,11 @@ Examples-\>Getting started\...-\> Basics-\> HelloWorld
 You will see a very basic Csound file (.csd) with a lot of comments in
 green.
 
-Click on the *RUN* icon in the CsoundQt control bar to start the
+Click on the _RUN_ icon in the CsoundQt control bar to start the
 realtime Csound engine. You should hear a 440 Hz sine tone.
 
 You can also run the Csound engine in the terminal from within CsoundQt.
-Just click on *Run in Term*. A console will pop up and Csound will be
+Just click on _Run in Term_. A console will pop up and Csound will be
 executed as an independent process. The result should be the same - the
 440 Hz beep.
 
@@ -180,10 +174,9 @@ executed as an independent process. The result should be the same - the
 
 1\. Save the following code in any plain text editor as HelloWorld.csd.
 
+**_EXAMPLE 02A01_HelloWorld.csd_**
 
-   ***EXAMPLE 02A01\_HelloWorld.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -199,14 +192,14 @@ i 1 0 1
 </CsScore>
 </CsoundSynthesizer>
 ;Example by Alex Hofmann
-~~~
+```
 
 2\. Open the Terminal / Prompt / Console
 
-3\. Type: *csound /full/path/HelloWorld.csd*
+3\. Type: _csound /full/path/HelloWorld.csd_
 
-where */full/path/HelloWorld.csd* is the complete path to your file. You
-also execute this file by just typing *csound* then dragging the file
+where _/full/path/HelloWorld.csd_ is the complete path to your file. You
+also execute this file by just typing _csound_ then dragging the file
 into the terminal window and then hitting return.
 
 You should hear a 440 Hz tone.
@@ -252,17 +245,17 @@ The key element that differentiates Cabbage from standard Csound is the
 inclusion of Cabbage specific code, mainly used for creating a graphical
 user interface, held within the start and end tags: \<Cabbage\> and
 \</Cabbage\>. Communication from the Cabbage GUI to Csound is either
-transparent, as in the case of the *keyboard* widget, or via named
+transparent, as in the case of the _keyboard_ widget, or via named
 channels and the
-[chnget](file:///C:/Program%20Files%20(x86)/Csound6/doc/manual/chnget.html)
+[chnget](<file:///C:/Program%20Files%20(x86)/Csound6/doc/manual/chnget.html>)
 opcode in the Csound orchestra when using most other Cabbage widgets
-such as *rslider* (a rotary slider). For additional information on
+such as _rslider_ (a rotary slider). For additional information on
 Cabbage please consult the chapter on
 [Cabbage](http://flossmanuals.net/csound/cabbage/).
 
-   ***EXAMPLE 02A02\_HelloCabbage.csd***
+**_EXAMPLE 02A02_HelloCabbage.csd_**
 
-~~~csound
+```csound
 <Cabbage>
 form size(420,100)
 keyboard bounds(10,10,300,80)
@@ -293,4 +286,4 @@ endin
 
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
+```

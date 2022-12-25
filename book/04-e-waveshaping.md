@@ -1,36 +1,32 @@
-04 E. WAVESHAPING
-=================
+# 04 E. WAVESHAPING
 
 Waveshaping is in some ways a relation of modulation techniques such as
 frequency or phase modulation. Waveshaping can create quite dramatic
 sound transformations through the application of a very simple process.
 In FM (frequency modulation) modulation synthesis occurs between two
 oscillators, waveshaping is implemented using a single oscillator
-(usually a simple sine oscillator) and a so-called *transfer
-function*. The transfer function transforms and shapes the incoming
+(usually a simple sine oscillator) and a so-called _transfer
+function_. The transfer function transforms and shapes the incoming
 amplitude values using a simple look-up process: if the incoming value
 is x, the outgoing value becomes y. This can be written as a table with
 two columns. Here is a simple example:
 
-  -------------------------- --------------------------
+---
+
     **Incoming (x) Value**     **Outgoing (y) Value**
-  -0.5 or lower               -1
-   between -0.5 and 0.5       remain unchanged
-   0.5 or higher              1
-  -------------------------- --------------------------
 
+-0.5 or lower -1
+between -0.5 and 0.5 remain unchanged
+0.5 or higher 1
 
-
-
+---
 
 Illustrating this in an x/y coordinate system results in the following
 graph:
 
 ![](../resources/images/04-e-bild1a.png){width=70%}
 
-
-Basic Implementation Model
---------------------------
+## Basic Implementation Model
 
 Although Csound contains several opcodes for waveshaping, implementing
 waveshaping from first principles as Csound code is fairly
@@ -57,21 +53,22 @@ of -1 becomes an index of 0, and an amplitude of 1 becomes an index of
 The other problem stems from the difference in the accuracy of possible
 values in a sample and in a function table. Every single sample is
 encoded in a 32-bit floating point number in standard audio applications
+
 - or even in a 64-bit float in Csound. A table with 4096 points
-results in a 12-bit number, so you will have a serious loss of accuracy
-(= sound quality) if you use the table values directly. Here, the
-solution is to use an interpolating table reader. The opcode
-[tablei](https://csound.com/docs/manual/tablei.html) (instead of
-[table](https://csound.com/docs/manual/table.html)) does this job.
-This opcode then needs an extra point in the table for interpolating, so
-we give 4097 as the table size instead of 4096.
+  results in a 12-bit number, so you will have a serious loss of accuracy
+  (= sound quality) if you use the table values directly. Here, the
+  solution is to use an interpolating table reader. The opcode
+  [tablei](https://csound.com/docs/manual/tablei.html) (instead of
+  [table](https://csound.com/docs/manual/table.html)) does this job.
+  This opcode then needs an extra point in the table for interpolating, so
+  we give 4097 as the table size instead of 4096.
 
 This is the code for simple waveshaping using our transfer function
 which has been discussed previously:
 
-   ***EXAMPLE 04E01_Simple_waveshaping.csd***
+**_EXAMPLE 04E01_Simple_waveshaping.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -98,13 +95,11 @@ i 1 0 10
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
 ![](../resources/images/04-e-simple-waveshaping.png){width=90%}
 
-
-Powershape
-----------
+## Powershape
 
 The [powershape](https://csound.com/docs/manual/powershape.html)
 opcode performs waveshaping by simply raising all samples to the power
@@ -117,11 +112,11 @@ output by the inverse of whatever multiple was required to normalise the
 input. This ensures useful results but does require that the user states
 the maximum amplitude value expected in the opcode declaration and
 thereafter abide by that limit. The exponent, which the opcode refers to
-as *shape amount*, can be varied at k-rate thereby facilitating the
+as _shape amount_, can be varied at k-rate thereby facilitating the
 creation of dynamic spectra upon a constant spectrum input.
 
 If we consider the simplest possible input - again a sine wave - a shape
-amount of *1* will produce no change (raising any value to the power
+amount of _1_ will produce no change (raising any value to the power
 of 1 leaves that value unchanged).
 
 ![](../resources/images/04-e-powershape1.png)
@@ -131,12 +126,10 @@ less than 1 become increasingly biased towards the zero axis.
 
 ![](../resources/images/04-e-powershape2-5.png)
 
-
 Much higher values will narrow the positive and negative peaks further.
 Below is the waveform resulting from a shaping amount of 50.
 
 ![](../resources/images/04-e-powershape50.png)
-
 
 Shape amounts less than 1 (but greater than zero) will give the opposite
 effect of drawing values closer to -1 or 1. The waveform resulting from
@@ -154,9 +147,9 @@ The sonograms of the five examples shown above are as shown below:
 
 ![](../resources/images/04-e-sonograms2.png)
 
-   ***EXAMPLE 04E02_Powershape.csd***
+**_EXAMPLE 04E02_Powershape.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -183,7 +176,7 @@ i "Powershape" 7 6 0.5 0.1
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
 As power (shape amount) is increased from 1 through 2.5 to 50, it can be
 observed how harmonic partials are added. It is worth noting also that
@@ -199,20 +192,18 @@ techniques. Raising the sampling rate can provide additional headroom
 before aliasing manifests but ultimately subtlety in waveshaping's use
 is paramount.
 
-
-Distort
--------
+## Distort
 
 The [distort](https://csound.com/docs/manual/distort.html) opcode,
 authored by Csound's original creator Barry Vercoe, was originally part
-of the *Extended Csound* project but was introduced into Canonical Csound
+of the _Extended Csound_ project but was introduced into Canonical Csound
 in version 5. It waveshapes an input signal according to a transfer
 function provided by the user using a function table. At first glance
 this may seem to offer little more than what we have already
 demonstrated from first principles, but it offers a number of additional
 features that enhance its usability. The input signal first has
 soft-knee compression applied before being mapped through the transfer
-function. Input gain is also provided via the *distortion amount*
+function. Input gain is also provided via the _distortion amount_
 input argument and this provides dynamic control of the waveshaping
 transformation. The result of using compression means that spectrally
 the results are better behaved than is typical with waveshaping. A
@@ -224,9 +215,9 @@ creation of tanh functions:
     GENtanh
     f # time size "tanh" start end rescale
 
-By adjusting the *start* and *end* values we can modify the shape of
+By adjusting the _start_ and _end_ values we can modify the shape of
 the $tanh$ transfer function and therefore the aggressiveness of the
-waveshaping (*start* and *end* values should be the same absolute
+waveshaping (_start_ and _end_ values should be the same absolute
 values and negative and positive respectively if we want the function to
 pass through the origin from the lower left quadrant to the upper right
 quadrant).
@@ -249,14 +240,14 @@ and more dramatic waveshaping:
 
 Note that the GEN routine's argument p7 for rescaling is set to zero
 ensuring that the function only ever extends from -1 and 1. The values
-provided for *start* and *end* only alter the shape.
+provided for _start_ and _end_ only alter the shape.
 
 In the following test example a sine wave at 200 hz is waveshaped using
 distort and the tanh function shown above.
 
-   ***EXAMPLE 04E03_Distort_1.csd***
+**_EXAMPLE 04E03_Distort_1.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -dm0 -odac
@@ -285,7 +276,7 @@ i 1 0 4
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
+```
 
 The resulting sonogram looks like this:
 
@@ -298,9 +289,9 @@ partials are present at 600, 1000, 1400 hz and so on. If we want to
 restore the even numbered partials we can simultaneously waveshape a
 sine at 400 hz, one octave above the fundamental as in the next example:
 
-   ***EXAMPLE 04E04_Distort_2.csd***
+**_EXAMPLE 04E04_Distort_2.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -dm0 -odac
@@ -330,7 +321,7 @@ i 1 0 4
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
+```
 
 The higher of the two sines is faded in using the distortion amount
 control so that when distortion amount is zero we will be left with only
