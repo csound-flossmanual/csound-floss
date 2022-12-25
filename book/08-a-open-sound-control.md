@@ -586,7 +586,7 @@ The incoming x position is used for both, the volume (dB) and the pitch (MIDI). 
 
 **_EXAMPLE 08A07_P5_Csound_OSC.csd_**
 
-```
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac

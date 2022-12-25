@@ -23,3 +23,4 @@ __tmp*
 examples
 examples.zip
 *.ipynb_checkpoints
+.DS_Store
