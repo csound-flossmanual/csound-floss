@@ -1,9 +1,8 @@
-CREDITS
-=======
+# CREDITS
 
 This textbook is a collective effort. If someone's name is missing in the list below. please contact us.
 
-The goal of this work is to share knowledge about the Free (Libre) Open Source Software Csound 
+The goal of this work is to share knowledge about the Free (Libre) Open Source Software Csound
 for anyone. So any usage which contributes to this goal is welcome. The license below is to
 serve this goal. If you are not sure about a usage, please contact us, and we will find a solution.
 
@@ -11,289 +10,271 @@ serve this goal. If you are not sure about a usage, please contact us, and we wi
 
 copyright (c) 2020 by Joachim Heintz and contributors
 
-The content of this book is released under creative commons license **CC-BY 4.0**. 
+The content of this book is released under creative commons license **CC-BY 4.0**.
 In short, anyone is allowed to copy, redistribute and transform the content,
 as long as appropriate credit is given to the source. For more information see
 [https://creativecommons.org/licenses/by/4.0/](https://creativecommons.org/licenses/by/4.0/).
 
-
-
 #### 00 INTRODUCTION
 
-*A. PREFACE*
+_A. PREFACE_
 Joachim Heintz, Andres Cabrera, Alex Hofmann, Iain McCurdy, Alexandre
 Abrioux
 
-*B. HOW TO USE THIS MANUAL*
+_B. HOW TO USE THIS MANUAL_
 Joachim Heintz, Andres Cabrera, Iain McCurdy, Alexandre Abrioux
 
-*C. ON THIS RELEASE*
+_C. ON THIS RELEASE_
 Joachim Heintz, Iain McCurdy
-
 
 #### 01 BASICS
 
-*A. DIGITAL AUDIO*
+_A. DIGITAL AUDIO_
 Alex Hofmann, Rory Walsh, Iain McCurdy, Joachim Heintz
 
-*B. PITCH AND FREQUENCY*
+_B. PITCH AND FREQUENCY_
 Rory Walsh, Iain McCurdy, Joachim Heintz
 
-*C. INTENSITIES*
+_C. INTENSITIES_
 Joachim Heintz
 
-*D. RANDOM*
+_D. RANDOM_
 Joachim Heintz, Martin Neukom, Iain McCurdy
-
 
 #### 02 QUICK START
 
-*A. MAKE CSOUND RUN*
+_A. MAKE CSOUND RUN_
 Alex Hofmann, Joachim Heintz, Andres Cabrera, Iain McCurdy, Jim Aikin,
 Jacques Laplat, Alexandre Abrioux, Menno Knevel
 
-*B. CSOUND SYNTAX*
+_B. CSOUND SYNTAX_
 Alex Hofmann, Joachim Heintz, Andres Cabrera, Iain McCurdy
 
-*C. CONFIGURING MIDI*
+_C. CONFIGURING MIDI_
 Andres Cabrera, Joachim Heintz, Iain McCurdy
 
-*D. LIVE AUDIO*
+_D. LIVE AUDIO_
 Alex Hofmann, Andres Cabrera, Iain McCurdy, Joachim Heintz
 
-*E. RENDERING TO FILE*
+_E. RENDERING TO FILE_
 Joachim Heintz, Alex Hofmann, Andres Cabrera, Iain McCurdy
-
 
 #### 03 CSOUND LANGUAGE
 
-*A. INITIALIZATION AND PERFORMANCE PASS*
+_A. INITIALIZATION AND PERFORMANCE PASS_
 Joachim Heintz
 
-*B. LOCAL AND GLOBAL VARIABLES*
+_B. LOCAL AND GLOBAL VARIABLES_
 Joachim Heintz, Andres Cabrera, Iain McCurdy
 
-*C. CONTROL STRUCTURES*
+_C. CONTROL STRUCTURES_
 Joachim Heintz
 
-*D. FUNCTION TABLES*
+_D. FUNCTION TABLES_
 Joachim Heintz, Iain McCurdy
 
-*E. ARRAYS*
+_E. ARRAYS_
 Joachim Heintz
 
-*F. LIVE CSOUND*
+_F. LIVE CSOUND_
 Joachim Heintz, Iain McCurdy
 
-*G. USER DEFINED OPCODES*
+_G. USER DEFINED OPCODES_
 Joachim Heintz
 
-*H. MACROS*
+_H. MACROS_
 Iain McCurdy
 
-*I. FUNCTIONAL SYNTAX*
+_I. FUNCTIONAL SYNTAX_
 Joachim Heintz
-
 
 #### 04 SOUND SYNTHESIS
 
-*A. ADDITIVE SYNTHESIS*
+_A. ADDITIVE SYNTHESIS_
 Andres Cabrera, Joachim Heintz, Bjorn Houdorf
 
-*B. SUBTRACTIVE SYNTHESIS*
+_B. SUBTRACTIVE SYNTHESIS_
 Iain McCurdy
 
-*C. AMPLITUDE AND RINGMODULATION*
+_C. AMPLITUDE AND RINGMODULATION_
 Alex Hofmann
 
-*D. FREQUENCY MODULATION*
+_D. FREQUENCY MODULATION_
 Alex Hofmann, Bjorn Houdorf, Marijana Janevska, Joachim Heintz
 
-*E. WAVESHAPING*
+_E. WAVESHAPING_
 Joachim Heintz, Iain McCurdy
 
-*F. GRANULAR SYNTHESIS*
+_F. GRANULAR SYNTHESIS_
 Iain McCurdy
 
-*G. PHYSICAL MODELLING*
+_G. PHYSICAL MODELLING_
 Joachim Heintz, Iain McCurdy, Martin Neukom
 
-*H. SCANNED SYNTHESIS*
+_H. SCANNED SYNTHESIS_
 Christopher Saunders. Joachim Heintz
-
 
 #### 05 SOUND MODIFICATION
 
-*A. ENVELOPES*
+_A. ENVELOPES_
 Iain McCurdy
 
-*B. PANNING AND SPATIALIZATION*
+_B. PANNING AND SPATIALIZATION_
 Iain McCurdy, Joachim Heintz
 
-*C. FILTERS*
+_C. FILTERS_
 Iain McCurdy
 
-*D. DELAY AND FEEDBACK*
+_D. DELAY AND FEEDBACK_
 Iain McCurdy
 
-*E. REVERBERATION*
+_E. REVERBERATION_
 Iain McCurdy
 
-*F. AM / RM / WAVESHAPING*
+_F. AM / RM / WAVESHAPING_
 Alex Hofmann, Joachim Heintz
 
-*G. GRANULAR SYNTHESIS*
+_G. GRANULAR SYNTHESIS_
 Iain McCurdy, Oeyvind Brandtsegg, Bjorn Houdorf, Joachim Heintz
 
-*H. CONVOLUTION*
+_H. CONVOLUTION_
 Iain McCurdy
 
-*I. FOURIER ANALYSIS / SPECTRAL PROCESSING*
+_I. FOURIER ANALYSIS / SPECTRAL PROCESSING_
 Joachim Heintz
 
-*K. ANALYSIS TRANSFORMATION SYNTHESIS*
+_K. ANALYSIS TRANSFORMATION SYNTHESIS_
 Oscar Pablo di Liscia
 
-*L. AMPLITUDE AND PITCH TRACKING*
+_L. AMPLITUDE AND PITCH TRACKING_
 Iain McCurdy
-
 
 #### 06 SAMPLES
 
-*A. RECORD AND PLAY SOUNDFILES*
+_A. RECORD AND PLAY SOUNDFILES_
 Iain McCurdy, Joachim Heintz
 
-*B. RECORD AND PLAY BUFFERS*
+_B. RECORD AND PLAY BUFFERS_
 Iain McCurdy, Joachim Heintz, Andres Cabrera
-
 
 #### 07 MIDI
 
-*A. RECEIVING EVENTS BY MIDIIN*
+_A. RECEIVING EVENTS BY MIDIIN_
 Iain McCurdy
 
-*B. TRIGGERING INSTRUMENT INSTANCES*
+_B. TRIGGERING INSTRUMENT INSTANCES_
 Joachim Heintz, Iain McCurdy
 
-*C. WORKING WITH CONTROLLERS*
+_C. WORKING WITH CONTROLLERS_
 Iain McCurdy
 
-*D. READING MIDI FILES*
+_D. READING MIDI FILES_
 Iain McCurdy
 
-*E. MIDI OUTPUT*
+_E. MIDI OUTPUT_
 Iain McCurdy
-
 
 #### 08 OTHER COMMUNICATION
 
-*A. OPEN SOUND CONTROL*
+_A. OPEN SOUND CONTROL_
 Alex Hofmann, Joachim Heintz
 
-*B. CSOUND AND ARDUINO*
+_B. CSOUND AND ARDUINO_
 Iain McCurdy
-
 
 #### 09 CSOUND IN OTHER APPLICATIONS
 
-*A. CSOUND IN PD*
+_A. CSOUND IN PD_
 Joachim Heintz, Jim Aikin
 
-*B. CSOUND IN MAXMSP*
+_B. CSOUND IN MAXMSP_
 Davis Pyon
 
-*C. CSOUND IN ABLETON LIVE*
+_C. CSOUND IN ABLETON LIVE_
 Rory Walsh
 
-*D. CSOUND AS A VST PLUGIN*
+_D. CSOUND AS A VST PLUGIN_
 Rory Walsh
-
 
 #### 10 CSOUND FRONTENDS
 
-*A. CSOUNDQT*
+_A. CSOUNDQT_
 Andrés Cabrera, Joachim Heintz, Peiman Khosravi
 
-*B. CABBAGE*
+_B. CABBAGE_
 Rory Walsh, Menno Knevel, Iain McCurdy
 
-*C. BLUE*
+_C. BLUE_
 Steven Yi, Jan Jacob Hofmann
 
-*D. WINXOUND*
+_D. WINXOUND_
 Stefano Bonetti, Menno Knevel
 
-*E. CSOUND VIA TERMINAL*
+_E. CSOUND VIA TERMINAL_
 Iain McCurdy
 
-*F. WEB BASED CSOUND *
+_F. WEB BASED CSOUND _
 Victor Lazzarini, Iain McCurdy, Ed Costello
-
 
 #### 11 CSOUND UTILITIES
 
-*A. ANALYSIS*
+_A. ANALYSIS_
 Iain McCurdy
 
-*B. FILE INFO AND CONVERSION*
+_B. FILE INFO AND CONVERSION_
 Iain McCurdy
 
-*C. MISCELLANEOUS*
+_C. MISCELLANEOUS_
 Iain McCurdy
-
 
 #### 12 CSOUND AND OTHER PROGRAMMING LANGUAGES
 
-*A. THE CSOUND API*
+_A. THE CSOUND API_
 François Pinot, Rory Walsh
 
-*B. PYTHON AND CSOUND*
+_B. PYTHON AND CSOUND_
 Andrés Cabrera, Joachim Heintz, Jim Aikin
 
-*C. LUA AND CSOUND*
+_C. LUA AND CSOUND_
 Michael Gogins, Philipp Henkel
 
-*D. CSOUND IN IOS*
+_D. CSOUND IN IOS_
 Nicholas Arner, Nikhil Singh, Richard Boulanger, Alessandro Petrolati
 
-*E. CSOUND ON ANDROID*
+_E. CSOUND ON ANDROID_
 Michael Gogins
 
-*F. CSOUND AND HASKELL*
+_F. CSOUND AND HASKELL_
 Anton Kholomiov
 
-*G. CSOUND AND HTML*
+_G. CSOUND AND HTML_
 Michael Gogins
-
 
 #### 13 EXTENDING CSOUND
 
-*A. DEVELOPING PLUGIN OPCODES*
+_A. DEVELOPING PLUGIN OPCODES_
 Victor Lazzarini
-
 
 #### 14 MISCELLANEA
 
-*A. METHODS OF WRITING CSOUND SCORES*
+_A. METHODS OF WRITING CSOUND SCORES_
 Iain McCurdy, Joachim Heintz, Jacob Joaquin, Menno Knevel
 
-*B. PYTHON IN CSOUNDQT*
+_B. PYTHON IN CSOUNDQT_
 Tarmo Johannes, Joachim Heintz
-
 
 #### 15 APPENDIX
 
-*A. OPCODE GUIDE*
+_A. OPCODE GUIDE_
 Joachim Heintz, Iain McCurdy
 
-*B. GLOSSARY*
+_B. GLOSSARY_
 Joachim Heintz, Iain McCurdy
 
-*C. LINKS*
+_C. LINKS_
 Joachim Heintz, Stefano Bonetti
 
 <hr/>
-
 
 V.1 - Final Editing Team in March 2011:
 
@@ -322,5 +303,3 @@ Joachim Heintz, Iain McCurdy
 V.7 - Final Editing and Programming Team 2019/20:
 
 Joachim Heintz, Hlöðver Sigurðsson
-
-

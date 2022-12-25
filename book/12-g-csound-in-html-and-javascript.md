@@ -1,8 +1,6 @@
-12 G. CSOUND IN HTML AND JAVASCRIPT
-===================================
+# 12 G. CSOUND IN HTML AND JAVASCRIPT
 
-Introduction
--------------
+## Introduction
 
 Currently it is possible to use Csound together with HTML and JavaScript
 in at least the following environments:
@@ -63,13 +61,13 @@ usable in Csound pieces.
 ### An Example of Use
 
 For an example of a few of the things are possible with HTML in Csound,
-take a look at the following piece, ***Scrims***, which runs in contemporary
+take a look at the following piece, **_Scrims_**, which runs in contemporary
 Web browsers using a WebAssembly build of Csound and JavaScript code. In
 fact, it's running right here on this page!
 
 ![](https://gogins.github.io/csound-extended/scrims.html){width=100% height=600px object-fit=contain}
 
-***Scrims*** is a demanding piece, and may not run without dropouts unless you
+**_Scrims_** is a demanding piece, and may not run without dropouts unless you
 have a rather fast computer. However, it demonstrates a number of ways to use
 HTML and JavaScript with Csound:
 
@@ -88,7 +86,7 @@ HTML and JavaScript with Csound:
 6. Use of a TextArea widget as a scrolling display for Csound's runtime messages.
 
 To see this code in action, you can right-click on the piece and select the
-***Inspect*** command. Then you can browse the source code, set breakpoints,
+**_Inspect_** command. Then you can browse the source code, set breakpoints,
 print values of variables, and so on.
 
 It is true that LaTeX can do a better job of typesetting than HTML and
@@ -129,7 +127,7 @@ file. The front end then loads this Web page into its embedded browser, and
 injects the same instance of Csound that is running the .csd into the
 JavaScript context of the Web page.
 
-It is important to understand that *any* valid HTML code can be used in
+It is important to understand that _any_ valid HTML code can be used in
 Csound\'s `<html>` element. It is just a Web page like any other Web
 page.
 
@@ -147,10 +145,10 @@ functional programming language similar to Scheme. JavaScript also allows
 classes to be defined by prototypes.
 
 The JavaScript execution context of a Csound Web page contains Csound
-itself as a *csound* JavaScript object that has at least the following
+itself as a _csound_ JavaScript object that has at least the following
 methods:
 
-~~~csound
+```csound
 ;; [returns a number]
 getVersion()
 ;; [returns the numeric result of the evaluation]
@@ -169,7 +167,7 @@ getKsmps()
 getNchnls()
 # [returns 1 if Csound is playing, 0 if not]
 isPlaying()
-~~~
+```
 
 The front end contains a mechanism for forwarding JavaScript calls in
 the Web page's JavaScript context to native functions that are defined
@@ -184,14 +182,12 @@ JavaScript interface, including, at least in some front ends, the
 ability for Csound to appear as a Node in a Web Audio graph (this
 already is possible in the Emscripten built of Csound).
 
-
-Tutorial User Guide
---------------------
+## Tutorial User Guide
 
 Here we will use CsoundQt to run Csound with HTML.
 
 Let's get started and do a few things in the simplest possible way, in
-a series of *toots*. All of these pieces are completely contained in unfolding
+a series of _toots_. All of these pieces are completely contained in unfolding
 boxes here, from which they can be copied and then pasted into the CsoundQt
 editor, and some pieces are included as HTML examples in CsoundQt.
 
@@ -208,9 +204,9 @@ editor, and some pieces are included as HTML examples in CsoundQt.
 
 This is about the shortest CSD that shows some HTML output.
 
-   ***EXAMPLE 12G01_Hello_HTML_World.csd***
+**_EXAMPLE 12G01_Hello_HTML_World.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 </CsOptions>
@@ -228,17 +224,15 @@ e 1
 </CsScore>
 </CsoundSynthesizer>
 ;example by Michael Gogins
-~~~
-
+```
 
 ### Minimal_HTML_Example.csd
 
 This is a simple example that shows how to control Csound using an HTML slider.
 
+**_EXAMPLE 12G02_Minimal_HTML.csd_**
 
-***EXAMPLE 12G02_Minimal_HTML.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -d
@@ -317,8 +311,7 @@ f 0 3600
 </CsoundSynthesizer>
 ;example by Tarmo Johannes
 ;reformatted for flossmanual by Hlödver Sigurdsson
-~~~
-
+```
 
 ### Styled_Sliders.csd
 
@@ -330,9 +323,9 @@ pleasing user interface.
 First the entire piece is presented, then the parts are discussed
 separately.
 
-***EXAMPLE 12G03_Extended_HTML.csd***
+**_EXAMPLE 12G03_Extended_HTML.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 ; Example about using CSS in html section of CSD
 ; By Michael Gogins 2016
@@ -475,208 +468,206 @@ endin
 <CsScore>
 </CsScore>
 </CsoundSynthesizer>
-~~~
+```
 
-~~~html
+```html
 <html>
   <head> </head>
   <body>
-  <style type="text/css">
-    input[type='range'] {
-      -webkit-appearance: none;
-      border-radius: 5px;
-      box-shadow: inset 0 0 5px #333;
-      background-color: #999;
-      height: 10px;
-      width: 100%;
-      vertical-align: middle;
-    }
-    input[type='range']::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      border: none;
-      height: 16px;
-      width: 16px;
-      border-radius: 50%;
-      background: yellow;
-      margin-top: -4px;
-      border-radius: 10px;
-    }
-    table td {
-      border-width: 2px;
-      padding: 8px;
-      border-style: solid;
-      border-color: transparent;
-      color: yellow;
-      background-color: teal;
-      font-family: sans-serif;
-    }
-  </style>
-
-  <h1>Score Generator</h1>
-
-  <script>
-    var c = 0.99;
-    var y = 0.5;
-    function generate() {
-      csound.message('generate()...\n');
-      for (i = 0; i < 50; i++) {
-        var t = i * (1.0 / 3.0);
-        var y1 = 4.0 * c * y * (1.0 - y);
-        y = y1;
-        var key = Math.round(36.0 + y * 60.0);
-        var note = 'i 1 ' + t + ' 2.0 ' + key + ' 60 0.0 0.5\n';
-        csound.readScore(note);
+    <style type="text/css">
+      input[type="range"] {
+        -webkit-appearance: none;
+        border-radius: 5px;
+        box-shadow: inset 0 0 5px #333;
+        background-color: #999;
+        height: 10px;
+        width: 100%;
+        vertical-align: middle;
       }
-    }
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        border: none;
+        height: 16px;
+        width: 16px;
+        border-radius: 50%;
+        background: yellow;
+        margin-top: -4px;
+        border-radius: 10px;
+      }
+      table td {
+        border-width: 2px;
+        padding: 8px;
+        border-style: solid;
+        border-color: transparent;
+        color: yellow;
+        background-color: teal;
+        font-family: sans-serif;
+      }
+    </style>
 
-    function on_sliderC(value) {
-      c = parseFloat(value);
-      document.querySelector('#sliderCOutput').value = c;
-    }
+    <h1>Score Generator</h1>
 
-    function on_sliderFmIndex(value) {
-      var numberValue = parseFloat(value);
-      document.querySelector('#sliderFmIndexOutput').value = numberValue;
-      csound.setControlChannel('gk_FmIndex', numberValue);
-    }
+    <script>
+      var c = 0.99;
+      var y = 0.5;
+      function generate() {
+        csound.message("generate()...\n");
+        for (i = 0; i < 50; i++) {
+          var t = i * (1.0 / 3.0);
+          var y1 = 4.0 * c * y * (1.0 - y);
+          y = y1;
+          var key = Math.round(36.0 + y * 60.0);
+          var note = "i 1 " + t + " 2.0 " + key + " 60 0.0 0.5\n";
+          csound.readScore(note);
+        }
+      }
 
-    function on_sliderFmRatio(value) {
-      var numberValue = parseFloat(value);
-      document.querySelector('#sliderFmRatioOutput').value = numberValue;
-      csound.setControlChannel('gk_FmCarrier', numberValue);
-    }
+      function on_sliderC(value) {
+        c = parseFloat(value);
+        document.querySelector("#sliderCOutput").value = c;
+      }
 
-    function on_sliderReverberationDelay(value) {
-      var numberValue = parseFloat(value);
-      document.querySelector(
-        '#sliderReverberationDelayOutput'
-      ).value = numberValue;
-      csound.setControlChannel('gk_ReverberationDelay', numberValue);
-    }
+      function on_sliderFmIndex(value) {
+        var numberValue = parseFloat(value);
+        document.querySelector("#sliderFmIndexOutput").value = numberValue;
+        csound.setControlChannel("gk_FmIndex", numberValue);
+      }
 
-    function on_sliderMasterLevel(value) {
-      var numberValue = parseFloat(value);
-      document.querySelector('#sliderMasterLevelOutput').value = numberValue;
-      csound.setControlChannel('gk_MasterLevel', numberValue);
-    }
-  </script>
+      function on_sliderFmRatio(value) {
+        var numberValue = parseFloat(value);
+        document.querySelector("#sliderFmRatioOutput").value = numberValue;
+        csound.setControlChannel("gk_FmCarrier", numberValue);
+      }
 
-  <table>
-    <col width="2*" />
-    <col width="5*" />
-    <col width="100px" />
-    <tr>
-      <td>
-        <label for="sliderC">c</label>
-      </td>
-      <td>
-        <input
-          type="range"
-          min="0"
-          max="1"
-          value=".5"
-          id="sliderC"
-          step="0.001"
-          oninput="on_sliderC(value)"
-        />
-      </td>
-      <td>
-        <output for="sliderC" id="sliderCOutput">.5</output>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label for="sliderFmIndex">Frequency modulation index</label>
-      </td>
-      <td>
-        <input
-          type="range"
-          min="0"
-          max="1"
-          value=".5"
-          id="sliderC"
-          step="0.001"
-          oninput="on_sliderFmIndex(value)"
-        />
-      </td>
-      <td>
-        <output for="sliderFmIndex" id="sliderFmIndexOutput">.5</output>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label for="sliderFmRatio">Frequency modulation ratio</label>
-      </td>
-      <td>
-        <input
-          type="range"
-          min="0"
-          max="1"
-          value=".5"
-          id="sliderFmRatio"
-          step="0.001"
-          oninput="on_sliderFmRatio(value)"
-        />
-      </td>
-      <td>
-        <output for="sliderFmRatio" id="sliderFmRatioOutput">.5</output>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label for="sliderReverberationDelay">Reverberation delay</label>
-      </td>
-      <td>
-        <input
-          type="range"
-          min="0"
-          max="1"
-          value=".5"
-          id="sliderReverberationDelay"
-          step="0.001"
-          oninput="on_sliderReverberationDelay(value)"
-        />
-      </td>
-      <td>
-        <output
-          for="sliderReverberationDelay"
-          id="sliderReverberationDelayOutput"
-          >.5</output
-        >
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <label for="sliderMasterLevel">Master output level</label>
-      </td>
-      <td>
-        <input
-          type="range"
-          min="0"
-          max="1"
-          value=".5"
-          id="sliderMasterLevel"
-          step="0.001"
-          oninput="on_sliderMasterLevel(value)"
-        />
-      </td>
-      <td>
-        <output
-          for="sliderMasterLevel"
-          id="sliderMasterLevelOutput">.5
-        </output>
-      </td>
-    </tr>
+      function on_sliderReverberationDelay(value) {
+        var numberValue = parseFloat(value);
+        document.querySelector("#sliderReverberationDelayOutput").value =
+          numberValue;
+        csound.setControlChannel("gk_ReverberationDelay", numberValue);
+      }
 
-    <tr>
-      <td>
-        <button onclick="generate()">Generate score</button>
-      </td>
-    </tr>
-  </table>
+      function on_sliderMasterLevel(value) {
+        var numberValue = parseFloat(value);
+        document.querySelector("#sliderMasterLevelOutput").value = numberValue;
+        csound.setControlChannel("gk_MasterLevel", numberValue);
+      }
+    </script>
+
+    <table>
+      <col width="2*" />
+      <col width="5*" />
+      <col width="100px" />
+      <tr>
+        <td>
+          <label for="sliderC">c</label>
+        </td>
+        <td>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            value=".5"
+            id="sliderC"
+            step="0.001"
+            oninput="on_sliderC(value)"
+          />
+        </td>
+        <td>
+          <output for="sliderC" id="sliderCOutput">.5</output>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="sliderFmIndex">Frequency modulation index</label>
+        </td>
+        <td>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            value=".5"
+            id="sliderC"
+            step="0.001"
+            oninput="on_sliderFmIndex(value)"
+          />
+        </td>
+        <td>
+          <output for="sliderFmIndex" id="sliderFmIndexOutput">.5</output>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="sliderFmRatio">Frequency modulation ratio</label>
+        </td>
+        <td>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            value=".5"
+            id="sliderFmRatio"
+            step="0.001"
+            oninput="on_sliderFmRatio(value)"
+          />
+        </td>
+        <td>
+          <output for="sliderFmRatio" id="sliderFmRatioOutput">.5</output>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="sliderReverberationDelay">Reverberation delay</label>
+        </td>
+        <td>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            value=".5"
+            id="sliderReverberationDelay"
+            step="0.001"
+            oninput="on_sliderReverberationDelay(value)"
+          />
+        </td>
+        <td>
+          <output
+            for="sliderReverberationDelay"
+            id="sliderReverberationDelayOutput"
+            >.5</output
+          >
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="sliderMasterLevel">Master output level</label>
+        </td>
+        <td>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            value=".5"
+            id="sliderMasterLevel"
+            step="0.001"
+            oninput="on_sliderMasterLevel(value)"
+          />
+        </td>
+        <td>
+          <output for="sliderMasterLevel" id="sliderMasterLevelOutput"
+            >.5
+          </output>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <button onclick="generate()">Generate score</button>
+        </td>
+      </tr>
+    </table>
   </body>
 </html>
-~~~
+```
 
 Here I have introduced a simple Csound orchestra consisting of a single
 frequency modulation instrument feeding first into a reverberation
@@ -692,7 +683,7 @@ In the `<html>` element, I also have added this button:
     <button onclick="generate()"> Generate score </button>
 
 When this button is clicked, it calls a JavaScript function that uses
-the logistic equation, which is a simple quadratic dynamical system,  to
+the logistic equation, which is a simple quadratic dynamical system, to
 generate a Csound score from a chaotic attractor of the system. This
 function also is quite simple. Its main job, aside from iterating the
 logistic equation a few hundred times, is to translate each iteration of
@@ -700,30 +691,30 @@ the system into a musical note and send that note to Csound to be played
 using the Csound API function readScore(). So the following `<script>`
 element is added to the body of the `<html>` element:
 
-~~~html
+```html
 <script>
-var c = 0.99;
-var y = 0.5;
-function generate() {
-        csound.message("generate()...\n");
-        for (i = 0; i < 200; i++) {
-          var t = i * (1.0 / 3.0);
-          var y1 = 4.0 * c * y * (1.0 - y);
-          y = y1;
-          var key = Math.round(36.0 + (y * 60.0));
-          var note = "i 1 " + t + " 2.0 " + key + " 60 0.0 0.5\n";
-          csound.readScore(note);
-        };
-};
+  var c = 0.99;
+  var y = 0.5;
+  function generate() {
+    csound.message("generate()...\n");
+    for (i = 0; i < 200; i++) {
+      var t = i * (1.0 / 3.0);
+      var y1 = 4.0 * c * y * (1.0 - y);
+      y = y1;
+      var key = Math.round(36.0 + y * 60.0);
+      var note = "i 1 " + t + " 2.0 " + key + " 60 0.0 0.5\n";
+      csound.readScore(note);
+    }
+  }
 </script>
-~~~
+```
 
 #### Adding Sliders
 
 The next step is to add more user control to this piece. We will enable
 the user to control the attractor of the piece by varying the constant
-*c*, and we will enable the user to control the sound of the Csound
-orchestra by varying the  frequency modulation index, frequency
+_c_, and we will enable the user to control the sound of the Csound
+orchestra by varying the frequency modulation index, frequency
 modulation carrier ratio, reverberation time, and master output level.
 
 This code is demonstrated on a low level, so that you can see all of the
@@ -733,17 +724,17 @@ a third party widget toolkit, such as jQuery UI.
 
 A slider in HTML is just an `input` element like this:
 
-~~~html
+```html
 <input
   id="sliderC"
-  type=range
-  min=0
-  max=1
-  value=.5
-  step=0.001
+  type="range"
+  min="0"
+  max="1"
+  value=".5"
+  step="0.001"
   oninput="on_sliderC(value)"
 />
-~~~
+```
 
 This element has attributes of minimum value 0, maximum value 1, which
 normalizes the user's possible values between 0 and 1. This could be
@@ -756,14 +747,14 @@ value of a JavaScript event handler for the `oninput` event. This
 function is called whenever the user changes the value of the slider.
 
 For ease of understanding, a naming convention is used here, with
-*sliderC* being the basic name and other names of objects associated
+_sliderC_ being the basic name and other names of objects associated
 with this slider taking names built up by adding prefixes or suffixes
 to this basic name.
 
 Normally a slider has a label, and it is convenient to show the actual
 numerical value of the slider. This can be done like so:
 
-~~~html
+```html
 <table>
   <col width="2*" />
   <col width="5*" />
@@ -790,7 +781,7 @@ numerical value of the slider. This can be done like so:
     </td>
   </tr>
 </table>
-~~~
+```
 
 If the slider, its label, and its numeric display are put into an HTML
 table, that table will act like a layout manager in a standard widget
@@ -799,31 +790,31 @@ to line up.
 
 For this slider, the JavaScript handler is:
 
-~~~js
+```js
 function on_sliderC(value) {
-    c = parseFloat(value);
-    document.querySelector('#sliderCOutput').value = c;
+  c = parseFloat(value);
+  document.querySelector("#sliderCOutput").value = c;
 }
-~~~
+```
 
-The variable *c* was declared at global scope just above the generate()
-function, so that variable is accessible within the *on_sliderC*
+The variable _c_ was declared at global scope just above the generate()
+function, so that variable is accessible within the _on_sliderC_
 function.
 
-Keep in mind, if you are playing with this code, that a new value of *c*
+Keep in mind, if you are playing with this code, that a new value of _c_
 will only be heard when a new score is generated.
 
 Very similar logic can be used to control variables in the Csound
 orchestra. The value of the slider has to be sent to Csound using the
 channel API, like this:
 
-~~~js
+```js
 function on_sliderFmIndex(value) {
-    var numberValue = parseFloat(value);
-    document.querySelector('#sliderFmIndexOutput').value = numberValue;
-    csound.setControlChannel('gk_FmIndex', numberValue);
+  var numberValue = parseFloat(value);
+  document.querySelector("#sliderFmIndexOutput").value = numberValue;
+  csound.setControlChannel("gk_FmIndex", numberValue);
 }
-~~~
+```
 
 Then, in the Csound orchestra, that value has to be retrieved using the
 chnget opcode and applied to the instrument to which it pertains. It is
@@ -843,7 +834,7 @@ Also for the sake of efficiency, a global, always-on instrument can be
 used to read the control channels and assign their values to these
 global variables:
 
-~~~csound
+```csound
 instr Controls
  gk_FmIndex_ chnget "gk_FmIndex"
  if gk_FmIndex_  != 0 then
@@ -862,11 +853,10 @@ instr Controls
   gk_MasterLevel = gk_MasterLevel_
  endif
 endin
-~~~
+```
 
 Note that each actual global variable has a default value, which is only
 overridden if the user actually operates its slider.
-
 
 #### Customizing the Style
 
@@ -879,18 +869,18 @@ complex HTML layout is tedious. Therefore, this example shows how to use
 a style sheet. We don't need much style to get a much improved
 appearance:
 
-~~~html
+```html
 <style type="text/css">
-input[type='range'] {
-        -webkit-appearance: none;
-        border-radius: 5px;
-        box-shadow: inset 0 0 5px #333;
-        background-color: #999;
-        height: 10px;
+  input[type="range"] {
+    -webkit-appearance: none;
+    border-radius: 5px;
+    box-shadow: inset 0 0 5px #333;
+    background-color: #999;
+    height: 10px;
     width: 100%;
-vertical-align: middle;
-}
-input[type=range]::-webkit-slider-thumb {
+    vertical-align: middle;
+  }
+  input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     border: none;
     height: 16px;
@@ -899,29 +889,27 @@ input[type=range]::-webkit-slider-thumb {
     background: yellow;
     margin-top: -4px;
     border-radius: 10px;
-}
-table td {
-        border-width: 2px;
-        padding: 8px;
-        border-style: solid;
-        border-color: transparent;
-    color:yellow;
-        background-color: teal;
-        font-family: sans-serif
-}
+  }
+  table td {
+    border-width: 2px;
+    padding: 8px;
+    border-style: solid;
+    border-color: transparent;
+    color: yellow;
+    background-color: teal;
+    font-family: sans-serif;
+  }
 </style>
-~~~
+```
 
 This little style sheet is generic, that is, it applies to every element
-on the HTML page. It says, for example, that *table td* (table cells)
+on the HTML page. It says, for example, that _table td_ (table cells)
 are to have a yellow sans-serif font on a teal background, and this will
 apply to every table cell on the page. Style sheets can be made more
 specialized by giving them names. But for this kind of application, that
 is not usually necessary.
 
-
-Conclusion
------------
+## Conclusion
 
 Most, if not all all, of the functions performed by other Csound front
 ends could be encompassed by HTML and JavaScript. However, there are a
@@ -930,7 +918,7 @@ may be extra latency and processing overhead required by inter-process
 communications. For Emscripten and other applications that use Web
 Audio, there may also be additional latency.
 
-Obviously, much *more* can be done with HTML, JavaScript, and other Web
+Obviously, much _more_ can be done with HTML, JavaScript, and other Web
 standards found in contemporary Web browsers. Full-fledged,
 three-dimensional, interactive, multi-player computer games are now
 being written with HTML and JavaScript. Other sorts of Web applications

@@ -14,8 +14,8 @@ yarn build:pdf
 ### Requirements
 
 - pandoc 2.3+
-- nodejs 17 or later
-- yarn
+- nodejs 17.x or later
+- yarn 1.x but no later (make sure it's less than 2.x)
 
 ## Developing
 

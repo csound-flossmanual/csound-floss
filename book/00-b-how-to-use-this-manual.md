@@ -1,5 +1,4 @@
-HOW TO USE THIS MANUAL
-======================
+# HOW TO USE THIS MANUAL
 
 The goal of this manual is to provide a readable introduction to Csound.
 In no way is it meant as a replacement for the [Canonical Csound
@@ -40,7 +39,7 @@ Reference Manual](http://csound.github.io/docs/manual/index.html).
 All files - examples and audio files - can be downloaded at
 [www.csound-tutorial.net](http://www.csound-tutorial.net). If you use
 CsoundQt, you can find all the examples in CsoundQt's examples menu
-under *Floss Manual Examples*. When learning Csound (or any other
+under _Floss Manual Examples_. When learning Csound (or any other
 programming language), you may find it beneficial to type the examples
 out by hand as it will help you to memorise Csound's syntax as well as
 how to use its opcodes. The more familiar you become with typing out
@@ -59,4 +58,4 @@ one of the maintainers (see ON THIS RELEASE).
 
 Some issues of this textbook can be ordered as a print-on-demand hard
 copy at [www.lulu.com](https://www.lulu.com/). Just use Lulu's search
-utility and look for *Csound*.
+utility and look for _Csound_.

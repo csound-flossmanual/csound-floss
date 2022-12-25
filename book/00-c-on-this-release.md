@@ -1,5 +1,4 @@
-ON THIS RELEASE
-===============
+# ON THIS RELEASE
 
 This (7th) is a major release, thanks to Hlöðver Sigurðsson. At the Csound conference in Cagli september 2019, we had a chat about how we could make the examples of this manual executable in a web browser, without any previous installation of Csound. We agreed that this requires a new repository for the text base and the programming interface. The text is now hosted at [csound-flossmanual](https://github.com/csound-flossmanual/csound-floss) on github. It is written in Markdown, and Hlöðver created an environment which makes it easy to edit. Those who are interested should have a look at the [readme](https://github.com/csound-flossmanual/csound-floss/blob/master/README.md) and the descriptions on how to [contribute](https://github.com/csound-flossmanual/csound-floss/tree/master/contribute).
 
@@ -27,9 +26,9 @@ The whole text has been revised. Many figures have been substituted or added. Ma
 - [12 G Csound in HTML and Javascript](12-g-csound-in-html-and-javascript.md) (thanks to Michael Gogins)
 - [15 A Opcode Guide](15-a-opcode-guide.md)
 
-The chapter about amplitude and pitch tracking has now been moved to [14 C](14-c-amplitude-and-pitch-tracking.md) together with other *miscellaneous* articles.
+The chapter about amplitude and pitch tracking has now been moved to [14 C](14-c-amplitude-and-pitch-tracking.md) together with other _miscellaneous_ articles.
 
-The explanations and examples try to find a balance between *no previous knowledge* (as basic as possible) and *interesting also for advanced users* (as elaborate as possible). On the one hand certainly an impossible mission, but to put it as request to the reader: Please tolerate that some examples may be either too simple or too complex for you -- it cannot be different.
+The explanations and examples try to find a balance between _no previous knowledge_ (as basic as possible) and _interesting also for advanced users_ (as elaborate as possible). On the one hand certainly an impossible mission, but to put it as request to the reader: Please tolerate that some examples may be either too simple or too complex for you -- it cannot be different.
 
 Since the first release of this textbook in 2010, Iain McCurdy was my compagnion in the attempt to keep it up to date and improve it. He showed us all how Csound can sound, and the best parts of this book (both descriptions and examples) are his work. His inexhaustible collection of [Csound Realtime Examples](http://iainmccurdy.org/csound.html) should be used all the time, in my opinion.
 

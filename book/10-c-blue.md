@@ -1,20 +1,16 @@
-10 C. BLUE
-==========
+# 10 C. BLUE
 
-General Overview
------------------
+## General Overview
 
 Blue is a graphical computer music environment for composition, a
 versatile front-end to Csound. It is written in Java,
 platform-independent, and uses Csound as its audio engine. It
 provides higher level abstractions such as a graphical timeline for
 composition, GUI-based instruments, score generating SoundObjects like
-PianoRolls, python scripting, Cmask, Jmask and more.  It is available at:
+PianoRolls, python scripting, Cmask, Jmask and more. It is available at:
 <http://blue.kunstmusik.com>
 
-
-Organization of Tabs and Windows
---------------------------------
+## Organization of Tabs and Windows
 
 Blue organizes all tasks that may arise while working with Csound within
 a single environment. Each task, be it score generation, instrument
@@ -28,7 +24,6 @@ Orchestra-window.
 
 You will find the same for UDOs (User Defined Opcodes). From this list you may export or import Instruments and UDOs from a library to the piece and vice versa. You may also bind several UDOs to a particular Instrument and export this instrument along with the UDOs it needs.
 
-
 ### Editor
 
 Blue holds several windows where you can enter code in an editor-like
@@ -40,11 +35,10 @@ Csound code.
 
 ![The Orchestra-window](../resources/images/10-c-blue-generic-orc.png)
 
-
 ### The Score Timeline as a Graphical Representation of the Composition
 
 The Score timeline allows for visual organization of all the used
-*SoundObjects* in a composition.
+_SoundObjects_ in a composition.
 
 In the score window, which is the main graphical window that represents
 the composition, you may arrange the composition by arranging the
@@ -58,9 +52,7 @@ depending on their facilities and purposes.
 
 ![Timeline holding several Sound Objects, one selected and opened in the SoundObject editor window](../resources/images/10-c-blue-timelinesoundobject.png)
 
-
-SoundObjects
--------------
+## SoundObjects
 
 To enable every kind of music production style and thus every kind of
 electronic music, blue holds a set of different SoundObjects.
@@ -74,7 +66,7 @@ model for describing sound and vocabulary for explaining music, there
 are a number of different SoundObjects in blue. Each SoundObject in blue
 is useful for different purposes, with some being more appropriate for
 expressing certain musical ideas than others. For example, using a
-scripting object like the *PythonObject* or *RhinoObject* would serve a user
+scripting object like the _PythonObject_ or _RhinoObject_ would serve a user
 who is trying to express a musical idea that may require an algorithmic
 basis, while the PianoRoll would be useful for those interested in
 notating melodic and harmonic ideas. The variety of different
@@ -88,7 +80,6 @@ they are used for generating Csound SCO text, SoundObjects may also
 generate ftables, instruments, user-defined opcodes, and everything else
 that would be needed to express a musical idea in Csound.
 
-
 ### Modifying a SoundObject
 
 First, you may set the start time and duration of every SoundObject by
@@ -98,7 +89,7 @@ SoundObject, while stretching it modifies the outer boundaries of it and
 may even change the density of events it generates inside.
 
 If you want to enter information into a SoundObject, you can open and
-edit it in a SoundObject editor-window. But there is also a way to modify the "output" of a SoundObject, without having to change its content. The way to do this is using *NoteProcessors*.
+edit it in a SoundObject editor-window. But there is also a way to modify the "output" of a SoundObject, without having to change its content. The way to do this is using _NoteProcessors_.
 
 By using NoteProcessors, several operations may be applied onto the
 parameters of a SoundObject. NoteProcessors allow for modifying the
@@ -108,21 +99,18 @@ manipulate and modify objects to achieve things like transposition,
 serial processing of scores, and more.
 
 Finally the SoundObjects may be grouped together and organized in
-larger-scale hierarchy by combining them to *PolyObjects*.
+larger-scale hierarchy by combining them to _PolyObjects_.
 Polyobject are objects, which hold other SoundObjects, and have
 timelines in themselves. Working within them on their timelines and
 outside of them on the parent timeline helps organize and understand the
 concepts of objective time and relative time between different objects.
 
-
-Instruments with a graphical interface
---------------------------------------
+## Instruments with a graphical interface
 
 Instruments and effects with a graphical interface may help to increase
 musical workflow. Among the instruments with a graphical user interface
-there are *BlueSynthBuilder* (BSB)-Instruments, *BlueEffects* and the *Blue
-Mixer*.
-
+there are _BlueSynthBuilder_ (BSB)-Instruments, _BlueEffects_ and the _Blue
+Mixer_.
 
 ### BlueSynthBuilder (BSB)-Instruments
 
@@ -134,7 +122,6 @@ Instrument automatically to a BSB-Instrument and then add and design a
 GUI.
 
 ![The interface of a BSB-Instrument](../resources/images/10-c-blue-bsb-interface.png)
-
 
 ### Blue Mixer
 
@@ -155,11 +142,9 @@ changes over time.
 
 ![The BlueMixer](../resources/images/10-c-blue-mixer.png)
 
+## Automation
 
-Automation
-----------
-
-For *BSB-Instruments*, *blueMixer* and *blueEffects* it is
+For _BSB-Instruments_, _blueMixer_ and _blueEffects_ it is
 possible to use Lines and Graphs within the score timeline to enter and
 edit parameters via a line. In Blue, most widgets in BlueSynthBuilder
 and Effects can have automation enabled. Faders in the Mixer can also be
@@ -177,12 +162,10 @@ the Score.
 Thus the parameters of these instruments with a GUI may be automatized
 and controlled via an editable graph in the Score-window.
 
+## Libraries
 
-Libraries
----------
-
-blue features also *libraries for instruments*, *SoundObjects*,
-*UDO*s, *Effects* (for the blueMixer) and the *CodeRepository* for
+blue features also _libraries for instruments_, _SoundObjects_,
+*UDO*s, _Effects_ (for the blueMixer) and the _CodeRepository_ for
 code snippets. All these libraries are organized as lists or trees.
 Items of the library may be imported to the current composition or
 exported from it to be used later in other pieces.
@@ -200,16 +183,12 @@ library.
 The Orchestra manager organizes instruments and functions as an
 instrument librarian. There is also an Effects Library and a Library for the UDOs.
 
+## Other Features
 
-Other Features
---------------
-
--   **blueLive** - work with SoundObjects in realtime to experiment
-with musical ideas or performance.
--   **SoundObject freezing** - frees up CPU cycles by pre-rendering
-SoundObjects
--   **Microtonal support**using scales defined in the Scala scale
-format, including a microtonal PianoRoll, Tracker, NoteProcessors, and
-more.
-
-
+- **blueLive** - work with SoundObjects in realtime to experiment
+  with musical ideas or performance.
+- **SoundObject freezing** - frees up CPU cycles by pre-rendering
+  SoundObjects
+- **Microtonal support**using scales defined in the Scala scale
+  format, including a microtonal PianoRoll, Tracker, NoteProcessors, and
+  more.

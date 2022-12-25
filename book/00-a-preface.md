@@ -7,7 +7,7 @@ field of audio programming. It was developed in the mid-1980s at the
 Massachusetts Institute of Technology (MIT) by Barry Vercoe but
 Csound's history lies even deeper within the roots of computer music:
 it is a direct descendant of the oldest computer program for sound
-synthesis, *MusicN*, by Max Mathews. Csound is free and open source,
+synthesis, _MusicN_, by Max Mathews. Csound is free and open source,
 distributed under the LGPL licence, and it is maintained and expanded by
 a core of developers with support from a wider global community.
 
@@ -22,7 +22,7 @@ tools for sound synthesis and sound modification, arguably offering a
 superset of features offered by similar software and with an unrivaled
 audio precision.
 
-Csound is simultaneously both *old school* and *new school*.
+Csound is simultaneously both _old school_ and _new school_.
 
 Is Csound difficult to learn? Generally speaking, graphical audio
 programming languages like Pure Data, Max or Reaktor are easier to
@@ -38,7 +38,7 @@ by wiring symbols together using the mouse.
 
 Yet Csound can straddle both approaches: it is also very easy to use
 Csound as an audio engine inside Pd or Max. Have a look at the chapter
-*Csound in Other Applications* for further information.
+_Csound in Other Applications_ for further information.
 
 Amongst text-based audio programming languages, Csound is arguably the
 simplest. You do not need to know any specific programming techniques or
@@ -52,30 +52,30 @@ For example, to create a 400 Hz sine oscillator with an amplitude of
 
 Here is a possible transformation of the signal graph into Csound code:
 
-~~~csound
+```csound
 instr Sine
  aSig poscil 0.2, 400
  out aSig
 endin
-~~~
+```
 
 The oscillator is represented by the opcode
 [poscil](http://csound.com/docs/manual/poscil.html) and receives
 its input arguments on the right-hand side. These are amplitude (0.2)
-and frequency (400). It produces an audio signal called *aSig* at the
-left side which is in turn the input of the second opcode *out*. The
+and frequency (400). It produces an audio signal called _aSig_ at the
+left side which is in turn the input of the second opcode _out_. The
 first and last lines encase these connections inside an instrument
-called *Sine*.
+called _Sine_.
 
 With the release of Csound version 6, it is possible to write the same
-code in an even more condensed fashion using so-called *functional
-syntax*, as shown below:
+code in an even more condensed fashion using so-called _functional
+syntax_, as shown below:
 
-~~~csound
+```csound
 instr Sine
  out poscil:a(0.2, 400)
 endin
-~~~
+```
 
 We will use both, traditional and functional style, throughout this textbook. More details on functional style can be found in chapter
 [03 I](03-i-functional-syntax.md).

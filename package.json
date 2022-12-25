@@ -54,7 +54,8 @@
     "build:odt": "node pandoc/build_odt.js",
     "extract:examples": "node pandoc/extract_csd_examples.js",
     "test": "jest",
-    "test:ci": "jest --ci"
+    "test:ci": "jest --ci",
+    "prettify": "npx prettier --write ./book"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -68,6 +69,7 @@
     ]
   },
   "devDependencies": {
-    "fast-glob": "^3.2.4"
+    "fast-glob": "^3.2.4",
+    "prettier": "^2.8.1"
   }
 }

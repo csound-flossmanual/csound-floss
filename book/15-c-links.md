@@ -1,8 +1,6 @@
-15 C. LINKS
-===========
+# 15 C. LINKS
 
-Downloads
----------
+## Downloads
 
 Csound FLOSS Manual Files:
 <http://files.csound-tutorial.net/floss_manual/>
@@ -11,7 +9,7 @@ Csound: <http://csound.com/download.html>
 
 Csound source code: <http://github.com/csound/csound>
 
-User Defined Opcodes for Csound: <http://www.csounds.com/udo/>  and
+User Defined Opcodes for Csound: <http://www.csounds.com/udo/> and
 <http://github.com/csudo/csudo>
 
 CsoundQt: <http://github.com/CsoundQt/CsoundQt/releases>
@@ -22,21 +20,17 @@ Blue: <http://blue.kunstmusik.com/>
 
 WinXound: <http://mnt.conts.it/winxound/>
 
+## Community
 
-Community
----------
-
-The [Csound commuity home page](http://csound.com) is the main place for news,  basic infos, links and more.
+The [Csound commuity home page](http://csound.com) is the main place for news, basic infos, links and more.
 
 The [Csound Journal](http://csoundjournal.com/index.html)
 is a main source for different aspects of working with Csound.
 
+## Forums and Mailing Lists
 
-Forums and Mailing Lists
-------------------------
-
-The main forum to put questions concerning the usage of Csound is the 
-[**Csound Forum**](https://forum.csound.com). It has categories and different possibilities how to 
+The main forum to put questions concerning the usage of Csound is the
+[**Csound Forum**](https://forum.csound.com). It has categories and different possibilities how to
 put questions (or help qith answers).
 
 The traditional place for questions and answers is the Csound Mailing List. To
@@ -60,25 +54,22 @@ browse the list archive
 
 **Cabbage** <http://forum.cabbageaudio.com/>
 
-
-Bug Tracker
------------
+## Bug Tracker
 
 It should be distinguished whether an issue belongs to Csound or to one of the frontends.
 Rule of thumb: If an issue has nothing to do with a graphical element or any frontend-specific
 feature, it belongs to Csound. Otherwise it belongs to CsoundQt, Cabbage ot Blue.
 
-Links for the issue trackers:  
-- [Core Csound](https://github.com/csound/csound/issues)  
-- [CsoundQt](https://github.com/CsoundQt/CsoundQt/issues)  
-- [Cabbage](https://forum.cabbageaudio.com/)  
-- [Blue](http://www.github.com/kunstmusik/blue/issues)  
+Links for the issue trackers:
+
+- [Core Csound](https://github.com/csound/csound/issues)
+- [CsoundQt](https://github.com/CsoundQt/CsoundQt/issues)
+- [Cabbage](https://forum.cabbageaudio.com/)
+- [Blue](http://www.github.com/kunstmusik/blue/issues)
 
 Every bug report is an important contribution.
 
-
-Tutorials
----------
+## Tutorials
 
 [A Beginning Tutorial](http://www.csounds.com/tootsother/vercoetut/Vercoe.html)
 is a short introduction from Barry Vercoe, the "father of Csound".
@@ -97,9 +88,7 @@ by Alessandro Cipriani and Maurizio Giri (2000)
 [A Csound Tutorial](http://michael-gogins.com/archives/tutorial.pdf)
 by Michael Gogins (2009), one of the main Csound Developers.
 
-
-Video Tutorials
----------------
+## Video Tutorials
 
 A playlist as overview by Alex Hofmann (some years ago):
 
@@ -143,7 +132,7 @@ New features in 0.9.2:\
 
 ### Open Sound Control in Csound
 
-[http://www.youtube.com/watch?v=JX1C3TqP\_9Y](http://csoundblog.com/2010/08/csound-processing-experiment-i/)
+[http://www.youtube.com/watch?v=JX1C3TqP_9Y](http://csoundblog.com/2010/08/csound-processing-experiment-i/)
 
 ### Csound and Inscore
 
@@ -153,15 +142,11 @@ german versions:\
 <http://vimeo.com/54159567> (installation)\
 <http://vimeo.com/54159964> (beispiele)
 
-
-Csound Conferences
-------------------
+## Csound Conferences
 
 See the list at <https://csound.com/conferences.html>
 
-
-Example Collections
--------------------
+## Example Collections
 
 [Csound Realtime Examples](http://iainmccurdy.org/csound.html)
 by Iain McCurdy is certainly the most extended, approved and up-to-date collection.
@@ -171,9 +156,7 @@ by John-Philipp Gather is particularily interesting because of the
 adaption of Jean-Claude Risset's famous "Introductory Catalogue of
 Computer Synthesized Sounds" from 1969.
 
-
-Books
------
+## Books
 
 Victor Lazzarini's
 [Computer Music Instruments](https://www.springer.com/gp/book/9783319635033)
@@ -198,9 +181,3 @@ by Alessandro Cipriani and Maurizio Giri (2000)
 [The Csound Book](https://mitpress.mit.edu/books/csound-book)
 (2000) edited by Richard Boulanger is still the compendium for anyone
 who really wants to go in depth with Csound.
-
-
-
-
-
-

@@ -1,5 +1,4 @@
-05 H. CONVOLUTION
-=================
+# 05 H. CONVOLUTION
 
 Convolution is a mathematical procedure whereby one function is modified
 by another. Applied to audio, one of these functions might be a sound
@@ -59,23 +58,21 @@ different opcodes for convolution,
 [ftconv](https://csound.com/docs/manual/ftconv.html),
 [ftmorf](https://csound.com/docs/manual/ftmorf.html) and
 [pconvolve](https://csound.com/docs/manual/pconvolve.html).
-*convolve* and *dconv* are earlier
+_convolve_ and _dconv_ are earlier
 implementations and are less suited to realtime operation,
-*cross2* relates to FFT-based cross synthesis and *ftmorf* is used to
+_cross2_ relates to FFT-based cross synthesis and _ftmorf_ is used to
 morph between similar sized function table and is less related to what
 has been discussed so far, therefore in this chapter we shall focus upon
 just two opcodes,
 [pconvolve](https://csound.com/docs/manual/pconvolve.html) and
 [ftconv.](https://csound.com/docs/manual/ftconv.html)
 
-
-pconvolve
----------
+## pconvolve
 
 [pconvolve](https://csound.com/docs/manual/pconvolve.html) is
 perhaps the easiest of Csound's convolution opcodes to use and the most
 useful in a realtime application. It uses the uniformly partitioned
-(hence the *p*) overlap-save algorithm which permits convolution with
+(hence the _p_) overlap-save algorithm which permits convolution with
 very little delay (latency) in the output signal. The impulse response
 file that it uses is referenced directly, i.e. it does not have to be
 previously loaded into a function table, and multichannel files are
@@ -84,9 +81,9 @@ acceptable to Csound and does not need to be pre-analysed as is required
 by [convolve](https://csound.com/docs/manual/convolve.html).
 
 Convolution procedures through their very nature introduce a delay in
-the output signal but *pconvolve* minimises
+the output signal but _pconvolve_ minimises
 this using the algorithm mentioned above. It will still introduce some
-delay but we can control this using the opcode's *ipartitionsize*
+delay but we can control this using the opcode's _ipartitionsize_
 input argument. What value we give this will require some consideration
 and perhaps some experimentation as choosing a high partition size will
 result in excessively long delays (only an issue in realtime work)
@@ -94,27 +91,27 @@ whereas very low partition sizes demand more from the CPU and too low a
 size may result in buffer under-runs and interrupted realtime audio.
 Bear in mind still that realtime CPU performance will depend heavily on
 the length of the impulse response file. The partition size argument is actually an optional argument and if omitted it will default to whatever the
-software buffer size is as defined by the *-b*
+software buffer size is as defined by the _-b_
 [command line flag](https://csound.com/docs/manual/CommandFlags.html). If we
 specify the partition size explicitly however, we can use this
 information to delay the input audio (after it has been used by
 pconvolve) so that it can be realigned in time with the latency affected
 audio output from pconvolve - this will be essential in creating a
-*wet/dry* mix in a reverb unit. Partition size is defined in sample
+_wet/dry_ mix in a reverb unit. Partition size is defined in sample
 frames therefore if we specify a partition size of 512, the delay
 resulting from the convolution procedure will be 512/sr, so about 12ms at a sample rate of 44100 Hz.
 
 In the following example a monophonic drum loop sample undergoes
-processing through a convolution reverb implemented using *pconvolve* which in
+processing through a convolution reverb implemented using _pconvolve_ which in
 turn uses two different impulse files. The first file is a more
 conventional reverb impulse file taken in a stairwell whereas the second
 is a recording of the resonance created by striking a terracota bowl
 sharply. You can, of course, replace them with ones of your own but remain
 mindful of mono/stereo/multichannel integrity.
 
-   ***EXAMPLE 05H01_pconvolve.csd***
+**_EXAMPLE 05H01_pconvolve.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 
 <CsOptions>
@@ -169,51 +166,48 @@ e
 
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
+```
 
-
-ftconv
-------
+## ftconv
 
 [ftconv](https://csound.com/docs/manual/ftconv.html) (abbreviated
-from *function table convolution*) is perhaps slightly more complicated
-to use than *pconvolve* but offers additional options. The fact that
-*ftconv* utilises an
+from _function table convolution_) is perhaps slightly more complicated
+to use than _pconvolve_ but offers additional options. The fact that
+_ftconv_ utilises an
 impulse response that we must first store in a function table rather
 than directly referencing a sound file stored on disk means that we have
 the option of performing transformations upon the audio stored in the
-function table before it is employed by *ftconv* for
+function table before it is employed by _ftconv_ for
 convolution. This example begins just as the previous example: a mono
 drum loop sample is convolved first with a typical reverb impulse
 response and then with an impulse response derived from a terracotta
 bowl. After twenty seconds the contents of the function tables
 containing the two impulse responses are reversed by calling a UDO
 (instrument 3) and the convolution procedure is repeated, this time with
-a *backwards reverb* effect. When the reversed version is performed
+a _backwards reverb_ effect. When the reversed version is performed
 the dry signal is delayed further before being sent to the speakers so
 that it appears that the reverb impulse sound occurs at the culmination
 of the reverb build-up. This additional delay is switched on or off via
-p6 from the score. As with *pconvolve*, *ftconv* performs the convolution
+p6 from the score. As with _pconvolve_, _ftconv_ performs the convolution
 process in overlapping partitions to minimise latency. Again we can
 minimise the size of these partitions and therefore the latency but at
-the cost of CPU efficiency. *ftconv*'s documentation refers to this
-partition size as *iplen* (partition length). ftconv offers further
+the cost of CPU efficiency. _ftconv_'s documentation refers to this
+partition size as _iplen_ (partition length). ftconv offers further
 facilities to work with multichannel files beyond stereo. When doing
 this it is suggested that you use
 [GEN52](https://csound.com/docs/manual/GEN52.html) which is designed
 for this purpose. [GEN01](https://csound.com/docs/manual/GEN01.html)
 seems to work fine, at least up to stereo, provided that you do not
-defer the table size definition (size=0). With *ftconv* we can specify the
+defer the table size definition (size=0). With _ftconv_ we can specify the
 actual length of the impulse response - it will probably be shorter than
-the *power-of-2* sized function table used to store it - and this action
+the _power-of-2_ sized function table used to store it - and this action
 will improve realtime efficiency. This optional argument is defined in
 sample frames and defaults to the size of the impulse response function
 table.
 
+**_EXAMPLE 05H02_ftconv.csd_**
 
-   ***EXAMPLE 05H02_ftconv.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 --env:SSDIR+=../SourceMaterials -odac
@@ -303,9 +297,9 @@ i 2 31 10 2 0.5 1
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
+```
 
-Suggested avenues for further exploration with *ftconv* could be applying
+Suggested avenues for further exploration with _ftconv_ could be applying
 envelopes to, filtering and time stretching and compressing the function
 table stored impulse files before use in convolution.
 
@@ -319,18 +313,15 @@ format inevitably limiting the user to using the impulse responses
 provided by the software manufacturers but with Csound we have the
 freedom to use any sound we like.
 
+## liveconv
 
-liveconv
---------
+The [liveconv](https://csound.com/docs/manual/liveconv.html) opcode is an interesting extension of the _ftconv_ opcode. Its main purpose is to make dynamical reloading of the table with the impulse response not only possible, but give an option to avoid artefacts in this reloading. This is possible as reloading can be done partition by partition.
 
-The [liveconv](https://csound.com/docs/manual/liveconv.html) opcode is an interesting extension of the *ftconv* opcode. Its main purpose is to make dynamical reloading of the table with the impulse response not only possible, but give an option to avoid artefacts in this reloading. This is possible as reloading can be done partition by partition.
+The following example mimics the live input by short snippets of the _fox.wav_ sound file. Once the new sound starts to fill the table (each time instr _Record_IR_ is called), it sends the number 1 via software channel _conv_update_ to the _kupdate_ parameter of the _liveconv_ opcode in instr _Convolver_. This will start the process of applying the new impulse response.
 
-The following example mimics the live input by short snippets of the *fox.wav* sound file. Once the new sound starts to fill the table (each time instr *Record_IR* is called), it sends the number 1 via software channel *conv_update* to the *kupdate* parameter of the *liveconv* opcode in instr *Convolver*. This will start the process of applying the new impulse response.
+**_EXAMPLE 05H03_liveconv.csd_**
 
-
-   ***EXAMPLE 05H03_liveconv.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac  -m128
@@ -420,12 +411,12 @@ i "Convolver" 	2	13.65
 </CsScore>
 </CsoundSynthesizer>
 ;example by Oeyving Brandtsegg and Sigurd Saue
-~~~
+```
 
 Some comments to the code of this example:
 
 - Line 13: A function table is created in which the impulse responses can be recorded in real-time. A power of two size (here 2^17^ = 131072) is preferred as the partition size will then be an integer multiple of the table size.
-- Line 15-24: This instrument mimics the audio source on which the convolution will be applied. Here it is *beats.wav*, a short sound file which is looped.
-- Line 27: Whenever instr *Record_IR* is called, it will record an impulse response to table *giIR_record*. The impulse response can be very small, but the whole table must be recorded anyway. So the duration of the instrument (p3) must be set to the time it takes for this recording. This is the length of the table divided by the sample rate: `ftlen(giIR_record)/sr`, here *131072 / 44100 = 2.972* seconds.
-- Line 32-24: The second live input which is used for the impulse response, is mimicked here by the file *fox.wav* which is played back with different skip times in the different calls of the instrument. The envelope *amp* applies a short fade in and fade out to the short portion of the sample which we want to use. (`asnd *= amp` is a short form for `asnd = asnd*amp`.)
-- Line 56-60: Depending on the intensity and the spectral content of the impulse response, the convolution will have rather different volume. The code in these lines is to balance it. The *kdB[]* array has seven different dB values for the seven calls of instr *Record_IR*. Each new update message (when *kupdate* gets 1) will increase the *kindx* pointer in the array so that these seven dB values are being applied in line 54 as `ampdb(kdB[kindx])` to the convolution *aconv*.
+- Line 15-24: This instrument mimics the audio source on which the convolution will be applied. Here it is _beats.wav_, a short sound file which is looped.
+- Line 27: Whenever instr _Record_IR_ is called, it will record an impulse response to table _giIR_record_. The impulse response can be very small, but the whole table must be recorded anyway. So the duration of the instrument (p3) must be set to the time it takes for this recording. This is the length of the table divided by the sample rate: `ftlen(giIR_record)/sr`, here _131072 / 44100 = 2.972_ seconds.
+- Line 32-24: The second live input which is used for the impulse response, is mimicked here by the file _fox.wav_ which is played back with different skip times in the different calls of the instrument. The envelope _amp_ applies a short fade in and fade out to the short portion of the sample which we want to use. (`asnd *= amp` is a short form for `asnd = asnd*amp`.)
+- Line 56-60: Depending on the intensity and the spectral content of the impulse response, the convolution will have rather different volume. The code in these lines is to balance it. The _kdB[]_ array has seven different dB values for the seven calls of instr _Record_IR_. Each new update message (when _kupdate_ gets 1) will increase the _kindx_ pointer in the array so that these seven dB values are being applied in line 54 as `ampdb(kdB[kindx])` to the convolution _aconv_.

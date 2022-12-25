@@ -1,6 +1,4 @@
-04 B. SUBTRACTIVE SYNTHESIS
-===========================
-
+# 04 B. SUBTRACTIVE SYNTHESIS
 
 Subtractive synthesis is, at least conceptually, the inverse of additive
 synthesis in that instead of building complex sound through the addition
@@ -18,10 +16,7 @@ additive synthesis may not be as easy with subtractive synthesis but
 sounds can be created much more instinctively than is possible with
 additive or modulation synthesis.
 
-
-
-A Csound Two-Oscillator Synthesizer
------------------------------------
+## A Csound Two-Oscillator Synthesizer
 
 The first example represents perhaps the classic idea of subtractive
 synthesis: a simple two oscillator synth filtered using a single
@@ -69,9 +64,9 @@ A schematic for this instrument is shown below:
 
 ![](../resources/images/04-b-2oscsynthflow.png)
 
-   ***EXAMPLE 04B01_Subtractive_Midi.csd***
+**_EXAMPLE 04B01_Subtractive_Midi.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -Ma
@@ -212,11 +207,9 @@ e
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
+```
 
-
-Simulation of Timbres from a Noise Source
------------------------------------------
+## Simulation of Timbres from a Noise Source
 
 The next example makes extensive use of bandpass filters arranged in
 parallel to filter white noise. The bandpass filter bandwidths are
@@ -229,11 +222,10 @@ additive synthesis equivalent.^[It has been shown in the
 how this quality can be applied to additive synthesis by
 slight random deviations.] If the bandwidths are widened, then more
 of the characteristic of the noise source comes through and the tone
-becomes *airier* and less distinct; if the bandwidths are narrowed,
+becomes _airier_ and less distinct; if the bandwidths are narrowed,
 the resonating tones become clearer and steadier. By varying the
 bandwidths interesting metamorphoses of the resultant sound are
 possible.
-
 
 22 [reson](http://www.csounds.com/manual/html/reson.html) filters are
 used for the bandpass filters on account of their ability to ring and
@@ -276,9 +268,9 @@ A flow diagram for this instrument is shown below:
 
 ![](../resources/images/04-b-22reson.png)
 
-   ***EXAMPLE 04B02_Subtractive_timbres.csd***
+**_EXAMPLE 04B02_Subtractive_timbres.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -405,11 +397,9 @@ e
 </CsScore>
 </CsoundSynthesizer>
 ;example written by Iain McCurdy
-~~~
+```
 
-
-Vowel-Sound Emulation Using Bandpass Filtering
-----------------------------------------------
+## Vowel-Sound Emulation Using Bandpass Filtering
 
 The final example in this section uses precisely tuned bandpass filters,
 to simulate the sound of the human voice expressing vowel sounds.
@@ -443,9 +433,9 @@ A flow diagram for this instrument is shown below:
 
 ![](../resources/images/04-b-vowelfilters.png)
 
-   ***EXAMPLE 04B03_Subtractive_vowels.csd***
+**_EXAMPLE 04B03_Subtractive_vowels.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -589,7 +579,7 @@ instr 1
   aForm4   reson     aInput, kCF4, kBW4*kBW, 1     ; formant 4
   aForm5   reson     aInput, kCF5, kBW5*kBW, 1     ; formant 5
 
-  ; formants are mixed and multiplied both by intensity values derived 
+  ; formants are mixed and multiplied both by intensity values derived
   ; from tables and by the on-screen gain controls for each formant
   aMix     sum     aForm1*ampdbfs(kDB1), aForm2*ampdbfs(kDB2),
        aForm3*ampdbfs(kDB3), aForm4*ampdbfs(kDB4), aForm5*ampdbfs(kDB5)
@@ -619,10 +609,9 @@ e
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
+```
 
-Conclusion
-----------
+## Conclusion
 
 These examples have hopefully demonstrated the strengths of subtractive
 synthesis in its simplicity, intuitive operation and its ability to

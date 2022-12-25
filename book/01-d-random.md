@@ -1,6 +1,4 @@
-01 D. RANDOM
-============
-
+# 01 D. RANDOM
 
 This chapter is in three parts. Part I provides a general introduction
 to the concepts behind random numbers and how to work with them in
@@ -12,8 +10,8 @@ and distributions and demonstrates their use in musical examples.
 
 ### Random is Different
 
-The term *random* derives from the idea of a horse that is running so
-fast it becomes *out of control* or *beyond predictability*.^[<http://www.etymonline.com/index.php?term=random>]  Yet
+The term _random_ derives from the idea of a horse that is running so
+fast it becomes _out of control_ or _beyond predictability_.^[<http://www.etymonline.com/index.php?term=random>] Yet
 there are different ways in which to run fast and to be out of control;
 therefore there are different types of randomness.
 
@@ -39,31 +37,31 @@ Csound Manual and the
 ### Random Without History
 
 A computer is typically only capable of computation. Computations are
-*deterministic* processes: one input will always generate the same
+_deterministic_ processes: one input will always generate the same
 output, but a random event is not predictable. To generate something
-which *looks like* a random event, the computer uses a pseudo-random
+which _looks like_ a random event, the computer uses a pseudo-random
 generator.
 
 The pseudo-random generator takes one number as input, and generates
 another number as output. This output is then the input for the next
 generation. For a huge amount of numbers, they look as if they are
 randomly distributed, although everything depends on the first input:
-the *seed*. For one given seed, the next values can be predicted.
+the _seed_. For one given seed, the next values can be predicted.
 
 ### Uniform Distribution and Seed
 
 The output of a classical pseudo-random generator is uniformly
 distributed: each value in a given range has the same likelihood of
-occurence. The first example shows the influence of a fixed *seed* (using
+occurence. The first example shows the influence of a fixed _seed_ (using
 the same chain of numbers and beginning from the same location in the
 chain each time) in contrast to a seed being taken from the system clock
 (the usual way of imitating unpredictability). The first three groups of
 four notes will always be the same because of the use of the same seed
 whereas the last three groups should always have a different pitch.
 
-   ***EXAMPLE 01D01\_different\_seed.csd***
+**_EXAMPLE 01D01_different_seed.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m0
@@ -106,7 +104,7 @@ i "generate" 0 1 0
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
 Note that a pseudo-random generator will repeat its series of numbers
 after as many steps as are given by the size of the generator. If a
@@ -114,15 +112,15 @@ after as many steps as are given by the size of the generator. If a
 steps. If you listen carefully to the following example, you will hear a
 repetition in the structure of the white noise (which is the result of
 uniformly distributed amplitudes) after about 1.5 seconds in the first
-note.^[Because the sample rate is 44100 samples per second. 
-       So a repetition after 65536 samples will lead to a 
-       repetition after 65536/44100 = 1.486 seconds.]
- In the second note, there is no perceivable repetition as the
+note.^[Because the sample rate is 44100 samples per second.
+So a repetition after 65536 samples will lead to a
+repetition after 65536/44100 = 1.486 seconds.]
+In the second note, there is no perceivable repetition as the
 random generator now works with a 31-bit number.
 
-   ***EXAMPLE 01D02\_white\_noises.csd***
+**_EXAMPLE 01D02_white_noises.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -147,7 +145,7 @@ i "white_noise" 11 10 1
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
 Two more general notes about this:
 
@@ -179,11 +177,11 @@ Two more general notes about this:
 
     In the first case, a random value is generated only once, when an
     instrument is called, at initialisation. The generated value is then
-    stored in the variable *ires*. In the second case, a random value is
-    generated at each k-cycle, and stored in *kres*. In the third case,
+    stored in the variable _ires_. In the second case, a random value is
+    generated at each k-cycle, and stored in _kres_. In the third case,
     in each k-cycle as many random values are stored as the audio vector
-    has in size, and stored in the variable *ares*. Have a look at
-    example *03A16\_Random\_at\_ika.csd* to see this at work. Chapter
+    has in size, and stored in the variable _ares_. Have a look at
+    example _03A16_Random_at_ika.csd_ to see this at work. Chapter
     03A tries to explain the background of the different rates in depth,
     and how to work with them.
 
@@ -209,7 +207,6 @@ given range are more likely:
 
 ![](../resources/images/01-d-linear-distributiona2.png){ width=50% }
 
-
 ![](../resources/images/01-d-linear-distributionb2.png){ width=50% }
 
 To get this behaviour, two uniform random numbers are generated, and the
@@ -221,9 +218,9 @@ distribution, then a linear distribution with precedence of lower
 pitches (but longer durations), at least a linear distribution with
 precedence of higher pitches (but shorter durations).
 
-   ***EXAMPLE 01D03\_linrand.csd***
+**_EXAMPLE 01D03_linrand.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m0
@@ -358,7 +355,7 @@ e 99999 ;make possible to perform long (exit will be automatically)
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
 #### Triangular
 
@@ -373,9 +370,9 @@ Generate two uniform random numbers and take the mean of them. The next
 example shows the difference between uniform and triangular distribution
 in the same environment as the previous example.
 
-   ***EXAMPLE 01D04\_trirand.csd***
+**_EXAMPLE 01D04_trirand.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m0
@@ -477,7 +474,7 @@ e 99999 ;make possible to perform long (exit will be automatically)
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
 #### More Linear and Triangular
 
@@ -494,7 +491,7 @@ numbers, we have to write the code in a slightly different way. Instead
 of having one line of code for each random generator, we will use a
 loop, which calls the generator as many times as we wish to have units.
 A variable will store the results of the accumulation. Re-writing the
-above code for the UDO *trirnd* would lead to this formulation:
+above code for the UDO _trirnd_ would lead to this formulation:
 
     opcode trirnd, i, ii
     iMin, iMax xin
@@ -514,7 +511,7 @@ above code for the UDO *trirnd* would lead to this formulation:
                xout       iRnd
     endop
 
-To get this completely flexible, you only have to get *iMaxCount* as
+To get this completely flexible, you only have to get _iMaxCount_ as
 input argument. The code for the linear distribution UDOs is quite
 similar. -- The next example shows these steps:
 
@@ -532,18 +529,18 @@ similar. -- The next example shows these steps:
 Rather than using different instruments for the different distributions,
 the next example combines all possibilities in one single instrument.
 Inside the loop which generates as many notes as desired by the
-*iHowMany* argument, an if-branch calculates the pitch and duration of
+_iHowMany_ argument, an if-branch calculates the pitch and duration of
 one note depending on the distribution type and the number of sub-units
 used. The whole sequence (which type first, which next, etc) is stored
-in the global array *giSequence*. Each instance of instrument *notes*
+in the global array _giSequence_. Each instance of instrument _notes_
 increases the pointer giSeqIndx, so that for the next run the next
 element in the array is being read. If the pointer has reached the end
 of the array, the instrument which exits Csound is called instead of a
-new instance of *notes*.
+new instance of _notes_.
 
-   ***EXAMPLE 01D05\_more\_lin\_tri\_units.csd***
+**_EXAMPLE 01D05_more_lin_tri_units.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m0
@@ -715,38 +712,38 @@ e 99999 ;make possible to perform long (exit will be automatically)
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
 With this method we can build probability distributions which are very
 similar to exponential or gaussian distributions.^[
 According to Dodge/Jerse, the usual algorithms for exponential and
-gaussian are:  
+gaussian are:
 Exponential: Generate a uniformly distributed number
-between 0 and 1 and take its natural logarithm.  
-Gauss: Take the mean of uniformly distributed numbers 
-and scale them by the standard deviation.] Their 
+between 0 and 1 and take its natural logarithm.
+Gauss: Take the mean of uniformly distributed numbers
+and scale them by the standard deviation.] Their
 shape can easily be formed by the number of sub-units used.
 
 ### Scalings
 
 Random is a complex and sensible context. There are so many ways to let
-the horse go, run, or dance -- the conditions you set for this *way of
-moving* are much more important than the fact that one single move is
+the horse go, run, or dance -- the conditions you set for this _way of
+moving_ are much more important than the fact that one single move is
 not predictable. What are the conditions of this randomness?
 
--   *Which Way.* This is what has already been described: random with or
-    without history, which probability distribution, etc.
--   *Which Range.* This is a decision which comes from the
-    composer/programmer. In the example above I have chosen pitches from
-    Midi Note 36 to 84 (C2 to C6), and durations between 0.1 and 2
-    seconds. Imagine how it would have been sounded with pitches from 60
-    to 67, and durations from 0.9 to 1.1 seconds, or from 0.1 to 0.2
-    seconds. There is no range which is "correct", everything depends
-    on the musical idea.
--   *Which Development.* Usually the boundaries will change in the run
-    of a piece. The pitch range may move from low to high, or from
-    narrow to wide; the durations may become shorter, etc.
--   *Which Scalings.* Let us think about this more in detail.
+- _Which Way._ This is what has already been described: random with or
+  without history, which probability distribution, etc.
+- _Which Range._ This is a decision which comes from the
+  composer/programmer. In the example above I have chosen pitches from
+  Midi Note 36 to 84 (C2 to C6), and durations between 0.1 and 2
+  seconds. Imagine how it would have been sounded with pitches from 60
+  to 67, and durations from 0.9 to 1.1 seconds, or from 0.1 to 0.2
+  seconds. There is no range which is "correct", everything depends
+  on the musical idea.
+- _Which Development._ Usually the boundaries will change in the run
+  of a piece. The pitch range may move from low to high, or from
+  narrow to wide; the durations may become shorter, etc.
+- _Which Scalings._ Let us think about this more in detail.
 
 In the example above we used two implicit scalings. The pitches have
 been scaled to the keys of a piano or keyboard. Why? We do not play
@@ -771,9 +768,9 @@ fixed possible values which are written into an array (from the longest
 to the shortest) by hand. The values in both arrays are then called
 according to their position in the array.
 
-   ***EXAMPLE 01D06\_scalings.csd***
+**_EXAMPLE 01D06_scalings.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m0
@@ -959,8 +956,7 @@ e 99999 ;make possible to perform long (exit will be automatically)
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
-
+```
 
 ### Random With History
 
@@ -979,16 +975,16 @@ is written in a table like this:
 
 ![](../resources/images/01-d-markov-table.png){ width=30% }
 
-This means: the probability that element *a* is repeated, is 0.2; the
-probability that *b* follows a is 0.5; the probability that *c* follows a is
+This means: the probability that element _a_ is repeated, is 0.2; the
+probability that _b_ follows a is 0.5; the probability that _c_ follows a is
 0.3. The sum of all probabilities must, by convention, add up to 1. The
 following example shows the basic algorithm which evaluates the first
 line of the Markov table above, in the case, the previous element has
-been *a*.
+been _a_.
 
-   ***EXAMPLE 01D07\_markov\_basics.csd***
+**_EXAMPLE 01D07_markov_basics.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -ndm0
@@ -1018,7 +1014,7 @@ i 1 0 0
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
 The probabilities are 0.2 0.5 0.3. First a uniformly distributed random
 number between 0 and 1 is generated. An acculumator is set to the first
@@ -1044,12 +1040,12 @@ input is a Markov table as a two-dimensional array, and the previous
 line as index (starting with 0). Its output is the next element, also as
 index. -- There are two Markov chains in this example: seven pitches,
 and three durations. Both are defined in two-dimensional arrays:
-*giProbNotes* and *giProbDurs*. Both Markov chains are running
+_giProbNotes_ and _giProbDurs_. Both Markov chains are running
 independently from each other.
 
-   ***EXAMPLE 01D08\_markov\_music.csd***
+**_EXAMPLE 01D08_markov_music.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -m128 -odac
@@ -1163,13 +1159,12 @@ i "trigger_note" 0 100
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
-
+```
 
 #### Random Walk
 
-In the context of movement between random values, *walk* can be
-thought of as the opposite of *jump*. If you jump within the
+In the context of movement between random values, _walk_ can be
+thought of as the opposite of _jump_. If you jump within the
 boundaries A and B, you can end up anywhere between these boundaries,
 but if you walk between A and B you will be limited by the extent of
 your step - each step applies a deviation to the previous one. If the
@@ -1184,38 +1179,38 @@ derive a random deviation, and derive the next state by adding this
 deviation to the current state. The next example shows two ways of doing
 this.
 
-The *pitch* random walk starts at pitch 8 in octave notation. The
-general pitch deviation *gkPitchDev* is set to 0.2, so that the next
+The _pitch_ random walk starts at pitch 8 in octave notation. The
+general pitch deviation _gkPitchDev_ is set to 0.2, so that the next
 pitch could be between 7.8 and 8.2. But there is also a pitch direction
-*gkPitchDir* which is set to 0.1 as initial value. This means that the
+_gkPitchDir_ which is set to 0.1 as initial value. This means that the
 upper limit of the next random pitch is 8.3 instead of 8.2, so that the
 pitch will move upwards in a greater number of steps. When the upper
-limit *giHighestPitch* has been crossed, the *gkPitchDir* variable
+limit _giHighestPitch_ has been crossed, the _gkPitchDir_ variable
 changes from +0.1 to -0.1, so after a number of steps, the pitch will
 have become lower. Whenever such a direction change happens, the console
 reports this with a message printed to the terminal.
 
-The *density* of the notes is defined as notes per second, and is
+The _density_ of the notes is defined as notes per second, and is
 applied as frequency to the
 [metro](http://www.csound.com/docs/manual/metro.html) opcode in
-instrument *walk*. The lowest possible density *giLowestDens* is set
+instrument _walk_. The lowest possible density _giLowestDens_ is set
 to 1, the highest to 8 notes per second, and the first density
-*giStartDens* is set to 3. The possible random deviation for the next
+_giStartDens_ is set to 3. The possible random deviation for the next
 density is defined in a range from zero to one: zero means no deviation
 at all, one means that the next density can alter the current density in
 a range from half the current value to twice the current value. For
-instance, if the current density is 4, for *gkDensDev=1* you would get a
-density between 2 and 8. The direction of the densities *gkDensDir* in
+instance, if the current density is 4, for _gkDensDev=1_ you would get a
+density between 2 and 8. The direction of the densities _gkDensDir_ in
 this random walk follows the same range 0..1. Assumed you have no
-deviation of densities at all (*gkDensDev=0*), *gkDensDir=0* will
-produce ticks in always the same speed, whilst *gkDensDir=1* will
+deviation of densities at all (_gkDensDev=0_), _gkDensDir=0_ will
+produce ticks in always the same speed, whilst _gkDensDir=1_ will
 produce a very rapid increase in speed. Similar to the pitch walk, the
 direction parameter changes from plus to minus if the upper border has
 crossed, and vice versa.
 
-   ***EXAMPLE 01D09\_random\_walk.csd***
+**_EXAMPLE 01D09_random_walk.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -m128 -odac
@@ -1291,7 +1286,7 @@ kDens *= kDensMult
 kDens     =         kDens > giHighestDens*1.5 ? giHighestDens*1.5 : kDens
 kDens     =         kDens < giLowestDens/1.5 ? giLowestDens/1.5 : kDens
    ;change direction if maxima are crossed
-  if (kDens > giHighestDens && gkDensDir > 0) || 
+  if (kDens > giHighestDens && gkDensDir > 0) ||
       (kDens < giLowestDens && gkDensDir < 0) then
 gkDensDir =         -gkDensDir
    if kDens > giHighestDens then
@@ -1325,7 +1320,7 @@ i "walk" 0 999
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
 ## II. SOME MATHS PERSPECTIVES ON RANDOM
 
@@ -1335,57 +1330,56 @@ The relative frequency of occurrence of a random variable can be
 described by a probability function (for discrete random variables) or
 by density functions (for continuous random variables).
 
-When two dice are thrown simultaneously, the sum *x* of their numbers
+When two dice are thrown simultaneously, the sum _x_ of their numbers
 can be 2, 3, ...12. The following figure shows the probability function
-*p*(*x*) of these possible outcomes. *p*(*x*) is always less than or
+_p_(_x_) of these possible outcomes. _p_(_x_) is always less than or
 equal to 1. The sum of the probabilities of all possible outcomes is 1.
 
 ![](../resources/images/01-d-random1.gif)
 
 For continuous random variables the probability of getting a specific
-value *x* is 0. But the probability of getting a value within a certain
+value _x_ is 0. But the probability of getting a value within a certain
 interval can be indicated by an area that corresponds to this
-probability. The function *f*(*x*) over these areas is called the
+probability. The function _f_(_x_) over these areas is called the
 density function. With the following density the chance of getting a
 number smaller than 0 is 0, to get a number between 0 and 0.5 is 0.5, to
-get a number between 0.5 and 1 is 0.5 etc. Density functions *f*(*x*)
+get a number between 0.5 and 1 is 0.5 etc. Density functions _f_(_x_)
 can reach values greater than 1 but the area under the function is 1.
 
 ![](../resources/images/01-d-random2.gif)
-
 
 #### Generating Random Numbers With a Given Probability or Density
 
 Csound provides opcodes for some specific densities but no means to
 produce random number with user defined probability or density
-functions. The opcodes *rand\_density* and *rand\_probability* (see
+functions. The opcodes _rand_density_ and _rand_probability_ (see
 below) generate random numbers with probabilities or densities given by
-tables. They are realized by using the so-called *rejection sampling
-method*.
+tables. They are realized by using the so-called _rejection sampling
+method_.
 
 #### Rejection Sampling
 
-The principle of *rejection sampling* is to first generate uniformly
+The principle of _rejection sampling_ is to first generate uniformly
 distributed random numbers in the range required and to then accept
 these values corresponding to a given density function (or otherwise
 reject them). Let us demonstrate this method using the density function
 shown in the next figure. (Since the rejection sampling method uses only
-the *shape* of the function, the area under the function need not be
-1). We first generate uniformly distributed random numbers *rnd1* over
+the _shape_ of the function, the area under the function need not be
+1). We first generate uniformly distributed random numbers _rnd1_ over
 the interval \[0, 1\]. Of these we accept a proportion corresponding to
-*f*(*rnd1*). For example, the value 0.32 will only be accepted in the
-proportion of *f*(0.32) = 0.82. We do this by generating a new random
-number *rand2* between 0 and 1 and accept *rnd1* only if *rand2* \<
-*f*(*rnd1*); otherwise we reject it. (see *Signals, Systems and Sound
-Synthesis*^[
+_f_(_rnd1_). For example, the value 0.32 will only be accepted in the
+proportion of _f_(0.32) = 0.82. We do this by generating a new random
+number _rand2_ between 0 and 1 and accept _rnd1_ only if _rand2_ \<
+_f_(_rnd1_); otherwise we reject it. (see _Signals, Systems and Sound
+Synthesis_^[
 Neukom, Martin. Signals, systems and sound synthesis. Bern: Peter
 Lang, 2013. Print.] chapter 10.1.4.4)
 
 ![](../resources/images/01-d-random3.gif)
 
-***EXAMPLE 01D10\_Rejection\_Sampling.csd***
+**_EXAMPLE 01D10_Rejection_Sampling.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -1457,8 +1451,7 @@ i2 0 10 4 5 6
 </CsScore>
 </CsoundSynthesizer>
 ;example by martin neukom
-~~~
-
+```
 
 #### Random Walk
 
@@ -1476,7 +1469,7 @@ numbers wildly jump around.
 ![](../resources/images/01-d-random5a.gif)
 
 We get a smoother path, a so-called random walk, by adding at every time
-step a random number *r* to the actual position *x* (*x* += *r*).
+step a random number _r_ to the actual position _x_ (_x_ += _r_).
 
 **Example 2**
 
@@ -1486,19 +1479,19 @@ step a random number *r* to the actual position *x* (*x* += *r*).
 
 ![](../resources/images/01-d-random7a.gif)
 
-The path becomes even smoother by adding a random number *r* to the
-actual velocity *v*.
+The path becomes even smoother by adding a random number _r_ to the
+actual velocity _v_.
 
     v += r
     x += v
 
 The path can be bounded to an area (figure to the right) by inverting
-the velocity if the path exceeds the limits (*min*, *max*):
+the velocity if the path exceeds the limits (_min_, _max_):
 
     vif(x < min || x > max) v *= -1
 
 The movement can be damped by decreasing the velocity at every time step
-by a small factor *d*
+by a small factor _d_
 
     v *= (1-d)
 
@@ -1510,9 +1503,8 @@ by a small factor *d*
 
 ![](../resources/images/01-d-random9a.gif)
 
-
-The path becomes again smoother by adding a random number *r* to the
-actual acelleration *a*, the change of the aceleration, etc.
+The path becomes again smoother by adding a random number _r_ to the
+actual acelleration _a_, the change of the aceleration, etc.
 
     a += r
     v += a
@@ -1527,12 +1519,12 @@ actual acelleration *a*, the change of the aceleration, etc.
 
 ![](../resources/images/01-d-random11a.gif)
 
-(see Martin Neukom, *Signals, Systems and Sound Synthesis* chapter
+(see Martin Neukom, _Signals, Systems and Sound Synthesis_ chapter
 10.2.3.2)
 
-***EXAMPLE 01D11\_Random\_Walk2.csd***
+**_EXAMPLE 01D11_Random_Walk2.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -1594,8 +1586,7 @@ i3 0 20         .1      600     1       0.001   0.001
 </CsScore>
 </CsoundSynthesizer>
 ;example by martin neukom
-~~~
-
+```
 
 ## III. MISCELLANEOUS EXAMPLES
 
@@ -1606,11 +1597,11 @@ simply generates a random value within user defined minimum and maximum
 limit and at i-time, k-rate or a-rate according to the variable type of
 its output:
 
-~~~csound
+```csound
     ires random imin, imax
     kres random kmin, kmax
     ares random kmin, kmax
-~~~
+```
 
 Values are generated according to a uniform random distribution, meaning
 that any value within the limits has equal chance of occurence.
@@ -1643,8 +1634,7 @@ opcodes are illustrated below.
 
 ![](../resources/images/01-d-betarand.png)
 
-
-In addition to these so called *x-class noise generators* Csound
+In addition to these so called _x-class noise generators_ Csound
 provides random function generators, providing values that change over
 time at various ways. Remember that most of these random generators will need to have [seed](https://csound.com/docs/manual/seed.html) set to zero if the user wants to get always different random values.
 
@@ -1655,21 +1645,21 @@ value.
 
 The instruction:
 
-~~~csound
+```csound
     kmin   =         -1
     kmax   =         1
     kfreq  =         2
     kout   randomh   kmin,kmax,kfreq
-~~~
+```
 
-will produce and output a random line which changes its value every half second between the minimum of -1 and the maximum of 1. Special care should be given to the fourth parameter *imode* which is by default 0, but can be set to 1, 2, or 3. For *imode*=0 and *imode*=1 the random lines will start at the minimum (here -1) and will hold this value until the first period has been finished. For *imode*=2 it will start at a value set by the user (by default 0), wheras for *imode*=3 it will start at a random value between minimum und maximum. This is a generation for five seconds:
+will produce and output a random line which changes its value every half second between the minimum of -1 and the maximum of 1. Special care should be given to the fourth parameter _imode_ which is by default 0, but can be set to 1, 2, or 3. For _imode_=0 and _imode_=1 the random lines will start at the minimum (here -1) and will hold this value until the first period has been finished. For _imode_=2 it will start at a value set by the user (by default 0), wheras for _imode_=3 it will start at a random value between minimum und maximum. This is a generation for five seconds:
 
 ![Opcode randomh with different values for imode](../resources/images/01-d-randomh.png)
 
-Usually we will use *imode*=3, as we want the random line to start immediately at a random value. The same options are valid for [randomi](http://www.csounds.com/manual/html/randomi.html) which is an
-interpolating version of *randomh*. Rather than jump to new values when
+Usually we will use _imode_=3, as we want the random line to start immediately at a random value. The same options are valid for [randomi](http://www.csounds.com/manual/html/randomi.html) which is an
+interpolating version of _randomh_. Rather than jump to new values when
 they are generated, randomi interpolates linearly to the new value,
-reaching it just as a new random value is generated. Now we see the difference between *imode*=0 and *imode*=1. The former remains one whole period on the minimum, and begins its first interpolation after it; the latter also starts on the minimum but begins interpolation immediately. Replacing randomh
+reaching it just as a new random value is generated. Now we see the difference between _imode_=0 and _imode_=1. The former remains one whole period on the minimum, and begins its first interpolation after it; the latter also starts on the minimum but begins interpolation immediately. Replacing randomh
 with randomi in the above code snippet would result in the following
 output:
 
@@ -1684,32 +1674,32 @@ maximum frequency, and the resulting function is a smooth spline between
 the minimum and maximum values and these minimum and maximum
 frequencies. The following input:
 
-~~~csound
+```csound
     kmin     =         -0.95
     kmax     =         0.95
     kminfrq  =         1
     kmaxfrq  =         4
     asig     rspline   kmin, kmax, kminfrq, kmaxfrq
-~~~
+```
 
 would generate an output something like:
 
 ![](../resources/images/01-d-rspline.png)
 
 We need to be careful with what we do with rspline's output as it can
-exceed the limits set by *kmin* and *kmax*. Minimum and maximum values can
+exceed the limits set by _kmin_ and _kmax_. Minimum and maximum values can
 be set conservatively or the
 [limit](http://www.csound.com/docs/manual/limit.html) opcode could be
 used to prevent out of range values that could cause problems.
 
-The following example uses rspline to *humanise* a simple synthesiser.
+The following example uses rspline to _humanise_ a simple synthesiser.
 A short melody is played, first without any humanising and then with
 humanising. rspline random variation is added to the amplitude and pitch
 of each note in addition to an i-time random offset.
 
-***EXAMPLE 01D12\_humanising.csd***
+**_EXAMPLE 01D12_humanising.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -1773,15 +1763,15 @@ e
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
+```
 
 The final example implements a simple algorithmic note generator. It
 makes use of GEN17 to generate histograms which define the probabilities
 of certain notes and certain rhythmic gaps occuring.
 
-***EXAMPLE 01D13\_simple\_algorithmic\_note\_generator.csd***
+**_EXAMPLE 01D13_simple_algorithmic_note_generator.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m0
@@ -1792,7 +1782,7 @@ ksmps = 32
 nchnls = 1
 0dbfs = 1
 
-giNotes ftgen   0,0,-100,-17,0,48, 15,53, 30,55, 40,60, 50,63, 
+giNotes ftgen   0,0,-100,-17,0,48, 15,53, 30,55, 40,60, 50,63,
                 60,65, 79,67, 85,70, 90,72, 96,75
 giDurs  ftgen   0,0,-100,-17,0,2, 30,0.5, 75,1, 90,1.5
 
@@ -1822,4 +1812,4 @@ e
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
+```
