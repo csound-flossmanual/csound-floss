@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-     width="750" height="300" viewBox="0 -300 750 300">
+     width="800" height="300" viewBox="0 -300 800 300">
 <defs>
 </defs>
 <path d="M30,-30 L350,-230 L670,-30" stroke="black" fill="none" />
