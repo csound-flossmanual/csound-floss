@@ -888,7 +888,7 @@ func updateValuesFromCsound() {
 }
 ```
 
-Note also that `updateValuesToCsound is called before
+Note also that `updateValuesToCsound` is called before
 `updateValuesFromCsound` during each performance pass, with the Csound
 engine performance call in between the two.
 
@@ -1281,7 +1281,7 @@ In this case the action is of type _Value Changed_. The Apple documentation conc
 }
 ```
 
-As we can see, we get the pointer through _csoundGetChannelPtr_, this is relative to incoming control signals. From the point of view of Csound, the signals in the input (CSOUND_INPUT_CHANNEL) are sampled from the software bus via _chnget_, while in the output (CSOUND_OUTPUT_CHANNEL) _chnset_ is used.
+As we can see, we get the pointer through _csoundGetChannelPtr_, this is relative to incoming control signals. From the point of view of Csound, the signals in the input (`CSOUND_INPUT_CHANNEL`) are sampled from the software bus via _chnget_, while in the output (`CSOUND_OUTPUT_CHANNEL`) _chnset_ is used.
 
 The allocation is done by dereferencing the pointer in this way:
 
@@ -1565,7 +1565,7 @@ Please note that _slices_ is calculated as follows:
 int slices = inNumberFrames / csoundGetKsmps(cs);
 ```
 
-Every time the _ksmps_ (for some reason) is greater than BufferFrame,we will perform the _Csound_Perform_DOWNSAMP_ procedure.
+Every time the _ksmps_ (for some reason) is greater than BufferFrame,we will perform the `Csound_Perform_DOWNSAMP` procedure.
 
 ```c
 // Called when inNumberFrames < ksmps
@@ -1656,9 +1656,9 @@ else {
 }
 ```
 
-The _Csound_Perform_DOWNSAMP_ routine is called by iOS every 64 samples, while we must call _csoundPerformKsmps()_ after 512 samples. This means we need to skip eight times (i.e. UNSAMPLING) until we have collected the input buffer.
+The `Csound_Perform_DOWNSAMP` routine is called by iOS every 64 samples, while we must call _csoundPerformKsmps()_ after 512 samples. This means we need to skip eight times (i.e. UNSAMPLING) until we have collected the input buffer.
 
-From another point of view, before calling _csoundPerformKsmps()_ we must accumulate eight _inNumberFrames_ in _spin_, and for every call of _Csound_Perform_DOWNSAMP_ we must return _inNumberFrames_ from _spout_.
+From another point of view, before calling _csoundPerformKsmps()_ we must accumulate eight _inNumberFrames_ in _spin_, and for every call of `Csound_Perform_DOWNSAMP` we must return _inNumberFrames_ from _spout_.
 
 In the next example, the iOS audio is in _buffer_ which is a pointer of the _ioData_ structure.
 
@@ -1778,7 +1778,7 @@ NSString* score = [NSString stringWithFormat:
 csoundInputMessage(_cs, [score cStringUsingEncoding:NSASCIIStringEncoding]);
 ```
 
-The _instr 53_ is kept active for UPDATE_RES sec (0.1), the _maxalloc_ opcode limits the number of simultaneous instances (notes). Thus, any score events which fall inside UPDATE_RES time, are ignored.
+The _instr 53_ is kept active for `UPDATE_RES` sec (0.1), the _maxalloc_ opcode limits the number of simultaneous instances (notes). Thus, any score events which fall inside UPDATE_RES time, are ignored.
 
 ```csound
 maxalloc 53, 1  ;iPad UI Waveforms morphing only 1 instance
@@ -1800,11 +1800,11 @@ chnset giWaveMORPH , "wave_func_table"
 
 The p4 and p5 p-fields are the XY pad axes used as weights for the three vector-interpolations which are required. The _tablemix_ opcode mixes two tables with different weights into the _giWaveTMP1_ destination table. In this case we interpolate a Sine Wave (i.e. _giSine_) with a triangular (i.e. _giTri_), then in the second line between _giSawSmooth_ and _giSquareSmooth_, mixing the result in _giWaveTMP2_. At the end of the process, **_giWaveMORPH_** contains the interpolated values of the two _giWaveTMP1_ and _giWaveTMP2_ arrays.
 
-The global _ftgen_-tables, deliberately have been declared with the first argument set to zero. This means that the _GEN_-table number is assigned dynamically from Csound at compile time. Since we do not know the number assigned, we must return the number of the table through _chnset_ at runtime.
+The global _ftgen_-tables, deliberately have been declared with the first argument set to zero. This means that the GEN\_-table number is assigned dynamically from Csound at compile time. Since we do not know the number assigned, we must return the number of the table through _chnset_ at runtime.
 
 In the **_AudioDSP.m_** class is the implementation code of the second example.
 
-The _APE_MULTISLIDER_ class returns, through its own delegate method _didValueChanged_, an array with the indexed values of the sliders. These are used as amplitude-weights for the generation of the harmonic additive waveform. Let us leave out the code about the wave's amplitude normalization and we focus on this code:
+The `APE_MULTISLIDER` class returns, through its own delegate method _didValueChanged_, an array with the indexed values of the sliders. These are used as amplitude-weights for the generation of the harmonic additive waveform. Let us leave out the code about the wave's amplitude normalization and we focus on this code:
 
 ```c
 MYFLT *tableNumFloat;
@@ -1839,7 +1839,7 @@ for (int i = 0; i < maxnum; ++i) {
 csoundTableCopyIn(_cs, tableNum, srcHarmonic);
 ```
 
-This function also can be sub-sampled by de-commenting the _DOWNSAMP_FUNC_ macro. This code is purely for purpose of example as it can be significantly optimized, in the case of vectors's operations, the Apple _vDSP_ framework could be an excellent solution.
+This function also can be sub-sampled by de-commenting the `DOWNSAMP_FUNC` macro. This code is purely for purpose of example as it can be significantly optimized, in the case of vectors's operations, the Apple _vDSP_ framework could be an excellent solution.
 
 ### Optimize performance and add a custom opcode
 

@@ -11,19 +11,17 @@ The basic unit of OSC data is a _message_. This is being sent to an _address_ wh
 
 The OSC message must specify the type(s) of its argument(s). This is a list of all types which are available in Csound, and the signifier which Csound uses for this type:
 
-
-  Data Type                     Csound Signifier
-  ----------------------------- -----------------
-  audio                         a
-  character                     c
-  double                        d
-  float                         f
-  long integer 64-bit           h              
-  integer 32-bit                i           
-  string                        s
-  array (scalar)                A
-  table                         G
-
+| Data Type           | Csound Signifier |
+| ------------------- | ---------------- |
+| audio               | a                |
+| character           | c                |
+| double              | d                |
+| float               | f                |
+| long integer 64-bit | h                |
+| integer 32-bit      | i                |
+| string              | s                |
+| array (scalar)      | A                |
+| table               | G                |
 
 Once data types are declared, messages can be sent and received. In OSC terminology, anything that sends a message is a client, and anything that receives a message is a server. Csound can be both. Usually it will communicate with another application either as client or as server. It can, for instance, receive data from [Processing](https://processing.org/), or it can send data to [Inscore](http://inscore.sourceforge.net/).
 
