@@ -77,7 +77,11 @@ const ChapterHOC = ({ children }) => {
       subSections
         .map(({ id }) => {
           const element = document.getElementById(id);
-          return element.offsetTop - element.scrollTop + element.clientTop;
+          if (element) {
+            return element.offsetTop - element.scrollTop + element.clientTop;
+          } else {
+            return 0;
+          }
         })
         .sort()
     );

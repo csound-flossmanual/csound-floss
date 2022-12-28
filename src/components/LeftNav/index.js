@@ -2,13 +2,14 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/react";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import useBook from "../../BookContext";
 import {
   concat,
   dec,
   filter,
   find,
+  findIndex,
   map,
   max,
   pipe,
@@ -104,9 +105,28 @@ const getChapterZero = () => {
   )(routes);
 };
 
-function LeftNav({ routeIndex }) {
-  const [scrollBarRef, setScrollBarRef] = React.useState(null);
+function LeftNav({ routes = [] }) {
+  const location = useLocation();
+
+  React.useEffect(() => {
+    if (location.hash && typeof location.hash === "string") {
+      document && document.querySelector(location.hash)?.scrollIntoView();
+    }
+  }, [location]);
+
+  const currentRoutename = location?.pathname ?? "/";
+  const routeIndex = findIndex(
+    propEq(
+      "url",
+      currentRoutename === "/" || currentRoutename === "/introduction"
+        ? "/introduction/preface"
+        : currentRoutename
+    )
+  )(routes);
+
   const currentRoute = routes[routeIndex];
+
+  const [scrollBarRef, setScrollBarRef] = React.useState(null);
   const [bookState] = useBook();
   const currentSections = propOr([], "sections", bookState);
   const currentSectionIndex = propOr(0, "sectionIndex", bookState);
@@ -119,8 +139,10 @@ function LeftNav({ routeIndex }) {
 
   const updateScroller = () => {
     try {
-      scrollBarRef && scrollBarRef.updateScroll();
-    } catch (e) {}
+      scrollBarRef &&
+        typeof scrollBarRef.updateScroll === "function" &&
+        scrollBarRef.updateScroll();
+    } catch {}
   };
 
   React.useEffect(updateScroller);
@@ -176,7 +198,12 @@ function LeftNav({ routeIndex }) {
                   const lastElem = currentSections.length === idx + 1;
                   return (
                     <li key={idx} css={ß.subSectionLi}>
-                      <Link to={`#${id}`}>
+                      <Link
+                        to={`#${id}`}
+                        onClick={() => {
+                          document.getElementById(`${id}`)?.scrollIntoView();
+                        }}
+                      >
                         <p
                           style={{
                             fontWeight:
@@ -195,7 +222,14 @@ function LeftNav({ routeIndex }) {
                           subSubSections.map(
                             ({ title: titleI, id: idI }, idxI) => (
                               <li css={ß.subSectionLi} key={idxI}>
-                                <Link to={`#${idI}`}>
+                                <Link
+                                  to={`#${idI}`}
+                                  onClick={() => {
+                                    document
+                                      .getElementById(`${idI}`)
+                                      ?.scrollIntoView();
+                                  }}
+                                >
                                   <p
                                     style={{
                                       lineHeight: "130%",
