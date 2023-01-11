@@ -51,9 +51,10 @@ please usw `**this**` not `__that__`
 a) full .csd examples
 ---------------------
 
-**must** be written as **fenced code**: three `~~~` before and after the csound code:
+**must** be written as **fenced code**: `~~~csound` before and `~~~`
+after the csound code:
 
-    ~~~
+    ~~~csound
     <CsoundSynthesizer>
     ...
     </CsoundSynthesizer>
