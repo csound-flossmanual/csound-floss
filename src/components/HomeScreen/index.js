@@ -21,7 +21,7 @@ const HomeScreen = () => (
           : ""}
       </h3>
     </div>
-    <Link to={`/introduction/preface`}>
+    <Link to={`/introduction/preface`} reloadDocument>
       <img
         src={wasmLogo}
         alt="WebAssembly Logo"

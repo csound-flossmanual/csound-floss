@@ -2,12 +2,11 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import CodeElement from "../components/Editor";
 import MathJax from "react-mathjax";
-import DocumentTitle from "react-document-title";
+import { useTitle } from "../use-title";
 import ChapterHOC from "../ChapterHOC";
 
 const Chapter = () => {
-
+  useTitle("CHANGEME");
 return (
-<DocumentTitle title={"CHANGEME"}>
  <MathJax.Provider>
    <ChapterHOC>

@@ -911,12 +911,12 @@ This is the general syntax of _timout_:
 
 The _first_label_ is an arbitrary word (followed by a colon) to mark
 the beginning of the time loop section. The _istart_ argument for
-timout tells Csound, when the _second_label_ section is to be
+timout tells Csound, when the `second_label` section is to be
 executed. Usually istart is zero, telling Csound: execute the
-second_label section immediately, without any delay. The _idur_
-argument for timout defines for how many seconds the _second_label_
+`second_label` section immediately, without any delay. The _idur_
+argument for timout defines for how many seconds the `second_label`
 section is to be executed before the time loop begins again. Note that
-the _reinit first_label_ is necessary to start the second loop after
+the reinit `first_label` is necessary to start the second loop after
 _idur_ seconds with a resetting of all the values. (See the
 explanations about reinitialization in the chapter
 [Initialization and Performance Pass](03-a-initialization-and-performance-pass.md).
@@ -1203,8 +1203,8 @@ i 1 0 10
 ;example by joachim heintz
 ```
 
-The example which is given above (03C19_Timout_trigger_events.csd) as
-a flexible time loop by _timout_, can be done
+The example which is given above (03C19*Timout_trigger_events.csd) as
+a flexible time loop by \_timout*, can be done
 with the _metro_ opcode in this way:
 
 **_EXAMPLE 03C22_Metro_trigger_events.csd_**

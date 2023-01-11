@@ -59,7 +59,7 @@ function App() {
         };}`}</style>
         <BrowserRouter history={browserHistory}>
           {!mobileMode && routeIndex > -1 && !equals(currentRoute, "/") && (
-            <LeftNav routeIndex={routeIndex} />
+            <LeftNav routes={routes} />
           )}
           <Main
             currentRoute={currentRoute}
