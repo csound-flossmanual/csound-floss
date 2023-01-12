@@ -1,7 +1,7 @@
 [
   { "chapter": 0, "name": "Introduction", "url_prefix": "/introduction" },
-  { "chapter": 1, "name": "Basics", "url_prefix": "/basics" },
-  { "chapter": 2, "name": "Quick Start", "url_prefix": "/quick-start" },
+  { "chapter": 1, "name": "Getting Started", "url_prefix": "/get-started" },
+  { "chapter": 2, "name": "How to ...", "url_prefix": "/how-to" },
   { "chapter": 3, "name": "Csound Language", "url_prefix": "/csound-language" },
   { "chapter": 4, "name": "Sound Synthesis", "url_prefix": "/sound-synthesis" },
   {
@@ -42,5 +42,6 @@
     "url_prefix": "/extending-csound"
   },
   { "chapter": 14, "name": "Miscellanea", "url_prefix": "/miscellanea" },
-  { "chapter": 15, "name": "Appendix", "url_prefix": "/appendix" }
+  { "chapter": 15, "name": "Appendix", "url_prefix": "/appendix" },
+  { "chapter": 16, "name": "Digital Audio Basics", "url_prefix": "/basics" }
 ]
