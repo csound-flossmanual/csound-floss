@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="750" height="300" viewBox="0 -300 750 300">
+<defs>
+</defs>
+<path d="M30,-30 L350,-230 L670,-30" stroke="black" fill="none" />
+<path d="M30,-240 L30,-30 L690,-30" stroke="gray" fill="none" />
+<text x="690" y="-15" font-size="12" dy="0em">table index</text>
+<text x="0" y="-250" font-size="12" dy="0em">value</text>
+<text x="20" y="-230" font-size="14" text-anchor="end" dy="0.4em">1</text>
+<text x="20" y="-32" font-size="14" text-anchor="end" dy="0.4em">0</text>
+<text x="30" y="-20" font-size="14" text-anchor="middle" dy="0.4em">0</text>
+<text x="350" y="-20" font-size="14" text-anchor="middle" dy="0.4em">320</text>
+<text x="670" y="-20" font-size="14" text-anchor="middle" dy="0.4em">640</text>
+<path d="M350,-30 L350,-230" stroke="gray" stroke-width="0.5" stroke-dasharray="5 5" />
+</svg>

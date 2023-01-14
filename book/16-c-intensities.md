@@ -1,4 +1,4 @@
-# 01 C. INTENSITIES
+# 16 C. INTENSITIES
 
 As musicians we are dealing with volume, loudness, sound intensity. (In classical western music called _dynamics_, designated as _forte_, _piano_ and its variants.) In digital audio, however, we are dealing with _amplitudes_. We are asked, for instance, to set the amplitude of an oscillator. Or we see this message at the end of a Csound performance in the console telling us the "overall amps" (= amplitudes):
 

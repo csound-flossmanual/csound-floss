@@ -1,4 +1,4 @@
-# 01 D. RANDOM
+# 16 D. RANDOM
 
 This chapter is in three parts. Part I provides a general introduction
 to the concepts behind random numbers and how to work with them in

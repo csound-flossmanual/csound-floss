@@ -1,4 +1,4 @@
-# 01 A. DIGITAL AUDIO
+# 16 A. DIGITAL AUDIO
 
 At a purely physical level, sound is simply a mechanical disturbance of
 a medium. The medium in question may be air, solid, liquid, gas or a

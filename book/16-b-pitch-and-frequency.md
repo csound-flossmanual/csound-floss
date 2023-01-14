@@ -1,4 +1,4 @@
-# 01 B. PITCH AND FREQUENCY
+# 16 B. PITCH AND FREQUENCY
 
 Pitch and frequency are related but different terms.^[Similar to _volume_ and _amplitude_ -- see [next chapter](01-c-intensities.md).] _Pitch_ is used by musicians to describe the "height" of a tone, most obvious on a keyboard. _Frequency_ is a technical term. We will start with the latter and then return to pitch in some of its numerous aspects, including intervals, tuning systems and different conversions between pitch and frequency in Csound.
 
