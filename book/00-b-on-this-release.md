@@ -1,42 +1,38 @@
 # ON THIS RELEASE
 
-This (7th) is a major release, thanks to Hlöðver Sigurðsson. At the Csound conference in Cagli september 2019, we had a chat about how we could make the examples of this manual executable in a web browser, without any previous installation of Csound. We agreed that this requires a new repository for the text base and the programming interface. The text is now hosted at [csound-flossmanual](https://github.com/csound-flossmanual/csound-floss) on github. It is written in Markdown, and Hlöðver created an environment which makes it easy to edit. Those who are interested should have a look at the [readme](https://github.com/csound-flossmanual/csound-floss/blob/master/README.md) and the descriptions on how to [contribute](https://github.com/csound-flossmanual/csound-floss/tree/master/contribute).
+After two and a half years, it is again time for a new major release.
 
-The URL to access the new Csound FLOSS Manual is: [https://flossmanual.csound.com](https://flossmanual.csound.com)
+Since the first release of this textbook in 2011 many things have changed. 
+With [csound.com](https://csound.com) we now have a good community website. 
+Links and informations about different ways to use Csound can go there. 
+We don't need them any more in the Csound FLOSS Manual, and it is better
+to collect links and community information in one place.
 
-The whole text has been revised. Many figures have been substituted or added. Math formulas are now written in TexMath. Some chapters have been updated or even completely rewritten; amongst them:
+It is also no longer necessary to provide information about the Frontends here.
+All have own websites and introductions. No need to duplicate it here.
 
-- [01 A Digital Audio](01-a-digital-audio.md)
-- [01 B Pitch and Frequency](01-b-pitch-and-frequency.md)
-- [03 E Arrays](03-e-arrays.md)
-- [04 C AM](04-c-amplitude-and-ring-modulation.md)
-- [04 D FM](04-d-frequency-modulation.md) (thanks to Marijana Janevska)
-- [04 H Scanned Synthesis](04-h-scanned-synthesis.md)
-- [05 G Granular Synthesis](05-g-granular-synthesis.md)
-- [05 H Convolution](05-h-convolution.md)
-- [05 I Spectral Processing](05-i-fourier-analysis-spectral-processing.md)
-- [08 A Open Sound Control](08-a-open-sound-control.md)
-- [10 B Cabbage](10-b-cabbage.md) (thanks to Rory Walsh)
-- [12 A Csound API](12-a-the-csound-api.md) (thanks to François Pinot)
-- [12 B Python and Csound](12-b-python-and-csound.md)
-- [12 C Lua and Csound](12-c-lua-and-csound.md) (thanks for Philipp Henkel)
-- [12 D Csound in iOS](12-d-csound-in-ios.md) (thanks to Alessandro Petrolati)
-- [12 E Csound on Android](12-e-csound-on-android.md) (thanks to Michael Gogins)
-- [12 F Csound in Haskell](12-f-csound-and-haskell.md) (thanks to Anton Kholomiov)
-- [12 G Csound in HTML and Javascript](12-g-csound-in-html-and-javascript.md) (thanks to Michael Gogins)
-- [15 A Opcode Guide](15-a-opcode-guide.md)
+But what is really missing, in my opinion, is an up-to-date **Getting Started**.
+So I decided to write it, and let the book begin with it.
 
-The chapter about amplitude and pitch tracking has now been moved to [14 C](14-c-amplitude-and-pitch-tracking.md) together with other _miscellaneous_ articles.
+It is followed by another new chapter. In this **How to ...** brief 
+descriptions provide instructions and advices for beginners and also
+for more experienced Csound users. From *How to install Csound for Windows*
+to *How to use my MIDI keyboard with Csound* or *How to perform time stretch*.
 
-The explanations and examples try to find a balance between _no previous knowledge_ (as basic as possible) and _interesting also for advanced users_ (as elaborate as possible). On the one hand certainly an impossible mission, but to put it as request to the reader: Please tolerate that some examples may be either too simple or too complex for you -- it cannot be different.
+For both chapters, I tried to insert as many links as possible, for both, 
+pointing to other chapters in this book, and pointing to external sources.
 
-Since the first release of this textbook in 2010, Iain McCurdy was my compagnion in the attempt to keep it up to date and improve it. He showed us all how Csound can sound, and the best parts of this book (both descriptions and examples) are his work. His inexhaustible collection of [Csound Realtime Examples](http://iainmccurdy.org/csound.html) should be used all the time, in my opinion.
+This re-ordering is a big work, and will probably never be finished. 
+This release is somehow a mix between old and new:
+
+- The BASICS chapter has been moved from chapter 1 to chapter 16.
+- The GET STARTED chapter has been removed. Its content is covered in chapter 1 and 2.
+- The chapters about the frontends are not removed although they are not up to date.
 
 Previous releases can be found at [https://github.com/csound-flossmanual/csound-flossmanual.github.io](https://github.com/csound-flossmanual/csound-flossmanual.github.io), as well as the current csd files and audio samples.
 
-I hope the ones who still enjoy reading texts find this resource useful to learn more about music and realizing their music in Csound.
+Big thanks goes to Hlöðver Sigurðsson who made this new interactive FLOSS manual
+possible with all his great and important work on JavaScript-based Csound and much more.
 
-This release is dedicated to the memory of Eugenio Giordani, collegue, friend, pioneer of computer music in Italy and one of the hosts of the memorable Csound Conference 2019 in Cagli. He passed away in April, much too early for us. I hope he would have enjoyed the development of this textbook.
-
-Hannover, September 2020  
+Hannover, March 2023  
 joachim heintz

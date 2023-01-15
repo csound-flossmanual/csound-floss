@@ -1,170 +1,44 @@
-# PREFACE
+# WELCOME TO CSOUND!
 
 ![](../resources/images/00-a-montage-3.png)
 
 Csound is one of the best known and longest established programs in the
-field of audio programming. It was developed in the mid-1980s at the
-Massachusetts Institute of Technology (MIT) by Barry Vercoe but
-Csound's history lies even deeper within the roots of computer music:
+field of audio programming. It has been first released in 1986 at the
+Massachusetts Institute of Technology (MIT) by Barry Vercoe. But
+Csound's history lies even deeper within the roots of computer music as
 it is a direct descendant of the oldest computer program for sound
 synthesis, _MusicN_, by Max Mathews. Csound is free and open source,
 distributed under the LGPL licence, and it is maintained and expanded by
 a core of developers with support from a wider global community.
 
-Csound has been growing for 30 years. There is rarely anything related
-to audio that you cannot do with Csound. You can work by rendering
-offline, or in real-time by processing live audio and synthesizing sound
-on the fly. You can control Csound via MIDI, OSC, through a network,
-within a browser or via the Csound API (Application Programming
-Interface). Csound will run on all major platforms, on phones, tablets
-and tinyware computers. In Csound you will find the widest collection of
-tools for sound synthesis and sound modification, arguably offering a
-superset of features offered by similar software and with an unrivaled
-audio precision.
+In the past decade, thanks to the work of Victor Lazzarini, Steven Yi, John 
+ffitch, Hlöðver Sigurðsson, Rory Walsh, and many others, Csound has moved 
+from a somehow archaic audio programming language to a modern audio library.
+It can not only be used from the command line and the classical Frontends.
+It can also be used as a VST plugin. It can be used inside the Unity game engine.
+It can be used on Android or on any microcomputer like Raspberry Pi or Bela Board.
+It can be used via its Application Programming Interface (API) in any other
+programming language, like Python, C++ or Java. And it can now also be used
+inside any browser as a JavaScript library, just by loading it
+as Web Assembly module (WASM Csound).
 
-Csound is simultaneously both _old school_ and _new school_.
+This textbook cannot cover all these use cases. Its main goal is:
 
-Is Csound difficult to learn? Generally speaking, graphical audio
-programming languages like Pure Data, Max or Reaktor are easier to
-learn than text-coded audio programming languages such as Csound or
-SuperCollider. In Pd, Max or Reaktor you cannot make a typo which
-produces an error that you do not understand. You program without being
-aware that you are programming. The user experience mirrors that of
-patching together various devices in a studio. This is a fantastically
-intuitive approach but when you deal with more complex projects, a
-text-based programming language is often easier to use and debug, and
-many people prefer to program by typing words and sentences rather than
-by wiring symbols together using the mouse.
+- To provide an interactive [**Getting Started**](01-GS-01.md) tutorial.  
+- To collect as many as possible [**How to**](02-a-ht-overview.md) receipes.  
+- To offer a readable and comprehensive introduction to the Csound language
+  in [chapter 3](03-a-initialization-and-performance-pass.md).  
+- To discuss some classical and recent methods of sound synthesis and sound 
+modification in Csound in chapter [4](04-a-additive-synthesis.md) and
+[5](05-a-envelopes.md).
+- To offer an [Opcode Guide](15-a-opcode-guide.md) as orientation in the
+overwhelming number of Csound opcodes.
+- To collect different in-depth descriptions and instructions to various subjects,
+without being complete, and sometimes not up-to-date.
 
-Yet Csound can straddle both approaches: it is also very easy to use
-Csound as an audio engine inside Pd or Max. Have a look at the chapter
-_Csound in Other Applications_ for further information.
-
-Amongst text-based audio programming languages, Csound is arguably the
-simplest. You do not need to know any specific programming techniques or
-to be a computer scientist. The basics of the Csound language are a
-straightforward transfer of the signal flow paradigm to text.
-
-For example, to create a 400 Hz sine oscillator with an amplitude of
-0.2, this is the signal flow:
-
-![Simple signal flow](../resources/images/00-a-signal-flow.png){width=20%}
-
-Here is a possible transformation of the signal graph into Csound code:
-
-```csound
-instr Sine
- aSig poscil 0.2, 400
- out aSig
-endin
-```
-
-The oscillator is represented by the opcode
-[poscil](http://csound.com/docs/manual/poscil.html) and receives
-its input arguments on the right-hand side. These are amplitude (0.2)
-and frequency (400). It produces an audio signal called _aSig_ at the
-left side which is in turn the input of the second opcode _out_. The
-first and last lines encase these connections inside an instrument
-called _Sine_.
-
-With the release of Csound version 6, it is possible to write the same
-code in an even more condensed fashion using so-called _functional
-syntax_, as shown below:
-
-```csound
-instr Sine
- out poscil:a(0.2, 400)
-endin
-```
-
-We will use both, traditional and functional style, throughout this textbook. More details on functional style can be found in chapter
-[03 I](03-i-functional-syntax.md).
-
-It is often difficult to find up to date resources that show and explain
-what is possible with Csound. Documentation and tutorials produced by
-developers and experienced users tend to be scattered across many
-different locations. This issue was one of the main motivations for
-producing this manual; to facilitate a flow between the knowledge of
-contemporary Csound users and those wishing to learn more about Csound.
-
-Throughout this manual we will attempt to maintain a balance between
-providing users with knowledge of most of the important aspects of
-Csound whilst also remaining concise and simple enough to avoid
-overwhelming the reader through the shear number of possibilities
-offered by Csound. Frequently this manual will link to other more
-detailed resources such as the
-[Canonical Csound Reference Manual](http://csound.com/docs/manual/index.html), the main support documentation provided by the Csound developers and associated
-community over the years, and the
-[Csound Journal](http://csoundjournal.com/index.html) (edited by James Hearon
-and Iain McCurdy), a roughly quarterly online publication with many
-great Csound-related articles. The
-[Csound Community Home Page](https://csound.com/) points to a lot of additional resources of learning Csound and informs about recent developments. Other resources (books, mailing lists, social media, videos) are listed in the [Links](15-c-links.md) section of this manual.
-
-We hope you enjoy reading this textbook and wish you happy Csounding!
-
-
-
-## HOW TO USE THIS MANUAL
-
-The goal of this manual is to provide a readable introduction to Csound.
-In no way is it meant as a replacement for the [Canonical Csound
-Reference Manual](http://csound.github.io/docs/manual/index.html). It is
-intended as an introduction-tutorial-reference hybrid, gathering
-together the most important information you will need to work with
-Csound in a variety of situations. In many places links are provided to
-other resources such as [The Canonical Csound Reference
-Manual](http://csound.github.io/docs/manual/index.html), the [Csound
-Journal](http://csoundjournal.com/index.html), example collections and
-more.
-
-It is not necessary to read each chapter in sequence, feel free to jump
-to any chapter that interests you, although bear in mind that
-occasionally a chapter may make reference to a previous one.
-
-If you are new to Csound, the QUICK START section will be the best place
-to go to help you get started. BASICS provides a general introduction to
-key concepts about digital sound, vital to understanding how Csound
-deals with audio. The CSOUND LANGUAGE section provides greater detail
-about how Csound works and how to work with Csound.
-
-SOUND SYNTHESIS introduces various methods of creating sound from
-scratch and SOUND MODIFICATION describes various methods of transforming
-sounds that already exist. SAMPLES outlines various ways you can record
-and playback audio samples in Csound; an area that might be of
-particular interest to those intent on using Csound as a real-time
-performance instrument. The MIDI and OPEN SOUND CONTROL chapters focus
-on different methods of controlling Csound using external software or
-hardware. The final chapters introduce various front-ends that can be
-used to interface with the Csound engine and Csound's communication
-with other applications.
-
-If you would like to know more about a topic, and in particular about
-the use of any opcode, please refer first to the [Canonical Csound
-Reference Manual](http://csound.github.io/docs/manual/index.html).
-
-All files - examples and audio files - can be downloaded at
-[www.csound-tutorial.net](http://www.csound-tutorial.net). If you use
-CsoundQt, you can find all the examples in CsoundQt's examples menu
-under _Floss Manual Examples_. When learning Csound (or any other
-programming language), you may find it beneficial to type the examples
-out by hand as it will help you to memorise Csound's syntax as well as
-how to use its opcodes. The more familiar you become with typing out
-Csound code, the more proficient you will become at implementing your
-own ideas from low level principles; your focus will shift from the code
-itself to the musical idea behind the code.
-
-Like other audio tools, Csound can produce an extreme dynamic range
-(before considering Csound's ability to implement compression and
-limiting). Be careful when you run the examples! Set the volume on your
-amplifier low to start with and take special care when using headphones.
-
-You can help to improve this manual either by reporting bugs or by
-sending requests for new topics or by joining as a writer. Just contact
-one of the maintainers (see ON THIS RELEASE).
-
-Some issues of this textbook can be ordered as a print-on-demand hard
-copy at [www.lulu.com](https://www.lulu.com/). Just use Lulu's search
-utility and look for _Csound_.
-
+Enjoy reading and coding, and please help improve this textbook by feedbacks
+and suggestions on the Github 
+[discussions](https://github.com/csound-flossmanual/csound-floss/discussions)
+page or elsewhere.
 
 \newpage
