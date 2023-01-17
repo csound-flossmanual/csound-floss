@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="600.0" height="300.0" viewBox="0 0 400 200">
+<defs>
+</defs>
+<path d="M30,20 L30,180 L380,180" stroke="black" fill="none" />
+<path d="M30,46.66666666666667 L25,46.66666666666667" stroke="black" />
+<path d="M30,73.33333333333334 L25,73.33333333333334" stroke="black" />
+<path d="M30,100.0 L25,100.0" stroke="black" />
+<path d="M30,126.66666666666667 L25,126.66666666666667" stroke="black" />
+<path d="M30,153.33333333333334 L25,153.33333333333334" stroke="black" />
+<path d="M30,180.0 L25,180.0" stroke="black" />
+<text x="25" y="46.66666666666667" font-size="12" text-anchor="end" dy="0.4em">0.5</text>
+<text x="25" y="100.0" font-size="12" text-anchor="end" dy="0.4em">0.3</text>
+<text x="25" y="153.33333333333334" font-size="12" text-anchor="end" dy="0.4em">0.1</text>
+<path d="M30,180 v5 M106.92307692307692,180 v5 M183.84615384615384,180 v5 M260.7692307692308,180 v5 M337.6923076923077,180 v5" stroke="black" stroke-width="1" />
+<path d="M30,100.0 L106.92307692307692,153.33333333333334 L337.6923076923077,153.33333333333334" fill="none" stroke="black" stroke-width="2" />
+<text x="30" y="185" font-size="12" text-anchor="middle" dy="1em">0</text>
+<text x="106.92307692307692" y="185" font-size="12" text-anchor="middle" dy="1em">0.5</text>
+<text x="183.84615384615384" y="185" font-size="12" text-anchor="middle" dy="1em">1</text>
+<text x="260.7692307692308" y="185" font-size="12" text-anchor="middle" dy="1em">1.5</text>
+<text x="337.6923076923077" y="185" font-size="12" text-anchor="middle" dy="1em">2</text>
+<text x="395" y="185" font-size="12" text-anchor="end" dy="1em">time (s)</text>
+</svg>
