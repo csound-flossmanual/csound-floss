@@ -36,6 +36,11 @@ overwhelming number of Csound opcodes.
 - To collect different in-depth descriptions and instructions to various subjects,
 without being complete, and sometimes not up-to-date.
 
+This is called the *Csound FLOSS Manual* because it has been first released in 
+2011 at [flossmanuals.net](https://flossmanuals.net/). It should not be 
+confused with the *Csound Reference Manual* which can be found 
+[here](https://csound.com/docs/manual/index.html).
+
 Enjoy reading and coding, and please help improve this textbook by feedbacks
 and suggestions on the Github 
 [discussions](https://github.com/csound-flossmanual/csound-floss/discussions)
