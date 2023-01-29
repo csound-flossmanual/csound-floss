@@ -22,23 +22,19 @@ const handleEndOfPerformance = async (
   libcsound,
   loadedSamples
 ) => {
-  const files = await libcsound.lsFs();
+  const files = await libcsound.fs.readdir("/");
   const newFiles = reject((f) => loadedSamples.includes(f), files);
 
   if (!isEmpty(newFiles)) {
-    const newFilesDetails = filter((f) => newFiles.includes(f.name))(
-      await libcsound.llFs()
-    );
     const newFilesWithBlobs = await Promise.all(
-      newFilesDetails.map(async (f) => {
-        const arrayBuffer = await libcsound.readFromFs(f.name);
-        const mimeType = mimeLookup(f.name);
+      newFiles.map(async (f) => {
+        const arrayBuffer = await libcsound.fs.readFile(f);
+        const mimeType = mimeLookup(f);
         const blob = new Blob([arrayBuffer], { type: mimeType });
         const url = (window.URL || window.webkitURL).createObjectURL(blob);
-        return { type: mimeType, url, ...f };
+        return { type: mimeType, url, name: f, size: arrayBuffer.byteLength };
       })
     );
-
     csoundDispatch({
       type: "NOTIFY_NEW_FILES",
       filesGenerated: newFilesWithBlobs,
@@ -49,7 +45,12 @@ const handleEndOfPerformance = async (
 const reducer = (state, action) => {
   switch (action.type) {
     case "STORE_LIBCSOUND": {
-      return assoc("libcsound", action.libcsound, state);
+      return pipe(
+        assoc("libcsound", action.libcsound),
+        assoc("filesystemDialogOpen", false),
+        assoc("filesGenerated", []),
+        assoc("logs", [])
+      )(state);
     }
     case "STORE_LOG": {
       return assoc("logs", append(action.log, state.logs), state);
@@ -71,13 +72,20 @@ const reducer = (state, action) => {
       );
     }
     case "NOTIFY_NEW_FILES": {
-      return pipe(
-        assoc("filesystemDialogOpen", true),
-        assoc("filesGenerated", action.filesGenerated)
-      )(state);
+      if (action.filesGenerated.length > 0) {
+        return pipe(
+          assoc("filesystemDialogOpen", true),
+          assoc("filesGenerated", action.filesGenerated)
+        )(state);
+      } else {
+        return pipe(
+          assoc("filesystemDialogOpen", false),
+          assoc("filesGenerated", [])
+        )(state);
+      }
     }
     case "CLOSE_FILES_DIALOG": {
-      action.filesGenerated.forEach(state.libcsound.rmrfFs);
+      // action.filesGenerated.forEach(state.libcsound.fs.unlink);
       return pipe(
         assoc("filesystemDialogOpen", false),
         assoc("filesGenerated", [])
@@ -94,15 +102,7 @@ const reducer = (state, action) => {
     }
     case "HANDLE_PLAY_STATE_CHANGE": {
       switch (action.change) {
-        case "realtimePerformanceEnded":
-        case "renderEnded": {
-          return pipe(
-            assoc("isPaused", false),
-            assoc("isPlaying", false)
-          )(state);
-        }
-        case "realtimePerformanceStarted":
-        case "renderStarted": {
+        case "stop": {
           handleEndOfPerformance(
             action.csoundDispatch,
             state.libcsound,
@@ -110,22 +110,21 @@ const reducer = (state, action) => {
           ).then(() => {});
           return pipe(
             assoc("isPaused", false),
+            assoc("isPlaying", false)
+          )(state);
+        }
+        case "play": {
+          return pipe(
+            assoc("isPaused", false),
             assoc("isPlaying", true),
             assoc("isLoading", false),
             when((s) => !s.logDialogClosed, assoc("logDialogOpen", true))
           )(state);
         }
-        case "realtimePerformancePaused": {
+        case "pause": {
           return pipe(
             assoc("isPaused", true),
             assoc("isPlaying", false),
-            assoc("isLoading", false)
-          )(state);
-        }
-        case "realtimePerformanceResumed": {
-          return pipe(
-            assoc("isPaused", false),
-            assoc("isPlaying", true),
             assoc("isLoading", false)
           )(state);
         }

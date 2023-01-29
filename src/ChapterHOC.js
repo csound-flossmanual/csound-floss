@@ -158,7 +158,7 @@ const ChapterHOC = ({ children }) => {
             <div key={i}>
               <hr />
               <p>
-                {f.name + " - " + filesize(f.stat.size) + " - "}
+                {f.name + " - " + filesize(f.size) + " - "}
                 <a href={f.url} download={f.name}>{`Download`}</a>
               </p>
               {f.type.startsWith("audio") && (

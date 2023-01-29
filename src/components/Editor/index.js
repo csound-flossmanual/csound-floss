@@ -53,7 +53,7 @@ const ensureSourceMaterials = async (exampleString, loadedSamples) => {
         const response = await fetch(`/resources/SourceMaterials/${fileName}`);
         if (response.status === 200) {
           const ab = await response.arrayBuffer();
-          fetchedResources[fileName] = ab;
+          fetchedResources[fileName] = new Uint8Array(ab);
         }
       }
     }
@@ -81,38 +81,64 @@ const PlayControls = ({ initialEditorState, currentEditorState }) => {
   ] = useCsound();
 
   const onPlay = useCallback(async () => {
-    // if (!checkIfPlayIsPossible()) {
-    //   return;
-    // }
     if (isPaused) {
       onPause();
       return;
     }
     if (!csound) {
       csoundDispatch({ type: "SET_IS_LOADING", isLoading: true });
-      const esModule = await import("csound-wasm");
+      const esModule = await import("@csound/browser");
       libcsound = await esModule.default();
+      libcsound.setOption("-odac");
 
       // eslint-disable-next-line
-      await libcsound.setMessageCallback((log) => {
+      libcsound.on("message", (log) => {
         csoundDispatch({ type: "STORE_LOG", log });
       });
-      await libcsound.setCsoundPlayStateChangeCallback(async (change) => {
+
+      libcsound.on("renderStarted", () => {
         csoundDispatch({
           type: "HANDLE_PLAY_STATE_CHANGE",
-          change,
+          change: "play",
           csoundDispatch,
         });
       });
-      csound = await libcsound.csoundCreate();
-      await libcsound.csoundInitialize(0);
+      libcsound.on("play", () => {
+        csoundDispatch({
+          type: "HANDLE_PLAY_STATE_CHANGE",
+          change: "play",
+          csoundDispatch,
+        });
+      });
+
+      libcsound.on("renderEnded", () => {
+        csoundDispatch({
+          type: "HANDLE_PLAY_STATE_CHANGE",
+          change: "stop",
+          csoundDispatch,
+        });
+      });
+
+      libcsound.on("stop", () => {
+        csoundDispatch({
+          type: "HANDLE_PLAY_STATE_CHANGE",
+          change: "stop",
+          csoundDispatch,
+        });
+      });
+
+      libcsound.on("pause", () => {
+        csoundDispatch({
+          type: "HANDLE_PLAY_STATE_CHANGE",
+          change: "pause",
+          csoundDispatch,
+        });
+      });
+
       csoundDispatch({ type: "STORE_LIBCSOUND", libcsound });
-      csoundDispatch({ type: "STORE_CSOUND", csound });
     } else {
-      csoundDispatch({ type: "CLEAR_LOGS" });
-      await libcsound.csoundStop(csound);
-      await libcsound.csoundCleanup(csound);
-      await libcsound.csoundReset(csound);
+      await libcsound.removeAllListeners();
+      await libcsound.stop();
     }
     const fetchesResources = await ensureSourceMaterials(
       currentEditorState,
@@ -122,20 +148,19 @@ const PlayControls = ({ initialEditorState, currentEditorState }) => {
     newResources.length > 0 &&
       csoundDispatch({ type: "CONJ_LOADED_SAMPLES", newSamples: newResources });
     await asyncForEach(newResources, async (fileName) => {
-      await libcsound.copyToFs(fetchesResources[fileName], fileName);
+      await libcsound.fs.writeFile(fileName, fetchesResources[fileName]);
     });
     // forcing 2 channel output until I track down the bug
-    await libcsound.csoundSetOption(csound, "--nchnls=2");
-    await libcsound.csoundCompileCsdText(csound, currentEditorState);
-    await libcsound.csoundStart(csound);
+    await libcsound.compileCsdText(currentEditorState);
+    await libcsound.start();
   }, [libcsound, loadedSamples, currentEditorState, isPaused]);
 
   const onPause = async () => {
     const newPauseState = !isPaused;
     if (newPauseState === true) {
-      libcsound.csoundPause(csound);
+      await libcsound.pause();
     } else {
-      libcsound.csoundResume(csound);
+      await libcsound.resume();
     }
   };
 
@@ -160,7 +185,7 @@ const PlayControls = ({ initialEditorState, currentEditorState }) => {
         <img alt="pause" src={PauseIcon} style={{ height: 30, width: 20 }} />
       </button>
       <button
-        onClick={async () => await libcsound.csoundStop(csound)}
+        onClick={async () => await libcsound.stop()}
         style={{ marginLeft: 3 }}
         disabled={!isPlaying && !isPaused}
       >
