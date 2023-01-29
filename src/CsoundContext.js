@@ -22,16 +22,16 @@ const handleEndOfPerformance = async (
   libcsound,
   loadedSamples
 ) => {
-  const files = await libcsound.lsFs();
+  const files = await libcsound.fs.readdir("/");
   const newFiles = reject((f) => loadedSamples.includes(f), files);
 
   if (!isEmpty(newFiles)) {
     const newFilesDetails = filter((f) => newFiles.includes(f.name))(
-      await libcsound.llFs()
+      await libcsound.fs.readdir("/")
     );
     const newFilesWithBlobs = await Promise.all(
       newFilesDetails.map(async (f) => {
-        const arrayBuffer = await libcsound.readFromFs(f.name);
+        const arrayBuffer = await libcsound.fs.readFile(f.name);
         const mimeType = mimeLookup(f.name);
         const blob = new Blob([arrayBuffer], { type: mimeType });
         const url = (window.URL || window.webkitURL).createObjectURL(blob);
@@ -94,15 +94,13 @@ const reducer = (state, action) => {
     }
     case "HANDLE_PLAY_STATE_CHANGE": {
       switch (action.change) {
-        case "realtimePerformanceEnded":
-        case "renderEnded": {
+        case "stop": {
           return pipe(
             assoc("isPaused", false),
             assoc("isPlaying", false)
           )(state);
         }
-        case "realtimePerformanceStarted":
-        case "renderStarted": {
+        case "play": {
           handleEndOfPerformance(
             action.csoundDispatch,
             state.libcsound,
@@ -115,17 +113,10 @@ const reducer = (state, action) => {
             when((s) => !s.logDialogClosed, assoc("logDialogOpen", true))
           )(state);
         }
-        case "realtimePerformancePaused": {
+        case "pause": {
           return pipe(
             assoc("isPaused", true),
             assoc("isPlaying", false),
-            assoc("isLoading", false)
-          )(state);
-        }
-        case "realtimePerformanceResumed": {
-          return pipe(
-            assoc("isPaused", false),
-            assoc("isPlaying", true),
             assoc("isLoading", false)
           )(state);
         }
