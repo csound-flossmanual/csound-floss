@@ -53,7 +53,7 @@ const ensureSourceMaterials = async (exampleString, loadedSamples) => {
         const response = await fetch(`/resources/SourceMaterials/${fileName}`);
         if (response.status === 200) {
           const ab = await response.arrayBuffer();
-          fetchedResources[fileName] = ab;
+          fetchedResources[fileName] = new Uint8Array(ab);
         }
       }
     }
@@ -96,10 +96,25 @@ const PlayControls = ({ initialEditorState, currentEditorState }) => {
         csoundDispatch({ type: "STORE_LOG", log });
       });
 
+      libcsound.on("renderStarted", () => {
+        csoundDispatch({
+          type: "HANDLE_PLAY_STATE_CHANGE",
+          change: "play",
+          csoundDispatch,
+        });
+      });
       libcsound.on("play", () => {
         csoundDispatch({
           type: "HANDLE_PLAY_STATE_CHANGE",
           change: "play",
+          csoundDispatch,
+        });
+      });
+
+      libcsound.on("renderEnded", () => {
+        csoundDispatch({
+          type: "HANDLE_PLAY_STATE_CHANGE",
+          change: "stop",
           csoundDispatch,
         });
       });
