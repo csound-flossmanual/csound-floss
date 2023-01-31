@@ -20,7 +20,29 @@ It can be used on Android or on any microcomputer like Raspberry Pi or Bela Boar
 It can be used via its Application Programming Interface (API) in any other
 programming language, like Python, C++ or Java. And it can now also be used
 inside any browser as a JavaScript library, just by loading it
-as Web Assembly module (WASM Csound).
+as Web Assembly module (WASM Csound). Try it here, if you already know some Csound:
+
+~~~csound
+<CsoundSynthesizer>
+<CsOptions>
+-o dac
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 64
+nchnls = 2
+0dbfs = 1
+
+instr TryMe
+  //some code here ...
+endin
+
+</CsInstruments>
+<CsScore>
+</CsScore>
+</CsoundSynthesizer>
+~~~
+
 
 This textbook cannot cover all these use cases. Its main goal is:
 
