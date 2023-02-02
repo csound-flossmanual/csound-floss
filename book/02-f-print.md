@@ -28,13 +28,15 @@ printf_i "\nIntegers:\n  normal: %d or %d\n", 1, 123, -123
 printf_i "  signed if positive: %+d\n", 1, 123
 printf_i "  space left if positive:...% d...% d\n", 1, 123, -123
 printf_i "  fixed width left ...%-10d...or right...%10d\n", 1, 123, 123
-printf_i "  starting with zeros if necessary: %05d %05d %05d %05d %05d %05d\n", 1, 1, 12, 123, 1234, 12345, 123456
+printf_i "  starting with zeros if necessary: %05d %05d %05d %05d %05d %05d\n", 
+              1, 1, 12, 123, 1234, 12345, 123456
 printf_i "  floats are rounded: 1.1 -> %d, 1.9 -> %d\n", 1, 1.1, 1.9
   endin
 
   instr Floats
 printf_i "\nFloats:\n  normal: %f or %f\n", 1, 1.23, -1.23
-printf_i "  number of digits after point: %f %.5f %.3f %.1f\n", 1, 1.23456789, 1.23456789, 1.23456789, 1.23456789
+printf_i "  number of digits after point: %f %.5f %.3f %.1f\n", 
+              1, 1.23456789, 1.23456789, 1.23456789, 1.23456789
 printf_i "  space left if positive:...% .3f...% .3f\n", 1, 123, -123
 printf_i "  signed if positive: %+f\n", 1, 1.23
 printf_i "  fixed width left ...%-10.3f...or right...%10.3f\n", 1, 1.23456, 1.23456
@@ -49,10 +51,13 @@ printf_i {{  a string over
   endin
 
   instr Characters
-printf_i "\nCharacters:\n  given as single strings: %s%s%s%s%s%s\n", 1, "c", "s", "o", "u", "n", "d"
-printf_i "  but can also be given as numbers: %c%c%c%c%c%c\n", 1, 99, 115, 111, 117, 110, 100 
+printf_i "\nCharacters:\n  given as single strings: %s%s%s%s%s%s\n", 
+            1, "c", "s", "o", "u", "n", "d"
+printf_i "  but can also be given as numbers: %c%c%c%c%c%c\n", 
+              1, 99, 115, 111, 117, 110, 100 
 Scsound ToAscii "csound"
-printf_i "  in csound, the ASCII code of a character can be accessed with the opcode strchar.%s", 1, "\n"
+printf_i "  in csound, the ASCII code of a character ", 1
+printf_i "can be accessed with the opcode strchar.%s", 1, "\n"
 printf_i "  the name 'csound' returns the numbers %s\n\n", 1, Scsound
   endin
 
