@@ -28,7 +28,8 @@ printf_i "\nIntegers:\n  normal: %d or %d\n", 1, 123, -123
 printf_i "  signed if positive: %+d\n", 1, 123
 printf_i "  space left if positive:...% d...% d\n", 1, 123, -123
 printf_i "  fixed width left ...%-10d...or right...%10d\n", 1, 123, 123
-printf_i "  starting with zeros if necessary: %05d %05d %05d %05d %05d %05d\n", 
+printf_i "  starting with zeros if ", 1
+printf_i "  necessary: %05d %05d %05d %05d %05d %05d\n", 
               1, 1, 12, 123, 1234, 12345, 123456
 printf_i "  floats are rounded: 1.1 -> %d, 1.9 -> %d\n", 1, 1.1, 1.9
   endin
@@ -39,12 +40,14 @@ printf_i "  number of digits after point: %f %.5f %.3f %.1f\n",
               1, 1.23456789, 1.23456789, 1.23456789, 1.23456789
 printf_i "  space left if positive:...% .3f...% .3f\n", 1, 123, -123
 printf_i "  signed if positive: %+f\n", 1, 1.23
-printf_i "  fixed width left ...%-10.3f...or right...%10.3f\n", 1, 1.23456, 1.23456
+printf_i "  fixed width left ...%-10.3f...or right...%10.3f\n", 
+              1, 1.23456, 1.23456
   endin
 
   instr Strings
 printf_i "\nStrings:\n  normal: %s\n", 1, "csound"
-printf_i "  fixed width left ...%-10s...or right...%10s\n", 1, "csound", "csound"
+printf_i "  fixed width left ...%-10s...or right...%10s\n", 
+              1, "csound", "csound"
 printf_i {{  a string over
     multiple lines in which
       you can insert also quotes: "%s"\n}}, 1, "csound"
