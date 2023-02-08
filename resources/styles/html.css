@@ -43,6 +43,11 @@ pre > code {
   line-height: 19px !important;
 }
 
+.CodeMirror {
+  font-size: 16px !important;
+  line-height: 21px !important;
+}
+
 #root {
   display: flex;
   overflow-x: hidden;
