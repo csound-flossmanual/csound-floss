@@ -93,13 +93,6 @@ def connect2var(x1,y1,x2,y2,sweep=1,from_top=0.4,arcrad=10):
     d.append(p)
     return y_mid
 
-def vert_grid(num,height=hght,margin_top=40,margin_bottom=41):
-    """returns a list of num grid values between
-    margin_top and height-margin_bottom"""
-    real_height = height - margin_top - margin_bottom
-    grid_step = real_height / (num-1)
-    return [i*grid_step+margin_top for i in range(num)]
-
 def grid(num,length=800,margin_1=40,margin_2=41):
     """returns a list of num grid values between
     margin_1 and height-margin_2 which are subtracted from length.
@@ -108,3 +101,15 @@ def grid(num,length=800,margin_1=40,margin_2=41):
     real_length = length - margin_1 - margin_2
     grid_step = real_length / (num-1)
     return [i*grid_step+margin_1 for i in range(num)]
+
+def tick(x,y,leng=-5,**args):
+    """axes tick
+    leng negative means from x,y to left
+    leng positive menas to bottom"""
+    if leng<0: d.append(dw.Line(x,y,x+leng,y,**args))
+    else: d.append(dw.Line(x,y,x,y+leng,**args))
+
+def scale(inval,inmin,inmax,outmin,outmax):
+    """scales inval which is between inmin and inmax
+    to the range between outmin and outmax"""
+    return (inval-inmin)*((outmax-outmin)/(inmax-inmin))+outmin
