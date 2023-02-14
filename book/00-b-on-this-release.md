@@ -2,9 +2,9 @@
 
 After two and a half years, it is again time for a new major release.
 
-Since the first release of this textbook in 2011 many things have changed. 
-With [csound.com](https://csound.com) we now have a good community website. 
-Links and informations about different ways to use Csound can go there. 
+Since the first release of this textbook in 2011 many things have changed.
+With [csound.com](https://csound.com) we now have a good community website.
+Links and informations about different ways to use Csound can go there.
 We don't need them any more in the Csound FLOSS Manual, and it is better
 to collect links and community information in one place.
 
@@ -14,15 +14,15 @@ All have own websites and introductions. No need to duplicate it here.
 But what is really missing, in my opinion, is an up-to-date **Getting Started**.
 So I decided to write it, and let the book begin with it.
 
-It is followed by another new chapter. In this **How to ...** brief 
+It is followed by another new chapter. In this **How to ...** brief
 descriptions provide instructions and advices for beginners and also
-for more experienced Csound users. From *How to install Csound for Windows*
-to *How to use my MIDI keyboard with Csound* or *How to perform time stretch*.
+for more experienced Csound users. From _How to install Csound for Windows_
+to _How to use my MIDI keyboard with Csound_ or _How to perform time stretch_.
 
-For both chapters, I tried to insert as many links as possible, for both, 
+For both chapters, I tried to insert as many links as possible, for both,
 pointing to other chapters in this book, and pointing to external sources.
 
-This re-ordering is a big work, and will probably never be finished. 
+This re-ordering is a big work, and will probably never be finished.
 This release is somehow a mix between old and new:
 
 - The BASICS chapter has been moved from chapter 1 to chapter 16.
