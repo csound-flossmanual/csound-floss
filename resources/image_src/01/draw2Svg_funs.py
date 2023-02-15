@@ -1,3 +1,7 @@
+# source for draw2Svg: https://github.com/aufarah/draw2Svg
+# doc: https://github.com/joachimheintz/draw2SvgDocs
+
+#import draw2Svg as dw
 #wdth,hght = 500,800
 #d = dw.Drawing(wdth,hght)
 
@@ -102,12 +106,12 @@ def grid(num,length=800,margin_1=40,margin_2=41):
     grid_step = real_length / (num-1)
     return [i*grid_step+margin_1 for i in range(num)]
 
-def tick(x,y,leng=-5,**args):
+def tick(x,y,leng=-5,color='black',**args):
     """axes tick
     leng negative means from x,y to left
-    leng positive menas to bottom"""
-    if leng<0: d.append(dw.Line(x,y,x+leng,y,**args))
-    else: d.append(dw.Line(x,y,x,y+leng,**args))
+    leng positive means to bottom"""
+    if leng<0: d.append(dw.Line(x,y,x+leng,y,stroke=color,**args))
+    else: d.append(dw.Line(x,y,x,y+leng,stroke=color,**args))
 
 def scale(inval,inmin,inmax,outmin,outmax):
     """scales inval which is between inmin and inmax
