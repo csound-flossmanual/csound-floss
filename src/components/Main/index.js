@@ -4,12 +4,13 @@ import { jsx } from "@emotion/react";
 // eslint-disable-next-line no-unused-vars
 import React, { lazy, Suspense, useEffect, useState } from "react";
 import HomeScreen from "../HomeScreen";
-// import TOC from "../../book_fragments/00--aa-toc";
 import { Route, Routes } from "react-router-dom";
 import routes from "../../book_fragments/routes.json";
 import { map } from "ramda";
 import { browserHistory } from "../../history";
 import * as ß from "./styles";
+import "rc-slider/assets/index.css";
+import InteractiveDemo from "../../book_fragments/interactive-demo.jsx";
 
 const LoadingSpinner = () => (
   <div
@@ -75,6 +76,7 @@ function Main({ currentRoute, mobileMode, setCurrentRoute }) {
               />
             );
           }, routes)}
+          <Route path="/interactive-demo" element={<InteractiveDemo />} />
           <Route path="/" element={<HomeScreen />} />
         </Routes>
       </div>

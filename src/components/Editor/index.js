@@ -80,6 +80,14 @@ const PlayControls = ({ initialEditorState, currentEditorState }) => {
     csoundDispatch,
   ] = useCsound();
 
+  const hasGui = (currentEditorState || initialEditorState).includes("<Gui>");
+  const guiString =
+    hasGui &&
+    (currentEditorState || initialEditorState)
+      .replaceAll("\n", "")
+      .match(/<Gui>(.*?)<\/Gui>/gm);
+  // console.log({ hasGui, guiString, currentEditorState, initialEditorState });
+
   const onPlay = useCallback(async () => {
     if (isPaused) {
       onPause();
@@ -90,6 +98,11 @@ const PlayControls = ({ initialEditorState, currentEditorState }) => {
       const esModule = await import("@csound/browser");
       libcsound = await esModule.default();
       libcsound.setOption("-odac");
+
+      if (hasGui && Array.isArray(guiString)) {
+        csoundDispatch({ type: "STORE_GUI_CODE", guiCode: guiString[0] || "" });
+        csoundDispatch({ type: "OPEN_GUI_DIALOG" });
+      }
 
       // eslint-disable-next-line
       libcsound.on("message", (log) => {
@@ -125,6 +138,7 @@ const PlayControls = ({ initialEditorState, currentEditorState }) => {
           change: "stop",
           csoundDispatch,
         });
+        csoundDispatch({ type: "CLOSE_GUI_DIALOG" });
       });
 
       libcsound.on("pause", () => {
@@ -153,7 +167,7 @@ const PlayControls = ({ initialEditorState, currentEditorState }) => {
     // forcing 2 channel output until I track down the bug
     await libcsound.compileCsdText(currentEditorState);
     await libcsound.start();
-  }, [libcsound, loadedSamples, currentEditorState, isPaused]);
+  }, [libcsound, loadedSamples, currentEditorState, isPaused, hasGui]);
 
   const onPause = async () => {
     const newPauseState = !isPaused;

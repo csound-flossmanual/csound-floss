@@ -15,6 +15,10 @@ const buildAllHtml = () => {
     JSON.stringify,
     (json) => fs.writeFileSync(path.join(JSX_OUTPUT, `routes.json`), json)
   )(allChapters);
+
+  const otherDir = path.resolve(__dirname, "../other");
+  const interactiveDemo = path.join(otherDir, "interactive-demo.md");
+  R.pipe(execMarkdownToHtml)(interactiveDemo);
 };
 
 module.exports = { buildAllHtml };

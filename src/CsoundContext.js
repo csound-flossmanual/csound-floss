@@ -1,16 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { createContext, useContext, useReducer } from "react";
 import { getType as mimeLookup } from "mime/lite";
-import {
-  append,
-  assoc,
-  concat,
-  filter,
-  isEmpty,
-  pipe,
-  reject,
-  when,
-} from "ramda";
+import { append, assoc, concat, isEmpty, pipe, reject, when } from "ramda";
 
 export const CsoundStateContext = createContext();
 export const CsoundDispatchContext = createContext();
@@ -51,6 +42,9 @@ const reducer = (state, action) => {
         assoc("filesGenerated", []),
         assoc("logs", [])
       )(state);
+    }
+    case "STORE_GUI_CODE": {
+      return assoc("guiCode", action.guiCode, state);
     }
     case "STORE_LOG": {
       return assoc("logs", append(action.log, state.logs), state);
@@ -99,6 +93,12 @@ const reducer = (state, action) => {
     }
     case "OPEN_LOG_DIALOG": {
       return assoc("logDialogOpen", true, state);
+    }
+    case "OPEN_GUI_DIALOG": {
+      return assoc("guiDialogOpen", true, state);
+    }
+    case "CLOSE_GUI_DIALOG": {
+      return assoc("guiDialogOpen", false, state);
     }
     case "HANDLE_PLAY_STATE_CHANGE": {
       switch (action.change) {
@@ -149,6 +149,8 @@ export const CsoundProvider = ({ children }) => {
     loadedSamples: [],
     logDialogOpen: false,
     logDialogClosed: false,
+    guiDialogOpen: false,
+    guiCode: "",
     filesystemDialogOpen: false,
     filesGenerated: [],
     logs: [],

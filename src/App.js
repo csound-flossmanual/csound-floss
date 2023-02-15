@@ -9,6 +9,7 @@ import MobileNav from "./components/MobileNav";
 import Main from "./components/Main";
 import LeftNav from "./components/LeftNav";
 import Console from "./components/Console";
+import GuiRenderer from "./components/Gui";
 import { CsoundProvider } from "./CsoundContext";
 import { BookProvider } from "./BookContext";
 import routes from "./book_fragments/routes.json";
@@ -49,6 +50,7 @@ function App() {
   return (
     <BookProvider>
       <CsoundProvider>
+        <GuiRenderer />
         {mobileMode && (
           <style>{`html, body {
   overflow-x: hidden;

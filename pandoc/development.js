@@ -4,7 +4,7 @@ const R = require("ramda");
 const { spawn } = require("child_process");
 const { execMarkdownToHtml } = require("./build_html");
 const { buildAllHtml } = require("./build_all_html");
-const { BOOK_DIRECTORY } = require("./constants");
+const { BOOK_DIRECTORY, OTHER_DIRECTORY } = require("./constants");
 
 // Build everything just once
 buildAllHtml();
@@ -25,9 +25,12 @@ react_process.stderr.on("data", (s) => console.error(s.toString()));
 
 react_process.on("close", (s) => console.log(s.toString()));
 
-const watcher = chokidar.watch(`${BOOK_DIRECTORY}/*.md`, {
-  persistent: true,
-});
+const watcher = chokidar.watch(
+  [`${BOOK_DIRECTORY}/*.md`, `${OTHER_DIRECTORY}/*.md`],
+  {
+    persistent: true,
+  }
+);
 
 // react-scripts start
 
