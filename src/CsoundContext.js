@@ -13,6 +13,12 @@ const handleEndOfPerformance = async (
   libcsound,
   loadedSamples
 ) => {
+  try {
+    await libcsound.cleanup();
+  } catch (error) {
+    console.error("error while cleaning up csound instance", error);
+  }
+
   const files = await libcsound.fs.readdir("/");
   const newFiles = reject((f) => loadedSamples.includes(f), files);
 

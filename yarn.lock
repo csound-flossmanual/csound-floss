@@ -1520,10 +1520,10 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@csound/browser@^6.18.5":
-  version "6.18.5"
-  resolved "https://registry.yarnpkg.com/@csound/browser/-/browser-6.18.5.tgz#0f5d96b35045a644a9f2ed362ca559e10ae40785"
-  integrity sha512-PrffNroCFgns9ct6O0e1anyxZWdDPcPA8y4Ei9t96DgkRba/wvxJayXfLJvEdlTQy+LVw1es92TDODtEYHJeKw==
+"@csound/browser@^6.18.7":
+  version "6.18.7"
+  resolved "https://registry.yarnpkg.com/@csound/browser/-/browser-6.18.7.tgz#b7980f954997151433fa51ec37dc9cfc2d238a01"
+  integrity sha512-pHC83n1fzV9xp7hkFNBTWYsqkBnOS3qNAA9AJNnu3ZCG35a4rMZ5ydOuFi3qqfkLwRTd+frazabxM/lu0+u0qw==
   dependencies:
     comlink "^4.3.1"
     eslint-plugin-n "^15.5.1"
