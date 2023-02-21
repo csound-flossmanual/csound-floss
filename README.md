@@ -1,5 +1,3 @@
-![CI](https://github.com/csound-flossmanual/csound-floss/workflows/CI/badge.svg)
-
 ## Building
 
 ```
