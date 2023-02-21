@@ -5,7 +5,8 @@ import { jsx } from "@emotion/react";
 import React from "react";
 import * as R from "ramda";
 import { Rnd } from "react-rnd";
-import jsxToJson from "simplified-jsx-to-json";
+import { Parser as acornParser } from "acorn";
+import acornJsx from "acorn-jsx";
 import StickyEl from "../../vendor/react-sticky-el.min.js";
 import RcSlider from "rc-slider";
 import CloseIcon from "../../assets/close.svg";
@@ -15,10 +16,16 @@ import * as ß from "./styles";
 const initialHeight = 500;
 const initialWidth = 300;
 
+const jsxParser = acornParser.extend(
+  acornJsx({ allowNamespacedObjects: true })
+);
+
 const GuiRenderer = () => {
   const [{ guiCode, guiDialogOpen, libcsound, isPlaying }, csoundDispatch] =
     useCsound();
-  const jsxJson = guiCode ? jsxToJson(guiCode) : [];
+
+  console.log(jsxParser.parse(guiCode));
+  const jsxJson = []; //guiCode ? jsxToJson(guiCode) : [];
   const [lastIsPlaying, setLastIsPlaying] = React.useState(true);
   const [channelStates, setChannelStates] = React.useState({});
 

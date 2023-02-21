@@ -13,6 +13,8 @@
     "@csound/browser": "^6.18.7",
     "@emotion/core": "^11.0.0",
     "@emotion/react": "^11.10.5",
+    "acorn": "^8.8.2",
+    "acorn-jsx": "^5.3.2",
     "chokidar": "^3.5.3",
     "codemirror": "^5.58.3",
     "core-js": "^3.26.1",
@@ -43,7 +45,6 @@
     "react-side-effect": "^2.1.2",
     "react-sticky-footer": "^0.1.0-rc3",
     "resize-observer-polyfill": "^1.5.1",
-    "simplified-jsx-to-json": "^0.2.0",
     "throttle-debounce": "^5.0.0"
   },
   "resolutions": {
@@ -66,7 +67,11 @@
     "extends": "react-app"
   },
   "browserslist": {
-    "production": [">0.2%", "not dead", "not op_mini all"],
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",

@@ -80,12 +80,14 @@ const PlayControls = ({ initialEditorState, currentEditorState }) => {
     csoundDispatch,
   ] = useCsound();
 
-  const hasGui = (currentEditorState || initialEditorState).includes("<Gui>");
-  const guiString =
-    hasGui &&
+  const hasCsoundWebElements = (
+    currentEditorState || initialEditorState
+  ).includes("<CsoundWebElements>");
+  const csoundWebElementsMatch =
+    hasCsoundWebElements &&
     (currentEditorState || initialEditorState)
       .replaceAll("\n", "")
-      .match(/<Gui>(.*?)<\/Gui>/gm);
+      .match(/<CsoundWebElements>(.*?)<\/CsoundWebElements>/gm);
   // console.log({ hasGui, guiString, currentEditorState, initialEditorState });
 
   const onPlay = useCallback(async () => {
@@ -99,8 +101,11 @@ const PlayControls = ({ initialEditorState, currentEditorState }) => {
       libcsound = await esModule.default();
       libcsound.setOption("-odac");
 
-      if (hasGui && Array.isArray(guiString)) {
-        csoundDispatch({ type: "STORE_GUI_CODE", guiCode: guiString[0] || "" });
+      if (hasCsoundWebElements && Array.isArray(csoundWebElementsMatch)) {
+        csoundDispatch({
+          type: "STORE_GUI_CODE",
+          guiCode: csoundWebElementsMatch[0] || "",
+        });
         csoundDispatch({ type: "OPEN_GUI_DIALOG" });
       }
 
@@ -167,7 +172,13 @@ const PlayControls = ({ initialEditorState, currentEditorState }) => {
     // forcing 2 channel output until I track down the bug
     await libcsound.compileCsdText(currentEditorState);
     await libcsound.start();
-  }, [libcsound, loadedSamples, currentEditorState, isPaused, hasGui]);
+  }, [
+    libcsound,
+    loadedSamples,
+    currentEditorState,
+    isPaused,
+    hasCsoundWebElements,
+  ]);
 
   const onPause = async () => {
     const newPauseState = !isPaused;
