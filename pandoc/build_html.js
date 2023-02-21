@@ -24,7 +24,7 @@ function execMarkdownToHtml(fileName) {
   const chapterBasename = path.basename(fileName, ".md");
   const tmpDest = path.join(tmpdir(), chapterBasename) + ".html";
   const stdout = execSync(
-    `pandoc --to=html5 ${fileName} -f ${MARKDOWN_EXTENSIONS.join(
+    `pandoc --to=html5 --wrap=preserve ${fileName} -f ${MARKDOWN_EXTENSIONS.join(
       "+"
     )} -o ${tmpDest} --mathjax`
   );

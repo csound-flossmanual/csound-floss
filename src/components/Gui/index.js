@@ -1,7 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from "@emotion/react";
-// eslint-disable-next-line no-unused-vars
+// eslint-disable no-unused-vars
 import React from "react";
 import * as R from "ramda";
 import { Rnd } from "react-rnd";
@@ -24,7 +24,7 @@ const GuiRenderer = () => {
   const [{ guiCode, guiDialogOpen, libcsound, isPlaying }, csoundDispatch] =
     useCsound();
 
-  console.log(jsxParser.parse(guiCode));
+  // console.log(jsxParser.parse(guiCode));
   const jsxJson = []; //guiCode ? jsxToJson(guiCode) : [];
   const [lastIsPlaying, setLastIsPlaying] = React.useState(true);
   const [channelStates, setChannelStates] = React.useState({});
