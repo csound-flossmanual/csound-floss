@@ -8,37 +8,29 @@ https://rmarkdown.rstudio.com/authoring_pandoc_markdown.html%23raw-tex#pandoc_ma
 For anyone who writes on this book, these features are in particular important:
 
 # 1. HEADINGS
+
+As usual in markdown:
    
-`level one heading`  
-`=================`
-
-is preferred but
-
 `# level one heading`
 
-is also possible.
-
-`level two heading`  
-`-----------------`
-
-is preferred but
+# level one heading
 
 `## level two heading`
 
-is also possible.
+## level two heading
 
 `### level three heading`  
-`#### level four heading`
-
-gets
 
 ### level three heading
+
+`#### level four heading`
+
 #### level four heading
 
 
 # 2. ITALICS
 
-please use `*this*` not `_that_`
+please use `_this_` not `*that*`
 
 
 # 3. BOLD
@@ -51,14 +43,14 @@ please usw `**this**` not `__that__`
 a) full .csd examples
 ---------------------
 
-**must** be written as **fenced code**: `~~~csound` before and `~~~`
+**must** be written as **fenced code**: `\`\`\`csound` before and `\`\`\``
 after the csound code:
 
-    ~~~csound
+    ```csound
     <CsoundSynthesizer>
     ...
     </CsoundSynthesizer>
-    ~~~
+    ```
 
 NOTE that **this is for examples which can be extracted and played
 as they are** (no requirement except files in resources/SourceMaterials)

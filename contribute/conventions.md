@@ -38,3 +38,14 @@ starting with the word **EXAMPLE**.
 Make sure that the examples marked as **full** are **executable out of the box**. If not, format them as *small* examples. (For instance, the example at the end of chapter 13A is formatted as *small* because it requires to build the plugin opcode first.)
 
 See [writing-in-markdown.txt](writing-in-markdown.txt) for more details.
+
+
+Run `yarn prettify`
+-------------------
+
+Run `yarn prettify` before you add/commit your changes. If there is a
+terrible issue which our master (H.S.) cannot solve, you may prevent
+[prettier](https://prettier.io) from crushing things which work by using
+`<!-- prettier-ignore -->`. See 
+[prettier markdown explanations](https://prettier.io/docs/en/ignore.html#markdown)
+for more.
