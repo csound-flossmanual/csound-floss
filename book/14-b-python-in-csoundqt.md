@@ -1,9 +1,9 @@
 # 14 B. PYTHON IN CSOUNDQT
 
-If CsoundQt is built with PythonQt support,^[If not, have a look at the
+If CsoundQt is built with PythonQt support,^[If not, have a look at the&nbsp;
 [releases](https://github.com/CsoundQt/CsoundQt/releases) page.
 Python 2.7 must be installed, too. For building CsoundQt with
-Python support, have a look at the descriptions in
+Python support, have a look at the descriptions in&nbsp;
 [CsoundQt's Wiki](https://github.com/CsoundQt/CsoundQt/wiki).]
 it enables a lot of new
 possibilities, mostly in three main fields: interaction with the
@@ -11,7 +11,7 @@ CsoundQt interface, interaction with widgets and using classes from Qt
 libraries to build custom interfaces in python.
 
 If you start CsoundQt and can open the panels _Python Console_ and
-_Python Scratch Pad_, you are ready to go.
+&nbsp;_Python Scratch Pad_, you are ready to go.
 
 ![](../resources/images/14-b-pythonconsole.png)
 
@@ -20,13 +20,13 @@ _Python Scratch Pad_, you are ready to go.
 As _CsoundQt_ has formerly been called _QuteCsound_, this name can still be
 found in the sources. The _QuteCsound object_ (called _PyQcsObject_ in the
 sources) is the interface for scripting CsoundQt. All declarations of
-the class can be found in the file
+the class can be found in the file&nbsp;
 [pyqcsobject.h](https://github.com/CsoundQt/CsoundQt/blob/develop/src/pyqcsobject.h)
-in the sources.
+&nbsp;in the sources.
 
 It enables the control of a large part of CsoundQt's possibilities from
 the python interpreter, the python scratchpad, from scripts or from
-inside of a running Csound file via Csound's python opcodes.^[See chapter
+inside of a running Csound file via Csound's python opcodes.^[See chapter&nbsp;
 [12 B](12-b-python-and-csound.md) for more information on the python opcodes and ctcsound.]
 
 By default, a _PyQcsObject_ is already available in the python
@@ -60,12 +60,12 @@ integer (in the screenshot below: 3) as index for this file.
 
 ![](../resources/images/14-b-01.png)
 
-If you close this file and then execute the line
+If you close this file and then execute the line&nbsp;
 `q.loadDocument('cs_floss_1.csd')`, you should see the file again as
 tab in CsoundQt.
 
 Let us have a look how these two methods _newDocument_ and
-_loadDocument_ are described in the sources:
+&nbsp;_loadDocument_ are described in the sources:
 
     int newDocument(QString name)
     int loadDocument(QString name, bool runNow = false)
@@ -76,8 +76,8 @@ input string and returns an integer as index for this csd. The
 additional argument _runNow_ is optional. It expects a boolean value
 (True/False or 1/0). The default is _false_ which means "do not run
 immediately after loading". So if you type instead
-`q.loadDocument('cs_floss_1.csd', True)` or
-`q.loadDocument('cs_floss_1.csd', 1)`, the csd file should start
+&nbsp;`q.loadDocument('cs_floss_1.csd', True)` or
+&nbsp;`q.loadDocument('cs_floss_1.csd', 1)`, the csd file should start
 immediately.
 
 ### Run, Pause or Stop a _csd_ File
@@ -85,7 +85,7 @@ immediately.
 For the next methods, we first need some more code in our csd. So let
 your _cs_floss_1.csd_ look like this:
 
-**_EXAMPLE 14B01_run_pause_stop.csd_**
+#### **_EXAMPLE 14B01_run_pause_stop.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -135,14 +135,14 @@ you can stop the current performance.
 The _play()_, _pause()_ and _stop()_ method, as well as other methods in
 CsoundQt's integrated Python, allow also to access csd file tabs which
 are not currently active. As we saw in the creation of a new csd file by
-`q.newDocument('cs_floss_1.csd')`, each of them gets an index. This
+&nbsp;`q.newDocument('cs_floss_1.csd')`, each of them gets an index. This
 index allows universal access to all csd files in a running CsoundQt
 instance.
 
 First, create a new file _cs_floss_2.csd_, for instance with this
 code:
 
-**_EXAMPLE 14B02_tabs.csd_**
+#### **_EXAMPLE 14B02_tabs.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -169,8 +169,8 @@ i 1 0 10
 ```
 
 Now get the index of these two tabs in executing
-`q.getDocument('cs_floss_1.csd')` and
-`q.getDocument('cs_floss_2.csd')` . This will show something like
+&nbsp;`q.getDocument('cs_floss_1.csd')` and
+&nbsp;`q.getDocument('cs_floss_2.csd')` . This will show something like
 this:
 
 ![](../resources/images/14-b-02.png)
@@ -320,7 +320,7 @@ There have been numerous tools and programs to do this, and it can be
 very pleasant to use CsoundQt's Python scripting for this task. Let us
 modify our previous instrument first to make it more flexible:
 
-**_EXAMPLE 14B03_score_generated.csd_**
+#### **_EXAMPLE 14B03_score_generated.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -526,8 +526,8 @@ the (already open but not necessarily active) document _test.csd_:
 
     q.createNewSlider(10, 10, "level", q.getDocument("test.csd"))
 
-Create ten knobs with the channel names _partial_1_, _partial_2_
-etc, and the according labels _amp_part_1_, _amp_part_2_ etc in
+Create ten knobs with the channel names _partial_1_, _partial_2_ etc,
+and the according labels _amp_part_1_, _amp_part_2_ etc in
 the currently active document:
 
     for no in range(10):
@@ -664,7 +664,7 @@ other predefined states, in this case controlled by the score. You will
 see the widgets for the first three seconds in Preset 0, then for the
 next three seconds in Preset 1, and finally again in Preset 0:
 
-**_EXAMPLE 14B04_presets.csd_**
+#### **_EXAMPLE 14B04_presets.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -694,8 +694,8 @@ i "loadPreset" + . 0
 
 Several functions can interact with the Csound engine, for example to
 query information about it. Note that the functions _getSampleRate_,
-_getKsmps_, _getNumChannels_ and _getCurrentCsound_ refer to a _running_
-instance of Csound.
+&nbsp;_getKsmps_, _getNumChannels_ and _getCurrentCsound_ refer to a _running_
+&nbsp;instance of Csound.
 
     py> q.getVersion() # CsoundQt API version
     u'1.0'
@@ -749,7 +749,7 @@ which is already defined.
 ## Creating Own GUIs with PythonQt
 
 One of the very powerful features of using Python inside CsoundQt is the
-ability to build own GUIs. This is done via the
+ability to build own GUIs. This is done via the&nbsp;
 [PythonQt](http://pythonqt.sourceforge.net/) library which gives you
 access to the Qt toolkit via Python. We will show some examples here.
 Have a look in the _Scripts_ menu in CsoundQt to find much more (you
@@ -760,7 +760,7 @@ will find the code in the _Editor_ submenu).
 Sometimes it is practical to ask from user just one question - number or
 name of something and then execute the rest of the code (it can be done
 also inside a csd with python opcodes). In Qt, the class to create a
-dialog for one question is called
+dialog for one question is called&nbsp;
 [QInputDialog](http://doc.qt.nokia.com/4.7-snapshot/qinputdialog.html).
 
 To use this or any other Qt classes, it is necessary to import the
@@ -822,7 +822,7 @@ A simple example follows showing how an own GUI can be embedded in your
 Csound code. Here, Csound waits for the user input, and then prints out
 the entered value as the Csound variable giNumber:
 
-**_EXAMPLE 14B05_dialog.csd_**
+#### **_EXAMPLE 14B05_dialog.csd_**
 
 ```csound
 <CsoundSynthesizer>

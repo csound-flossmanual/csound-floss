@@ -27,10 +27,11 @@ control Csound, and to generate Csound scores and even orchestras.
 In all of these environments, a piece may be written in the form of a Web page
 (an .html file), with access to a global instance of Csound that exists in the
 JavaScript context of that Web page. In such pieces, it is common to embed the
-entire .orc or .csd file for Csound into the .html code as a JavaScript multiline string literal or an invisible TextArea widget.
+entire .orc or .csd file for Csound into the .html code as a
+JavaScript multiline string literal or an invisible TextArea widget.
 
 In CsoundQt and Csound for Android, the HTML code may be embedded in an optional
-`<html>` element of the Csound Structured Data (.csd) file. This element
+&nbsp;`<html>` element of the Csound Structured Data (.csd) file. This element
 essentially defines a Web page that contains Csound, but the host application
 is responsible for editing the Csound orchestra and running it.
 
@@ -48,9 +49,9 @@ graphics canvas visible in the page, producing animated 3-dimensional
 graphics with WebGL including shaders and GPU acceleration, Web Audio,
 various forms of local data storage, Web Sockets, and so on and so on.
 This whole conglomeration of standards is currently defined and
-maintained under the non-governmental leadership of the
+maintained under the non-governmental leadership of the&nbsp;
 [World Wide Web Consortium](http://www.w3.org/standards/) (W3C)
-which in turn is primarily driven by commercial interests belonging to the
+which in turn is primarily driven by commercial interests belonging to the&nbsp;
 [Web Hypertext Application Technology Working Group](https://whatwg.org/) (WHATWG).
 Most modern Web browsers implement almost all of the W3C standards up to
 and including HTML5 at an impressive level of performance and
@@ -73,7 +74,7 @@ HTML and JavaScript with Csound:
 
 1. Use of the [Three.js](https://threejs.org/) library to generate a 3-dimensional animated image of
    the popcorn fractal.
-2. Use of an external JavaScript library,
+2. Use of an external JavaScript library,&nbsp;
    [silencio](https://github.com/gogins/csound-extended/tree/develop/silencio), to sample the moving
    image and to generate Csound notes from it, that are sent to Csound in real time
    with the Csound API `csound.readScore` function.
@@ -111,11 +112,11 @@ compatible with old pieces.
 
 ### How it Works
 
-The Web browser embedded into CsoundQt is the
+The Web browser embedded into CsoundQt is the&nbsp;
 [Qt WebEngine](https://doc.qt.io/qt-5/qtwebengine-index.html).
-The Web browser embedded into Csound for Android is the
+The Web browser embedded into Csound for Android is the&nbsp;
 [WebView](http://developer.android.com/reference/android/webkit/WebView.html)
-available in the
+available in the&nbsp;
 [Android SDK](https://developer.android.com/index.html).
 
 For a .html piece, the front end renders the HTML as a Web page and displays
@@ -204,7 +205,7 @@ editor, and some pieces are included as HTML examples in CsoundQt.
 
 This is about the shortest CSD that shows some HTML output.
 
-**_EXAMPLE 12G01_Hello_HTML_World.csd_**
+#### **_EXAMPLE 12G01_Hello_HTML_World.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -230,7 +231,7 @@ e 1
 
 This is a simple example that shows how to control Csound using an HTML slider.
 
-**_EXAMPLE 12G02_Minimal_HTML.csd_**
+#### **_EXAMPLE 12G02_Minimal_HTML.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -323,7 +324,7 @@ pleasing user interface.
 First the entire piece is presented, then the parts are discussed
 separately.
 
-**_EXAMPLE 12G03_Extended_HTML.csd_**
+#### **_EXAMPLE 12G03_Extended_HTML.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -689,8 +690,9 @@ generate a Csound score from a chaotic attractor of the system. This
 function also is quite simple. Its main job, aside from iterating the
 logistic equation a few hundred times, is to translate each iteration of
 the system into a musical note and send that note to Csound to be played
-using the Csound API function readScore(). So the following `<script>`
-element is added to the body of the `<html>` element:
+using the Csound API function readScore().
+So the following `<script>` element is added to the body of
+the `<html>` element:
 
 ```html
 <script>
@@ -714,7 +716,7 @@ element is added to the body of the `<html>` element:
 
 The next step is to add more user control to this piece. We will enable
 the user to control the attractor of the piece by varying the constant
-_c_, and we will enable the user to control the sound of the Csound
+&nbsp;_c_, and we will enable the user to control the sound of the Csound
 orchestra by varying the frequency modulation index, frequency
 modulation carrier ratio, reverberation time, and master output level.
 
@@ -748,7 +750,7 @@ value of a JavaScript event handler for the `oninput` event. This
 function is called whenever the user changes the value of the slider.
 
 For ease of understanding, a naming convention is used here, with
-_sliderC_ being the basic name and other names of objects associated
+&nbsp;_sliderC_ being the basic name and other names of objects associated
 with this slider taking names built up by adding prefixes or suffixes
 to this basic name.
 
@@ -802,8 +804,8 @@ The variable _c_ was declared at global scope just above the generate()
 function, so that variable is accessible within the _on_sliderC_
 function.
 
-Keep in mind, if you are playing with this code, that a new value of _c_
-will only be heard when a new score is generated.
+Keep in mind, if you are playing with this code, that a new value
+of _c_ will only be heard when a new score is generated.
 
 Very similar logic can be used to control variables in the Csound
 orchestra. The value of the slider has to be sent to Csound using the

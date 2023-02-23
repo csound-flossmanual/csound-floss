@@ -95,7 +95,7 @@ On the following example, a simple instrument, which plays a sine wave,
 is defined in instrument 1. There are no score note events, so no sound
 will be produced unless a MIDI note is received on channel 1.
 
-**_EXAMPLE 02C01_Midi_Keybd_in.csd_**
+#### **_EXAMPLE 02C01_Midi_Keybd_in.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -138,7 +138,7 @@ seconds. It will receive controller \#1 (modulation wheel) on channel 1
 and convert MIDI range (0-127) to a range between 220 and 440. This
 value is used to set the frequency of a simple sine oscillator.
 
-**_EXAMPLE 02C02_Midi_Ctl_in.csd_**
+#### **_EXAMPLE 02C02_Midi_Ctl_in.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -174,7 +174,7 @@ through the usage of specific opcodes. Generic MIDI Data can be received using
 the [midiin](http://csound.github.io/docs/manual/html/midiin.html) opcode.
 The example below prints to the console the data received via MIDI.
 
-**_EXAMPLE 02C03_Midi_all_in.csd_**
+#### **_EXAMPLE 02C03_Midi_all_in.csd_**
 
 ```csound
 <CsoundSynthesizer>

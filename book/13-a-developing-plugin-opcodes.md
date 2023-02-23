@@ -19,7 +19,7 @@ use the C language. For those interested in object-oriented programming,
 alternative C++ class implementations for the examples discussed in
 this text can be extrapolated from the original C code.
 
-You may find additional information and examples at Csound's
+You may find additional information and examples at Csound's&nbsp;
 [Opcode SDK](https://github.com/csound/opcode_sdk) repository.
 
 ## Csound data types and signals
@@ -188,11 +188,12 @@ samples, instead of just one sample. However, all the vector samples
 will have the same value (which actually makes the audio rate function
 redundant, but we will use it just to illustrate our point).
 
-Another important thing to consider is to support the _--sample-accurate_
-mode introduced in Csound 6. For this we will need to add code to start
+Another important thing to consider is to support
+the _--sample-accurate_ mode introduced in Csound 6.
+For this we will need to add code to start
 processing at an offset (when this is given), and finish early (if that
 is required). The opcode will then lookup these two variables (called
-_offset_ and _early_) that are passed to it from the container
+&nbsp;_offset_ and _early_) that are passed to it from the container
 instrument, and act to ensure these are taken into account. Without
 this, the opcode would still work, but not support the sample-accurate
 mode.
@@ -224,7 +225,7 @@ int newopc_process_audio(CSOUND *csound, newopc *p){
 
 In order for Csound to be aware of the new opcode, we will have to
 register it. This is done by filling an opcode registration structure
-`OENTRY` array called _localops_ (which is static, meaning that only one
+&nbsp;`OENTRY` array called _localops_ (which is static, meaning that only one
 such array exists in memory at a time):
 
 ```c
@@ -276,7 +277,7 @@ rate (but in that case, they actually produce a different output for
 each type of signal, unlike our example).
 
 Finally, it is necessary to add, at the end of the opcode C code the
-`LINKAGE` macro, which defines some functions needed for the dynamic
+&nbsp;`LINKAGE` macro, which defines some functions needed for the dynamic
 loading of the opcode.
 
 ## Building opcodes
@@ -304,7 +305,7 @@ Windows (MinGW+MSYS):
 To run Csound with the new opcodes, we can use the
 \--opcode-lib=_libname_ option.
 
-**_EXAMPLE 13A01_newop.csd_**
+#### **_EXAMPLE 13A01_newop.csd_**
 
 ```csound
 <CsoundSynthesizer>

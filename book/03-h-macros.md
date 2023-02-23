@@ -58,7 +58,7 @@ score as defined in the _\<CsScore\> ... \</CsScore\>_ section only lasts for
 for the required duration. The sound file is a mono file so you can
 replace it with any other mono file.
 
-**_EXAMPLE 03H01_Macros_basic.csd_**
+#### **_EXAMPLE 03H01_Macros_basic.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -122,7 +122,7 @@ the orchestra twice to create two different timbres, it could be reused
 many more times however. The fundamental frequency argument is passed to
 the macro as p4 from the score.
 
-**_EXAMPLE 03H02_Macro_6partials.csd_**
+#### **_EXAMPLE 03H02_Macro_6partials.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -190,12 +190,11 @@ repeat but with some variation such as transposition. In this example
 two _riffs_ are defined which each employ two macro arguments: the
 first to define when the riff will begin and the second to define a
 transposition factor in semitones. These riffs are played back using a
-bass guitar-like instrument using the
-[wgpluck2](http://www.csound.com/docs/manual/wgpluck2.html) opcode.
+bass guitar-like instrument using the [wgpluck2](http://www.csound.com/docs/manual/wgpluck2.html) opcode.
 Remember that mathematical expressions within the Csound score must be
 bound within square brackets `[]`.
 
-**_EXAMPLE 03H03_Score_macro.csd_**
+#### **_EXAMPLE 03H03_Score_macro.csd_**
 
 ```csound
 <CsoundSynthesizer>

@@ -27,6 +27,12 @@ export const main = css`
   }
 
   @media (min-width: 650px) {
+    p,
+    em {
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
     & {
       padding: 48px 32px;
       max-width: calc(100% - 240px - 64px);

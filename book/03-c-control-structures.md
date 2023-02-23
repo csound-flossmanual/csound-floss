@@ -94,7 +94,7 @@ The modern way to solve this is to work with an audio array as
 output of diskin. But nevertheless the example shows a typical
 usage of the i-rate if branching.]
 
-**_EXAMPLE 03C01_IfThen_i.csd_**
+#### **_EXAMPLE 03C01_IfThen_i.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -134,7 +134,7 @@ The following example establishes a moving gate between 0 and 1. If the
 gate is above 0.5, the gate opens and you hear a tone. If the gate is
 equal or below 0.5, the gate closes, and you hear nothing.
 
-**_EXAMPLE 03C02_IfThen_k.csd_**
+#### **_EXAMPLE 03C02_IfThen_k.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -188,7 +188,7 @@ can also be written without parentheses.] It asks whether
 the condition a or b is true. If a, the value is set to x; if b, to y.
 For instance, the last example could be written in this way:
 
-**_EXAMPLE 03C03_IfThen_short_form.csd_**
+#### **_EXAMPLE 03C03_IfThen_short_form.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -272,7 +272,7 @@ branch depending on a mono or stereo file. If you just want to know
 whether a file is mono or stereo, you can use the _pure_ if-igoto
 statement:
 
-**_EXAMPLE 03C04_IfGoto_i.csd_**
+#### **_EXAMPLE 03C04_IfGoto_i.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -311,7 +311,7 @@ because, not only do you have an event at i-time (initializing the
 soundin opcode) but also at k-time (producing an audio signal).
 So _goto_ must be used here, to combine _igoto_ and _kgoto_.
 
-**_EXAMPLE 03C05_IfGoto_ik.csd_**
+#### **_EXAMPLE 03C05_IfGoto_ik.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -352,7 +352,7 @@ i 1 0 5
 This is the same example as above (03C02) in the if-then-else syntax for
 a moving gate between 0 and 1:
 
-**_EXAMPLE 03C06_IfGoto_k.csd_**
+#### **_EXAMPLE 03C06_IfGoto_k.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -403,7 +403,7 @@ Loops can be built either at i-time or at k-time just with
 the _if_ facility. The following example shows an i-rate and a k-rate loop
 created using the if-i/kgoto facility:
 
-**_EXAMPLE 03C07_Loops_with_if.csd_**
+#### **_EXAMPLE 03C07_Loops_with_if.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -471,7 +471,7 @@ k-time loops.
 
 The following .csd provides a simple example for all four loop opcodes:
 
-**_EXAMPLE 03C08_Loop_opcodes_i.csd_**
+#### **_EXAMPLE 03C08_Loop_opcodes_i.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -526,7 +526,7 @@ i 4 0 0
 The next example produces a random string of 10 characters and prints it
 out:
 
-**_EXAMPLE 03C09_Random_string.csd_**
+#### **_EXAMPLE 03C09_Random_string.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -611,7 +611,7 @@ Though there are some vectorial opcodes for this task (and in Csound 6
 probably array), it can also be done by a k-rate loop like the one shown
 here:
 
-**_EXAMPLE 03C11_Table_random_dev.csd_**
+#### **_EXAMPLE 03C11_Table_random_dev.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -670,7 +670,7 @@ long as \<condition\> is **true**. The body of the **until** loop will
 be performed, as long as \<condition\> is **false** (not true). This is
 a simple example at i-rate:
 
-**_EXAMPLE 03C12_while_until_i-rate.csd_**
+#### **_EXAMPLE 03C12_while_until_i-rate.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -738,7 +738,7 @@ to print the values of an array, and also set new values. As this
 procedure is repeated in each control cycle, the instrument is being
 turned off after the third cycle.
 
-**_EXAMPLE 03C13_while_until_k-rate.csd_**
+#### **_EXAMPLE 03C13_while_until_k-rate.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -835,7 +835,7 @@ Let's see an example. This is a sine tone with a moving frequency,
 starting at 400 Hz and ending at 600 Hz. The duration of this movement
 is 3 seconds for the first note, and 5 seconds for the second note:
 
-**_EXAMPLE 03C14_Timout_pre.csd_**
+#### **_EXAMPLE 03C14_Timout_pre.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -869,7 +869,7 @@ Now we perform a time loop with _timout_ which is 1
 second long. So, for the first note, it will be repeated three times,
 and five times for the second note:
 
-**_EXAMPLE 03C15_Timout_basics.csd_**
+#### **_EXAMPLE 03C15_Timout_basics.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -930,7 +930,7 @@ use a [rireturn](http://www.csound.com/docs/manual/rireturn.html)
 the timeloop section and the non-timeloop section in the body of an
 instrument:
 
-**_EXAMPLE 03C16_Timeloop_and_not.csd_**
+#### **_EXAMPLE 03C16_Timeloop_and_not.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -974,7 +974,7 @@ In a time loop, it is very important to change the duration of the loop.
 This can be done either by referring to the duration of this note (p3)
 \...
 
-**_EXAMPLE 03C17_Timout_different_durations.csd_**
+#### **_EXAMPLE 03C17_Timout_different_durations.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1011,7 +1011,7 @@ i 1 4 5
 \... or by calculating new values for the loop duration on each reinit
 pass, for instance by random values:
 
-**_EXAMPLE 03C18_Timout_random_durations.csd_**
+#### **_EXAMPLE 03C18_Timout_random_durations.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1060,7 +1060,7 @@ still be playing when the new instance is triggered. Random calculations
 are executed in instrument 2 so that each note will have a different
 pitch,creating a glissando effect:
 
-**_EXAMPLE 03C19_Timout_trigger_events.csd_**
+#### **_EXAMPLE 03C19_Timout_trigger_events.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1114,7 +1114,7 @@ given starting value to a new evaluated final value. Then, in the next
 loop, the previous final value must be set as the new starting value,
 and so on. Here is a possible solution:
 
-**_EXAMPLE 03C20_Timout_random_envelope.csd_**
+#### **_EXAMPLE 03C20_Timout_random_envelope.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1171,7 +1171,7 @@ a simple and intuitive method for controlling time loops, if you use it
 to trigger a separate instrument which then carries out another job.
 Below is a simple example for calling a subinstrument twice per second:
 
-**_EXAMPLE 03C21_Timeloop_metro.csd_**
+#### **_EXAMPLE 03C21_Timeloop_metro.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1209,7 +1209,7 @@ The example which is given above (03C19*Timout_trigger_events.csd) as
 a flexible time loop by \_timout*, can be done
 with the _metro_ opcode in this way:
 
-**_EXAMPLE 03C22_Metro_trigger_events.csd_**
+#### **_EXAMPLE 03C22_Metro_trigger_events.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1300,7 +1300,7 @@ the _metro_ opcode did, but now by using the internal clock.^[
 To say the truth, *metro* is more precise. But this can be neglected
 for live situations for which this approach is mainly meant to be used.]
 
-**_EXAMPLE 03C23_Timeloop_Internal_Clock.csd_**
+#### **_EXAMPLE 03C23_Timeloop_Internal_Clock.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1346,7 +1346,7 @@ So the _trigger events_ example which has been showed in
 using _timout_ (03C19) and _trigger_ (03C22) is here again using
 the internal clock approach.
 
-**_EXAMPLE 03C24_Internal_clock_trigger_events.csd_**
+#### **_EXAMPLE 03C24_Internal_clock_trigger_events.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1392,7 +1392,7 @@ i "TimeLoop" 0 30
 
 Another surprisingly simple method for a loop in time is self-triggering: When an instrument is called, it calls the next instance, so that an endless chain is created. The following example reproduces the previous one, but without the controlling _TimeLoop_ instrument. Instead, at the end of instr _Play_, the next instance is called.
 
-**_EXAMPLE 03C25_self_triggering.csd_**
+#### **_EXAMPLE 03C25_self_triggering.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1438,7 +1438,7 @@ it has already triggered the next instance.
 
 In our example, this problem has been solved the brutal way: to exit Csound. Much better is to introduce a break condition. This is what is called _base case_ in recursion. We can, for instance, give a counter as _p4_, say 20. For each instance, the new call is done with _p4-1_ (19, 18, 17, ...). When zero is reached, no self-triggering is done any more.
 
-**_EXAMPLE 03C26_recursion.csd_**
+#### **_EXAMPLE 03C26_recursion.csd_**
 
 ```csound
 <CsoundSynthesizer>

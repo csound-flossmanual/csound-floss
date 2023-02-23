@@ -5,8 +5,8 @@ In _Amplitude Modulation_ (AM) the amplitude of a _Carrier_ oscillator is modula
 ![Basic Model of Amplitude Modulation](../resources/images/04-c-am.png){width=50%}
 
 If this modulation is in the sub-audio range (less than 15 Hz), it is perceived
-as periodic volume modification.^[For classical string instruments there is a
-*bow vibrato* which resembles this effect. If the *DC Offset* is weak in
+as periodic volume modification.^[For classical string instruments there is
+a *bow vibrato* which resembles this effect. If the *DC Offset* is weak in
 comparison to the modulation output, the comparison in classical music is
 the *tremolo* effect. Also *pulsation* is often used to describe
 AM with low frequencies.] Volume-modulation above approximately 15 Hz are
@@ -14,7 +14,7 @@ perceived as timbre changes. So called _sidebands_ appear.
 This transition is showed in the following example.
 The modulation frequency starts at 2 Hz and moves over 20 seconds to 100 Hz.
 
-**_EXAMPLE 04C01_Simple_AM.csd_**
+#### **_EXAMPLE 04C01_Simple_AM.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -47,7 +47,7 @@ i 1 0 25
 ## Sidebands
 
 The sidebands appear on both sides of the carrier frequency $f_c$.
-The frequency of the side bands is the sum and the difference between the carrier frequency and the modulator frequency: $f_c - f_m$ and $f_c + f_m$. The amplitude of each sideband is half of the modulator's amplitude.
+The frequency of the side bands is the sum and the difference between the carrier frequency and the modulator frequency: &nbsp; $f_c - f_m$ and $f_c + f_m$. The amplitude of each sideband is half of the modulator's amplitude.
 
 So the sounding result of the following example can be calculated as this:
 $f_c$ = 440 Hz, $f_m$ = 40 Hz, so the result is a sound with 400, 440, and
@@ -57,7 +57,7 @@ $f_c$ = 440 Hz, $f_m$ = 40 Hz, so the result is a sound with 400, 440, and
 
 It is equivalent to the signal flow in the first flow chart (_AM1_ here). It takes one more line, but now you can substitute any audio signal as carrier, not only an oscillator. So this is the bridge to using AM for the modification of sampled sound as shown in [05F](05-f-am-rm-waveshaping.md).
 
-**_EXAMPLE 04C02_Sidebands.csd_**
+#### **_EXAMPLE 04C02_Sidebands.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -119,7 +119,7 @@ Given a carrier signal which consists of three harmonics: 400, 800 and 1200 Hz. 
 
 The next example plays these variants.
 
-**_EXAMPLE 04C03_RingMod.csd_**
+#### **_EXAMPLE 04C03_RingMod.csd_**
 
 ```csound
 <CsoundSynthesizer>

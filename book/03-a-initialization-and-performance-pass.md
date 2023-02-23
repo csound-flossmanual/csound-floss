@@ -33,7 +33,7 @@ are local (= only considered inside an instrument), or with a **gi** if
 they are global (= considered overall in the orchestra). This is a
 simple example:
 
-**_EXAMPLE 03A01_Init-pass.csd_**
+#### **_EXAMPLE 03A01_Init-pass.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -136,7 +136,7 @@ Let us see some code examples to illustrate these basic contexts.
 
 ### Implicit Incrementation
 
-**_EXAMPLE 03A02_Perf-pass_incr.csd_**
+#### **_EXAMPLE 03A02_Perf-pass_incr.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -197,7 +197,7 @@ first partial up to the 31st.
 The opcode printk2 prints out the frequency value whenever it has
 changed.
 
-**_EXAMPLE 03A03_Perf-pass_incr_listen.csd_**
+#### **_EXAMPLE 03A03_Perf-pass_incr_listen.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -259,7 +259,7 @@ during the performance pass. _kCount = 0_ sets the value for kCount to
 zero again and again, in each control cycle. So the increment always
 starts from the same point, and nothing really happens:
 
-**_EXAMPLE 03A04_Perf-pass_no_incr.csd_**
+#### **_EXAMPLE 03A04_Perf-pass_no_incr.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -306,7 +306,7 @@ There is no opcode in Csound to print out the audio vector directly,
 but we can use the _vaget_ opcode to see what is happening inside one
 control cycle with the audio samples.
 
-**_EXAMPLE 03A05_Audio_vector.csd_**
+#### **_EXAMPLE 03A05_Audio_vector.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -365,7 +365,7 @@ After having put so much attention to the different single aspects of
 initialization, performance and audio vectors, the next example tries to
 summarize and illustrate all the aspects in their practical mixture.
 
-**_EXAMPLE 03A06_Init_perf_audio.csd_**
+#### **_EXAMPLE 03A06_Init_perf_audio.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -421,7 +421,7 @@ a-variables explicitely. On the other hand, you can get the initial
 value of a k-variable which has not been set explicitely,
 by the _i()_ facility. This is a simple example:
 
-**_EXAMPLE 03A07_Init-values_of_k-variables.csd_**
+#### **_EXAMPLE 03A07_Init-values_of_k-variables.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -556,7 +556,7 @@ k-variable explicitely by an init statement.
 The final example shows both possibilities, using explicit
 initialization or not, and the resulting effect.
 
-**_EXAMPLE 03A10_k-inits_in_multiple_calls_3.csd_**
+#### **_EXAMPLE 03A10_k-inits_in_multiple_calls_3.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -627,7 +627,7 @@ this case 44100/32 = 1378.125 Hz. The same happens at start=4 with audio
 variable _a2._ Instrument 2 initializes _a1_ and _a2_ in the cases they
 need to be, so that the inadvertend tone disappears.
 
-**_EXAMPLE 03A11_a_inits_in_multiple_calls.csd_**
+#### **_EXAMPLE 03A11_a_inits_in_multiple_calls.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -694,7 +694,7 @@ i . 7 . 1
 As we saw above, an i-value is not affected by the performance loop. So
 you cannot expect this to work as an incrementation:
 
-**_EXAMPLE 03A12_Init_no_incr.csd_**
+#### **_EXAMPLE 03A12_Init_no_incr.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -726,7 +726,7 @@ You must mark a section by a label (any name followed by a colon).
 Then the reinit statement will cause the i-variable to refresh.
 Use rireturn to end the reinit section.
 
-**_EXAMPLE 03A13_Re-init.csd_**
+#### **_EXAMPLE 03A13_Re-init.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -786,7 +786,7 @@ another instrument, you must not give this instrument the number 11 or
 higher. In the following example, first instrument 10 uses a value of
 instrument 1, then a value of instrument 100.
 
-**_EXAMPLE 03A14_Order_of_calc.csd_**
+#### **_EXAMPLE 03A14_Order_of_calc.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -866,7 +866,7 @@ The answer is simple: Csound calculates them in the same order as they
 are written in the orchestra. So if your instrument collection is like
 this ...
 
-**_EXAMPLE 03A15_Order_of_calc_named.csd_**
+#### **_EXAMPLE 03A15_Order_of_calc_named.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -928,7 +928,7 @@ use the nstrnum opcode.]
 
 Sometimes we want to call severall instances of an instrument, but we want to treat each instance different. For this, Csound provides the possibility of fractional note numbers. In the following example, instr 1 shows a basic example, turning on and off certain instances in the score. (Turning off is done here by negative note numbers.) Instr _Play_ is a bit more complicated in using the instance number as index to a global array. Instr _Trigger_ calls this instrument several times with fractional numbers. It also shows how we can use fractional numbers for named instruments: We first get the number which Csound appointed to this instrument (using the [nstrnum](https://csound.com/docs/manual/nstrnum.html) opcode), and then add the fractional part (0, 0.1, 0.2 etc) to it.
 
-**_EXAMPLE 03A16_FractionalInstrNums.csd_**
+#### **_EXAMPLE 03A16_FractionalInstrNums.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1059,7 +1059,7 @@ If you use the a-rate random generator, you will get as many new values
 per second as your sample rate is. If you use it in the range of your 0
 dB amplitude, you produce white noise.
 
-**_EXAMPLE 03A17_Random_at_ika.csd_**
+#### **_EXAMPLE 03A17_Random_at_ika.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1145,7 +1145,7 @@ amount of zipper noise. — Instrument 2 uses an envelope at audio-rate
 instead. Regardless the blocksize, each sample is calculated seperately,
 so the envelope will always be smooth. — Instrument 3 shows a remedy for situations in which a k-rate envelope cannot be avoided: the [a()](https://csound.com/docs/manual/opa.html) will convert the k-signal to audio-rate by interpolation thus smoothing the envelope.
 
-**_EXAMPLE 03A18_Zipper.csd_**
+#### **_EXAMPLE 03A18_Zipper.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1206,7 +1206,7 @@ control cycles, nor end.
 The next example chooses an extreme small control rate (only 10 k-cycles
 per second) to illustrate this.
 
-**_EXAMPLE 03A19_Time_Impossible.csd_**
+#### **_EXAMPLE 03A19_Time_Impossible.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1307,7 +1307,7 @@ but here not for printing rather than playing out only the samples
 whichs values are between 0 and 1/10000. They are then multiplied by
 10000 so that not only rhythm is irregular but also volume.
 
-**_EXAMPLE 03A20_Sample_by_sample_processing.csd_**
+#### **_EXAMPLE 03A20_Sample_by_sample_processing.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1424,7 +1424,7 @@ The first case is easy to understand, although some results may be
 unexpected. Any k-variable which is not explicitly initialized is set to
 zero as initial value.
 
-**_EXAMPLE 03A21_Init_explcit_implicit.csd_**
+#### **_EXAMPLE 03A21_Init_explcit_implicit.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1485,7 +1485,7 @@ Usually the second one overwrites the first. But if a k-value is
 explicitely set via the _init_ opcode, the implicit initialization will
 not take place.
 
-**_EXAMPLE 03A22_Init_overwrite.csd_**
+#### **_EXAMPLE 03A22_Init_overwrite.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1545,7 +1545,7 @@ if-condition will never become true. But regardless it is true or false,
 any k-rate if-clause initializes its expressions,
 in this case the _String_ variable.
 
-**_EXAMPLE 03A23_Init_hidden_in_if.csd_**
+#### **_EXAMPLE 03A23_Init_hidden_in_if.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1617,7 +1617,7 @@ opcode, but in terms of implicit initialization it is not the case. In
 the following example, we may expect that instrument 2 has the same
 output as instrument 1.
 
-**_EXAMPLE 03A24_Init_hidden_in_udo.csd_**
+#### **_EXAMPLE 03A24_Init_hidden_in_udo.csd_**
 
 ```csound
 <CsoundSynthesizer>

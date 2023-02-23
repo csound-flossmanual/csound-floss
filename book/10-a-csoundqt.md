@@ -9,11 +9,26 @@ display.
 
 ## Installing
 
-CsoundQt is a _frontend_ for Csound, so **Csound needs to be installed first**. Make sure you have installed Csound before you install CsoundQt; otherwise it will not work at all.
+CsoundQt is a _frontend_ for Csound,
+so **Csound needs to be installed first**.
+Make sure you have installed Csound before you install CsoundQt;
+otherwise it will not work at all.
 
-CsoundQt is **included** in the Csound installers **for Mac OSX and Windows**. It is recommended to use the CsoundQt version which is shipped with the installer for compatibility between CsoundQt and Csound. The Windows installer will probably install CsoundQt automatically. For OSX, first install the Csound package, then open the CsoundQt disk image and copy the CsoundQt Application into the _Applications_ folder.
+CsoundQt is **included** in the Csound installers **for Mac OSX and Windows**.
+It is recommended to use the CsoundQt version which is shipped with the installer
+for compatibility between CsoundQt and Csound.
+The Windows installer will probably install CsoundQt automatically.
+For OSX, first install the Csound package,
+then open the CsoundQt disk image and copy
+the CsoundQt Application into the _Applications_ folder.
 
-For **Linux** there is a Debian/Ubuntu package. Unfortunately it is built without _RtMidi_ support, so you will not be able to connect CsoundQt's widgets directly with your midi controllers. The alternative is to build CsoundQt with [QtCreator](https://www.qt.io/development-tools) which is not too hard and gives you all options, including the PythonQt connection. You will find instructions how to build in the [CsoundQt Wiki](https://github.com/CsoundQt/CsoundQt/wiki).
+For **Linux** there is a Debian/Ubuntu package.
+Unfortunately it is built without _RtMidi_ support,
+so you will not be able to connect CsoundQt's widgets directly with your midi controllers.
+The alternative is to build CsoundQt
+with [QtCreator](https://www.qt.io/development-tools) which is not too hard and gives you all options,
+including the PythonQt connection.
+You will find instructions how to build in the [CsoundQt Wiki](https://github.com/CsoundQt/CsoundQt/wiki).
 
 ## General Usage and Configuration
 
@@ -43,19 +58,17 @@ See chapter [Csound and Html](12-g-csound-and-html.md) for more information.
 
 CsoundQt also offers convenient facilities for score editing in a
 spreadsheet like environment which can be transformed using Python
-scripting (see also the chapter about
-[Python in CsoundQt](14-b-python-in-csoundqt.md)).
+scripting (see also the chapter about [Python in CsoundQt](14-b-python-in-csoundqt.md)).
 
 ![](../resources/images/10-a-snapshot3.png)
 
-You will find more detailed information at
-[CsoundQt's home page](https://csoundqt.github.io).
+You will find more detailed information at [CsoundQt's home page](https://csoundqt.github.io).
 
 ### Configuring CsoundQt
 
-CsoundQt gives easy access to the most important
-[Csound options](https://csound.com/docs/manual/CommandFlags.html) and to
-many specific CsoundQt settings via its Configuration Panel. In
+CsoundQt gives easy access to the most
+important [Csound options](https://csound.com/docs/manual/CommandFlags.html) and
+to many specific CsoundQt settings via its Configuration Panel. In
 particular the _Run_ tab offers many choices which have to be
 understood and set carefully.
 
@@ -63,4 +76,6 @@ To open the configuration panel simply push the _Configure_ button.
 The configuration panel comprises seven tabs. The available configurable
 parameters in each tab are described below for each tab.
 
-The single options, their meaning and tips of how to set them are listed at the [Configuring CsoundQt](https://csoundqt.github.io/pages/configuring-csoundqt.html) page of CsoundQt's website.
+The single options, their meaning and tips of how to set them are listed
+at the [Configuring CsoundQt](https://csoundqt.github.io/pages/configuring-csoundqt.html) page of
+CsoundQt's website.

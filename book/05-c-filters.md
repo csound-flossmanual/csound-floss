@@ -6,7 +6,7 @@ portions of a sound spectrum to create new sounds. Csound includes
 several versions of each of the commonest types of filters and some more
 esoteric ones also. The full list of Csound's standard filters can be
 found [here](https://csound.com/docs/manual/SigmodStandard.html). A
-list of the more specialised filters can be found
+list of the more specialised filters can be found&nbsp;
 [here](https://csound.com/docs/manual/SigmodSpeciali.html).
 
 ## Lowpass Filters
@@ -23,10 +23,10 @@ that might emerge at the cutoff point. If this is exaggerated
 intentionally it is referred to as resonance or _Q_.
 
 In the following example, three lowpass filters filters are
-demonstrated: [tone](https://csound.com/docs/manual/tone.html),
-[butlp](https://csound.com/docs/manual/butterlp.html) and
-[moogladder](https://csound.com/docs/manual/moogladder.html). _tone_
-offers a quite gentle cutoff slope and therefore is better suited to
+demonstrated: [tone](https://csound.com/docs/manual/tone.html),&nbsp;
+[butlp](https://csound.com/docs/manual/butterlp.html) and&nbsp;
+[moogladder](https://csound.com/docs/manual/moogladder.html).
+&nbsp;_tone_ offers a quite gentle cutoff slope and therefore is better suited to
 subtle spectral enhancement tasks. _butlp_ is based on the Butterworth
 filter design and produces a much sharper cutoff slope at the expense of
 a slightly greater CPU overhead. _moogladder_ is an interpretation of an
@@ -42,7 +42,7 @@ therefore demonstrates the filters characteristics well; a sine wave
 would be a poor choice of source sound on account of its lack of
 spectral richness.
 
-**_EXAMPLE 05C01_tone_butlp_moogladder.csd_**
+#### **_EXAMPLE 05C01_tone_butlp_moogladder.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -94,10 +94,10 @@ i 3 8  3; moogladder
 
 A highpass filter is the converse of a lowpass filter; frequencies
 higher than the cutoff point are allowed to pass whilst those lower are
-attenuated. [atone](https://csound.com/docs/manual/atone.html) and
+attenuated. [atone](https://csound.com/docs/manual/atone.html) and&nbsp;
 [buthp](https://csound.com/docs/manual/butterhp.html) are the
 analogues of _tone_ and _butlp_. Resonant highpass filters are harder to
-find but Csound has one in
+find but Csound has one in&nbsp;
 [bqrez](https://csound.com/docs/manual/bqrez.html). _bqrez_ is
 actually a multi-mode filter and could also be used as a resonant
 lowpass filter amongst other things. We can choose which mode we want by
@@ -107,7 +107,7 @@ of the filters in turn but this time the cutoff frequency moves from low
 to high. Spectral content is increasingly removed but from the opposite
 spectral direction.
 
-**_EXAMPLE 05C02_atone_buthp_bqrez.csd_**
+#### **_EXAMPLE 05C02_atone_buthp_bqrez.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -165,8 +165,8 @@ frequencies allowed to pass through, or _bandwidth_.
 
 In the next example cutoff frequency and bandwidth are demonstrated
 independently for two different bandpass filters offered by Csound.
-First of all a sawtooth waveform is passed through a
-[reson](https://csound.com/docs/manual/reson.html) filter and a
+First of all a sawtooth waveform is passed through a&nbsp;
+[reson](https://csound.com/docs/manual/reson.html) filter and a&nbsp;
 [butbp](https://csound.com/docs/manual/butterbp.html) filter in turn
 while the cutoff frequency rises (bandwidth remains static). Then pink
 noise is passed through _reson_ and _butbp_ in turn again but this time
@@ -184,7 +184,7 @@ seems to work well with spectrally sparse sounds like harmonic tones
 while mode 2 works well with spectrally dense sounds such as white or
 pink noise.
 
-**_EXAMPLE 05C03_reson_butbp.csd_**
+#### **_EXAMPLE 05C03_reson_butbp.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -248,7 +248,7 @@ A comb filter is a special type of filter that creates a harmonically
 related stack of resonance peaks on an input sound file. A comb filter
 is really just a very short delay effect with feedback. Typically the
 delay times involved would be less than 0.05 seconds. Many of the comb
-filters documented in
+filters documented in&nbsp;
 [the Csound Manual](https://csound.com/docs/manual/) term this delay time,
 _loop time_. The fundamental of the harmonic stack of resonances
 produced will be _1/loop_ time. Loop time and the frequencies of the
@@ -262,7 +262,7 @@ of comb filters in the design of reverb algorithms. Negative reverb
 times will result in only the odd numbered partials of the harmonic
 stack being present.
 
-The following example demonstrates a comb filter using the
+The following example demonstrates a comb filter using the&nbsp;
 [vcomb](https://csound.com/docs/manual/vcomb.html) opcode. This
 opcode allows for performance time modulation of the loop time
 parameter. For the first 5 seconds of the demonstration the reverb time
@@ -273,7 +273,7 @@ of 10 seconds the loop time rises to 0.1 seconds (the resonant peaks
 fall in frequency). A repeating noise impulse is used as a source sound
 to best demonstrate the qualities of a comb filter.
 
-**_EXAMPLE 05C04_comb.csd_**
+#### **_EXAMPLE 05C04_comb.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -311,11 +311,11 @@ i 1 0 25
 ## Other Filters Worth Investigating
 
 In addition to a wealth of low and highpass filters, Csound offers
-several more unique filters. Multimode such as
+several more unique filters. Multimode such as&nbsp;
 [bqrez](https://csound.com/docs/manual/bqrez.html) provide several
 different filter types within a single opcode. Filter type is normally
 chosen using an i-rate input argument that functions like a switch.
-Another multimode filter,
+Another multimode filter,&nbsp;
 [clfilt](https://csound.com/docs/manual/clfilt.html), offers
 additional filter controls such as _filter design_ and _number of
 poles_ to create unusual sound filters. unfortunately some parts of
@@ -323,7 +323,7 @@ this opcode are not implemented yet.
 
 [eqfil](https://csound.com/docs/manual/eqfil.html) is essentially a
 parametric equaliser but multiple iterations could be used as modules in
-a graphic equaliser bank. In addition to the capabilities of eqfil,
+a graphic equaliser bank. In addition to the capabilities of eqfil,&nbsp;
 [pareq](https://csound.com/docs/manual/pareq.html) adds the
 possibility of creating low and high shelving filtering which might
 prove useful in mastering or in spectral adjustment of more developed
@@ -338,10 +338,10 @@ opcode.
 outputs from four filter types - highpass, lowpass, bandpass and
 bandreject - simultaneously so that the user can morph between them
 smoothly. [svfilter](https://csound.com/docs/manual/svfilter.html)
-does a similar thing but with just highpass, lowpass and bandpass filter
+&nbsp;does a similar thing but with just highpass, lowpass and bandpass filter
 types.
 
-[phaser1](https://csound.com/docs/manual/phaser1.html) and
+[phaser1](https://csound.com/docs/manual/phaser1.html) and&nbsp;
 [phaser2](https://csound.com/docs/manual/phaser2.html) offer
 algorithms containing chains of first order and second order allpass
 filters respectively. These algorithms could conceivably be built from
@@ -352,7 +352,7 @@ convenience and added efficiency.
 specialist IIR filter that implements the Hilbert transformer.
 
 For those wishing to devise their own filter using coefficients Csound
-offers [filter2](https://csound.com/docs/manual/filter2.html) and
+offers [filter2](https://csound.com/docs/manual/filter2.html) and&nbsp;
 [zfilter2](https://csound.com/docs/manual/zfilter2.html).
 
 ## Filter Comparision
@@ -360,7 +360,7 @@ offers [filter2](https://csound.com/docs/manual/filter2.html) and
 The following example shows a nice comparision between a number of
 common used filters.
 
-**_EXAMPLE 05C05_filter_compar.csd_**
+#### **_EXAMPLE 05C05_filter_compar.csd_**
 
 ```csound
 <CsoundSynthesizer>

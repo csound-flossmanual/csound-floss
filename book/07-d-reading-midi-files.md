@@ -4,21 +4,20 @@ Instead of using either the standard Csound score or live midi events as
 input for an orchestra Csound can read a midi file and use the data
 contained within it as if it were a live midi input.
 
-The command line flag to instigate reading from a midi file is
+The command line flag to instigate reading from a midi file is&nbsp;
 [-F](https://csound.com/docs/manual/CommandFlags.html#FlagsMinusUpperF)
-followed by the name of the file or the complete path to the file if it
+&nbsp;followed by the name of the file or the complete path to the file if it
 is not in the same directory as the _.csd_ file. Midi channels will be
-mapped to instrument according to the rules and options discussed in
+mapped to instrument according to the rules and options discussed in&nbsp;
 [Triggering Instrument Instances](07-b-triggering-instrument-instances.md)
-and all controllers can be interpretted as desired using the techniques
-discussed in
+&nbsp;and all controllers can be interpretted as desired using the techniques
+discussed in&nbsp;
 [Working with Controllers](07-c-working-with-controllers.md).
 
-The following example plays back a midi file using Csound's
-_fluidsynth_ family of opcodes to facilitate playing soundfonts
-(sample libraries). For more information on these opcodes please consult
-the
-[Csound Reference Manual](https://csound.com/docs/manual/index.html).
+The following example plays back a midi file using Csound's _fluidsynth_ family
+of opcodes to facilitate playing soundfonts (sample libraries).
+For more information on these opcodes please consult
+the [Csound Reference Manual](https://csound.com/docs/manual/index.html).
 In order to run
 the example you will need to download a midi file and two (ideally
 contrasting) soundfonts. Adjust the references to these files in the
@@ -28,12 +27,12 @@ soundfonts, such as a marimba and a trumpet, so that you can easily hear
 the parsing of midi channels in the midi file to different Csound
 instruments. In the example channels 1,3,5,7,9,11,13 and 15 play back
 using soundfont 1 and channels 2,4,6,8,10,12,14 and 16 play back using
-soundfont 2. When using fluidsynth in Csound we normally use an _always
-on_ instrument to gather all the audio from the various soundfonts (in
+soundfont 2. When using fluidsynth in Csound we normally use
+an _always on_ instrument to gather all the audio from the various soundfonts (in
 this example instrument 99) which also conveniently keeps performance
 going while our midi file plays back.
 
-**_EXAMPLE 07D01_ReadMidiFile.csd_**
+#### **_EXAMPLE 07D01_ReadMidiFile.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -102,20 +101,20 @@ several scores could be combined. The following example takes a midi
 file as input and outputs standard Csound .sco files of the events
 contained therein. For convenience each midi channel is output to a
 separate .sco file, therefore up to 16 .sco files will be created.
-Multiple .sco files can be later recombined by using
+Multiple .sco files can be later recombined by using&nbsp;
 [\#include](https://csound.com/docs/manual/include.html)
-statements or simply by using copy and paste.
+&nbsp;statements or simply by using copy and paste.
 
 The only tricky aspect of this example is that note-ons followed by
 note-offs need to be sensed and calculated as p3 duration values. This
-is implemented by sensing the note-off by using the
+is implemented by sensing the note-off by using the&nbsp;
 [release](https://csound.com/docs/manual/release.html) opcode and at
 that moment triggering a note in another instrument with the required
 score data. It is this second instrument that is responsible for writing
 this data to a score file. Midi channels are rendered as p1 values, midi
 note numbers as p4 and velocity values as p5.
 
-**_EXAMPLE 07D02_MidiToScore.csd_**
+#### **_EXAMPLE 07D02_MidiToScore.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -164,7 +163,7 @@ f 0 480 ; ensure this duration is as long or longer that duration of midi file
 ```
 
 The example above ignores continuous controller data, pitch bend and
-aftertouch. The second example on the page in the
-[Csound Manual](https://csound.com/docs/manual/index.html) for the opcode
+aftertouch. The second example on the page in the&nbsp;
+[Csound Manual](https://csound.com/docs/manual/index.html) for the opcode&nbsp;
 [fprintks](https://csound.com/docs/manual/fprintks.html) renders all
 midi data to a score file.

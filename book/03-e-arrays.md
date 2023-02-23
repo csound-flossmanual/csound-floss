@@ -102,7 +102,7 @@ it gets the content of _gi_Arr_2_.
 The content of _iArr\[\]_ is then sent to instr _Play_ in
 a [while](https://csound.com/docs/manual/while.html) loop.
 
-**_EXAMPLE 03E01_CopyArray.csd_**
+#### **_EXAMPLE 03E01_CopyArray.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -178,7 +178,7 @@ in every k-cycle (!).^[More detailed explanation about i- and k-rate
 can be found in chapter [03 A](03-a-initialization-and-performance-pass.md)]
 Here is a simple example showing the difference:
 
-**_EXAMPLE 03E02_i_k_arrays.csd_**
+#### **_EXAMPLE 03E02_i_k_arrays.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -256,7 +256,7 @@ multiplies the envelope with each element of the array, and
 the [out](https://csound.com/docs/manual/out.html) opcode
 outputs the result to both channels of the audio output device.
 
-**_EXAMPLE 03E03_Audio_array.csd_**
+#### **_EXAMPLE 03E03_Audio_array.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -313,7 +313,7 @@ will return _"two"_.
 The [directory](https://csound.com/docs/manual/directory.html) opcode looks for all files in a directory
 and returns an array containing the file names:
 
-**_EXAMPLE 03E04_Directory.csd_**
+#### **_EXAMPLE 03E04_Directory.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -356,7 +356,7 @@ the variable name must be prefixed with the character **_g_**,
 (as is done with other types of global variable in Csound).
 The next example demonstrates local and global arrays at both _i_- and _k_-rate.
 
-**_EXAMPLE 03E05_Local_vs_global_arrays.csd_**
+#### **_EXAMPLE 03E05_Local_vs_global_arrays.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -433,8 +433,8 @@ it is _i_-rate or _k_-rate or _a_-rate. But for arrays, we have actually two
 signifiers: the array variable type, and the index type. If both
 coincide, it is easy:
 
-- **\*i**_array\*[\*\*\*i_\*_index_] reads and writes at i-time
-- **\*k**_array\*[\*\*\*k_\*_index_] reads and writes at k-time
+- **i**\_array\[_**i**\_index_\] reads and writes at i-time
+- **k**\_array\[_**k**\_index_\] reads and writes at k-time
 
 For audio arrays, we must distinguish between the audio vector itself which is updated sample by sample,
 and the array as container which can be updated at k-time.
@@ -442,17 +442,17 @@ and the array as container which can be updated at k-time.
 thus switching each k-time between the audio vector of both signals.)
 So the coincidence between variable and index rate is here:
 
-- **\*a**_array\*[\*\*\*k_\*_index_] reads and writes at k-time
+- **a**\_array\[_**k**\_index_\] reads and writes at k-time
 
 But what to do if array type and index type do not coincide? In general,
 the index type will then determine whether the array is read or written
 only once (at init-time) or at each _k_-cycle. This is valid in particular
 for _S_ arrays (containing strings). Other cases are:
 
-- **\*i**\_array\*[***k**_index*] reads at k-time; writing is not possible
+- **i**\_array\[_**k**\_index_] reads at k-time; writing is not possible
   (yields a runtime error)
-- **\*k**\_array\*[***i**_index*] reads and writes at k-rate
-- **\*a**\_array\*[***i**_index*] reads and writes at k-rate
+- **k**\_array\[_**i**\_index_] reads and writes at k-rate
+- **a**\_array\[_**i**\_index_] reads and writes at k-rate
 
 ### Init Values of _k_-Arrays
 
@@ -544,7 +544,7 @@ Line 20 tests whether the elements are larger than 1 and smaller or equal 4.
 Line 22 performs an element by element comparison with the array [3,5,1,4,2],
 asking for larger elements in the original array.
 
-**_EXAMPLE 03E06_cmp.csd_**
+#### **_EXAMPLE 03E06_cmp.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -870,7 +870,7 @@ which are lower than bin 40 which is centered at 40 \* 21.533 =
 861.328 Hz.] This is only done when a new frame writes its
 values to the array so as not to waste rendering power.
 
-**_EXAMPLE 03E07_pvs_to_from_array.csd_**
+#### **_EXAMPLE 03E07_pvs_to_from_array.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1207,7 +1207,7 @@ Csound will then select the appropriate version.
 
 The following example extends the _FirstEl_ function from _k_-arrays also to _i_- and _S_-arrays.
 
-**_EXAMPLE 03E08_array_overload.csd_**
+#### **_EXAMPLE 03E08_array_overload.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1282,7 +1282,7 @@ function: _RndInt_ returns a random integer
 between _iStart_ and _iEnd_ (included).^[More UDOs can be found at <https://github.com/csudo/csudo/>,
 <https://github.com/kunstmusik/libsyi> and other places.]
 
-**_EXAMPLE 03E09_Shuffle.csd_**
+#### **_EXAMPLE 03E09_Shuffle.csd_**
 
 ```csound
 <CsoundSynthesizer>

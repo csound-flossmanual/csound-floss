@@ -12,8 +12,8 @@ copyright (c) 2020 by Joachim Heintz and contributors
 
 The content of this book is released under creative commons license **CC-BY 4.0**.
 In short, anyone is allowed to copy, redistribute and transform the content,
-as long as appropriate credit is given to the source. For more information see
-[https://creativecommons.org/licenses/by/4.0/](https://creativecommons.org/licenses/by/4.0/).
+as long as appropriate credit is given to the source.
+For more information see [https://creativecommons.org/licenses/by/4.0/](https://creativecommons.org/licenses/by/4.0/).
 
 #### 00 INTRODUCTION
 

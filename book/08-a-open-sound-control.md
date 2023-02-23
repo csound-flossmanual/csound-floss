@@ -7,7 +7,12 @@ synthesizers but also between applications and remote computers.
 
 ## Data Types and Csound Signifiers
 
-The basic unit of OSC data is a _message_. This is being sent to an _address_ which follows the UNIX path convention, starting with a slash and creating branches at every following slash. The names inside this structure are free, but the convention is that it should fit to the content, for instance `/filter/rudi/cutoff` or `/Processing/sketch/RGB`. So, in contrast to MIDI, the address space is not predefined and can be changed dynamically.
+The basic unit of OSC data is a _message_.
+This is being sent to an _address_ which follows the UNIX path convention,
+starting with a slash and creating branches at every following slash.
+The names inside this structure are free, but the convention is that it should fit to the content,
+for instance `/filter/rudi/cutoff` or `/Processing/sketch/RGB`.
+So, in contrast to MIDI, the address space is not predefined and can be changed dynamically.
 
 The OSC message must specify the type(s) of its argument(s). This is a list of all types which are available in Csound, and the signifier which Csound uses for this type:
 
@@ -27,11 +32,13 @@ Once data types are declared, messages can be sent and received. In OSC terminol
 
 ## Sending and Receiving Different Data Types
 
-For this introduction we will keep both functions in Csound, One instrument will send an OSC message, another instrument will receive this message. We will start with sending and receiving nothing but one integer, to study the basic functionality.
+For this introduction we will keep both functions in Csound,
+one instrument will send an OSC message, another instrument will receive this message.
+We will start with sending and receiving nothing but one integer, to study the basic functionality.
 
 ### Send/Receive an integer
 
-**_EXAMPLE 08A01_OSC_send_recv_int.csd_**
+#### **_EXAMPLE 08A01_OSC_send_recv_int.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -77,7 +84,10 @@ To understand the main functionalities to use OSC in Csound, we will look more c
 
     giPortHandle OSCinit 47120
 
-The [OSCinit](https://csound.com/docs/manual/OSCinit.html) statement is necessary for the [OSClisten](https://csound.com/docs/manual/OSClisten.html) opcode. It takes a port number as input argument and returns a handle, called _giHandle_ in this case. This statement should usually be done in the global space.
+The [OSCinit](https://csound.com/docs/manual/OSCinit.html) statement is necessary for
+the [OSClisten](https://csound.com/docs/manual/OSClisten.html) opcode.
+It takes a port number as input argument and returns a handle, called _giHandle_ in this case.
+This statement should usually be done in the global space.
 
 #### OSCsend
 
@@ -85,31 +95,51 @@ The [OSCinit](https://csound.com/docs/manual/OSCinit.html) statement is necessar
     kSendValue = 17
     OSCsend kSendTrigger, "", 47120, "/exmp_1/int", "i", kSendValue
 
-The [OSCsend](https://csound.com/docs/manual/OSCsend.html) opcode will send a message whenever the _kSendTrigger_ will change its value. As this variable is set here to a fixed number, only one message will be sent. The second input for _OSCsend_ is the host to which the message is being sent. An empty string means "localhost" or "127.0.0.1". Third argument is the port number, here 47120, followed by the destination address string, here "/exmp_1/int". As we are sending an integer here, the type specifier is "i" as fifth argument, followed by the value itself.
+The [OSCsend](https://csound.com/docs/manual/OSCsend.html) opcode will send a
+message whenever the _kSendTrigger_ will change its value.
+As this variable is set here to a fixed number, only one message will be sent.
+The second input for _OSCsend_ is the host to which the message is being sent.
+An empty string means "localhost" or "127.0.0.1".
+Third argument is the port number, here 47120, followed by the destination address string,
+here "/exmp_1/int". As we are sending an integer here, the type specifier is "i" as fifth argument,
+followed by the value itself.
 
 #### OSClisten
 
     kReceiveValue init 0
     kGotIt OSClisten giPortHandle, "/exmp_1/int", "i", kReceiveValue
 
-On the receiver side, we find the _giPortHandle_ which was returned by _OSCinit_, and the address string again, as well as the expected type, here "i" for integer. Note that the value which is received is on the _input_ side of the opcode. So _kReceiveValue_ must be initialized before, which is done in line 21. Whenever _OSClisten_ receives a message, the _kGotIt_ output variable will become 1 (otherwise it is zero).
+On the receiver side, we find the _giPortHandle_ which was returned by _OSCinit_,
+and the address string again, as well as the expected type, here "i" for integer.
+Note that the value which is received is on the _input_ side of the opcode.
+So _kReceiveValue_ must be initialized before, which is done in line 21.
+Whenever _OSClisten_ receives a message, the _kGotIt_ output variable
+will become 1 (otherwise it is zero).
 
     if kGotIt == 1 then
      printf "Message Received for '/exmp_1/int' at time %f: \
      kReceiveValue = %d\n", 1, times:k(), kReceiveValue
     endif
 
-Here we catch this point, and get a printout with the time at which the message has been received. As our listening instrument starts first, and the sending instrument after one second, we will see a message like this one in the console:
+Here we catch this point, and get a printout with the time at which the message has been received.
+As our listening instrument starts first, and the sending instrument after one second,
+we will see a message like this one in the console:
 
     Message Received for '/exmp_1/int' at time 1.002086: kReceiveValue = 17
 
-Note that the time at which the message is received is necessarily slightly later than the time at which it is being sent. The time difference is usually around some milliseconds; it depends on the UDP transmission.
+Note that the time at which the message is received is necessarily
+slightly later than the time at which it is being sent.
+The time difference is usually around some milliseconds; it depends on the UDP transmission.
 
 ### Send/Receive more than one data type in a message
 
-The string which specifies the data types which are being sent, can consist of more than one character. It was "i" in the previous example, as we sent an integer. When we want to send a float and a string, it will become "fs". This is the case in the next example; anything else is very similar to what was shown before.
+The string which specifies the data types which are being sent,
+can consist of more than one character.
+It was "i" in the previous example, as we sent an integer.
+When we want to send a float and a string, it will become "fs".
+This is the case in the next example; anything else is very similar to what was shown before.
 
-**_EXAMPLE 08A02_OSC_more_data.csd_**
+#### **_EXAMPLE 08A02_OSC_more_data.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -159,9 +189,11 @@ The printout is here:
 
 ### Send/Receive arrays
 
-Instead of single data, OSC can also send and receive collections of data. The next example shows how an array is being sent once a second, and is being transformed for each [metro](https://csound.com/docs/manual/metro.html) tick.
+Instead of single data, OSC can also send and receive collections of data.
+The next example shows how an array is being sent once a second,
+and is being transformed for each [metro](https://csound.com/docs/manual/metro.html) tick.
 
-**_EXAMPLE 08A03_Send_receive_array.csd_**
+#### **_EXAMPLE 08A03_Send_receive_array.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -212,9 +244,11 @@ Each time the metro ticks, the array values are multiplied by two. So the printo
 
 ### Send/Receive function tables
 
-The next example shows a similar approach for function tables. Three different tables are being sent once a second, and received in the second instrument. Imagine two Csound instances running on two different computers for a more realistic situation.
+The next example shows a similar approach for function tables.
+Three different tables are being sent once a second, and received in the second instrument.
+Imagine two Csound instances running on two different computers for a more realistic situation.
 
-**_EXAMPLE 08A04_Send_receive_table.csd_**
+#### **_EXAMPLE 08A04_Send_receive_table.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -265,9 +299,12 @@ i "Send" 0 3
 
 ### Send/Receive audio
 
-It is also possible to send and receive an audio signal via OSC. in this case, a OSC message must be sent on each k-cycle. Remember though that OSC is not optimized for this task. Most probably you will hear some dropouts in the next example. (Larger ksmps values should give better result.)
+It is also possible to send and receive an audio signal via OSC.
+In this case, a OSC message must be sent on each k-cycle.
+Remember though that OSC is not optimized for this task.
+Most probably you will hear some dropouts in the next example. (Larger ksmps values should give better result.)
 
-**_EXAMPLE 08A05_send_receive_audio.csd_**
+#### **_EXAMPLE 08A05_send_receive_audio.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -316,11 +353,16 @@ The examples in this chapter were simple demonstrations of how different data ty
 
 ## Practical Examples with Processing
 
-We will show here some examples for the communication between Csound and [Processing](https://processing.org). Processing is a well-established programming language for any kind of image processing, including video recording and playback. The OSC library for Processing is called _oscP5_. After installing this library, it can be used for both, sending and receiving Open Sound Control messages in any way.
+We will show here some examples for the communication between Csound and [Processing](https://processing.org).
+Processing is a well-established programming language for any kind of image processing,
+including video recording and playback. The OSC library for Processing is called _oscP5_.
+After installing this library, it can be used for both, sending and receiving Open Sound Control messages in any way.
 
 ### Csound to Processing: Video Playback
 
-We often want to use visuals in connection with audio. A simple case is that we have a live electronic setup and at a certain point we want to start a video. We may want to start the video in Processing with a Csound message like this:
+We often want to use visuals in connection with audio.
+A simple case is that we have a live electronic setup and at a certain point we want to start a video.
+We may want to start the video in Processing with a Csound message like this:
 
     instr StartVideo
       OSCsend(1,"",12000,"/launch2/start","i",1)
@@ -328,17 +370,21 @@ We often want to use visuals in connection with audio. A simple case is that we 
 
 This means that we send the integer 1 to the address "launch2/start" on port 12000.
 
-To receive this message in Processing, we import the `oscP5` library and create a new `OscP5` instance which listens to port 12000:
+To receive this message in Processing,
+we import the `oscP5` library and create a new `OscP5` instance which listens to port 12000:
 
     import oscP5.*;
     OscP5 oscP5;
     oscP5 = new OscP5(this,12000);
 
-Then we use the `pluck()` method which passes the OSC messages of a certain address (here "/launch2/start") to a method with a user-defined name. We call it "startVideo" here:
+Then we use the `pluck()` method which passes the OSC messages of a certain address (here "/launch2/start")
+to a method with a user-defined name. We call it "startVideo" here:
 
     oscP5.plug(this,"startVideo","/launch2/start");
 
-All we have to do now is to wrap Processing's video `play()` message in this `startVideo` method. This is the full example code, referring to the video "launch2.mp4" which can be found in the Processing examples:
+All we have to do now is to wrap Processing's video `play()` message in this `startVideo` method.
+This is the full example code, referring to the video "launch2.mp4" which can be found in the
+Processing examples:
 
 ```processing
 //import the video and osc library
@@ -395,13 +441,16 @@ endin
 
 ### Processing to Csound: Mouse Pressed
 
-We start with a simple example for swapped roles: Processing is now the sender of the OSC message, and Csound the receiver.
+We start with a simple example for swapped roles:
+Processing is now the sender of the OSC message, and Csound the receiver.
 
 For processing, sending OSC is recommended by using this method:
 
     oscP5.send(OscMessage, myRemoteLocation)
 
-where `myRemoteLocation` is a `NetAddress` which is created by the library `netP5`. This is the code for sending an integer count whenever the mouse is pressed via OSC. The message is sent on port 12002 to the address "/P5/pressed".
+where `myRemoteLocation` is a `NetAddress` which is created by the library `netP5`.
+This is the code for sending an integer count whenever the mouse is pressed via OSC.
+The message is sent on port 12002 to the address "/P5/pressed".
 
 ```processing
 //import oscP5 and netP5 libraries
@@ -439,7 +488,7 @@ void draw(){
 
 The following Csound code receives the messages and prints the count numbers:
 
-**_EXAMPLE 08A06_receive_mouse_pressed.csd_**
+#### **_EXAMPLE 08A06_receive_mouse_pressed.csd_**
 
 ```
 <CsoundSynthesizer>
@@ -469,7 +518,10 @@ schedule("ReceiveOSC",0,-1)
 
 ### Processing to Csound: Moving Lines
 
-For showing one simple example for the many possibilities to connect Processing's interactive visuals with Csound, we will use the _Distance 1D_ example as basic. It shows two thin ans two thick lines which move on the screen in a speed which depends on the mouse position. We slightly modify the speed so that the four lines have four different speeds. Rather than ...
+For showing one simple example for the many possibilities to connect Processing's interactive visuals with Csound,
+we will use the _Distance 1D_ example as basic.
+It shows two thin ans two thick lines which move on the screen in a speed which depends on the mouse position.
+We slightly modify the speed so that the four lines have four different speeds. Rather than ...
 
 ```processing
 xpos1 += mx/16;
@@ -566,7 +618,8 @@ void draw(){
 }
 ```
 
-On the Csound side, we receive the four x-positions on "/p5/xpos" as floating point numbers and write it to the global array _gkPos_:
+On the Csound side, we receive the four x-positions on "/p5/xpos" as
+floating point numbers and write it to the global array _gkPos_:
 
     kAns,gkPos[] OSClisten iPort, "/P5/xpos", "ffff"
 
@@ -580,9 +633,11 @@ To achieve this, we build a function table _iTriangle_ with 640 points (as much 
 
 ![iTriangle function table](../resources/images/08-a-table.svg)
 
-The incoming x position is used for both, the volume (dB) and the pitch (MIDI). A vibrato is added to the sine waves (smaller but faster for higher pitches) to the sine waves, and the panning reflects the position of the lines between left and right.
+The incoming x position is used for both, the volume (dB) and the pitch (MIDI).
+A vibrato is added to the sine waves (smaller but faster for higher pitches) to the sine waves,
+and the panning reflects the position of the lines between left and right.
 
-**_EXAMPLE 08A07_P5_Csound_OSC.csd_**
+#### **_EXAMPLE 08A07_P5_Csound_OSC.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -640,4 +695,8 @@ endin
 ;example by joachim heintz
 ```
 
-Open Sound Control is the way to communicate between Processing and Csound as independent applications. Another way for connecting these extensive libraries for image and audio processing is by using JavaScript, and run both in a browser. Have a look at chapter [10 F](10-f-web-based-csound.md) and [12 G](12-g-csound-in-html-and-javascript.md) for more information.
+Open Sound Control is the way to communicate between Processing and Csound as independent applications.
+Another way for connecting these extensive libraries for image and audio processing is by using JavaScript,
+and run both in a browser.
+Have a look at chapter [10 F](10-f-web-based-csound.md) and&nbsp;
+[12 G](12-g-csound-in-html-and-javascript.md) for more information.

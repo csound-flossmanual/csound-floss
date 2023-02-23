@@ -16,7 +16,7 @@ that is you can trick Csound into providing you with a list of available
 devices by trying to run Csound using an obviously out of range device
 number, like this:
 
-**_EXAMPLE 02D01_GetDeviceList.csd_**
+#### **_EXAMPLE 02D01_GetDeviceList.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -148,7 +148,7 @@ output,&nbsp;
 audio input and transforms its sound using ring modulation. The Csound
 Console should output five times per second the input amplitude level.
 
-**_EXAMPLE 02D02_LiveInput.csd_**
+#### **_EXAMPLE 02D02_LiveInput.csd_**
 
 ```csound
 <CsoundSynthesizer>

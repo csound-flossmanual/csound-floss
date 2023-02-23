@@ -1,14 +1,15 @@
 # 09 B. CSOUND IN MAXMSP
 
 Csound can be embedded in a [Max](http://cycling74.com/products/max/)
-patch using the _csound~_ object. This allows you to synthesize and
+&nbsp;patch using the _csound~_ object. This allows you to synthesize and
 process audio, MIDI, or control data with Csound.
 
 _Note: Most of the descriptions below have been written years ago by Davis Pyon. They may be outdated and will need to be updated._
 
 ## Installing
 
-The _csound~_ requires an installation of Csound. The external can be downloaded on [Csound's download page](https://csound.com/download.html) (under _Other_).
+The _csound~_ requires an installation of Csound.
+The external can be downloaded on [Csound's download page](https://csound.com/download.html) (under _Other_).
 
 ## Creating a _csound~_ Patch
 
@@ -21,7 +22,7 @@ The _csound~_ requires an installation of Csound. The external can be downloaded
     as your patch.
 4.  Add the following to the text file:\
 
-**_EXAMPLE 09B01_maxcs_helloworld.csd _**
+#### **_EXAMPLE 09B01_maxcs_helloworld.csd _**
 
 ```csound
 <CsoundSynthesizer>
@@ -58,14 +59,15 @@ is. Using this information, _csound~_ can then find csd files specified
 using a relative pathname (e.g. _helloworld.csd_). Keep in mind that
 this is only necessary for newly created patches that have not been
 saved yet. By the way, had we specified an absolute pathname (e.g.
-_C:/Mystuff/helloworld.csd_), the process of saving and reopening
+&nbsp;_C:/Mystuff/helloworld.csd_), the process of saving and reopening
 would have been unnecessary.
 
 The _@scale 0_ argument tells _csound~_ not to scale audio data
 between Max and Csound. By default, _csound~_ will scale audio to match
 0dB levels. Max uses a 0dB level equal to one, while Csound uses a 0dB
 level equal to 32768. Using _@scale 0_ and adding the statement
-_0dbfs = 1_ within the csd file allows you to work with a 0dB level equal to one everywhere. This is highly recommended.
+&nbsp;_0dbfs = 1_ within the csd file allows you to work with a 0dB level equal to one everywhere.
+This is highly recommended.
 
 ## Audio I/O
 
@@ -80,18 +82,18 @@ inlets and outlets:
 - \[csound\~ 4 7\]
 
 _@io 3_ creates 3 audio inlets and 3 audio outlets. _@i 4 @o 7_
-creates 4 audio inlets and 7 audio outlets. The third and fourth lines
+&nbsp;creates 4 audio inlets and 7 audio outlets. The third and fourth lines
 accomplish the same thing as the first two. If you don't specify the
 number of audio inlets or outlets, then _csound~_ will have two audio
 inlets and two audio oulets. By the way, audio outlets always appear to
 the left of non-audio outlets. Let's create a patch called
-_audio_io.maxpat_ that demonstrates audio i/o:
+&nbsp;_audio_io.maxpat_ that demonstrates audio i/o:
 
 ![](../resources/images/09-b-audio-io.png)
 
 Here is the corresponding text file (let's call it _audio_io.csd_):
 
-**_EXAMPLE 09B02_maxcs_audio_io.csd _**
+#### **_EXAMPLE 09B02_maxcs_audio_io.csd _**
 
 ```csound
 <CsoundSynthesizer>
@@ -120,9 +122,9 @@ e
 ```
 
 In _audio_io.maxpat_, we are mixing three triangle waves into a stereo
-pair of outlets. In _audio_io.csd_, we us
+pair of outlets. In _audio_io.csd_, we use&nbsp;
 [inch](https://csound.com/docs/manual/inch.html) and
-[outch](https://csound.com/docs/manual/outch.html) to receive
+&nbsp;[outch](https://csound.com/docs/manual/outch.html) to receive
 and send audio from and to _csound~_. _inch_ and _outch_ both use a
 numbering system that starts with one (the left-most inlet or outlet).
 
@@ -149,7 +151,7 @@ The following patch and Csound file demonstrates control messages:
 
 ![](../resources/images/09-b-control.png)
 
-**_EXAMPLE 09B03_maxcs_control_in.csd _**
+#### **_EXAMPLE 09B03_maxcs_control_in.csd _**
 
 ```csound
 <CsoundSynthesizer>
@@ -185,10 +187,14 @@ inlets). Don't worry about it. In fact, we can send a message to any
 inlet and it will work.
 
 In the Csound file, notice that we use two different opcodes to receive
-the values sent in the control messages:
-[chnget](https://csound.com/docs/manual/chnget.html) and
+the values sent in the control messages:&nbsp;
+[chnget](https://csound.com/docs/manual/chnget.html) and&nbsp;
 [invalue](https://csound.com/docs/manual/invalue.html).
-_chnget_ is more versatile (it works at i-rate and k-rate, and it accepts strings) and is a tiny bit faster than _invalue_. On the other hand, the limited nature of _invalue_ (only works at k-rate, never requires any declarations in the header section of the orchestra) may be easier for newcomers to Csound.
+&nbsp;_chnget_ is more versatile (it works at i-rate and k-rate,
+and it accepts strings) and is a tiny bit faster than _invalue_.
+On the other hand, the limited nature
+of _invalue_ (only works at k-rate, never requires
+any declarations in the header section of the orchestra) may be easier for newcomers to Csound.
 
 ## MIDI
 
@@ -200,7 +206,7 @@ and text file that uses MIDI:
 
 ![](../resources/images/09-b-midi.png)
 
-**_EXAMPLE 09B04_maxcs_midi.csd _**
+#### **_EXAMPLE 09B04_maxcs_midi.csd _**
 
 ```csound
 <CsoundSynthesizer>
@@ -232,31 +238,36 @@ In the patch, notice how we're using _midiformat_ to format note and
 control change lists into raw MIDI bytes. The _1_ argument for
 midiformat specifies that all MIDI messages will be on channel one.
 
-In the Csound file, notice the
-[massign](https://csound.com/docs/manual/massign.html)
-statements in the header of the orchestra. _massign 0, 0_ tells Csound to clear all mappings between MIDI channels and Csound instrument numbers. This is highly recommended because forgetting to add this statement may cause confusion somewhere down the road. The next statement _massign 1,1_
-tells Csound to map MIDI channel one to instrument one.
+In the Csound file, notice the [massign](https://csound.com/docs/manual/massign.html)
+&nbsp;statements in the header of the orchestra.
+&nbsp;_massign 0, 0_ tells Csound to clear all mappings between
+MIDI channels and Csound instrument numbers.
+This is highly recommended because forgetting to add this statement
+may cause confusion somewhere down the road.
+The next statement _massign 1,1_ tells Csound to map MIDI channel one to instrument one.
 
-To get the MIDI pitch, we use the opcode
-[cpsmidi](https://csound.com/docs/manual/cpsmidi.html). To get
-the FM modulation factor, we use
-[midic7](https://csound.com/docs/manual/midic7.html) in order to
+To get the MIDI pitch, we use the opcode [cpsmidi](https://csound.com/docs/manual/cpsmidi.html).
+To get the FM modulation factor,
+we use [midic7](https://csound.com/docs/manual/midic7.html) in order to
 read the last known value of MIDI CC number one (mapped to the range
 \[0,10\]).^[Csound's MIDI options and opcodes are described in detail in
 section 7 of this manual.]
 
-Notice that in the score section of the Csound file, we no longer have the
-statement _i1 0 86400_ as we had in earlier examples. The score section is left empty here, so that instrument 1 is compiled but not activated. Activation is done via MIDI here.
+Notice that in the score section of the Csound file,
+we no longer have the statement _i1 0 86400_ as we had in earlier examples.
+The score section is left empty here, so that instrument 1 is compiled but not activated.
+Activation is done via MIDI here.
 
 ## Events
 
-To send Csound events (i.e. score statements), use the _event_ or
-_e_ message. You can send any type of event that Csound understands.
+To send Csound events (i.e. score statements),
+use the _event_ or _e_ message.
+You can send any type of event that Csound understands.
 The following patch and text file demonstrates how to send events:
 
 ![](../resources/images/09-b-events.png)
 
-**_EXAMPLE 09B05_maxcs_events.csd _**
+#### **_EXAMPLE 09B05_maxcs_events.csd _**
 
 ```csound
 <CsoundSynthesizer>
@@ -289,15 +300,15 @@ number specifies the start time. Here, we use _0_ because we want the
 event to start right now. The duration _3._ is specified as a floating
 point number so that we can have non-integer durations. Finally, the
 number _64_ determines the MIDI pitch. You might be wondering why the
-_pack_ object output is being sent to a message box. This is good practice
+&nbsp;_pack_ object output is being sent to a message box. This is good practice
 as it will reveal any mistakes you made in constructing an event
 message.
 
 In the Csound file, we access the event parameters using p-statements. We
 never access _p1_ (instrument number) or _p2_ (start time) because
-they are not important within the context of our instrument. Although
-_p3_ (duration) is not used for anything here, it is often used to
-create audio envelopes. Finally, _p4_ (MIDI pitch) is converted to
-cycles-per-second. The
-[print](https://csound.com/docs/manual/print.html) statement is
+they are not important within the context of our instrument.
+Although _p3_ (duration) is not used for anything here, it is often used to
+create audio envelopes.
+Finally, _p4_ (MIDI pitch) is converted to cycles-per-second.
+The [print](https://csound.com/docs/manual/print.html) statement is
 there so that we can verify the parameter values.

@@ -173,7 +173,7 @@ executed as an independent process. The result should be the same - the
 
 1\. Save the following code in any plain text editor as HelloWorld.csd.
 
-**_EXAMPLE 02A01_HelloWorld.csd_**
+#### **_EXAMPLE 02A01_HelloWorld.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -251,7 +251,7 @@ channels and the&nbsp;
 such as _rslider_ (a rotary slider). For additional information on
 Cabbage please consult the chapter on [Cabbage](http://flossmanuals.net/csound/cabbage/).
 
-**_EXAMPLE 02A02_HelloCabbage.csd_**
+#### **_EXAMPLE 02A02_HelloCabbage.csd_**
 
 ```csound
 <Cabbage>

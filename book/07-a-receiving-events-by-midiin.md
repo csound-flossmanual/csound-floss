@@ -1,17 +1,16 @@
 # 07 A. RECEIVING EVENTS BY MIDIIN
 
-Csound provides a variety of opcodes, such as
-[cpsmidi](https://csound.com/docs/manual/cpsmidi.html),
-[ampmidi](https://csound.com/docs/manual/ampmidi.html) and
+Csound provides a variety of opcodes, such as&nbsp;
+[cpsmidi](https://csound.com/docs/manual/cpsmidi.html),&nbsp;
+[ampmidi](https://csound.com/docs/manual/ampmidi.html) and&nbsp;
 [ctrl7](https://csound.com/docs/manual/ctrl7.html), which
 facilitate the reading of incoming midi data into Csound with minimal
 fuss. These opcodes allow us to read in midi information without us
 having to worry about parsing status bytes and so on. Occasionally
 though when more complex midi interaction is required, it might be
 advantageous for us to scan all raw midi information that is coming into
-Csound. The
-[midiin](file:///C:/Program%20Files/Csound/doc/manual/midiin.html)
-opcode allows us to do this.
+Csound. The [midiin](file:///C:/Program%20Files/Csound/doc/manual/midiin.html)
+&nbsp;opcode allows us to do this.
 
 In the next example a simple midi monitor is constructed. Incoming midi
 events are printed to the terminal with some formatting to make them
@@ -24,12 +23,11 @@ line:
 just after the header statement (sometimes referred to as instrument 0).
 
 For this example to work you will need to ensure that you have activated
-live midi input within Csound by using the
-[-M flag](https://csound.com/docs/manual/CommandFlagsCategory.html#FlagsCatMinusUpperM). You will also need to
-make sure that you have a midi keyboard or controller connected. You may
-also want to include the
-[-m128 flag](https://csound.com/docs/manual/CommandFlags.html#FlagsMinusLowerM)
-which will disable some of Csound's additional messaging output and
+live midi input within Csound by using
+the [-M flag](https://csound.com/docs/manual/CommandFlagsCategory.html#FlagsCatMinusUpperM).
+You will also need to make sure that you have a midi keyboard or controller connected.
+You may also want to include the [-m128 flag](https://csound.com/docs/manual/CommandFlags.html#FlagsMinusLowerM)
+&nbsp;which will disable some of Csound's additional messaging output and
 therefore allow our midi printout to be presented more clearly.
 
 The status byte tells us what sort of midi information has been
@@ -45,7 +43,7 @@ note number. If a midi controller event has been received then data byte
 1 gives us the controller number and data byte 2 gives us the controller
 value.
 
-**_EXAMPLE 07A01_midiin_print.csd_**
+#### **_EXAMPLE 07A01_midiin_print.csd_**
 
 ```csound
 <CsoundSynthesizer>

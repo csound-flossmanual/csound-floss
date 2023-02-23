@@ -11,8 +11,9 @@ and distributions and demonstrates their use in musical examples.
 ### Random is Different
 
 The term _random_ derives from the idea of a horse that is running so
-fast it becomes _out of control_ or _beyond predictability_.^[<http://www.etymonline.com/index.php?term=random>] Yet
-there are different ways in which to run fast and to be out of control;
+fast it becomes _out of control_ or
+&nbsp;_beyond predictability_.^[<http://www.etymonline.com/index.php?term=random>]
+&nbsp;Yet there are different ways in which to run fast and to be out of control;
 therefore there are different types of randomness.
 
 We can divide types of randomness into two classes. The first contains
@@ -29,10 +30,11 @@ The use of randomness in electronic music is widespread. In this
 chapter, we shall try to explain how the different random horses are
 moving, and how you can create and modify them on your own. Moreover,
 there are many pre-built random opcodes in Csound which can be used out
-of the box (see the
+of the box (see the&nbsp;
 [overview](http://wwws.csound.com/docs/manual/SiggenNoise.html) in the
-Csound Manual and the
-[Opcode Guide](15-a-opcode-guide.md)). The final section of this chapter introduces some musically interesting applications of them.
+Csound Manual and the&nbsp;
+[Opcode Guide](15-a-opcode-guide.md)).
+The final section of this chapter introduces some musically interesting applications of them.
 
 ### Random Without History
 
@@ -59,7 +61,7 @@ chain each time) in contrast to a seed being taken from the system clock
 four notes will always be the same because of the use of the same seed
 whereas the last three groups should always have a different pitch.
 
-**_EXAMPLE 01D01_different_seed.csd_**
+#### **_EXAMPLE 01D01_different_seed.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -118,7 +120,7 @@ repetition after 65536/44100 = 1.486 seconds.]
 In the second note, there is no perceivable repetition as the
 random generator now works with a 31-bit number.
 
-**_EXAMPLE 01D02_white_noises.csd_**
+#### **_EXAMPLE 01D02_white_noises.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -150,12 +152,12 @@ i "white_noise" 11 10 1
 Two more general notes about this:
 
 1.  The way to set the seed differs from opcode to opcode. There are
-    several opcodes such as
+    several opcodes such as&nbsp;
     [rand](https://csound.com/docs/manual/rand.html) featured above,
     which offer the choice of setting a seed as input parameter. For
-    others, such as the frequently used
+    others, such as the frequently used&nbsp;
     [random](https://csound.com/docs/manual/random.html) family, the
-    seed can only be set globally via the
+    seed can only be set globally via the&nbsp;
     [seed](https://csound.com/docs/manual/seed.html) statement. This
     is usually done in the header so a typical statement would be:
 
@@ -218,7 +220,7 @@ distribution, then a linear distribution with precedence of lower
 pitches (but longer durations), at least a linear distribution with
 precedence of higher pitches (but shorter durations).
 
-**_EXAMPLE 01D03_linrand.csd_**
+#### **_EXAMPLE 01D03_linrand.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -370,7 +372,7 @@ Generate two uniform random numbers and take the mean of them. The next
 example shows the difference between uniform and triangular distribution
 in the same environment as the previous example.
 
-**_EXAMPLE 01D04_trirand.csd_**
+#### **_EXAMPLE 01D04_trirand.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -529,16 +531,16 @@ similar. -- The next example shows these steps:
 Rather than using different instruments for the different distributions,
 the next example combines all possibilities in one single instrument.
 Inside the loop which generates as many notes as desired by the
-_iHowMany_ argument, an if-branch calculates the pitch and duration of
+&nbsp;_iHowMany_ argument, an if-branch calculates the pitch and duration of
 one note depending on the distribution type and the number of sub-units
 used. The whole sequence (which type first, which next, etc) is stored
 in the global array _giSequence_. Each instance of instrument _notes_
-increases the pointer giSeqIndx, so that for the next run the next
+&nbsp;increases the pointer giSeqIndx, so that for the next run the next
 element in the array is being read. If the pointer has reached the end
 of the array, the instrument which exits Csound is called instead of a
 new instance of _notes_.
 
-**_EXAMPLE 01D05_more_lin_tri_units.csd_**
+#### **_EXAMPLE 01D05_more_lin_tri_units.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -768,7 +770,7 @@ fixed possible values which are written into an array (from the longest
 to the shortest) by hand. The values in both arrays are then called
 according to their position in the array.
 
-**_EXAMPLE 01D06_scalings.csd_**
+#### **_EXAMPLE 01D06_scalings.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -982,7 +984,7 @@ following example shows the basic algorithm which evaluates the first
 line of the Markov table above, in the case, the previous element has
 been _a_.
 
-**_EXAMPLE 01D07_markov_basics.csd_**
+#### **_EXAMPLE 01D07_markov_basics.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1040,10 +1042,10 @@ input is a Markov table as a two-dimensional array, and the previous
 line as index (starting with 0). Its output is the next element, also as
 index. -- There are two Markov chains in this example: seven pitches,
 and three durations. Both are defined in two-dimensional arrays:
-_giProbNotes_ and _giProbDurs_. Both Markov chains are running
+&nbsp;_giProbNotes_ and _giProbDurs_. Both Markov chains are running
 independently from each other.
 
-**_EXAMPLE 01D08_markov_music.csd_**
+#### **_EXAMPLE 01D08_markov_music.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1182,7 +1184,7 @@ this.
 The _pitch_ random walk starts at pitch 8 in octave notation. The
 general pitch deviation _gkPitchDev_ is set to 0.2, so that the next
 pitch could be between 7.8 and 8.2. But there is also a pitch direction
-_gkPitchDir_ which is set to 0.1 as initial value. This means that the
+&nbsp;_gkPitchDir_ which is set to 0.1 as initial value. This means that the
 upper limit of the next random pitch is 8.3 instead of 8.2, so that the
 pitch will move upwards in a greater number of steps. When the upper
 limit _giHighestPitch_ has been crossed, the _gkPitchDir_ variable
@@ -1191,11 +1193,11 @@ have become lower. Whenever such a direction change happens, the console
 reports this with a message printed to the terminal.
 
 The _density_ of the notes is defined as notes per second, and is
-applied as frequency to the
+applied as frequency to the&nbsp;
 [metro](http://www.csound.com/docs/manual/metro.html) opcode in
 instrument _walk_. The lowest possible density _giLowestDens_ is set
 to 1, the highest to 8 notes per second, and the first density
-_giStartDens_ is set to 3. The possible random deviation for the next
+&nbsp;_giStartDens_ is set to 3. The possible random deviation for the next
 density is defined in a range from zero to one: zero means no deviation
 at all, one means that the next density can alter the current density in
 a range from half the current value to twice the current value. For
@@ -1208,7 +1210,7 @@ produce a very rapid increase in speed. Similar to the pitch walk, the
 direction parameter changes from plus to minus if the upper border has
 crossed, and vice versa.
 
-**_EXAMPLE 01D09_random_walk.csd_**
+#### **_EXAMPLE 01D09_random_walk.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1332,7 +1334,7 @@ by density functions (for continuous random variables).
 
 When two dice are thrown simultaneously, the sum _x_ of their numbers
 can be 2, 3, ...12. The following figure shows the probability function
-_p_(_x_) of these possible outcomes. _p_(_x_) is always less than or
+&nbsp;_p_(_x_) of these possible outcomes. _p_(_x_) is always less than or
 equal to 1. The sum of the probabilities of all possible outcomes is 1.
 
 ![](../resources/images/01-d-random1.gif)
@@ -1354,8 +1356,8 @@ Csound provides opcodes for some specific densities but no means to
 produce random number with user defined probability or density
 functions. The opcodes _rand_density_ and _rand_probability_ (see
 below) generate random numbers with probabilities or densities given by
-tables. They are realized by using the so-called _rejection sampling
-method_.
+tables.
+They are realized by using the so-called _rejection sampling method_.
 
 #### Rejection Sampling
 
@@ -1367,17 +1369,17 @@ shown in the next figure. (Since the rejection sampling method uses only
 the _shape_ of the function, the area under the function need not be
 1). We first generate uniformly distributed random numbers _rnd1_ over
 the interval \[0, 1\]. Of these we accept a proportion corresponding to
-_f_(_rnd1_). For example, the value 0.32 will only be accepted in the
+&nbsp;_f_(_rnd1_). For example, the value 0.32 will only be accepted in the
 proportion of _f_(0.32) = 0.82. We do this by generating a new random
 number _rand2_ between 0 and 1 and accept _rnd1_ only if _rand2_ \<
-_f_(_rnd1_); otherwise we reject it. (see _Signals, Systems and Sound
+&nbsp;_f_(_rnd1_); otherwise we reject it. (see _Signals, Systems and Sound
 Synthesis_^[
 Neukom, Martin. Signals, systems and sound synthesis. Bern: Peter
 Lang, 2013. Print.] chapter 10.1.4.4)
 
 ![](../resources/images/01-d-random3.gif)
 
-**_EXAMPLE 01D10_Rejection_Sampling.csd_**
+#### **_EXAMPLE 01D10_Rejection_Sampling.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1522,7 +1524,7 @@ actual acelleration _a_, the change of the aceleration, etc.
 (see Martin Neukom, _Signals, Systems and Sound Synthesis_ chapter
 10.2.3.2)
 
-**_EXAMPLE 01D11_Random_Walk2.csd_**
+#### **_EXAMPLE 01D11_Random_Walk2.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1607,17 +1609,17 @@ Values are generated according to a uniform random distribution, meaning
 that any value within the limits has equal chance of occurence.
 Non-uniform distributions in which certain values have greater chance of
 occurence over others are often more useful and musical. For these
-purposes, Csound includes the
-[betarand](http://www.csound.com/docs/manual/betarand.html),
-[bexprand](http://www.csound.com/docs/manual/bexprnd.html),
-[cauchy](http://www.csound.com/docs/manual/cauchy.html),
-[exprand](http://www.csound.com/docs/manual/exprand.html),
-[gauss](http://www.csound.com/docs/manual/gauss.html),
-[linrand](http://www.csound.com/docs/manual/linrand.html),
-[pcauchy](http://www.csound.com/docs/manual/pcauchy.html),
-[poisson](http://www.csound.com/docs/manual/poisson.html),
-[trirand](http://www.csound.com/docs/manual/trirand.html),
-[unirand](http://www.csound.com/docs/manual/unirand.html) and
+purposes, Csound includes the&nbsp;
+[betarand](http://www.csound.com/docs/manual/betarand.html),&nbsp;
+[bexprand](http://www.csound.com/docs/manual/bexprnd.html),&nbsp;
+[cauchy](http://www.csound.com/docs/manual/cauchy.html),&nbsp;
+[exprand](http://www.csound.com/docs/manual/exprand.html),&nbsp;
+[gauss](http://www.csound.com/docs/manual/gauss.html),&nbsp;
+[linrand](http://www.csound.com/docs/manual/linrand.html),&nbsp;
+[pcauchy](http://www.csound.com/docs/manual/pcauchy.html),&nbsp;
+[poisson](http://www.csound.com/docs/manual/poisson.html),&nbsp;
+[trirand](http://www.csound.com/docs/manual/trirand.html),&nbsp;
+[unirand](http://www.csound.com/docs/manual/unirand.html) and&nbsp;
 [weibull](http://www.csound.com/docs/manual/weibull.html) random number
 generator opcodes. The distributions generated by several of these
 opcodes are illustrated below.
@@ -1636,7 +1638,9 @@ opcodes are illustrated below.
 
 In addition to these so called _x-class noise generators_ Csound
 provides random function generators, providing values that change over
-time at various ways. Remember that most of these random generators will need to have [seed](https://csound.com/docs/manual/seed.html) set to zero if the user wants to get always different random values.
+time at various ways. Remember that most of these random generators will need
+to have [seed](https://csound.com/docs/manual/seed.html) set to zero
+if the user wants to get always different random values.
 
 [randomh](http://www.csound.com/docs/manual/randomh.html) generates new
 random numbers at a user defined rate. The previous value is held until
@@ -1656,7 +1660,7 @@ will produce and output a random line which changes its value every half second 
 
 ![Opcode randomh with different values for imode](../resources/images/01-d-randomh.png)
 
-Usually we will use _imode_=3, as we want the random line to start immediately at a random value. The same options are valid for [randomi](http://www.csounds.com/manual/html/randomi.html) which is an
+Usually we will use _imode_=3, as we want the random line to start immediately at a random value. The same options are valid for [randomi](http://www.csound.com/manual/html/randomi.html) which is an
 interpolating version of _randomh_. Rather than jump to new values when
 they are generated, randomi interpolates linearly to the new value,
 reaching it just as a new random value is generated. Now we see the difference between _imode_=0 and _imode_=1. The former remains one whole period on the minimum, and begins its first interpolation after it; the latter also starts on the minimum but begins interpolation immediately. Replacing randomh
@@ -1666,7 +1670,7 @@ output:
 ![Opcode randomi with different values for imode](../resources/images/01-d-randomi.png)
 
 In practice randomi's angular changes in direction as new random values
-are generated might be audible depending on the how it is used.
+are generated might be audible depending on the how it is used.&nbsp;
 [rspline](http://www.csound.com/docs/manual/rspline.html) (or the
 simpler [jspline](http://www.csound.com/docs/manual/jspline.html))
 allows us to specify not just a single frequency but a minimum and a
@@ -1688,7 +1692,7 @@ would generate an output something like:
 
 We need to be careful with what we do with rspline's output as it can
 exceed the limits set by _kmin_ and _kmax_. Minimum and maximum values can
-be set conservatively or the
+be set conservatively or the&nbsp;
 [limit](http://www.csound.com/docs/manual/limit.html) opcode could be
 used to prevent out of range values that could cause problems.
 
@@ -1697,7 +1701,7 @@ A short melody is played, first without any humanising and then with
 humanising. rspline random variation is added to the amplitude and pitch
 of each note in addition to an i-time random offset.
 
-**_EXAMPLE 01D12_humanising.csd_**
+#### **_EXAMPLE 01D12_humanising.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1769,7 +1773,7 @@ The final example implements a simple algorithmic note generator. It
 makes use of GEN17 to generate histograms which define the probabilities
 of certain notes and certain rhythmic gaps occuring.
 
-**_EXAMPLE 01D13_simple_algorithmic_note_generator.csd_**
+#### **_EXAMPLE 01D13_simple_algorithmic_note_generator.csd_**
 
 ```csound
 <CsoundSynthesizer>

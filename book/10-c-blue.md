@@ -7,8 +7,8 @@ versatile front-end to Csound. It is written in Java,
 platform-independent, and uses Csound as its audio engine. It
 provides higher level abstractions such as a graphical timeline for
 composition, GUI-based instruments, score generating SoundObjects like
-PianoRolls, python scripting, Cmask, Jmask and more. It is available at:
-<http://blue.kunstmusik.com>
+PianoRolls, python scripting, Cmask, Jmask and more.
+It is available at: <http://blue.kunstmusik.com>
 
 ## Organization of Tabs and Windows
 
@@ -22,7 +22,10 @@ In several places you will find lists and trees: All of your instruments
 used in a composition are numbered, named and listed in the
 Orchestra-window.
 
-You will find the same for UDOs (User Defined Opcodes). From this list you may export or import Instruments and UDOs from a library to the piece and vice versa. You may also bind several UDOs to a particular Instrument and export this instrument along with the UDOs it needs.
+You will find the same for UDOs (User Defined Opcodes).
+From this list you may export or import Instruments and UDOs from a library to the piece and vice versa.
+You may also bind several UDOs to a particular Instrument and
+export this instrument along with the UDOs it needs.
 
 ### Editor
 
@@ -37,8 +40,7 @@ Csound code.
 
 ### The Score Timeline as a Graphical Representation of the Composition
 
-The Score timeline allows for visual organization of all the used
-_SoundObjects_ in a composition.
+The Score timeline allows for visual organization of all the used _SoundObjects_ in a composition.
 
 In the score window, which is the main graphical window that represents
 the composition, you may arrange the composition by arranging the
@@ -89,7 +91,9 @@ SoundObject, while stretching it modifies the outer boundaries of it and
 may even change the density of events it generates inside.
 
 If you want to enter information into a SoundObject, you can open and
-edit it in a SoundObject editor-window. But there is also a way to modify the "output" of a SoundObject, without having to change its content. The way to do this is using _NoteProcessors_.
+edit it in a SoundObject editor-window. But there is also a way to
+modify the "output" of a SoundObject, without having to change its content.
+The way to do this is using _NoteProcessors_.
 
 By using NoteProcessors, several operations may be applied onto the
 parameters of a SoundObject. NoteProcessors allow for modifying the
@@ -109,8 +113,8 @@ concepts of objective time and relative time between different objects.
 
 Instruments and effects with a graphical interface may help to increase
 musical workflow. Among the instruments with a graphical user interface
-there are _BlueSynthBuilder_ (BSB)-Instruments, _BlueEffects_ and the _Blue
-Mixer_.
+there are _BlueSynthBuilder_ (BSB)-Instruments, _BlueEffects_ and
+the _Blue Mixer_.
 
 ### BlueSynthBuilder (BSB)-Instruments
 

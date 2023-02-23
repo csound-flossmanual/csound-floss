@@ -100,7 +100,7 @@ an f-statement in the score. Two versions are created: an unnormalised
 version (table number 1) and an normalised version (table number 2). The
 difference in their contents will be demonstrated.
 
-**_EXAMPLE 03D01_Table_norm_notNorm.csd_**
+#### **_EXAMPLE 03D01_Table_norm_notNorm.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -185,7 +185,7 @@ of the orchestra, each argument is separated from the next by a comma
 So this is the same example as above, but now with the function tables
 being generated in the orchestra header:
 
-**_EXAMPLE 03D02_Table_ftgen.csd_**
+#### **_EXAMPLE 03D02_Table_ftgen.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -265,7 +265,7 @@ and then plays it. Reading the function table here is done using
 the [poscil3](http://www.csound.com/docs/manual/poscil3.html) opcode,
 as one of many choices in Csound.
 
-**_EXAMPLE 03D03_Sample_to_table.csd_**
+#### **_EXAMPLE 03D03_Sample_to_table.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -317,7 +317,7 @@ sinusoids. This is done in the next example by instruments 1-5.
 Instrument 6 uses the sine wavetable twice: for generating both the
 sound and the envelope.
 
-**_EXAMPLE 03D04_Standard_waveforms_with_GEN10.csd_**
+#### **_EXAMPLE 03D04_Standard_waveforms_with_GEN10.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -407,7 +407,7 @@ The simplest to use opcode that writes values to existing function
 tables during a note's performance
 is [tablew](http://www.csound.com/docs/manual/tablew.html) and
 its i-time equivalent
-is [tableiw](http://www.csounds.com/manual/html/tableiw.html).
+is [tableiw](http://www.csound.com/manual/html/tableiw.html).
 As usual, you must
 differentiate if your signal (variable) is i-rate, k-rate or a-rate. The
 usage is simple and differs just in the class of values you want to
@@ -447,7 +447,7 @@ in the header (filled with zeros), then instrument 1 calculates the
 values in an i-time loop and writes them to the table using tableiw.
 Instrument 2 simply prints all the values in a list to the terminal.
 
-**_EXAMPLE 03D05_Write_Fibo_to_table.csd_**
+#### **_EXAMPLE 03D05_Write_Fibo_to_table.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -497,7 +497,7 @@ be used to record any kind of user input, for instance by MIDI or
 widgets. It can also be used to record random movements of k-signals,
 like here:
 
-**_EXAMPLE 03D06_Record_ksig_to_table.csd_**
+#### **_EXAMPLE 03D06_Record_ksig_to_table.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -589,7 +589,7 @@ index that changes at a-rate. The next example first records a randomly
 generated audio signal and then plays it back. It then records the live
 audio input for 5 seconds and subsequently plays it back.
 
-**_EXAMPLE 03D07_Record_audio_to_table.csd_**
+#### **_EXAMPLE 03D07_Record_audio_to_table.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -728,7 +728,7 @@ and an a-rate signal from a buffer
 with [poscil3](http://www.csound.com/docs/manual/html/poscil3.html) (an
 oscillator with a cubic interpolation):
 
-**_EXAMPLE 03D08_RecPlay_ak_signals.csd_**
+#### **_EXAMPLE 03D08_RecPlay_ak_signals.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -828,7 +828,7 @@ same folder as your .csd: "i-tim_save.txt" saves function table 1 (a
 sine wave) at i-time; "k-time_save.txt" saves function table 2 (a
 linear increment produced during the performance) at k-time.
 
-**_EXAMPLE 03D09_ftsave.csd_**
+#### **_EXAMPLE 03D09_ftsave.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -883,9 +883,9 @@ containing this audio in the same folder as the .csd. This is done at
 the first k-cycle of instrument 2, by repeatedly reading the table
 values and writing them as an audio signal to disk. After this is done,
 the instrument is turned off by executing
-the [turnoff](http://www.csounds.com/manual/html/turnoff.html) statement.
+the [turnoff](http://www.csound.com/manual/html/turnoff.html) statement.
 
-**_EXAMPLE 03D10_Table_to_soundfile.csd_**
+#### **_EXAMPLE 03D10_Table_to_soundfile.csd_**
 
 ```csound
 <CsoundSynthesizer>

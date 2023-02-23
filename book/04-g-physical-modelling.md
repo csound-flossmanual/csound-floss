@@ -43,14 +43,14 @@ unimpeded following a constant velocity:
 ![](../resources/images/04-g-01bild1a.png){width=50%}
 
 As the velocity between the first two states can be described as
-$a_1 - a_0$, the value of the third state $a_2$ will be:
+&nbsp;$a_1 - a_0$, the value of the third state $a_2$ will be:
 
 $a_2 = a_1 + (a_1 - a_0) = 0.5 + 0.5 = 1$
 
 But, the spring pulls the mass back with a force which increases the
 further the mass moves away from the point of equilibrium. Therefore the
 masses movement can be described as the product of a constant factor $c$
-and the last position $a1$. This damps the continuous movement of the
+&nbsp;and the last position $a1$. This damps the continuous movement of the
 mass so that for a factor of c=0.4 the next position will be:
 
 $a_2 = (a_1 + (a_1 - a_0)) - c * a_1 = 1 - 0.2 = 0.8$
@@ -58,16 +58,17 @@ $a_2 = (a_1 + (a_1 - a_0)) - c * a_1 = 1 - 0.2 = 0.8$
 ![](../resources/images/04-g-01bild2a.png){width=50%}
 
 Csound can easily calculate the values by simply applying the formulae.
-For the first k-cycle^[See chapter [03A](03-a-initialization-and-performance-pass.md)
-for more information about Csound's performance loops.], they are set via the
-[init](https://csound.com/docs/manual/init.html) opcode. After
+For the first k-cycle^[See
+chapter [03A](03-a-initialization-and-performance-pass.md) for more information
+about Csound's performance loops.], they are set via
+the [init](https://csound.com/docs/manual/init.html) opcode. After
 calculating the new state, _a1_ becomes _a0_ and _a2_ becomes _a1_ for
 the next k-cycle. In the next csd the new values will be printed five
-times per second (the states are named here as _k0/k1/k2_ instead of
-_a0/a1/a2_, because k-rate values are needed for printing instead of
+times per second (the states are named here as _k0/k1/k2_ instead
+of _a0/a1/a2_, because k-rate values are needed for printing instead of
 audio samples).
 
-**_EXAMPLE 04G01_Mass_spring_sine.csd_**
+#### **_EXAMPLE 04G01_Mass_spring_sine.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -124,7 +125,7 @@ oscillators...
 
 Here is the audible proof:
 
-**_EXAMPLE 04G02_MS_sine_audible.csd_**
+#### **_EXAMPLE 04G02_MS_sine_audible.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -157,11 +158,10 @@ i "MassSpring" 0 10
 ;example by joachim heintz, after martin neukom
 ```
 
-As the next sample is calculated in the next control cycle, either
-[ksmps](https://csound.com/docs/manual/ksmps.html) has to be set to
-1, or a
-[setksmps](https://csound.com/docs/manual/setksmps.html)
-statement must be set in the instrument, with the same effect.
+As the next sample is calculated in the next control cycle,
+either [ksmps](https://csound.com/docs/manual/ksmps.html) has to be set
+to 1, or a [setksmps](https://csound.com/docs/manual/setksmps.html) statement
+must be set in the instrument, with the same effect.
 The resulting frequency depends on the spring constant: the higher
 the constant, the higher the frequency. The resulting amplitude depends
 on both, the starting value and the spring constant.
@@ -173,7 +173,7 @@ reinvent the wheel of a sine wave. But modulating the parameters of a
 model may lead to interesting results. The next example varies the
 spring constant, which is now no longer a constant:
 
-**_EXAMPLE 04G03_MS_variable_constant.csd_**
+#### **_EXAMPLE 04G03_MS_variable_constant.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -220,7 +220,7 @@ models by recording the position of a point (mass) of a physical system.
 The behavior of a particle (mass on a spring, mass of a pendulum, etc.)
 is described by its position, velocity and acceleration. The
 mathematical equations, which describe the movement of such a point, are
-_differential equations_. In what follows, we describe how to derive
+&nbsp;_differential equations_. In what follows, we describe how to derive
 time discrete system equations (also called difference equations) from
 physical models (described by differential equations). At every time
 step we first calculate the acceleration of a mass and then its new
@@ -234,19 +234,41 @@ the Runge--Kutta methods).
 Velocity $v$ is the difference of positions $x$ per time unit $T$,
 acceleration $a$ the difference of velocities $v$ per time unit $T$:
 
-$v_t = (x_t - x_{t-1} )/T, a_t = (v_t - v_{t-1})/T$
+<table cellpadding="0" cellspacing="0" style="height: auto; margin: 24px auto;">
+  <tbody>
+    <tr>
+      <td style="border: 0;">$v_t = (x_t - x_{t-1} )/T$,</td>
+      <td style="border: 0;">$a_t = (v_t - v_{t-1})/T$</td>
+    </tr>
+  </tbody>
+</table>
 
-Putting T = 1 we get
+<p style="margin: 24px auto; width: auto; display: table; font-size: 14px;">
+We get for $T = 1$
+<p>
 
-$v_t~ = x_t - x_{t-1}, a_t~ = v_t - v_{t-1}$
+<table cellpadding="0" cellspacing="0" style="height: auto; margin: 24px auto;">
+  <tbody>
+    <tr>
+      <td style="border: 0;">$v_t~ = x_t - x_{t-1}$,</td>
+      <td style="border: 0;">$a_t~ = v_t - v_{t-1}$</td>
+    </tr>
+  </tbody>
+</table>
 
 If we know the position and velocity of a point at time $t - 1$ and are
 able to calculate its acceleration at time $t$ we can calculate the
 velocity $v_t$ and the position $x_t$ at time $t$:
 
-$v_t = v_{t-1} + a_t$
-and
-$x_t = x_{t-1} + v_t$
+<table cellpadding="0" cellspacing="0" style="height: auto; margin: 24px auto;">
+  <tbody>
+    <tr>
+      <td style="border: 0;">$v_t = v_{t-1} + a_t$</td>
+      <td style="border: 0;">and</td>
+      <td style="border: 0;">$x_t = x_{t-1} + v_t$</td>
+    </tr>
+  </tbody>
+</table>
 
 With the following algorithm we calculate a sequence of successive
 positions _x_:
@@ -258,7 +280,7 @@ positions _x_:
 
 Example 1: The acceleration of gravity is constant (_g_ = --9.81ms^-2^).
 For a mass with initial position _x_ = 300m (above ground) and velocity
-_v_ = 70ms^-1^ (upwards) we get the following trajectory (path)
+&nbsp;_v_ = 70ms^-1^ (upwards) we get the following trajectory (path)
 
     g = -9.81; x = 300; v = 70; Table[v += g; x += v, {16}];
 
@@ -293,8 +315,8 @@ $c = 2 - \sqrt{4 - d^2} cos(2\pi f/sr)$
 
 In the examples 2 and 3 the systems oscillate because of their initial
 velocity _v_ = 1. The resultant oscillation is the impulse response of
-the systems. We can excite the systems continuously by adding a value
-_exc_ to the velocity at every time step.
+the systems. We can excite the systems continuously by adding a
+value _exc_ to the velocity at every time step.
 
     v += exc;
 
@@ -307,7 +329,7 @@ input)
 
 ![](../resources/images/04-g-physical-model-4.gif)
 
-**_EXAMPLE 04G04_lin_reson.csd_**
+#### **_EXAMPLE 04G04_lin_reson.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -381,7 +403,7 @@ Example 6: _a_ = _f_(_x_) = -- _c_~1~x + _c_~2~sin(_c_~3~x)
 
 ![](../resources/images/04-g-physical-model-8.gif)
 
-**_EXAMPLE 04G05_nonlin_reson.csd_**
+#### **_EXAMPLE 04G05_nonlin_reson.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -436,7 +458,7 @@ While attempting to explain the nonlinear dynamics of vacuum tube
 circuits, the Dutch electrical engineer Balthasar van der Pol derived
 the differential equation
 
-$d^2 x / d t^2 = -\omega^2 x + \mu(1 - x^2) dx/dt$
+$d^2 x / d t^2 = -\omega^2 x + \mu(1 - x^2) dx/dt$\
 (where $d^2 x /d t^2 =$ accelleration and $dx/dt$ = velocity)
 
 The equation describes a linear oscillator d^2^_x_/d*t*^2^ =
@@ -457,17 +479,28 @@ The constant ω is the angular frequency of the linear oscillator (μ =
 0). For a simulation with sampling rate _sr_ we calculate the frequency
 _f_ in Hz as
 
+\
+
 $f = \omega · sr/2\pi$
 
+\
+
 Since the simulation is only an approximation of the oscillation this
-formula gives good results only for low frequencies. The exact frequency
-of the simulation is
+formula gives good results only for low frequencies. The exact frequency of the simulation is
+
+\
 
 $f = arccos(1 - \omega^2/2) · sr/2\pi$
 
+\
+
 We get $\omega^2$ from frequency $f$ as
 
+\
+
 $2 - 2cos(f · 2\pi/sr)$
+
+\
 
 With increasing μ the oscillations nonlinearity becomes stronger and
 more overtones arise (and at the same time the frequency becomes lower).
@@ -479,6 +512,8 @@ values of μ.
 ![](../resources/images/04-g-physical-model-12.gif)
 
 ![](../resources/images/04-g-physical-model-13.gif)
+
+\
 
 Certain oscillators can be synchronized either by an external force or
 by mutual influence. Examples of synchronization by an external force
@@ -494,7 +529,7 @@ sine wave of frequency _kfex_ and amplitude _kaex_. The range of
 frequency within which the oscillator is synchronized to the exciting
 frequency increases as _kmu_ and _kaex_ increase.
 
-**_EXAMPLE 04G06_van_der_pol.csd_**
+#### **_EXAMPLE 04G06_van_der_pol.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -551,15 +586,15 @@ oscillator, to the lower left that of the excitation (normalized) and to
 the right the phase diagram of their sum. For these figures, the same
 values were always used for _kfr_, _kmu_ and _kaex_. Comparing the first
 two figures, one sees that the oscillator adopts the exciting frequency
-_kfex_ within a large frequency range. When the frequency is low (figure
+&nbsp;_kfex_ within a large frequency range. When the frequency is low (figure
 a), the phases of the two waves are nearly the same. Hence there is a
 large deflection along the _x_-axis in the phase diagram showing the sum
 of the waveforms. When the frequency is high, the phases are nearly
 inverted (figure b) and the phase diagram shows only a small deflection.
 The figure c shows the transition to asynchronous behavior. If the
-proportion between the natural frequency of the oscillator _kfr_ and the
-excitation frequency kfex is approximately simple (_kfex_/kfr ≅
-_m_/_n_), then within a certain range the frequency of the Van der Pol
+proportion between the natural frequency of the oscillator _kfr_ and the <!-- using mathtex because the ≅ symbol doesn't seem to exist texlive so it doesn't render right in pdf  -->
+excitation frequency kfex is approximately simple ( _kfex_/kfr $≅$ _m_/_n_ ),
+then within a certain range the frequency of the Van der Pol
 oscillator is synchronized so that _kfex_/kfr = _m_/_n_. Here one speaks
 of higher order synchronization (figure d).
 
@@ -584,22 +619,20 @@ position.
 This is what happens for a buffer of five values, for the first five
 steps:
 
----
-
-initial state 1 -1 1 1 -1
-step 1 0 1 -1 1 1
-step 2 1 0 1 -1 1
-step 3 0 1 0 1 -1
-step 4 0 0 1 0 1
-step 5 0.5 0 0 1 0
-
----
+|               |     |     |     |     |     |
+| ------------- | --- | --- | --- | --- | --- |
+| initial state | 1   | -1  | 1   | 1   | -1  |
+| step 1        | 0   | 1   | -1  | 1   | 1   |
+| step 2        | 1   | 0   | 1   | -1  | 1   |
+| step 3        | 0   | 1   | 0   | 1   | -1  |
+| step 4        | 0   | 0   | 1   | 0   | 1   |
+| step 5        | 0.5 | 0   | 0   | 1   | 0   |
 
 The next Csound example represents the content of the buffer in a
 function table, implements and executes the algorithm, and prints the
 result after each five steps which here is referred to as one cycle:
 
-**_EXAMPLE 04G07_KarplusStrong.csd_**
+#### **_EXAMPLE 04G07_KarplusStrong.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -616,17 +649,17 @@ nchnls = 1
   ;performs the karplus-strong algorithm
 iTab, iTbSiz xin
 ;calculate the mean of the last two values
-iUlt      tab\_i     iTbSiz-1, iTab
-iPenUlt   tab\_i     iTbSiz-2, iTab
+iUlt      tab_i     iTbSiz-1, iTab
+iPenUlt   tab_i     iTbSiz-2, iTab
 iNewVal   =         (iUlt + iPenUlt) / 2
 ;shift values one position to the right
 indx      =         iTbSiz-2
 loop:
-iVal      tab\_i     indx, iTab
-          tabw\_i    iVal, indx+1, iTab
-          loop\_ge   indx, 1, 0, loop
+iVal      tab_i     indx, iTab
+          tabw_i    iVal, indx+1, iTab
+          loop_ge   indx, 1, 0, loop
 ;fill the new value at the beginning of the table
-          tabw\_i    iNewVal, 0, iTab
+          tabw_i    iNewVal, 0, iTab
   endop
 
   opcode PrintTab, 0, iiS
@@ -655,8 +688,8 @@ Scycle    sprintf   "Cycle %d:", iCycle
 iState    =         0
 state:
           KS        iTab, iTbLen
-          loop\_lt   iState, 1, iTbLen, state
-          loop\_lt   iCycle, 1, 10, cycle
+          loop_lt   iState, 1, iTbLen, state
+          loop_lt   iCycle, 1, 10, cycle
 endin
 
 </CsInstruments>
@@ -687,7 +720,7 @@ sizes, after some cycles the buffer content has the effect of a period
 which is repeated with a slight loss of amplitude. This is how it
 sounds, if the buffer size is 1/100 second (or 441 samples at sr=44100):
 
-**_EXAMPLE 04G08_Plucked.csd_**
+#### **_EXAMPLE 04G08_Plucked.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -749,23 +782,23 @@ available.
 ### wgbow - A Waveguide Emulation of a Bowed String by Perry Cook
 
 Perry Cook is a prolific author of physical models and a lot of his work
-has been converted into Csound opcodes. A number of these models
-[wgbow](https://csound.com/docs/manual/wgbow.html),
-[wgflute](https://csound.com/docs/manual/wgflute.html),
-[wgclar](https://csound.com/docs/manual/wgclar.html)
-[wgbowedbar](https://csound.com/docs/manual/wgbowedbar.html) and
+has been converted into Csound opcodes. A number of these models&nbsp;
+[wgbow](https://csound.com/docs/manual/wgbow.html),&nbsp;
+[wgflute](https://csound.com/docs/manual/wgflute.html),&nbsp;
+[wgclar](https://csound.com/docs/manual/wgclar.html)&nbsp;
+[wgbowedbar](https://csound.com/docs/manual/wgbowedbar.html) and&nbsp;
 [wgbrass](https://csound.com/docs/manual/wgbrass.html) are based on
 waveguides. A waveguide, in its broadest sense, is some sort of
 mechanism that limits the extend of oscillations, such as a vibrating
 string fixed at both ends or a pipe. In these sorts of physical model a
-delay is used to emulate these limits. One of these,
+delay is used to emulate these limits. One of these,&nbsp;
 [wgbow](https://csound.com/docs/manual/wgbow.html), implements an
 emulation of a bowed string. Perhaps the most interesting aspect of many
 physical models in not specifically whether they emulate the target
 instrument played in a conventional way accurately but the facilities
 they provide for extending the physical limits of the instrument and how
 it is played - there are already vast sample libraries and software
-samplers for emulating conventional instruments played conventionally.
+samplers for emulating conventional instruments played conventionally.&nbsp;
 [wgbow](https://csound.com/docs/manual/wgbow.html) offers several
 interesting options for experimentation including the ability to
 modulate the bow pressure and the bowing position at k-rate. Varying bow
@@ -782,7 +815,7 @@ simultaneously, the bow pressure modulations in the right channel are
 delayed by a varying amount with respect top the left channel in order
 to create a stereo effect and a reverb has been added.
 
-**_EXAMPLE 04G09_wgbow.csd_**
+#### **_EXAMPLE 04G09_wgbow.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -856,10 +889,10 @@ octave, vary their _bowing position_ randomly and independently. You
 will hear how different bowing positions accentuates and attenuates
 different partials of the bowing tone. To enhance the sound produced
 some filtering with [tone](https://csound.com/docs/manual/tone.html)
-and [pareq](https://csound.com/docs/manual/pareq.html) is employed
+&nbsp;and [pareq](https://csound.com/docs/manual/pareq.html) is employed
 and some reverb is added.
 
-**_EXAMPLE 04G10_wgbow_enhanced.csd_**
+#### **_EXAMPLE 04G10_wgbow_enhanced.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -921,7 +954,7 @@ i 2 0 480
 All of the wg- family of opcodes are worth exploring and often the
 approach taken here - exploring each input parameter in isolation whilst
 the others retain constant values - sets the path to understanding the
-model better. Tone production with
+model better. Tone production with&nbsp;
 [wgbrass](https://csound.com/docs/manual/wgbrass.html) is very much
 dependent upon the relationship between intended pitch and lip tension,
 random experimentation with this opcode is as likely to result in
@@ -930,7 +963,7 @@ experience of learning a brass instrument when the student spends most
 time push air silently through the instrument. With patience it is
 capable of some interesting sounds however. In its case, I would
 recommend building a realtime GUI and exploring the interaction of its
-input arguments that way.
+input arguments that way.&nbsp;
 [wgbowedbar](https://csound.com/docs/manual/wgbowedbar.html), like a
 number of physical modelling algorithms, is rather unstable. This is not
 necessary a design flaw in the algorithm but instead perhaps an
@@ -939,7 +972,7 @@ experimentation - or abuse. In these situation caution is advised in
 order to protect ears and loudspeakers. Positive feedback within the
 model can result in signals of enormous amplitude very quickly.
 Employment of the [clip](https://csound.com/docs/manual/clip.html)
-opcode as a means of some protection is recommended when experimenting
+&nbsp;opcode as a means of some protection is recommended when experimenting
 in realtime.
 
 ### barmodel - a Model of a Struck Metal Bar by Stefan Bilbao
@@ -950,7 +983,7 @@ objects. [barmodel](https://csound.com/docs/manual/barmodel.html) is
 a model that can easily be abused to produce ear shreddingly loud sounds
 therefore precautions are advised when experimenting with it in
 realtime. We are presented with a wealth of input arguments such as
-_stiffness_, _strike position_ and _strike velocity_, which relate
+&nbsp;_stiffness_, _strike position_ and _strike velocity_, which relate
 in an easily understandable way to the physical process we are
 emulating. Some parameters will evidently have more of a dramatic effect
 on the sound produced than other and again it is recommended to create a
@@ -986,7 +1019,7 @@ could also be described as pick-up position. Moving this scanning
 location results in tonal and amplitude variations. We just have control
 over the frequency at which the scanning location is modulated.
 
-**_EXAMPLE 04G11_barmodel.csd_**
+#### **_EXAMPLE 04G11_barmodel.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1067,10 +1100,10 @@ e
 
 The PhiSEM set of models in Csound, again based on the work of Perry
 Cook, imitate instruments that rely on collisions between smaller sound
-producing object to produce their sounds. These models include a
+producing object to produce their sounds. These models include a&nbsp;
 [tambourine](https://csound.com/docs/manual/tambourine.html), a set
 of [bamboo](https://csound.com/docs/manual/bamboo.html) windchimes
-and [sleighbells.](https://csound.com/docs/manual/sleighbells.html)
+and [sleighbells.](https://csound.com/docs/manual/sleighbells.html).
 These models algorithmically mimic these multiple collisions internally
 so that we only need to define elements such as the number of internal
 elements (timbrels, beans, bells etc.) internal damping and resonances.
@@ -1078,14 +1111,14 @@ Once again the most interesting aspect of working with a model is to
 stretch the physical limits so that we can hear the results from, for
 example, a maraca with an impossible number of beans, a tambourine with
 so little internal damping that it never decays. In the following
-example I explore
-[tambourine](https://csound.com/docs/manual/tambourine.html),
-[bamboo](https://csound.com/docs/manual/bamboo.html) and
+example I explore&nbsp;
+[tambourine](https://csound.com/docs/manual/tambourine.html),&nbsp;
+[bamboo](https://csound.com/docs/manual/bamboo.html) and&nbsp;
 [sleighbells](https://csound.com/docs/manual/sleighbells.html) each
 in turn, first in a state that mimics the source instrument and then
 with some more extreme conditions.
 
-**_EXAMPLE 04G12_PhiSEM.csd_**
+#### **_EXAMPLE 04G12_PhiSEM.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1193,8 +1226,8 @@ manipulation usually abstracted to a small number of descriptive
 parameters. Csound offers a wealth of other opcodes for physical
 modelling which cannot all be introduced here so the user is encouraged
 to explore based on the approaches exemplified here. You can find lists
-in the chapters
-[Models and Emulations](https://csound.com/docs/manual/SiggenModels.html),
-[Scanned Synthesis](https://csound.com/docs/manual/SiggenScanTop.html) and
-[Waveguide Physical Modeling](https://csound.com/docs/manual/SiggenWavguide.html) of the
+in the chapters&nbsp;
+[Models and Emulations](https://csound.com/docs/manual/SiggenModels.html),&nbsp;
+[Scanned Synthesis](https://csound.com/docs/manual/SiggenScanTop.html) and&nbsp;
+[Waveguide Physical Modeling](https://csound.com/docs/manual/SiggenWavguide.html) of the&nbsp;
 [Csound Manual](https://csound.com/docs/manual/index.html).

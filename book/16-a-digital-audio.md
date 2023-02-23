@@ -29,7 +29,7 @@ Periodic waves have some main parameters:
 
 - **Frequency**: The number of cycles or periods per second, measured
   in Hertz (Hz). If a sound has a frequency of 440 Hz it
-  completes 440 cycles every second. Read more about frequency in the
+  completes 440 cycles every second. Read more about frequency in the&nbsp;
   [next chapter](01-b-pitch-and-frequency.md).
 
 - **Phase:** This is the starting point of a waveform.
@@ -62,7 +62,9 @@ of voltage that is sent to the computer.
 
 Ideally, the transduction process should be as transparent as possible:
 whatever goes in should come out as a perfect analogy in a voltage
-representation. In reality, however, this will not be the case. Low quality devices add noise and deformation. High quality devices add certain characteristics like warmth or transparency.
+representation. In reality, however, this will not be the case.
+Low quality devices add noise and deformation.
+High quality devices add certain characteristics like warmth or transparency.
 
 ## Sampling
 
@@ -144,9 +146,16 @@ and DSP techniques procedures will produce these frequencies as
 unavoidable by-products and we need to ensure that they do not result in
 unwanted artifacts.
 
-In computer music we can produce any frequency internally, much higher than we can hear, and much higher than the Nyquist frequency. This may occur intentionally, or by accident, for instance when we multiply a frequency of 2000 Hz by the 22nd harmonic, resulting in 44000 Hz. In the following example, instrument 1 plays a 1000 Hz tone first directly, and then as result of 43100 Hz input which is 1000 Hz lower than the sample rate of 44100 Hz. Instrument 2 demonstrates unwanted aliasing as a result of harmonics beyond Nyquist: the 22nd partial of 1990 Hz is 43780 Hz which sounds as 44100-43780 = 320 Hz.
+In computer music we can produce any frequency internally,
+much higher than we can hear, and much higher than the Nyquist frequency.
+This may occur intentionally, or by accident,
+for instance when we multiply a frequency of 2000 Hz by the 22nd harmonic, resulting in 44000 Hz.
+In the following example, instrument 1 plays a 1000 Hz tone first directly,
+and then as result of 43100 Hz input which is 1000 Hz lower than the sample rate of 44100 Hz.
+Instrument 2 demonstrates unwanted aliasing as a result of harmonics beyond Nyquist:
+the 22nd partial of 1990 Hz is 43780 Hz which sounds as 44100-43780 = 320 Hz.
 
-**_EXAMPLE 01A01_Aliasing.csd_**
+#### **_EXAMPLE 01A01_Aliasing.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -241,7 +250,8 @@ to use the highest bit rate available.
 
 Many electronic musicians make use of deliberately low bit depth
 quantization in order to add noise to a signal. The effect is commonly
-known as _bit-crunching_ and is easy to implement in Csound. Example 05F02 in chapter [05F](05-f-am-rm-waveshaping.md) shows one possibility.
+known as _bit-crunching_ and is easy to implement in Csound.
+Example 05F02 in chapter [05F](05-f-am-rm-waveshaping.md) shows one possibility.
 
 ## ADC / DAC
 

@@ -57,7 +57,7 @@ Each of these sections is opened with a \<xyz\> tag and closed with a
 tag, and ends with \</CsoundSynthesizer\>. Only the text in-between will
 be used by Csound.
 
-**_EXAMPLE 02B01_DocStruct.csd_**
+#### **_EXAMPLE 02B01_DocStruct.csd_**
 
 ```csound
 <CsoundSynthesizer>     ; START OF CSOUND FILE

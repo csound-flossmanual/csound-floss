@@ -16,8 +16,9 @@ So I decided to write it, and let the book begin with it.
 
 It is followed by another new chapter. In this **How to ...** brief
 descriptions provide instructions and advices for beginners and also
-for more experienced Csound users. From _How to install Csound for Windows_
-to _How to use my MIDI keyboard with Csound_ or _How to perform time stretch_.
+for more experienced Csound users.
+From _How to install Csound for Windows_ to _How to use my MIDI keyboard with Csound_ or
+&nbsp;_How to perform time stretch_.
 
 For both chapters, I tried to insert as many links as possible, for both,
 pointing to other chapters in this book, and pointing to external sources.
@@ -34,5 +35,5 @@ Previous releases can be found at [https://github.com/csound-flossmanual/csound-
 Big thanks goes to Hlöðver Sigurðsson who made this new interactive FLOSS manual
 possible with all his great and important work on JavaScript-based Csound and much more.
 
-Hannover, March 2023  
+Hannover, March 2023
 joachim heintz

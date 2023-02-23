@@ -17,7 +17,7 @@ popular ones), but not mp3 due to its patent and licencing problems.
 
 Save the following code as Render.csd:
 
-**_EXAMPLE 02E01_Render.csd_**
+#### **_EXAMPLE 02E01_Render.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -85,7 +85,7 @@ file \"Wow.wav\" as WAV file with 24-bit accuracy:
 
 Sometimes you may want to simultaneously have realtime output and file
 rendering to disk, like recording your live performance. This can be
-achieved by using the [fout](http://www.csounds.com/manual/html/fout.html)
+achieved by using the [fout](http://www.csound.com/manual/html/fout.html)
 &nbsp;opcode. You just have to specify your output file name. File type and
 format are given by a number, for instance 18 specifies \"wav 24 bit\"
 (see the manual page for more information). The following example
@@ -93,7 +93,7 @@ creates a random frequency and panning movement of a sine wave, and
 writes it to the file \"live_record.wav\" (in the same directory as
 your .csd file):
 
-**_EXAMPLE 02E02_RecordRT.csd_**
+#### **_EXAMPLE 02E02_RecordRT.csd_**
 
 ```csound
 <CsoundSynthesizer>

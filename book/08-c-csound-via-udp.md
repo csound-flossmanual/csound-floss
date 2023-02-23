@@ -10,15 +10,15 @@ such as Python, can also be used for this purpose. The simplest way of
 trying out this option is via the netcat program, which can be used in
 the terminal via the nc command.
 
-Let's explore this as an example of the _--port_ option. First, Csound
-is started with the following command:
+Let's explore this as an example of the _--port_ option.\
+First, Csound is started with the following command:
 
     $ csound -odac --port=1234
 
 Alternatively, if using a frontend such as CsoundQt, it is possible run
 an empty CSD, with the _--port_ in its CsOptions field:
 
-**_EXAMPLE 10F01_csound_udp.csd_**
+#### **_EXAMPLE 10F01_csound_udp.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -48,13 +48,14 @@ sending:
 
 Csound will respond with a 440Hz sinewave. The ctl-c key combination can
 be used to close nc and go back to the shell prompt. Alternatively, we
-could write our orchestra code to a file and then send it to Csound via\
+could write our orchestra code to a file and then send it to Csound via
 the following command (orch is the name of our file):
 
     $ nc -u 127.0.0.1 1234 < orch
 
 Csound performance can be stopped in the usual way via ctl-c in the
-terminal, or through the dedicated transport controls in a frontend. We can also close the server it via a special UDP message:
+terminal, or through the dedicated transport controls in a frontend.
+We can also close the server it via a special UDP message:
 
     ERROR WITH MACRO close
 

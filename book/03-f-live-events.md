@@ -46,7 +46,7 @@ if you trigger an instrument from inside another instrument. The first
 example shows the result when instrument 2 triggers instrument 1 and
 instrument 3 **at init-time**.
 
-**_EXAMPLE 03F01_OrderOfExc_event_i.csd_**
+#### **_EXAMPLE 03F01_OrderOfExc_event_i.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -107,7 +107,7 @@ executed by their order.
 Let us compare now what is happening when instrument 2 calls instrument
 1 and 3 **during the performance** (= at k-time):
 
-**_EXAMPLE 03F02_OrderOfExc_event_k.csd_**
+#### **_EXAMPLE 03F02_OrderOfExc_event_k.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -201,7 +201,7 @@ features can be found in the&nbsp;
 &nbsp;section of the Canonical Csound Reference Manual. Here are some
 examples:
 
-**_EXAMPLE 03F03_Score_tricks.csd_**
+#### **_EXAMPLE 03F03_Score_tricks.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -290,7 +290,7 @@ in the chapter&nbsp;
 this manual. Here, just a small example is shown. Simply connect your
 MIDI keyboard and it should work.
 
-**_EXAMPLE 03F04_Midi_triggered_events.csd_**
+#### **_EXAMPLE 03F04_Midi_triggered_events.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -338,7 +338,7 @@ using an [FLTK button](http://www.csound.com/docs/manual/FLbutton.html).
 A more extended example can be found&nbsp;
 [here](http://www.csound.com/docs/manual/examples/FLbutton.csd).
 
-**_EXAMPLE 03F05_FLTK_triggered_events.csd_**
+#### **_EXAMPLE 03F05_FLTK_triggered_events.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -423,7 +423,7 @@ for realtime output), you can type any score line in realtime (sorry,
 this does not work for Windows). For instance, save this .csd anywhere
 and run it from the command line:
 
-**_EXAMPLE 03F06_Commandline_rt_events.csd_**
+#### **_EXAMPLE 03F06_Commandline_rt_events.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -497,7 +497,7 @@ high to low. If it crosses the threshold from low to high the second
 instrument is triggered, if it crosses from high to low the third
 instrument is triggered.
 
-**_EXAMPLE 03F07_Event_by_condition.csd_**
+#### **_EXAMPLE 03F07_Event_by_condition.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -580,7 +580,7 @@ has two major benefits:
 Let\'s look at a simple example for executing score events from an
 instrument using the scoreline opcode:
 
-**_EXAMPLE 03F08_Generate_event_pool.csd_**
+#### **_EXAMPLE 03F08_Generate_event_pool.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -626,7 +626,7 @@ execute them. This can be done with the&nbsp;
 produces the string for scoreline in an i-time loop (see the chapter
 about control structures).
 
-**_EXAMPLE 03F09_Events_sprintf.csd_**
+#### **_EXAMPLE 03F09_Events_sprintf.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -692,7 +692,7 @@ alternative version of the previous one by adding the instrument events
 one by one in the i-time loop, either with event_i (instr 1) or with
 scoreline_i (instr 2):
 
-**_EXAMPLE 03F10_Events_collected.csd_**
+#### **_EXAMPLE 03F10_Events_collected.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -777,7 +777,7 @@ loop and triggers several instances of a sub-subinstrument (instr 100).
 Each instance performs a partial with an independent envelope for a
 bell-like additive synthesis.
 
-**_EXAMPLE 03F11_Events_time_loop.csd_**
+#### **_EXAMPLE 03F11_Events_time_loop.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -873,7 +873,7 @@ initiated. Using **event** (the k-rate version) will trigger an event
 potentially **again and again**, as long as the instrument runs,
 in each control cycle. This is a very simple example:
 
-**_EXAMPLE 03F12_event_i_vs_event.csd_**
+#### **_EXAMPLE 03F12_event_i_vs_event.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1087,7 +1087,7 @@ this text in a simple text (ASCII) format as "to_recompile.orc":
 
 Then save this csd in the same directory:
 
-**_EXAMPLE 03F13_compileorc.csd_**
+#### **_EXAMPLE 03F13_compileorc.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1149,7 +1149,7 @@ in a string. As this will be a string with several lines, you will
 usually use the _{{_ delimiter for the start and _}}_ for the end of
 the string. This is a basic example:
 
-**_EXAMPLE 03F14_compilestr.csd_**
+#### **_EXAMPLE 03F14_compilestr.csd_**
 
 ```csound
 <CsoundSynthesizer>

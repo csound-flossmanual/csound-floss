@@ -36,7 +36,7 @@ which are used for spectral processing:
 The following example exemplifies all the variable types (except the
 w-type):
 
-**_EXAMPLE 03B01_Variable_types.csd_**
+#### **_EXAMPLE 03B01_Variable_types.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -129,7 +129,7 @@ they are defined. They are **local** variables. In the following
 example, the variables in instrument 1 and instrument 2 have the same
 names, but different values.
 
-**_EXAMPLE 03B02_Local_scope.csd_**
+#### **_EXAMPLE 03B02_Local_scope.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -228,7 +228,7 @@ instrument, you must define them as **global**. This is done by
 prefixing the character **g** before the types i, k, a or S. See the
 following example:
 
-**_EXAMPLE 03B03_Global_scope.csd_**
+#### **_EXAMPLE 03B03_Global_scope.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -321,7 +321,7 @@ the next examples and just go to the last one of this section.
 It should be understood first that a global audio variable is treated
 the same by Csound if it is applied like a local audio signal:
 
-**_EXAMPLE 03B04_Global_audio_intro.csd_**
+#### **_EXAMPLE 03B04_Global_audio_intro.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -357,7 +357,7 @@ higher number using the same variable name. In the following example,
 you will just hear a 600 Hz sine tone, because the 400 Hz sine of
 instrument 1 is overwritten by the 600 Hz sine of instrument 2:
 
-**_EXAMPLE 03B05_Global_audio_overwritten.csd_**
+#### **_EXAMPLE 03B05_Global_audio_overwritten.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -398,7 +398,7 @@ global audio signal to its previous state which can cause some trouble.
 Let's first see a simple example of a control signal to understand what
 is happening:
 
-**_EXAMPLE 03B06_Global_audio_added.csd_**
+#### **_EXAMPLE 03B06_Global_audio_added.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -428,7 +428,7 @@ because it adds the kAdd signal (which is always 1) in each k-pass to
 its previous state. It is no different if this is done by a local
 k-signal, like here, or by a global k-signal, like in the next example:
 
-**_EXAMPLE 03B07_Global_control_added.csd_**
+#### **_EXAMPLE 03B07_Global_control_added.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -476,7 +476,7 @@ you will get a signal which is twice as strong:
 add them. This is shown in the next example with a local audio variable,
 and then in the following example with a global audio variable.
 
-**_EXAMPLE 03B08_Local_audio_add.csd_**
+#### **_EXAMPLE 03B08_Local_audio_add.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -523,7 +523,7 @@ prints:
      i   1 time     0.90000:     0.89999
      i   1 time     1.00000:     0.99999
 
-**_EXAMPLE 03B09_Global_audio_add.csd_**
+#### **_EXAMPLE 03B09_Global_audio_add.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -591,7 +591,7 @@ first, and then clear them in an \"always on\" instrument with the
 highest number of all the instruments used. This is an example of a
 typical situation:
 
-**_EXAMPLE 03B10_Global_with_clear.csd_**
+#### **_EXAMPLE 03B10_Global_with_clear.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -683,7 +683,7 @@ For clearing an audio variable,
 the [chnclear](https://csound.com/docs/manual/chnclear.html) opcode
 can be used.
 
-**_EXAMPLE 03B11_Chn_demo.csd_**
+#### **_EXAMPLE 03B11_Chn_demo.csd_**
 
 ```csound
 <CsoundSynthesizer>

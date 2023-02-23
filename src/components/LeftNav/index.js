@@ -105,12 +105,55 @@ const getChapterZero = () => {
   )(routes);
 };
 
-function LeftNav({ routes = [] }) {
+function isScrolledIntoView(element) {
+  const rect = element.getBoundingClientRect();
+  const elemTop = rect.top;
+  const elemBottom = rect.bottom;
+  const isVisible = elemTop >= 0 && elemBottom <= window.innerHeight;
+
+  return isVisible;
+}
+
+function scrollIntoView(elementName) {
+  let count = 0;
+  const intervalHandler = setInterval(() => {
+    const element = document.getElementById(elementName);
+
+    if (element) {
+      try {
+        element.scrollIntoView();
+        if (isScrolledIntoView(element)) {
+          clearInterval(intervalHandler);
+          count = 999999;
+        }
+      } catch (error) {
+        console.error("error scrolling into view", error);
+      }
+    }
+
+    if (count > 1000) {
+      clearInterval(intervalHandler);
+    } else {
+      count += 1;
+    }
+  }, 10);
+}
+
+function LeftNav({ routes = [], setCurrentRoute }) {
   const location = useLocation();
 
   React.useEffect(() => {
-    if (location.hash && typeof location.hash === "string") {
-      document && document.querySelector(location.hash)?.scrollIntoView();
+    if (
+      location.hash &&
+      typeof location.hash === "string" &&
+      location.hash.length > 1
+    ) {
+      const element = document.querySelector(location.hash);
+      if (element) {
+        element.scrollIntoView(element);
+      } else {
+        scrollIntoView(location.hash.replace("#", ""));
+      }
     }
   }, [location]);
 
@@ -262,7 +305,10 @@ function LeftNav({ routes = [] }) {
     return (
       <li key={index} css={ß.chapterItem}>
         <Link
-          onClick={(e) => isActive && e.preventDefault()}
+          onClick={(e) => {
+            setCurrentRoute(value);
+            isActive && e.preventDefault();
+          }}
           to={value}
           style={{
             pointerEvents: isActive ? "none" : "inherit",

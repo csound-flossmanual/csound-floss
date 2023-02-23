@@ -2,7 +2,7 @@
 
 ## Scanning MIDI Continuous Controllers
 
-The most useful opcode for reading in midi continuous controllers is
+The most useful opcode for reading in midi continuous controllers is&nbsp;
 [ctrl7](https://csound.com/docs/manual/ctrl7.html). _ctrl7_'s input
 arguments allow us to specify midi channel and controller number of the
 controller to be scanned in addition to giving us the option of
@@ -19,7 +19,7 @@ values received to the console. The minimum and maximum values are given
 as 0 and 127 therefore they are not rescaled at all. Controller 1 is
 also the modulation wheel on a midi keyboard.
 
-**_EXAMPLE 07C01_ctrl7_print.csd_**
+#### **_EXAMPLE 07C01_ctrl7_print.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -48,8 +48,8 @@ i 1 0 3600
 ;example by Iain McCurdy
 ```
 
-There are also 14 bit and 21 bit versions of _ctrl7_
-([ctrl14](https://csound.com/docs/manual/ctrl14.html) and
+There are also 14 bit and 21 bit versions of _ctrl7_&nbsp;
+([ctrl14](https://csound.com/docs/manual/ctrl14.html) and&nbsp;
 [ctrl21](https://csound.com/docs/manual/ctrl21.html)) which improve
 upon the 7 bit resolution of _ctrl7_ but hardware that outputs 14 or
 21 bit controller information is rare so these opcodes are seldom used.
@@ -57,7 +57,7 @@ upon the 7 bit resolution of _ctrl7_ but hardware that outputs 14 or
 ## Scanning Pitch Bend and Aftertouch
 
 We can scan pitch bend and aftertouch in a similar way by using the
-opcodes [pchbend](https://csound.com/docs/manual/pchbend.html) and
+opcodes [pchbend](https://csound.com/docs/manual/pchbend.html) and&nbsp;
 [aftouch](https://csound.com/docs/manual/aftouch.html). Once again
 we can specify minimum and maximum values with which to rescale the
 output. In the case of _pchbend_ we specify the value it outputs when
@@ -72,7 +72,7 @@ is that for _pchbend_ to function the Csound instrument that contains
 it needs to have been activated by a MIDI event, i.e. you will need to
 play a midi note on your keyboard and then move the pitch bend wheel.
 
-**_EXAMPLE 07C02_pchbend_aftouch.csd_**
+#### **_EXAMPLE 07C02_pchbend_aftouch.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -129,7 +129,7 @@ midi controller it might prove to be slightly frustrating that each time
 the orchestra is launched, this instrument will remain silent until the
 volume control is moved. This frustration might become greater when many
 midi controllers are begin utilised. It would be more useful to be able
-to define the starting value for each of these controllers. The
+to define the starting value for each of these controllers. The&nbsp;
 [initc7](https://csound.com/docs/manual/initc7.html) opcode allows
 us to do this. If _initc7_ is placed within the instrument itself it will
 be reinitialised each time the instrument is called, if it is placed in
@@ -139,21 +139,21 @@ probably most useful.
 
 In the following example a simple synthesizer is created. Midi
 controller 1 controls the output volume of this instrument but the
-_initc7_ statement near the top of the orchestra ensures that this control
+&nbsp;_initc7_ statement near the top of the orchestra ensures that this control
 does not default to its minimum setting. The arguments that _initc7_ takes
 are for midi channel, controller number and initial value. Initial value
 is defined within the range 0-1, therefore a value of 1 will set this
 controller to its maximum value (midi value 127), and a value of 0.5
 will set it to its halfway value (midi value 64), and so on.
 
-Additionally this example uses the
+Additionally this example uses the&nbsp;
 [cpsmidi](https://csound.com/docs/manual/cpsmidi.html) opcode to
 scan midi pitch (basically converting midi note numbers to
-cycles-per-second) and the
+cycles-per-second) and the&nbsp;
 [ampmidi](https://csound.com/docs/manual/ampmidi.html) opcode to
 scan and rescale key velocity.
 
-**_EXAMPLE 07C03_cpsmidi_ampmidi.csd_**
+#### **_EXAMPLE 07C03_cpsmidi_ampmidi.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -199,8 +199,8 @@ inadequate for defining, for example, the frequency of an oscillator
 over a number of octaves, the cutoff frequency of a filter or a quickly
 moving volume control. We soon become aware of the parameter that is
 being changed moving in steps - so not really a _continuous_
-controller. We may also experience clicking artefacts, sometimes called
-_zipper noise_, as the value changes. The extent of this will depend
+&nbsp;controller. We may also experience clicking artefacts, sometimes called
+&nbsp;_zipper noise_, as the value changes. The extent of this will depend
 upon the parameter being controlled. There are some things we can do to
 address this problem. We can filter the controller signal within Csound
 so that the sudden changes that occur between steps along the
@@ -208,7 +208,7 @@ controller's travel are smoothed using additional interpolating values
 
 - we must be careful not to smooth excessively otherwise the response of
   the controller will become sluggish. Any k-rate compatible lowpass
-  filter can be used for this task but the
+  filter can be used for this task but the&nbsp;
   [portk](https://csound.com/docs/manual/portk.html) opcode is
   particularly useful as it allows us to define the amount of smoothing as
   a time taken to glide to half the required value rather than having to
@@ -218,21 +218,20 @@ controller's travel are smoothed using additional interpolating values
 
 This example takes the simple synthesizer of the previous example as its
 starting point. The volume control, which is controlled by midi
-controller 1 on channel 1, is passed through a _portk_ filter. The
-_half time_ for _portk_ ramps quickly up to its required value of
-0.01 through the use of a
-[linseg](https://csound.com/docs/manual/linseg.html) statement in
-the previous line. This ensures that when a new note begins the volume
+controller 1 on channel 1, is passed through a _portk_ filter.
+The _half time_ for _portk_ ramps quickly up to its required value of
+0.01 through the use of a [linseg](https://csound.com/docs/manual/linseg.html) statement
+in the previous line. This ensures that when a new note begins the volume
 control immediately jumps to its required value rather than gliding up
 from zero as would otherwise be affected by the _portk_ filter. Try
 this example with the _portk_ half time defined as a constant to hear
 the difference. To further smooth the volume control, it is converted to
-an a-rate variable through the use of the
+an a-rate variable through the use of the&nbsp;
 [interp](https://csound.com/docs/manual/interp.html) opcode which,
 as well as performing this conversion, interpolates values in the gaps
 between k-cycles.
 
-**_EXAMPLE 07C04_smoothing.csd_**
+#### **_EXAMPLE 07C04_smoothing.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -271,7 +270,7 @@ final example which includes a 2-semitone pitch bend and tone control
 which is controlled by aftertouch. For tone generation this example uses
 the [gbuzz](https://csound.com/docs/manual/gbuzz.html) opcode.
 
-**_EXAMPLE 07C05_MidiControlComplex.csd_**
+#### **_EXAMPLE 07C05_MidiControlComplex.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -351,7 +350,7 @@ using ftsave and recalled in a later session using ftload. Note that
 ftsave also has the capability of storing multiple function tables in a
 single file.
 
-**_EXAMPLE 07C06_RecordingController.csd_**
+#### **_EXAMPLE 07C06_RecordingController.csd_**
 
 ```csound
 <CsoundSynthesizer>

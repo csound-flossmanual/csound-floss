@@ -20,8 +20,6 @@ const allChapters = R.reject(
 
 const tmpDest = path.join(tmpdir(), "csound_flossmanual_single.md");
 
-console.log({ tmpDest });
-
 const deleteLinesHack = [
   "![](https://gogins.github.io/csound-extended/scrims.html){width=100% height=600px object-fit=contain}",
   /width=50%/g,

@@ -60,9 +60,13 @@ function App() {
         <style>{`#root {flex-direction: ${
           mobileMode ? "column" : "row"
         };}`}</style>
-        <BrowserRouter history={browserHistory}>
+        <BrowserRouter key="hst" history={browserHistory}>
           {!mobileMode && routeIndex > -1 && !equals(currentRoute, "/") && (
-            <LeftNav routes={routes} />
+            <LeftNav
+              routes={routes}
+              currentRoute={currentRoute}
+              setCurrentRoute={setCurrentRoute}
+            />
           )}
           <Main
             currentRoute={currentRoute}

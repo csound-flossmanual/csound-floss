@@ -7,7 +7,7 @@
 The _ATS_ technique (_Analysis-Transformation-Synthesis_) was developed
 by Juan Pampin. A comprehensive explanation of this technique can be
 found in his _ATS Theory_^[Juan Pampin, 2011,
-[ATS_theory](https://dxarts.washington.edu/sites/dxarts/files/documents/wiki/ats_theory.pdf)]
+&nbsp;[ATS_theory](https://dxarts.washington.edu/sites/dxarts/files/documents/wiki/ats_theory.pdf)]
 but, essentially, it may be said that it
 represents two aspects of the analyzed signal: the deterministic part
 and the stochastic or residual part. This model was initially conceived
@@ -135,7 +135,7 @@ partials will need:
 The following Csound code shows how to retrieve the data of the header
 of an ATS file.
 
-**_EXAMPLE 05K01_ats_header.csd_**
+#### **_EXAMPLE 05K01_ats_header.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -202,10 +202,11 @@ e
 All the Csound Opcodes devoted to ATS Synthesis need to read an ATS
 Analysis file. _ATS_ was initially developed for the _CLM_ environment
 (_Common Lisp Music_), but at present there exist several _GNU_
-applications that can perform _ATS_ analysis, among them the _Csound_
-Package command-line utility _ATSA_ which is based on the _ATSA_ program
-(Di Liscia, Pampin, Moss) and was ported to Csound by Istvan Varga. The
-_ATSA_ program (Di Liscia, Pampin, Moss) may be obtained at <https://github.com/jamezilla/ats/tree/master/ats>
+&nbsp;applications that can perform _ATS_ analysis, among them the _Csound_
+&nbsp;Package command-line utility _ATSA_ which is based on the _ATSA_ program
+(Di Liscia, Pampin, Moss) and was ported to Csound by Istvan Varga.
+The _ATSA_ program (Di Liscia, Pampin, Moss) may be obtained
+at <https://github.com/jamezilla/ats/tree/master/ats>
 
 ### Graphical Resources for Displaying ATS Analysis Files
 
@@ -215,8 +216,8 @@ environment. The source code and compilation directives can be obtained
 at <https://github.com/jamezilla/ats/tree/master/ats>
 
 Another very good GUI program that can be used for such purposes is
-Qatsh, a Qt 4 port by Jean-Philippe Meuret. This one can be obtained
-at <https://sourceforge.net/p/speed-dreams/code/HEAD/tree/subprojects/soundeditor/>
+Qatsh, a Qt 4 port by Jean-Philippe Meuret.
+This one can be obtained at <https://sourceforge.net/p/speed-dreams/code/HEAD/tree/subprojects/soundeditor/>
 
 ### Parameters Explanation and Proper Analysis Settings
 
@@ -279,13 +280,13 @@ resemble the original sound.
 
 ### Csound Opcodes for Reading ATS Data Files
 
-The opcodes
-[ATSread](https://csound.com/docs/manual/ATSread.html),
-[ATSreadnz](https://csound.com/docs/manual/ATSreadnz.html),
-[ATSbufread](https://csound.com/docs/manual/ATSbufread.html),
-[ATSinterpread](https://csound.com/docs/manual/ATSinterpread.html) and
+The opcodes&nbsp;
+[ATSread](https://csound.com/docs/manual/ATSread.html),&nbsp;
+[ATSreadnz](https://csound.com/docs/manual/ATSreadnz.html),&nbsp;
+[ATSbufread](https://csound.com/docs/manual/ATSbufread.html),&nbsp;
+[ATSinterpread](https://csound.com/docs/manual/ATSinterpread.html) and&nbsp;
 [ATSpartialtap](https://csound.com/docs/manual/ATSpartialtap.html)
-were essentially developed to read ATS data from ATS files.
+&nbsp;were essentially developed to read ATS data from ATS files.
 
 #### ATSread
 
@@ -311,7 +312,7 @@ a time changing weighting of the partials. Finally, the amplitude and
 frequency values could be used to drive other synthesis units, such as
 filters or FM synthesis networks of oscillators.
 
-**_EXAMPLE 05K02_atsread.csd_**
+#### **_EXAMPLE 05K02_atsread.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -369,7 +370,7 @@ e
 We can use arrays to simplify the code in this example, and to choose
 different numbers of partials:
 
-**_EXAMPLE 05K03_atsread2.csd_**
+#### **_EXAMPLE 05K03_atsread2.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -435,7 +436,7 @@ This opcode is similar to _ATSread_ in the sense that it reads the noise
 data of an ATS file, delivering k-rate energy values for the requested
 critical band. In order to this Opcode to work, the input ATS file must
 be either type 3 or 4 (types 1 and 2 do not contain noise data).
-_ATSreadnz_ is simpler than _ATSread_, because whilst the number of
+&nbsp;_ATSreadnz_ is simpler than _ATSread_, because whilst the number of
 partials of an ATS file is variable, the noise data (if any) is stored
 always as 25 values per analysis frame each value corresponding to the
 energy of the noise in each one of the critical bands. The three
@@ -464,7 +465,7 @@ the Stochastic noise values correspond to energy (i.e., intensity), in
 order to get the proper amplitude values, the square root of them must
 be computed.
 
-**_EXAMPLE 05K04_atsreadnz.csd_**
+#### **_EXAMPLE 05K04_atsreadnz.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -553,8 +554,8 @@ e
 
 #### ATSbufread, ATSinterpread, ATSpartialtap.
 
-The [ATSbufread](https://csound.com/docs/manual/ATSbufread.html)
-opcode reads an ATS file and stores its frequency and amplitude data
+The [ATSbufread](https://csound.com/docs/manual/ATSbufread.html) opcode
+reads an ATS file and stores its frequency and amplitude data
 into an internal table. The first and third input arguments are the same
 as in the _ATSread_ and the _ATSreadnz_ Opcodes: a time pointer and an
 ATS file name. The second input argument is a frequency scaler. The
@@ -567,9 +568,8 @@ amplitude data is available to be used by other opcode. In this case,
 two examples are provided, the first one uses the _ATSinterpread_ opcode
 and the second one uses the _ATSpartialtap_ opcode.
 
-The
-[ATSinterpread](https://csound.com/docs/manual/ATSinterpread.html)
-opcode reads an ATS table generated by the _ATSbufread_ opcode and
+The [ATSinterpread](https://csound.com/docs/manual/ATSinterpread.html)
+&nbsp;opcode reads an ATS table generated by the _ATSbufread_ opcode and
 outputs amplitude values interpolating them between the two amplitude
 values of the two frequency trajectories that are closer to a given
 frequency value. The only argument that this opcode takes is the desired
@@ -589,7 +589,7 @@ one of this partial. So, the example shows a gradual morphing beween
 the amplitude envelope of the first partial to the amplitude envelope of
 the second according to their frequency values.
 
-**_EXAMPLE 05K05_atsinterpread.csd_**
+#### **_EXAMPLE 05K05_atsinterpread.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -639,9 +639,8 @@ e
 ;example by Oscar Pablo Di Liscia
 ```
 
-The
-[ATSpartialtap](https://csound.com/docs/manual/ATSpartialtap.html)
-Opcode reads an ATS table generated by the _ATSbufread_ Opcode and
+The [ATSpartialtap](https://csound.com/docs/manual/ATSpartialtap.html)
+&nbsp;opcode reads an ATS table generated by the _ATSbufread_ Opcode and
 outputs the frequency and amplitude k-rate values of a specific partial
 number. The example presented here uses four of these opcodes that read
 from a single ATS buffer obtained using _ATSbufread_ in order to drive
@@ -649,7 +648,7 @@ the frequency and amplitude of four oscillators. This allows the mixing
 of different combinations of partials, as shown by the three notes
 triggered by the designed instrument.
 
-**_EXAMPLE 05K06_atspartialtap.csd_**
+#### **_EXAMPLE 05K06_atspartialtap.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -724,13 +723,14 @@ analysis data internally and allow for some modifications of these data
 as well. A significant difference to the preceding opcodes is that the
 synthesis method cannot be chosen by the user. The synthesis methods
 used by all of these opcodes are fully explained in _Juan Pampin 2011_
-and _Oscar Pablo Di Liscia 2013_ (see footnotes 1 and 6).
+&nbsp;and _Oscar Pablo Di Liscia 2013_ (see footnotes 1 and 6).
 
 The [ATSadd](https://csound.com/docs/manual/ATSadd.html) opcode
 synthesizes deterministic data from an ATS file using an array of table
 lookup oscillators whose amplitude and frequency values are obtained by
 linear interpolation of the ones in the ATS file according to the time
-of the analysis requested by a time pointer . The frequency of all the partials may be modified at k-rate,
+of the analysis requested by a time pointer.
+The frequency of all the partials may be modified at k-rate,
 allowing shifting and/or frequency modulation. An ATS file, a time
 pointer and a function table are required. The table is supposed to
 contain either a cosine or a sine function, but nothing prevents the
@@ -754,7 +754,7 @@ position 512 (1024/2). Very complex filtering effects can be obtained
 by carefully setting these gating tables according to the amplitude
 values of a particular ATS analysis.
 
-**_EXAMPLE 05K07_atsadd.csd_**
+#### **_EXAMPLE 05K07_atsadd.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -837,14 +837,14 @@ e
 The [ATSaddnz](https://csound.com/docs/manual/ATSaddnz.html) opcode
 synthesizes residual ("noise") data from an ATS file using the method
 explained above. This opcode works in a similar fashion to
-_ATSadd_ except that frequency warping of the noise bands is not
+&nbsp;_ATSadd_ except that frequency warping of the noise bands is not
 permitted and the maximum number of noise bands will always be 25 (the
 25 critical bands, see Zwicker/Fastl, footnote 3). The optional arguments
-_offset_ and _increment_ work in a similar fashion to that in ATSadd.
+&nbsp;_offset_ and _increment_ work in a similar fashion to that in ATSadd.
 The _ATSaddnz_ opcode allows the synthesis of several combinations of
 noise bands, but individual amplitude scaling of them is not possible.
 
-**_EXAMPLE 05K08_atsaddnz.csd_**
+#### **_EXAMPLE 05K08_atsaddnz.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -908,10 +908,9 @@ e
 ;example by Oscar Pablo Di Liscia
 ```
 
-The [ATSsinnoi](https://csound.com/docs/manual/ATSsinnoi.html)
-opcode synthesizes both deterministic and residual ("noise") data from
-an ATS file. This opcode
-may be regarded as a combination of the two previous opcodes but with
+The [ATSsinnoi](https://csound.com/docs/manual/ATSsinnoi.html) opcode
+synthesizes both deterministic and residual ("noise") data from an ATS file.
+This opcode may be regarded as a combination of the two previous opcodes but with
 the allowance of individual amplitude scaling of the mixes of
 deterministic and residual parts. All the arguments of _ATSsinnoi_ are
 the same as those for the two previous opcodes, except for the two
@@ -919,7 +918,7 @@ k-rate variables _ksinlev_ and _knoislev_ that allow individual, and
 possibly time-changing, scaling of the deterministic and residual parts
 of the synthesis.
 
-**_EXAMPLE 05K09_atssinnoi.csd_**
+#### **_EXAMPLE 05K09_atssinnoi.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1005,11 +1004,11 @@ be loaded by an _ATScross_ instance. Only the deterministic data of both
 analyses is used. The ATS file, time pointer, frequency scaling, number
 of partials, partial offset and partial increment arguments work the
 same way as usages in previously described opcodes. Using the arguments
-_kmylev_ and _kbuflev_ the user may define how much of the amplitude
+&nbsp;_kmylev_ and _kbuflev_ the user may define how much of the amplitude
 values of the file read by _ATSbufread_ is to be used to scale the
 amplitude values corresponding to the frequency values of the analysis
 read by _ATScross_. So, a value of 0 for _kbuflev_ and 1 for _kmylev_
-will retain the original ATS analysis read by _ATScross_ unchanged
+&nbsp;will retain the original ATS analysis read by _ATScross_ unchanged
 whilst the converse (_kbuflev_ =1 and _kmylev_=0) will retain the
 frequency values of the ATScross analysis but scaled by the amplitude
 values of the _ATSbufread_ analysis. As the time pointers of both units
@@ -1017,7 +1016,7 @@ need not be the same, and frequency warping and number of partials may
 also be changed, very complex cross synthesis and sound hybridation can
 be obtained using this opcode.
 
-**_EXAMPLE 05K10_atscross.csd_**
+#### **_EXAMPLE 05K10_atscross.csd_**
 
 ```csound
 <CsoundSynthesizer>

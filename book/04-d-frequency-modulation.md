@@ -23,7 +23,7 @@ frequency F~M~, drives the frequency of the carrier oscillator both
 above and below the carrier frequency F~C~. If the modulator is
 running in the sub-audio frequency range (below 20 Hz), the result of Modulation is vibrato. When the modulator's frequency rises in the audio range, we hear it as a change in the timbre of the carrier.
 
-**_EXAMPLE 04D01_Frequency_modulation.csd_**
+#### **_EXAMPLE 04D01_Frequency_modulation.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -75,7 +75,7 @@ F~C~:F~M~ is not a simple integer ratio, such as 8:2.1 (as in the
 case of two signals at 800 and 210 Hz), FM generates inharmonic spectra
 (noninteger multiples of the carrier and modulator).
 
-**_EXAMPLE 04D02_Ratio.csd_**
+#### **_EXAMPLE 04D02_Ratio.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -146,7 +146,7 @@ when one waveform with a large number of spectral components frequency
 modulates another, the resulting sound can be so dense that it sounds
 harsh and undefined. Aliasing can occur easily.
 
-**_EXAMPLE 04D03_Index.csd_**
+#### **_EXAMPLE 04D03_Index.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -194,7 +194,7 @@ into the basic model:
     if R = C : M then M = C : R and
     if I = D : M then D = I · M.
 
-**_EXAMPLE 04D04_Standard.csd_**
+#### **_EXAMPLE 04D04_Standard.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -271,7 +271,7 @@ i "PlayMess" 0 30
 
 Basic FM synthesis can be implemented by using the [foscil](https://csound.com/docs/manual/foscil.html) opcode, which effectively connects two oscil opcodes in the familiar Chowning FM setup. In the example below _kDenominator_ is a value that when multiplied by the _kCar_ parameter, gives the Carrier frequency and when multiplied by the _kMod_ parameter, gives the Modulating frequency.
 
-**_EXAMPLE 04D05_basic_FM_with_foscil.csd_**
+#### **_EXAMPLE 04D05_basic_FM_with_foscil.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -337,7 +337,7 @@ In multiple modulator frequency modulation, more than one oscillator modulates a
 
 ![Multiple Modulator FM](../resources/images/04-d-parallel-mm-fm.jpg){width=75%}
 
-**_EXAMPLE 04D06_Parallel_MM_FM.csd_**
+#### **_EXAMPLE 04D06_Parallel_MM_FM.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -374,7 +374,7 @@ In serial MM FM, the output of the first modulator is added with a fixed value a
 
 ![Serial Modulator FM](../resources/images/04-d-serial-mm-fm.jpg){width=60%}
 
-**_EXAMPLE 04D07_Serial_MM_FM.csd_**
+#### **_EXAMPLE 04D07_Serial_MM_FM.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -411,7 +411,7 @@ By multiple carrier frequency modulation, we mean an FM instrument in which one 
 
 ![Multiple Carrier FM](../resources/images/04-d-fm-2c.jpg)
 
-**_EXAMPLE 04D08_MC_FM.csd_**
+#### **_EXAMPLE 04D08_MC_FM.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -444,7 +444,7 @@ i "FM_two_carriers" 0 20
 
 Composer and researcher Jown Chowning worked on the first digital implementation of FM in the 1970's. By using envelopes to control the modulation index and the overall amplitude evolving sounds with enormous spectral variations can be created. Chowning showed these possibilities in his pieces, in which various sound transformations occur. In the piece Sabelithe a drum sound morphes over the time into a trumpet tone. In the example below, the amplitude of the Modulator has a complex envelope in the attack of the sound, which gives the trumpet-like timbre.
 
-**_EXAMPLE 04D09_Trumpet.csd_**
+#### **_EXAMPLE 04D09_Trumpet.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -483,7 +483,7 @@ i 1 0 2
 
 The following example uses the same instrument, with different settings to generate a bell-like sound:
 
-**_EXAMPLE 04D10_Bell.csd_**
+#### **_EXAMPLE 04D10_Bell.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -526,11 +526,12 @@ There is a strong relation between frequency modulation and phase modulation, as
 
 For a feedback FM system, it can happen that the self-modulation comes to a zero point, which would hang the whole system. To avoid this, the carriers table-lookup phase is modulated, instead of its pitch.
 
-Also the most famous FM-synthesizer Yamaha DX7 is based on the phase-modulation (PM) technique, because this allows feedback. The DX7 provides 7 operators, and offers 32 routing combinations of these (cf <http://yala.freeservers.com/t2synths.htm#DX7>).
+Also the most famous FM-synthesizer Yamaha DX7 is based on the phase-modulation (PM) technique, because this allows feedback. The DX7 provides 7 operators, and offers 32 routing combinations of these
+(cf <http://yala.freeservers.com/t2synths.htm#DX7>).
 
 To build a PM-synth in Csound the tablei opcode substitutes the FM oscillator. In order to step through the f-table, a phasor will output the necessary steps.
 
-**_EXAMPLE 04D11_Phase modulation and Feedback FM.csd_**
+#### **_EXAMPLE 04D11_Phase modulation and Feedback FM.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -568,7 +569,7 @@ i "PM" 0 9
 
 In the last example we use the possibilities of self-modulation (feedback-modulation) of the oscillator. So here the oscillator is both modulator and carrier. To control the amount of modulation, an envelope scales the feedback.
 
-**_EXAMPLE 04D12_Feedback modulation.csd_**
+#### **_EXAMPLE 04D12_Feedback modulation.csd_**
 
 ```csound
 <CsoundSynthesizer>

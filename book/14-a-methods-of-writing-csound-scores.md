@@ -93,8 +93,7 @@ beginning of a score:
 
 "At time (beat) zero set tempo to 60 beats per minute"; but this could
 easily be anything else or evena string of tempo change events following
-the format of a
-[linsegb](https://csound.com/docs/manual/linsegb.html) statement.
+the format of a [linsegb](https://csound.com/docs/manual/linsegb.html) statement.
 
     t 0 120 5 120 5 90 10 60
 
@@ -104,8 +103,8 @@ declines in linear fashion until the 10th beat when the tempo has
 reached 60bpm.
 
 `m` statements allow us to define sections of the score that might be
-repeated (`s` statements marking the end of that section). `n`
-statements referencing the name given to the original `m` statement
+repeated (`s` statements marking the end of that section).
+&nbsp;`n` statements referencing the name given to the original `m` statement
 via their first parameter field will call for a repetition of that
 section.
 
@@ -154,7 +153,7 @@ arguments (= file names).
 
 ### Calling a binary without a script
 
-**_EXAMPLE 14A01_Score_bin.csd_**
+#### **_EXAMPLE 14A01_Score_bin.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -195,7 +194,7 @@ print("File to write = '%s'" % argv[2])
 
 Then run this csd:
 
-**_EXAMPLE 14A02_Score_bin_script.csd_**
+#### **_EXAMPLE 14A02_Score_bin_script.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -220,7 +219,7 @@ And again a complaint about the invalid score file:
 
 ### CsBeats
 
-As an alternative to the classical Csound score,
+As an alternative to the classical Csound score,&nbsp;
 [CsBeats](https://csound.com/docs/manual/CsBeats.html) is included
 with Csound. This is a domain specific language tailored to the concepts
 of beats, rhythm and standard western notation. To use Csbeat, specify
@@ -228,7 +227,7 @@ of beats, rhythm and standard western notation. To use Csbeat, specify
 
     <CsScore bin="csbeats">
 
-For more information, refer to the
+For more information, refer to the&nbsp;
 [Csound Manual](https://csound.com/docs/manual/CsBeats.html).
 
 ### Scripting Language Examples
@@ -239,7 +238,7 @@ seed has been set, the current system clock is used. So there will be a
 different value for the first three random statements, while the last
 two statements will always generate the same values.
 
-**_EXAMPLE 14A03_Score_perlscript.csd_**
+#### **_EXAMPLE 14A03_Score_perlscript.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -287,9 +286,11 @@ not force composers into any one particular compositional model;
 Composers design their own score frameworks by importing from existing
 Python libraries, or fabricate their own functions as needed. It fully
 supports the existing classical Csound score, and runs inside a unified
-CSD file. The sources are
+CSD file. The sources are&nbsp;
 [on github](https://github.com/jacobjoaquin/csd/tree/master/demo/pysco),
-so although the code is still using Python2, it can certainly serve as an example about the possibilities of using Python as score scripting language.
+so although the code is still using Python2,
+it can certainly serve as an example about the possibilities of using
+Python as score scripting language.
 
 Pysco is designed to be a giant leap forward from the classical Csound
 score by leveraging Python, a highly extensible general-purpose
@@ -302,8 +303,10 @@ compositional environment.
 
 ### Transitioning away from the Classical Csound Score
 
-Only two changes are necessary to get started. First, the optional _bin_ argument for the CsScore tag needs to specify "python pysco.py" . Second, all existing classical Csound score code works when placed inside the _score()_
-function.
+Only two changes are necessary to get started.
+First, the optional _bin_ argument for the CsScore tag needs to specify "python pysco.py".
+Second, all existing classical Csound score code works when placed inside
+the _score()_ function.
 
 ```csound
 <CsScore bin="python pysco.py">
@@ -331,9 +334,9 @@ handful.
 
 ### Managing Time with the _cue()_
 
-The _cue()_ object is the Pysco
+The _cue()_ object is the Pysco&nbsp;
 [context manager](http://docs.python.org/2/reference/datamodel.html#context-managers)
-for controlling and manipulating time in a score. Time is a fundamental
+&nbsp;for controlling and manipulating time in a score. Time is a fundamental
 concept in music, and the _cue()_ object elevates the role of time to that
 of other control such as _if_ and _for_ statements, synthesizing time into
 the form of the code.
@@ -383,7 +386,7 @@ follows:
 The start of measure 2 is now 0.0, as opposed to 4.0 in the classical
 score environment. The physical layout of these time-based block
 structure also adds visual cues for the composer, as indentation and
-_with cue()_ statements adds clarity when scanning a score for a
+&nbsp;_with cue()_ statements adds clarity when scanning a score for a
 particular event.
 
 Moving events in time, regardless of how many there are, is nearly
@@ -414,8 +417,8 @@ these two measures are unchanged.
 
 ### Generating Events
 
-Pysco includes two functions for generating a Csound score event. The
-_score()_ function simply accepts any and all classical Csound score
+Pysco includes two functions for generating a Csound score event.
+The _score()_ function simply accepts any and all classical Csound score
 events as a string. The second is _event_i()_, which generates a properly
 formatted Csound score event. Take the following Pysco event for
 example:
@@ -429,9 +432,9 @@ Csound score code:
 
 These event score functions combined with Python's extensive set of
 features aid in generating multiple events. The following example uses
-three of these features: the
-[for statement](http://docs.python.org/2/tutorial/controlflow.html#for-statements),
-[range()](http://docs.python.org/2/tutorial/controlflow.html#the-range-function),
+three of these features: the&nbsp;
+[for statement](http://docs.python.org/2/tutorial/controlflow.html#for-statements),&nbsp;
+[range()](http://docs.python.org/2/tutorial/controlflow.html#the-range-function),&nbsp;
 and [random()](http://docs.python.org/2/library/random.html#random.random).
 
 ```python
@@ -455,7 +458,7 @@ is:
 As the script iterates through the list, variable time assumes the next
 value in the list; The time variable is also the start time of each
 event. A hint of algorithmic flair is added by importing the
-_random()_ function from Python's
+&nbsp;_random()_ function from Python's&nbsp;
 [random library](http://docs.python.org/2/library/random.html) and using it to
 create a random frequency between 100 and 1000 Hz. The script produces
 this classical Csound score:
@@ -473,16 +476,16 @@ this classical Csound score:
 ### Processing Events
 
 Pysco includes two functions for processing score event data called
-_p_callback()_ and _pmap()_. The _p_callback()_ is a pre-processor that
+&nbsp;_p_callback()_ and _pmap()_. The _p_callback()_ is a pre-processor that
 changes event data before it's inserted into the score object while
-_pmap()_ is a post-processor that transforms event data that already
+&nbsp;_pmap()_ is a post-processor that transforms event data that already
 exists in the score.
 
     p_callback(event_type, instr_number, pfield, function, *args)
     pmap(event_type, instr_number, pfield, function, *args)
 
 The following examples demonstrates a use case for both functions. The
-_p_callback()_ function pre-processes all the values in the pfield 5
+&nbsp;_p_callback()_ function pre-processes all the values in the pfield 5
 column for instrument 1 from conventional notation (D5, G4, A4, etc) to
 hertz. The _pmap()_ post-processes all pfield 4 values for instrument 1,
 converting from decibels to standard amplitudes.
@@ -588,9 +591,9 @@ The output is:
 
     ; ------- end of field 1 --- number of events: 241 -------
 
-Cmask can be downloaded for
+Cmask can be downloaded for&nbsp;
 [MacOS9, Win, Linux](http://www.bartetzki.de/en/software.html) (by
-André Bartetzki) and is ported to
+André Bartetzki) and is ported to&nbsp;
 [OSX](http://www.anthonykozar.net/ports/cmask)(by Anthony Kozar).
 
 ## nGen
@@ -709,7 +712,7 @@ i1    9.990  0.100     0.000  3847.285     1.00     2
 e
 ```
 
-nGen for Mac, Windows and Linux can be downloaded
+nGen for Mac, Windows and Linux can be downloaded&nbsp;
 [here](http://mikelkuehn.com/index.php/ng)
 
 ## AthenaCL
@@ -762,7 +765,7 @@ collection all Texture and Clone EventSequences is the complete output
 of athenaCL. These EventSequences are transformed into various
 OutputFormats for compositional deployment.
 
-AthenaCL can be downloaded
+AthenaCL can be downloaded&nbsp;
 [here](http://www.flexatone.org/athena.html).
 
 ## Common Music
@@ -787,5 +790,5 @@ Some of the features:
   easy-to-learn alternate)
 - Data visualization
 
-Common Music 3 can be downloaded
+Common Music 3 can be downloaded&nbsp;
 [here](http://commonmusic.sourceforge.net).

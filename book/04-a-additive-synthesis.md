@@ -8,7 +8,7 @@ The frequencies of these _harmonics_ are integer multiples of the fundamental fr
 As we can easily produce sine waves of different amplitudes in digital sound synthesis,
 the _Fourier Synthesis_ or _Additive Synthesis_ may sound the universal key for
 creating interesting sounds. But first, not all sounds are periodic.
-_Noise_ as very important part of the sounding world represents the other pole
+&nbsp;_Noise_ is very important part of the sounding world represents the other pole
 which is essentially non-periodic. And dealing with single sine waves means
 dealing with a lot of data and reqirements.
 
@@ -29,7 +29,8 @@ the parameters we use will operate on one of two different levels:
 
 - **For each sine**, there will be a frequency and an amplitude with
   an envelope.
-- - The **frequency** will usually be a constant value, but it can
+
+  - The **frequency** will usually be a constant value, but it can
     be varied and in fact natural sounds typically exhibit slight
     modulations of partial frequencies.
   - The **amplitude** must have at least a simple envelope such as
@@ -37,7 +38,7 @@ the parameters we use will operate on one of two different levels:
     altering the amplitude will result in a livelier sound.
 
 - **For the sound as an entirety**, the relevant parameters are:
-- - The total **number of sinusoids**. A sound which consists of
+  - The total **number of sinusoids**. A sound which consists of
     just three sinusoids will most likely sound poorer than one
     which employs 100.
   - The **frequency ratios** of the sine generators. For a classic
@@ -89,7 +90,7 @@ share the same amplitude multipliers: 1, 1/2, 1/3, 1/4, ... and receive
 the base frequency in Csound's pitch notation (octave.semitone) and the
 main amplitude in dB.
 
-**_EXAMPLE 04A01_AddSynth_simple.csd_**
+#### **_EXAMPLE 04A01_AddSynth_simple.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -185,7 +186,7 @@ score as _p-fields_.
 The next version of the previous instrument, simplifies the instrument
 code and defines the variable values as score parameters:
 
-**_EXAMPLE 04A02_AddSynth_score.csd_**
+#### **_EXAMPLE 04A02_AddSynth_score.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -282,7 +283,7 @@ more complex and allows you to also control the frequency multiplier and
 the phase (0-360°) of each partial. Thus we are able to reproduce the
 first example in a shorter (and computationally faster) form:
 
-**_EXAMPLE 04A03_AddSynth_GEN.csd_**
+#### **_EXAMPLE 04A03_AddSynth_GEN.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -355,7 +356,7 @@ calculated as 1 divided by the square of the odd partials, with swapping
 positive and negative values. The next example creates function tables
 with just the first ten partials for each of these waveforms.
 
-**_EXAMPLE 04A04_Standard_waveforms.csd_**
+#### **_EXAMPLE 04A04_Standard_waveforms.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -396,11 +397,11 @@ function tables has the disadvantage that once a note has begun there is
 no way of varying the relative strengths of individual partials. There
 are various methods to circumvent the inflexibility of table-based
 additive synthesis such as morphing between several tables (for example
-by using the [ftmorf](http://www.csound.com/docs/manual/ftmorf.html)
-opcode) or by filtering the result. Next we shall consider another
+by using the [ftmorf](http://www.csound.com/docs/manual/ftmorf.html) opcode)
+or by filtering the result. Next we shall consider another
 approach: triggering one instance of a sub-instrument^[This term is
-used here in a general manner. There is also a Csound opcode
-[subinstr](https://csound.com/docs/manual/subinstr.html),
+used here in a general manner. There is also a Csound
+opcode [subinstr](https://csound.com/docs/manual/subinstr.html),
 which has some more specific meanings.] for each
 partial, and exploring the possibilities of creating a spectrally
 dynamic sound using this technique.
@@ -412,7 +413,7 @@ complete note in one score line, not just one partial. The first step is
 to assign the desired number of partials via a score parameter. The next
 example triggers any number of partials using this one value:
 
-**_EXAMPLE 04A05_Flexible_number_of_partials.csd_**
+#### **_EXAMPLE 04A05_Flexible_number_of_partials.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -461,7 +462,7 @@ This instrument can easily be transformed to be played via a midi
 keyboard. In the next the midi key velocity will map to the number of
 synthesized partials played to implement a brightness control.
 
-**_EXAMPLE 04A06_Play_it_with_Midi.csd_**
+#### **_EXAMPLE 04A06_Play_it_with_Midi.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -545,7 +546,7 @@ the _bell-like_ sound created by Jean-Claude Risset in his _Sound
 Catalogue_.^[Jean-Claude Risset, Introductory Catalogue of Computer Synthesized
 Sounds (1969), cited after Dodge/Jerse, Computer Music, New York/London 1985, p.94]
 
-**_EXAMPLE 04A07_Risset_variations.csd_**
+#### **_EXAMPLE 04A07_Risset_variations.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -646,7 +647,7 @@ according to the key velocity so that a key pressed softly plays the
 bell-like sound as described by Risset but as a key is struck with
 increasing force the sound produced will be increasingly altered.
 
-**_EXAMPLE 04A08_Risset_played_by_Midi.csd_**
+#### **_EXAMPLE 04A08_Risset_played_by_Midi.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -731,11 +732,16 @@ on getting the best possible performance from your Csound orchestra.
 
 ### Using a Recursive UDO
 
-A recursive User-Defines Opcode, as described in chapter [03 G](03-g-user-defined-opcodes.md), is an elegant way to accomplish the task of individually controlled partials in an additive synthesis. One instance of the UDO performs one partial. It calls the next instance recursively until the desired number of partials is there. The audio signals are added in the recursion.
+A recursive User-Defines Opcode, as described in chapter [03 G](03-g-user-defined-opcodes.md),
+is an elegant way to accomplish the task of individually controlled partials in an additive synthesis.
+One instance of the UDO performs one partial.
+It calls the next instance recursively until the desired number of partials is there.
+The audio signals are added in the recursion.
 
-The next example demonstrates this in transforming the Risset bell code (04A07) to this approach. The coding style is more condensed here, so some comments are added after the code.
+The next example demonstrates this in transforming the Risset bell code (04A07) to this approach.
+The coding style is more condensed here, so some comments are added after the code.
 
-**_EXAMPLE 04A09_risset_bell_rec_udo.csd_**
+#### **_EXAMPLE 04A09_risset_bell_rec_udo.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -820,7 +826,7 @@ Some comments:
 [gbuzz](http://www.csound.com/docs/manual/gbuzz.html) is useful for
 creating additive tones made of harmonically related cosine waves.
 Rather than define attributes for every partial individually,
-_gbuzz_ allows us to
+&nbsp;_gbuzz_ allows us to
 define parameters that describe the entire additive tone in a more
 general way: specifically the number of partials in the tone, the
 partial number of the lowest partial present and an amplitude
@@ -839,7 +845,7 @@ spectrogram/sonogram displays how this manifests spectrally. A linear
 frequency scale is employed in the spectrogram so that harmonic partials
 appear equally spaced.
 
-**_EXAMPLE 04A10_gbuzz.csd_**
+#### **_EXAMPLE 04A10_gbuzz.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -878,15 +884,15 @@ e
 
 ![](../resources/images/04-a-gbuzz1.png)
 
-The total number of partials only reaches 19 because the
-[line](http://www.csound.com/docs/manual/line.html) function only
+The total number of partials only reaches 19 because
+the [line](http://www.csound.com/docs/manual/line.html) function only
 reaches 20 at the very conclusion of the note.
 
 In the next example the number of partials contained within the tone
 remains constant but the partial number of the lowest partial rises from
 1 to 20.
 
-**_EXAMPLE 04A11_gbuzz_partials_rise.csd_**
+#### **_EXAMPLE 04A11_gbuzz_partials_rise.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -929,13 +935,12 @@ In the spectrogram it can be seen how, as lowermost partials are
 removed, additional partials are added at the top of the spectrum. This
 is because the total number of partials remains constant at 20.
 
-In the final _gbuzz_
-example the amplitude coefficient multiplier rises from 0 to 2. It can
-be heard (and seen in the spectrogram) how, when this value is zero,
+In the final _gbuzz_ example the amplitude coefficient multiplier rises from 0 to 2.
+It can be heard (and seen in the spectrogram) how, when this value is zero,
 emphasis is on the lowermost partial and when this value is 2, emphasis
 is on the uppermost partial.
 
-**_EXAMPLE 04A12_gbuzz_amp_coeff_rise.csd_**
+#### **_EXAMPLE 04A12_gbuzz_amp_coeff_rise.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -980,19 +985,18 @@ fewer parameters -- it does not provide for modulation of the lowest
 partial number and amplitude coefficient multiplier.
 
 [GEN11](http://www.csound.com/docs/manual/GEN11.html) creates a
-function table waveform using the same parameters as
-_gbuzz_. If a _gbuss_ tone is required
-but no performance time modulation of its parameters is
-needed, _GEN11_ may
+function table waveform using the same parameters as _gbuzz_.
+If a _gbuss_ tone is required but no performance time modulation of
+its parameters is needed, _GEN11_ may
 provide a more efficient option. _GEN11_ also opens the
 possibility of using its waveforms in a variety of other opcodes.
-_gbuzz_, _buzz_ and _GEN11_ may also prove
+&nbsp;_gbuzz_, _buzz_ and _GEN11_ may also prove
 useful as a source for subtractive synthesis.
 
 ### hsboscil
 
 The opcode [hsboscil](http://www.csound.com/docs/manual/hsboscil.html)
-offers an interesting method of additive synthesis in which all partials
+&nbsp;offers an interesting method of additive synthesis in which all partials
 are spaced an octave apart. Whilst this may at first seems limiting, it
 does offer simple means for morphing the precise make up of its
 spectrum. It can be thought of as producing a sound spectrum that
@@ -1001,8 +1005,8 @@ sounding all of the resultant partials simultaneously, a window
 (typically a Hanning window) is placed over the spectrum, masking it so
 that only one or several of these partials sound at any one time. The
 user can shift the position of this window up or down the spectrum at
-k-rate and this introduces the possibility of spectral morphing. _hsbosil_
-refers to this control as _kbrite_. The width of the window can be
+k-rate and this introduces the possibility of spectral morphing.
+&nbsp;_hsbosil_ refers to this control as _kbrite_. The width of the window can be
 specified (but only at i-time) using its _iOctCnt_ parameter. The
 entire spectrum can also be shifted up or down, independent of the
 location of the masking window using the _ktone_ parameter, which can
@@ -1019,7 +1023,7 @@ which adds a frequency value to all partials thereby warping the
 interval between partials. Instrument 3 employs a more complex waveform
 (pseudo-inharmonic) as the source waveform for the partials.
 
-**_EXAMPLE 04A13_hsboscil.csd_**
+#### **_EXAMPLE 04A13_hsboscil.csd_**
 
 ```csound
 <CsoundSynthesizer>

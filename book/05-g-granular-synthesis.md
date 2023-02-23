@@ -4,20 +4,33 @@ This chapter will focus upon granular synthesis used as a DSP technique
 upon recorded sound files and will introduce techniques including time
 stretching, time compressing and pitch shifting. The emphasis will be
 upon asynchronous granulation. For an introduction to synchronous
-granular synthesis using simple waveforms please refer to chapter
+granular synthesis using simple waveforms please refer to chapter&nbsp;
 [04 F](04-f-granular-synthesis.md).
 
-We will start with a self-made granulator which we build step by step. It may help to understand the main parameters, and to see upon which decisions the different opcode designs are built. In the second part of this chapter we will introduce some of the many Csound opcodes for granular synthesis, in typical use cases.
+We will start with a self-made granulator which we build step by step.
+It may help to understand the main parameters,
+and to see upon which decisions the different opcode designs are built.
+In the second part of this chapter we will introduce some of the many
+Csound opcodes for granular synthesis, in typical use cases.
 
 ## A Self-Made Granulator
 
-It is perfectly possible to build one's own granular machine in Csound code, without using one of the many opcodes for granular synthesis. This machine will certainly run slower than a native opcode. But for understanding what is happening, and being able to implement own ideas, this is a very instructive approach.
+It is perfectly possible to build one's own granular machine in Csound code,
+without using one of the many opcodes for granular synthesis.
+This machine will certainly run slower than a native opcode.
+But for understanding what is happening, and being able to implement own ideas,
+this is a very instructive approach.
 
-Granular synthesis can be described as a sequence of small sound snippets. So we can think of two units: One unit is managing the sequence, the other unit is performing one grain. Let us call the first unit _Granulator_, and the second unit _Grain_. The _Granulator_ will manage the sequence of grains in calling the _Grain_ unit again and again, with different parameters:
+Granular synthesis can be described as a sequence of small sound snippets.
+So we can think of two units: One unit is managing the sequence,
+the other unit is performing one grain. Let us call the first unit _Granulator_,
+and the second unit _Grain_. The _Granulator_ will manage the sequence of grains
+in calling the _Grain_ unit again and again, with different parameters:
 
 ![](../resources/images/05-g-scheme.png)
 
-In Csound, we implement this architecture as two instruments. We will start with the instrument which performs one grain.
+In Csound, we implement this architecture as two instruments.
+We will start with the instrument which performs one grain.
 
 ### The Grain Unit
 
@@ -26,18 +39,26 @@ In Csound, we implement this architecture as two instruments. We will start with
 The _Grain_ instrument needs the following information in order to play back a single grain:
 
 1. **Sound**. In the most simple version this is a sound file on the hard disk. More flexible and fast is a sample which has been stored in a buffer (function table). We can also record this buffer in real time and through this perform live granular synthesis.
-2. **Point in Sound to start playback**. In the most simple version, this is the same as the _skiptime_ for playing back sound from hard disk via [diskin](https://csound.com/docs/manual/diskin.html). Usually we will choose seconds as unit for this parameter.
-3. **Duration**. The duration for one grain is usually in the range 20-50 ms, but can be smaller or bigger for special effects. In Csound this parameter is passed to the instrument as _p3_ in its call, measured in seconds.
-4. **Speed of Playback**. This parameter is used by _diskin_ and similar opcodes: 1 means the normal speed, 2 means double speed, 1/2 means half speed. This would result in no pitch change (1), octave higher (2) and octave lower(1/2). Negative numbers mean reverse playback.
+2. **Point in Sound to start playback**. In the most simple version, this is the same as the _skiptime_ for
+   playing back sound from hard disk via [diskin](https://csound.com/docs/manual/diskin.html).
+   Usually we will choose seconds as unit for this parameter.
+3. **Duration**. The duration for one grain is usually in the range 20-50 ms,
+   but can be smaller or bigger for special effects.
+   In Csound this parameter is passed to the instrument as _p3_ in its call,
+   measured in seconds.
+4. **Speed of Playback**. This parameter is used by _diskin_ and similar opcodes:
+   1 means the normal speed, 2 means double speed, 1/2 means half speed.
+   This would result in no pitch change (1), octave higher (2) and octave lower(1/2).
+   Negative numbers mean reverse playback.
 5. **Volume**. We will measure it in _dB_, where 0 dB means to play back the sound as it is recorded.
 6. **Envelope**. Each grain needs an envelope which starts and ends at zero, to ensure that there will be no clicks.
-   These are some frequently used envelopes:^[The function tables have been created with this code:
-   i0 ftgen 1, 0, 8192, 20, 3, 1
-   i0 ftgen 2, 0, 8192, 9, 1/2, 1, 0
-   i0 ftgen 3, 0, 8192, 20, 2, 1
-   i0 ftgen 4, 0, 8192, 20, 6, 1
-   i0 ftgen 5, 0, 8192, 20, 9, 1
-   i0 ftgen 6, 0, 8192, 20, 9, 1, 5 ]
+   These are some frequently used envelopes:^[The function tables have been created with this code:\
+   <i>i0 ftgen 1, 0, 8192, 20, 3, 1\
+   i0 ftgen 2, 0, 8192, 9, 1/2, 1, 0\
+   i0 ftgen 3, 0, 8192, 20, 2, 1\
+   i0 ftgen 4, 0, 8192, 20, 6, 1\
+   i0 ftgen 5, 0, 8192, 20, 9, 1\
+   i0 ftgen 6, 0, 8192, 20, 9, 1, 5</i> ]
 
 ![](../resources/images/05-g-grain-envs.png)
 
@@ -45,9 +66,14 @@ The _Grain_ instrument needs the following information in order to play back a s
 
 #### Simple Grain Implementation
 
-We start with the most simple implementation. We play back the sound with [diskin](https://csound.com/docs/manual/diskin.html) and apply a triangular envelope with the [linen](https://csound.com/docs/manual/linen.html) opcode. We pass the _grain duration_ as _p3_, the _playback start_ as _p4_ and the _playback speed_ as _p5_. We choose a constant grain duration of 50 ms, but in the first five examples different starting points, then in the other five examples from one starting point different playback speeds.
+We start with the most simple implementation. We play back the sound
+with [diskin](https://csound.com/docs/manual/diskin.html) and apply a triangular envelope
+with the [linen](https://csound.com/docs/manual/linen.html) opcode.
+We pass the _grain duration_ as _p3_, the _playback start_ as _p4_ and the _playback speed_ as _p5_.
+We choose a constant grain duration of 50 ms, but in the first five examples different starting points,
+then in the other five examples from one starting point different playback speeds.
 
-**_EXAMPLE 05G01_simple_grain.csd_**
+#### **_EXAMPLE 05G01_simple_grain.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -92,9 +118,13 @@ i .      10 .   .25    -1
 ;example by joachim heintz
 ```
 
-It is a tiring job to write a score line for each grain ... — no one will do this. But with but a small change we can read through the whole sound file by calling our _Grain_ instrument only once! The technique we use in the next example is to start a new instance of the _Grain_ instrument by the running instance, as long as the end of the sound file has not yet been reached. (This technique has been described in paragraph _Self-Triggering and Recursion_ of chapter [03 C](03-d-control-structures.md).)
+It is a tiring job to write a score line for each grain ... — no one will do this.
+But with but a small change we can read through the whole sound file by calling our _Grain_ instrument only once!
+The technique we use in the next example is to start a new instance of the _Grain_ instrument by the running instance,
+as long as the end of the sound file has not yet been reached.
+(This technique has been described in paragraph _Self-Triggering and Recursion_ of chapter [03 C](03-d-control-structures.md).)
 
-**_EXAMPLE 05G02_simple_grain_continuous.csd_**
+#### **_EXAMPLE 05G02_simple_grain_continuous.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -145,7 +175,7 @@ Table reading can be done by different methods in Csound. Have a look at chapter
 
 In the next example we reproduce the first example above to check the new code to the _Grain_ instrument.
 
-**_EXAMPLE 05G03_simple_grain_optimized.csd_**
+#### **_EXAMPLE 05G03_simple_grain_optimized.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -230,7 +260,7 @@ The first seven parameters are similar to the parameters for the _Grain_ unit. G
 
 For triggering the single grains, we use the [metro](https://csound.com/docs/manual/metro.html) opcode. We call a grain on each trigger tick of the _metro_. This is a basic example; the code will be condensed later, but is kept here more explicit to show the functionality.
 
-**_EXAMPLE 05G04_simple_granulator.csd_**
+#### **_EXAMPLE 05G04_simple_granulator.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -338,7 +368,7 @@ The opcode [rnd31](https://csound.com/docs/manual/rnd31.html) is a bipolar rando
 
 The next example demonstrates the five possibilities one by one, each parameter in three steps: at first with no random deviations, then with slight deviations, then with big ones.
 
-**_EXAMPLE 05G05_random_deviations.csd_**
+#### **_EXAMPLE 05G05_random_deviations.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -440,7 +470,7 @@ It sounds like for normal use, the pointer, transposition and pan deviation are 
 
 After first prsenting the more instructional examples, this final one shows some of the potential applications for granular sounds. It uses the same parts of _The quick brown fox_ as in the first example of this chapter, each which different sounds and combination of the parameters.
 
-**_EXAMPLE 05G06_the_fox_universe.csd_**
+#### **_EXAMPLE 05G06_the_fox_universe.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -649,7 +679,7 @@ The time interval between writing and reading can be very short. If we do not tr
 
 So, in the following example, we will set the desired delay time to a small value. It has to be adjusted by the user depending on maximal tranposition and grain size.
 
-**_EXAMPLE 05G07_live_granular.csd_**
+#### **_EXAMPLE 05G07_live_granular.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -711,8 +741,8 @@ After having built this self-made granulator step by step, we will look now into
 
 Csound offers a wide range of opcodes for sound granulation. Each has
 its own strengths and weaknesses and suitability for a particular task.
-Some are easier to use than others, some, such as
-[granule](https://csound.com/docs/manual/granule.html) and
+Some are easier to use than others, some, such as&nbsp;
+[granule](https://csound.com/docs/manual/granule.html) and&nbsp;
 [partikkel](https://csound.com/docs/manual/partikkel.html), are
 extremely complex and are, at least in terms of the number of input
 arguments they demand, amongst Csound's most complex opcodes.
@@ -720,11 +750,11 @@ arguments they demand, amongst Csound's most complex opcodes.
 ### sndwarp - Time Stretching and Pitch Shifting
 
 [sndwarp](https://csound.com/docs/manual/sndwarp.html)
-may not be Csound's newest or most advanced opcode for sound
+&nbsp;may not be Csound's newest or most advanced opcode for sound
 granulation but it is quite easy to use and is certainly up to the task
 of time stretching and pitch shifting. _sndwarp_ has two modes by which we
 can modulate time stretching characteristics, one in which we define a
-_stretch factor_, a value of 2 defining a stretch to twice the normal
+&nbsp;_stretch factor_, a value of 2 defining a stretch to twice the normal
 length, and the other in which we directly control a pointer into the
 file. The following example uses _sndwarp's_ first mode to produce a
 sequence of time stretches and pitch shifts. An overview of each
@@ -734,9 +764,9 @@ we need to look elsewhere.
 
 You will need to make sure that a sound file is available to sndwarp via
 a GEN01 function table. You can replace the one used in this example
-with one of your own by replacing the reference to
-_ClassicalGuitar.wav_. This sound file is stereo therefore instrument
-1 uses the stereo version
+with one of your own by replacing the reference to _ClassicalGuitar.wav_.
+This sound file is stereo therefore instrument
+1 uses the stereo version&nbsp;
 [sndwarpst](https://csound.com/docs/manual/sndwarpst.html).
 A mismatch between the number
 of channels in the sound file and the version of sndwarp used will
@@ -759,7 +789,7 @@ create softer grains with gradual attacks and decays (as in this
 example), with more of a percussive character (short attack, long decay)
 or _gate_-like (short attack, long sustain, short decay).
 
-**_EXAMPLE 05G08_sndwarp.csd_**
+#### **_EXAMPLE 05G08_sndwarp.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -841,7 +871,7 @@ and these notes then last for 40s each so will overlap. Instrument 1 is
 played from the score for 1 hour so this entire process will last that
 length of time. Many of the parameters of granulation are chosen
 randomly when a note begins so that each note will have unique
-characteristics. The timestretch is created by a
+characteristics. The timestretch is created by a&nbsp;
 [line](https://csound.com/docs/manual/line.html) function: the start
 and end points of which are defined randomly when the note begins.
 Grain/window size and window size randomization are defined randomly
@@ -857,7 +887,7 @@ lowpass filter in each case encasing each note under a smooth arc.
 Finally a small amount of reverb is added to smooth the overall texture
 slightly
 
-**_EXAMPLE 05G09_selfmade_grain.csd_**
+#### **_EXAMPLE 05G09_selfmade_grain.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -944,13 +974,13 @@ The [granule](https://csound.com/docs/manual/granule.html) opcode is
 one of Csound's most complex opcodes requiring up to 22 input arguments
 in order to function. Only a few of these arguments are available during
 performance (_k-rate_) so it is less well suited for real-time modulation,
-for real-time a more nimble implementation such as
-[syncgrain](https://csound.com/docs/manual/syncgrain.html),
-[fog](https://csound.com/docs/manual/fog.html), or
+for real-time a more nimble implementation such as&nbsp;
+[syncgrain](https://csound.com/docs/manual/syncgrain.html),&nbsp;
+[fog](https://csound.com/docs/manual/fog.html), or&nbsp;
 [grain3](https://csound.com/docs/manual/grain3.html) would be
-recommended. For more complex realtime granular techniques, the
-[partikkel](http://csounds.com/manual/html/partikkel.html)
-opcode can be used. The granule opcode as used here, proves itself
+recommended. For more complex realtime granular techniques, the&nbsp;
+[partikkel](http://csound.com/manual/html/partikkel.html)
+&nbsp;opcode can be used. The granule opcode as used here, proves itself
 ideally suited at the production of massive clouds of granulated sound
 in which individual grains are often completely indistinguishable. There
 are still two important k-rate variables that have a powerful effect on
@@ -958,13 +988,13 @@ the texture created when they are modulated during a note, they are:
 grain gap - effectively density - and grain size which will affect the
 clarity of the texture - textures with smaller grains will sound fuzzier
 and airier, textures with larger grains will sound clearer. In the
-following example
+following example&nbsp;
 [transeg](https://csound.com/docs/manual/transeg.html) envelopes
 move the grain gap and grain size parameters through a variety of
 different states across the duration of each note.
 
 With _granule_ we define a number of grain streams for the opcode using its
-_ivoice_ input argument. This will also have an effect on the density
+&nbsp;_ivoice_ input argument. This will also have an effect on the density
 of the texture produced. Like _sndwarp's_ first timestretching mode,
 granule also has a stretch ratio parameter. Confusingly it works the
 other way around though, a value of 0.5 will slow movement through the
@@ -973,7 +1003,7 @@ slow progress through the sound file. granule also provides up to four
 pitch shift voices so that we can create chord-like structures without
 having to use more than one iteration of the opcode. We define the
 number of pitch shifting voices we would like to use using the
-_ipshift_ parameter. If this is given a value of zero, all pitch
+&nbsp;_ipshift_ parameter. If this is given a value of zero, all pitch
 shifting intervals will be ignored and grain-by-grain transpositions
 will be chosen randomly within the range +/-1 octave. granule contains
 built-in randomizing for several of it parameters in order to easier
@@ -993,7 +1023,7 @@ the four pitch transpositions are explored in each note. Information
 about what these transpositions are is printed to the terminal as each
 note begins.
 
-**_EXAMPLE 05G10_granule.csd_**
+#### **_EXAMPLE 05G10_granule.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1094,7 +1124,7 @@ relationship between the write position and the read position in the
 buffer determines the delay time. We've used the fof2 opcode for this
 purpose here.
 
-**_EXAMPLE 05G11_grain_delay.csd_**
+#### **_EXAMPLE 05G11_grain_delay.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1174,15 +1204,15 @@ i 3 0 20
 ;example by Oeyvind Brandtsegg
 ```
 
-In the last example we will use the
+In the last example we will use the&nbsp;
 [grain](https://csound.com/docs/manual/grain.html) opcode. This
-opcode is part of a little group of opcodes which also includes
-[grain2](https://csound.com/docs/manual/grain2.html) and
+opcode is part of a little group of opcodes which also includes&nbsp;
+[grain2](https://csound.com/docs/manual/grain2.html) and&nbsp;
 [grain3](https://csound.com/docs/manual/grain3.html). _grain_ is
 the oldest opcode, _Grain2_ is a more easy-to-use opcode, while
-_Grain3_ offers more control.
+&nbsp;_Grain3_ offers more control.
 
-**_EXAMPLE 05G12_grain.csd_**
+#### **_EXAMPLE 05G12_grain.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1237,15 +1267,15 @@ i2 0 21 ; Reverb
 Several opcodes for granular synthesis have been considered in this
 chapter but this is in no way meant to suggest that these are the best,
 in fact it is strongly recommended to explore all of Csound's other
-opcodes as they each have their own unique character. The
+opcodes as they each have their own unique character. The&nbsp;
 [syncgrain](https://csound.com/docs/manual/syncgrain.html) family of
-opcodes (including also
-[syncloop](https://csound.com/docs/manual/syncloop.html) and
+opcodes (including also&nbsp;
+[syncloop](https://csound.com/docs/manual/syncloop.html) and&nbsp;
 [diskgrain](https://csound.com/docs/manual/diskgrain.html)) are
 deceptively simple as their k-rate controls encourages further
-abstractions of grain manipulation,
+abstractions of grain manipulation,&nbsp;
 [fog](https://csound.com/docs/manual/fog.html) is designed for FOF
-synthesis type synchronous granulation but with sound files and
+synthesis type synchronous granulation but with sound files and&nbsp;
 [partikkel](https://csound.com/docs/manual/partikkel.html) offers a
 comprehensive control of grain characteristics on a grain-by-grain basis
 inspired by Curtis Roads' encyclopedic book on granular synthesis

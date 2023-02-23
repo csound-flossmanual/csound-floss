@@ -1,18 +1,29 @@
 # 16 C. INTENSITIES
 
-As musicians we are dealing with volume, loudness, sound intensity. (In classical western music called _dynamics_, designated as _forte_, _piano_ and its variants.) In digital audio, however, we are dealing with _amplitudes_. We are asked, for instance, to set the amplitude of an oscillator. Or we see this message at the end of a Csound performance in the console telling us the "overall amps" (= amplitudes):
+As musicians we are dealing with volume, loudness, sound intensity.
+(In classical western music called _dynamics_, designated as _forte_, _piano_ and its variants.)
+In digital audio, however, we are dealing with _amplitudes_.
+We are asked, for instance, to set the amplitude of an oscillator.
+Or we see this message at the end of a Csound performance in the console telling us
+the "overall amps" (= amplitudes):
 
 ![Csound console printout](../resources/images/01-c-overall-amps.png)
 
-Amplitudes are related to sound intensities, but in a more complicated way than we may think. This chapter starts with some essentials about measuring intensities and the _decibel_ (_dB_) scale. It continues with _rms_ measurement and ends with the _Fletcher-Munson_ curves.
+Amplitudes are related to sound intensities,
+but in a more complicated way than we may think.
+This chapter starts with some essentials about measuring intensities and
+the _decibel_ (_dB_) scale.
+It continues with _rms_ measurement and ends with
+the _Fletcher-Munson_ curves.
 
 ## Real World Intensities and Amplitudes
 
 ### SIL — Sound Intensity Level
 
-There are many ways to describe a sound physically. One of the most
-common is the _Sound Intensity Level_ (SIL). It describes the amount of
-power on a certain surface, so its unit is Watts per square meter _W/m^2^_.
+There are many ways to describe a sound physically.
+One of the most common is the _Sound Intensity Level_ (SIL).
+It describes the amount of power on a certain surface,
+so its unit is Watts per square meter _W/m^2^_.
 
 The range of human hearing is about 10^-12^ W/m^2^
 at the threshold of hearing to 10^0^ W/m^2^
@@ -22,11 +33,12 @@ with another, a logarithmic scale is used. The unit _Bel_ describes the
 relation of one intensity $I$ to a reference
 intensity $I_0$ as follows:
 
-<center>
-<p style="border:1px; border-style:solid; text-align:center; display:inline-block; padding: 1em;">
+<div style="text-align: center;">
+<p style="display:inline-block; padding: 1em;">
 $\log_{10} \frac{I}{I_0}$
 *Sound Intensity Level in Bel*
-</p></center>
+</p>
+</div>
 
 If, for example, the ratio I/I~0~ is 10, this is 1 Bel.
 If the ratio is 100, this is 2 Bel.
@@ -37,12 +49,13 @@ at 1000 Hertz. So the range of human hearing covers about 12 Bel.
 Usually 1 Bel is divided into 10 decibel, so the common formula for
 measuring a sound intensity is:
 
-<center>
-<p style="border:1px; border-style:solid; text-align:center; display:inline-block; padding: 1em;">
+<div style="text-align: center;">
+<p style="display:inline-block; padding: 1em;">
 $10 \cdot \log_{10} \frac{I}{I_0}$
 *Sound Intensity Level (SIL) in deci Bel (dB) with
 I~0~ = 10 ^-12^ W/m^2^*
-</p></center>
+</p>
+</div>
 
 ### SPL — Sound Pressure Level
 
@@ -56,11 +69,12 @@ deviations and the sound intensity? The answer is: sound intensity
 changes $I$ are proportional to the _square_ of the sound pressure changes
 $P$. As a formula:
 
-<center>
-<p style="border:1px; border-style:solid; text-align:center; display:inline-block; padding: 1em;">
+<div style="text-align: center;">
+<p style="display:inline-block; padding: 1em;">
 $$I \propto P^2$$
 *Relation between Sound Intensity and Sound Pressure*
-</p></center>
+</p>
+</div>
 
 Let us take an example to see what this means. The sound pressure at the
 threshold of hearing can be fixed at 2·10^-5^ Pa.
@@ -68,17 +82,24 @@ This value is the reference value of the Sound Pressure Level (SPL).
 If we now have a value of 2·10^-4^ Pa,
 the corresponding sound intensity relationship can be calculated as
 
+<div style="text-align: center;">
+<p style="display:inline-block; padding: 1em;">
 $\left(\frac{2 \cdot 10^{-4}}{2 \cdot 10^{-5}}\right)^2 = 10^2 = 100$.
+</p>
+</div>
 
 Therefore a factor of 10 in a pressure relationship yields a factor of
 100 in the intensity relationship. In general, the dB scale for the
 pressure $P$ related to the pressure $P_0$ is:
 
-<center>
-<p style="border:1px; border-style:solid; text-align:center; display:inline-block; padding: 1em;">
-$10 \cdot  log_{10} \left(\frac{P}{P_0}\right)^2 = 2 \cdot  10 \cdot  log_{10} \frac{P}{P_0}  = 20 \cdot  log_{10} \frac{P}{P_0}$ <br/>
+<div style="text-align: center;">
+<p style="display:inline-block; padding: 1em; padding-bottom: 0;">
+$10 \cdot  log_{10} \left(\frac{P}{P_0}\right)^2 = 2 \cdot  10 \cdot  log_{10} \frac{P}{P_0}  = 20 \cdot  log_{10} \frac{P}{P_0}$</p>
+<br style="height: 0"></br>
+<p style="display:inline-block; padding: 0; font-size: 14px; margin: 0;">
 *Sound Pressure Level (SPL) in Decibels (dB) with P~0~ = 2·10^-5^ Pa*
-</p></center>
+</p>
+</div>
 
 ### Sound Intensity and Amplitudes
 
@@ -90,27 +111,42 @@ sound pressure deviations, all the relationships between sound intensity
 and sound pressure can be transferred to relationships between sound
 intensity and amplitudes:
 
-<center>
-<p style="border:1px; border-style:solid; text-align:center; display:inline-block; padding: 1em;">
+<div style="text-align: center;">
+<p style="display:inline-block; padding: 1em; padding-bottom: 0;">
 $$I \propto A^2$$
+</p>
+<br style="height: 0"></br>
+<p style="display:inline-block; padding: 0; font-size: 14px; margin: 0;">
 *Relationship between Intensity and Amplitude*
-</p></center>
+</p>
+</div>
+\
 
 This yields the same transformation as described above for the
 sound pressure; so finally the relation in Decibel of any amplitude $A$ to a reference
 amplitude $A_0$ is:
 
-<center>
-<p style="border:1px; border-style:solid; text-align:center; display:inline-block; padding: 1em;">
+<div style="text-align: center;">
+<p style="display:inline-block; padding: 1em; padding-bottom: 0;">
 $$20 \cdot \log_{10} \frac{A}{A_0}$$
+</p>
+<br style="height: 0"></br>
+<p style="display:inline-block; padding: 0; font-size: 14px; margin: 0;">
 *Decibel (dB) Scale of Amplitudes*
-</p></center>
+</p>
+</div>
+\
 
 If we drive an oscillator with an amplitude of 1, and another
 oscillator with an amplitude of 0.5 and we want to know the difference
 in dB, this is the calculation:
 
+<div style="text-align: center;">
+<p style="display:inline-block; padding: 1em; padding-bottom: 0;">
 $$20 \cdot \log_{10} \frac{1}{0.5} = 20 \cdot  log_{10} 2 = 20 \cdot  0.30103 = 6.0206 \textit{ dB}$$
+</p>
+</div>
+\
 
 The most useful thing to bear in mind is that when we double an
 amplitude this will provide a change of +6 dB, or when we halve an
@@ -139,7 +175,7 @@ Each program connects this maximum possible amplitude with a number.
 Usually it is 1 which is a good choice, because you know that
 everything above 1 is clipping, and you have a handy relation for lower
 values. But actually this value is nothing but a setting, and in Csound
-you are free to set it to any value you like via the
+you are free to set it to any value you like via the&nbsp;
 [0dbfs](https://csound.com/docs/manual/Zerodbfs.html) opcode.
 Usually you should use this statement in the orchestra header:
 
@@ -161,7 +197,7 @@ equivalent. The following example shows a linear rise of the amplitudes
 from 0 to 1, and then a linear rise of the dB's from -80 to 0 dB, both
 over 10 seconds.
 
-**_EXAMPLE 01C01_db_vs_linear.csd_**
+#### **_EXAMPLE 01C01_db_vs_linear.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -238,7 +274,7 @@ system, in which the rms opcode prevents the system from exploding. Each
 time the rms value exceeds a certain value, the amount of feedback is
 reduced. This is an example^[cf Martin Neukom, Signale Systeme Klangsynthese, Zürich 2003, p.383]\:
 
-**_EXAMPLE 01C02_rms_feedback_system.csd_**
+#### **_EXAMPLE 01C02_rms_feedback_system.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -310,7 +346,7 @@ this test will also depend upon the quality of your speaker hardware. If
 your speakers do not provide adequate low frequency response, you will
 not hear anything in the bass region.
 
-**_EXAMPLE 01C03_FletcherMunson.csd_**
+#### **_EXAMPLE 01C03_FletcherMunson.csd_**
 
 ```csound
 <CsoundSynthesizer>

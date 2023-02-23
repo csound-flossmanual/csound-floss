@@ -1,10 +1,18 @@
 # 12 D. CSOUND IN iOS
 
-The first part of this chapter is a guide which aims to introduce and illustrate some of the power that the Csound language offers to iOS Developers. It assumes that the reader has a rudimentary background in Csound, and some experience and understanding of iOS development with either Swift or Objective-C. The most recent Csound iOS SDK can be downloaded on Csound's
-[download](http://csound.github.io/download) page. Older versions can be found
-[here](https://github.com/csound/csound/releases). The Csound for iOS Manual (Lazzarini, Yi, Boulanger) that ships with the Csound for iOS API is intended to serve as a lighter reference for developers. This guide is distinct from it in that it is intended to be a more thorough, step-by-step approach to learning the API for the first time.
+The first part of this chapter is a guide which aims to introduce and illustrate some of the power that the
+Csound language offers to iOS Developers.
+It assumes that the reader has a rudimentary background in Csound,
+and some experience and understanding of iOS development with either Swift or Objective-C.
+The most recent Csound iOS SDK can be downloaded on Csound's [download](http://csound.github.io/download) page.
+Older versions can be found [here](https://github.com/csound/csound/releases).
+The Csound for iOS Manual (Lazzarini, Yi, Boulanger) that ships with the Csound for iOS API
+is intended to serve as a lighter reference for developers.
+This guide is distinct from it in that it is intended to be a more thorough,
+step-by-step approach to learning the API for the first time.
 
-The second part of this chapter is a detailed discussion of the full integration of Csound into ths iOS Core Audio system.
+The second part of this chapter is a detailed discussion of
+the full integration of Csound into ths iOS Core Audio system.
 
 ## I. Features of Csound in iOS
 
@@ -21,7 +29,7 @@ Xcode project to work with Csound from scratch.
 The Csound for iOS Examples project contains a number of simple examples
 (in both Objective-C and Swift) of how one might use Csound's synthesis
 and signal processing capabilities, and the communicative functionality
-of the API. It is available both in the download bundle or online in the
+of the API. It is available both in the download bundle or online in the&nbsp;
 [Csound sources](https://github.com/csound/csound/tree/develop/iOS).
 
 In the _ViewControllers_ group, a number of subgroups exist to organize
@@ -67,10 +75,11 @@ access them.
 
 For Swift users, the process is slightly different: you will need to
 first create a _bridging header_: a `.h` header file that can import the
-Objective-C API for access in Swift. The naming convention is
-_[YourProjectName]-Bridging Header.h_ and this file can be easily
-created manually in Xcode by choosing _File > New > File > Header File_
-(under _Source_), and using the naming convention described above. After
+Objective-C API for access in Swift.
+The naming convention is _[YourProjectName]-Bridging Header.h_ and
+this file can be easily created manually in Xcode
+by choosing _File > New > File > Header File_ (under _Source_),
+and using the naming convention described above. After
 this, you will need to navigate to your project build settings and add
 the path to this file (relative to your project's _.xcodeproj_ project
 file).
@@ -99,11 +108,11 @@ after this process is complete.
 #### Playing a _.csd_ File
 
 The first thing we will do so that we can play a _.csd_ file is add our
-_.csd_ file to our project. In this case, we will add a simple _.csd_ (in
+&nbsp;_.csd_ file to our project. In this case, we will add a simple _.csd_ (in
 this case named _test.csd_) that plays a sine tone with a frequency of
 440Hz for ten seconds. Sample Csound code for this is:
 
-**_EXAMPLE 12D01_iOS_simple.csd_**
+#### **_EXAMPLE 12D01_iOS_simple.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -130,8 +139,8 @@ i1 0 10
 ```
 
 We will add this to our Xcode project by dragging and dropping it into
-our project's main folder, making sure to select _Copy items if
-needed_ and to add it to our main target.
+our project's main folder, making sure to select _Copy items if needed_
+&nbsp;and to add it to our main target.
 
 In order to play this _.csd_ file, we must first create an instance of the
 CsoundObj class. We can do this by creating a property of our class as
@@ -181,8 +190,8 @@ certain factors (for example, the user's native language setting), we
 cannot pass a static or "hard-coded" path. Instead, we will access the
 file using the NSBundle class (or 'Bundle' in Swift).
 
-The _.csd_ file is copied as a resource (you can see this under the _Build
-Phases_ tab in your target's settings), and so we will access it and
+The _.csd_ file is copied as a resource (you can see this under the
+&nbsp;_Build Phases_ tab in your target's settings), and so we will access it and
 tell Csound to play it as follows:
 
 ```c
@@ -660,9 +669,9 @@ Finally, the attitude binding, implemented in CsoundAttitudeBinding and
 enabled through CsoundMotion, allows access to an iOS device's _attitude
 data_. As the Apple reference notes, _attitude_ refers to the
 orientation of a body relative to a given frame of reference.
-CsoundMotion enables this as three Euler angle valies: _roll_, _pitch_,
-and _yaw_ (rotation around X, Y, and Z respectively). To enable the
-attitude binding, use:
+CsoundMotion enables this as three Euler angle
+valies: _roll_, _pitch_, and _yaw_ (rotation around X, Y, and Z respectively).
+To enable the attitude binding, use:
 
 ```c
 // Objective-C
@@ -683,9 +692,10 @@ provided.
 #### Motion Csound Example
 
 Here is an example of a Csound instrument that accesses all of the data,
-and demonstrates uses for some of it. This example is taken from the
+and demonstrates uses for some of it.
+This example is taken from the&nbsp;
 [Csound for iOS Examples](https://github.com/csound/csound/tree/develop/iOS)
-project.
+&nbsp;project.
 
 ```csound
 instr 1
@@ -722,7 +732,7 @@ straightforward ways to add now-familiar interactions.
 
 The _CsoundBinding_ protocol allows you to read values from and write
 values to Csound using named channels that can be referenced in your
-_.csd_ file using opcodes like chnget and chnset, as described in the
+&nbsp;_.csd_ file using opcodes like chnget and chnset, as described in the
 earlier section on CsoundUI. The protocol definition from CsoundObj is:
 
 ```c
@@ -843,8 +853,8 @@ func cleanup() {
 
 #### Communicating Values To and From Csound
 
-Communicating values to Csound is normally handled in the
-`updateValuesToCsound` method. This method is called once per performance
+Communicating values to Csound is normally handled in the `updateValuesToCsound` method.
+This method is called once per performance
 pass (i.e. at the k-rate). For example:
 
 ```c
@@ -957,7 +967,7 @@ csound.setMessageCallbackSelector(#selector(printMessage(_:)))
 
 An object of type NSValue will be passed in. This object is acting as a
 wrapper for a C struct of type Message. The definition for Message in
-_CsoundObj.h_ is:
+&nbsp;_CsoundObj.h_ is:
 
 ```c
 typedef struct {
@@ -995,7 +1005,7 @@ The process demonstrated in the code examples below can be described as:
 ```
 
 Note that in Swift, we have to create a `CVaListPointer` (equivalent to a
-`va_list *` in C) for use with the `vsnprintf()` function:
+&nbsp;`va_list *` in C) for use with the `vsnprintf()` function:
 
 ```swift
 // Swift
@@ -1115,11 +1125,20 @@ API functions.
 
 ## II. How to Fully Integrate Csound into Apple&#39;s iOS CoreAudio
 
-In the second part of this chapter we will study some strategies for best integration of Csound with CoreAudio, in order to aid the development of iOS applications. There are some important issues to be considered for a professional audio application, such as the native Inter-App Audio routing, buffer frame etc. We will examine in detail the relevant code (Csound and Objective-C) taken from few audio apps based on Csound. We will learn how to manage the buffer frame and sampling rate; how to draw a Waveform in CoreGraphics from a Csound GEN Routine; how to write a Csound GEN table and much more.
+In the second part of this chapter we will study some strategies for best integration of Csound with CoreAudio,
+in order to aid the development of iOS applications.
+There are some important issues to be considered for a professional audio application,
+such as the native Inter-App Audio routing, buffer frame etc.
+We will examine in detail the relevant code (Csound and Objective-C) taken from
+few audio apps based on Csound. We will learn how to manage the buffer frame and sampling rate;
+how to draw a Waveform in CoreGraphics from a Csound GEN Routine;
+how to write a Csound GEN table and much more.
 
 ### Getting Started
 
-The development of professional audio applications involves to consider some important aspects of iOS in order to maximize the compatibility and versatility of the app.
+The development of professional audio applications involves
+to consider some important aspects of iOS in order to maximize
+the compatibility and versatility of the app.
 
 The approach should focus on these five important points:
 
@@ -1129,16 +1148,25 @@ The approach should focus on these five important points:
 4. Do not waste System Resources
 5. Set up the Sampling Rate and Buffer Frame according to applications running in the system.
 
-The code for the User Interface (UI) is written in Objective-C, whilst the Csound API (i.e. Application Programming Interface) is written in C. This duality allows us to understand in detail the interaction between both. As we will see in the next section, the control unit is based on the _callback_ mechanism rather than the _pull_ mechanism.
+The code for the User Interface (UI) is written in Objective-C,
+whilst the Csound API (i.e. Application Programming Interface) is written in C.
+This duality allows us to understand in detail the interaction between both.
+As we will see in the next section,
+the control unit is based on the _callback_ mechanism rather than the _pull_ mechanism.
 
-No Objective-C code was deliberately written in the C audio _callback_, since it is not recommended as well it is not recommended to allocate/de-allocate memory.
+No Objective-C code was deliberately written in the C audio _callback_,
+since it is not recommended as well it is not recommended to allocate/de-allocate memory.
 
-Since often we will refer to the tutorials (_XCode_ projects), it would be useful to have on hand the _xCode_ environment. These files can be downloaded
-[here](https://bitbucket.org/alessandropetrolati/tutorials/src/master/).
+Since often we will refer to the tutorials (_XCode_ projects),
+it would be useful to have on hand the _xCode_ environment.
+These files can be downloaded [here](https://bitbucket.org/alessandropetrolati/tutorials/src/master/).
 
 ### Setup for an Audio App
 
-In the first _XCode_ project (_01_csSetup_) we configure a Single View Application to work with audio and _Csound_. The project dependencies are only **libcsound.a** and **libsndfile.a** with the header (.h) files and _CsoundMIDI.h_ as well as _CsoundMIDI.m._
+In the first _XCode_ project (_01_csSetup_) we configure a
+Single View Application to work with audio and _Csound_.
+The project dependencies are only **libcsound.a** and **libsndfile.a** with
+the header (.h) files and _CsoundMIDI.h_ as well as _CsoundMIDI.m._
 
 The code of _initializeAudio_ function will enable the input/output audio:
 
@@ -1197,23 +1225,40 @@ The code of _initializeAudio_ function will enable the input/output audio:
 }
 ```
 
-This code is common to many audio applications, easily available online or from the Apple documentation. Basically, we setup the app as _PlayAndRecord_ category, then we create the AudioUnit. The _PlayAndRecord_ category allows receiving audio from the system and simultaneously produce audio.
+This code is common to many audio applications,
+easily available online or from the Apple documentation.
+Basically, we setup the app as _PlayAndRecord_ category,
+then we create the AudioUnit.
+The _PlayAndRecord_ category allows receiving audio from the system and
+simultaneously produce audio.
 
 **IMPORTANT:**
 
-For proper operation with Audiobus (AB) and Inter-App Audio (IAA), we must instantiate and initialize one Audio Unit (AU) only once for the entire life cycle of the app. To destroy and recreate the AU would involve to require more memory (for each instance). If the app is connected to IAA or AB it will stop responding and we will experience unpredictable behavior, which may lead to an unexpected crash.
+For proper operation with Audiobus (AB) and Inter-App Audio (IAA),
+we must instantiate and initialize one Audio Unit (AU) only once for the entire life cycle of the app.
+To destroy and recreate the AU would involve to require more memory (for each instance).
+If the app is connected to IAA or AB it will stop responding and we will experience unpredictable behavior,
+which may lead to an unexpected crash.
 
-Actually there is no way to tell at runtime AB and / or IAA that the AU address has changed. The _InitializeAudio_ function should be called only once, unlike the run/stop functions of Csound.
+Actually there is no way to tell at runtime AB and / or IAA that the AU address has changed.
+The _InitializeAudio_ function should be called only once, unlike the run/stop functions of Csound.
 
 These aspects will become more clear in the following paragraphs.
 
 ### Initialize Csound and Communicate with it
 
-The **_AudioDSP.m_** class implements the entire audio structure and manages the user interface interaction with Csound. _AudioDSP_ is a subclass of _NSObject_ that is instantiated on the **_Main.storyboard_**. A reference to this class on the storyboard greatly facilitates connections between the GUI (_IBOutlet_ and _IBAction_) and the DSP i.e. Csound.
+The **_AudioDSP.m_** class implements the entire audio structure and manages
+the user interface interaction with Csound.
+&nbsp;_AudioDSP_ is a subclass of _NSObject_ that is instantiated on the **_Main.storyboard_**.
+A reference to this class on the storyboard greatly facilitates connections between
+the GUI (_IBOutlet_ and _IBAction_) and the DSP i.e. Csound.
 
-As we will see in the next section, all links are established graphically with the _Interface Builder_.
+As we will see in the next section,
+all links are established graphically with the _Interface Builder_.
 
-The main CSOUND structure is allocated in the _AudioDSP_ constructor and initializes the audio system. This approach foresees that the \_cs (CSOUND\*) class variable persists for the entire life cycle of the app. As mentioned, the _initializeAudio_ function should be called only once.
+The main CSOUND structure is allocated in the _AudioDSP_ constructor and initializes the audio system.
+This approach foresees that the \_cs (CSOUND\*) class variable persists for the entire life cycle of the app.
+As mentioned, the _initializeAudio_ function should be called only once.
 
 ```c
 - (instancetype)init {
@@ -1230,11 +1275,14 @@ The main CSOUND structure is allocated in the _AudioDSP_ constructor and initial
 }
 ```
 
-Since we have the CSOUND structure allocated and the CoreAudio properly configured, we can manage Csound asynchronously.
+Since we have the CSOUND structure allocated and the CoreAudio properly configured,
+we can manage Csound asynchronously.
 
-The main purpose of this simple example is to study how the user interface (UI) interacts with Csound. All connections have been established and managed graphically through the Interface Builder.
+The main purpose of this simple example is to study how the user interface (UI) interacts with Csound.
+All connections have been established and managed graphically through the Interface Builder.
 
-The _UISwitch_ object is connected with the _toggleOnOff_, which has the task to toggle on/off Csound in this way:
+The _UISwitch_ object is connected with the _toggleOnOff_,
+which has the task to toggle on/off Csound in this way:
 
 ```c
 - (IBAction)toggleOnOff:(id)component {
@@ -1255,11 +1303,17 @@ The _UISwitch_ object is connected with the _toggleOnOff_, which has the task to
 }
 ```
 
-In the example the _test.csd_ is performed which implements a simple sinusoidal oscillator. The frequency of the oscillator is controlled by the _UISlider_ object. This is linked with the _sliderAction_ callback.
+In the example the _test.csd_ is performed which implements a simple sinusoidal oscillator.
+The frequency of the oscillator is controlled by the _UISlider_ object.
+This is linked with the _sliderAction_ callback.
 
-As anticipated, the mechanism adopted is driven by events (callback). This means that the function associated with the event is called only when the user performs an action on the UI slider.
+As anticipated, the mechanism adopted is driven by events (callback).
+This means that the function associated with the event is called only when
+the user performs an action on the UI slider.
 
-In this case the action is of type _Value Changed_. The Apple documentation concerning the UIControl framework should be consulted, for further clarification in this regard.
+In this case the action is of type _Value Changed_.
+The Apple documentation concerning the UIControl framework should be consulted,
+for further clarification in this regard.
 
 ```c
 - (IBAction)sliderAction:(id)sender {
@@ -1281,7 +1335,11 @@ In this case the action is of type _Value Changed_. The Apple documentation conc
 }
 ```
 
-As we can see, we get the pointer through _csoundGetChannelPtr_, this is relative to incoming control signals. From the point of view of Csound, the signals in the input (`CSOUND_INPUT_CHANNEL`) are sampled from the software bus via _chnget_, while in the output (`CSOUND_OUTPUT_CHANNEL`) _chnset_ is used.
+As we can see, we get the pointer through _csoundGetChannelPtr_,
+this is relative to incoming control signals.
+From the point of view of Csound, the signals in the input (`CSOUND_INPUT_CHANNEL`)
+are sampled from the software bus via _chnget_, while in
+the output (`CSOUND_OUTPUT_CHANNEL`) _chnset_ is used.
 
 The allocation is done by dereferencing the pointer in this way:
 
@@ -1295,13 +1353,16 @@ or
 value[0] = (float) sld.value;
 ```
 
-The _channelName_ string _freq_ is the reference text used by the _chnget_ opcode in the _instr 1_ of the Csound Orchestra.
+The _channelName_ string _freq_ is the reference text used by
+the _chnget_ opcode in the _instr 1_ of the Csound Orchestra.
 
 ```csound
 kfr chnget "freq"
 ```
 
-Since the control architecture is based on the callback mechanism and therefore depends on the user actions, we must send all values when Csound starts. We can use Csound's delegate:
+Since the control architecture is based on the callback mechanism and therefore
+depends on the user actions, we must send all values when Csound starts.
+We can use Csound's delegate:
 
 ```c
 -(void)csoundObjDidStart {
@@ -1309,20 +1370,26 @@ Since the control architecture is based on the callback mechanism and therefore 
 }
 ```
 
-This operation must be repeated for all UI widgets in practice. Immediately after Csound is running we send an _UIControlEventAllEvents_ message to all widgets. So we are sure that Csound receives properly the current state of the UI's widgets values.
+This operation must be repeated for all UI widgets in practice.
+Immediately after Csound is running we send an _UIControlEventAllEvents_ message to all widgets.
+So we are sure that Csound receives properly the current state of the UI's widgets values.
 
 In this case _\_freq_ is the reference (IBOutlet) of the UISlider in the **_Main.storyboard_**.
 
 ### Enabling Audiobus and Inter-App Audio
 
-The last line of code in the _initializeAudio_ function calls the _initializeAB_IAA_ for initialize and configure the Inter-App Audio and Audiobus.
+The last line of code in the _initializeAudio_ function calls the _initializeAB_IAA_ for initialize and
+configure the Inter-App Audio and Audiobus.
 
-The _XCode_ tutorials do not include the Audiobus SDK since it is covered by license, see the website for more information and to consult the official documentation [here](http://audiob.us).
+The _XCode_ tutorials do not include the Audiobus SDK since it is covered by license,
+see the website for more information and to consult the official documentation [here](http://audiob.us).
 
 However, the existing code to Audiobus should ensure proper functioning after the inclusion of the library.
 
-In the file _AudioDSP.h_ there are two macros: _AB_ and _IAA_. These are used to include or exclude the needed code. The first step is to configure the two _AudioComponentDescriptions_ for the types:
-_kAudioUnitType_RemoteInstrument_ and _kAudioUnitType_RemoteEffect_.
+In the file _AudioDSP.h_ there are two macros: _AB_ and _IAA_.
+These are used to include or exclude the needed code.
+The first step is to configure the two _AudioComponentDescriptions_ for the
+types: _kAudioUnitType_RemoteInstrument_ and _kAudioUnitType_RemoteEffect_.
 
 ```c
 /* Create Sender and Filter ports */
@@ -1343,9 +1410,11 @@ This point is crucial because you have to enter the same information in the file
 
 ![](../resources/images/12-d-plist.png)
 
-In the _Info.plist_ (i.e. Information Property List), the _Bundle display name_ key and _Require background modes_ must absolutely be defined to enable the audio in the background.
+In the _Info.plist_ (i.e. Information Property List), the _Bundle display name_ key
+and _Require background modes_ must absolutely be defined to enable the audio in the background.
 
-The app must continue to play audio even when it is not in the foreground. Here we configure the _Audio Components_ (i.e. AU).
+The app must continue to play audio even when it is not in the foreground.
+Here we configure the _Audio Components_ (i.e. AU).
 
 ```c
 typedef struct AudioComponentDescription {
@@ -1357,11 +1426,16 @@ typedef struct AudioComponentDescription {
 } AudioComponentDescription;
 ```
 
-As said, the _AudioComponentDescription_ structure used for the configuration of the AU, must necessarily coincide in the _Info.plist_,
+As said, the _AudioComponentDescription_ structure used for the configuration of the AU,
+must necessarily coincide in the _Info.plist_,
 
-The structure fields (_OSType_) are of _FourCharCode_, so they must consist of four characters.
+The structure fields (_OSType_) are of _FourCharCode_,
+so they must consist of four characters.
 
-IMPORTANT: it is recommended to use different names for both _componentSubType_ and _componentManufacturer_ of each _AudioComponent_. In the example the characters &#39;i&#39; and &#39;x&#39; refer to _Instrument_ and _Fx_.
+IMPORTANT: it is recommended to use different names for
+both _componentSubType_ and _componentManufacturer_ of each _AudioComponent_.
+In the example the characters &#39;i&#39; and &#39;x&#39; refer
+to _Instrument_ and _Fx_.
 
 Only for the first field (componentType) of the AudioComponentDescription structure we can use the enumerator
 
@@ -1374,7 +1448,9 @@ enum {
 };
 ```
 
-where _auri_ identifies the Instrument (_Instr_) and _aurx_ the effect (_Fx_), at which point the app will appear on the lists of the various _IAA Host_ as _Instr_ and _Fx_ and in Audiobus as Sender or Receiver.
+where _auri_ identifies the Instrument (_Instr_) and _aurx_ the effect (_Fx_),
+at which point the app will appear on the lists of the various _IAA Host_ as _Instr_ and _Fx_ and
+in Audiobus as Sender or Receiver.
 
 At this point we are able to:
 
@@ -1384,17 +1460,22 @@ At this point we are able to:
 4. Control Csound through the _callback_ mechanism
 5. Record the output audio
 
-In the following sections we will see how to manage the advanced settings for Csound's _ksmps_, according to the system BufferFrame.
+In the following sections we will see how to manage the advanced settings for
+Csound's _ksmps_, according to the system BufferFrame.
 
 ### Buffer Frame vs ksmps
 
-In IOS, the first audio app which is running (in foreground or in background), imposes its own Sampling Rate and BuffeFrame to the whole iOS (i.e. for all audio apps).
+In IOS, the first audio app which is running (in foreground or in background),
+imposes its own Sampling Rate and BuffeFrame to the whole iOS (i.e. for all audio apps).
 
 IOS allows power-of-two ​​BufferFrame values in the range 64, 128, 256, 512, 1024, etc ...
 
-It is not recommended to use values ​​bigger than 1024 or smaller than 64. A good compromise is 256, as suggests the default value of _GarageBand_ and Other similar applications.
+It is not recommended to use values ​​bigger than 1024 or smaller than 64.
+A good compromise is 256, as suggests the default value of _GarageBand_ and
+Other similar applications.
 
-In the Csound language, the vector size (i.e. BufferFrame in the example) is expressed as _ksmps_. So it is necessary to manage appropriately the values of _BufferFrame_ and _ksmps_.
+In the Csound language, the vector size (i.e. BufferFrame in the example) is expressed as _ksmps_.
+So it is necessary to manage appropriately the values of _BufferFrame_ and _ksmps_.
 
 There are three main possible solutions:
 
@@ -1402,11 +1483,19 @@ There are three main possible solutions:
 2. Dynamically manage the _ksmps_ depending on _BufferFrame_
 3. _BufferFrame_ and _ksmps_ decorrelation
 
-All three cases have advantages and disadvantages. In the first case the BufferFrame must be always >= _ksmps_, and in the second case we must implement a spartan workaround tp synchronize _ksmps_ with _BufferFrame_. The third and more complex case requires a control at run-time on the audio callback and we must manage an accumulation buffer. Thanks to this, the _BufferFrame_ can be bigger than _ksmps_ or vice versa. However there are some limitations. In fact, this approach does not always lead to the benefits hoped for in terms of performance.
+All three cases have advantages and disadvantages.
+In the first case the BufferFrame must be always >= _ksmps_,
+and in the second case we must implement a spartan workaround tp synchronize _ksmps_ with _BufferFrame_.
+The third and more complex case requires a control at run-time on the audio callback and we must manage an
+accumulation buffer. Thanks to this, the _BufferFrame_ can be bigger than _ksmps_ or vice versa.
+However there are some limitations.
+In fact, this approach does not always lead to the benefits hoped for in terms of performance.
 
 ### Static ksmps
 
-To keep the _ksmps_ static with a very low value, such as 32 or 64, we will set _ksmps_ in the Csound Orchestra to this value. As mentioned, the BufferFrame of iOS is always greater or equal than 64. The operation is assured thanks to the _for_ statement in the _Csound_Render:_
+To keep the _ksmps_ static with a very low value, such as 32 or 64, we will set _ksmps_ in the
+Csound Orchestra to this value. As mentioned, the BufferFrame of iOS is always greater or equal than 64.
+The operation is assured thanks to the _for_ statement in the _Csound_Render:_
 
 ```c
 OSStatus  Csound_Render(void *inRefCon,
@@ -1426,9 +1515,14 @@ OSStatus  Csound_Render(void *inRefCon,
 }
 ```
 
-This C routine is called from the CoreAudio every _inNumberFrames_ (i.e. BufferFrame). The _ioData_ pointer contains _inNumberFrames_ of audio samples incoming from the input (mic/line). Csound reads this data and returns _ksmps_ processed samples.
+This C routine is called from the CoreAudio every _inNumberFrames_ (i.e. BufferFrame).
+The _ioData_ pointer contains _inNumberFrames_ of audio samples incoming from the input (mic/line).
+Csound reads this data and returns _ksmps_ processed samples.
 
-When the _inNumberFrames_ and _ksmps_ are identical, we can simply copy out the processed buffer, this is done by calling the _csoundPerformKsmps()_ procedure. Since that _ksmps_ is less or equal to _inNumberFrames_, we need to call _N slices_ the _csoundPerformKsmps()_. This is safe, as _ksmps_ will in this situation never be greater than _inNumberFrames_.
+When the _inNumberFrames_ and _ksmps_ are identical, we can simply copy out the processed buffer,
+this is done by calling the _csoundPerformKsmps()_ procedure. Since that _ksmps_ is less
+or equal to _inNumberFrames_, we need to call _N slices_ the _csoundPerformKsmps()_.
+This is safe, as _ksmps_ will in this situation never be greater than _inNumberFrames_.
 
 Example:
 
@@ -1444,11 +1538,17 @@ int slices = inNumberFrames / csoundGetKsmps(cs);
 slices is 8
 ```
 
-In other words, every _Csound_Render_ call involves eight sub-calls to _csoundPerformKsmps()_, for every sub-call we fill the _ioData_ with _ksmps_ samples.
+In other words, every _Csound_Render_ call involves eight sub-calls to _csoundPerformKsmps()_,
+for every sub-call we fill the _ioData_ with _ksmps_ samples.
 
 ### Dynamic ksmps, Buffer Frame and Sampling Rate Synchronization
 
-The _ksmps_ value should be chosen according to the Csound Orchestra operating logic. If the Orchestra is particularly heavy in terms of k-rate operations, which however do not require low-latency, we can use higher values as 512 or 1024. This second case is adoptable for many apps developed so far. In fact, except in specific cases, it is always convenient to set the _ksmps_ to the same value as the system's _BufferFrame_.
+The _ksmps_ value should be chosen according to the Csound Orchestra operating logic.
+If the Orchestra is particularly heavy in terms of k-rate operations,
+which however do not require low-latency, we can use higher values as 512 or 1024.
+This second case is adoptable for many apps developed so far.
+In fact, except in specific cases, it is always convenient to set
+the _ksmps_ to the same value as the system's _BufferFrame_.
 
 The following steps are required to change _sr_ and _ksmps_:
 
@@ -1472,7 +1572,10 @@ nchnls = 2
 …
 ```
 
-The two univocal strings are the placeholders for _sr_ and _ksmps_. They begin with the semicolon character so that Csound recognizes it as a comment. The following function in Objective-C looks for the placeholders in the _myOrchestra.csd_ and replaces them with new _sr_ and _ksmps_ values.
+The two univocal strings are the placeholders for _sr_ and _ksmps_.
+They begin with the semicolon character so that Csound recognizes it as a comment.
+The following function in Objective-C looks for the placeholders in the _myOrchestra.csd_ and
+replaces them with new _sr_ and _ksmps_ values.
 
 ```c
 - (void)csoundApplySrAndKsmpsSettings:(Float64)sr withBuffer:(Float64)ksmps
@@ -1517,21 +1620,37 @@ The two univocal strings are the placeholders for _sr_ and _ksmps_. They begin w
 }
 ```
 
-The NSString _pathAndName_ contains the file path of _myOrchestra.csd_ in the Resources folder. This path is used to copy in _myString_ the entire file (as NSString). Subsequently the _stringByReplacingOccurrencesOfString_ method replaces the placeholders with the valid strings.
+The NSString _pathAndName_ contains the file path of _myOrchestra.csd_ in the Resources folder.
+This path is used to copy in _myString_ the entire file (as NSString).
+Subsequently the _stringByReplacingOccurrencesOfString_ method replaces the
+placeholders with the valid strings.
 
-Since iOS does not allow to edit files in the application _Resources_ folder (i.e. _pathAndName_), we need to save the modified version in the new file _dspRUN.csd_ that is saved in the temporary folder (i.e. _pathAndNameRUN_). This is achieved through the _writeToFile_ method.
+Since iOS does not allow to edit files in the application _Resources_ folder (i.e. _pathAndName_),
+we need to save the modified version in the new file _dspRUN.csd_ that
+is saved in the temporary folder (i.e. _pathAndNameRUN_).
+This is achieved through the _writeToFile_ method.
 
-As a final step it is necessary to re-initialise Csound by calling the _runCsound_ function which runs Csound and sends the appropriate values of _sr_ and _ksmps._
+As a final step it is necessary to re-initialise Csound by calling the _runCsound_ function
+which runs Csound and sends the appropriate values of _sr_ and _ksmps._
 
 ###_BufferFrame_ and _ksmps_ decorrelation
 
-As seen the second case is a good compromise, however it is not suitable in some particular conditions. So far we have only considered the aspect in which the app works on the main audio thread, with a _BufferFrame_ imposed by iOS. But there are special cases in which the app is called to work on a different thread and with a different _BufferFrame_.
+As seen the second case is a good compromise, however it is not suitable
+in some particular conditions. So far we have only considered the aspect
+in which the app works on the main audio thread, with a _BufferFrame_ imposed by iOS.
+But there are special cases in which the app is called to work on a different thread
+and with a different _BufferFrame_.
 
-For instance the _freeze track_ feature implemented by major Host IAA apps (such as Cubasis, Auria etc ...) bypasses the current setup of iOS and imposes an arbitrary _BufferFrame_ (usually 64).
+For instance the _freeze track_ feature implemented by major Host IAA
+apps (such as Cubasis, Auria etc ...) bypasses the current setup of iOS
+and imposes an arbitrary _BufferFrame_ (usually 64).
 
-Since Csound is still configured with the iOS _BufferFrame_ (the main audio thread), but during the freeze track process the _Csound_Perform_ routine is called with a different BufferFrame, Csound cannot work properly.
+Since Csound is still configured with the iOS _BufferFrame_ (the main audio thread),
+but during the freeze track process the _Csound_Perform_ routine is called with a different
+BufferFrame, Csound cannot work properly.
 
-In order to solve this limitation we need a run-time control on the audio callback and handle the exception.
+In order to solve this limitation we need a run-time control on the
+audio callback and handle the exception.
 
 On the _Csound_Render_ we will evaluate the condition for which _slices_ is < 1:
 
@@ -1565,7 +1684,8 @@ Please note that _slices_ is calculated as follows:
 int slices = inNumberFrames / csoundGetKsmps(cs);
 ```
 
-Every time the _ksmps_ (for some reason) is greater than BufferFrame,we will perform the `Csound_Perform_DOWNSAMP` procedure.
+Every time the _ksmps_ (for some reason) is greater than BufferFrame,
+we will perform the `Csound_Perform_DOWNSAMP` procedure.
 
 ```c
 // Called when inNumberFrames < ksmps
@@ -1626,7 +1746,9 @@ OSStatus Csound_Perform_DOWNSAMP(
 }
 ```
 
-As mentioned we need a buffer for the accumulation. It is, however, not necessary to create a new one since you can directly use Csound's _spin_ and _spout_ buffer.
+As mentioned we need a buffer for the accumulation.
+It is, however, not necessary to create a new one since you can directly
+use Csound's _spin_ and _spout_ buffer.
 
 First we have to evaluate what is the level of under-sampling, for example:
 
@@ -1640,7 +1762,8 @@ int UNSAMPLING = csoundGetKsmps(cs)/inNumberFrames;
 UNSAMPLING is 8
 ```
 
-This value represents the required steps to accumulate the input signal in spin for every call of csoundPerformKsmps().
+This value represents the required steps to accumulate the input signal in spin
+for every call of csoundPerformKsmps().
 
 ```c
 if (cdata->counter < UNSAMPLING-1) {
@@ -1656,9 +1779,12 @@ else {
 }
 ```
 
-The `Csound_Perform_DOWNSAMP` routine is called by iOS every 64 samples, while we must call _csoundPerformKsmps()_ after 512 samples. This means we need to skip eight times (i.e. UNSAMPLING) until we have collected the input buffer.
+The `Csound_Perform_DOWNSAMP` routine is called by iOS every 64 samples, while we must
+call _csoundPerformKsmps()_ after 512 samples.
+This means we need to skip eight times (i.e. UNSAMPLING) until we have collected the input buffer.
 
-From another point of view, before calling _csoundPerformKsmps()_ we must accumulate eight _inNumberFrames_ in _spin_, and for every call of `Csound_Perform_DOWNSAMP` we must return _inNumberFrames_ from _spout_.
+From another point of view, before calling _csoundPerformKsmps()_ we must accumulate eight _inNumberFrames_ in _spin_,
+and for every call of `Csound_Perform_DOWNSAMP` we must return _inNumberFrames_ from _spout_.
 
 In the next example, the iOS audio is in _buffer_ which is a pointer of the _ioData_ structure.
 
@@ -1683,7 +1809,8 @@ for (int k = 0; k < nchnls; ++k) {
 }
 ```
 
-Ignoring the implementation details regarding the de-interlacing of the audio, we can focus on the **_slice_downsamp_** which serves as offset-index for the arrays _spin_ and _spout_.
+Ignoring the implementation details regarding the de-interlacing of the audio,
+we can focus on the **_slice_downsamp_** which serves as offset-index for the arrays _spin_ and _spout_.
 
 The implementation of both second and third cases guarantees that the app works properly in every situation.
 
@@ -1691,9 +1818,14 @@ The implementation of both second and third cases guarantees that the app works 
 
 In this section we will see a more complex example to access memory of Csound and display the contents on a UIView.
 
-The _waveDrawView_ class interacts with the _waveLoopPointsView_, the _loopoints_ allow us to select a portion of the file via the zoom on the waveform (pinch in / out). These values (loopoints) are managed by Csound which ensures the correct reading of the file and returns the normalized value of the instantaneous phase of reading.
+The _waveDrawView_ class interacts with the _waveLoopPointsView_,
+the _loopoints_ allow us to select a portion of the file via the zoom on the waveform (pinch in / out).
+These values (loopoints) are managed by Csound which ensures the correct reading of the file and
+returns the normalized value of the instantaneous phase of reading.
 
-The two classes are instantiated in **_Main.storyboard_**. Please note the hierarchy that must be respected for the setup of other projects as well as the three _UIView_ must have the same size (frame) and cannot be dynamically resized.
+The two classes are instantiated in **_Main.storyboard_**.
+Please note the hierarchy that must be respected for the setup of other projects as well as
+the three _UIView_ must have the same size (frame) and cannot be dynamically resized.
 
 ![](../resources/images/12-d-draw.png)
 
@@ -1704,7 +1836,10 @@ f2 0 0 1 "TimeAgo.wav" 0 0 1
 f3 0 0 1 "Density_Sample08.wav" 0 0 1
 ```
 
-In order to access the audio files in the app Resources folder, we need to setup some environment variables for Csound. This is done in the _runCsound_ function. Here we set the SFDIR (Sound File Directory) and the SADIR (Sound analysis directory):
+In order to access the audio files in the app Resources folder,
+we need to setup some environment variables for Csound.
+This is done in the _runCsound_ function.
+Here we set the SFDIR (Sound File Directory) and the SADIR (Sound analysis directory):
 
 ```c
 // Set Environment Sound Files Dir
@@ -1725,15 +1860,20 @@ char *argv[4] = {
 ret = csoundCompile(_cs, 4, argv);
 ```
 
-The interaction between Csound and the UI is two-way, the class method _drawWaveForm_ draws the contents of the _genNum_.
+The interaction between Csound and the UI is two-way,
+the class method _drawWaveForm_ draws the contents of the _genNum_.
 
 ```c
 [waveView drawWaveFromCsoundGen:_cs genNumber:genNum];
 ```
 
-After calling this method, we need to enable an _NSTimer_ object in order to read continuosly (pull) the phase value returned by Csound. Please examine the _loadSample_1_ function code for insights.
+After calling this method, we need to enable an _NSTimer_ object in order to
+read continuosly (pull) the phase value returned by Csound.
+Please examine the _loadSample_1_ function code for insights.
 
-The timer is disabled when the DSP is switched off, in the timer-callback we get the pointer, this time from CSOUND_OUTPUT_CHANNEL, finally we use this value to synchronize the graphics cursor on the waveform (scrub) in the GUI.
+The timer is disabled when the DSP is switched off,
+in the timer-callback we get the pointer, this time from CSOUND_OUTPUT_CHANNEL,
+finally we use this value to synchronize the graphics cursor on the waveform (scrub) in the GUI.
 
 ```c
 - (void)updateScrubPositionFromTimer {
@@ -1760,13 +1900,24 @@ chnset kfilposphas, "file_position_from_csound"
 
 ### Write into a Csound GEN table
 
-We already have seen how to read from the Csound's GEN memory. Now we will focus on the write operation with two possible ways.
+We already have seen how to read from the Csound's GEN memory.
+Now we will focus on the write operation with two possible ways.
 
-The goal is to modify a table in realtime while being read (played) by an oscillator LUT (i.e. look-up table). A **Pad** XY, to the left in the UI, manages the interpolation on the four prototypes and, to the right of the interface, a **16-slider** surface controls the harmonic content of a wave.
+The goal is to modify a table in realtime while being read (played) by an
+oscillator LUT (i.e. look-up table). A **Pad** XY,
+to the left in the UI, manages the interpolation on the four prototypes and,
+to the right of the interface, a **16-slider** surface controls the harmonic content of a wave.
 
-Concerning the first example (pad morph), the waveform interpolations are implemented in the Orchestra file and performed by Csound. The UI communicates with Csound, by activating an instrument (instr 53) through a score message. Instead, in the second example (16-slider surface) the code is implemented in the **_AudioDSP.m_** file and, precisely, in the _didValueChanged_ delegate. The architecture of this second example is based on addArm procedure that write in a temporary array. The resulting waveform is then copied to the GEN-table, via the _csoundTableCopyIn_ API.
+Concerning the first example (pad morph), the waveform interpolations are implemented in the
+Orchestra file and performed by Csound.
+The UI communicates with Csound, by activating an instrument (instr 53) through a score message.
+Instead, in the second example (16-slider surface) the code is implemented in the **_AudioDSP.m_** file and,
+precisely, in the _didValueChanged_ delegate.
+The architecture of this second example is based on addArm procedure that write in a temporary array.
+The resulting waveform is then copied to the GEN-table, via the _csoundTableCopyIn_ API.
 
-In the first example, _instr 53_ is activated via a score message for every action on the pad, this is performed in ui_wavesMorphPad:
+In the first example, _instr 53_ is activated via a score message for
+every action on the pad, this is performed in ui_wavesMorphPad:
 
 ```c
 NSString* score = [NSString stringWithFormat:
@@ -1778,13 +1929,18 @@ NSString* score = [NSString stringWithFormat:
 csoundInputMessage(_cs, [score cStringUsingEncoding:NSASCIIStringEncoding]);
 ```
 
-The _instr 53_ is kept active for `UPDATE_RES` sec (0.1), the _maxalloc_ opcode limits the number of simultaneous instances (notes). Thus, any score events which fall inside UPDATE_RES time, are ignored.
+The _instr 53_ is kept active for `UPDATE_RES` sec (0.1), the _maxalloc_ opcode limits
+the number of simultaneous instances (notes).
+Thus, any score events which fall inside UPDATE_RES time, are ignored.
 
 ```csound
 maxalloc 53, 1  ;iPad UI Waveforms morphing only 1 instance
 ```
 
-This results in a sub-sampling of Csound's _instr 53_, compared to the UI pad-callback. The waveform display process is done by the Waveview class, it is a simplified version of the WaveDrawView class, introduced in the tutorial (**04_plotWaveForm**), that does not deserve particular investigation.
+This results in a sub-sampling of Csound's _instr 53_, compared to the UI pad-callback.
+The waveform display process is done by the Waveview class,
+it is a simplified version of the WaveDrawView class, introduced in the tutorial (**04_plotWaveForm**),
+that does not deserve particular investigation.
 As mentioned, the waveforms's interpolations are performed by Csound, followed by the _instr 53_ code:
 
 ```csound
@@ -1798,13 +1954,23 @@ tableimix giWaveMORPH, 0, giWaveSize, giWaveTMP2, \
 chnset giWaveMORPH , "wave_func_table"
 ```
 
-The p4 and p5 p-fields are the XY pad axes used as weights for the three vector-interpolations which are required. The _tablemix_ opcode mixes two tables with different weights into the _giWaveTMP1_ destination table. In this case we interpolate a Sine Wave (i.e. _giSine_) with a triangular (i.e. _giTri_), then in the second line between _giSawSmooth_ and _giSquareSmooth_, mixing the result in _giWaveTMP2_. At the end of the process, **_giWaveMORPH_** contains the interpolated values of the two _giWaveTMP1_ and _giWaveTMP2_ arrays.
+The p4 and p5 p-fields are the XY pad axes used as weights for the three vector-interpolations which are required.
+The _tablemix_ opcode mixes two tables with different weights into the _giWaveTMP1_ destination table.
+In this case we interpolate a Sine Wave (i.e. _giSine_) with a triangular (i.e. _giTri_),
+then in the second line between _giSawSmooth_ and _giSquareSmooth_, mixing the result in _giWaveTMP2_.
+At the end of the process, **_giWaveMORPH_** contains the interpolated values of the
+two _giWaveTMP1_ and _giWaveTMP2_ arrays.
 
-The global _ftgen_-tables, deliberately have been declared with the first argument set to zero. This means that the GEN\_-table number is assigned dynamically from Csound at compile time. Since we do not know the number assigned, we must return the number of the table through _chnset_ at runtime.
+The global _ftgen_-tables, deliberately have been declared with the first argument set to zero.
+This means that the GEN\_-table number is assigned dynamically from Csound at compile time.
+Since we do not know the number assigned, we must return the number of the table through _chnset_ at runtime.
 
 In the **_AudioDSP.m_** class is the implementation code of the second example.
 
-The `APE_MULTISLIDER` class returns, through its own delegate method _didValueChanged_, an array with the indexed values of the sliders. These are used as amplitude-weights for the generation of the harmonic additive waveform. Let us leave out the code about the wave's amplitude normalization and we focus on this code:
+The `APE_MULTISLIDER` class returns, through its own delegate method _didValueChanged_,
+an array with the indexed values of the sliders.
+These are used as amplitude-weights for the generation of the harmonic additive waveform.
+Let us leave out the code about the wave's amplitude normalization and we focus on this code:
 
 ```c
 MYFLT *tableNumFloat;
@@ -1839,11 +2005,18 @@ for (int i = 0; i < maxnum; ++i) {
 csoundTableCopyIn(_cs, tableNum, srcHarmonic);
 ```
 
-This function also can be sub-sampled by de-commenting the `DOWNSAMP_FUNC` macro. This code is purely for purpose of example as it can be significantly optimized, in the case of vectors's operations, the Apple _vDSP_ framework could be an excellent solution.
+This function also can be sub-sampled by de-commenting the `DOWNSAMP_FUNC` macro.
+This code is purely for purpose of example as it can be significantly optimized,
+in the case of vectors's operations, the Apple _vDSP_ framework could be an excellent solution.
 
 ### Optimize performance and add a custom opcode
 
-In this final section we will understand how to use the programming environment to implement an _ocpode_ directly in the **_AudioDSP_** class and add it to the list of Csound opcodes without re-compiling Csound. This is fundamental in order to optimize some audio processing, in particular heavy ones regarding CPU cost. In fact, outside of Csound it will be possible to use a series of instruments such as the highly powerful vDSP of Apple, especially for the implementation of FFT routines.
+In this final section we will understand how to use the programming environment
+to implement an _ocpode_ directly in the **_AudioDSP_** class and add it to the list of
+Csound opcodes without re-compiling Csound. This is fundamental in order to optimize some audio processing,
+in particular heavy ones regarding CPU cost.
+In fact, outside of Csound it will be possible to use a series of instruments such as
+the highly powerful vDSP of Apple, especially for the implementation of FFT routines.
 
 The steps involved are three:
 
@@ -1860,13 +2033,23 @@ csoundAppendOpcode(
 );
 ```
 
-This appends an opcode implemented by external software to Csound's internal opcode list. The opcode list is extended by one slot, and the parameters are copied into the new slot.
+This appends an opcode implemented by external software to Csound's internal opcode list.
+The opcode list is extended by one slot, and the parameters are copied into the new slot.
 
-Basically, what we have done is declaring three pointers to functions (iMOOGLADDER, kMOOGLADDER and aMOOGLADDER) implemented in the class _AudioDSP_.
+Basically, what we have done is declaring three pointers to functions
+(iMOOGLADDER, kMOOGLADDER and aMOOGLADDER) implemented in the class _AudioDSP_.
 
-The second step is to declare the data structure used by the opcode in the **AudioDSP.h**. So the header file csdl.h must be included according to the documentation:
+The second step is to declare the data structure used by the opcode in the **AudioDSP.h**.
+So the header file csdl.h must be included according to the documentation:
 
-_Plugin opcodes can extend the functionality of Csound, providing new functionality that is exposed as opcodes in the Csound language. Plugins need to include this header file only, as it will bring all necessary data structures to interact with Csound. It is not necessary for plugins to link to the libcsound library, as plugin opcodes will always receive a CSOUND\* pointer (to the CSOUND_struct) which contains all the API functions inside.This is the basic template for a plugin opcode. See the manual for further details on accepted types and function call rates. The use of the LINKAGE macro is highly recommended, rather than calling the functions directly._
+_Plugin opcodes can extend the functionality of Csound, providing new functionality
+that is exposed as opcodes in the Csound language.
+Plugins need to include this header file only, as it will bring all necessary data structures
+to interact with Csound. It is not necessary for plugins to link to the libcsound library,
+as plugin opcodes will always receive a CSOUND\* pointer (to the CSOUND_struct) which contains all
+the API functions inside. This is the basic template for a plugin opcode.
+See the manual for further details on accepted types and function call rates.
+The use of the LINKAGE macro is highly recommended, rather than calling the functions directly._
 
 ```c
 typedef struct {
@@ -1900,17 +2083,27 @@ In the Orchestra code, we can call MOOGLADDER in the same way as the native opco
 aOutput MOOGLADDER aInput, kcutoff, kres
 ```
 
-The MOOGLADDER is a simplified and optimized implementation of the opcode moogladder by Victor Lazzarini. The iVCS3 app uses this mechanism for the Envelope and Filter implementationthat also allows a fine control of the cutoff.
+The MOOGLADDER is a simplified and optimized implementation of the opcode moogladder by Victor Lazzarini.
+The iVCS3 app uses this mechanism for the Envelope and Filter implementationthat
+also allows a fine control of the cutoff.
 
 ### Conclusion
 
-1. The descriptions here describe the essential audio integrations in iOS. Some of the topics will be soon out of date, like the Inter-Audio App (IAA) which is deprecated form Apple since iOS 13, or the Audiobus which is replaced as well from the modern AUv3 technology.
+1. The descriptions here describe the essential audio integrations in iOS.
+   Some of the topics will be soon out of date, like the Inter-Audio App (IAA) which is deprecated form
+   Apple since iOS 13, or the Audiobus which is replaced as well from the modern AUv3 technology.
 
-2. This approach cover the inalienable features for the audio integration using Csound for professional software audio applications and presents some workarounds to solve some intrinsic idiosyncratic issue related to the Csound world.
+2. This approach cover the inalienable features for the audio integration using
+   Csound for professional software audio applications and presents some workarounds
+   to solve some intrinsic idiosyncratic issue related to the Csound world.
 
-3. A separate study deserves the integration of Csound for the Av3 architecture, meanwhile in the [tutorial repository](https://bitbucket.org/alessandropetrolati/tutorials/src/master) you can download an Xcode project template using Csound as audio engine for an AUv3 plugins extension. The template is self-explanatory.
+3. A separate study deserves the integration of Csound for the Av3 architecture,
+   meanwhile in the [tutorial repository](https://bitbucket.org/alessandropetrolati/tutorials/src/master) you can
+   download an Xcode project template using Csound as audio engine for an AUv3 plugins extension.
+   The template is self-explanatory.
 
-4. All the tutorials are using the latest Csound 6.14 compiled for Apple Catalyst SDK it means that the app can runs as universal in both iOS and macOS (since Catalina >= 10.15).
+4. All the tutorials are using the latest Csound 6.14 compiled for Apple Catalyst SDK
+   it means that the app can runs as universal in both iOS and macOS (since Catalina >= 10.15).
 
 ### Links
 

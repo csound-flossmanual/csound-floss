@@ -2,10 +2,13 @@
 
 ## Csound-expression
 
-_Csound-expression_ is a framework for creation of computer music. It is a Haskell library to ease the use of Csound. It generates Csound files out of Haskell code.
+_Csound-expression_ is a framework for creation of computer music.
+It is a Haskell library to ease the use of Csound.
+It generates Csound files out of Haskell code.
 
-With the help of the library Csound instruments can be created on the fly. A
-few lines in the interpreter is enough to get cool sound. Some of the features of the library are heavily
+With the help of the library Csound instruments can be created on the fly.
+A few lines in the interpreter is enough to get cool sound.
+Some of the features of the library are heavily
 inspired by reactive programming. Instruments can be evoked with
 event streams. Event streams can be combined in the manner of reactive
 programming. The GUI-widgets are producing the event streams as
@@ -146,7 +149,9 @@ You can try in the haskell interpreter to import the library and hear the greeti
 It works and you can hear the sound if you have installed evrything
 and the system audio is properly configured to work with default Csound settings.
 
-Next step to go would be to read through the [tutorial](https://github.com/spell-music/csound-expression/blob/master/tutorial/Index.md). The library covers almost all features of Csound so it is as huge as Csound but most
+Next step to go would be to read through
+the [tutorial](https://github.com/spell-music/csound-expression/blob/master/tutorial/Index.md).
+The library covers almost all features of Csound so it is as huge as Csound but most
 concepts are easy to grasp and it is driven by compositions of small parts.
 
 ## Links

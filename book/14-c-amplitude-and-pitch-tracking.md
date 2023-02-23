@@ -5,7 +5,8 @@ procedure but simply following the amplitude values of the waveform is
 unlikely to be useful. An audio waveform will be bipolar, expressing
 both positive and negative values, so to start with, some sort of
 rectifying of the negative part of the signal will be required. The most
-common method of achieving this is to square it (raise to the power of 2) and then to take the square root. Squaring any negative values will
+common method of achieving this is to square it (raise to the power of 2)
+and then to take the square root. Squaring any negative values will
 provide positive results (-2 squared equals 4). Taking the square root
 will restore the absolute values.
 
@@ -36,7 +37,7 @@ the size of the array. Changing control rate (kr) or number of audio
 samples in a control period (ksmps) will then no longer alter response
 behaviour.
 
-**_EXAMPLE 14C01_Amplitude_Tracking_First_Principles.csd_**
+#### **_EXAMPLE 14C01_Amplitude_Tracking_First_Principles.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -80,13 +81,13 @@ i 1 0 5
 ```
 
 In practice it is not necessary for us to build our own amplitude
-tracker as Csound already offers several opcodes for the task.
+tracker as Csound already offers several opcodes for the task.&nbsp;
 [rms](https://csound.com/docs/manual/rms.html) outputs a k-rate
 amplitude tracking signal by employing mathematics similar to those
-described above.
+described above.&nbsp;
 [follow](https://csound.com/docs/manual/follow.html) outputs at
 a-rate and uses a sample and hold method as it outputs data, probably
-necessitating some sort of low-pass filtering of the output signal.
+necessitating some sort of low-pass filtering of the output signal.&nbsp;
 [follow2](https://csound.com/docs/manual/follow2.html) also outputs
 at a-rate but smooths the output signal by different amounts depending
 on whether the amplitude is rising or falling.
@@ -113,7 +114,7 @@ the averaging mechanism fills with appropriately high values. As
 discussed earlier, reducing the size of the array will improve response
 at the risk of introducing ripple. Another approach to dealing with the
 issue of ripple is to low-pass filter the signal output by the amplitude
-follower. This is an approach employed by the
+follower. This is an approach employed by the&nbsp;
 [follow2](https://csound.com/docs/manual/follow2.html) opcode. The
 second thing that is apparent is that the amplitude following signal
 does not attain the peak value of the input signal. At its peaks, the
@@ -131,7 +132,7 @@ waveform is shown below:
 ![](../resources/images/14-c-rms.png)
 
 Its method of averaging uses filtering rather than simply taking a mean
-of a buffer of amplitude values.
+of a buffer of amplitude values.&nbsp;
 [rms](https://csound.com/docs/manual/rms.html) allows us to set the
 cutoff frequency (kCf) of its internal filter:
 
@@ -160,7 +161,7 @@ with the following result:
 
 The hump over the word spoken during the third and fourth time divisions
 initially seem erroneous but it is a result of greater amplitude
-excursion into the negative domain.
+excursion into the negative domain.&nbsp;
 [follow](https://csound.com/docs/manual/follow.html) provides a
 better reflection of absolute peak amplitude.
 
@@ -191,7 +192,7 @@ define a threshold above which one thing happens and below which
 something else happens. A crude dynamic gating of the signal above could
 be implemented thus:
 
-**_EXAMPLE 14C02_Simple_Dynamic_Gate.csd_**
+#### **_EXAMPLE 14C02_Simple_Dynamic_Gate.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -286,7 +287,7 @@ note.
 The example below tracks audio from the sound-card input channel 1 using
 this mechanism.
 
-**_EXAMPLE 14C03_Dynamic_Trigger.csd_**
+#### **_EXAMPLE 14C03_Dynamic_Trigger.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -335,11 +336,11 @@ i 1 0 [3600*24*7]
 ## Pitch Tracking
 
 Csound currently provides five opcode options for pitch tracking. In
-ascending order of newness they are:
-[pitch](https://csound.com/docs/manual/pitch.html),
-[pitchamdf](https://csound.com/docs/manual/pitchamdf.html),
-[pvspitch](https://csound.com/docs/manual/pvspitch.html),
-[ptrack](https://csound.com/docs/manual/ptrack.html) and
+ascending order of newness they are:&nbsp;
+[pitch](https://csound.com/docs/manual/pitch.html),&nbsp;
+[pitchamdf](https://csound.com/docs/manual/pitchamdf.html),&nbsp;
+[pvspitch](https://csound.com/docs/manual/pvspitch.html),&nbsp;
+[ptrack](https://csound.com/docs/manual/ptrack.html) and&nbsp;
 [plltrack](https://csound.com/docs/manual/plltrack.html). Related to
 these opcodes are pvscent and centroid but rather than track the
 harmonic fundamental, they track the spectral centroid of a signal. An
@@ -439,7 +440,7 @@ purpose pitch tracker, _pitchamdf_ is also a good choice. _pvspitch_, _ptrack_
 and _plltrack_ all work well in real-time but might demand additional
 processing to remove errors.
 
-[pvscent](https://csound.com/docs/manual/pvscent.html) and
+[pvscent](https://csound.com/docs/manual/pvscent.html) and&nbsp;
 [centroid](https://csound.com/docs/manual/centroid.html) are a
 little different to the other pitch trackers in that, rather than try to
 discern the fundemental of a harmonic tone, they assess what the centre
@@ -474,7 +475,7 @@ the decision making process. centroid values are also printed to the
 terminal when onsets are detected which might assist in this fine
 tuning.
 
-**_EXAMPLE 14C04_Drum_Replacement.csd_**
+#### **_EXAMPLE 14C04_Drum_Replacement.csd_**
 
 ```csound
 <CsoundSynthesizer>

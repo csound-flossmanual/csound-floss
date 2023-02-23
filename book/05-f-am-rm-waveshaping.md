@@ -1,8 +1,8 @@
 # 05 F. AM / RM / WAVESHAPING
 
 An introduction as well as some background theory of amplitude
-modulation, ring modulation and waveshaping is given in chapters
-[04 C](04-c-amplitude-and-ring-modulation.md) and
+modulation, ring modulation and waveshaping is given in chapters&nbsp;
+[04 C](04-c-amplitude-and-ring-modulation.md) and&nbsp;
 [04 E](04-e-waveshaping.md). As all of these techniques merely
 modulate the amplitude of a signal in a variety of ways, they can also
 be used for the modification of non-synthesized sound. In this chapter
@@ -12,7 +12,11 @@ which can either be "pure" synthesis or applied on sampled sound.]
 
 ## AMPLITUDE AND RING MODULATION
 
-As shown in chapter [04 C](04-c-amplitude-and-ring-modulation.md), ring modulation in digital domain can be implemented as multiplication of a carrier audio signal with a modulator signal. If adapted to the modification of samples or live input, the carrier signal now changes to a playback unit or a microphone. The modulator usually remains a sine oscillator.
+As shown in chapter [04 C](04-c-amplitude-and-ring-modulation.md),
+ring modulation in digital domain can be implemented as multiplication of
+a carrier audio signal with a modulator signal. If adapted to the modification of
+samples or live input, the carrier signal now changes to a playback unit or a microphone.
+The modulator usually remains a sine oscillator.
 
 ![](../resources/images/05-f-RM.png){width=60%}
 
@@ -20,7 +24,7 @@ The spectrum of the carrier sound is shifted by plus and minus the modulator fre
 
 In the following example, first three static modulating frequencies are applied. As the voice itself has a somehow floating pitch, we already hear an always moving artificial speactrum component. This effect is emphasized in the second instrument which applies a random glissando for the modulating frequency. If the random movements are slow (first with 1 Hz, then 10 Hz), the pitch movements are still recognizable. If they are fast (100 Hz in the last call), the sound becomes noisy.
 
-**_EXAMPLE 05F01_RM_modification.csd_**
+#### **_EXAMPLE 05F01_RM_modification.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -61,9 +65,14 @@ i .           + .  100
 ;written by Alex Hofmann and joachim heintz
 ```
 
-In instrument _RM_static_, the fourth parameter of the score line (p4) directly yields the frequency of the modulator. In instrument _RM_moving_, this frequency is a random movement between 400 and 1000 Hz, and p4 here yields the rate in which new random values are generated.
+In instrument _RM_static_, the fourth parameter of the score line (p4) directly
+yields the frequency of the modulator. In instrument _RM_moving_,
+this frequency is a random movement between 400 and 1000 Hz, and p4 here yields
+the rate in which new random values are generated.
 
-For amplitude modulation, a constant part - the _DC offset_ - is added to the modulating signal. The result is a mixture of unchanged and ring modulated sound, in different weights. The most simple way to implement this is to add a part of the source signal to the ring modulated signal.
+For amplitude modulation, a constant part - the _DC offset_ - is added to the modulating signal.
+The result is a mixture of unchanged and ring modulated sound, in different weights.
+The most simple way to implement this is to add a part of the source signal to the ring modulated signal.
 
 ## WAVESHAPING
 
@@ -88,7 +97,7 @@ Bit Depth = 2
 
 This is the sounding result:
 
-**_EXAMPLE 05F02_Wvshp_bit_crunch.csd_**
+#### **_EXAMPLE 05F02_Wvshp_bit_crunch.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -122,13 +131,14 @@ i 1 0 2.767
 
 In general, the transformation of sound in applying waveshaping depends
 on the transfer function. The following example applies at first a table
-which does not change the sound at all, because the function just says
-_y = x_. The second one leads already to a heavy distortion, because the samples between an amplitude of -0.1 and +0.1 are erased.
+which does not change the sound at all, because the function just says _y = x_.
+The second one leads already to a heavy distortion, because the samples between an amplitude
+of -0.1 and +0.1 are erased.
 Tables 3 to 7 apply some chebychev functions which are well known from
 waveshaping synthesis. Finally, tables 8 and 9 approve that even a
 meaningful sentence and a nice music can regarded as noise ...
 
-**_EXAMPLE 05F03_Wvshp_different_transfer_funs.csd_**
+#### **_EXAMPLE 05F03_Wvshp_different_transfer_funs.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -179,14 +189,14 @@ i 1 + . 9 ;guitar
 ```
 
 Instead of using the "self-built" method which has been described
-here, you can use the Csound opcode
+here, you can use the Csound opcode&nbsp;
 [distort](https://csound.com/docs/manual/distort.html). It performs
 the actual waveshaping process and gives a nice control about the amount
 of distortion in the _kdist_ parameter. Here is a simple example, using rather different tables:
 
 ![](../resources/images/05-f-example-4.png)
 
-**_EXAMPLE 05F04_distort.csd_**
+#### **_EXAMPLE 05F04_distort.csd_**
 
 ```csound
 <CsoundSynthesizer>
