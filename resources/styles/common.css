@@ -69,13 +69,14 @@ strong {
 }
 
 strong > em {
+  margin-top: 24px;
   display: inline-block;
 }
 
 div.left {
   margin-top: 1em;
   text-indent: 0;
-  text-align: left;
+  text-align: left;are based on the
 }
 
 div.center {
@@ -188,6 +189,7 @@ hr {
 }
 
 ul {
+  margin-top: 4px;
   padding-left: 30px;
 }
 
