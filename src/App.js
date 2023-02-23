@@ -2,7 +2,7 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/react";
 // eslint-disable-next-line no-unused-vars
-import React, { lazy, Suspense, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import ResizeObserver from "resize-observer-polyfill";
 import MobileNav from "./components/MobileNav";
@@ -21,6 +21,7 @@ function App() {
     /\/$/g,
     ""
   );
+
   const [currentRoute, setCurrentRoute] = useState(
     isEmpty(initialState) ? "/" : initialState
   );

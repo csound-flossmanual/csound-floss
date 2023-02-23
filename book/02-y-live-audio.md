@@ -1,7 +1,7 @@
 # 02 D. LIVE AUDIO
 
-Similar to the MIDI configuration, the standard Csound frontends
-[CsoundQt](http://csoundqt.github.io), [Cabbage](http://cabbageaudio.com/) and
+Similar to the MIDI configuration, the standard Csound frontends&nbsp;
+[CsoundQt](http://csoundqt.github.io), [Cabbage](http://cabbageaudio.com/) and&nbsp;
 [Blue](http://blue.kunstmusik.com/) all provide their own way how to configure audio.
 The following description is useful to understand what happens behind
 the curtains, and must be regarded if you use Csound via Command Line.
@@ -57,11 +57,11 @@ output, but write to an audio file as output instead.
 
 ## Select the Audio Driver
 
-The RT (= real-time) output module can be set with the _-+rtaudio_
-flag. If you don't use this flag, the PortAudio driver will be used.
-Other possible drivers are jack and alsa (Linux), mme (Windows) or
-CoreAudio (Mac). So, this sets your audio driver to mme instead of Port
-Audio:
+The RT (= real-time) output module can be set with
+the _-+rtaudio_ flag. If you don't use this flag,
+the PortAudio driver will be used. Other possible drivers
+are jack and alsa (Linux), mme (Windows) or CoreAudio (Mac).
+So, this sets your audio driver to mme instead of PortAudio:
 
     -+rtaudio=mme
 
@@ -88,9 +88,9 @@ to 512 samples and the software buffer size to 128 sample:
 
     -B512 -b128
 
-The other factor which affects Csound's live performance is the
-[ksmps](https://csound.com/docs/manual/ksmps.html)
-value which is set in the header of the \<CsInstruments\> section. By
+The other factor which affects Csound's live performance is
+the [ksmps](https://csound.com/docs/manual/ksmps.html) value
+which is set in the header of the \<CsInstruments\> section. By
 this value, you define how many samples are processed every Csound
 control cycle.
 
@@ -105,7 +105,7 @@ or 1.] With a software buffer of 128 samples, a hardware buffer of
 512 and a sample rate of 44100 you will have around 12ms latency,
 which is usable for live keyboard playing.
 If you have problems with either the latency or the performance,
-tweak the values as described
+tweak the values as described&nbsp;
 [here](https://csound.com/docs/manual/UsingOptimizing.html).
 
 ## The \"\--realtime\" Option
@@ -131,9 +131,9 @@ example ksmps=16, 32, or 64, -b32 or 64, and -B256 or 512.
 
 Csound can **produce extreme dynamic range**, so keep an eye on the
 level you are sending to your output. The number which describes the
-level of 0 dB, can be set in Csound by the
+level of 0 dB, can be set in Csound by the&nbsp;
 [0dbfs](http://csound.github.io/docs/manual/html/Zerodbfs.html)
-assignment in the \<CsInstruments\> header. There is no limitation, if
+&nbsp;assignment in the \<CsInstruments\> header. There is no limitation, if
 you set 0dbfs = 1 and send a value of 32000, **this can damage your
 ears and speakers!**
 
@@ -141,10 +141,10 @@ ears and speakers!**
 
 To process audio from an external source (for example a microphone), use
 the [inch](http://csound.github.io/docs/manual/html/inch.html)
-opcode to access any of the inputs of your audio input device. For the
-output,
+&nbsp;opcode to access any of the inputs of your audio input device. For the
+output,&nbsp;
 [outch](http://csound.github.io/docs/manual/html/outch.html)
-gives you all necessary flexibility. The following example takes a live
+&nbsp;gives you all necessary flexibility. The following example takes a live
 audio input and transforms its sound using ring modulation. The Csound
 Console should output five times per second the input amplitude level.
 

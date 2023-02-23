@@ -13,12 +13,15 @@ to size-1. For instance, if you have a function table with a size of 7,
 and the numbers [1.1, 2.2, 3.3, 5.5, 8.8, 13.13, 21.21] in
 it, this is the relation of value and index:
 
----
-
-VALUE 1.1 2.2 3.3 5.5 8.8 13.13 21.21
-INDEX 0 1 2 3 4 5 6
-
----
+| VALUE | INDEX |
+| ----- | ----- |
+| 1.1   | 0     |
+| 2.2   | 1     |
+| 3.3   | 2     |
+| 5.5   | 3     |
+| 8.8   | 4     |
+| 13.13 | 5     |
+| 21.21 | 6     |
 
 So, if you want to retrieve the value 13.13, you must point to the value
 stored under index 5.
@@ -39,27 +42,26 @@ the Csound performance, for instance via `event "f" ...`] Even if
 you want to write values later, you must first create an empty table,
 because you must initially reserve some space in memory for it.
 
-Each creation of a function table in Csound is performed by one of the
-**GEN Routines**. Each GEN Routine generates a function table in a
+Each creation of a function table in Csound is performed by one of
+the **GEN Routines**. Each GEN Routine generates a function table in a
 particular way: [GEN01](http://www.csound.com/docs/manual/GEN01.html)
-transfers audio samples from a soundfile into a table,
-[GEN02](http://www.csound.com/docs/manual/GEN02.html) stores values we
+&nbsp;transfers audio samples from a soundfile into a table,
+&nbsp;[GEN02](http://www.csound.com/docs/manual/GEN02.html) stores values we
 define explicitly one by one,
-[GEN10](http://www.csound.com/docs/manual/GEN10.html) calculates a
+&nbsp;[GEN10](http://www.csound.com/docs/manual/GEN10.html) calculates a
 waveform using user-defined weightings of harmonically related
-sinusoids, [GEN20](http://www.csound.com/docs/manual/GEN20.html)
-generates window functions typically used for granular synthesis, and so
-on. There is a good
-[overview](http://www.csound.com/docs/manual/ScoreGenRef.html) in the
-[Csound Manual](http://www.csound.com/docs/manual/index.html) of all
+sinusoids, [GEN20](http://www.csound.com/docs/manual/GEN20.html) generates
+window functions typically used for granular synthesis, and so on.
+There is a good [overview](http://www.csound.com/docs/manual/ScoreGenRef.html) in
+the [Csound Manual](http://www.csound.com/docs/manual/index.html) of all
 existing GEN Routines. Here we will explain their general use and
 provide some simple examples using commonly used GEN routines.
 
 ### GEN02 and General Parameters for GEN Routines
 
 Let\'s start with our example described above and write the 7 numbers
-into a function table with 7 storage locations. For this task use of a
-[GEN02](http://www.csound.com/docs/manual/GEN02.html) function table is
+into a function table with 7 storage locations. For this task use of
+a [GEN02](http://www.csound.com/docs/manual/GEN02.html) function table is
 required. A short description of GEN02
 from the manual reads as follows:
 
@@ -85,9 +87,9 @@ parameters after the **f** are as follows:
   mind: **by default, Csound normalizes the table values.** This means
   that the maximum is scaled to +1 if positive, and to -1 if negative.
   All other values in the table are then scaled by the same factor
-  that was required to scale the maximum to +1 or -1. To **prevent**
-  Csound from normalizing, a **negative** number can be given as GEN
-  number (in this example, the GEN routine number will be given as -2
+  that was required to scale the maximum to +1 or -1.
+  To **prevent** Csound from normalizing, a **negative** number can be given as
+  GEN number (in this example, the GEN routine number will be given as -2
   instead of 2).
 - **_v1 v2 v3 ..._**: the values which are written into the function
   table.
@@ -217,8 +219,8 @@ i 1 0 0 2; prints function table 2
 
 [GEN01](http://www.csound.com/docs/manual/GEN01.html) is used for
 importing soundfiles stored on disk into the computer's RAM, ready
-for use by a number of Csound's opcodes in the orchestra. A typical
-_ftgen_ statement for this import might be the following:
+for use by a number of Csound's opcodes in the orchestra.
+A typical _ftgen_ statement for this import might be the following:
 
     varname             ifn itime isize igen Sfilnam       iskip iformat ichn
     giFile    ftgen     0,  0,    0,    1,   "myfile.wav", 0,    0,      0
@@ -227,13 +229,13 @@ _ftgen_ statement for this import might be the following:
   meaning as explained above in reference to GEN02. Note that on this
   occasion the function table number (_ifn_) has been defined using a
   zero. This means that Csound will automatically assign a unique
-  function table number. This number will also be held by the variable
-  _giFile_ which we will normally use to reference the function table
-  anyway so its actual value will not be important to us. If you are
-  interested you can print the value of _giFile_ out. If no other
-  tables are defined, it will be 101 and subsequent tables, also using
-  automatically assigned table numbers, will follow accordingly: 102,
-  103 etc.
+  function table number. This number will also be held by the
+  variable _giFile_ which we will normally use to reference the
+  function table anyway so its actual value will not be important to us.
+  If you are interested you can print the value of _giFile_ out.
+  If no other tables are defined, it will be 101 and subsequent tables,
+  also using automatically assigned table numbers, will follow
+  accordingly: 102, 103 etc.
 - **_isize_**: Usually you won't know the length of your soundfile in
   samples, and want to have a table length which includes exactly all
   the samples. This is done by setting **isize** to **0**.
@@ -259,9 +261,8 @@ _ftgen_ statement for this import might be the following:
   use of multichannel audio stored in function tables.
 
 The following example loads a short sample into RAM via a function table
-and then plays it. Reading the
-function table here is done using the
-[poscil3](http://www.csound.com/docs/manual/poscil3.html) opcode,
+and then plays it. Reading the function table here is done using
+the [poscil3](http://www.csound.com/docs/manual/poscil3.html) opcode,
 as one of many choices in Csound.
 
 **_EXAMPLE 03D03_Sample_to_table.csd_**
@@ -305,9 +306,9 @@ simplest one is [GEN10](http://www.csound.com/docs/manual/GEN10.html).
 It produces a waveform by adding sine waves which have the \"harmonic\"
 frequency relationship 1 : 2 : 3 : 4 ... After the usual arguments for
 function table number, start, size and gen routine number, which are the
-first four arguments in
-[ftgen](http://www.csound.com/docs/manual/ftgen.html) for all GEN
-Routines, with GEN10 you must specify the relative strengths of the
+first four arguments
+in [ftgen](http://www.csound.com/docs/manual/ftgen.html) for all
+GEN Routines, with GEN10 you must specify the relative strengths of the
 harmonics. So, if you just provide one argument, you will end up with a
 sine wave (1st harmonic). The next argument is the strength of the 2nd
 harmonic, then the 3rd, and so on. In this way, you can build
@@ -403,10 +404,10 @@ creating an "empty" table for 100 values is shown below:
     giEmpty ftgen 0, 0, -100, 2, 0
 
 The simplest to use opcode that writes values to existing function
-tables during a note's performance is
-[tablew](http://www.csound.com/docs/manual/tablew.html) and its i-time
-equivalent is
-[tableiw](http://www.csounds.com/manual/html/tableiw.html).
+tables during a note's performance
+is [tablew](http://www.csound.com/docs/manual/tablew.html) and
+its i-time equivalent
+is [tableiw](http://www.csounds.com/manual/html/tableiw.html).
 As usual, you must
 differentiate if your signal (variable) is i-rate, k-rate or a-rate. The
 usage is simple and differs just in the class of values you want to
@@ -552,13 +553,14 @@ As you see, this typical case of writing k-values to a table requires a
 changing value for the index, otherwise tablew will continually
 overwrite at the same table location. This changing value can be created
 using the [line](http://www.csound.com/docs/manual/line.html) or
-[linseg](http://www.csound.com/docs/manual/linseg.html) opcodes - as
-was done here - or by using a
-[phasor](http://www.csound.com/docs/manual/phasor.html). A phasor moves
-continuously from 0 to 1 at a user-defined frequency. For example, if
-you want a phasor to move from 0 to 1 in 5 seconds, you must set the
-frequency to 1/5. Upon reaching 1, the phasor will wrap-around to zero
-and begin again. Note that phasor can also be given a negative frequency
+&nbsp;[linseg](http://www.csound.com/docs/manual/linseg.html) opcodes - as
+was done here - or by using
+a [phasor](http://www.csound.com/docs/manual/phasor.html).
+A phasor moves continuously from 0 to 1 at a user-defined frequency.
+For example, if you want a phasor to move from 0 to 1 in 5 seconds,
+you must set the frequency to 1/5. Upon reaching 1,
+the phasor will wrap-around to zero and begin again.
+Note that phasor can also be given a negative frequency
 in which case it moves in reverse from 1 to zero then wrapping around to
 
 1.  By setting the _ixmode_ argument of _tablew_ to 1, you can use the phasor
@@ -663,8 +665,8 @@ i 4 20 5 ; play back the recording of live audio
 
 ## How to Retrieve Values from a Function Table
 
-There are two methods of reading table values. You can either use the
-[table](http://www.csound.com/docs/manual/table.html) /
+There are two methods of reading table values. You can either use
+the [table](http://www.csound.com/docs/manual/table.html)/
 [tab](http://www.csound.com/docs/manual/tab.html) opcodes, which are
 universally usable, but need an index; or you can use an oscillator for
 reading a table at k-rate or a-rate.
@@ -672,17 +674,17 @@ reading a table at k-rate or a-rate.
 ### The table Opcode
 
 The [table](http://www.csound.com/docs/manual/table.html) opcode is
-quite similar in syntax to the
-[tableiw](http://www.csound.com/docs/manual/html/tableiw.html)/
-[tablew](http://www.csound.com/docs/manual/html/tablew.html)
-opcodes (which are explained above). It is simply its counterpart for
+quite similar in syntax to
+the [tableiw](http://www.csound.com/docs/manual/html/tableiw.html)/
+[tablew](http://www.csound.com/docs/manual/html/tablew.html) opcodes
+(which are explained above). It is simply its counterpart for
 reading values from a function table instead of writing them. Its output
 can be either an i-, k- or a-rate signal and the value type of the
 output automatically selects either the a- k- or a-rate version of the
 opcode. The first input is an index at the appropriate rate (i-index for
 i-output, k-index for k-output, a-index for a-output). The other
-arguments are as explained above for
-[tableiw](http://www.csound.com/docs/manual/html/tableiw.html)/
+arguments are as explained above
+for [tableiw](http://www.csound.com/docs/manual/html/tableiw.html)/
 [tablew](http://www.csound.com/docs/manual/html/tablew.html).
 
     ires      table    indx, ifn [, ixmode] [, ixoff] [, iwrap]
@@ -693,19 +695,18 @@ As table reading often requires interpolation between the table values -
 for instance if you read k- or a-values faster or slower than they have
 been written in the table - Csound offers two descendants of table for
 interpolation: [tablei](http://www.csound.com/docs/manual/tablei.html)
-interpolates linearly, whilst
+&nbsp;interpolates linearly, whilst&nbsp;
 [table3](http://www.csound.com/docs/manual/table3.html) performs cubic
 interpolation (which is generally preferable but is computationally
-slightly more expensive) and when CPU cycles are no object,
+slightly more expensive) and when CPU cycles are no object,&nbsp;
 [tablexkt](http://www.csound.com/docs/manual/tablexkt.html) can be used
 for ultimate interpolating quality.^[For a general introduction
 about interpolation, see for instance
 http://en.wikipedia.org/wiki/Interpolation]
 
-Examples of the use of the
-[table](http://www.csound.com/docs/manual/table.html) opcodes can be
-found in the earlier examples in the _How to Write Values to a Function Table_
-section.
+Examples of the use of the [table](http://www.csound.com/docs/manual/table.html) opcodes
+can be found in the earlier examples
+in the _How to Write Values to a Function Table_ section.
 
 ### Oscillators
 
@@ -717,14 +718,14 @@ the oscillator (the opcode creates the required index internally based
 on the asked for frequency).
 
 You should bear in mind that some of the oscillators in Csound might work
-only with power-of-two table sizes. The
-[poscil](http://www.csound.com/docs/manual/poscil.html)/
+only with power-of-two table sizes.
+The [poscil](http://www.csound.com/docs/manual/poscil.html)/
 [poscil3](http://www.csound.com/docs/manual/poscil3.html)
-opcodes do not have this restriction and offer a high precision, because
+&nbsp;opcodes do not have this restriction and offer a high precision, because
 they work with floating point indices, so in general it is recommended
 to use them. Below is an example that demonstrates both reading a k-rate
-and an a-rate signal from a buffer with
-[poscil3](http://www.csound.com/docs/manual/html/poscil3.html) (an
+and an a-rate signal from a buffer
+with [poscil3](http://www.csound.com/docs/manual/html/poscil3.html) (an
 oscillator with a cubic interpolation):
 
 **_EXAMPLE 03D08_RecPlay_ak_signals.csd_**
@@ -814,9 +815,9 @@ to.
 
 ### Writing a File in Csound's _ftsave_ Format at i-Time or k-Time
 
-Any function table in Csound can be easily written to a file using the
-[ftsave](http://www.csound.com/docs/manual/ftsave.html) (i-time) or
-[ftsavek](http://www.csound.com/docs/manual/ftsavek.html) (k-time)
+Any function table in Csound can be easily written to a file using
+the [ftsave](http://www.csound.com/docs/manual/ftsave.html) (i-time)
+or [ftsavek](http://www.csound.com/docs/manual/ftsavek.html) (k-time)
 opcode. Their use is very simple. The first argument specifies the
 filename (in double quotes), the second argument selects between a text
 format (non zero) or a binary format (zero) output. Finally you just
@@ -864,25 +865,25 @@ i 3 1 .1
 ;example by joachim heintz
 ```
 
-The counterpart to _ftsave_/_ftsavek_ are the
+The counterpart to _ftsave_/_ftsavek_ are the&nbsp;
 [ftload](http://www.csound.com/docs/manual/ftload.html)/
 [ftloadk](http://www.csound.com/docs/manual/ftloadk.html)
-opcodes. You can use them to load the saved files into function tables.
+&nbsp;opcodes. You can use them to load the saved files into function tables.
 
 ### Writing a Soundfile from a Recorded Function Table
 
 If you have recorded your live-input to a buffer, you may want to save
-your buffer as a soundfile. In Csound 6.12,
-[ftaudio](https://csound.com/docs/manual/ftaudio.html) has been
-introduced. The following example has in a way substituted by this
+your buffer as a soundfile.
+In Csound 6.12, [ftaudio](https://csound.com/docs/manual/ftaudio.html) has
+been introduced. The following example has in a way substituted by this
 new opcode, but it may show how many low-level routines can be
 written in Csound code. First instrument 1 records
 the live input. Then instrument 2 creates a soundfile "testwrite.wav"
 containing this audio in the same folder as the .csd. This is done at
 the first k-cycle of instrument 2, by repeatedly reading the table
 values and writing them as an audio signal to disk. After this is done,
-the instrument is turned off by executing the
-[turnoff](http://www.csounds.com/manual/html/turnoff.html) statement.
+the instrument is turned off by executing
+the [turnoff](http://www.csounds.com/manual/html/turnoff.html) statement.
 
 **_EXAMPLE 03D10_Table_to_soundfile.csd_**
 
@@ -935,10 +936,10 @@ i 2 7 0
 
 ### Other GEN Routine Highlights
 
-[GEN05](https://csound.com/docs/manual/GEN05.html),
-[GEN07](https://csound.com/docs/manual/GEN07.html),
-[GEN25](https://csound.com/docs/manual/GEN25.html),
-[GEN27](https://csound.com/docs/manual/GEN27.html) and
+[GEN05](https://csound.com/docs/manual/GEN05.html),&nbsp;
+[GEN07](https://csound.com/docs/manual/GEN07.html),&nbsp;
+[GEN25](https://csound.com/docs/manual/GEN25.html),&nbsp;
+[GEN27](https://csound.com/docs/manual/GEN27.html) and&nbsp;
 [GEN16](https://csound.com/docs/manual/GEN16.html) are useful for
 creating envelopes. GEN07 and GEN27 create functions table in the manner
 of the [linseg](https://csound.com/docs/manual/linseg.html) opcode -
@@ -949,8 +950,8 @@ that envelope segments are exponential in shape. GEN16 also create an
 envelope in breakpoint fashion but it allows the user to specify the
 curvature of each segment individually (concave - straight - convex).
 
-[GEN17](https://csound.com/docs/manual/GEN17.html),
-[GEN41](https://csound.com/docs/manual/GEN41.html) and
+[GEN17](https://csound.com/docs/manual/GEN17.html),&nbsp;
+[GEN41](https://csound.com/docs/manual/GEN41.html) and&nbsp;
 [GEN42](https://csound.com/docs/manual/GEN42.html) are used the
 generate histogram-type functions which may prove useful in algorithmic
 composition and work with probabilities.
@@ -962,7 +963,7 @@ in additive synthesis.
 
 [GEN11](https://csound.com/docs/manual/GEN11.html) is a GEN routine
 version of the [gbuzz](https://csound.com/docs/manual/gbuzz.html)
-opcode and as it is a fixed waveform (unlike gbuzz) it can be a useful
+&nbsp;opcode and as it is a fixed waveform (unlike gbuzz) it can be a useful
 and efficient sound source in subtractive synthesis.
 
 ## GEN08

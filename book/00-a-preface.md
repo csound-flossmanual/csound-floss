@@ -50,8 +50,8 @@ This textbook cannot cover all these use cases. Its main goal is:
 - To offer a readable and comprehensive introduction to the Csound language
   in [chapter 3](03-a-initialization-and-performance-pass.md).
 - To discuss some classical and recent methods of sound synthesis and sound
-  modification in Csound in chapter [4](04-a-additive-synthesis.md) and
-  [5](05-a-envelopes.md).
+  modification in Csound in
+  chapter [4](04-a-additive-synthesis.md) and [5](05-a-envelopes.md).
 - To offer an [Opcode Guide](15-a-opcode-guide.md) as orientation in the
   overwhelming number of Csound opcodes.
 - To collect different in-depth descriptions and instructions to various subjects,
@@ -59,12 +59,12 @@ This textbook cannot cover all these use cases. Its main goal is:
 
 This is called the _Csound FLOSS Manual_ because it has been first released in
 2011 at [flossmanuals.net](https://flossmanuals.net/). It should not be
-confused with the _Csound Reference Manual_ which can be found
-[here](https://csound.com/docs/manual/index.html).
+confused with the _Csound Reference Manual_ which can be
+found [here](https://csound.com/docs/manual/index.html).
 
 Enjoy reading and coding, and please help improve this textbook by feedbacks
-and suggestions on the Github
-[discussions](https://github.com/csound-flossmanual/csound-floss/discussions)
-page or elsewhere.
+and suggestions on the
+Github [discussions](https://github.com/csound-flossmanual/csound-floss/discussions) page
+or elsewhere.
 
 \newpage

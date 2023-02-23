@@ -69,14 +69,13 @@ strong {
 }
 
 strong > em {
-  margin-top: 24px;
   display: inline-block;
 }
 
 div.left {
   margin-top: 1em;
   text-indent: 0;
-  text-align: left;are based on the
+  text-align: left;
 }
 
 div.center {

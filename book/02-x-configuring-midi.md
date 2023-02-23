@@ -7,8 +7,8 @@ changes) from an external MIDI interface or from another program via a
 virtual MIDI cable. This information can be used to control any aspect
 of synthesis or performance.
 
-Most frontends are using their own MIDI handler. See the chapters about
-[CsoundQt](10-a-csoundqt.md), [Cabbage](10-b-cabbage.md) and
+Most frontends are using their own MIDI handler. See the chapters
+about [CsoundQt](10-a-csoundqt.md), [Cabbage](10-b-cabbage.md) and&nbsp;
 [Blue](10-c-blue.md) in this manual, or have a look at the built-in
 documentation of these environments. The following description is only
 relevant when you use Csound's own MIDI handlers, for instance when
@@ -16,11 +16,11 @@ running Csound via Command Line.
 
 Csound receives MIDI data through MIDI Realtime Modules. These are
 special Csound plugins which enable MIDI input using different methods
-according to a specific platform. They are enabled using the _-+rtmidi_
+according to a specific platform. They are enabled using the _-+rtmidi_&nbsp;
 [command line flag](http://csound.github.io/docs/manual/html/CommandFlagsCategory.html)
 in the _\<CsOptions\>_ section of your .csd file.
 
-There is the universal _portmidi_ module.
+There is the universal _portmidi_ module.&nbsp;
 [PortMidi](http://portmedia.sourceforge.net) is a cross-platform
 module for MIDI I/O and should be available on all platforms. To enable
 the portmidi module, use the flag (option):
@@ -37,9 +37,9 @@ interface. You can usually use:
 To get a performance error with a listing of available interfaces.
 
 For the PortMidi module (and others like ALSA), you can specify no
-number to use the default MIDI interface or the _a_ character to use
-**all** devices (which is actually the most common case). This will even
-work when no MIDI devices are present.
+number to use the default MIDI interface or the _a_ character to
+use **all** devices (which is actually the most common case).
+This will even work when no MIDI devices are present.
 
     -Ma
 
@@ -84,9 +84,9 @@ number, so if a note is received on channel 3, it will turn on
 instrument 3, if it is received on channel 10, it will turn on
 instrument 10 and so on.
 
-If you want to change this routing of MIDI channels to instruments, you
-can use the [massign](http://csound.github.io/docs/manual/html/massign.html)
-opcode. For instance, this statement lets you route your MIDI channel 1
+If you want to change this routing of MIDI channels to instruments, you can use
+the [massign](http://csound.github.io/docs/manual/html/massign.html) opcode.
+For instance, this statement lets you route your MIDI channel 1
 to instrument 10:
 
      massign 1, 10
@@ -131,7 +131,7 @@ number of instrument instances at the same time.
 
 ## How to Use a MIDI Controller
 
-To receive MIDI controller events, opcodes like
+To receive MIDI controller events, opcodes like&nbsp;
 [ctrl7](http://csound.github.io/docs/manual/html/ctrl7.html) can
 be used. In the following example instrument 1 is turned on for 60
 seconds. It will receive controller \#1 (modulation wheel) on channel 1
@@ -170,11 +170,9 @@ i 1 0 60
 ## Other Type of MIDI Data
 
 Csound can receive other type of MIDI, like pitch bend, and aftertouch
-through the usage of specific opcodes. Generic MIDI Data can be received
-using the
-[midiin](http://csound.github.io/docs/manual/html/midiin.html)
-opcode. The example below prints to the console the data received via
-MIDI.
+through the usage of specific opcodes. Generic MIDI Data can be received using
+the [midiin](http://csound.github.io/docs/manual/html/midiin.html) opcode.
+The example below prints to the console the data received via MIDI.
 
 **_EXAMPLE 02C03_Midi_all_in.csd_**
 

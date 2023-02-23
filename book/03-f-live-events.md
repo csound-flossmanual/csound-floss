@@ -11,9 +11,9 @@ _instrument events_.
 Whenever any Csound code is executed, it has to be compiled first. Since
 Csound6, you can change the code of any running Csound instance, and
 recompile it on the fly. There are basically two opcodes for this _live
-coding_:
+coding_:&nbsp;
 [compileorc](http://www.csound.com/docs/manual/compileorc.html)
-re-compiles any existing orc file, whereas
+&nbsp;re-compiles any existing orc file, whereas&nbsp;
 [compilestr](http://www.csound.com/docs/manual/compilestr.html)
 compiles any string. At the end of this chapter, we will present some
 simple examples for both methods, followed by a description how to
@@ -35,7 +35,7 @@ instrument which plays a soundfile of broken glass ...
 
 Whatever you do in Csound with instrument events, you must bear in mind
 the order of execution that has been explained in the first chapter of
-this section about the
+this section about the&nbsp;
 [Initialization and Performance Pass](03-a-initialization-and-performance-pass.md):
 instruments are executed one by one, both in the initialization pass and
 in each control cycle, and the order is determined **by the instrument
@@ -196,9 +196,9 @@ list in the score section of a .csd file. Each line which begins with an
 _i_ is an instrument event. As this is very simple, and examples can
 be found easily, let us focus instead on some additional features which
 can be useful when you work in this way. Documentation for these
-features can be found in the
+features can be found in the&nbsp;
 [Score Statements](http://www.csound.com/docs/manual/ScoreStatements.html)
-section of the Canonical Csound Reference Manual. Here are some
+&nbsp;section of the Canonical Csound Reference Manual. Here are some
 examples:
 
 **_EXAMPLE 03F03_Score_tricks.csd_**
@@ -272,8 +272,8 @@ Triggering an instrument with an indefinite duration by setting _p3_ to
 any negative value, and stopping it by a negative p1 value, can be an
 important feature for live events. If you turn instruments off in this
 way you may have to add a fade out segment. One method of doing this is
-shown in the instrument above with a combination of the
-[release](http://www.csound.com/docs/manual/release.html) and the
+shown in the instrument above with a combination of the&nbsp;
+[release](http://www.csound.com/docs/manual/release.html) and the&nbsp;
 [xtratim](http://www.csound.com/docs/manual/xtratim.html) opcodes. Also
 note that you can start and stop certain instances of an instrument with
 a floating point number as p1.
@@ -284,9 +284,9 @@ Csound has a particular feature which makes it very simple to trigger
 instrument events from a MIDI keyboard. Each MIDI Note-On event can
 trigger an instrument, and the related Note-Off event of the same key
 stops the related instrument instance. This is explained more in detail
-in the chapter
+in the chapter&nbsp;
 [Triggering Instrument Instances](07-b-triggering-instrument-instances.md)
-in the MIDI section of
+&nbsp;in the MIDI section of
 this manual. Here, just a small example is shown. Simply connect your
 MIDI keyboard and it should work.
 
@@ -335,7 +335,7 @@ Csound's FLTK widgets, and then using CsoundQt's widgets.
 
 This is a very simple example demonstrating how to trigger an instrument
 using an [FLTK button](http://www.csound.com/docs/manual/FLbutton.html).
-A more extended example can be found
+A more extended example can be found&nbsp;
 [here](http://www.csound.com/docs/manual/examples/FLbutton.csd).
 
 **_EXAMPLE 03F05_FLTK_triggered_events.csd_**
@@ -564,12 +564,12 @@ You can perform a number of calculations at init-time which lead to a
 list of instrument events. In this way you are producing a score, but
 inside an instrument. The score events are then executed later.
 
-Using this opportunity we can introduce the
+Using this opportunity we can introduce the&nbsp;
 [scoreline](http://www.csound.com/docs/manual/scoreline.html) /
 [scoreline_i](http://www.csound.com/docs/manual/scoreline_i.html)
-opcode. It is quite similar to the
+&nbsp;opcode. It is quite similar to the&nbsp;
 [event](http://www.csound.com/docs/manual/event.html) /
-[event_i](http://www.csound.com/docs/manual/event_i.html) opcode but
+&nbsp;[event_i](http://www.csound.com/docs/manual/event_i.html) opcode but
 has two major benefits:
 
 - You can write more than one scoreline by using _{{_ at the
@@ -621,7 +621,7 @@ With good right, you might say: "OK, that's nice, but I can also write
 scorelines in the score itself!" That's right, but the advantage with
 the _scoreline_i_ method is that you can **render** the score events in
 an instrument, and **then** send them out to one or more instruments to
-execute them. This can be done with the
+execute them. This can be done with the&nbsp;
 [sprintf](http://www.csound.com/docs/manual/sprintf.html) opcode, which
 produces the string for scoreline in an i-time loop (see the chapter
 about control structures).
@@ -765,7 +765,7 @@ e
 ## Using Time Loops
 
 As discussed above in the chapter about control structures, a time loop
-can be built in Csound with the
+can be built in Csound with the&nbsp;
 [timout](http://www.csound.com/docs/manual/timout.html) opcode or with
 the [metro](http://www.csound.com/docs/manual/metro.html) opcode. There
 were also simple examples for triggering instrument events using both
@@ -864,8 +864,8 @@ to trigger instrument events. Should I use event, scoreline, schedule or
 schedkwhen? Should I use event or event_i?
 
 Let us start with the latter, which actually leads to the general
-question about _i-rate_ and _k-rate_ opcodes.^[See chapter
-[03A](03-a-initialization-and-performance-pass.md) about
+question about _i-rate_ and _k-rate_ opcodes.^[See
+chapter [03A](03-a-initialization-and-performance-pass.md) about
 Initialization and Performance Pass for a detailed discussion.]
 In short: Using **event_i** (the i-rate version) will only trigger
 an event **once**, when the instrument in which this opcode works is
@@ -1005,10 +1005,9 @@ If you need a k-rate opcode to trigger an instrument event,
 
     schedulek kInstrNum (or "InstrName"), kStart, kDur [, kp4] [, kp5] [...]
 
-The advantage of _schedulek_ against _event_ is the possibility to pass
-strings as p-fields. On the other hand,
-[event](https://csound.com/docs/manual/event.html)
-can not only generate instrument events, but also other score events.
+The advantage of _schedulek_ against _event_ is the possibility to pass strings as p-fields.
+On the other hand, [event](https://csound.com/docs/manual/event.html) can not only generate
+instrument events, but also other score events.
 For instrument events, the syntax is:
 
     event "i", kInstrNum (or "InstrName"), kStart, kDur [, kp4] [, kp5] [...]
@@ -1025,8 +1024,8 @@ would be:
     endif
 
 In other words: This code would only use one control-cycle per second to
-call my_instr, and would do nothing in the other control cycles. The
-[schedkwhen](https://csound.com/docs/manual/schedkwhen.html) opcode simplifies
+call my_instr, and would do nothing in the other control cycles.
+The [schedkwhen](https://csound.com/docs/manual/schedkwhen.html) opcode simplifies
 such typical use cases, and adds some other useful arguments. This is the syntax:
 
     schedkwhen kTrigger, kMinTim, kMaxNum, kInsrNum (or "InstrName"),
@@ -1052,7 +1051,7 @@ instead of four:
     schedkwhen kTrigger, 0, 0, "my_instr", 0, 1
 
 Only, you cannot pass strings as p-fields via schedkwhen (and event).
-So, very much similar as described above for i-rate opcodes,
+So, very much similar as described above for i-rate opcodes,&nbsp;
 [scoreline](https://csound.com/docs/manual/scoreline.html)
 fills this gap (as well as _schedulek_). Usually we will use it with a
 condition, as we did for the event opcode:
@@ -1138,14 +1137,14 @@ If you start the csd now, Csound will run indefinitely. Now call instr
 9999 by typing _i 9999 0 1_ in the terminal window (if the option -L
 stdin works for your setup), or by pressing any MIDI key (if you have
 connected a keyboard). You should hear the same beep as before. But as
-the recompile.csd keeps running, you can change now the instrument 1 in file
-_to_recompile.orc_. Try, for instance, another value for
+the recompile.csd keeps running, you can change now the instrument 1 in
+file _to_recompile.orc_. Try, for instance, another value for
 kFreq. Whenever this is done (file is saved) and you
 call again _instr 9999_ in _recompile.csd_, the new version of this
 instrument is compiled and then called immediately.
 
-The other possibility to recompile code by using an opcode is
-_compilestr_. It will compile any instrument definition which is contained
+The other possibility to recompile code by using an opcode
+is _compilestr_. It will compile any instrument definition which is contained
 in a string. As this will be a string with several lines, you will
 usually use the _{{_ delimiter for the start and _}}_ for the end of
 the string. This is a basic example:

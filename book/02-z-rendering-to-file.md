@@ -73,9 +73,9 @@ precision of your rendered output file:
   because this is also the default in Csound).
 
 For making sure that the header of your soundfile will be written
-correctly, you should use the **-W** flag for a WAV file, or the **-A**
-flag for a AIFF file. So these options will render the file \"Wow.wav\"
-as WAV file with 24-bit accuracy:
+correctly, you should use the **-W** flag for a WAV file, or
+the **-A** flag for a AIFF file. So these options will render the
+file \"Wow.wav\" as WAV file with 24-bit accuracy:
 
     <CsOptions>
     -o Wow.wav -W -3
@@ -85,9 +85,8 @@ as WAV file with 24-bit accuracy:
 
 Sometimes you may want to simultaneously have realtime output and file
 rendering to disk, like recording your live performance. This can be
-achieved by using the
-[fout](http://www.csounds.com/manual/html/fout.html)
-opcode. You just have to specify your output file name. File type and
+achieved by using the [fout](http://www.csounds.com/manual/html/fout.html)
+&nbsp;opcode. You just have to specify your output file name. File type and
 format are given by a number, for instance 18 specifies \"wav 24 bit\"
 (see the manual page for more information). The following example
 creates a random frequency and panning movement of a sine wave, and

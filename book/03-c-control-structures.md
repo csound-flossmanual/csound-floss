@@ -5,8 +5,8 @@ fundamental element in each language is the conditional **if** branch.
 Actually all other control structures like for-, until- or while-loops
 can be traced back to if-statements.
 
-So, Csound provides mainly the if-statement; either in the usual
-_if-then-else_ form, or in the older way of an _if-goto_ statement.
+So, Csound provides mainly the if-statement; either in the
+usual _if-then-else_ form, or in the older way of an _if-goto_ statement.
 These will be covered first. Though all necessary loops can be built
 just by if-statements, Csound's _while, until_ and _loop_ facility
 offer a more comfortable way of performing loops. They will be
@@ -19,8 +19,8 @@ in audio programming languages.
 The fundamental difference in Csound between i-time and k-time which has
 been explained in chapter [03A](03-a-initialization-and-performance-pass.md),
 must be regarded very carefully when working with control structures.
-If a conditional branch at
-**i-time** is performed, the condition will be tested **just once for each note**, at
+If a conditional branch at **i-time** is performed,
+the condition will be tested **just once for each note**, at
 the initialization pass. If a conditional branch at **k-time** is performed,
 the condition will be tested **again and again in each control-cycle**.
 
@@ -30,11 +30,11 @@ certain threshold, it is done at performance time (k-time). If we receive
 user-input by a scroll number, this is also a k-value, so we need a
 k-condition.
 
-Thus, [if](https://csound.com/docs/manual/if.html) and
-[while](https://csound.com/docs/manual/while.html) as most used control structures have an
-_i_ and a _k_ descendant. In the next few sections, a general
-introduction into the different control tools is given, followed by
-examples both at i-time and at k-time for each tool.
+Thus, [if](https://csound.com/docs/manual/if.html) and&nbsp;
+[while](https://csound.com/docs/manual/while.html) as
+most used control structures have an _i_ and a _k_ descendant.
+In the next few sections, a general introduction into the different
+control tools is given, followed by examples both at i-time and at k-time for each tool.
 
 ## If - then - \[elseif - then -\] else
 
@@ -65,8 +65,8 @@ Or you can have one or more _elseif-then_ statements in between:
      ...
     endif
 
-If statements can also be nested. Each level must be closed with an
-_endif_. This is an example with three levels:
+If statements can also be nested. Each level must be closed with
+an _endif_. This is an example with three levels:
 
     if <condition1> then; first condition opened
      if <condition2> then; second condition openend
@@ -87,7 +87,7 @@ _endif_. This is an example with three levels:
 A typical problem in Csound: You have either mono or stereo files, and
 want to read both with a stereo output. For the real stereo ones that
 means: use [diskin](https://csound.com/docs/manual/diskin.html)
-(soundin / diskin2) with two output arguments. For the
+&nbsp;(soundin / diskin2) with two output arguments. For the
 mono ones it means: use it with one
 output argument, and throw it to both output channels:^[
 The modern way to solve this is to work with an audio array as
@@ -230,8 +230,8 @@ i 1 0 20
 ## If - goto
 
 An older way of performing a conditional branch - but still useful in
-certain cases - is an _if_ statement which is not followed by a
-_then_, but by a label name. The _else_ construction follows (or
+certain cases - is an _if_ statement which is not followed by
+a _then_, but by a label name. The _else_ construction follows (or
 doesn't follow) in the next line. Like the if-then-else statement, the
 if-goto works either at i-time or at k-time. You should declare the type
 by either using **i**goto or **k**goto. Usually you need an additional
@@ -262,7 +262,8 @@ k-time
     continue: ;go on after the conditional branch
     ...
 
-In case raw _goto_ is used, it is a combination of _igoto_ and _kgoto_, so the condition is tested on both, initialization and performance pass.
+In case raw _goto_ is used, it is a combination of _igoto_ and _kgoto_,
+so the condition is tested on both, initialization and performance pass.
 
 ### i-Rate Examples
 
@@ -307,7 +308,8 @@ i 1 0 0
 
 But if you want to play the file, you must also use a k-rate if-kgoto,
 because, not only do you have an event at i-time (initializing the
-soundin opcode) but also at k-time (producing an audio signal). So _goto_ must be used here, to combine _igoto_ and _kgoto_.
+soundin opcode) but also at k-time (producing an audio signal).
+So _goto_ must be used here, to combine _igoto_ and _kgoto_.
 
 **_EXAMPLE 03C05_IfGoto_ik.csd_**
 
@@ -397,8 +399,8 @@ i 1 0 30
 
 ## Loops
 
-Loops can be built either at i-time or at k-time just with the _if_
-facility. The following example shows an i-rate and a k-rate loop
+Loops can be built either at i-time or at k-time just with
+the _if_ facility. The following example shows an i-rate and a k-rate loop
 created using the if-i/kgoto facility:
 
 **_EXAMPLE 03C07_Loops_with_if.csd_**
@@ -445,15 +447,15 @@ i 2 0 1
 But Csound offers a slightly simpler syntax for this kind of i-rate or
 k-rate loops. There are four variants of the _loop_ opcode. All four refer
 to a _label_ as the starting point of the loop, an _index variable_ as a
-counter, an _increment_ or _decrement_, and finally a _reference value_
-(maximum or minimum) as comparision:
+counter, an _increment_ or _decrement_,
+and finally a _reference value_ (maximum or minimum) as comparision:
 
 - [loop_lt](http://www.csound.com/docs/manual/loop_lt.html) counts
   upwards and looks if the index variable is **lower than** the
   reference value;
 - [loop_le](http://www.csound.com/docs/manual/loop_le.html) also
-  counts upwards and looks if the index is **lower than or equal to**
-  the reference value;
+  counts upwards and looks if the index
+  is **lower than or equal to** the reference value;
 - [loop_gt](http://www.csound.com/docs/manual/loop_gt.html) counts
   downwards and looks if the index is **greater than** the reference
   value;
@@ -718,8 +720,8 @@ Prints:
     instr 2:  iprint = 3.000
     instr 2:  iprint = 4.000
 
-The most important thing in using the while/until loop is to
-**increment** the variable you are using in the loop (here: _iCounter_).
+The most important thing in using the while/until loop is
+to **increment** the variable you are using in the loop (here: _iCounter_).
 This is done by the statement
 
     iCounter += 1
@@ -809,9 +811,9 @@ amount of time can be equal to or different to the previous time loop.
 The action can be, for instance: playing a tone, or triggering an
 instrument, or calculating a new value for the movement of an envelope.
 
-In Csound, the usual way of performing time loops, is the
-[timout](http://www.csound.com/docs/manual/timout.html) facility. The
-use of timout is a bit intricate, so some examples are given, starting
+In Csound, the usual way of performing time loops, is
+the [timout](http://www.csound.com/docs/manual/timout.html) facility.
+The use of timout is a bit intricate, so some examples are given, starting
 from very simple to more complex ones.
 
 Another way of performing time loops is by using a measurement of time
@@ -912,19 +914,19 @@ This is the general syntax of _timout_:
 The _first_label_ is an arbitrary word (followed by a colon) to mark
 the beginning of the time loop section. The _istart_ argument for
 timout tells Csound, when the `second_label` section is to be
-executed. Usually istart is zero, telling Csound: execute the
-`second_label` section immediately, without any delay. The _idur_
-argument for timout defines for how many seconds the `second_label`
-section is to be executed before the time loop begins again. Note that
-the reinit `first_label` is necessary to start the second loop after
-_idur_ seconds with a resetting of all the values. (See the
-explanations about reinitialization in the chapter
+executed. Usually istart is zero, telling Csound: execute
+the `second_label` section immediately, without any delay.
+The _idur_ argument for timout defines for how many seconds
+the `second_label` section is to be executed before the time loop begins again.
+Note that the reinit `first_label` is necessary to start the second loop
+after _idur_ seconds with a resetting of all the values. (See the
+explanations about reinitialization in the chapter&nbsp;
 [Initialization and Performance Pass](03-a-initialization-and-performance-pass.md).
 
-As usual when you work with the
+As usual when you work with the&nbsp;
 [reinit](http://www.csound.com/docs/manual/reinit.html) opcode, you can
 use a [rireturn](http://www.csound.com/docs/manual/rireturn.html)
-statement to constrain the reinit-pass. In this way you can have both,
+&nbsp;statement to constrain the reinit-pass. In this way you can have both,
 the timeloop section and the non-timeloop section in the body of an
 instrument:
 
@@ -1047,9 +1049,9 @@ The applications discussed so far have the disadvantage that all the
 signals inside the time loop must definitely be finished or interrupted,
 when the next loop begins. In this way it is not possible to have any
 overlapping of events. To achieve this, the time loop can be used to
-simply **trigger an event**. This can be done with
-[schedule](https://csound.com/docs/manual/schedule.html),
-[event_i](https://csound.com/docs/manual/event_i.html) or
+simply **trigger an event**. This can be done with&nbsp;
+[schedule](https://csound.com/docs/manual/schedule.html),&nbsp;
+[event_i](https://csound.com/docs/manual/event_i.html) or&nbsp;
 [scoreline_i](https://csound.com/docs/manual/scoreline_i.html). In
 the following example, the time loop in instrument 1 triggers a new
 instance of instrument 2 with a duration of 1 to 5 seconds, every 0.5 to
@@ -1254,11 +1256,9 @@ i 1 0 30
 Note the differences in working with the _metro_ opcode compared
 to the _timout_ feature:
 
-- As _metro_ works at
-  k-time, you must use the k-variants of _event_ or
-  _scoreline_ to
-  call the subinstrument. With _timout_
-  you must
+- As _metro_ works at k-time, you must use the k-variants
+  of _event_ or _scoreline_ to
+  call the subinstrument. With _timout_ you must
   use the i-variants: of _event_i_ or _scoreline_i_,
   because it uses reinitialization for performing the time loops.
 - You must select the one k-cycle where the _metro_ opcode sends
@@ -1270,12 +1270,12 @@ to the _timout_ feature:
 ### Time Loops by Using a Clock Variable
 
 Perhaps both, the most simple and the most _Csoundish_ way to perform time
-loops is to use Csound's internal clock. As explained in
-[chapter 03A](03-a-initialization-and-control-pass.md),
+loops is to use Csound's internal clock. As explained
+in [chapter 03A](03-a-initialization-and-control-pass.md),
 each control cycle in Csound is equivalent to a certain time. This time
-is calculated as relation between the number of samples per control cycle
-[ksmps](https://csound.com/docs/manual/ksmps.html) and the sample rate
-[sr](https://csound.com/docs/manual/sr.html): _ksmps_/_sr_.
+is calculated as relation between the number of samples per
+control cycle [ksmps](https://csound.com/docs/manual/ksmps.html) and
+the sample rate [sr](https://csound.com/docs/manual/sr.html): _ksmps_/_sr_.
 If, for instance, we have 32 samples per control cycle at a sample rate
 of 44100, this would be the time for one control cycle:
 32/44100 = 0.0007256235827664399.
@@ -1283,9 +1283,10 @@ In other words: Less than one millisecond, so definitely precise enough in
 the context we are discussing here.
 
 As Csound internally calculates the relation between sample rate and number
-of samples per control cycle as _control rate_ or
-[kr](https://csound.com/docs/manual/kr.html), rather than _ksmps/sr_ we can
-also write _1/kr_. This is a bit shorter and more intuitive.
+of samples per control cycle
+as _control rate_ or [kr](https://csound.com/docs/manual/kr.html),
+rather than _ksmps/sr_ we can also write _1/kr_.
+This is a bit shorter and more intuitive.
 
 The idea for using this internal time as measurement for time loops is this:
 
@@ -1341,8 +1342,8 @@ i "TimeLoop" 0 10
 ;example by joachim heintz
 ```
 
-So the _trigger events_ example which has been showed in using
-_timout_ (03C19) and _trigger_ (03C22) is here again using
+So the _trigger events_ example which has been showed in
+using _timout_ (03C19) and _trigger_ (03C22) is here again using
 the internal clock approach.
 
 **_EXAMPLE 03C24_Internal_clock_trigger_events.csd_**
@@ -1430,7 +1431,10 @@ i "Exit" 20 1
 ;example by joachim heintz
 ```
 
-The problem here is: how to stop? The [turnoff2](https://csound.com/docs/manual/turnoff2.html) opcode does not help, because in the moment we turn off the running instance, it has already triggered the next instance.
+The problem here is: how to stop?
+The [turnoff2](https://csound.com/docs/manual/turnoff2.html) opcode
+does not help, because in the moment we turn off the running instance,
+it has already triggered the next instance.
 
 In our example, this problem has been solved the brutal way: to exit Csound. Much better is to introduce a break condition. This is what is called _base case_ in recursion. We can, for instance, give a counter as _p4_, say 20. For each instance, the new call is done with _p4-1_ (19, 18, 17, ...). When zero is reached, no self-triggering is done any more.
 
@@ -1470,4 +1474,6 @@ i "Play" 0 3 20
 ;example by joachim heintz
 ```
 
-Recursion is in particular important for User Defined Opcodes. Recursive UDOs will be explained in chapter [03 G](03-g-user-defined-opcodes.md). They follow the same principles as shown here.
+Recursion is in particular important for User Defined Opcodes.
+Recursive UDOs will be explained in chapter [03 G](03-g-user-defined-opcodes.md).
+They follow the same principles as shown here.

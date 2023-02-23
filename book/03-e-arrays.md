@@ -4,9 +4,13 @@ Arrays can be used in Csound since version 6. This chapter first describes the n
 
 ## Naming Conventions
 
-An array is stored in a variable. As usual in Csound, the first character of the variable name declares the array as **i** (numbers, init-time), **k** (numbers, perf-time), **a** (audio vectors, perf-time) or **S** (strings, init- or perf-time). (More on this below, and in chapter [03 A](03-a-initialization-and-performance-pass.md).)
+An array is stored in a variable. As usual in Csound, the first character of the variable name declares the array
+as **i** (numbers, init-time), **k** (numbers, perf-time), **a** (audio vectors, perf-time)
+or **S** (strings, init- or perf-time). (More on this below,
+and in chapter [03 A](03-a-initialization-and-performance-pass.md).)
 
-At _first_ occurrence, the array variable must be followed by _brackets_. The brackets determine the dimensions of the array. So
+At _first_ occurrence, the array variable must be followed by _brackets_.
+The brackets determine the dimensions of the array. So
 
     kArr[] init 10
 
@@ -36,25 +40,32 @@ An array can be created by different methods:
 - with the [init](https://csound.com/docs/manual/init.html) opcode,
 - with [fillarray](https://csound.com/docs/manual/fillarray.html),
 - with [genarray](https://csound.com/docs/manual/fillarray.html),
-- as a copy of an already existing array with the
+- as a copy of an already existing array with the&nbsp;
   [=](https://csound.com/docs/manual/assign.html) operator,
 - implicit as result of some opcodes, e.g. _diskin_.
 
 ### _init_
 
 The most general method, which works for arrays of any number of
-dimensions, is to use the [init](https://csound.com/docs/manual/init.html) opcode. Each argument for _init_ denotes the size of one dimension.
+dimensions, is to use
+the [init](https://csound.com/docs/manual/init.html) opcode.
+Each argument for _init_ denotes the size of one dimension.
 
     kArr[]   init 10    ;creates a one-dimensional array with length 10
     kArr[][] init 8, 10 ;creates a two-dimensional array (8 lines, 10 columns)
 
 ### _fillarray_
 
-With the [fillarray](https://csound.com/docs/manual/fillarray.html) opcode distinct values are assigned to an array. If the array has not been created before, it will be created as result, in the size of elements which are given to _fillarray_. This ...
+With the [fillarray](https://csound.com/docs/manual/fillarray.html) opcode
+distinct values are assigned to an array. If the array has not been created before,
+it will be created as result, in the size of elements which are given to _fillarray_.
+This ...
 
     iArr[] fillarray 1, 2, 3, 4
 
-... creates an _i_-array of size=4. Note the difference in using the brackets in case the array has been created before, and is filled afterwards:
+... creates an _i_-array of size=4.
+Note the difference in using the brackets in case the array has been created before,
+and is filled afterwards:
 
     iArr[] init 4
     iArr fillarray 1, 2, 3, 4
@@ -68,8 +79,7 @@ In conjunction with a previously defined two-dimensional array, _fillarray_ can 
     iArr[][] init 2, 3
     iArr fillarray 1, 2, 3, -1, -2, -3
 
-This results in a 2D array (matrix) with the elements 1 2 3 as first row, and -1 -2 -3 as second row.^[Another method to fill a matrix is to use the
-[setrow](https://csound.com/docs/manual/setrow.html) opcode.
+This results in a 2D array (matrix) with the elements 1 2 3 as first row, and -1 -2 -3 as second row.^[Another method to fill a matrix is to use the [setrow](https://csound.com/docs/manual/setrow.html) opcode.
 This will be covered later in this chapter.]
 
 ### _genarray_
@@ -85,7 +95,12 @@ a start value to an (included) end value. Here are some examples:
 
 ### Copy with $=$
 
-The [=](https://csound.com/docs/manual/assign.html) operator copies any existing array to a new variable. The example shows how a global array is copied into a local one depending on a score p-field: If _p4_ is set to 1, _iArr\[\]_ is set to the content of _gi_Arr_1_; if _p4_ is 2, it gets the content of _gi_Arr_2_. The content of _iArr\[\]_ is then sent to instr _Play_ in a [while](https://csound.com/docs/manual/while.html) loop.
+The [=](https://csound.com/docs/manual/assign.html) operator copies any existing array to a new variable.
+The example shows how a global array is copied into a local one depending on a score p-field:
+If _p4_ is set to 1, _iArr\[\]_ is set to the content of _gi_Arr_1_; if _p4_ is 2,
+it gets the content of _gi_Arr_2_.
+The content of _iArr\[\]_ is then sent to instr _Play_ in
+a [while](https://csound.com/docs/manual/while.html) loop.
 
 **_EXAMPLE 03E01_CopyArray.csd_**
 
@@ -134,13 +149,22 @@ i "Select" + . 2
 
 ### Implicit as Opcode Output
 
-Some opcodes generate arrays as output. The size of the array depends on the opcode's input. The [diskin](https://csound.com/docs/manual/diskin.html) opcode, for instance, returns an array which has the same size as the number of channels in the audio file. So in the following code, the first array _aRead_A_ will have one element (as the audio file is mono), the second array _aRead_B_ will have two elements (as the audio file is stereo), the third array _aRead_C_ will have four elements (as the audio file is quadro).
+Some opcodes generate arrays as output. The size of the array depends on the opcode's input.
+The [diskin](https://csound.com/docs/manual/diskin.html) opcode, for instance,
+returns an array which has the same size as the number of channels in the audio file.
+So in the following code, the first array _aRead_A_ will have one element (as the audio file is mono),
+the second array _aRead_B_ will have two elements (as the audio file is stereo),
+the third array _aRead_C_ will have four elements (as the audio file is quadro).
 
     aRead_A[] diskin "mono.wav"
     aRead_B[] diskin "stereo.wav"
     aRead_C[] diskin "quadro.wav"
 
-Other opcodes which return arrays as output are [vbap](https://csound.com/docs/manual/vbap.html), [bformdec1](https://csound.com/docs/manual/bformdec1.html), [loscilx](https://csound.com/docs/manual/loscilx.html) for audio arrays, and [directory](https://csound.com/docs/manual/directory.html) for string arrays.
+Other opcodes which return arrays as output
+are [vbap](https://csound.com/docs/manual/vbap.html),&nbsp;
+[bformdec1](https://csound.com/docs/manual/bformdec1.html),&nbsp;
+[loscilx](https://csound.com/docs/manual/loscilx.html) for audio arrays,
+and [directory](https://csound.com/docs/manual/directory.html) for string arrays.
 
 ## Types of Arrays
 
@@ -209,20 +233,28 @@ around every 1/1000 second.
 
 ### Audio Arrays
 
-An audio array is a collection of audio signals. The size (length) of the audio array denotes the number of audio signals which are hold in it. In the next example, the audio array is created for two audio signals:
+An audio array is a collection of audio signals.
+The size (length) of the audio array denotes the number of audio signals
+which are hold in it. In the next example,
+the audio array is created for two audio signals:
 
     aArr[] init 2
 
-The first audio signal in the array _aArr[0]_ carries the output of a sine oscillator with frequency 400 Hz whereas _aArr[1]_ gets 500 Hz:
+The first audio signal in the array _aArr[0]_ carries the output of a sine oscillator
+with frequency 400 Hz whereas _aArr[1]_ gets 500 Hz:
 
     aArr[0] poscil  .2, 400
     aArr[1] poscil  .2, 500
 
-A percussive envelope _aEnv_ is generated with the [transeg](https://csound.com/docs/manual/transeg.html) opcode. The last line
+A percussive envelope _aEnv_ is generated with
+the [transeg](https://csound.com/docs/manual/transeg.html) opcode.
+The last line
 
     out aArr*aEnv
 
-multiplies the envelope with each element of the array, and the [out](https://csound.com/docs/manual/out.html) opcode outputs the result to both channels of the audio output device.
+multiplies the envelope with each element of the array, and
+the [out](https://csound.com/docs/manual/out.html) opcode
+outputs the result to both channels of the audio output device.
 
 **_EXAMPLE 03E03_Audio_array.csd_**
 
@@ -266,8 +298,8 @@ input file.
 Arrays of strings can be very useful in many situations, for
 instance while working with file paths.^[You cannot currently have
 a mixture of numbers and strings in an array, but you can convert
-a string to a number with the
-[strtod](https://csound.com/docs/manual/strtod.html) opcode.]
+a string to a number with
+the [strtod](https://csound.com/docs/manual/strtod.html) opcode.]
 The array can be filled by one of the ways described above, for instance:
 
     S_array[] fillarray "one", "two", "three"
@@ -278,7 +310,8 @@ In this case, _S_array_ is of length 3. The elements can be accessed by indexing
 
 will return _"two"_.
 
-The [directory](https://csound.com/docs/manual/directory.html) opcode looks for all files in a directory and returns an array containing the file names:
+The [directory](https://csound.com/docs/manual/directory.html) opcode looks for all files in a directory
+and returns an array containing the file names:
 
 **_EXAMPLE 03E04_Directory.csd_**
 
@@ -317,7 +350,11 @@ Which prints for instance:
 ### Local or Global
 
 Like any other variable in Csound, an array usually has a local scope.
-This means that it is only valid in the instrument in which it has been defined. If an array is supposed to be valid across instruments, the variable name must be prefixed with the character **_g_**, (as is done with other types of global variable in Csound). The next example demonstrates local and global arrays at both _i_- and _k_-rate.
+This means that it is only valid in the instrument in which it has been defined.
+If an array is supposed to be valid across instruments,
+the variable name must be prefixed with the character **_g_**,
+(as is done with other types of global variable in Csound).
+The next example demonstrates local and global arrays at both _i_- and _k_-rate.
 
 **_EXAMPLE 03E05_Local_vs_global_arrays.csd_**
 
@@ -399,7 +436,11 @@ coincide, it is easy:
 - **\*i**_array\*[\*\*\*i_\*_index_] reads and writes at i-time
 - **\*k**_array\*[\*\*\*k_\*_index_] reads and writes at k-time
 
-For audio arrays, we must distinguish between the audio vector itself which is updated sample by sample, and the array as container which can be updated at k-time. (Imagine an audio array whichs index switches each control cycle between 0 and 1; thus switching each k-time between the audio vector of both signals.) So the coincidence between variable and index rate is here:
+For audio arrays, we must distinguish between the audio vector itself which is updated sample by sample,
+and the array as container which can be updated at k-time.
+(Imagine an audio array whichs index switches each control cycle between 0 and 1;
+thus switching each k-time between the audio vector of both signals.)
+So the coincidence between variable and index rate is here:
 
 - **\*a**_array\*[\*\*\*k_\*_index_] reads and writes at k-time
 
@@ -416,7 +457,9 @@ for _S_ arrays (containing strings). Other cases are:
 ### Init Values of _k_-Arrays
 
 In case we want to retrieve the value of a _k_-array at init time,
-a special version of the [i()](https://csound.com/docs/manual/opi.html) feature must be used. For usual k-variables, a simple _i(kVar)_ works, for instance ...
+a special version of
+the [i()](https://csound.com/docs/manual/opi.html) feature
+must be used. For usual k-variables, a simple _i(kVar)_ works, for instance ...
 
     instr 1
      gkLine linseg 1, 1, 2
@@ -450,8 +493,7 @@ This will print: _iFirst = 1.000_.
 
 #### _lenarray_ — Array Length
 
-The opcode [lenarray](https://csound.com/docs/manual/lenarray.html)
-reports the length of an array.
+The opcode [lenarray](https://csound.com/docs/manual/lenarray.html) reports the length of an array.
 
     iArr[] fillarray 0, 1, 2, 3, 4
     iLen lenarray iArr ; -> 5
@@ -460,7 +502,8 @@ reports the length of an array.
     S_array[] fillarray "foo", "bar"
     iLen lenarray S_array ; -> 2
 
-For reporting the length of multidimensional arrays, _lenarray_ has an additional argument denoting the dimension. The default is 1 for the first dimension.
+For reporting the length of multidimensional arrays, _lenarray_ has an
+additional argument denoting the dimension. The default is 1 for the first dimension.
 
     kArr[][] init 9, 5
     iLen1 lenarray kArr ; -> 9
@@ -470,12 +513,15 @@ For reporting the length of multidimensional arrays, _lenarray_ has an additiona
     iLen2 lenarray kArrr, 2 ; -> 9
     iLen3 lenarray kArrr, 3 ; -> 5
 
-By using functional syntax, _lenarray()_ will report the array length at init-time. If the array length is being changed during performance, _lenarray:k()_ must be used to report this.
+By using functional syntax, _lenarray()_ will report the array length at init-time.
+If the array length is being changed during performance, _lenarray:k()_ must
+be used to report this.
 
 #### _minarray_, _maxarray_ — Smallest/Largest Element
 
-The opcodes [minarray](https://csound.com/docs/manual/minarray.html) and
-[maxarray](https://csound.com/docs/manual/maxarray.html) return the smallest or largest element of a numerical array:
+The opcodes [minarray](https://csound.com/docs/manual/minarray.html) and&nbsp;
+[maxarray](https://csound.com/docs/manual/maxarray.html) return the
+smallest or largest element of a numerical array:
 
     iArr[] fillarray 4, -2, 3, 10, 0
     print minarray:i(iArr) ; -> -2
@@ -490,7 +536,13 @@ This is an example for [sumarray](https://csound.com/docs/manual/sumarray.html):
 
 #### _cmp_ — Compare with another Array or with Scalars
 
-The [cmp](https://csound.com/docs/manual/cmp.html) opcode offers quite extended possibilities to compare an array to numbers or to another array. The following example investigates in line 18 whether the elements of the array [1,2,3,4,5] are larger or equal 3. Line 20 tests whether the elements are larger than 1 and smaller or equal 4. Line 22 performs an element by element comparison with the array [3,5,1,4,2], asking for larger elements in the original array.
+The [cmp](https://csound.com/docs/manual/cmp.html) opcode offers quite extended possibilities
+to compare an array to numbers or to another array.
+The following example investigates in line 18 whether the elements of the
+array [1,2,3,4,5] are larger or equal 3.
+Line 20 tests whether the elements are larger than 1 and smaller or equal 4.
+Line 22 performs an element by element comparison with the array [3,5,1,4,2],
+asking for larger elements in the original array.
 
 **_EXAMPLE 03E06_cmp.csd_**
 
@@ -545,7 +597,8 @@ The printout is:
 
 #### _scalearray_ — Scale Values
 
-The [scalearray](https://csound.com/docs/manual/scalearray.html) opcode destructively changes the content of an array according to a new minimum and maximum:
+The [scalearray](https://csound.com/docs/manual/scalearray.html) opcode destructively
+changes the content of an array according to a new minimum and maximum:
 
     iArr[] fillarray  1, 3, 9, 5, 6, -1, 17
     scalearray iArr, 1, 3
@@ -559,7 +612,10 @@ Optional a range of the array can be selected for the operation; in this example
 
 #### _sorta_/_sortd_ — Sort in Ascending/Descending Order
 
-The opcodes [sorta](https://csound.com/docs/manual/sorta.html) and [sortd](https://csound.com/docs/manual/sortd.html) return an array in which the elements of the input array are sorted in ascending or descending order. The input array is left untouched.
+The opcodes [sorta](https://csound.com/docs/manual/sorta.html)&nbsp;
+and [sortd](https://csound.com/docs/manual/sortd.html)&nbsp;
+return an array in which the elements of the input array are sorted
+in ascending or descending order. The input array is left untouched.
 
     iArr[] fillarray  1, 3, 9, 5, 6, -1, 17
     iAsc[] sorta iArr
@@ -579,7 +635,8 @@ Prints:
 
 #### _limit_ — Limit Values
 
-The [limit](https://csound.com/docs/manual/limit.html) opcode sets a lower and upper limit to which any value off boundaries is restricted.
+The [limit](https://csound.com/docs/manual/limit.html) opcode
+sets a lower and upper limit to which any value off boundaries is restricted.
 
     iArr[] fillarray  1, 3, 9, 5, 6, -1, 17
     iLimit[] limit iArr, 0, 7
@@ -587,7 +644,10 @@ The [limit](https://csound.com/docs/manual/limit.html) opcode sets a lower and u
 
 #### _interleave_/_deinterleave_
 
-As the name suggests, the [interleave](https://csound.com/docs/manual/interleave.html) opcode creates a new array in alternating the values of two input arrays. This operation is meant for vectors (one-dimensional arrays) only.
+As the name suggests,
+the [interleave](https://csound.com/docs/manual/interleave.html) opcode
+creates a new array in alternating the values of two input arrays.
+This operation is meant for vectors (one-dimensional arrays) only.
 
     iArr1[] genarray 1,5
     iArr2[] genarray -1,-5,-1
@@ -605,7 +665,8 @@ Which prints:
     interleaved:
      1 -1 2 -2 3 -3 4 -4 5 -5
 
-And vice versa, [deinterleave](https://csound.com/docs/manual/deinterleave.html) returns two arrays from one input array in alternating its values:
+And vice versa, [deinterleave](https://csound.com/docs/manual/deinterleave.html) returns
+two arrays from one input array in alternating its values:
 
     iArr[] genarray 1,10
     iArr1[], iArr2[] deinterleave iArr
@@ -626,7 +687,9 @@ Which prints:
 
 #### _slicearray_ — New Array as Slice
 
-The [slicearray](https://csound.com/docs/manual/slicearray.html) opcode creates a new array from an existing one. In addition to the input array the first and the last (included) index must be specified:
+The [slicearray](https://csound.com/docs/manual/slicearray.html) opcode
+creates a new array from an existing one.
+In addition to the input array the first and the last (included) index must be specified:
 
     iArr[] fillarray  1, 3, 9, 5, 6, -1, 17
     iSlice[] slicearray iArr, 1, 3
@@ -645,7 +708,8 @@ An optional argument defines the increment which is one by default:
 
 #### _trim_/_trim_i_ — Lengthen or Shorten Array
 
-Arrays have a fixed length, and it may be needed to shorten or lengthen it. [trim_i](https://csound.com/docs/manual/trim.html) works for any array at i-rate:
+Arrays have a fixed length, and it may be needed to shorten or lengthen it.&nbsp;
+[trim_i](https://csound.com/docs/manual/trim.html) works for any array at i-rate:
 
     iArr[] fillarray  1, 3, 9, 5, 6, -1, 17
     trim_i iArr, 3
@@ -661,13 +725,15 @@ Arrays have a fixed length, and it may be needed to shorten or lengthen it. [tri
     trim_i SArr, 2
     printarray(SArr) ; -> "a", "b"
 
-If a length bigger than the current array size is required, the additional elements are set to zero. This can only be used for the init-time version _trim_i_:
+If a length bigger than the current array size is required, the additional elements are set to zero.
+This can only be used for the init-time version _trim_i_:
 
     iArr[] fillarray  1, 3, 9
     trim_i iArr, 5
     printarray(iArr, "%d") ; -> 1 3 9 0 0
 
-At performance rather than initialization [trim](https://csound.com/docs/manual/trim.html) can be used. This codes reduces the array size by one for each trigger signal:
+At performance rather than initialization [trim](https://csound.com/docs/manual/trim.html) can be used.
+This codes reduces the array size by one for each trigger signal:
 
     instr 1
     kArr[] fillarray  1, 3, 9, 5, 6, -1, 17
@@ -687,15 +753,19 @@ Prints:
     1 3 9
     1 3
 
-Growing an array during performance is not possible in Csound, because memory will only be allocated at initialization. This is the reason that only _trim_i_ can be used for this purpose.
+Growing an array during performance is not possible in Csound,
+because memory will only be allocated at initialization.
+This is the reason that only _trim_i_ can be used for this purpose.
 
 ### Format Interchange
 
 #### _copyf2array_ — Function Table to Array
 
-As function tables have been the classical way of working with vectors in
-Csound, switching between them and the array facility introduced in Csound 6 is a basic operation. Copying data from a function table to a vector is done
-by [copyf2array](https://csound.com/docs/manual/copyf2array.html). The following example copies a sine function table (8 points) to an array and prints the array content:
+As function tables have been the classical way of working with vectors in Csound,
+switching between them and the array facility introduced in Csound 6 is a basic operation.
+Copying data from a function table to a vector is done
+by [copyf2array](https://csound.com/docs/manual/copyf2array.html).
+The following example copies a sine function table (8 points) to an array and prints the array content:
 
     iFtSine ftgen 0, 0, 8, 10, 1
     iArr[] init 8
@@ -705,7 +775,13 @@ by [copyf2array](https://csound.com/docs/manual/copyf2array.html). The following
 
 #### _copya2ftab_ — Array to Function Table
 
-The [copya2ftab](https://csound.com/docs/manual/copya2ftab.html) opcode copies an array content to a function table. In the example a function table of size 10 is created, and an array filled with the integers from 1 to 10. The array content is then copied into the function table, and the resulting function table is printed via a [while](https://csound.com/docs/manual/while.html) loop.
+The [copya2ftab](https://csound.com/docs/manual/copya2ftab.html) opcode
+copies an array content to a function table.
+In the example a function table of size 10 is created,
+and an array filled with the integers from 1 to 10.
+The array content is then copied into the function table,
+and the resulting function table is printed via
+a [while](https://csound.com/docs/manual/while.html) loop.
 
     iTable ftgen 0, 0, 10, 2, 0
     iArr[] genarray 1, 10
@@ -722,7 +798,12 @@ The printout is:
 
 #### _tab2array_ — Function Table Slice to Array
 
-The [tab2array](https://csound.com/docs/manual/tab2array.html) opcode is similar to [copyf2array](https://csound.com/docs/manual/copyf2array.html) but offers more possibilities. One difference is that the resulting array is generated by the opcode, so no need for the user to create the array in advance. This code copies the content of a 16-point saw function table into an array and prints the array:
+The [tab2array](https://csound.com/docs/manual/tab2array.html) opcode
+is similar to [copyf2array](https://csound.com/docs/manual/copyf2array.html) but
+offers more possibilities.
+One difference is that the resulting array is generated by the opcode,
+so no need for the user to create the array in advance.
+This code copies the content of a 16-point saw function table into an array and prints the array:
 
     iFtSaw ftgen 0, 0, 8, 10, 1, -1/2, 1/3, -1/4, 1/5, -1/6
     iArr[] tab2array iFtSaw
@@ -746,11 +827,10 @@ And this will copy the whole array but only every second value:
 #### _pvs2array_/_pvsfromarray_ — Arrays to/from FFT Data
 
 The data of an f-signal — containing the result of a
-Fast Fourier Transform — can be copied into an array with the opcode
-[pvs2array](https://csound.com/docs/manual/pvs2tab.html). The
-counterpart
-[pvsfromarray](https://csound.com/docs/manual/tab2pvs.html)
-copies the content of an array to a f-signal.
+Fast Fourier Transform — can be copied into an array with the
+opcode [pvs2array](https://csound.com/docs/manual/pvs2tab.html).
+The counterpart [pvsfromarray](https://csound.com/docs/manual/tab2pvs.html)
+&nbsp;copies the content of an array to a f-signal.
 
     kFrame  pvs2array    kArr, fSigIn ;from f-signal fSig to array kArr
     fSigOut pvsfromarray kArr [,ihopsize, iwinsize, iwintype]
@@ -839,7 +919,10 @@ i "FFT_HighPass" 0 2.7
 
 #### _reshapearray_ — Change Array Dimension
 
-With [reshapearray](https://csound.com/docs/manual/reshapearray.html) a one-dimensional array can be transformed in a two-dimensional one, and vice versa. In the following example, a 1D array of 12 elements is first printed and then transformed in a 2D array with 3 lines and 4 columns:
+With [reshapearray](https://csound.com/docs/manual/reshapearray.html) a one-dimensional
+array can be transformed in a two-dimensional one, and vice versa.
+In the following example, a 1D array of 12 elements is first printed and then
+transformed in a 2D array with 3 lines and 4 columns:
 
     iArr[] genarray 1, 12
     printarray iArr, "%d", "1D array:"
@@ -857,7 +940,9 @@ This is the printout:
 
 #### _getrow_/_getcol_ — Get Row/Column from a 2D Array
 
-The opcodes [getrow](https://csound.com/docs/manual/getrow.html) and [getcol](https://csound.com/docs/manual/getcol.html) return the content of a 2D array's row or column as a 1D array:
+The opcodes [getrow](https://csound.com/docs/manual/getrow.html)&nbsp;
+and [getcol](https://csound.com/docs/manual/getcol.html)
+&nbsp;return the content of a 2D array's row or column as a 1D array:
 
     iArr[][] init 3, 4
     iArr fillarray 1,2,3,4,5,6,7,8,9,10,11,12
@@ -880,7 +965,9 @@ Prints:
 
 #### _setrow_/_setcol_ - Set Row/Column of a 2D Array
 
-The opcodes [setrow](https://csound.com/docs/manual/setrow.html) and [setcol](https://csound.com/docs/manual/setcol.html) assign a 1D array as row or column of a 2D array:
+The opcodes [setrow](https://csound.com/docs/manual/setrow.html)&nbsp;
+and [setcol](https://csound.com/docs/manual/setcol.html)
+&nbsp;assign a 1D array as row or column of a 2D array:
 
     iArr[][] init 3, 4
     printarray iArr, "%d", "2D array empty:"
@@ -908,7 +995,9 @@ Prints:
 
 #### _getrowlin_ — Get Row from a 2D Array and Interpolate
 
-The [getrowlin](https://csound.com/docs/manual/getrowlin.html) opcode is similar to [getrow](https://csound.com/docs/manual/getrow.html) but interpolates between adjacent rows of a matrix if a non-integer number is given.
+The [getrowlin](https://csound.com/docs/manual/getrowlin.html) opcode
+is similar to [getrow](https://csound.com/docs/manual/getrow.html) but
+interpolates between adjacent rows of a matrix if a non-integer number is given.
 
     kArr[][] init 3, 4
     kArr fillarray 1,2,3,4,5,6,7,8,9,10,11,12
@@ -929,9 +1018,15 @@ The 0.5th row means an interpolation between first and second row, so this is th
 
 #### Arithmetic Operators
 
-The four basic operators [+](https://csound.com/docs/manual/adds.html), [-](https://csound.com/docs/manual/subtracts.html), [\*](https://csound.com/docs/manual/subtracts.html) and [/](https://csound.com/docs/manual/divides.html) can directly be applied to an array, either with a scalar or a second array as argument.
+The four basic operators [+](https://csound.com/docs/manual/adds.html),&nbsp;
+[-](https://csound.com/docs/manual/subtracts.html),&nbsp;
+[\*](https://csound.com/docs/manual/subtracts.html) and&nbsp;
+[/](https://csound.com/docs/manual/divides.html) can directly be applied to an array,
+either with a scalar or a second array as argument.
 
-All operations can be applied to the input array itself (changing its content destructively), or can create a new array as result. This is a simple example for the scalar addition:
+All operations can be applied to the input array itself (changing its content destructively),
+or can create a new array as result.
+This is a simple example for the scalar addition:
 
     iArr[] fillarray 1, 2, 3
     iNew[] = iArr + 10 ; -> 11 12 13 as new array
@@ -954,7 +1049,8 @@ Which prints:
        0: 11 12 13
        1: 14 15 16
 
-Both possibilities — creating a new array or modifying the existing one — are also valid if a second array is given as argument:
+Both possibilities — creating a new array or modifying the existing one — are also valid
+if a second array is given as argument:
 
     iArr[] fillarray 1, 2, 3
     iArg[] fillarray 10, 20, 30
@@ -1021,7 +1117,9 @@ Some simple examples:
 
 #### maparray
 
-The [maparray](https://csound.com/docs/manual/maparray.html) opcode was used in early array implementation to apply a unary function to every element of a 1D array. In case a function is not in the list above, this old solution may work.
+The [maparray](https://csound.com/docs/manual/maparray.html) opcode
+was used in early array implementation to apply a unary function to every element of a 1D array.
+In case a function is not in the list above, this old solution may work.
 
 #### Binary Functions
 
@@ -1043,18 +1141,24 @@ For instance:
 
 ### Print
 
-The [printarray](https://csound.com/docs/manual/printarray.html) opcode is easy to use and offers all possibilities to print out array contents.
+The [printarray](https://csound.com/docs/manual/printarray.html) opcode
+is easy to use and offers all possibilities to print out array contents.
 
 ## Arrays in UDOs
 
 ### Input and Output Declaration
 
-Writing a [User Defined Opcode](03-g-user-defined-opcodes.md) can extend Csound's array facilities to any desired own function. The usage of arrays in the opcode definition is straightforward; most important is to remember that type (_i_, _k_, _a_, or _S_) and dimension of an input array must be declared in two places:
+Writing a [User Defined Opcode](03-g-user-defined-opcodes.md) can
+extend Csound's array facilities to any desired own function.
+The usage of arrays in the opcode definition is straightforward; most important is to remember that
+type (_i_, _k_, _a_, or _S_) and dimension of an input array must be declared in two places:
 
 - in the opcode _intypes_ list as _i[]_, _i[][]_ etc;
 - in the _xin_ list as variable name, including brackets.
 
-This is a simple UDO definition which returns the first element of a given 1D _k_-array. Note that in the intype list it is declared as _k[]_, wheras in the input argument list it is declared as _kArr[]_.
+This is a simple UDO definition which returns the first element of a given 1D _k_-array.
+Note that in the intype list it is declared as _k[]_,
+wheras in the input argument list it is declared as _kArr[]_.
 
     opcode FirstEl, k, k[]
      kArr[] xin
@@ -1062,9 +1166,13 @@ This is a simple UDO definition which returns the first element of a given 1D _k
      xout kOut
     endop
 
-The output declaration is done quite similar: abstract type declaration in the _outtypes_ list, and variable name in the UDO body. Here the usual naming conventions are valid, as explained at the beginning of this chapter (first occurrence with brackets, then without brackets).
+The output declaration is done quite similar: abstract type declaration in the _outtypes_ list,
+and variable name in the UDO body. Here the usual naming conventions are valid,
+as explained at the beginning of this chapter (first occurrence with brackets, then without brackets).
 
-This is an example which creates an i-array of N elements, applying recursively a given ratio on each element. The output array is declared as _i[]_ in the _outtypes_ list, and as variable first as _iOut[]_ then only _iOut_ in the body.
+This is an example which creates an i-array of N elements, applying recursively a given ratio on each element.
+The output array is declared as _i[]_ in the _outtypes_ list,
+and as variable first as _iOut[]_ then only _iOut_ in the body.
 
     opcode GeoSer,i[],iii
      iStart, iRatio, iSize xin
@@ -1093,7 +1201,9 @@ As an expert note it should be mentioned that UDOs refer to arrays by value. Thi
 
 ### Overload
 
-Usually we want to use a UDO for different types of arrays. The best method is to overload the function in defining the different types with the same function name. Csound will then select the appropriate version.
+Usually we want to use a UDO for different types of arrays.
+The best method is to overload the function in defining the different types with the same function name.
+Csound will then select the appropriate version.
 
 The following example extends the _FirstEl_ function from _k_-arrays also to _i_- and _S_-arrays.
 
@@ -1150,17 +1260,26 @@ The output is:
 
 ### Example: Array Shuffle
 
-In composition we sometimes use a list of values and want to get many random permutations of this list. Some programming languages call this _shuffle_. It is not difficult to write it as UDO. First we create the output array, having the same length as the input array. Then we randomly choose one element from the input array. This element is copied into the first position of the output array. Then all elements in the input array right to this element are shiftet one position to the left, thus overriding the previously selected element. For instance, if the input array is
+In composition we sometimes use a list of values and want to get many random permutations of this list.
+Some programming languages call this _shuffle_.
+It is not difficult to write it as UDO. First we create the output array,
+having the same length as the input array. Then we randomly choose one element from the input array.
+This element is copied into the first position of the output array.
+Then all elements in the input array right to this element are shiftet one position to the left,
+thus overriding the previously selected element. For instance, if the input array is
 
     1 2 3 4 5 6 7
 
-and element 4 has been selected randomly, and copied into the output array at first position, the elements 5 6 7 will be shifted one position to the left, so that input array changes to
+and element 4 has been selected randomly, and copied into the output array at first position,
+the elements 5 6 7 will be shifted one position to the left, so that input array changes to
 
     1 2 3 5 6 7
 
 This procedure is repeated again and again; in the next run only looking amongst six rather than seven elements.
 
-As Csound has no random opcode for integers, this is first defined as helper function: _RndInt_ returns a random integer between _iStart_ and _iEnd_ (included).^[More UDOs can be found at <https://github.com/csudo/csudo/>,
+As Csound has no random opcode for integers, this is first defined as helper
+function: _RndInt_ returns a random integer
+between _iStart_ and _iEnd_ (included).^[More UDOs can be found at <https://github.com/csudo/csudo/>,
 <https://github.com/kunstmusik/libsyi> and other places.]
 
 **_EXAMPLE 03E09_Shuffle.csd_**

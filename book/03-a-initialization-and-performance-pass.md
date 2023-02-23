@@ -18,7 +18,9 @@ qualities.
 
 ## Basic Distinction
 
-We will explain at first the difference between _i-rate_ and _k-rate_. Then we will look at some properties of k-rate signals, and finally introduce the audio vector.
+We will explain at first the difference between _i-rate_ and _k-rate_.
+Then we will look at some properties of k-rate signals,
+and finally introduce the audio vector.
 
 ### Init Pass
 
@@ -120,7 +122,8 @@ The rate (frequency) of these ticks is called the control rate in
 Csound. By historical reason,^[As Richard Boulanger explains,
 in early Csound a line starting with *c* was a comment line.
 So it was not possible to abbreviate control variables as cAnything
-(http://csound.1045644.n5.nabble.com/OT-why-is-control-rate-called-kontrol-rate-td5720858.html\#a5720866).] it is called _kontrol rate_ instead
+(http://csound.1045644.n5.nabble.com/OT-why-is-control-rate-called-kontrol-rate-td5720858.html\#a5720866).]
+&nbsp;it is called _kontrol rate_ instead
 of control rate, and abbreviated as _kr_ instead of cr. Each of the
 calculation cycles is called a _k-cycle_. The block size or vector
 size is given by the _ksmps_ parameter, which means: how many samples
@@ -180,7 +183,7 @@ value from 4410 to 8820 and to 2205 and observe the difference.
 
 The next example reads the incrementation of _kCount_ as rising
 frequency. The first instrument, called Rise, sets the k-rate frequency
-_kFreq_ to the initial value of 100 Hz, and then adds 10 Hz in every new
+&nbsp;_kFreq_ to the initial value of 100 Hz, and then adds 10 Hz in every new
 k-cycle. As ksmps=441, one k-cycle takes 1/100 second to perform. So in
 3 seconds, the frequency rises from 100 to 3100 Hz. At the last k-cycle,
 the final frequency value is printed out.^[The value is 3110 instead of
@@ -248,8 +251,8 @@ i "Partials" 4 31
 
 ### Init versus Equals
 
-A frequently occuring error is that instead of setting the k-variable as
-_kCount init 0_, it is set as _kCount = 0_. The meaning of both
+A frequently occuring error is that instead of setting the k-variable
+as _kCount init 0_, it is set as _kCount = 0_. The meaning of both
 statements has one significant difference. _kCount init 0_ sets the
 value for kCount to zero only in the init pass, without affecting it
 during the performance pass. _kCount = 0_ sets the value for kCount to
@@ -293,7 +296,9 @@ Outputs:
 
 ### A Look at the Audio Vector
 
-One k-cycle consists of [ksmps](https://csound.com/docs/manual/ksmps.html) audio samples. The single samples are processed in a block, called audio vector. If _ksmps=32_, for each audio signal 32 samples are processed in every k-cycle.
+One k-cycle consists of [ksmps](https://csound.com/docs/manual/ksmps.html) audio samples.
+The single samples are processed in a block, called audio vector.
+If _ksmps=32_, for each audio signal 32 samples are processed in every k-cycle.
 
 There are different opcodes to print out k-variables.^[See the manual page
 for printk, printk2, printks, printf to know more about the differences.]
@@ -396,7 +401,12 @@ this happens when the instrument call is performed:
 
 ## Applications and Concepts
 
-We will look now at some applications and consequences of what has been showed. We will see how we can use a k-variable at i-time. Then we will at k-signals in an instrument which is called several times. We will explain the concept of re-initialization and have a look at instruments: in which order they are processed, how named instruments work, and how we can use fractional instrument numbers.
+We will look now at some applications and consequences of what has been showed.
+We will see how we can use a k-variable at i-time.
+Then we will at k-signals in an instrument which is called several times.
+We will explain the concept of re-initialization and have a look at instruments:
+in which order they are processed, how named instruments work,
+and how we can use fractional instrument numbers.
 
 ### Accessing the Initialization Value of a k-Variable
 
@@ -408,8 +418,8 @@ performance. But also k- and a-variables get their initial values.
 
 As we saw, the init opcode is used to set initial values for k- or
 a-variables explicitely. On the other hand, you can get the initial
-value of a k-variable which has not been set explicitely, by the _i()_
-facility. This is a simple example:
+value of a k-variable which has not been set explicitely,
+by the _i()_ facility. This is a simple example:
 
 **_EXAMPLE 03A07_Init-values_of_k-variables.csd_**
 
@@ -454,10 +464,10 @@ Outputs:
 Instrument 1 produces a rising k-signal, starting at zero and ending at
 one, over a time of five seconds. The values of this line rise are
 written to the global variable _gkLine_. After two seconds, instrument 2
-is called, and examines the value of _gkLine_ at its init-pass via
-**\*i**(gkLine)*. The value at this time (0.4), is printed out at
-init-time as *iInstr2LineValue*. The same happens for instrument 3,
-which prints out *iInstr3LineValue = 0.800\*, as it has been started at 4
+is called, and examines the value of _gkLine_ at its init-pass
+via **i(_gkLine_)**. The value at this time (0.4), is printed out at
+init-time as _iInstr2LineValue_. The same happens for instrument 3,
+which prints out **iInstr3LineValue = 0.800**, as it has been started at 4
 seconds.
 
 The _i()_ feature is particularily useful if you need to examine the value
@@ -465,8 +475,7 @@ of any control signal from a widget or from midi, at the time when an
 instrument starts.
 
 For getting the init value of an element in a k-time array, the syntax i(kArray,iIndex) must be used; for instance i(kArr,0) will get the first element of array kArr at init-time. More about this in the
-section _Init Values of k-Arrays_ in the [Arrays](03-e-arrays.md)
-chapter of this book.
+section _Init Values of k-Arrays_ in the [Arrays](03-e-arrays.md) chapter of this book.
 
 ### k-Values and Initialization in Multiple Triggered Instruments
 
@@ -605,9 +614,9 @@ This is the output:
 Note that this characteristics of using _leftovers_ from previous
 instances which may lead to undesired effects, does also occur for audio
 variables. Similar to k-variables, an audio vector is initalized for the
-first instance to zero, or to the value which is explcitely set by an
-[init](http://csound.github.io/docs/manual/init.html)
-statement. In case a previous instance can be re-used, its last state
+first instance to zero, or to the value which is explcitely set by
+an [init](http://csound.github.io/docs/manual/init.html) statement.
+In case a previous instance can be re-used, its last state
 will be the init state of the new instance.
 
 The next example shows an undesired side effect in instrument 1. In the
@@ -712,9 +721,10 @@ The output is nothing but:
     instr 1:  iCount = 1.000
 
 But you can advise Csound to repeat the initialization of an i-variable.
-This is done with the [reinit](https://csound.com/docs/manual/reinit.html) opcode. You must mark a section by a
-label (any name followed by a colon). Then the reinit statement will
-cause the i-variable to refresh. Use rireturn to end the reinit section.
+This is done with the [reinit](https://csound.com/docs/manual/reinit.html) opcode.
+You must mark a section by a label (any name followed by a colon).
+Then the reinit statement will cause the i-variable to refresh.
+Use rireturn to end the reinit section.
 
 **_EXAMPLE 03A13_Re-init.csd_**
 
@@ -991,42 +1001,41 @@ The last part of this chapter focusses on some situations which are known as stu
 ### About _i-time_ and _k-rate_ Opcodes
 
 It is often confusing for the beginner that there are some opcodes which
-only work at _i-time_ or _i-rate_, and others which only work at
-_k-rate_ or _k-time_. For instance, if the user wants to print the
+only work at _i-time_ or _i-rate_, and others which only work
+at _k-rate_ or _k-time_. For instance, if the user wants to print the
 value of any variable, (s)he thinks: _OK - print it out._ But Csound
 replies: _Please, tell me first if you want to print an i- or a
 k-variable_.^[See the following section 03B about the variable types
 for more on this subject.]
 
-The [print](http://csound.com/docs/manual/print.html)
-opcode just prints variables which are updated at each initialization
+The [print](http://csound.com/docs/manual/print.html) opcode
+just prints variables which are updated at each initialization
 pass (_i-time_ or _i-rate_). If you want to print a variable which
 is updated at each control cycle (_k-rate_ or _k-time_), you need
-its counterpart
-[printk](http://csound.com/docs/manual/printk.html). (As
+its counterpart [printk](http://csound.com/docs/manual/printk.html). (As
 the performance pass is usually updated some thousands times per second,
 you have an additional parameter in printk, telling Csound how often you
 want to print out the k-values.)
 
-So, some opcodes are just for i-rate variables, like
-[filelen](http://csound.com/docs/manual/filelen.html) or
+So, some opcodes are just for i-rate variables,
+like [filelen](http://csound.com/docs/manual/filelen.html) or&nbsp;
 [ftgen](http://csound.com/docs/manual/ftgen.html). Others
-are just for k-rate variables like
-[metro](http://csound.com/docs/manual/metro.html) or
+are just for k-rate variables
+like [metro](http://csound.com/docs/manual/metro.html) or&nbsp;
 [max_k](http://csound.com/docs/manual/max_k.html). Many
 opcodes have variants for either i-rate-variables or k-rate-variables,
-like [printf_i](http://csound.com/docs/manual/printf.html)
-and [printf](http://csound.com/docs/manual/printf.html),
-[sprintf](http://csound.com/docs/manual/sprintf.html) and
-[sprintfk](http://csound.com/docs/manual/sprintf.html),
-[strindex](http://csound.com/docs/manual/strindex.html) and
+like [printf_i](http://csound.com/docs/manual/printf.html)&nbsp;
+and [printf](http://csound.com/docs/manual/printf.html),&nbsp;
+[sprintf](http://csound.com/docs/manual/sprintf.html) and&nbsp;
+[sprintfk](http://csound.com/docs/manual/sprintf.html),&nbsp;
+[strindex](http://csound.com/docs/manual/strindex.html) and&nbsp;
 [strindexk](http://csound.com/docs/manual/strindexk.html).
 
 Most of the Csound opcodes are able to work either at i-time or at
 k-time or at audio-rate, but you have to think carefully what you need,
 as the behaviour will be very different if you choose the i-, k- or
-a-variante of an opcode. For example, the
-[random](http://csound.com/docs/manual/random.html) opcode
+a-variante of an opcode. For example,
+the [random](http://csound.com/docs/manual/random.html) opcode
 can work at all three rates:
 
     ires      random    imin, imax : works at "i-time"
@@ -1041,9 +1050,9 @@ If you use the k-rate random generator, you will get one new value on
 every control cycle. If your sample rate is 44100 and your ksmps=10, you
 will get 4410 new values per second! If you take this as pitch value for
 a note, you will hear nothing but a noisy jumping. If you want to have a
-moving pitch, you can use the
-[randomi](http://csound.com/docs/manual/randomi.html)
-variant of the k-rate random generator, which can reduce the number of
+moving pitch, you can use the&nbsp;
+[randomi](http://csound.com/docs/manual/randomi.html) variant
+of the k-rate random generator, which can reduce the number of
 new values per second, and interpolate between them.
 
 If you use the a-rate random generator, you will get as many new values
@@ -1292,8 +1301,8 @@ single sample is multiplied by a value (1, 3 and -1). Then the result is
 added to the previous sample value. This leads to amplification for
 iFac=3 and to silence for iFac=-1 because in this case every sample
 cancels itself. In the _PrintSampleIf_ instrument, each sample which
-is between 0.99 and 1.00 is printed to the console. Also in the
-_PlaySampleIf_ instrument an if-condition is applied on each sample,
+is between 0.99 and 1.00 is printed to the console.
+Also in the _PlaySampleIf_ instrument an if-condition is applied on each sample,
 but here not for printing rather than playing out only the samples
 whichs values are between 0 and 1/10000. They are then multiplied by
 10000 so that not only rhythm is irregular but also volume.
@@ -1384,8 +1393,8 @@ i "PlaySampleIf" 8 10
 ;example by joachim heintz
 ```
 
-The output should contain these lines, generated by the
-_PrintSampleIf_ instrument, showing that in block 40 there were two
+The output should contain these lines, generated by
+the _PrintSampleIf_ instrument, showing that in block 40 there were two
 subsequent samples which fell under the condition:
 
     Block =  2, Sample =   86, Value = 0.998916
@@ -1461,10 +1470,11 @@ This is the console output:
     k_Imp -> 0
     S_Imp -> world
 
-The implicit output may be of some surprise. The variable _k_Imp_ is
-_not_ initilalized to 10, although 10 will be the first value during
-performance. And _S_Imp_ carries the _world_ already at
-initialization although the opcode name \*strcpy**k\*** may suggest
+The implicit output may be of some surprise.
+The variable _k_Imp_ is _not_ initilalized to 10,
+although 10 will be the first value during performance.
+And _S_Imp_ carries the _world_ already at
+initialization although the opcode name _strcpy**k**_ may suggest
 something else. But as the manual page states: _strcpyk does the
 assignment both at initialization and performance time._
 
@@ -1519,9 +1529,9 @@ The output is:
     S_var -> world
 
 Both pairs of lines in the code look similar, but do something quite
-different. For _k_var_ the line _k_var linseg 10, 1, 0_ will not
+different. For _k_var_ the line `k_var linseg 10, 1, 0` will not
 initialize _k_var_ to zero, as this happens only if no init value is
-assigned. The line _S_var strcpyk \"world\"_ instead does an explicit
+assigned. The line `S_var strcpyk "world"` instead does an explicit
 initialization, and this initialization will overwrite the preceding
 one. If the lines were swapped, the result would be _goodbye_ rather
 than _world_.
@@ -1532,8 +1542,8 @@ If-clauses can be either i-rate or k-rate. A k-rate if-clause
 initializes nevertheless. Reading the next example may suggest that the
 variable _String_ is only initalized to \"yes\", because the
 if-condition will never become true. But regardless it is true or false,
-any k-rate if-clause initializes its expressions, in this case the
-_String_ variable.
+any k-rate if-clause initializes its expressions,
+in this case the _String_ variable.
 
 **_EXAMPLE 03A23_Init_hidden_in_if.csd_**
 

@@ -29,7 +29,7 @@ const LoadingSpinner = () => (
 
 function Main({ currentRoute, mobileMode, setCurrentRoute }) {
   const onRouteChange = React.useCallback(
-    (location, action) => {
+    ({ action, location }) => {
       setCurrentRoute(location.pathname);
       if (action === "PUSH") {
         if (currentRoute !== location.pathname) {

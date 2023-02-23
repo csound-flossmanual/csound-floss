@@ -114,13 +114,13 @@ connect the output from an opcode to the input of another. The type of
 connector (audio, control, etc.) is determined by the first letter of
 its name.
 
-For a more detailed discussion, see the article
+For a more detailed discussion, see the article&nbsp;
 [An overview Of Csound Variable Types](http://csoundjournal.com/issue10/CsoundRates.html)
-by Andrés Cabrera in the
+&nbsp;by Andrés Cabrera in the&nbsp;
 [Csound Journal](http://csoundjournal.com/index.html), and the
-page about
-[Types, Constants and Variables](https://csound.com/docs/manual/OrchKvar.html) in the
-[Canonical Csound Manual](https://csound.com/docs/manual/index.html).
+page about&nbsp;
+[Types, Constants and Variables](https://csound.com/docs/manual/OrchKvar.html) in
+the [Canonical Csound Manual](https://csound.com/docs/manual/index.html).
 
 ## Local Scope
 
@@ -584,8 +584,8 @@ So the result of all is: If you work with global audio variables in a
 way that you add several local audio signals to a global audio variable
 (which works like a bus), you must **clear** this global bus at each
 control cycle. As in Csound all the instruments are calculated in
-ascending order, it should be done either at the beginning of the
-**first**, or at the end of the **last** instrument. Perhaps it is the
+ascending order, it should be done either at the beginning of
+the **first**, or at the end of the **last** instrument. Perhaps it is the
 best idea to declare all global audio variables in the orchestra header
 first, and then clear them in an \"always on\" instrument with the
 highest number of all the instruments used. This is an example of a
@@ -672,16 +672,16 @@ i 100 0 20
 Instead of using the traditional g-variables for any values or signals
 which are to transfer between several instruments, many users prefer
 to use the [chn](https://csound.com/docs/manual/chn.html) opcodes.
-An i-, k-, a- or S-value or signal can be set by
-[chnset](https://csound.com/docs/manual/chnset.html) and received by
-[chnget](https://csound.com/docs/manual/chnget.html). One advantage
+An i-, k-, a- or S-value or signal can be set
+by [chnset](https://csound.com/docs/manual/chnset.html) and received
+by [chnget](https://csound.com/docs/manual/chnget.html). One advantage
 is to have strings as names, so that you can choose intuitive names.
 
-For audio variables, instead of performing an addition, you can use the
-[chnmix](https://csound.com/docs/manual/chnmix.html) opcode. For
-clearing an audio variable, the
-[chnclear](https://csound.com/docs/manual/chnclear.html) opcode can
-be used.
+For audio variables, instead of performing an addition, you can use
+the [chnmix](https://csound.com/docs/manual/chnmix.html) opcode.
+For clearing an audio variable,
+the [chnclear](https://csound.com/docs/manual/chnclear.html) opcode
+can be used.
 
 **_EXAMPLE 03B11_Chn_demo.csd_**
 
