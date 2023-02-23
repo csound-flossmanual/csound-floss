@@ -1,8 +1,8 @@
 # WELCOME TO CSOUND!
 
-![](../resources/images/00-a-montage-3.png)
+![](../resources/images/00-preface-image.png)
 
-Csound is one of the best known and longest established programs in the
+... is one of the best known and longest established programs in the
 field of audio programming. It has been first released in 1986 at the
 Massachusetts Institute of Technology (MIT) by Barry Vercoe. But
 Csound's history lies even deeper within the roots of computer music as
@@ -14,7 +14,7 @@ a core of developers with support from a wider global community.
 In the past decade, thanks to the work of Victor Lazzarini, Steven Yi, John
 ffitch, Hlöðver Sigurðsson, Rory Walsh, and many others, Csound has moved
 from a somehow archaic audio programming language to a modern audio library.
-It can not only be used from the command line and the classical Frontends.
+It can not only be used from the command line and the classical frontends.
 It can also be used as a VST plugin. It can be used inside the Unity game engine.
 It can be used on Android or on any microcomputer like Raspberry Pi or Bela Board.
 It can be used via its Application Programming Interface (API) in any other
@@ -36,6 +36,7 @@ nchnls = 2
 instr TryMe
   //some code here ...
 endin
+schedule("TryMe",0,-1)
 
 </CsInstruments>
 <CsScore>
@@ -48,23 +49,23 @@ This textbook cannot cover all these use cases. Its main goal is:
 - To provide an interactive [**Getting Started**](01-GS-01.md) tutorial.
 - To collect as many as possible [**How to**](02-a-ht-overview.md) receipes.
 - To offer a readable and comprehensive introduction to the Csound language
-  in [chapter 3](03-a-initialization-and-performance-pass.md).
-- To discuss some classical and recent methods of sound synthesis and sound
-  modification in Csound in
-  chapter [4](04-a-additive-synthesis.md) and [5](05-a-envelopes.md).
+  in [Chapter 03](03-a-initialization-and-performance-pass.md).
+- To discuss some classical and recent methods of sound synthesis
+  in [Chapter 04](04-a-additive-synthesis.md) and of sound modification
+  in [Chapter 05](05-a-envelopes.md).
 - To offer an [Opcode Guide](15-a-opcode-guide.md) as orientation in the
-  overwhelming number of Csound opcodes.
+  overwhelming amount of Csound opcodes.
 - To collect different in-depth descriptions and instructions to various subjects,
-  without being complete, and sometimes not up-to-date.
+  without being complete, and sometimes not up-to-date, in chapters 06-14.
 
-This is called the _Csound FLOSS Manual_ because it has been first released in
+This book is called the _Csound FLOSS Manual_ because it has been first released in
 2011 at [flossmanuals.net](https://flossmanuals.net/). It should not be
-confused with the _Csound Reference Manual_ which can be
-found [here](https://csound.com/docs/manual/index.html).
+confused with the _Csound Reference Manual_ which can be found
+[here](https://csound.com/docs/manual/index.html).
 
 Enjoy reading and coding, and please help improve this textbook by feedbacks
-and suggestions on the
-Github [discussions](https://github.com/csound-flossmanual/csound-floss/discussions) page
-or elsewhere.
+and suggestions on the Github
+[discussions](https://github.com/csound-flossmanual/csound-floss/discussions)
+page or elsewhere.
 
 \newpage
