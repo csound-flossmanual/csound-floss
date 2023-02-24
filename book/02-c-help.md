@@ -13,5 +13,3 @@
 
 - In the Reference Manual: <https://csound.com/docs/manual/PartOpcodesOverview.html>
 - In the Floss Manual: [Opcode Guide](/appendix/opcode-guide)
-
-

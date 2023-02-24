@@ -2,7 +2,7 @@
 
 Unfortunately, Csound's print facilities are scattered amongst many different
 opcodes. You can print anything, but depending on the situation, you will need
-a particular print opcode. 
+a particular print opcode.
 
 ## Basic printing of variables
 
@@ -12,7 +12,7 @@ a particular print opcode.
 
 ### Can I have simple a-rate printing?
 
-## 
+##
 
 ## Formatting
 

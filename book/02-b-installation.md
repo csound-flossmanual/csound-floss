@@ -36,8 +36,7 @@ has grown a lot and is currently the most popular way to work with Csound.
 Its main focus is to provide an object-oriented way to work with the Csound
 score. Around this, many features were added.
 
-[Web IDE](https://ide.csound.com/) is an online IDE which has been started in
-2018. Nothing to install here — just create an account and use Csound in your
+[Web IDE](https://ide.csound.com/) is an online IDE which has been started in 2018. Nothing to install here — just create an account and use Csound in your
 browser.
 
 ### Which Frontend should I choose?
@@ -47,7 +46,7 @@ All possibilities are good for learning Csound.
 
 ## How to install on Windows?
 
-Make sure you understood what is mentioned on top of this page about Csound 
+Make sure you understood what is mentioned on top of this page about Csound
 and frontends. Usually you will need to install **both**: plain Csound **and**
 a frontend.
 
@@ -65,7 +64,7 @@ After downloading, follow the usual procedure to install
 
 ## How to install on Mac?
 
-Make sure you understood what is mentioned on top of this page about Csound 
+Make sure you understood what is mentioned on top of this page about Csound
 and frontends. Usually you will need to install **both**: plain Csound **and**
 a frontend.
 
@@ -86,7 +85,7 @@ allow the Csound can be installed.
 
 ## How to install on Linux?
 
-Make sure you understood what is mentioned on top of this page about Csound 
+Make sure you understood what is mentioned on top of this page about Csound
 and frontends. Usually you will need to install **both**: plain Csound **and**
 a frontend.
 
