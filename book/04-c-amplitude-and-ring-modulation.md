@@ -47,7 +47,7 @@ i 1 0 25
 ## Sidebands
 
 The sidebands appear on both sides of the carrier frequency $f_c$.
-The frequency of the side bands is the sum and the difference between the carrier frequency and the modulator frequency:  $f_c - f_m$ and $f_c + f_m$. The amplitude of each sideband is half of the modulator's amplitude.
+The frequency of the side bands is the sum and the difference between the carrier frequency and the modulator frequency: $f_c - f_m$ and $f_c + f_m$. The amplitude of each sideband is half of the modulator's amplitude.
 
 So the sounding result of the following example can be calculated as this:
 $f_c$ = 440 Hz, $f_m$ = 40 Hz, so the result is a sound with 400, 440, and
