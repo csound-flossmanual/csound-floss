@@ -21,7 +21,7 @@ resources/image_sources
 
 _Full_ .csd examples must be enclosed by three backticks:
 
-`\`\`\``
+` \`\`\` `
 
 and _not_ indented.
 
@@ -30,7 +30,7 @@ immedietly after the three backticks
 
 `\`\`\`csound`
 
-but it should be enclosed with just three backticks immedietly followed by a newline:
+but it should be enclosed with just three backticks immediatly followed by a newline:
 
 `\`\`\``
 
