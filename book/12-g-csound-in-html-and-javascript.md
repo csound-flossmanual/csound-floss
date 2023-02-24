@@ -31,7 +31,7 @@ entire .orc or .csd file for Csound into the .html code as a
 JavaScript multiline string literal or an invisible TextArea widget.
 
 In CsoundQt and Csound for Android, the HTML code may be embedded in an optional
-&nbsp;`<html>` element of the Csound Structured Data (.csd) file. This element
+`<html>` element of the Csound Structured Data (.csd) file. This element
 essentially defines a Web page that contains Csound, but the host application
 is responsible for editing the Csound orchestra and running it.
 
@@ -49,9 +49,9 @@ graphics canvas visible in the page, producing animated 3-dimensional
 graphics with WebGL including shaders and GPU acceleration, Web Audio,
 various forms of local data storage, Web Sockets, and so on and so on.
 This whole conglomeration of standards is currently defined and
-maintained under the non-governmental leadership of the&nbsp;
+maintained under the non-governmental leadership of the
 [World Wide Web Consortium](http://www.w3.org/standards/) (W3C)
-which in turn is primarily driven by commercial interests belonging to the&nbsp;
+which in turn is primarily driven by commercial interests belonging to the
 [Web Hypertext Application Technology Working Group](https://whatwg.org/) (WHATWG).
 Most modern Web browsers implement almost all of the W3C standards up to
 and including HTML5 at an impressive level of performance and
@@ -74,7 +74,7 @@ HTML and JavaScript with Csound:
 
 1. Use of the [Three.js](https://threejs.org/) library to generate a 3-dimensional animated image of
    the popcorn fractal.
-2. Use of an external JavaScript library,&nbsp;
+2. Use of an external JavaScript library,
    [silencio](https://github.com/gogins/csound-extended/tree/develop/silencio), to sample the moving
    image and to generate Csound notes from it, that are sent to Csound in real time
    with the Csound API `csound.readScore` function.
@@ -112,11 +112,11 @@ compatible with old pieces.
 
 ### How it Works
 
-The Web browser embedded into CsoundQt is the&nbsp;
+The Web browser embedded into CsoundQt is the
 [Qt WebEngine](https://doc.qt.io/qt-5/qtwebengine-index.html).
-The Web browser embedded into Csound for Android is the&nbsp;
+The Web browser embedded into Csound for Android is the
 [WebView](http://developer.android.com/reference/android/webkit/WebView.html)
-available in the&nbsp;
+available in the
 [Android SDK](https://developer.android.com/index.html).
 
 For a .html piece, the front end renders the HTML as a Web page and displays
@@ -716,7 +716,7 @@ the `<html>` element:
 
 The next step is to add more user control to this piece. We will enable
 the user to control the attractor of the piece by varying the constant
-&nbsp;_c_, and we will enable the user to control the sound of the Csound
+_c_, and we will enable the user to control the sound of the Csound
 orchestra by varying the frequency modulation index, frequency
 modulation carrier ratio, reverberation time, and master output level.
 
@@ -750,7 +750,7 @@ value of a JavaScript event handler for the `oninput` event. This
 function is called whenever the user changes the value of the slider.
 
 For ease of understanding, a naming convention is used here, with
-&nbsp;_sliderC_ being the basic name and other names of objects associated
+_sliderC_ being the basic name and other names of objects associated
 with this slider taking names built up by adding prefixes or suffixes
 to this basic name.
 

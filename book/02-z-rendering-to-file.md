@@ -86,7 +86,7 @@ file \"Wow.wav\" as WAV file with 24-bit accuracy:
 Sometimes you may want to simultaneously have realtime output and file
 rendering to disk, like recording your live performance. This can be
 achieved by using the [fout](http://www.csound.com/manual/html/fout.html)
-&nbsp;opcode. You just have to specify your output file name. File type and
+opcode. You just have to specify your output file name. File type and
 format are given by a number, for instance 18 specifies \"wav 24 bit\"
 (see the manual page for more information). The following example
 creates a random frequency and panning movement of a sine wave, and

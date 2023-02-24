@@ -3,7 +3,7 @@
 An audio signal can be described as continuous changes of amplitudes in time.^[
 *Silence* in the digital domain is not only when the ampltitudes are
 always zero. Silence is any constant amplitude, it be 0 or 1 or -0.2.]
-&nbsp;This is what we call _time-domain_. With a Fourier Transform (FT),
+This is what we call _time-domain_. With a Fourier Transform (FT),
 we can transfer this time-domain signal to the _frequency domain_.
 This can, for instance, be used to analyze and visualize the spectrum of the signal.
 Fourier transform and subsequent manipulations in the frequency domain open a wide
@@ -113,19 +113,19 @@ This format is related to the _phase vocoder_ implementation,
 so the Csound opcodes of this class are called _phase vocoder opcodes_ and
 start with _pv_ or _pvs_.
 
-The _pv_ opcodes belong to the early implementation of FFT in Csound. This group comprises the opcodes&nbsp;
-[pvadd](https://csound.com/docs/manual/pvadd.html),&nbsp;
-[pvbufread](https://csound.com/docs/manual/pvbufread.html),&nbsp;
-[pvcross](https://csound.com/docs/manual/pvcross.html),&nbsp;
-[pvinterp](https://csound.com/docs/manual/pvinterp.html),&nbsp;
-[pvoc](https://csound.com/docs/manual/pvov.html),&nbsp;
-[pvread](https://csound.com/docs/manual/pvread.html) and&nbsp;
+The _pv_ opcodes belong to the early implementation of FFT in Csound. This group comprises the opcodes
+[pvadd](https://csound.com/docs/manual/pvadd.html),
+[pvbufread](https://csound.com/docs/manual/pvbufread.html),
+[pvcross](https://csound.com/docs/manual/pvcross.html),
+[pvinterp](https://csound.com/docs/manual/pvinterp.html),
+[pvoc](https://csound.com/docs/manual/pvov.html),
+[pvread](https://csound.com/docs/manual/pvread.html) and
 [vpvoc](https://csound.com/docs/manual/vpvoc.html).
-&nbsp;Note that these **pv** opcodes are **not designed to work in real-time**.
+Note that these **pv** opcodes are **not designed to work in real-time**.
 
-The opcodes which **are** designed _for real-time spectral processing_ are called _phase vocoder streaming_ opcodes. They all start with **pvs**; a rather complete list can be found on the&nbsp;
+The opcodes which **are** designed _for real-time spectral processing_ are called _phase vocoder streaming_ opcodes. They all start with **pvs**; a rather complete list can be found on the
 [Spectral Processing](https://csound.com/docs/manual/SpectralTop.html)
-&nbsp;site in the Csound Manual. They are fast and easy to use.
+site in the Csound Manual. They are fast and easy to use.
 Because of their power and diversity they are one of the biggest strengths in using Csound.
 
 We will focus on these _pvs_ opcodes here,
@@ -133,7 +133,7 @@ which for most use cases offer all what is desirable to work in the spectral dom
 There is, however, a group of opcodes which allow to go back to the _raw_ FFT output
 (without the phase vocoder format).
 They are listed as [array-based spectral opcodes](https://csound.com/docs/manual/arraysfft.html)
-&nbsp;in the Csound Manual.
+in the Csound Manual.
 
 ### From Time Domain to Frequency Domain: _pvsanal_
 
@@ -142,7 +142,7 @@ implement a new signal type, the _frequency-_ or _f-signal_.
 If we start with an audio signal in time-domain as _aSig_,
 it will become _fSig_ as result of the Fourier Transform.
 
-There are several opcodes to perform this transform. The most simple one is&nbsp;
+There are several opcodes to perform this transform. The most simple one is
 [pvsanal](https://csound.com/docs/manual/pvsanal.html).
 It performs on-the-fly transformation of an input audio signal _aSig_ to a frequency signal _fSig_.
 In addition to the audio signal input it requires some basic FFT settings:
@@ -244,7 +244,7 @@ resynthesis:
 Working with _pvsanal_ to create an f-signal is easy and straightforward.
 But if we are using an already existing sound file,
 we are missing one of the interesting possibilities in working with FFT: time stretching.
-This we can obtain most simple when we use&nbsp;
+This we can obtain most simple when we use
 [pvstanal](https://csound.com/docs/manual/pvstanal.html) instead.
 The _t_ in _pvs**t**anal_ stands for _table_.
 This opcode performs FFT on a sound which has been loaded in a
@@ -298,10 +298,10 @@ We hear that for extreme time stretching artifacts arise.
 This is expected and a result of the FFT resynthesis.
 Later in this chapter we will discuss how to avoid these artifacts.
 
-The other possibility to work with a table (buffer) and get the f-signal by reading it is to use&nbsp;
+The other possibility to work with a table (buffer) and get the f-signal by reading it is to use
 [pvsbufread](https://csound.com/docs/manual/pvsbufread.html).
 This opcode does not read from an audio buffer but needs a buffer which is filled with FFT data already.
-This job is done by the related opcode&nbsp;
+This job is done by the related opcode
 [pvsbuffer](https://csound.com/docs/manual/pvsbuffer.html).
 In the next example, we wrap this procedure in the User Defined Opcode _FileToPvsBuf_.
 This _UDO_ is called at the first control cycle of instrument _simple_time_stretch_,
@@ -391,12 +391,12 @@ thus outputting an audio signal.
 
 ### Pitch shifting
 
-Simple pitch shifting can be carried out by the opcode&nbsp;
+Simple pitch shifting can be carried out by the opcode
 [pvscale](https://csound.com/docs/manual/pvscale.html). All the
 frequency data in the f-signal are scaled by a certain value.
 Multiplying by 2 results in transposing by an octave upwards;
 multiplying by 0.5 in transposing by an octave downwards. For accepting
-cent values instead of ratios as input, the&nbsp;
+cent values instead of ratios as input, the
 [cent](https://csound.com/docs/manual/cent.html) opcode can be used.
 
 #### **_EXAMPLE 05I04_pvscale.csd_**
@@ -456,8 +456,8 @@ some other pvs-opcodes which can help to avoid this, but the quality of
 the results will always depend to an extend upon the nature of the input
 sound.
 
-As mentioned above, simple pitch shifting can also be performed via&nbsp;
-[pvstanal](https://csound.com/docs/manual/pvstanal.html) or&nbsp;
+As mentioned above, simple pitch shifting can also be performed via
+[pvstanal](https://csound.com/docs/manual/pvstanal.html) or
 [mincer](https://csound.com/docs/manual/mincer.html).
 
 ### Spectral Shifting
@@ -529,10 +529,10 @@ synthesis. The most common methods are:
   A and B, the cross synthesis is more flexible and adjustable. This
   is what [pvsvoc](https://csound.com/docs/manual/pvsvoc.html) does.
 - Combine the frequencies of sound A with the amplitudes of sound B.
-  Give user flexibility by scaling the amplitudes between A and B:&nbsp;
+  Give user flexibility by scaling the amplitudes between A and B:
   [pvscross](https://csound.com/docs/manual/pvscross.html).
 - Get the frequencies from sound A. Multiply the amplitudes of A
-  and B. This can be described as spectral filtering.&nbsp;
+  and B. This can be described as spectral filtering.
   [pvsfilter](https://csound.com/docs/manual/pvsfilter.html) gives
   a flexible portion of this filtering effect.
 
@@ -695,7 +695,7 @@ i 1 0 11
 Artifacts can easily occur in several situations of applying FFT.
 In example _05I02_ we have seen how it is a side effect in extreme time stretching of spoken word.
 The opcodes [pvsmooth](https://csound.com/docs/manual/pvsmooth.html)
-&nbsp;and [pvsblur](https://csound.com/docs/manual/pvsblur.html) can
+and [pvsblur](https://csound.com/docs/manual/pvsblur.html) can
 be a remedy against it, or at least a relief.
 The adjustment of the parameters are crucial here:
 

@@ -4,14 +4,14 @@ Instead of using either the standard Csound score or live midi events as
 input for an orchestra Csound can read a midi file and use the data
 contained within it as if it were a live midi input.
 
-The command line flag to instigate reading from a midi file is&nbsp;
+The command line flag to instigate reading from a midi file is
 [-F](https://csound.com/docs/manual/CommandFlags.html#FlagsMinusUpperF)
-&nbsp;followed by the name of the file or the complete path to the file if it
+followed by the name of the file or the complete path to the file if it
 is not in the same directory as the _.csd_ file. Midi channels will be
-mapped to instrument according to the rules and options discussed in&nbsp;
+mapped to instrument according to the rules and options discussed in
 [Triggering Instrument Instances](07-b-triggering-instrument-instances.md)
-&nbsp;and all controllers can be interpretted as desired using the techniques
-discussed in&nbsp;
+and all controllers can be interpretted as desired using the techniques
+discussed in
 [Working with Controllers](07-c-working-with-controllers.md).
 
 The following example plays back a midi file using Csound's _fluidsynth_ family
@@ -101,13 +101,13 @@ several scores could be combined. The following example takes a midi
 file as input and outputs standard Csound .sco files of the events
 contained therein. For convenience each midi channel is output to a
 separate .sco file, therefore up to 16 .sco files will be created.
-Multiple .sco files can be later recombined by using&nbsp;
+Multiple .sco files can be later recombined by using
 [\#include](https://csound.com/docs/manual/include.html)
-&nbsp;statements or simply by using copy and paste.
+statements or simply by using copy and paste.
 
 The only tricky aspect of this example is that note-ons followed by
 note-offs need to be sensed and calculated as p3 duration values. This
-is implemented by sensing the note-off by using the&nbsp;
+is implemented by sensing the note-off by using the
 [release](https://csound.com/docs/manual/release.html) opcode and at
 that moment triggering a note in another instrument with the required
 score data. It is this second instrument that is responsible for writing
@@ -163,7 +163,7 @@ f 0 480 ; ensure this duration is as long or longer that duration of midi file
 ```
 
 The example above ignores continuous controller data, pitch bend and
-aftertouch. The second example on the page in the&nbsp;
-[Csound Manual](https://csound.com/docs/manual/index.html) for the opcode&nbsp;
+aftertouch. The second example on the page in the
+[Csound Manual](https://csound.com/docs/manual/index.html) for the opcode
 [fprintks](https://csound.com/docs/manual/fprintks.html) renders all
 midi data to a score file.

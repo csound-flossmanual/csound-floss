@@ -95,7 +95,7 @@ in the shifting of this resonance peak.
 ## Granular Synthesis Demonstrated Using First Principles
 
 The following example exemplifies the concepts discussed above. None of
-Csound's built-in granular synthesis opcodes are used, instead&nbsp;
+Csound's built-in granular synthesis opcodes are used, instead
 [schedkwhen](https://csound.com/docs/manual/schedkwhen.html) in
 instrument 1 is used to precisely control the triggering of grains in
 instrument 2. Three notes in instrument 1 are called from the score one
@@ -386,8 +386,8 @@ of these harmonic structures.
 The next example is based on the design of example _04F01.csd_. Two
 streams of grains are generated. The first stream begins as a
 synchronous stream but as the note progresses the periodicity of grain
-generation is eroded through the addition of an increasing degree of&nbsp;
-[gaussian](http://en.wikipedia.org/wiki/Normal_distribution)&nbsp;
+generation is eroded through the addition of an increasing degree of
+[gaussian](http://en.wikipedia.org/wiki/Normal_distribution)
 [noise](http://en.wikipedia.org/wiki/Normal_distribution). It will be
 heard how the tone metamorphosizes from one characterized by steady
 purity to one of fuzzy airiness. The second the applies a similar
@@ -473,9 +473,9 @@ Several parameters are modulated slowly using Csound's random spline
 generator [rspline](https://csound.com/docs/manual/rspline.html).
 These parameters are formant frequency, grain duration and grain density
 (rate of grain generation). The waveform used in generating the content
-for each grain is randomly chosen using a slow&nbsp;
+for each grain is randomly chosen using a slow
 [sample and hold](http://en.wikipedia.org/wiki/Sample_and_hold)
-&nbsp;random function - a
+random function - a
 new waveform will be selected every 10 seconds. Five waveforms are
 provided: a sawtooth, a square wave, a triangle wave, a pulse wave and a
 band limited buzz-like waveform. Some of these waveforms, particularly
@@ -603,11 +603,11 @@ e
 This chapter has introduced some of the concepts behind the synthesis of
 new sounds based on simple waveforms by using granular synthesis
 techniques. Only two of Csound's built-in opcodes for granular
-synthesis, [fof](https://csound.com/docs/manual/fof.html) and&nbsp;
+synthesis, [fof](https://csound.com/docs/manual/fof.html) and
 [grain3](https://csound.com/docs/manual/grain3.html), have been
 used; it is beyond the scope of this work to cover all of the many
 opcodes for granulation that Csound provides. This chapter has focused
-mainly on synchronous granular synthesis; chapter&nbsp;
+mainly on synchronous granular synthesis; chapter
 [05G](05-g-granular-synthesis.md), which introduces
 granulation of recorded sound files, makes greater use of asynchronous
 granular synthesis for time-stretching and pitch shifting. This chapter

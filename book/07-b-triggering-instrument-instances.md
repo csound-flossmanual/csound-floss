@@ -95,7 +95,7 @@ f 0 300
 We can use the [massign](https://csound.com/docs/manual/massign.html) opcode,
 which is used just after the header statement, to explicitly map midi channels
 to specific instruments and thereby overrule Csound's default mappings.
-&nbsp;_massign_ takes two input arguments, the first defines the midi channel
+_massign_ takes two input arguments, the first defines the midi channel
 to be redirected and the second defines which instrument it should be
 directed to. The following example is identical to the previous one
 except that the _massign_ statements near the top of the orchestra

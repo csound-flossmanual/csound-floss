@@ -9,7 +9,7 @@ or more variables. Opcodes are written in the programming language C
 (that is where the name _Csound_ comes from). If you want to create a
 new opcode in Csound, you must write it in C. How to do this is
 described in the [Extending Csound](13-a-developing-plugin-opcodes.md)
-&nbsp;chapter of this manual, and is also described in the relevant&nbsp;
+chapter of this manual, and is also described in the relevant
 [chapter](http://www.csound.com/docs/manual/csound5extending.html) of
 the [Canonical Csound Reference Manual](http://www.csound.com/docs/manual/index.html).
 
@@ -163,8 +163,8 @@ As we have no input arguments and no output arguments for this first
 version of FiltFb, both **outtypes** and **intypes** are set to zero.
 
 Similar to the [instr](http://www.csound.com/docs/manual/instr.html) ...
-&nbsp;[endin](http://www.csound.com/docs/manual/endin.html)
-&nbsp;block of a normal instrument definition, for a UDO the **opcode ...
+[endin](http://www.csound.com/docs/manual/endin.html)
+block of a normal instrument definition, for a UDO the **opcode ...
 endop** keywords begin and end the UDO definition block. In the
 instrument, the UDO is called like a normal opcode by using its name,
 and in the same line the input arguments are listed on the right and the
@@ -271,7 +271,7 @@ Is this now the optimal version of the _FiltFb_ User Defined Opcode?
 Obviously there are other parts of the opcode definiton which could be
 controllable from outside: the feedback multiplier **iFb**, the random
 movement of the input signal **kdB**, the random movement of the filter
-frequency **kFiltFq**, and the random movements of the output mix&nbsp;
+frequency **kFiltFq**, and the random movements of the output mix
 **kdbSnd** and **kdbDel**. Is it better to put them outside of the
 opcode definition, or is it better to leave them inside?
 
@@ -465,7 +465,7 @@ in the orchestra header cannot be changed during the
 performance of a .csd file. But in a User Defined Opcode you have the
 possibility of changing this value by a local assignment. If you
 use a [setksmps](http://www.csound.com/docs/manual/setksmps.html)
-&nbsp;statement in your UDO, you can have a locally smaller value for the
+statement in your UDO, you can have a locally smaller value for the
 number of samples per control cycle in the UDO. In the following
 example, the print statement in the UDO prints ten times compared to one
 time in the instrument, because ksmps in the UDO is 10 times smaller:
@@ -1000,9 +1000,9 @@ At the end of chapter 03A the ability of sample-by-sample processing has
 been shown at some basic examples. This feature is really substantial
 for writing digital filters. This can perfectly be done in the Csound
 language itself. The next example shows an implementation of the zero
-delay state variable filter by Steven Yi. In his collection at&nbsp;
+delay state variable filter by Steven Yi. In his collection at
 [www.github.com/kunstmusik/libsyi](www.github.com/kunstmusik/libsyi)
-&nbsp;more details and other implementaions can be found. --- Note also that
+more details and other implementaions can be found. --- Note also that
 this code is another example of overloading a UDO definition. The same opcode
 name is defined here twice; first with the input types aKK (one audio
 signal and two k-signals with initialization), then with the input types

@@ -698,5 +698,5 @@ endin
 Open Sound Control is the way to communicate between Processing and Csound as independent applications.
 Another way for connecting these extensive libraries for image and audio processing is by using JavaScript,
 and run both in a browser.
-Have a look at chapter [10 F](10-f-web-based-csound.md) and&nbsp;
+Have a look at chapter [10 F](10-f-web-based-csound.md) and
 [12 G](12-g-csound-in-html-and-javascript.md) for more information.

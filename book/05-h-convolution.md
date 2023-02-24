@@ -51,20 +51,20 @@ approach will normally be beyond the means of a beginner.
 Many commercial, often expensive, implementations of convolution exist
 both in the form of software and hardware but fortunately Csound
 provides easy access to convolution for free. Csound currently lists six
-different opcodes for convolution,&nbsp;
-[convolve (convle)](https://csound.com/docs/manual/convolve.html),&nbsp;
-[cross2](https://csound.com/docs/manual/cross2.html),&nbsp;
-[dconv](https://csound.com/docs/manual/dconv.html),&nbsp;
-[ftconv](https://csound.com/docs/manual/ftconv.html),&nbsp;
-[ftmorf](https://csound.com/docs/manual/ftmorf.html) and&nbsp;
+different opcodes for convolution,
+[convolve (convle)](https://csound.com/docs/manual/convolve.html),
+[cross2](https://csound.com/docs/manual/cross2.html),
+[dconv](https://csound.com/docs/manual/dconv.html),
+[ftconv](https://csound.com/docs/manual/ftconv.html),
+[ftmorf](https://csound.com/docs/manual/ftmorf.html) and
 [pconvolve](https://csound.com/docs/manual/pconvolve.html).
-&nbsp;_convolve_ and _dconv_ are earlier
+_convolve_ and _dconv_ are earlier
 implementations and are less suited to realtime operation,
-&nbsp;_cross2_ relates to FFT-based cross synthesis and _ftmorf_ is used to
+_cross2_ relates to FFT-based cross synthesis and _ftmorf_ is used to
 morph between similar sized function table and is less related to what
 has been discussed so far, therefore in this chapter we shall focus upon
-just two opcodes,&nbsp;
-[pconvolve](https://csound.com/docs/manual/pconvolve.html) and&nbsp;
+just two opcodes,
+[pconvolve](https://csound.com/docs/manual/pconvolve.html) and
 [ftconv.](https://csound.com/docs/manual/ftconv.html)
 
 ## pconvolve
@@ -98,7 +98,7 @@ specify the partition size explicitly however, we can use this
 information to delay the input audio (after it has been used by
 pconvolve) so that it can be realigned in time with the latency affected
 audio output from pconvolve - this will be essential in creating a
-&nbsp;_wet/dry_ mix in a reverb unit. Partition size is defined in sample
+_wet/dry_ mix in a reverb unit. Partition size is defined in sample
 frames therefore if we specify a partition size of 512, the delay
 resulting from the convolution procedure will be 512/sr, so about 12ms at a sample rate of 44100 Hz.
 
@@ -174,7 +174,7 @@ e
 [ftconv](https://csound.com/docs/manual/ftconv.html) (abbreviated
 from _function table convolution_) is perhaps slightly more complicated
 to use than _pconvolve_ but offers additional options. The fact that
-&nbsp;_ftconv_ utilises an
+_ftconv_ utilises an
 impulse response that we must first store in a function table rather
 than directly referencing a sound file stored on disk means that we have
 the option of performing transformations upon the audio stored in the
@@ -195,10 +195,10 @@ minimise the size of these partitions and therefore the latency but at
 the cost of CPU efficiency. _ftconv_'s documentation refers to this
 partition size as _iplen_ (partition length). ftconv offers further
 facilities to work with multichannel files beyond stereo. When doing
-this it is suggested that you use&nbsp;
+this it is suggested that you use
 [GEN52](https://csound.com/docs/manual/GEN52.html) which is designed
 for this purpose. [GEN01](https://csound.com/docs/manual/GEN01.html)
-&nbsp;seems to work fine, at least up to stereo, provided that you do not
+seems to work fine, at least up to stereo, provided that you do not
 defer the table size definition (size=0). With _ftconv_ we can specify the
 actual length of the impulse response - it will probably be shorter than
 the _power-of-2_ sized function table used to store it - and this action

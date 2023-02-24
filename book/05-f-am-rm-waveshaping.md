@@ -1,8 +1,8 @@
 # 05 F. AM / RM / WAVESHAPING
 
 An introduction as well as some background theory of amplitude
-modulation, ring modulation and waveshaping is given in chapters&nbsp;
-[04 C](04-c-amplitude-and-ring-modulation.md) and&nbsp;
+modulation, ring modulation and waveshaping is given in chapters
+[04 C](04-c-amplitude-and-ring-modulation.md) and
 [04 E](04-e-waveshaping.md). As all of these techniques merely
 modulate the amplitude of a signal in a variety of ways, they can also
 be used for the modification of non-synthesized sound. In this chapter
@@ -189,7 +189,7 @@ i 1 + . 9 ;guitar
 ```
 
 Instead of using the "self-built" method which has been described
-here, you can use the Csound opcode&nbsp;
+here, you can use the Csound opcode
 [distort](https://csound.com/docs/manual/distort.html). It performs
 the actual waveshaping process and gives a nice control about the amount
 of distortion in the _kdist_ parameter. Here is a simple example, using rather different tables:

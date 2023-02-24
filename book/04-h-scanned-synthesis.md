@@ -12,7 +12,7 @@ dynamic f-tables for use with other Csound opcodes.
 
 ## A Quick Scanned Synth
 
-The quickest way to start using scanned synthesis is Matt Gilliard's opcode&nbsp;
+The quickest way to start using scanned synthesis is Matt Gilliard's opcode
 [scantable](https://csound.com/docs/manual/scantable.html).
 
     a1 scantable kamp, kfrq, ipos, imass, istiff, idamp, ivel
@@ -28,7 +28,7 @@ model describes a string as a finite series of marbles connected to each
 other with springs.
 
 In this example we will use 128 marbles in our system. To the Csound
-user, profiles are a series of f-tables that set up the&nbsp;
+user, profiles are a series of f-tables that set up the
 [scantable](https://csound.com/docs/manual/scantable.html) opcode.
 To the opcode, these f-tables influence the dynamic behavior of
 the table read by a table-lookup oscillator.
@@ -200,10 +200,10 @@ timbre using a table lookup oscillator, or animate an f-table for use in
 other Csound opcodes. However, there are other scanned synthesis opcodes
 that can take our expressive use of the algorithm even further.
 
-The opcodes&nbsp;
-[scans](https://csound.com/docs/manual/scans.html) and&nbsp;
+The opcodes
+[scans](https://csound.com/docs/manual/scans.html) and
 [scanu](https://csound.com/docs/manual/scanu.html)
-&nbsp;by Paris Smaragdis give the Csound user one of the most robust and
+by Paris Smaragdis give the Csound user one of the most robust and
 flexible scanned synthesis environments. These opcodes work in tandem to
 first set up the dynamic wavetable, and then to _scan_ the dynamic
 table in ways a table-lookup oscillator cannot.
@@ -213,7 +213,7 @@ _Scanu_ takes 18 arguments and sets a table into motion.
      scanu ipos, irate, ifnvel, ifnmass, ifnstif, ifncentr, ifndamp, kmass,
        kstif, kcentr, kdamp, ileft, iright, kpos, kstrngth, ain, idisp, id
 
-For a detailed description of what each argument does, see the&nbsp;
+For a detailed description of what each argument does, see the
 [Csound Reference Manual](https://csound.com/docs/manual/scanu.html);
 I will discuss the various types of arguments in the opcode.
 
@@ -252,9 +252,9 @@ mass \#1 to mass \#2 and mass \#128 -- forming a string without
 endpoints, a circular string, like tying our string with beads to make a
 necklace. The pioneers of scanned synthesis discovered that this
 circular string model is more useful than a conventional one-dimensional
-string model with endpoints. In fact,&nbsp;
+string model with endpoints. In fact,
 [scantable](https://csound.com/docs/manual/scantable.html)
-&nbsp;uses a circular string.
+uses a circular string.
 
 The matrix is described in a simple ASCII file, imported into Csound via
 a GEN23 generated f-table.
@@ -279,11 +279,11 @@ Some matrices can make the synth extremely loud, others extremely quiet.
 Experiment with using different matrices.
 
 Now would be a good time to point out that Csound has other scanned
-synthesis opcodes preceded with an _x_,&nbsp;
-[xscans](https://csound.com/docs/manual/xscans.html),&nbsp;
+synthesis opcodes preceded with an _x_,
+[xscans](https://csound.com/docs/manual/xscans.html),
 [xscanu](https://csound.com/docs/manual/xscanu.html),
-that use a different matrix format than the one used by&nbsp;
-[scans](https://csound.com/docs/manual/scans.html),&nbsp;
+that use a different matrix format than the one used by
+[scans](https://csound.com/docs/manual/scans.html),
 [scanu](https://csound.com/docs/manual/scanu.html),
 and Stephen Yi's Scanned Matrix Editor. The Csound Reference Manual has
 more information on this.
@@ -345,14 +345,14 @@ You'll get the warning
 
 which means this method of hammering the string is
 working. In fact you could use this method to explore and hammer every
-possible GEN routine in Csound.&nbsp;
-[GEN10](https://csound.com/docs/manual/GEN10.html) (sines),&nbsp;
-[GEN 21](https://csound.com/docs/manual/GEN21.html) (noise) and&nbsp;
+possible GEN routine in Csound.
+[GEN10](https://csound.com/docs/manual/GEN10.html) (sines),
+[GEN 21](https://csound.com/docs/manual/GEN21.html) (noise) and
 [GEN 27](https://csound.com/docs/manual/GEN27.html) (breakpoint functions)
 could keep you occupied for a while.
 
 Unipolar waves have a different sound but a loss in volume can occur.
-There is a way to do this with&nbsp;
+There is a way to do this with
 [scanu](https://csound.com/docs/manual/scanu.html),
 but I do not use this feature and just use these values instead.
 
@@ -364,7 +364,7 @@ One of the biggest challenges in understanding scanned synthesis is the
 concept of profiles.
 
 Setting up the opcode [scanu](https://csound.com/docs/manual/scanu.html)
-&nbsp;requires 3 profiles - Centering, Mass and Damping. The pioneers of
+requires 3 profiles - Centering, Mass and Damping. The pioneers of
 scanned synthesis discovered early on that the resultant timbre is far
 more interesting if marble \#1 had a different centering force than mass
 \#64.
@@ -393,7 +393,7 @@ ways that could make **extremely** loud sounds come out of your
 computer. It is best to experiment with small changes in range and keep
 your headphones off. A good place to start experimenting is with
 different values for _kcentr_ while keeping _kmass_, _kstiff_, and
-&nbsp;_kdamp_ constant. You could also scale mass and stiffness to MIDI
+_kdamp_ constant. You could also scale mass and stiffness to MIDI
 velocity.
 
 ## Audio Injection
@@ -420,17 +420,17 @@ opcode in Csound, like we did with _scantable_ earlier in this chapter.
 We could then use [poscil](https://csound.com/docs/manual/poscil.html)
 to perform a table lookup algorithm to make sound out
 of [scanu](https://csound.com/docs/manual/scanu.html)
-&nbsp;(as long as id is negative), but _scanu_ has a companion
+(as long as id is negative), but _scanu_ has a companion
 opcode, [scans](https://csound.com/docs/manual/scans.html)
-&nbsp;which has 1 more argument than _oscil_.
+which has 1 more argument than _oscil_.
 This argument is the number of an f-table containing the scan
 trajectory.
 
 ## Scan Trajectories
 
-One thing we have taken for granted so far with&nbsp;
+One thing we have taken for granted so far with
 [poscil](https://csound.com/docs/manual/poscil.html)
-&nbsp;is that the wave table is read front to back. If you regard _poscil_ as a
+is that the wave table is read front to back. If you regard _poscil_ as a
 phasor and table pair, the first index of the table is always read first
 and the last index is always read last as in the example below:
 
@@ -498,7 +498,7 @@ them. But if we remember back to our conversation about the scanned
 matrix, matrices are multi-dimensional.
 
 The opcode [scans](https://csound.com/docs/manual/scans.html)
-&nbsp;gives us the flexibility of specifying a scan trajectory, analogous to
+gives us the flexibility of specifying a scan trajectory, analogous to
 telling the phasor/table combination to read values non-consecutively.
 We could read these values, not left to right, but in a spiral order, by
 specifying a table to be the _ifntraj_ argument of _scans_.
@@ -677,7 +677,7 @@ for all the arguments of scanu. I figured out these values through a mix
 of trial and error and studying other .csd.
 
 We can use the opcode [balance](https://csound.com/docs/manual/balance.html)
-&nbsp;to listen to sine wave (a signal with consistent, safe amplitude) and
+to listen to sine wave (a signal with consistent, safe amplitude) and
 squash down our extremely loud scanned synth output (which is loud only
 because of our intentional carelessness.)
 
@@ -747,6 +747,6 @@ i 1 0 5
 It must be emphasized that this is merely a safeguard. We still get
 samples out of range when we run this .csd, but many less than if we had
 not used balance. It is recommended to use balance if you are doing
-real-time mapping of k-rate profile scalar arguments for&nbsp;
+real-time mapping of k-rate profile scalar arguments for
 [scans](https://csound.com/docs/manual/scans.html);
 mass stiffness, damping, and centering.

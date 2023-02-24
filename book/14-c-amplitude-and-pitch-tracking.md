@@ -81,13 +81,13 @@ i 1 0 5
 ```
 
 In practice it is not necessary for us to build our own amplitude
-tracker as Csound already offers several opcodes for the task.&nbsp;
+tracker as Csound already offers several opcodes for the task.
 [rms](https://csound.com/docs/manual/rms.html) outputs a k-rate
 amplitude tracking signal by employing mathematics similar to those
-described above.&nbsp;
+described above.
 [follow](https://csound.com/docs/manual/follow.html) outputs at
 a-rate and uses a sample and hold method as it outputs data, probably
-necessitating some sort of low-pass filtering of the output signal.&nbsp;
+necessitating some sort of low-pass filtering of the output signal.
 [follow2](https://csound.com/docs/manual/follow2.html) also outputs
 at a-rate but smooths the output signal by different amounts depending
 on whether the amplitude is rising or falling.
@@ -114,7 +114,7 @@ the averaging mechanism fills with appropriately high values. As
 discussed earlier, reducing the size of the array will improve response
 at the risk of introducing ripple. Another approach to dealing with the
 issue of ripple is to low-pass filter the signal output by the amplitude
-follower. This is an approach employed by the&nbsp;
+follower. This is an approach employed by the
 [follow2](https://csound.com/docs/manual/follow2.html) opcode. The
 second thing that is apparent is that the amplitude following signal
 does not attain the peak value of the input signal. At its peaks, the
@@ -132,7 +132,7 @@ waveform is shown below:
 ![](../resources/images/14-c-rms.png)
 
 Its method of averaging uses filtering rather than simply taking a mean
-of a buffer of amplitude values.&nbsp;
+of a buffer of amplitude values.
 [rms](https://csound.com/docs/manual/rms.html) allows us to set the
 cutoff frequency (kCf) of its internal filter:
 
@@ -161,7 +161,7 @@ with the following result:
 
 The hump over the word spoken during the third and fourth time divisions
 initially seem erroneous but it is a result of greater amplitude
-excursion into the negative domain.&nbsp;
+excursion into the negative domain.
 [follow](https://csound.com/docs/manual/follow.html) provides a
 better reflection of absolute peak amplitude.
 
@@ -336,11 +336,11 @@ i 1 0 [3600*24*7]
 ## Pitch Tracking
 
 Csound currently provides five opcode options for pitch tracking. In
-ascending order of newness they are:&nbsp;
-[pitch](https://csound.com/docs/manual/pitch.html),&nbsp;
-[pitchamdf](https://csound.com/docs/manual/pitchamdf.html),&nbsp;
-[pvspitch](https://csound.com/docs/manual/pvspitch.html),&nbsp;
-[ptrack](https://csound.com/docs/manual/ptrack.html) and&nbsp;
+ascending order of newness they are:
+[pitch](https://csound.com/docs/manual/pitch.html),
+[pitchamdf](https://csound.com/docs/manual/pitchamdf.html),
+[pvspitch](https://csound.com/docs/manual/pvspitch.html),
+[ptrack](https://csound.com/docs/manual/ptrack.html) and
 [plltrack](https://csound.com/docs/manual/plltrack.html). Related to
 these opcodes are pvscent and centroid but rather than track the
 harmonic fundamental, they track the spectral centroid of a signal. An
@@ -440,7 +440,7 @@ purpose pitch tracker, _pitchamdf_ is also a good choice. _pvspitch_, _ptrack_
 and _plltrack_ all work well in real-time but might demand additional
 processing to remove errors.
 
-[pvscent](https://csound.com/docs/manual/pvscent.html) and&nbsp;
+[pvscent](https://csound.com/docs/manual/pvscent.html) and
 [centroid](https://csound.com/docs/manual/centroid.html) are a
 little different to the other pitch trackers in that, rather than try to
 discern the fundemental of a harmonic tone, they assess what the centre

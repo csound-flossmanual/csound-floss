@@ -4,7 +4,7 @@ This chapter will focus upon granular synthesis used as a DSP technique
 upon recorded sound files and will introduce techniques including time
 stretching, time compressing and pitch shifting. The emphasis will be
 upon asynchronous granulation. For an introduction to synchronous
-granular synthesis using simple waveforms please refer to chapter&nbsp;
+granular synthesis using simple waveforms please refer to chapter
 [04 F](04-f-granular-synthesis.md).
 
 We will start with a self-made granulator which we build step by step.
@@ -741,8 +741,8 @@ After having built this self-made granulator step by step, we will look now into
 
 Csound offers a wide range of opcodes for sound granulation. Each has
 its own strengths and weaknesses and suitability for a particular task.
-Some are easier to use than others, some, such as&nbsp;
-[granule](https://csound.com/docs/manual/granule.html) and&nbsp;
+Some are easier to use than others, some, such as
+[granule](https://csound.com/docs/manual/granule.html) and
 [partikkel](https://csound.com/docs/manual/partikkel.html), are
 extremely complex and are, at least in terms of the number of input
 arguments they demand, amongst Csound's most complex opcodes.
@@ -750,11 +750,11 @@ arguments they demand, amongst Csound's most complex opcodes.
 ### sndwarp - Time Stretching and Pitch Shifting
 
 [sndwarp](https://csound.com/docs/manual/sndwarp.html)
-&nbsp;may not be Csound's newest or most advanced opcode for sound
+may not be Csound's newest or most advanced opcode for sound
 granulation but it is quite easy to use and is certainly up to the task
 of time stretching and pitch shifting. _sndwarp_ has two modes by which we
 can modulate time stretching characteristics, one in which we define a
-&nbsp;_stretch factor_, a value of 2 defining a stretch to twice the normal
+_stretch factor_, a value of 2 defining a stretch to twice the normal
 length, and the other in which we directly control a pointer into the
 file. The following example uses _sndwarp's_ first mode to produce a
 sequence of time stretches and pitch shifts. An overview of each
@@ -766,7 +766,7 @@ You will need to make sure that a sound file is available to sndwarp via
 a GEN01 function table. You can replace the one used in this example
 with one of your own by replacing the reference to _ClassicalGuitar.wav_.
 This sound file is stereo therefore instrument
-1 uses the stereo version&nbsp;
+1 uses the stereo version
 [sndwarpst](https://csound.com/docs/manual/sndwarpst.html).
 A mismatch between the number
 of channels in the sound file and the version of sndwarp used will
@@ -871,7 +871,7 @@ and these notes then last for 40s each so will overlap. Instrument 1 is
 played from the score for 1 hour so this entire process will last that
 length of time. Many of the parameters of granulation are chosen
 randomly when a note begins so that each note will have unique
-characteristics. The timestretch is created by a&nbsp;
+characteristics. The timestretch is created by a
 [line](https://csound.com/docs/manual/line.html) function: the start
 and end points of which are defined randomly when the note begins.
 Grain/window size and window size randomization are defined randomly
@@ -974,13 +974,13 @@ The [granule](https://csound.com/docs/manual/granule.html) opcode is
 one of Csound's most complex opcodes requiring up to 22 input arguments
 in order to function. Only a few of these arguments are available during
 performance (_k-rate_) so it is less well suited for real-time modulation,
-for real-time a more nimble implementation such as&nbsp;
-[syncgrain](https://csound.com/docs/manual/syncgrain.html),&nbsp;
-[fog](https://csound.com/docs/manual/fog.html), or&nbsp;
+for real-time a more nimble implementation such as
+[syncgrain](https://csound.com/docs/manual/syncgrain.html),
+[fog](https://csound.com/docs/manual/fog.html), or
 [grain3](https://csound.com/docs/manual/grain3.html) would be
-recommended. For more complex realtime granular techniques, the&nbsp;
+recommended. For more complex realtime granular techniques, the
 [partikkel](http://csound.com/manual/html/partikkel.html)
-&nbsp;opcode can be used. The granule opcode as used here, proves itself
+opcode can be used. The granule opcode as used here, proves itself
 ideally suited at the production of massive clouds of granulated sound
 in which individual grains are often completely indistinguishable. There
 are still two important k-rate variables that have a powerful effect on
@@ -988,13 +988,13 @@ the texture created when they are modulated during a note, they are:
 grain gap - effectively density - and grain size which will affect the
 clarity of the texture - textures with smaller grains will sound fuzzier
 and airier, textures with larger grains will sound clearer. In the
-following example&nbsp;
+following example
 [transeg](https://csound.com/docs/manual/transeg.html) envelopes
 move the grain gap and grain size parameters through a variety of
 different states across the duration of each note.
 
 With _granule_ we define a number of grain streams for the opcode using its
-&nbsp;_ivoice_ input argument. This will also have an effect on the density
+_ivoice_ input argument. This will also have an effect on the density
 of the texture produced. Like _sndwarp's_ first timestretching mode,
 granule also has a stretch ratio parameter. Confusingly it works the
 other way around though, a value of 0.5 will slow movement through the
@@ -1003,7 +1003,7 @@ slow progress through the sound file. granule also provides up to four
 pitch shift voices so that we can create chord-like structures without
 having to use more than one iteration of the opcode. We define the
 number of pitch shifting voices we would like to use using the
-&nbsp;_ipshift_ parameter. If this is given a value of zero, all pitch
+_ipshift_ parameter. If this is given a value of zero, all pitch
 shifting intervals will be ignored and grain-by-grain transpositions
 will be chosen randomly within the range +/-1 octave. granule contains
 built-in randomizing for several of it parameters in order to easier
@@ -1204,13 +1204,13 @@ i 3 0 20
 ;example by Oeyvind Brandtsegg
 ```
 
-In the last example we will use the&nbsp;
+In the last example we will use the
 [grain](https://csound.com/docs/manual/grain.html) opcode. This
-opcode is part of a little group of opcodes which also includes&nbsp;
-[grain2](https://csound.com/docs/manual/grain2.html) and&nbsp;
+opcode is part of a little group of opcodes which also includes
+[grain2](https://csound.com/docs/manual/grain2.html) and
 [grain3](https://csound.com/docs/manual/grain3.html). _grain_ is
 the oldest opcode, _Grain2_ is a more easy-to-use opcode, while
-&nbsp;_Grain3_ offers more control.
+_Grain3_ offers more control.
 
 #### **_EXAMPLE 05G12_grain.csd_**
 
@@ -1267,15 +1267,15 @@ i2 0 21 ; Reverb
 Several opcodes for granular synthesis have been considered in this
 chapter but this is in no way meant to suggest that these are the best,
 in fact it is strongly recommended to explore all of Csound's other
-opcodes as they each have their own unique character. The&nbsp;
+opcodes as they each have their own unique character. The
 [syncgrain](https://csound.com/docs/manual/syncgrain.html) family of
-opcodes (including also&nbsp;
-[syncloop](https://csound.com/docs/manual/syncloop.html) and&nbsp;
+opcodes (including also
+[syncloop](https://csound.com/docs/manual/syncloop.html) and
 [diskgrain](https://csound.com/docs/manual/diskgrain.html)) are
 deceptively simple as their k-rate controls encourages further
-abstractions of grain manipulation,&nbsp;
+abstractions of grain manipulation,
 [fog](https://csound.com/docs/manual/fog.html) is designed for FOF
-synthesis type synchronous granulation but with sound files and&nbsp;
+synthesis type synchronous granulation but with sound files and
 [partikkel](https://csound.com/docs/manual/partikkel.html) offers a
 comprehensive control of grain characteristics on a grain-by-grain basis
 inspired by Curtis Roads' encyclopedic book on granular synthesis

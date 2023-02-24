@@ -8,7 +8,7 @@ The frequencies of these _harmonics_ are integer multiples of the fundamental fr
 As we can easily produce sine waves of different amplitudes in digital sound synthesis,
 the _Fourier Synthesis_ or _Additive Synthesis_ may sound the universal key for
 creating interesting sounds. But first, not all sounds are periodic.
-&nbsp;_Noise_ is very important part of the sounding world represents the other pole
+_Noise_ is very important part of the sounding world represents the other pole
 which is essentially non-periodic. And dealing with single sine waves means
 dealing with a lot of data and reqirements.
 
@@ -826,7 +826,7 @@ Some comments:
 [gbuzz](http://www.csound.com/docs/manual/gbuzz.html) is useful for
 creating additive tones made of harmonically related cosine waves.
 Rather than define attributes for every partial individually,
-&nbsp;_gbuzz_ allows us to
+_gbuzz_ allows us to
 define parameters that describe the entire additive tone in a more
 general way: specifically the number of partials in the tone, the
 partial number of the lowest partial present and an amplitude
@@ -990,13 +990,13 @@ If a _gbuss_ tone is required but no performance time modulation of
 its parameters is needed, _GEN11_ may
 provide a more efficient option. _GEN11_ also opens the
 possibility of using its waveforms in a variety of other opcodes.
-&nbsp;_gbuzz_, _buzz_ and _GEN11_ may also prove
+_gbuzz_, _buzz_ and _GEN11_ may also prove
 useful as a source for subtractive synthesis.
 
 ### hsboscil
 
 The opcode [hsboscil](http://www.csound.com/docs/manual/hsboscil.html)
-&nbsp;offers an interesting method of additive synthesis in which all partials
+offers an interesting method of additive synthesis in which all partials
 are spaced an octave apart. Whilst this may at first seems limiting, it
 does offer simple means for morphing the precise make up of its
 spectrum. It can be thought of as producing a sound spectrum that
@@ -1006,7 +1006,7 @@ sounding all of the resultant partials simultaneously, a window
 that only one or several of these partials sound at any one time. The
 user can shift the position of this window up or down the spectrum at
 k-rate and this introduces the possibility of spectral morphing.
-&nbsp;_hsbosil_ refers to this control as _kbrite_. The width of the window can be
+_hsbosil_ refers to this control as _kbrite_. The width of the window can be
 specified (but only at i-time) using its _iOctCnt_ parameter. The
 entire spectrum can also be shifted up or down, independent of the
 location of the masking window using the _ktone_ parameter, which can

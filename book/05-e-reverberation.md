@@ -7,7 +7,7 @@ echoes of that sound reflecting off walls and objects within the space.
 Csound's earliest reverb opcodes are _reverb_ and _nreverb_. By
 today's standards they sound rather crude and as a consequence modern
 Csound users tend to prefer the more recent opcodes _freeverb_ and
-&nbsp;_reverbsc_.
+_reverbsc_.
 
 The typical way to use a reverb is to run as a effect throughout the
 entire Csound performance and to send it audio from other instruments to
@@ -41,7 +41,7 @@ done simply by setting to zero but the _clear_ opcode might prove useful
 in the future as it provides us with the opportunity to clear many
 variables simultaneously.
 
-This example uses the&nbsp;
+This example uses the
 [freeverb](https://csound.com/docs/manual/freeverb.html) opcode and
 is based on a plugin of the same name. Freeverb has a smooth reverberant
 tail and is perhaps similar in sound to a plate reverb. It provides us
@@ -106,7 +106,7 @@ important to keep track of what each numbered channel is used for. Our
 example will be very simple in that we will only be using one zak audio
 channel. Before using any of the zak opcodes for reading and writing
 data we must initialize zak storage space. This is done in the orchestra
-header area using the&nbsp;
+header area using the
 [zakinit](https://csound.com/docs/manual/zakinit.html) opcode. This
 opcode initializes both a and k rate channels; we must intialize at
 least one of each even if we don't require both.
@@ -123,7 +123,7 @@ like this:
 zawm    aSig * iRvbSendAmt, 1
 ```
 
-This channel is read from in the reverb instrument using the&nbsp;
+This channel is read from in the reverb instrument using the
 [zar](https://csound.com/docs/manual/zar.html) opcode like this:
 
 ```csound
@@ -133,12 +133,12 @@ aInSig  zar   1
 Because audio is begin mixed into our zak channel but it is never
 redefined (only mixed into) it needs to be cleared after we have
 finished with it. This is accomplished at the bottom of the reverb
-instrument using the&nbsp;
+instrument using the
 [zacl](https://csound.com/docs/manual/zacl.html) opcode like this:
 
     zacl      0, 1
 
-This example uses the&nbsp;
+This example uses the
 [reverbsc](https://csound.com/docs/manual/reverbsc.html) opcode. It
 too has a stereo input and output. The arguments that define its
 character are feedback level and cutoff frequency. Feedback level should
@@ -251,7 +251,7 @@ i 5 0 12 ; start reverb
 ## The Schroeder Reverb Design
 
 Many reverb algorithms including Csound's _freeverb_, _reverb_ and _nreverb_
-&nbsp;are based on what is known as the Schroeder reverb design. This was a
+are based on what is known as the Schroeder reverb design. This was a
 design proposed in the early 1960s by the physicist Manfred Schroeder.
 In the Schroeder reverb a signal is passed into four parallel comb
 filters the outputs of which are summed and then passed through two
@@ -411,5 +411,5 @@ This chapter has introduced some of the more recent Csound opcodes for
 delay-line based reverb algorithms which in most situations can be used
 to provide high quality and efficient reverberation. Convolution offers
 a whole new approach for the creation of realistic reverbs that imitate
-actual spaces - this technique is demonstrated in the&nbsp;
+actual spaces - this technique is demonstrated in the
 [Convolution](05-h-convolution.md) chapter.

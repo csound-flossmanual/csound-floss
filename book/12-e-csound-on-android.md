@@ -17,7 +17,7 @@ The following packages are available for Android:
     The app includes a number of built-in example pieces. This is available
     from the [Google Play store](https://play.google.com/store/apps/details?id=com.csounds.Csound6),
     or for download from
-    the [csound-extended](https://github.com/gogins/csound-extended) repository&nbsp;
+    the [csound-extended](https://github.com/gogins/csound-extended) repository
     [releases page](https://github.com/gogins/csound-extended/releases).
 
 For more information about these packages, download them and consult the
@@ -37,7 +37,7 @@ later playback.
 
 The app has a built-in, pre-configured user interface with nine sliders,
 five push buttons, one trackpad, and a 3-dimensional accelerometer that
-are pre-assigned to control channels which can be read using Csound's&nbsp;
+are pre-assigned to control channels which can be read using Csound's
 [chnget](https://csound.com/docs/manual/chnget.html) opcode.
 
 The app also contains an embedded Web browser, based on WebKit, that
@@ -96,9 +96,9 @@ browse the Linux file system that exists on all Android devices. If you
 don't already have such a utility, you should install a file browser
 that provides access to as much as possible of the file system on your
 device, including system storage and external store such as an SD card.
-The free&nbsp;
+The free
 [AndroZip](https://play.google.com/store/apps/details?id=com.agilesoftresource&hl=en)
-&nbsp;app can do this, for instance.
+app can do this, for instance.
 
 If you render soundfiles, they take up a lot of space. For example,
 CD-quality stereo soundfiles (44.1 KHz, 16 bit) take up about 1
@@ -116,9 +116,9 @@ space, up to 32 or 64 gigabytes or even more.
 
 To download the Csound for Android app to your device, go online using Google
 Search or a Web browser. You can find the application package file,
-CsoundApplication-release.apk, on the&nbsp;
+CsoundApplication-release.apk, on the
 [csound-extended releases page](https://github.com/gogins/csound-extended/releases)
-&nbsp;(you may first have to allow your Android device to install an app which is not
+(you may first have to allow your Android device to install an app which is not
 in Google Play).
 
 Click on the filename to download the package. The download will happen
@@ -267,18 +267,18 @@ work quite well.
 
 Just to prove that everything is working, start the Csound for Android app. Go
 to the app menu, select the _Examples_ item, select the _Xanadu_
-&nbsp;example, and it will be loaded into Csound. Then click on the _RUN_
-&nbsp;command. Its name should change to _STOP_, and Csound's runtime messages
+example, and it will be loaded into Csound. Then click on the _RUN_
+command. Its name should change to _STOP_, and Csound's runtime messages
 should begin to scroll down the _MESSAGES_ tab. At the same time, you should
 hear the piece play. You can stop the performance at any time by selecting the
-&nbsp;_STOP_ command, or you can let the performance complete on its own.
+_STOP_ command, or you can let the performance complete on its own.
 
 That's all there is to it. You can scroll up and down in the messages
 pane if you need to find a particular message, such as an error or
 warning.
 
 If you want to look at the text of the piece, or edit it, select the
-&nbsp;_Edit_ button. If you have installed Jota, that editor should open with
+_Edit_ button. If you have installed Jota, that editor should open with
 the text of the piece, which you can save, or not. You can edit the
 piece with the this editor, and any changes you make and save will be
 performed the next time you start the piece.
@@ -301,7 +301,7 @@ The text editor should open with a _template_ CSD file. Your job is to
 fill out this template to hear something.
 
 Create a blank line between `<CsOptions>` and `</CsOptions>`, and type
-&nbsp;`-odac -d -m3`. This means send audio to the real-time output (`-odac`), do
+`-odac -d -m3`. This means send audio to the real-time output (`-odac`), do
 not display any function tables (`-d`), and log some informative messages
 during Csound's performance (`-m3`).
 
@@ -427,7 +427,7 @@ will map the controller values to the names and ranges required for your
 actual instruments. This code, in addition, can make use of the peculiar
 button widgets, which only signal changes of state and do not report
 continuously whether they are _on_ or _off_. These examples are from
-&nbsp;_Gogins/Drone-IV.csd_.
+_Gogins/Drone-IV.csd_.
 
 At the top of the orchestra header:
 

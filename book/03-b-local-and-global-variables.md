@@ -114,11 +114,11 @@ connect the output from an opcode to the input of another. The type of
 connector (audio, control, etc.) is determined by the first letter of
 its name.
 
-For a more detailed discussion, see the article&nbsp;
+For a more detailed discussion, see the article
 [An overview Of Csound Variable Types](http://csoundjournal.com/issue10/CsoundRates.html)
-&nbsp;by Andrés Cabrera in the&nbsp;
+by Andrés Cabrera in the
 [Csound Journal](http://csoundjournal.com/index.html), and the
-page about&nbsp;
+page about
 [Types, Constants and Variables](https://csound.com/docs/manual/OrchKvar.html) in
 the [Canonical Csound Manual](https://csound.com/docs/manual/index.html).
 

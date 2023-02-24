@@ -30,7 +30,7 @@ certain threshold, it is done at performance time (k-time). If we receive
 user-input by a scroll number, this is also a k-value, so we need a
 k-condition.
 
-Thus, [if](https://csound.com/docs/manual/if.html) and&nbsp;
+Thus, [if](https://csound.com/docs/manual/if.html) and
 [while](https://csound.com/docs/manual/while.html) as
 most used control structures have an _i_ and a _k_ descendant.
 In the next few sections, a general introduction into the different
@@ -87,7 +87,7 @@ an _endif_. This is an example with three levels:
 A typical problem in Csound: You have either mono or stereo files, and
 want to read both with a stereo output. For the real stereo ones that
 means: use [diskin](https://csound.com/docs/manual/diskin.html)
-&nbsp;(soundin / diskin2) with two output arguments. For the
+(soundin / diskin2) with two output arguments. For the
 mono ones it means: use it with one
 output argument, and throw it to both output channels:^[
 The modern way to solve this is to work with an audio array as
@@ -920,13 +920,13 @@ The _idur_ argument for timout defines for how many seconds
 the `second_label` section is to be executed before the time loop begins again.
 Note that the reinit `first_label` is necessary to start the second loop
 after _idur_ seconds with a resetting of all the values. (See the
-explanations about reinitialization in the chapter&nbsp;
+explanations about reinitialization in the chapter
 [Initialization and Performance Pass](03-a-initialization-and-performance-pass.md).
 
-As usual when you work with the&nbsp;
+As usual when you work with the
 [reinit](http://www.csound.com/docs/manual/reinit.html) opcode, you can
 use a [rireturn](http://www.csound.com/docs/manual/rireturn.html)
-&nbsp;statement to constrain the reinit-pass. In this way you can have both,
+statement to constrain the reinit-pass. In this way you can have both,
 the timeloop section and the non-timeloop section in the body of an
 instrument:
 
@@ -1049,9 +1049,9 @@ The applications discussed so far have the disadvantage that all the
 signals inside the time loop must definitely be finished or interrupted,
 when the next loop begins. In this way it is not possible to have any
 overlapping of events. To achieve this, the time loop can be used to
-simply **trigger an event**. This can be done with&nbsp;
-[schedule](https://csound.com/docs/manual/schedule.html),&nbsp;
-[event_i](https://csound.com/docs/manual/event_i.html) or&nbsp;
+simply **trigger an event**. This can be done with
+[schedule](https://csound.com/docs/manual/schedule.html),
+[event_i](https://csound.com/docs/manual/event_i.html) or
 [scoreline_i](https://csound.com/docs/manual/scoreline_i.html). In
 the following example, the time loop in instrument 1 triggers a new
 instance of instrument 2 with a duration of 1 to 5 seconds, every 0.5 to

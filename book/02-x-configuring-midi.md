@@ -8,7 +8,7 @@ virtual MIDI cable. This information can be used to control any aspect
 of synthesis or performance.
 
 Most frontends are using their own MIDI handler. See the chapters
-about [CsoundQt](10-a-csoundqt.md), [Cabbage](10-b-cabbage.md) and&nbsp;
+about [CsoundQt](10-a-csoundqt.md), [Cabbage](10-b-cabbage.md) and
 [Blue](10-c-blue.md) in this manual, or have a look at the built-in
 documentation of these environments. The following description is only
 relevant when you use Csound's own MIDI handlers, for instance when
@@ -16,11 +16,11 @@ running Csound via Command Line.
 
 Csound receives MIDI data through MIDI Realtime Modules. These are
 special Csound plugins which enable MIDI input using different methods
-according to a specific platform. They are enabled using the _-+rtmidi_&nbsp;
+according to a specific platform. They are enabled using the _-+rtmidi_
 [command line flag](http://csound.github.io/docs/manual/html/CommandFlagsCategory.html)
 in the _\<CsOptions\>_ section of your .csd file.
 
-There is the universal _portmidi_ module.&nbsp;
+There is the universal _portmidi_ module.
 [PortMidi](http://portmedia.sourceforge.net) is a cross-platform
 module for MIDI I/O and should be available on all platforms. To enable
 the portmidi module, use the flag (option):
@@ -131,7 +131,7 @@ number of instrument instances at the same time.
 
 ## How to Use a MIDI Controller
 
-To receive MIDI controller events, opcodes like&nbsp;
+To receive MIDI controller events, opcodes like
 [ctrl7](http://csound.github.io/docs/manual/html/ctrl7.html) can
 be used. In the following example instrument 1 is turned on for 60
 seconds. It will receive controller \#1 (modulation wheel) on channel 1

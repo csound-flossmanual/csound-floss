@@ -2,7 +2,7 @@
 
 ## Playing Soundfiles from Disk - _diskin_
 
-The simplest way of playing a sound file from Csound is to use the&nbsp;
+The simplest way of playing a sound file from Csound is to use the
 [diskin](https://csound.com/docs/manual/diskin.html) opcode. This
 opcode reads audio directly from the hard drive location where it is
 stored, i.e. it does not pre-load the sound file at initialisation time.
@@ -30,7 +30,7 @@ Csound will recognize a sound file by its _name_ in these cases:
 
 1. The _csd_ file and the sound file are in the same directory (folder).
    This is the most simple way and gives full flexibility to run the same
-   &nbsp;_csd_ from any other computer, just by copying the whole folder.
+   _csd_ from any other computer, just by copying the whole folder.
 2. The folder which contains the sound file is known to Csound. This can
    be done with the option _--env:SSDIR+=/path/to/sound/folder_. Csound will
    then add this folder to the _Sound Sample Directory_ (SSDIR) in which it
@@ -108,7 +108,7 @@ Since Csound6, however, we have the second option mentioned on Csound's manual p
     ar1[] diskin ...
 
 If the output variable name is followed by square brackets,
-&nbsp;_diskin_ will write its output in an audio _array_.^[
+_diskin_ will write its output in an audio _array_.^[
 Chapter [03 E](03-e-arrays.md) gives more explanations about arrays in Csound.
 ] The _size_ (_length_) of this array mirrors the number of channels in the audio file:
 1 for a mono file, 2 for a stereo file, 4 for a quadro file, etc.
@@ -123,7 +123,7 @@ So this will work with any number of channels for the input file.
 After the mandatory file name or path string, we can pass some optional input arguments:
 
 - _kpitch_ specifies the speed of reading the sound file. The _default_ is _1_
-  &nbsp;here, which means normal speed. _2_ would result in double speed (octave
+  here, which means normal speed. _2_ would result in double speed (octave
   higher and half time to read through the sound file), _0.5_ would result
   in half speed (octave lower and twice as much time needed for reading).
   Negative values read backwards. As this is a _k-rate_ parameter, it
@@ -231,8 +231,8 @@ i 1 3.3 5 78
 ## Both Audio to Disk and RTAudio Output - _fout_ with _monitor_
 
 Recording audio output to disk whilst simultaneously monitoring in
-real-time is best achieved through combining the opcodes&nbsp;
-[monitor](https://csound.com/docs/manual/monitor.html) and&nbsp;
+real-time is best achieved through combining the opcodes
+[monitor](https://csound.com/docs/manual/monitor.html) and
 [fout](https://csound.com/docs/manual/fout.html). _monitor_ can be
 used to create an audio signal that consists of a mix of all audio
 output from all instruments. This audio signal can then be rendered to a

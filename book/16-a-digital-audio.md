@@ -29,7 +29,7 @@ Periodic waves have some main parameters:
 
 - **Frequency**: The number of cycles or periods per second, measured
   in Hertz (Hz). If a sound has a frequency of 440 Hz it
-  completes 440 cycles every second. Read more about frequency in the&nbsp;
+  completes 440 cycles every second. Read more about frequency in the
   [next chapter](01-b-pitch-and-frequency.md).
 
 - **Phase:** This is the starting point of a waveform.

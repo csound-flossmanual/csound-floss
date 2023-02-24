@@ -43,14 +43,14 @@ unimpeded following a constant velocity:
 ![](../resources/images/04-g-01bild1a.png){width=50%}
 
 As the velocity between the first two states can be described as
-&nbsp;$a_1 - a_0$, the value of the third state $a_2$ will be:
+$a_1 - a_0$, the value of the third state $a_2$ will be:
 
 $a_2 = a_1 + (a_1 - a_0) = 0.5 + 0.5 = 1$
 
 But, the spring pulls the mass back with a force which increases the
 further the mass moves away from the point of equilibrium. Therefore the
 masses movement can be described as the product of a constant factor $c$
-&nbsp;and the last position $a1$. This damps the continuous movement of the
+and the last position $a1$. This damps the continuous movement of the
 mass so that for a factor of c=0.4 the next position will be:
 
 $a_2 = (a_1 + (a_1 - a_0)) - c * a_1 = 1 - 0.2 = 0.8$
@@ -220,7 +220,7 @@ models by recording the position of a point (mass) of a physical system.
 The behavior of a particle (mass on a spring, mass of a pendulum, etc.)
 is described by its position, velocity and acceleration. The
 mathematical equations, which describe the movement of such a point, are
-&nbsp;_differential equations_. In what follows, we describe how to derive
+_differential equations_. In what follows, we describe how to derive
 time discrete system equations (also called difference equations) from
 physical models (described by differential equations). At every time
 step we first calculate the acceleration of a mass and then its new
@@ -280,7 +280,7 @@ positions _x_:
 
 Example 1: The acceleration of gravity is constant (_g_ = --9.81ms^-2^).
 For a mass with initial position _x_ = 300m (above ground) and velocity
-&nbsp;_v_ = 70ms^-1^ (upwards) we get the following trajectory (path)
+_v_ = 70ms^-1^ (upwards) we get the following trajectory (path)
 
     g = -9.81; x = 300; v = 70; Table[v += g; x += v, {16}];
 
@@ -586,7 +586,7 @@ oscillator, to the lower left that of the excitation (normalized) and to
 the right the phase diagram of their sum. For these figures, the same
 values were always used for _kfr_, _kmu_ and _kaex_. Comparing the first
 two figures, one sees that the oscillator adopts the exciting frequency
-&nbsp;_kfex_ within a large frequency range. When the frequency is low (figure
+_kfex_ within a large frequency range. When the frequency is low (figure
 a), the phases of the two waves are nearly the same. Hence there is a
 large deflection along the _x_-axis in the phase diagram showing the sum
 of the waveforms. When the frequency is high, the phases are nearly
@@ -782,23 +782,23 @@ available.
 ### wgbow - A Waveguide Emulation of a Bowed String by Perry Cook
 
 Perry Cook is a prolific author of physical models and a lot of his work
-has been converted into Csound opcodes. A number of these models&nbsp;
-[wgbow](https://csound.com/docs/manual/wgbow.html),&nbsp;
-[wgflute](https://csound.com/docs/manual/wgflute.html),&nbsp;
-[wgclar](https://csound.com/docs/manual/wgclar.html)&nbsp;
-[wgbowedbar](https://csound.com/docs/manual/wgbowedbar.html) and&nbsp;
+has been converted into Csound opcodes. A number of these models
+[wgbow](https://csound.com/docs/manual/wgbow.html),
+[wgflute](https://csound.com/docs/manual/wgflute.html),
+[wgclar](https://csound.com/docs/manual/wgclar.html)
+[wgbowedbar](https://csound.com/docs/manual/wgbowedbar.html) and
 [wgbrass](https://csound.com/docs/manual/wgbrass.html) are based on
 waveguides. A waveguide, in its broadest sense, is some sort of
 mechanism that limits the extend of oscillations, such as a vibrating
 string fixed at both ends or a pipe. In these sorts of physical model a
-delay is used to emulate these limits. One of these,&nbsp;
+delay is used to emulate these limits. One of these,
 [wgbow](https://csound.com/docs/manual/wgbow.html), implements an
 emulation of a bowed string. Perhaps the most interesting aspect of many
 physical models in not specifically whether they emulate the target
 instrument played in a conventional way accurately but the facilities
 they provide for extending the physical limits of the instrument and how
 it is played - there are already vast sample libraries and software
-samplers for emulating conventional instruments played conventionally.&nbsp;
+samplers for emulating conventional instruments played conventionally.
 [wgbow](https://csound.com/docs/manual/wgbow.html) offers several
 interesting options for experimentation including the ability to
 modulate the bow pressure and the bowing position at k-rate. Varying bow
@@ -889,7 +889,7 @@ octave, vary their _bowing position_ randomly and independently. You
 will hear how different bowing positions accentuates and attenuates
 different partials of the bowing tone. To enhance the sound produced
 some filtering with [tone](https://csound.com/docs/manual/tone.html)
-&nbsp;and [pareq](https://csound.com/docs/manual/pareq.html) is employed
+and [pareq](https://csound.com/docs/manual/pareq.html) is employed
 and some reverb is added.
 
 #### **_EXAMPLE 04G10_wgbow_enhanced.csd_**
@@ -954,7 +954,7 @@ i 2 0 480
 All of the wg- family of opcodes are worth exploring and often the
 approach taken here - exploring each input parameter in isolation whilst
 the others retain constant values - sets the path to understanding the
-model better. Tone production with&nbsp;
+model better. Tone production with
 [wgbrass](https://csound.com/docs/manual/wgbrass.html) is very much
 dependent upon the relationship between intended pitch and lip tension,
 random experimentation with this opcode is as likely to result in
@@ -963,7 +963,7 @@ experience of learning a brass instrument when the student spends most
 time push air silently through the instrument. With patience it is
 capable of some interesting sounds however. In its case, I would
 recommend building a realtime GUI and exploring the interaction of its
-input arguments that way.&nbsp;
+input arguments that way.
 [wgbowedbar](https://csound.com/docs/manual/wgbowedbar.html), like a
 number of physical modelling algorithms, is rather unstable. This is not
 necessary a design flaw in the algorithm but instead perhaps an
@@ -972,7 +972,7 @@ experimentation - or abuse. In these situation caution is advised in
 order to protect ears and loudspeakers. Positive feedback within the
 model can result in signals of enormous amplitude very quickly.
 Employment of the [clip](https://csound.com/docs/manual/clip.html)
-&nbsp;opcode as a means of some protection is recommended when experimenting
+opcode as a means of some protection is recommended when experimenting
 in realtime.
 
 ### barmodel - a Model of a Struck Metal Bar by Stefan Bilbao
@@ -983,7 +983,7 @@ objects. [barmodel](https://csound.com/docs/manual/barmodel.html) is
 a model that can easily be abused to produce ear shreddingly loud sounds
 therefore precautions are advised when experimenting with it in
 realtime. We are presented with a wealth of input arguments such as
-&nbsp;_stiffness_, _strike position_ and _strike velocity_, which relate
+_stiffness_, _strike position_ and _strike velocity_, which relate
 in an easily understandable way to the physical process we are
 emulating. Some parameters will evidently have more of a dramatic effect
 on the sound produced than other and again it is recommended to create a
@@ -1100,7 +1100,7 @@ e
 
 The PhiSEM set of models in Csound, again based on the work of Perry
 Cook, imitate instruments that rely on collisions between smaller sound
-producing object to produce their sounds. These models include a&nbsp;
+producing object to produce their sounds. These models include a
 [tambourine](https://csound.com/docs/manual/tambourine.html), a set
 of [bamboo](https://csound.com/docs/manual/bamboo.html) windchimes
 and [sleighbells.](https://csound.com/docs/manual/sleighbells.html).
@@ -1111,9 +1111,9 @@ Once again the most interesting aspect of working with a model is to
 stretch the physical limits so that we can hear the results from, for
 example, a maraca with an impossible number of beans, a tambourine with
 so little internal damping that it never decays. In the following
-example I explore&nbsp;
-[tambourine](https://csound.com/docs/manual/tambourine.html),&nbsp;
-[bamboo](https://csound.com/docs/manual/bamboo.html) and&nbsp;
+example I explore
+[tambourine](https://csound.com/docs/manual/tambourine.html),
+[bamboo](https://csound.com/docs/manual/bamboo.html) and
 [sleighbells](https://csound.com/docs/manual/sleighbells.html) each
 in turn, first in a state that mimics the source instrument and then
 with some more extreme conditions.
@@ -1226,8 +1226,8 @@ manipulation usually abstracted to a small number of descriptive
 parameters. Csound offers a wealth of other opcodes for physical
 modelling which cannot all be introduced here so the user is encouraged
 to explore based on the approaches exemplified here. You can find lists
-in the chapters&nbsp;
-[Models and Emulations](https://csound.com/docs/manual/SiggenModels.html),&nbsp;
-[Scanned Synthesis](https://csound.com/docs/manual/SiggenScanTop.html) and&nbsp;
-[Waveguide Physical Modeling](https://csound.com/docs/manual/SiggenWavguide.html) of the&nbsp;
+in the chapters
+[Models and Emulations](https://csound.com/docs/manual/SiggenModels.html),
+[Scanned Synthesis](https://csound.com/docs/manual/SiggenScanTop.html) and
+[Waveguide Physical Modeling](https://csound.com/docs/manual/SiggenWavguide.html) of the
 [Csound Manual](https://csound.com/docs/manual/index.html).

@@ -38,12 +38,12 @@ command line flags can be manipulated in a familiar format usually in
 _settings_ or _preferences_ menu. Adding flags here will have the
 same effect as adding them as part of the Csound command. To learn more
 about Csound\'s command line flags it is best to start on the page in
-the reference manual where they are listed and described&nbsp;
+the reference manual where they are listed and described
 [by category](https://csound.com/docs/manual/CommandFlagsCategory.html).
 
 Command line flags can also be defined within the \<CsOptions\> ...
 \</CsOptions\> part of a _.csd_ file and also in a file called _.csoundrc_
-&nbsp;which can be located in the Csound home program directory and/or in the
+which can be located in the Csound home program directory and/or in the
 current working directory. Having all these different options for where
 esentially the same information is stored might seem excessive but it is
 really just to allow flexibiliy in how users can make changes to how

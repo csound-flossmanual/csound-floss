@@ -17,8 +17,8 @@ As such it is impossible to specifically define its function here. An
 Arduino is normally programmed using its own development environment
 (IDE). A program is written on a computer which is then uploaded to the
 Arduino; the Arduino then runs this program, independent of the computer
-if necessary. Arduino's IDE is based on that used by&nbsp;
-[Processing](https://processing.org) and&nbsp;
+if necessary. Arduino's IDE is based on that used by
+[Processing](https://processing.org) and
 [Wiring](http://wiring.org.co). Arduino programs are often
 referred to as _sketches_. There now exists a plethora of Arduino
 variants and even a number of derivatives and clones but all function in
@@ -46,13 +46,13 @@ First we will consider communication between an Arduino (running a
 Standard Firmata) and Pd. Later we can consider the options for further
 communication from Pd to Csound.
 
-Assuming that the&nbsp;
+Assuming that the
 [Arduino IDE](https://www.arduino.cc/en/main/software) (integrated
 development environment) has been installed and that the Arduino has
 been connected, we should then open and upload a Firmata sketch. One can
 normally be found by going to _File -> Examples -> Firmata -> ..._
 There will be a variety of flavours from which to choose but
-&nbsp;_StandardFirmata_ should be a good place to start. Choose the
+_StandardFirmata_ should be a good place to start. Choose the
 appropriate Arduino board type under _Tools -> Board -> ..._ and then
 choose the relevant serial port under _Tools -> Serial Port -> ..._
 Choosing the appropriate serial port may require some trial and error
@@ -74,7 +74,7 @@ objects for communicating with your Arduino. The Pduino download will
 also have included a number of examples Pd. _arduino-test.pd_ will
 probably be the best patch to start. First set the appropriate serial
 port number to establish communication and then set Arduino pins as
-&nbsp;_input_, _output_ etc. as you desire. It is beyond the scope of this
+_input_, _output_ etc. as you desire. It is beyond the scope of this
 chapter to go into further detail regarding setting up an Arduino with
 sensors and auxiliary components, suffice to say that communication to
 an Arduino is normally tested by _blinking_ digital pin 13 and
@@ -186,14 +186,14 @@ any data within Processing can be passed to Csound using OSC.
 
 The following method makes use of
 the [Arduino](http://playground.arduino.cc/interfacing/processing)
-&nbsp;and [P5](http://www.sojamo.de/libraries/controlP5) (glove)
+and [P5](http://www.sojamo.de/libraries/controlP5) (glove)
 libraries for processing. Again these need to be copied into the
 appropriate directory for your chosen platform in order for Processing
 to be able to use them. Once again there is no requirement to actually
 know very much about Processing beyond installing it and running a patch
 (sketch).
 The following [sketch](../resources/SourceMaterials/AllArduinoInputsToOSC.pde)
-&nbsp;will read all Arduino inputs and output them as OSC.
+will read all Arduino inputs and output them as OSC.
 
 ![](../resources/images/08-b-arduinoprocessing.png)
 
@@ -204,7 +204,7 @@ Arduino and transmitting this as OSC data within the computer.
 The OSC data sent by Processing can be read by Csound using its own OSC
 opcodes. The following example simply reads in data transmitted by
 Arduino's analog pin 0 and prints changed values to the terminal. To
-read in data from all analog and digital inputs you can use Iain McCurdy's&nbsp;
+read in data from all analog and digital inputs you can use Iain McCurdy's
 [Arduino_Processing_OSC_Csound.csd](../resources/SourceMaterials/Arduino_Processing_OSC_Csound.csd).
 
 #### **_EXAMPLE 08B02_Processing_to_Csound.csd_**
@@ -292,16 +292,16 @@ pin 0 could be done using the following code:
       delay(10);
     }
 
-Data from the Arduino can now be read using Csound's&nbsp;
+Data from the Arduino can now be read using Csound's
 [ctrl7](https://csound.com/docs/manual/ctrl7.html) opcodes
 for reading MIDI controller data.
 
 ## The Serial Opcodes
 
 Serial data can also be read directly from the Arduino by Csound by
-using Matt Ingalls' opcodes for serial communication:&nbsp;
+using Matt Ingalls' opcodes for serial communication:
 [serialBegin](https://csound.com/docs/manual/serialBegin.html)
-&nbsp;and&nbsp;
+and
 [serialRead.](https://csound.com/docs/manual/serialRead.html)
 
 An example Arduino sketch for serial communication could be as simple as
@@ -567,6 +567,6 @@ mouse connected to the computer or keystrokes on a keyboard. Csound is
 already equipped with opcodes to make use of this data. Gamepad-like
 data is perhaps the most useful option though and there exist opcodes
 (at least in the Linux version) for reading gamepad data. It is also
-possible to read in data from a gamepad using&nbsp;
+possible to read in data from a gamepad using
 [pygame](http://www.pygame.org/news.html) and Csound's python
 opcodes.

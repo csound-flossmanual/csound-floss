@@ -123,7 +123,7 @@ Csound. By historical reason,^[As Richard Boulanger explains,
 in early Csound a line starting with *c* was a comment line.
 So it was not possible to abbreviate control variables as cAnything
 (http://csound.1045644.n5.nabble.com/OT-why-is-control-rate-called-kontrol-rate-td5720858.html\#a5720866).]
-&nbsp;it is called _kontrol rate_ instead
+it is called _kontrol rate_ instead
 of control rate, and abbreviated as _kr_ instead of cr. Each of the
 calculation cycles is called a _k-cycle_. The block size or vector
 size is given by the _ksmps_ parameter, which means: how many samples
@@ -183,7 +183,7 @@ value from 4410 to 8820 and to 2205 and observe the difference.
 
 The next example reads the incrementation of _kCount_ as rising
 frequency. The first instrument, called Rise, sets the k-rate frequency
-&nbsp;_kFreq_ to the initial value of 100 Hz, and then adds 10 Hz in every new
+_kFreq_ to the initial value of 100 Hz, and then adds 10 Hz in every new
 k-cycle. As ksmps=441, one k-cycle takes 1/100 second to perform. So in
 3 seconds, the frequency rises from 100 to 3100 Hz. At the last k-cycle,
 the final frequency value is printed out.^[The value is 3110 instead of
@@ -1018,17 +1018,17 @@ you have an additional parameter in printk, telling Csound how often you
 want to print out the k-values.)
 
 So, some opcodes are just for i-rate variables,
-like [filelen](http://csound.com/docs/manual/filelen.html) or&nbsp;
+like [filelen](http://csound.com/docs/manual/filelen.html) or
 [ftgen](http://csound.com/docs/manual/ftgen.html). Others
 are just for k-rate variables
-like [metro](http://csound.com/docs/manual/metro.html) or&nbsp;
+like [metro](http://csound.com/docs/manual/metro.html) or
 [max_k](http://csound.com/docs/manual/max_k.html). Many
 opcodes have variants for either i-rate-variables or k-rate-variables,
-like [printf_i](http://csound.com/docs/manual/printf.html)&nbsp;
-and [printf](http://csound.com/docs/manual/printf.html),&nbsp;
-[sprintf](http://csound.com/docs/manual/sprintf.html) and&nbsp;
-[sprintfk](http://csound.com/docs/manual/sprintf.html),&nbsp;
-[strindex](http://csound.com/docs/manual/strindex.html) and&nbsp;
+like [printf_i](http://csound.com/docs/manual/printf.html)
+and [printf](http://csound.com/docs/manual/printf.html),
+[sprintf](http://csound.com/docs/manual/sprintf.html) and
+[sprintfk](http://csound.com/docs/manual/sprintf.html),
+[strindex](http://csound.com/docs/manual/strindex.html) and
 [strindexk](http://csound.com/docs/manual/strindexk.html).
 
 Most of the Csound opcodes are able to work either at i-time or at
@@ -1050,7 +1050,7 @@ If you use the k-rate random generator, you will get one new value on
 every control cycle. If your sample rate is 44100 and your ksmps=10, you
 will get 4410 new values per second! If you take this as pitch value for
 a note, you will hear nothing but a noisy jumping. If you want to have a
-moving pitch, you can use the&nbsp;
+moving pitch, you can use the
 [randomi](http://csound.com/docs/manual/randomi.html) variant
 of the k-rate random generator, which can reduce the number of
 new values per second, and interpolate between them.

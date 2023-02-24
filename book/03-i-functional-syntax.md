@@ -158,7 +158,7 @@ for a more thorough explanation.]
 Let us assume we want to change the highest frequency in our example
 from 800 to a random value between 700 and 1400 Hz, so that we hear a
 different movement for each tone. In this case, we can simply write
-&nbsp;_random(700, 1400)_:
+_random(700, 1400)_:
 
 #### **_EXAMPLE 03I04_functional_syntax_rate_1.csd_**
 
@@ -190,7 +190,7 @@ i 1 0 3
 But why is the _random_ opcode here performing at i-rate, and not at k- or a-rate? This is, so to say,
 pure random --- it happens because in the Csound soruces the i-rate variant of this opcode is written
 first.^[See <https://github.com/csound/csound/blob/develop/Opcodes/uggab.c>, line 2085]
-&nbsp;If the k-rate variant were first, the above code failed.
+If the k-rate variant were first, the above code failed.
 
 So it is both, clearer and actually required, to explicitly declare at which rate a function is to be performed.
 This code claims that _poscil_ runs at a-rate, _linseg_ and _expseg_ run at k-rate, and _random_ runs at i-rate here:

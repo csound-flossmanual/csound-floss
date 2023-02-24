@@ -40,7 +40,7 @@ An array can be created by different methods:
 - with the [init](https://csound.com/docs/manual/init.html) opcode,
 - with [fillarray](https://csound.com/docs/manual/fillarray.html),
 - with [genarray](https://csound.com/docs/manual/fillarray.html),
-- as a copy of an already existing array with the&nbsp;
+- as a copy of an already existing array with the
   [=](https://csound.com/docs/manual/assign.html) operator,
 - implicit as result of some opcodes, e.g. _diskin_.
 
@@ -161,8 +161,8 @@ the third array _aRead_C_ will have four elements (as the audio file is quadro).
     aRead_C[] diskin "quadro.wav"
 
 Other opcodes which return arrays as output
-are [vbap](https://csound.com/docs/manual/vbap.html),&nbsp;
-[bformdec1](https://csound.com/docs/manual/bformdec1.html),&nbsp;
+are [vbap](https://csound.com/docs/manual/vbap.html),
+[bformdec1](https://csound.com/docs/manual/bformdec1.html),
 [loscilx](https://csound.com/docs/manual/loscilx.html) for audio arrays,
 and [directory](https://csound.com/docs/manual/directory.html) for string arrays.
 
@@ -519,7 +519,7 @@ be used to report this.
 
 #### _minarray_, _maxarray_ — Smallest/Largest Element
 
-The opcodes [minarray](https://csound.com/docs/manual/minarray.html) and&nbsp;
+The opcodes [minarray](https://csound.com/docs/manual/minarray.html) and
 [maxarray](https://csound.com/docs/manual/maxarray.html) return the
 smallest or largest element of a numerical array:
 
@@ -612,8 +612,8 @@ Optional a range of the array can be selected for the operation; in this example
 
 #### _sorta_/_sortd_ — Sort in Ascending/Descending Order
 
-The opcodes [sorta](https://csound.com/docs/manual/sorta.html)&nbsp;
-and [sortd](https://csound.com/docs/manual/sortd.html)&nbsp;
+The opcodes [sorta](https://csound.com/docs/manual/sorta.html)
+and [sortd](https://csound.com/docs/manual/sortd.html)
 return an array in which the elements of the input array are sorted
 in ascending or descending order. The input array is left untouched.
 
@@ -708,7 +708,7 @@ An optional argument defines the increment which is one by default:
 
 #### _trim_/_trim_i_ — Lengthen or Shorten Array
 
-Arrays have a fixed length, and it may be needed to shorten or lengthen it.&nbsp;
+Arrays have a fixed length, and it may be needed to shorten or lengthen it.
 [trim_i](https://csound.com/docs/manual/trim.html) works for any array at i-rate:
 
     iArr[] fillarray  1, 3, 9, 5, 6, -1, 17
@@ -830,7 +830,7 @@ The data of an f-signal — containing the result of a
 Fast Fourier Transform — can be copied into an array with the
 opcode [pvs2array](https://csound.com/docs/manual/pvs2tab.html).
 The counterpart [pvsfromarray](https://csound.com/docs/manual/tab2pvs.html)
-&nbsp;copies the content of an array to a f-signal.
+copies the content of an array to a f-signal.
 
     kFrame  pvs2array    kArr, fSigIn ;from f-signal fSig to array kArr
     fSigOut pvsfromarray kArr [,ihopsize, iwinsize, iwintype]
@@ -940,9 +940,9 @@ This is the printout:
 
 #### _getrow_/_getcol_ — Get Row/Column from a 2D Array
 
-The opcodes [getrow](https://csound.com/docs/manual/getrow.html)&nbsp;
+The opcodes [getrow](https://csound.com/docs/manual/getrow.html)
 and [getcol](https://csound.com/docs/manual/getcol.html)
-&nbsp;return the content of a 2D array's row or column as a 1D array:
+return the content of a 2D array's row or column as a 1D array:
 
     iArr[][] init 3, 4
     iArr fillarray 1,2,3,4,5,6,7,8,9,10,11,12
@@ -965,9 +965,9 @@ Prints:
 
 #### _setrow_/_setcol_ - Set Row/Column of a 2D Array
 
-The opcodes [setrow](https://csound.com/docs/manual/setrow.html)&nbsp;
+The opcodes [setrow](https://csound.com/docs/manual/setrow.html)
 and [setcol](https://csound.com/docs/manual/setcol.html)
-&nbsp;assign a 1D array as row or column of a 2D array:
+assign a 1D array as row or column of a 2D array:
 
     iArr[][] init 3, 4
     printarray iArr, "%d", "2D array empty:"
@@ -1018,9 +1018,9 @@ The 0.5th row means an interpolation between first and second row, so this is th
 
 #### Arithmetic Operators
 
-The four basic operators [+](https://csound.com/docs/manual/adds.html),&nbsp;
-[-](https://csound.com/docs/manual/subtracts.html),&nbsp;
-[\*](https://csound.com/docs/manual/subtracts.html) and&nbsp;
+The four basic operators [+](https://csound.com/docs/manual/adds.html),
+[-](https://csound.com/docs/manual/subtracts.html),
+[\*](https://csound.com/docs/manual/subtracts.html) and
 [/](https://csound.com/docs/manual/divides.html) can directly be applied to an array,
 either with a scalar or a second array as argument.
 

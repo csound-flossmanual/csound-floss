@@ -45,10 +45,10 @@ because you must initially reserve some space in memory for it.
 Each creation of a function table in Csound is performed by one of
 the **GEN Routines**. Each GEN Routine generates a function table in a
 particular way: [GEN01](http://www.csound.com/docs/manual/GEN01.html)
-&nbsp;transfers audio samples from a soundfile into a table,
-&nbsp;[GEN02](http://www.csound.com/docs/manual/GEN02.html) stores values we
+transfers audio samples from a soundfile into a table,
+[GEN02](http://www.csound.com/docs/manual/GEN02.html) stores values we
 define explicitly one by one,
-&nbsp;[GEN10](http://www.csound.com/docs/manual/GEN10.html) calculates a
+[GEN10](http://www.csound.com/docs/manual/GEN10.html) calculates a
 waveform using user-defined weightings of harmonically related
 sinusoids, [GEN20](http://www.csound.com/docs/manual/GEN20.html) generates
 window functions typically used for granular synthesis, and so on.
@@ -553,7 +553,7 @@ As you see, this typical case of writing k-values to a table requires a
 changing value for the index, otherwise tablew will continually
 overwrite at the same table location. This changing value can be created
 using the [line](http://www.csound.com/docs/manual/line.html) or
-&nbsp;[linseg](http://www.csound.com/docs/manual/linseg.html) opcodes - as
+[linseg](http://www.csound.com/docs/manual/linseg.html) opcodes - as
 was done here - or by using
 a [phasor](http://www.csound.com/docs/manual/phasor.html).
 A phasor moves continuously from 0 to 1 at a user-defined frequency.
@@ -695,10 +695,10 @@ As table reading often requires interpolation between the table values -
 for instance if you read k- or a-values faster or slower than they have
 been written in the table - Csound offers two descendants of table for
 interpolation: [tablei](http://www.csound.com/docs/manual/tablei.html)
-&nbsp;interpolates linearly, whilst&nbsp;
+interpolates linearly, whilst
 [table3](http://www.csound.com/docs/manual/table3.html) performs cubic
 interpolation (which is generally preferable but is computationally
-slightly more expensive) and when CPU cycles are no object,&nbsp;
+slightly more expensive) and when CPU cycles are no object,
 [tablexkt](http://www.csound.com/docs/manual/tablexkt.html) can be used
 for ultimate interpolating quality.^[For a general introduction
 about interpolation, see for instance
@@ -721,7 +721,7 @@ You should bear in mind that some of the oscillators in Csound might work
 only with power-of-two table sizes.
 The [poscil](http://www.csound.com/docs/manual/poscil.html)/
 [poscil3](http://www.csound.com/docs/manual/poscil3.html)
-&nbsp;opcodes do not have this restriction and offer a high precision, because
+opcodes do not have this restriction and offer a high precision, because
 they work with floating point indices, so in general it is recommended
 to use them. Below is an example that demonstrates both reading a k-rate
 and an a-rate signal from a buffer
@@ -865,10 +865,10 @@ i 3 1 .1
 ;example by joachim heintz
 ```
 
-The counterpart to _ftsave_/_ftsavek_ are the&nbsp;
+The counterpart to _ftsave_/_ftsavek_ are the
 [ftload](http://www.csound.com/docs/manual/ftload.html)/
 [ftloadk](http://www.csound.com/docs/manual/ftloadk.html)
-&nbsp;opcodes. You can use them to load the saved files into function tables.
+opcodes. You can use them to load the saved files into function tables.
 
 ### Writing a Soundfile from a Recorded Function Table
 
@@ -936,10 +936,10 @@ i 2 7 0
 
 ### Other GEN Routine Highlights
 
-[GEN05](https://csound.com/docs/manual/GEN05.html),&nbsp;
-[GEN07](https://csound.com/docs/manual/GEN07.html),&nbsp;
-[GEN25](https://csound.com/docs/manual/GEN25.html),&nbsp;
-[GEN27](https://csound.com/docs/manual/GEN27.html) and&nbsp;
+[GEN05](https://csound.com/docs/manual/GEN05.html),
+[GEN07](https://csound.com/docs/manual/GEN07.html),
+[GEN25](https://csound.com/docs/manual/GEN25.html),
+[GEN27](https://csound.com/docs/manual/GEN27.html) and
 [GEN16](https://csound.com/docs/manual/GEN16.html) are useful for
 creating envelopes. GEN07 and GEN27 create functions table in the manner
 of the [linseg](https://csound.com/docs/manual/linseg.html) opcode -
@@ -950,8 +950,8 @@ that envelope segments are exponential in shape. GEN16 also create an
 envelope in breakpoint fashion but it allows the user to specify the
 curvature of each segment individually (concave - straight - convex).
 
-[GEN17](https://csound.com/docs/manual/GEN17.html),&nbsp;
-[GEN41](https://csound.com/docs/manual/GEN41.html) and&nbsp;
+[GEN17](https://csound.com/docs/manual/GEN17.html),
+[GEN41](https://csound.com/docs/manual/GEN41.html) and
 [GEN42](https://csound.com/docs/manual/GEN42.html) are used the
 generate histogram-type functions which may prove useful in algorithmic
 composition and work with probabilities.
@@ -963,7 +963,7 @@ in additive synthesis.
 
 [GEN11](https://csound.com/docs/manual/GEN11.html) is a GEN routine
 version of the [gbuzz](https://csound.com/docs/manual/gbuzz.html)
-&nbsp;opcode and as it is a fixed waveform (unlike gbuzz) it can be a useful
+opcode and as it is a fixed waveform (unlike gbuzz) it can be a useful
 and efficient sound source in subtractive synthesis.
 
 ## GEN08

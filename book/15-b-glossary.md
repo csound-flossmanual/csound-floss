@@ -19,13 +19,13 @@ of [ksmps](https://csound.com/docs/manual/ksmps.html): The number of samples in 
 performance of an instrument, in which all k- and a-variables are
 renewed. The time for one control cycle is measured in samples and
 determined by the [ksmps](https://csound.com/docs/manual/ksmps.html)
-&nbsp;constant in the orchestra header. For a sample rate of 44100 Hz and a
+constant in the orchestra header. For a sample rate of 44100 Hz and a
 ksmps value of 32, the time for one control cycle is 32/44100 = 0.000726
-seconds. See the chapter about&nbsp;
+seconds. See the chapter about
 [Initialization And Performance Pass](03-a-initialization-and-performance-pass.md) for a detailed discussion.
 
 **control rate** or **k-rate**
-&nbsp;([kr](https://csound.com/docs/manual/kr.html)) is the number of
+([kr](https://csound.com/docs/manual/kr.html)) is the number of
 control cycles per second. It can be calculated as the relationship of
 the sample rate [sr](https://csound.com/docs/manual/sr.html) and the
 number of samples in one control period [ksmps](https://csound.com/docs/manual/ksmps.html).
@@ -65,8 +65,8 @@ See the [functional syntax](03-i-functional-syntax.md) chapter for more informat
 audio programming languages).
 GEN Routines are very different; they can load a sound file (GEN01),
 create segmented lines (GEN05 and others), composite waveforms (GEN10 and others),
-window functions (GEN20) or random distributions (GEN40). See the chapter about&nbsp;
-[function tables](03-d-function-tables.md) and the&nbsp;
+window functions (GEN20) or random distributions (GEN40). See the chapter about
+[function tables](03-d-function-tables.md) and the
 [Gen Routines Overview](https://csound.com/docs/manual/ScoreGenRef.html) in the Csound Manual.
 
 **GUI** Graphical User Interface refers to a system of on-screen
@@ -74,14 +74,14 @@ sliders, buttons etc. used to interact with Csound, normally in
 real-time.
 
 **i-time** or **init-time** or **i-rate** denotes the moment in which an instrument instance is initialized. In this initialization all variables starting with an \"i\" get their values. These values are
-just given once for an instrument call. See the chapter about&nbsp;
+just given once for an instrument call. See the chapter about
 [Initialization And Performance Pass](03-a-initialization-and-performance-pass.md) for more information.
 
 **k-loop** see **control cycle**
 
 **k-time** is the time during the performance of an instrument, after
 the initialization. Variables starting with a \"k\" can alter their
-values in each control cycle. See the chapter about&nbsp;
+values in each control cycle. See the chapter about
 [Initialization And Performance Pass](03-a-initialization-and-performance-pass.md) for more information.
 
 **k-rate** see **control rate**
@@ -126,13 +126,13 @@ See the [score chapter](14-a-methods-of-writing-csound-scores.md) for more infor
 **time domain** means to look at a signal considering the changes of amplitudes over time.
 It is the common way to plot audio signals (time as x-axis, amplitudes as y-axis).
 
-**time stretching** can be done in various ways in Csound. See&nbsp;
-[filescal](https://csound.com/docs/manual/filescal.html),&nbsp;
-[sndwarp](https://csound.com/docs/manual/sndwarp.html),&nbsp;
-[waveset](https://csound.com/docs/manual/waveset.html),&nbsp;
-[pvstanal](https://csound.com/docs/manual/pvstanal.html),&nbsp;
-[mincer](https://csound.com/docs/manual/mincer.html),&nbsp;
-[pvsfread](https://csound.com/docs/manual/pvsfread.html),&nbsp;
+**time stretching** can be done in various ways in Csound. See
+[filescal](https://csound.com/docs/manual/filescal.html),
+[sndwarp](https://csound.com/docs/manual/sndwarp.html),
+[waveset](https://csound.com/docs/manual/waveset.html),
+[pvstanal](https://csound.com/docs/manual/pvstanal.html),
+[mincer](https://csound.com/docs/manual/mincer.html),
+[pvsfread](https://csound.com/docs/manual/pvsfread.html),
 [pvsdiskin](https://csound.com/docs/manual/pvsdiskin.html) and the
 Granular Synthesis opcodes.
 

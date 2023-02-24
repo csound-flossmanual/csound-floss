@@ -33,7 +33,7 @@ waveshaping from first principles as Csound code is fairly
 straightforward. The x-axis is the amplitude of every single sample,
 which is in the range of -1 to +1. This number has to be used as index
 to a table which stores the transfer function. To create a table like
-the one above, you can use Csound's sub-routine&nbsp;
+the one above, you can use Csound's sub-routine
 [GEN07](https://csound.com/docs/manual/GEN07.html).
 This statement will create a table of 4096 points with the desired shape:
 
@@ -57,8 +57,8 @@ encoded in a 32-bit floating point number in standard audio applications
 - or even in a 64-bit float in Csound. A table with 4096 points
   results in a 12-bit number, so you will have a serious loss of accuracy
   (= sound quality) if you use the table values directly. Here, the
-  solution is to use an interpolating table reader. The opcode&nbsp;
-  [tablei](https://csound.com/docs/manual/tablei.html) (instead of&nbsp;
+  solution is to use an interpolating table reader. The opcode
+  [tablei](https://csound.com/docs/manual/tablei.html) (instead of
   [table](https://csound.com/docs/manual/table.html)) does this job.
   This opcode then needs an extra point in the table for interpolating, so
   we give 4097 as the table size instead of 4096.
@@ -102,7 +102,7 @@ i 1 0 10
 ## Powershape
 
 The [powershape](https://csound.com/docs/manual/powershape.html)
-&nbsp;opcode performs waveshaping by simply raising all samples to the power
+opcode performs waveshaping by simply raising all samples to the power
 of a user given exponent. Its main innovation is that the polarity of
 samples within the negative domain will be retained. It simply performs
 the power function on absolute values (negative values made positive)
@@ -208,7 +208,7 @@ input argument and this provides dynamic control of the waveshaping
 transformation. The result of using compression means that spectrally
 the results are better behaved than is typical with waveshaping. A
 common transfer function would be the hyperbolic tangent (tanh)
-function. Csound possesses an GEN routine&nbsp;
+function. Csound possesses an GEN routine
 [GENtanh](https://csound.com/docs/manual/GENtanh.html) for the
 creation of tanh functions:
 

@@ -37,7 +37,7 @@ that will be passed to most Csound API functions.
 Then we compile the orc/sco files or the csd file given as input arguments through
 the argv parameter of the main function.
 If the compilation is successful (result == 0), we call the `csoundPerform()` function.
-&nbsp;`csoundPerform()` will cause Csound to perform until the end of the score is reached.
+`csoundPerform()` will cause Csound to perform until the end of the score is reached.
 When this happens `csoundPerform()` returns a non-zero value and
 we destroy our instance before ending the program.
 
@@ -569,7 +569,7 @@ and the `CsoundPerformanceThread` class as well (see below).
 
 Here is a more complete example which could be the base of a frontal application to run Csound.
 The host application is modeled through the `CsoundSession` class which has its own event loop (mainLoop).
-&nbsp;`CsoundSession` inherits from the API `Csound` class and
+`CsoundSession` inherits from the API `Csound` class and
 it embeds an object of type `CsoundPerformanceThread`.
 Most of the `CsoundPerformanceThread` class methods are used.
 
@@ -1109,7 +1109,7 @@ the helper functions needed to adapt the foreign language data structures to the
 
 [ctcsound Docs](https://csound.com/docs/ctcsound)
 
-Rory Walsh 2006, Developing standalone applications using the Csound Host API and wxWidgets,&nbsp;
+Rory Walsh 2006, Developing standalone applications using the Csound Host API and wxWidgets,
 [Csound Journal Volume 1 Issue 4 - Summer 2006](http://csoundjournal.com/2006summer/wxCsound.html)
 
 Rory Walsh 2010, Developing Audio Software with the Csound Host API,

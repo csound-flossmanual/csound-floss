@@ -13,7 +13,7 @@ to desired initial locations.
 
 ## Initiating Realtime MIDI Output
 
-The command line flag for realtime midi output is&nbsp;
+The command line flag for realtime midi output is
 [-Q](https://csound.com/docs/manual/CommandFlags.html#FlagsMinusUpperQ).
 Just as when
 setting up an audio input or output device or a midi input device we
@@ -304,7 +304,7 @@ between notes.
 slightly different way and allows us to explicitly define note durations
 as well as the pauses between notes thereby permitting the generation of
 more staccato melodic lines. Like _midion_ and _midion2_, _moscil_
-&nbsp;will not generate overlapping notes (unless two or more instances of it
+will not generate overlapping notes (unless two or more instances of it
 are concurrent). The next example algorithmically generates a melodic
 line using _moscil_.
 

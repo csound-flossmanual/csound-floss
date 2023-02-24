@@ -22,17 +22,17 @@ The first example represents perhaps the classic idea of subtractive
 synthesis: a simple two oscillator synth filtered using a single
 resonant lowpass filter. Many of the ideas used in this example have
 been inspired by the design of the [Minimoog](http://en.wikipedia.org/wiki/Minimoog)
-&nbsp;synthesizer (1970) and other similar instruments.
+synthesizer (1970) and other similar instruments.
 
-Each oscillator can describe either a sawtooth,&nbsp;
+Each oscillator can describe either a sawtooth,
 [PWM](https://en.wikipedia.org/wiki/Pulse-width_modulation) waveform (i.e.
 square - pulse etc.) or white noise and each oscillator can be
 transposed in octaves or in cents with respect to a fundamental pitch.
 The two oscillators are mixed and then passed through a 4-pole / 24dB
-per octave resonant lowpass filter. The opcode&nbsp;
+per octave resonant lowpass filter. The opcode
 [moogladder](http://www.csound.com/docs/manual/moogladder.html) is
 chosen on account of its authentic vintage character. The cutoff
-frequency of the filter is modulated using an&nbsp;
+frequency of the filter is modulated using an
 [ADSR](http://en.wikipedia.org/wiki/Synthesizer)-style
 (attack-decay-sustain-release) envelope facilitating the creation of
 dynamic, evolving spectra. Finally the sound output of the filter is
@@ -43,16 +43,16 @@ could be said that white noise offers the richest sound source
 containing, as it does, energy at every frequency. A sine wave would
 offer a very poor source for subtractive synthesis as it contains energy
 at only one frequency. Other Csound opcodes that might provide rich
-sources are the [buzz](http://www.csound.com/docs/manual/buzz.html) and&nbsp;
-[gbuzz](http://www.csound.com/docs/manual/gbuzz.html) opcodes and the&nbsp;
-[GEN09](http://www.csound.com/docs/manual/GEN09.html),&nbsp;
-[GEN10](http://www.csound.com/docs/manual/GEN10.html),&nbsp;
-[GEN11](http://www.csound.com/docs/manual/GEN11.html) and&nbsp;
+sources are the [buzz](http://www.csound.com/docs/manual/buzz.html) and
+[gbuzz](http://www.csound.com/docs/manual/gbuzz.html) opcodes and the
+[GEN09](http://www.csound.com/docs/manual/GEN09.html),
+[GEN10](http://www.csound.com/docs/manual/GEN10.html),
+[GEN11](http://www.csound.com/docs/manual/GEN11.html) and
 [GEN19](http://www.csound.com/docs/manual/GEN19.html) GEN routines.
 
 As this instrument is suggestive of a performance instrument controlled
 via MIDI, this has been partially implemented. Through the use of
-Csound's MIDI interoperability opcode,&nbsp;
+Csound's MIDI interoperability opcode,
 [mididefault](http://www.csound.com/docs/manual/mididefault.html), the
 instrument can be operated from the score or from a MIDI keyboard. If a
 MIDI note is received, suitable default p-field values are substituted
@@ -216,9 +216,9 @@ narrowed to the point where almost pure tones are audible. The crucial
 difference is that the noise source always induces instability in the
 amplitude and frequency of tones produced - it is this quality that
 makes this sort of subtractive synthesis sound much more organic than a simple
-additive synthesis equivalent.^[It has been shown in the&nbsp;
+additive synthesis equivalent.^[It has been shown in the
 [chapter about additive synthesis](04-a-additive-synthesis.md)
-&nbsp;how this quality can be applied to additive synthesis by
+how this quality can be applied to additive synthesis by
 slight random deviations.] If the bandwidths are widened, then more
 of the characteristic of the noise source comes through and the tone
 becomes _airier_ and less distinct; if the bandwidths are narrowed,
@@ -232,22 +232,22 @@ resonate as their bandwidth narrows. Another reason for this choice is
 the relative CPU economy of the reson filter, a not insignificant
 concern as so many of them are used. The frequency ratios between the 22
 parallel filters are derived from analysis of a hand bell, the data was
-found in the appendix of the Csound manual&nbsp;
+found in the appendix of the Csound manual
 [here](http://www.csound.com/docs/manual/MiscModalFreq.html). Obviously
 with so much repetition of similar code, some sort of abstraction would
 be a good idea (perhaps through a UDO or by using a macro), but here,
 and for the sake of clarity, it is left unabstracted.
 
 In addition to the white noise as a source, noise impulses are also used
-as a sound source (via the&nbsp;
+as a sound source (via the
 [mpulse](http://www.csound.com/docs/manual/mpulse.html) opcode).
 The instrument will automatically and randomly slowly crossfade between
 these two sound sources.
 
 A lowpass and highpass filter are inserted in series before the parallel
 bandpass filters to shape the frequency spectrum of the source sound.
-Csound's butterworth filters&nbsp;
-[butlp](http://www.csound.com/docs/manual/butterlp.html) and&nbsp;
+Csound's butterworth filters
+[butlp](http://www.csound.com/docs/manual/butterlp.html) and
 [buthp](http://www.csound.com/docs/manual/butterhp.html) are chosen for
 this task on account of their steep cutoff slopes and minimal ripple at
 the cutoff frequency.
@@ -255,7 +255,7 @@ the cutoff frequency.
 The outputs of the reson filters are sent alternately to the left and
 right outputs in order to create a broad stereo effect.
 
-This example makes extensive use of the&nbsp;
+This example makes extensive use of the
 [rspline](http://www.csound.com/docs/manual/rspline.html) opcode, a
 generator of random spline functions, to slowly undulate the many input
 parameters. The orchestra is self generative in that instrument 1
@@ -402,12 +402,12 @@ e
 
 The final example in this section uses precisely tuned bandpass filters,
 to simulate the sound of the human voice expressing vowel sounds.
-Spectral resonances in this context are often referred to as&nbsp;
+Spectral resonances in this context are often referred to as
 [formants](http://en.wikipedia.org/wiki/Formants). Five formants are
 used to simulate the effect of the human mouth and head as a resonating
 (and therefore filtering) body. The filter data for simulating the vowel
 sounds A,E,I,O and U as expressed by a bass, tenor, counter-tenor, alto
-and soprano voice were found in the appendix of the Csound manual&nbsp;
+and soprano voice were found in the appendix of the Csound manual
 [here](http://www.csound.com/docs/manual/MiscFormants.html). Bandwidth
 and intensity (dB) information is also needed to accurately simulate the
 various vowel sounds.
@@ -417,7 +417,7 @@ used but [butbp](http://www.csound.com/docs/manual/butterbp.html) and
 others could be equally valid choices.
 
 Data is stored in [GEN07](http://www.csound.com/docs/manual/GEN07.html)
-&nbsp;linear break point function tables, as this data is read by k-rate line
+linear break point function tables, as this data is read by k-rate line
 functions we can interpolate and therefore morph between different vowel
 sounds during a note.
 
@@ -615,11 +615,11 @@ e
 These examples have hopefully demonstrated the strengths of subtractive
 synthesis in its simplicity, intuitive operation and its ability to
 create organic sounding timbres. Further research could explore
-Csound\'s other filter opcodes including&nbsp;
-[vcomb](http://www.csound.com/docs/manual/vcomb.html),&nbsp;
-[wguide1](http://www.csound.com/docs/manual/wguide1.html),&nbsp;
-[wguide2](http://www.csound.com/docs/manual/wguide2.html),&nbsp;
+Csound\'s other filter opcodes including
+[vcomb](http://www.csound.com/docs/manual/vcomb.html),
+[wguide1](http://www.csound.com/docs/manual/wguide1.html),
+[wguide2](http://www.csound.com/docs/manual/wguide2.html),
 [mode](http://www.csound.com/docs/manual/mode.html) and the more
-esoteric [phaser1](http://www.csound.com/docs/manual/phaser1.html),&nbsp;
-[phaser2](http://www.csound.com/docs/manual/phaser2.html) and&nbsp;
+esoteric [phaser1](http://www.csound.com/docs/manual/phaser1.html),
+[phaser2](http://www.csound.com/docs/manual/phaser2.html) and
 [resony](http://www.csound.com/docs/manual/resony.html).

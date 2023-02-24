@@ -1,10 +1,10 @@
 # 15 A. OPCODE GUIDE
 
 If Csound is called from the command line with the option -z, a
-list of all opcodes is printed. The total number of all opcodes is more than 1500. There are already overviews of all of Csound's opcodes in the&nbsp;
+list of all opcodes is printed. The total number of all opcodes is more than 1500. There are already overviews of all of Csound's opcodes in the
 [Opcodes Overview](https://csound.com/docs/manual/PartOpcodesOverview.html)
-and the&nbsp;
-[Opcode Quick Reference](https://csound.com/docs/manual/MiscQuickref.html) of the&nbsp;
+and the
+[Opcode Quick Reference](https://csound.com/docs/manual/MiscQuickref.html) of the
 [Canonical Csound Manual](https://csound.com/docs/manual/index.html).
 
 This guide is another attempt to provide some orientation within
@@ -521,7 +521,7 @@ see
 
 ### FILTERS
 
-Compare the extensive [Standard Filters](https://csound.com/docs/manual/SigmodStandard.html)&nbsp;
+Compare the extensive [Standard Filters](https://csound.com/docs/manual/SigmodStandard.html)
 and [Specialized Filters](https://csound.com/docs/manual/SigmodSpeciali.html)
 overviews in the Csound Manual.
 

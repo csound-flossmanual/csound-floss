@@ -16,8 +16,8 @@ efficiency whilst some are for quite specialized purposes.
 
 ## Basic Delay Line Read-Write Unit
 
-To begin with, this section is going to focus upon a pair of opcodes,&nbsp;
-[delayr](https://csound.com/docs/manual/delayr.html) and&nbsp;
+To begin with, this section is going to focus upon a pair of opcodes,
+[delayr](https://csound.com/docs/manual/delayr.html) and
 [delayw](https://csound.com/docs/manual/delayw.html). Whilst not
 the most efficient to use in terms of the number of lines of code
 required, the use of _delayr_ and _delayw_ helps to clearly illustrate
@@ -26,9 +26,9 @@ offer a lot more flexibility and versatility than many of the other
 delay opcodes.
 
 When using _delayr_ and _delayw_ the establishement of a delay buffer is
-broken down into two steps: reading from the end of the buffer using&nbsp;
+broken down into two steps: reading from the end of the buffer using
 _delayr_ (and by doing this defining the length or duration of the
-buffer) and then writing into the beginning of the buffer using&nbsp;
+buffer) and then writing into the beginning of the buffer using
 _delayw_.
 
 The code employed might look like this:
@@ -46,7 +46,7 @@ between the input audio signal and audio read from the end of the
 buffer.
 
 The following example implements the delay described above in a
-&nbsp;_.csd_ file. An input sound of sparse sine tone pulses is created. This is
+_.csd_ file. An input sound of sparse sine tone pulses is created. This is
 written into the delay buffer from which a new audio signal is created
 by read from the end of this buffer. The input signal (sometimes
 referred to as the dry signal) and the delay output signal (sometimes
@@ -185,10 +185,10 @@ Constructing a delay effect in this way is rather limited as the delay
 time is static. If we want to change the delay time we need to
 reinitialise the code that implements the delay buffer. A more flexible
 approach is to read audio from within the buffer using one of Csounds
-opcodes for _tapping_ a delay buffer,&nbsp;
-[deltap](https://csound.com/docs/manual/deltap.html),&nbsp;
-[deltapi](https://csound.com/docs/manual/deltapi.html),&nbsp;
-[deltap3](https://csound.com/docs/manual/deltap3.html) or&nbsp;
+opcodes for _tapping_ a delay buffer,
+[deltap](https://csound.com/docs/manual/deltap.html),
+[deltapi](https://csound.com/docs/manual/deltapi.html),
+[deltap3](https://csound.com/docs/manual/deltap3.html) or
 [deltapx](https://csound.com/docs/manual/deltapx.html).
 The opcodes are listed in order of increasing quality
 which also reflects an increase in computational expense. In the next
@@ -371,8 +371,8 @@ Basically all these opcode have three main arguments:
 2. The delay time as audio signal.
 3. The maximum possible delay time.
 
-Some caution must be given to the unit in argument 2 and 3:&nbsp;
-[vdelay](https://csound.com/docs/manual/vdelay.html) and&nbsp;
+Some caution must be given to the unit in argument 2 and 3:
+[vdelay](https://csound.com/docs/manual/vdelay.html) and
 [vdelay3](https://csound.com/docs/manual/vdelay3.html) use _milliseconds_ here,
 whereas [vdelayx](https://csound.com/docs/manual/vdelayx.html) uses seconds (as nearly every other opcode in Csound).
 

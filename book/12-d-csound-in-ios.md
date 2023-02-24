@@ -29,7 +29,7 @@ Xcode project to work with Csound from scratch.
 The Csound for iOS Examples project contains a number of simple examples
 (in both Objective-C and Swift) of how one might use Csound's synthesis
 and signal processing capabilities, and the communicative functionality
-of the API. It is available both in the download bundle or online in the&nbsp;
+of the API. It is available both in the download bundle or online in the
 [Csound sources](https://github.com/csound/csound/tree/develop/iOS).
 
 In the _ViewControllers_ group, a number of subgroups exist to organize
@@ -108,7 +108,7 @@ after this process is complete.
 #### Playing a _.csd_ File
 
 The first thing we will do so that we can play a _.csd_ file is add our
-&nbsp;_.csd_ file to our project. In this case, we will add a simple _.csd_ (in
+_.csd_ file to our project. In this case, we will add a simple _.csd_ (in
 this case named _test.csd_) that plays a sine tone with a frequency of
 440Hz for ten seconds. Sample Csound code for this is:
 
@@ -140,7 +140,7 @@ i1 0 10
 
 We will add this to our Xcode project by dragging and dropping it into
 our project's main folder, making sure to select _Copy items if needed_
-&nbsp;and to add it to our main target.
+and to add it to our main target.
 
 In order to play this _.csd_ file, we must first create an instance of the
 CsoundObj class. We can do this by creating a property of our class as
@@ -191,7 +191,7 @@ cannot pass a static or "hard-coded" path. Instead, we will access the
 file using the NSBundle class (or 'Bundle' in Swift).
 
 The _.csd_ file is copied as a resource (you can see this under the
-&nbsp;_Build Phases_ tab in your target's settings), and so we will access it and
+_Build Phases_ tab in your target's settings), and so we will access it and
 tell Csound to play it as follows:
 
 ```c
@@ -693,9 +693,9 @@ provided.
 
 Here is an example of a Csound instrument that accesses all of the data,
 and demonstrates uses for some of it.
-This example is taken from the&nbsp;
+This example is taken from the
 [Csound for iOS Examples](https://github.com/csound/csound/tree/develop/iOS)
-&nbsp;project.
+project.
 
 ```csound
 instr 1
@@ -732,7 +732,7 @@ straightforward ways to add now-familiar interactions.
 
 The _CsoundBinding_ protocol allows you to read values from and write
 values to Csound using named channels that can be referenced in your
-&nbsp;_.csd_ file using opcodes like chnget and chnset, as described in the
+_.csd_ file using opcodes like chnget and chnset, as described in the
 earlier section on CsoundUI. The protocol definition from CsoundObj is:
 
 ```c
@@ -967,7 +967,7 @@ csound.setMessageCallbackSelector(#selector(printMessage(_:)))
 
 An object of type NSValue will be passed in. This object is acting as a
 wrapper for a C struct of type Message. The definition for Message in
-&nbsp;_CsoundObj.h_ is:
+_CsoundObj.h_ is:
 
 ```c
 typedef struct {
@@ -1005,7 +1005,7 @@ The process demonstrated in the code examples below can be described as:
 ```
 
 Note that in Swift, we have to create a `CVaListPointer` (equivalent to a
-&nbsp;`va_list *` in C) for use with the `vsnprintf()` function:
+`va_list *` in C) for use with the `vsnprintf()` function:
 
 ```swift
 // Swift
@@ -1249,7 +1249,7 @@ These aspects will become more clear in the following paragraphs.
 
 The **_AudioDSP.m_** class implements the entire audio structure and manages
 the user interface interaction with Csound.
-&nbsp;_AudioDSP_ is a subclass of _NSObject_ that is instantiated on the **_Main.storyboard_**.
+_AudioDSP_ is a subclass of _NSObject_ that is instantiated on the **_Main.storyboard_**.
 A reference to this class on the storyboard greatly facilitates connections between
 the GUI (_IBOutlet_ and _IBAction_) and the DSP i.e. Csound.
 

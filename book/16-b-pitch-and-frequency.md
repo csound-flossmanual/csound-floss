@@ -2,8 +2,8 @@
 
 Pitch and frequency are related but different terms.^[Similar
 to _volume_ and _amplitude_ -- see [next chapter](16-c-intensities.md).]
-&nbsp;_Pitch_ is used by musicians to describe the "height" of a tone, most obvious on a keyboard.
-&nbsp;_Frequency_ is a technical term. We will start with the latter and then return to pitch in
+_Pitch_ is used by musicians to describe the "height" of a tone, most obvious on a keyboard.
+_Frequency_ is a technical term. We will start with the latter and then return to pitch in
 some of its numerous aspects, including intervals, tuning systems and different conversions
 between pitch and frequency in Csound.
 
@@ -257,7 +257,7 @@ called semitones.
 Therefore a semitone has a ratio of 2^1/12^, which is
 approximately 1.059463.^[2^1/12^ is the same as $\sqrt[12]{2}$ thus
 the number which yields 2 if multiplied by itself 12 times.]
-&nbsp;The next semitone will have the ratio 2^2/12^ (1.122462...),
+The next semitone will have the ratio 2^2/12^ (1.122462...),
 the third one 2^3/12^ (1.189207...), and so on.
 The exponents increase linear (1/12, 2/12, 3/12, ...),
 thus yielding the same proportion between each subsequent semitone.
@@ -275,7 +275,7 @@ So the most common way to work with pitches is to use MIDI note numbers.
 In MIDI speak A4 (= 440 Hz) is MIDI note 69.^[Caution:
 like many standards there is occasional disagreement about the mapping between frequency and octave number.
 You may occasionally encounter A 440 Hz being described as A3.]
-&nbsp;The semitone below, called A flat or G sharp, is MIDI note 68, and so on.
+The semitone below, called A flat or G sharp, is MIDI note 68, and so on.
 The MIDI notes 1-127 cover the frequency range from 9 Hz to 12544 Hz which is
 pretty well suited to the human hearing (and to a usual grand piano
 which would correspond to MIDI keys 21-108).
@@ -550,14 +550,14 @@ i "Partials" 30 10
 
 - New Frequency $f_{new}$
 
-**Solution**:&nbsp;
+**Solution**:
 $f_{new} = f \cdot p$
 
 **Example**:
-Which frequency is in 5/4 proportion to 440 Hz?&nbsp;
+Which frequency is in 5/4 proportion to 440 Hz?
 $\to f_{new} = 440 Hz \cdot 5/4 = 550\ Hz$
 
-**Csound code**:&nbsp;
+**Csound code**:
 `iFreq_new = 440 * 5/4`{.Csound}
 
 ### New Frequency from Frequency and Cent Difference
@@ -571,14 +571,14 @@ $\to f_{new} = 440 Hz \cdot 5/4 = 550\ Hz$
 
 - New Frequency $f_{new}$
 
-**Solution**:&nbsp;
+**Solution**:
 $f_{new} = f \cdot 2^{c/1200}$
 
 **Example**:
-Which frequency is 50 Cent below 440 Hz?&nbsp;
+Which frequency is 50 Cent below 440 Hz?
 $f_{new} = 440 \cdot 2^{-50/1200} = 427.474\ Hz$
 
-**Csound code**:&nbsp;
+**Csound code**:
 `iFreq_new = 440 * 2^(-50/1200)`{.Csound}
 
 ### Cent Difference of two Frequencies
@@ -592,12 +592,12 @@ $f_{new} = 440 \cdot 2^{-50/1200} = 427.474\ Hz$
 
 - Cent difference $c$
 
-**Solution**:&nbsp;
+**Solution**:
 $c = \log_2{\frac{f1}{f2}} \cdot 1200$
 
 **Example**:
-What is the Cent difference between 550 Hz and 440 Hz?&nbsp;
+What is the Cent difference between 550 Hz and 440 Hz?
 $\to c = \log_2{\frac{550}{440}} \cdot 1200 = 386.314\ Cent$
 
-**Csound code**:&nbsp;
+**Csound code**:
 `iCent = log2(550/440) * 1200`{.Csound}

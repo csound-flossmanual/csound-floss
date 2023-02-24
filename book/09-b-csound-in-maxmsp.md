@@ -1,7 +1,7 @@
 # 09 B. CSOUND IN MAXMSP
 
 Csound can be embedded in a [Max](http://cycling74.com/products/max/)
-&nbsp;patch using the _csound~_ object. This allows you to synthesize and
+patch using the _csound~_ object. This allows you to synthesize and
 process audio, MIDI, or control data with Csound.
 
 _Note: Most of the descriptions below have been written years ago by Davis Pyon. They may be outdated and will need to be updated._
@@ -59,14 +59,14 @@ is. Using this information, _csound~_ can then find csd files specified
 using a relative pathname (e.g. _helloworld.csd_). Keep in mind that
 this is only necessary for newly created patches that have not been
 saved yet. By the way, had we specified an absolute pathname (e.g.
-&nbsp;_C:/Mystuff/helloworld.csd_), the process of saving and reopening
+_C:/Mystuff/helloworld.csd_), the process of saving and reopening
 would have been unnecessary.
 
 The _@scale 0_ argument tells _csound~_ not to scale audio data
 between Max and Csound. By default, _csound~_ will scale audio to match
 0dB levels. Max uses a 0dB level equal to one, while Csound uses a 0dB
 level equal to 32768. Using _@scale 0_ and adding the statement
-&nbsp;_0dbfs = 1_ within the csd file allows you to work with a 0dB level equal to one everywhere.
+_0dbfs = 1_ within the csd file allows you to work with a 0dB level equal to one everywhere.
 This is highly recommended.
 
 ## Audio I/O
@@ -82,12 +82,12 @@ inlets and outlets:
 - \[csound\~ 4 7\]
 
 _@io 3_ creates 3 audio inlets and 3 audio outlets. _@i 4 @o 7_
-&nbsp;creates 4 audio inlets and 7 audio outlets. The third and fourth lines
+creates 4 audio inlets and 7 audio outlets. The third and fourth lines
 accomplish the same thing as the first two. If you don't specify the
 number of audio inlets or outlets, then _csound~_ will have two audio
 inlets and two audio oulets. By the way, audio outlets always appear to
 the left of non-audio outlets. Let's create a patch called
-&nbsp;_audio_io.maxpat_ that demonstrates audio i/o:
+_audio_io.maxpat_ that demonstrates audio i/o:
 
 ![](../resources/images/09-b-audio-io.png)
 
@@ -122,9 +122,9 @@ e
 ```
 
 In _audio_io.maxpat_, we are mixing three triangle waves into a stereo
-pair of outlets. In _audio_io.csd_, we use&nbsp;
+pair of outlets. In _audio_io.csd_, we use
 [inch](https://csound.com/docs/manual/inch.html) and
-&nbsp;[outch](https://csound.com/docs/manual/outch.html) to receive
+[outch](https://csound.com/docs/manual/outch.html) to receive
 and send audio from and to _csound~_. _inch_ and _outch_ both use a
 numbering system that starts with one (the left-most inlet or outlet).
 
@@ -187,10 +187,10 @@ inlets). Don't worry about it. In fact, we can send a message to any
 inlet and it will work.
 
 In the Csound file, notice that we use two different opcodes to receive
-the values sent in the control messages:&nbsp;
-[chnget](https://csound.com/docs/manual/chnget.html) and&nbsp;
+the values sent in the control messages:
+[chnget](https://csound.com/docs/manual/chnget.html) and
 [invalue](https://csound.com/docs/manual/invalue.html).
-&nbsp;_chnget_ is more versatile (it works at i-rate and k-rate,
+_chnget_ is more versatile (it works at i-rate and k-rate,
 and it accepts strings) and is a tiny bit faster than _invalue_.
 On the other hand, the limited nature
 of _invalue_ (only works at k-rate, never requires
@@ -239,8 +239,8 @@ control change lists into raw MIDI bytes. The _1_ argument for
 midiformat specifies that all MIDI messages will be on channel one.
 
 In the Csound file, notice the [massign](https://csound.com/docs/manual/massign.html)
-&nbsp;statements in the header of the orchestra.
-&nbsp;_massign 0, 0_ tells Csound to clear all mappings between
+statements in the header of the orchestra.
+_massign 0, 0_ tells Csound to clear all mappings between
 MIDI channels and Csound instrument numbers.
 This is highly recommended because forgetting to add this statement
 may cause confusion somewhere down the road.
@@ -300,7 +300,7 @@ number specifies the start time. Here, we use _0_ because we want the
 event to start right now. The duration _3._ is specified as a floating
 point number so that we can have non-integer durations. Finally, the
 number _64_ determines the MIDI pitch. You might be wondering why the
-&nbsp;_pack_ object output is being sent to a message box. This is good practice
+_pack_ object output is being sent to a message box. This is good practice
 as it will reveal any mistakes you made in constructing an event
 message.
 

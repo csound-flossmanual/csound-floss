@@ -175,7 +175,7 @@ Each program connects this maximum possible amplitude with a number.
 Usually it is 1 which is a good choice, because you know that
 everything above 1 is clipping, and you have a handy relation for lower
 values. But actually this value is nothing but a setting, and in Csound
-you are free to set it to any value you like via the&nbsp;
+you are free to set it to any value you like via the
 [0dbfs](https://csound.com/docs/manual/Zerodbfs.html) opcode.
 Usually you should use this statement in the orchestra header:
 

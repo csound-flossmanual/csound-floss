@@ -34,11 +34,11 @@ those of the utility and not its own.
 Although many of Csound's opcodes already operate upon commonly
 encountered sound file formats such as _wav_ and _aiff_, a number of
 them require sound information in more specialised and pre-analysed
-formats, and for this Csound provides the sound analysis utilities&nbsp;
-[atsa](https://csound.com/docs/manual/UtilityAtsa.html),&nbsp;
-[cvanal](https://csound.com/docs/manual/cvanal.html),&nbsp;
-[hetro](https://csound.com/docs/manual/hetro.html),&nbsp;
-[lpanal](https://csound.com/docs/manual/lpanal.html) and&nbsp;
+formats, and for this Csound provides the sound analysis utilities
+[atsa](https://csound.com/docs/manual/UtilityAtsa.html),
+[cvanal](https://csound.com/docs/manual/cvanal.html),
+[hetro](https://csound.com/docs/manual/hetro.html),
+[lpanal](https://csound.com/docs/manual/lpanal.html) and
 [pvanal](https://csound.com/docs/manual/pvanal.html).
 
 We will explain in the following paragraphs the background and usage of these five different sound analysis utilities.
@@ -168,8 +168,8 @@ followed in both cases by 32767 (as additional line ending signifier).
 
 Linear Prediction Coding has been developed for the analysis and resynthesis of speech.^[Cf. Curtis Roads,
 The Computer Music Tutorial, Cambridge MA: MIT Press 1996, 200-210]
-&nbsp;The [lpanal](https://csound.com/docs/manual/lpanal.html) utility
-performs the analysis, which will then be used by the&nbsp;
+The [lpanal](https://csound.com/docs/manual/lpanal.html) utility
+performs the analysis, which will then be used by the
 [LPC Resynthesis Opcodes](https://csound.com/docs/manual/SpectralLpcresyn.html).
 The defaults can be seen in the following screenshot:
 
