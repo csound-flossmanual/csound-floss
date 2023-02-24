@@ -21,7 +21,7 @@ resources/image_sources
 
 _Full_ .csd examples must be enclosed by three backticks:
 
-<pre>```</pre>
+<pre><code>```</code></pre>
 
 and _not_ indented.
 
