@@ -32,7 +32,7 @@
 
 - Where can I find the Reference Manual?
 
-### Overview
+### Orientation
 
 - Where can I find an Opcode Overview?
 
@@ -42,6 +42,7 @@
 - How can I find the related code line for an error message?
 - What are the most common error messages?
 - How can I get help if I don't understand an error message?
+- What can I do if Csound just crashes?
 
 ## HARDWARE
 
