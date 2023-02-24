@@ -598,16 +598,16 @@ i "with_init" + .1 2
 
 This is the output:
 
-    instr without\_init, call 1:
+    instr without_init, call 1:
       Value of kVal at initialization = 0
       Value of kVal at first k-cycle = 1
-    instr without\_init, call 2:
+    instr without_init, call 2:
       Value of kVal at initialization = 2
       Value of kVal at first k-cycle = 1
-    instr with\_init, call 1:
+    instr with_init, call 1:
       Value of kVal at initialization = 1
       Value of kVal at first k-cycle = 1
-    instr with\_init, call 2:
+    instr with_init, call 2:
       Value of kVal at initialization = 1
       Value of kVal at first k-cycle = 1
 

@@ -342,12 +342,12 @@ ksmps = 32
 nchnls = 1
 0dbfs = 1
 
-opcode  lin\_reson, a, akk
+opcode  lin_reson, a, akk
 setksmps 1
 avel    init    0               ;velocity
 ax      init    0               ;deflection x
 ain,kf,kdamp    xin
-kc      =       2-sqrt(4-kdamp\^2)*cos(kf*2*$M\_PI/sr)
+kc      =       2-sqrt(4-kdamp^2)*cos(kf*2*$M_PI/sr)
 aacel   =       -kc*ax
 avel    =       avel+aacel+ain
 avel    =       avel*(1-kdamp)
@@ -357,7 +357,7 @@ endop
 
 instr 1
 aexc    rand    p4
-aout    lin\_reson       aexc,p5,p6
+aout    lin_reson       aexc,p5,p6
         out     aout
 endin
 
@@ -565,7 +565,7 @@ instr 1
  kf = 455
  kmu linseg 0,p3,.7
  a1 poscil kaex,kfex
- aout v\_d\_p a1,kf,kmu
+ aout v_d_p a1,kf,kmu
  out kamp*aout,a1*100
 endin
 
@@ -671,7 +671,7 @@ loop:
 iVal      tab_i     indx, iTab
 Snew      sprintf   "%8.3f", iVal
 Sout      strcat    Sout, Snew
-          loop\_lt   indx, 1, iTbSiz, loop
+          loop_lt   indx, 1, iTbSiz, loop
           puts      Sout, 1
   endop
 

@@ -452,7 +452,7 @@ The result of this comparison is:
     A quater tone above A4 (440 Hz):
      1. as mtof:i(69.5) = 452.892984
      2. as cpspch(8.095) = 452.880211
-     3. as 2\^(50/1200)*440 = 452.892984
+     3. as 2^(50/1200)*440 = 452.892984
      4. as cent(50)*440 = 452.892984
 ```
 

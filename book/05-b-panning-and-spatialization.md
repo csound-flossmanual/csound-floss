@@ -315,7 +315,7 @@ ksmps = 32
 nchnls = 2
 0dbfs = 1
 
-giSine         ftgen       0, 0, 2\^12, 10, 1             ; sine wave
+giSine         ftgen       0, 0, 2^12, 10, 1             ; sine wave
 giLFOShape     ftgen       0, 0, 131072, 19, 0.5,1,180,1 ; U-shape parabola
 
 gS_HRTF_left   =           "hrtf-44100-left.dat"
@@ -2049,7 +2049,7 @@ i1 0 2
 ### Summary of the Ambisonics UDOs
 
     zakinit isizea, isizek
-        (isizea = (order + 1)\^2 in ambisonics (3D);
+        (isizea = (order + 1)^2 in ambisonics (3D);
         isizea = 2·order + 1 in ambi2D; isizek = 1)
 
 **ambisonics_udos.txt** (order <= 8)
