@@ -1,6 +1,22 @@
 # HOW TO: PRINT
 
-### Format string
+Unfortunately, Csound's print facilities are scattered amongst many different
+opcodes. You can print anything, but depending on the situation, you will need
+a particular print opcode. 
+
+## Basic printing of variables
+
+### Which opcodes can I use for simple i-rate printing?
+
+### Which opcodes can I use for simple k-rate printing?
+
+### Can I have simple a-rate printing?
+
+## 
+
+## Formatting
+
+### Which format specifiers can I use?
 
 ```csound
 <CsoundSynthesizer>
