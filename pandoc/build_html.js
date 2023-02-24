@@ -24,7 +24,7 @@ function execMarkdownToHtml(fileName) {
   const chapterBasename = path.basename(fileName, ".md");
   const tmpDest = path.join(tmpdir(), chapterBasename) + ".html";
   const stdout = execSync(
-    `pandoc --to=html5 --wrap=preserve ${fileName} -f ${MARKDOWN_EXTENSIONS.join(
+    `pandoc --to=html5 --wrap=auto ${fileName} -f ${MARKDOWN_EXTENSIONS.join(
       "+"
     )} -o ${tmpDest} --mathjax`
   );
@@ -48,7 +48,14 @@ function execMarkdownToHtml(fileName) {
     .replaceAll("&amp;", "&")
     .replaceAll('CodeElement data="', "CodeElement data={`")
     .replaceAll('">undefined</CodeElement>', "`}></CodeElement>")
-    .replaceAll('"></CodeElement>', "`}></CodeElement>");
+    .replaceAll('"></CodeElement>', "`}></CodeElement>")
+    .replace(/^</gm, "{' '}<")
+    .replace(/>$/gm, ">{' '}");
+
+  // .replace(/^<Link/gm, "{' '}<Link")
+  // .replace(/<\/a>$/gm, "</a>{' '}")
+  // .replace(/<\/em>$/gm, "</em>{' '}")
+  // .replace(/^<code>/gm, "{' '}<code>")
 
   const linkData = buildLink(path.basename(fileName));
 
