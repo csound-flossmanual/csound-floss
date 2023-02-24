@@ -52,11 +52,6 @@ function execMarkdownToHtml(fileName) {
     .replace(/^</gm, "{' '}<")
     .replace(/>$/gm, ">{' '}");
 
-  // .replace(/^<Link/gm, "{' '}<Link")
-  // .replace(/<\/a>$/gm, "</a>{' '}")
-  // .replace(/<\/em>$/gm, "</em>{' '}")
-  // .replace(/^<code>/gm, "{' '}<code>")
-
   const linkData = buildLink(path.basename(fileName));
 
   fs.writeFileSync(

@@ -74,7 +74,9 @@ const createSelectDataChapter = (route, chapterNumber) => ({
 
 const createSelectDataSection = (route) => ({
   value: route.url,
-  label: moduleToName(route.module),
+  label: route.url.endsWith("/overview")
+    ? "Overview"
+    : moduleToName(route.module),
 });
 
 const getChapterData = (chapterNum) => {
@@ -82,6 +84,7 @@ const getChapterData = (chapterNum) => {
     propEq("chapter", chapterNum),
     reject(propEq("module", "00--aa-toc"), routes)
   );
+
   const maybePrepend =
     raw.length > 0 ? [{ value: 0, label: raw[0].name, isDisabled: true }] : [];
   return concat(maybePrepend, map(createSelectDataSection, raw));
@@ -214,14 +217,18 @@ function LeftNav({ routes = [], setCurrentRoute }) {
     const chapterList = chapterData.map(
       ({ value: subValue, label: subLabel }, subIndex) => {
         const subChapterActive = subValue === currentRoute.url;
+        const isOverviewPage = subValue.endsWith("/overview");
+
         return (
           <li
             css={ß.chapterItem}
             style={{
               display: isActive ? "list-item" : "none",
               fontWeight: subChapterActive ? 700 : "inherit",
+              listStyleType: isOverviewPage ? "none" : "inherit",
             }}
             key={subIndex}
+            {...(!isOverviewPage && { value: subIndex })}
           >
             <Link to={subValue}>
               <p
@@ -232,10 +239,12 @@ function LeftNav({ routes = [], setCurrentRoute }) {
                       : "inherit",
                 }}
               >
-                {trimSubChapterLetter(subLabel)}
+                {subLabel === "Overview"
+                  ? subLabel
+                  : trimSubChapterLetter(subLabel)}
               </p>
             </Link>
-            {subChapterActive && (
+            {!isOverviewPage && subChapterActive && (
               <ul style={{ paddingLeft: 6 }}>
                 {currentSections.map(({ title, id, subSubSections }, idx) => {
                   const lastElem = currentSections.length === idx + 1;
