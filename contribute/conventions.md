@@ -21,21 +21,24 @@ resources/image_sources
 
 _Full_ .csd examples must be enclosed by three backticks:
 
-<pre><code>```</code></pre>
+<pre>```</pre>
 
 and _not_ indented.
 
 If playback of the csd example is desired, you can add the keyword 'csound'
-immedietly after the three backticks
+immedietly after the three backticks:
 
-`\`\`\`csound`
+<pre>```csound</pre>
 
-but it should be enclosed with just three backticks immediatly followed by a newline:
+Remember to close the example with three backticks followed by a newline:
 
-`\`\`\``
+<pre>```</pre>
 
-They must be preceded by four hashes(\#) a number and a title of the example,
-starting with the word EXAMPLE (\#\#\#\# \*\*EXAMPLE\*\*).
+The full examples (which are collected and distributed seperately) must be
+preceded by four hashes(\#) a number and a title of the example,
+starting with the word EXAMPLE (\#\#\#\# \*\*EXAMPLE\*\*):
+
+<pre>#### _EXAMPLE 16D01_different_seed.csd_</pre>
 
 _Small_ example snippets must be _indented by four spaces_.
 
