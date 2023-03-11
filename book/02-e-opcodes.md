@@ -1,5 +1,17 @@
 # HOW TO: OPCODES
 
+## OVERVIEW
+
+### What are the essential opcodes? Do I need to know all opcodes?
+
+I am sure that there is no expert user who knows all of the 1500+ opcodes. To
+give some help and advice about essential opcodes, have a look at these overviews:
+
+- The [Opcodes Overview](https://csound.com/docs/manual/PartOpcodesOverview.html)
+  in the Reference Manual.
+- The [Opcode Guide](/appendix/opcode-guide) in this textbook.
+
+
 ## OSCILLATORS
 
 ### Why are there so many different oscillators in Csound?

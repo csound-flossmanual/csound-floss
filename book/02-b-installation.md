@@ -2,17 +2,44 @@
 
 ## Csound and Frontends
 
+### What is a Frontend?
+
+In computer science, we call _frontend_ what is close to the user, and _backend_
+what is close to the hardware.
+
+So a frontend is what you as user see, in which you type text, scroll windows,
+open and save files by clicking in the menu bar.
+
+### Why does Csound not come with a Frontend?
+
+Csound is an "audio engine" or "audio library". It is a machine to render digital
+audio data. This machine consists of a bundle of executable or callable files.
+You can find these files on your computer, but nothing will happen when you try
+to open these files.
+
+There were a lot of discussions in the Csound community whether one standard
+frontend should be distributed together with Csound, or not. Sometimes it was
+the case, but as for today, it is not. The main reasons are:
+
+1. Each frontend has a different design and different ways to use it. There is
+not the one standard way to build a frontend for Csound.
+2. Although it is confusing for beginners, it is important to distinguish
+between Csound as audio engine and any frontend. It is the big flexibility of
+Csound that it can be used in many contextes. Each of these contextes somehow
+establishes a new frontend.
+
 ### Can I install Csound without a Frontend?
 
-Csound is an "audio engine" or "audio library".
-You can install this plain Csound, and usually exactly this will happen if
-you click on "install Csound".
-But as a ordinary Csound user, and in particular as a beginner, you will not
-only this "invisible" Csound.
+Yes, and this will happen when you go to the [Csound Download Page](https://csound.com/download)
+and click on any of the "install Csound" buttons.
 
-### For which Jobs do I need a Frontend?
+The first step is to install this **plain Csound**.
 
-A frontend, or IDE (Intengrated Development Environment) will **run** Csound.
+The second step is to install a frontend.
+
+### Which Jobs are done by a Frontend?
+
+A frontend, or IDE (Integrated Development Environment) will **run** Csound.
 Usually you have a button to **start** and a button to **stop** a Csound
 performance.
 
@@ -36,8 +63,8 @@ has grown a lot and is currently the most popular way to work with Csound.
 Its main focus is to provide an object-oriented way to work with the Csound
 score. Around this, many features were added.
 
-[Web IDE](https://ide.csound.com/) is an online IDE which has been started in 2018. Nothing to install here — just create an account and use Csound in your
-browser.
+[Web IDE](https://ide.csound.com/) is an online IDE which has been started in 2018.
+Nothing to install here — just create an account and use Csound in your browser.
 
 ### Which Frontend should I choose?
 
