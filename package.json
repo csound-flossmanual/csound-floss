@@ -13,12 +13,12 @@
     "@csound/browser": "^6.18.7",
     "@emotion/core": "^11.0.0",
     "@emotion/react": "^11.10.5",
+    "@hlolli/codemirror-lang-csound": "^1.0.0-alpha5",
     "acorn": "^8.8.2",
     "acorn-jsx": "^5.3.2",
     "chokidar": "^3.5.3",
-    "codemirror": "^5.58.3",
+    "codemirror": "6.x",
     "core-js": "^3.26.1",
-    "csound-manual-react": "^1.0.0-alpha22",
     "dom-serializer": "^2.0.0",
     "filesize": "^10.0.6",
     "he": "^1.2.0",
@@ -67,7 +67,11 @@
     "extends": "react-app"
   },
   "browserslist": {
-    "production": [">0.2%", "not dead", "not op_mini all"],
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",

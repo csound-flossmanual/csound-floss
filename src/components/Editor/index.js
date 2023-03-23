@@ -3,19 +3,18 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/react";
 // eslint-disable-next-line no-unused-vars
-import React, { useCallback, useState } from "react";
-import useCsound from "../../CsoundContext";
+import React, { useCallback, useState, useRef, useEffect } from "react";
 import { decode } from "he";
-import { Controlled as CodeMirror } from "react-codemirror2";
-import * as ß from "./styles";
-import "./code-mirror-csound-mode";
+import { csoundMode } from "@hlolli/codemirror-lang-csound";
+import { EditorView, basicSetup } from "codemirror";
+import { EditorState } from "@codemirror/state";
+import useCsound from "../../CsoundContext";
 import SourceMaterials from "../../assets/source_materials.json";
 import PlayIcon from "../../assets/play.svg";
 import PauseIcon from "../../assets/pause.svg";
 import StopIcon from "../../assets/stop.svg";
 import LogIcon from "../../assets/logs_icon_wikimedia.svg";
-require("codemirror/lib/codemirror.css");
-require("codemirror/theme/neo.css");
+import * as ß from "./styles";
 
 function timeout(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -241,13 +240,41 @@ const PlayControls = ({ initialEditorState, currentEditorState }) => {
 };
 
 const CodeElement = ({ data }) => {
+  const isCsd = data.includes("CsoundSynthesizer");
+  const editorReference = useRef(null);
   const initialEditorState = decode(data || "");
   const [state, setState] = useState(initialEditorState);
+  const [hasMounted, setHasMounted] = useState(false);
+  const [editorView, setEditorView] = useState(null);
+
+  useEffect(() => {
+    if (!hasMounted) {
+      setHasMounted(true);
+    }
+  }, [hasMounted, setHasMounted]);
+
+  useEffect(() => {
+    if (hasMounted && editorReference.current && !editorView) {
+      const newEditor = new EditorView({
+        extensions: isCsd
+          ? [basicSetup, csoundMode({ fileType: "csd" })]
+          : [EditorState.readOnly.of(true), csoundMode({ fileType: "orc" })],
+        parent: editorReference.current,
+      });
+      setEditorView(newEditor);
+      newEditor.dispatch({
+        changes: {
+          from: 0,
+          to: newEditor.state.doc.length,
+          insert: initialEditorState,
+        },
+      });
+    }
+  }, [hasMounted, editorReference, isCsd, setEditorView, initialEditorState]);
 
   const onBeforeChange = (editor, data, value) => {
     setState(value);
   };
-  const isCsd = data.includes("CsoundSynthesizer");
 
   return (
     <div css={ß.codeMirror(isCsd)}>
@@ -257,19 +284,7 @@ const CodeElement = ({ data }) => {
           initialEditorState={initialEditorState}
         />
       )}
-      <CodeMirror
-        value={state}
-        onBeforeChange={onBeforeChange}
-        options={{
-          lineWrapping: true,
-          autoCloseBrackets: true,
-          nocursor: true,
-          mode: "csound",
-          theme: "neo",
-          lineNumbers: isCsd,
-          readOnly: !isCsd,
-        }}
-      />
+      <div ref={editorReference} />
     </div>
   );
 };
