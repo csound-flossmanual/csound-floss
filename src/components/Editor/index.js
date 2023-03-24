@@ -258,7 +258,11 @@ const CodeElement = ({ data }) => {
       const newEditor = new EditorView({
         extensions: isCsd
           ? [basicSetup, csoundMode({ fileType: "csd" })]
-          : [EditorState.readOnly.of(true), csoundMode({ fileType: "orc" })],
+          : [
+              basicSetup,
+              EditorState.readOnly.of(true),
+              csoundMode({ fileType: "orc" }),
+            ],
         parent: editorReference.current,
       });
       setEditorView(newEditor);

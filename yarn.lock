@@ -1570,7 +1570,7 @@
     "@codemirror/view" "^6.0.0"
     crelt "^1.0.5"
 
-"@codemirror/state@^6.0.0", "@codemirror/state@^6.1.4", "@codemirror/state@^6.2.0":
+"@codemirror/state@6.x", "@codemirror/state@^6.0.0", "@codemirror/state@^6.1.4", "@codemirror/state@^6.2.0":
   version "6.2.0"
   resolved "https://registry.yarnpkg.com/@codemirror/state/-/state-6.2.0.tgz#a0fb08403ced8c2a68d1d0acee926bd20be922f2"
   integrity sha512-69QXtcrsc3RYtOtd+GsvczJ319udtBf1PTrr2KbLWM/e2CXUPnh0Nz9AUo8WfhSQ7GeL8dPVNUmhQVgpmuaNGA==
@@ -1839,10 +1839,10 @@
   dependencies:
     "@floating-ui/core" "^1.0.4"
 
-"@hlolli/codemirror-lang-csound@^1.0.0-alpha5":
-  version "1.0.0-alpha5"
-  resolved "https://registry.yarnpkg.com/@hlolli/codemirror-lang-csound/-/codemirror-lang-csound-1.0.0-alpha5.tgz#fb0ecc03dea5997a4308646f854ae321d87c39c6"
-  integrity sha512-bhXEYRM5NS1v/fz6+0+MFQkArMsLLgYq+duFE27flehcNQ1+qspkECDg8CCrrxQqnfXOjjkdZNgE3L0PYxHemw==
+"@hlolli/codemirror-lang-csound@^1.0.0-alpha7":
+  version "1.0.0-alpha7"
+  resolved "https://registry.yarnpkg.com/@hlolli/codemirror-lang-csound/-/codemirror-lang-csound-1.0.0-alpha7.tgz#90176f83919e75af92030f0e0ae758b916573e80"
+  integrity sha512-fq9izEXq3yW6qDEUnUzFUr0GAExuFsCjkiveRZo7NSa5aYfJmHM+jbcW24ltsFIi7cVymt1vhYmKNB80e6yInQ==
   dependencies:
     "@codemirror/text" "^0.19.6"
     ramda "^0.28.0"
