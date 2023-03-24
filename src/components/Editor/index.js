@@ -253,15 +253,27 @@ const CodeElement = ({ data }) => {
     }
   }, [hasMounted, setHasMounted]);
 
+  const onChange = useCallback(
+    (event) => {
+      if (event?.state?.doc) {
+        setState(event.state.doc.toString());
+      }
+    },
+    [setState]
+  );
+
   useEffect(() => {
     if (hasMounted && editorReference.current && !editorView) {
       const newEditor = new EditorView({
         extensions: isCsd
-          ? [basicSetup, csoundMode({ fileType: "csd" })]
+          ? [basicSetup, csoundMode(), EditorView.updateListener.of(onChange)]
           : [
-              basicSetup,
               EditorState.readOnly.of(true),
-              csoundMode({ fileType: "orc" }),
+              csoundMode({
+                fileType: "orc",
+                enableSynopsis: false,
+                enableCompletion: false,
+              }),
             ],
         parent: editorReference.current,
       });
@@ -274,14 +286,17 @@ const CodeElement = ({ data }) => {
         },
       });
     }
-  }, [hasMounted, editorReference, isCsd, setEditorView, initialEditorState]);
-
-  const onBeforeChange = (editor, data, value) => {
-    setState(value);
-  };
+  }, [
+    hasMounted,
+    editorReference,
+    isCsd,
+    setEditorView,
+    initialEditorState,
+    onChange,
+  ]);
 
   return (
-    <div css={ß.codeMirror(isCsd)}>
+    <div css={isCsd ? ß.codeMirror(isCsd) : [ß.codeMirror(isCsd), ß.readOnly]}>
       {isCsd && (
         <PlayControls
           currentEditorState={state}

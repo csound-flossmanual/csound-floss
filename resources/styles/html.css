@@ -53,6 +53,11 @@ pre > code {
   overflow-x: hidden;
 }
 
+.cm-csound-define {
+  color: #ef6020 !important;
+  font-weight: 600;
+}
+
 /* strong {
    margin-left: 1rem;
    } */

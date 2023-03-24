@@ -81,3 +81,7 @@ export const playLoadingSpinner = css`
     }
   }
 `;
+
+export const readOnly = css`
+  user-select: none;
+`;
