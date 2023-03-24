@@ -104,7 +104,7 @@ const buildAllHtml = () => {
               ...thisToc,
               chapter: thisChapterNum,
               module: `${thisChapterPrefix}-overview`,
-              url: `${thisToc.url_prefix}/overview`,
+              url: `${thisToc.url_prefix}`,
               sectionName: "Overview",
             });
           } else {

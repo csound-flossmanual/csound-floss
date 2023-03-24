@@ -74,9 +74,8 @@ const createSelectDataChapter = (route, chapterNumber) => ({
 
 const createSelectDataSection = (route) => ({
   value: route.url,
-  label: route.url.endsWith("/overview")
-    ? "Overview"
-    : moduleToName(route.module),
+  label:
+    route.url === route.url_prefix ? "Overview" : moduleToName(route.module),
 });
 
 const getChapterData = (chapterNum) => {
@@ -202,7 +201,9 @@ function LeftNav({ routes = [], setCurrentRoute }) {
         onClick={updateScroller}
         css={ß.chapterZeroItem}
         key={index}
-        style={{ fontWeight: isActive ? 700 : "inherit" }}
+        style={{
+          fontWeight: isActive ? 700 : "inherit",
+        }}
       >
         <p>
           {pipe(moduleToName, trimChapterNumber, trimSubChapterLetter)(module)}
@@ -213,22 +214,21 @@ function LeftNav({ routes = [], setCurrentRoute }) {
 
   const tocList = allChapters.map(({ value, label }, index) => {
     const isActive = dec(currentRoute.chapter) === index;
-    const chapterData = reject(prop("isDisabled"), getChapterData(index + 1));
+    const chapterData = pipe(
+      reject(prop("isDisabled")),
+      reject((d) => d.label.startsWith("Overview"))
+    )(getChapterData(index + 1));
     const chapterList = chapterData.map(
       ({ value: subValue, label: subLabel }, subIndex) => {
         const subChapterActive = subValue === currentRoute.url;
-        const isOverviewPage = subValue.endsWith("/overview");
-
         return (
           <li
             css={ß.chapterItem}
             style={{
               display: isActive ? "list-item" : "none",
               fontWeight: subChapterActive ? 700 : "inherit",
-              listStyleType: isOverviewPage ? "none" : "inherit",
             }}
             key={subIndex}
-            {...(!isOverviewPage && { value: subIndex })}
           >
             <Link to={subValue}>
               <p
@@ -244,7 +244,7 @@ function LeftNav({ routes = [], setCurrentRoute }) {
                   : trimSubChapterLetter(subLabel)}
               </p>
             </Link>
-            {!isOverviewPage && subChapterActive && (
+            {subChapterActive && (
               <ul style={{ paddingLeft: 6 }}>
                 {currentSections.map(({ title, id, subSubSections }, idx) => {
                   const lastElem = currentSections.length === idx + 1;
@@ -314,14 +314,12 @@ function LeftNav({ routes = [], setCurrentRoute }) {
     return (
       <li key={index} css={ß.chapterItem}>
         <Link
-          onClick={(e) => {
-            setCurrentRoute(value);
-            isActive && e.preventDefault();
+          onClick={() => {
+            !isActive && setCurrentRoute(value);
           }}
           to={value}
           style={{
-            pointerEvents: isActive ? "none" : "inherit",
-            cursor: isActive ? "default" : "pointer",
+            cursor: "pointer",
             fontWeight: isActive ? 700 : "inherit",
           }}
         >
