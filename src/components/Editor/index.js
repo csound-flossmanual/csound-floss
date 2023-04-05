@@ -5,9 +5,16 @@ import { jsx } from "@emotion/react";
 // eslint-disable-next-line no-unused-vars
 import React, { useCallback, useState, useRef, useEffect } from "react";
 import { decode } from "he";
+import { Button, IconButton } from "@chakra-ui/react";
 import { csoundMode } from "@hlolli/codemirror-lang-csound";
 import { EditorView, basicSetup } from "codemirror";
-import { EditorState } from "@codemirror/state";
+import { EditorState, Compartment } from "@codemirror/state";
+import { cpp } from "@codemirror/lang-cpp";
+import { python } from "@codemirror/lang-python";
+import {
+  defaultHighlightStyle,
+  syntaxHighlighting,
+} from "@codemirror/language";
 import useCsound from "../../CsoundContext";
 import SourceMaterials from "../../assets/source_materials.json";
 import PlayIcon from "../../assets/play.svg";
@@ -190,39 +197,42 @@ const PlayControls = ({ initialEditorState, currentEditorState }) => {
 
   return (
     <div css={ß.controllers}>
-      <button onClick={onPlay} disabled={isPlaying || isLoading}>
+      <Button
+        onClick={onPlay}
+        disabled={isPlaying || isLoading}
+        variant="outline"
+      >
         {isLoading ? (
           <PlayControlsLoadingSpinner />
         ) : (
           <img
             alt="play"
             src={PlayIcon}
-            style={{ height: 40, width: 20, marginTop: -5, marginLeft: 1 }}
+            style={{ height: 40, width: 20, marginLeft: 1 }}
           />
         )}
-      </button>
-      <button
+      </Button>
+      <Button
         onClick={onPause}
         style={{ marginLeft: 3 }}
         disabled={isPaused || isLoading}
+        variant="outline"
       >
         <img alt="pause" src={PauseIcon} style={{ height: 30, width: 20 }} />
-      </button>
-      <button
+      </Button>
+      <Button
         onClick={async () => await libcsound.stop()}
         style={{ marginLeft: 3 }}
         disabled={!isPlaying && !isPaused}
+        variant="outline"
       >
-        <img
-          alt="stop"
-          src={StopIcon}
-          style={{ height: 22, width: 22, marginTop: 5 }}
-        />
-      </button>
-      <button
+        <img alt="stop" src={StopIcon} style={{ height: 22, width: 22 }} />
+      </Button>
+      <Button
         onClick={() => csoundDispatch({ type: "OPEN_LOG_DIALOG" })}
         style={{ marginLeft: 3 }}
         disabled={logDialogOpen || (!logDialogOpen && !logDialogClosed)}
+        variant="outline"
       >
         <img
           alt="console logs"
@@ -234,13 +244,14 @@ const PlayControls = ({ initialEditorState, currentEditorState }) => {
             filter: "unset",
           }}
         />
-      </button>
+      </Button>
     </div>
   );
 };
 
-const CodeElement = ({ data }) => {
-  const isCsd = data.includes("CsoundSynthesizer");
+const CodeElement = ({ data, lang }) => {
+  console.log({ lang });
+  const isCsd = data.includes("CsoundSynthesizer") && lang !== "csd";
   const editorReference = useRef(null);
   const initialEditorState = decode(data || "");
   const [state, setState] = useState(initialEditorState);
@@ -264,17 +275,37 @@ const CodeElement = ({ data }) => {
 
   useEffect(() => {
     if (hasMounted && editorReference.current && !editorView) {
+      const language = new Compartment();
       const newEditor = new EditorView({
-        extensions: isCsd
-          ? [basicSetup, csoundMode(), EditorView.updateListener.of(onChange)]
-          : [
-              EditorState.readOnly.of(true),
-              csoundMode({
-                fileType: "orc",
-                enableSynopsis: false,
-                enableCompletion: false,
-              }),
-            ],
+        extensions:
+          lang === "python"
+            ? [
+                EditorState.readOnly.of(true),
+                syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
+                python(),
+              ]
+            : lang === "c"
+            ? [
+                EditorState.readOnly.of(true),
+                syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
+                language.of(cpp()),
+              ]
+            : ["orc", "csd", "sco"].includes(lang)
+            ? [
+                EditorState.readOnly.of(true),
+                syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
+                csoundMode({
+                  fileType: lang,
+                  enableSynopsis: false,
+                  enableCompletion: false,
+                }),
+              ]
+            : isCsd
+            ? [basicSetup, csoundMode(), EditorView.updateListener.of(onChange)]
+            : [
+                EditorState.readOnly.of(true),
+                syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
+              ],
         parent: editorReference.current,
       });
       setEditorView(newEditor);
@@ -293,6 +324,7 @@ const CodeElement = ({ data }) => {
     setEditorView,
     initialEditorState,
     onChange,
+    lang,
   ]);
 
   return (

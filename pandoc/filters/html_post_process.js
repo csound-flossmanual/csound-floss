@@ -1,6 +1,7 @@
 const R = require("ramda");
 const { DomHandler, DomUtils, Parser } = require("htmlparser2");
 const mjAPI = require("mathjax-node");
+const util = require("util");
 const { buildLink } = require("../utils");
 
 const isAbsoluteUrl = (url) => /^https?:\/\//i.test(url);
@@ -47,7 +48,7 @@ const fixPreTags = (dom) => {
       R.path(["children", 0, "name"], elem) === "code"
     ) {
       elem.name = "div";
-      elem.attribs.class = "code-container";
+      elem.attribs.class = "code-container " + elem.attribs.class;
     }
   });
   return dom;
@@ -70,20 +71,27 @@ const fixCodeTags = (dom) => {
       elem.name = "CodeElement";
       elem.attribs.data = DomUtils.getText(elem);
       elem.attribs = {
-        data: escapeCodeData(elem.attribs.data),
+        data:
+          "REPLACEME_BEG" + escapeCodeData(elem.attribs.data) + "REPLACEME_END",
+        lang: elem.attribs.class.toString().replace("sourceCode ", ""),
       };
-      // FIXME: propogate lang info to CodeMirror
-      // ext: R.pathOr("", ["attribs", "class"], elem).replace(
-      //     /^sourceCode +/g,
-      //     ""
-      //   ),
       elem.children = [[]];
     } else if (
       R.hasPath(["children", 0, "data"], elem) &&
       R.pathOr(false, ["parent", "name"], elem) === "div"
     ) {
       elem.name = "CodeElement";
-      elem.attribs.data = escapeCodeData(elem.children[0].data);
+      elem.attribs.lang = (
+        elem.attribs?.class?.toString() ||
+        (elem.parent?.attribs?.class?.toString() ?? "")
+      )
+        .replace("sourceCode ", "")
+        .replace("code-container ", "");
+
+      elem.attribs.data =
+        "REPLACEME_BEG" +
+        escapeCodeData(elem.children[0].data) +
+        "REPLACEME_END";
       elem.children[0].data = "";
     }
   });

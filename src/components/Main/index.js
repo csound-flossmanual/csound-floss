@@ -46,7 +46,7 @@ function scrollIntoView(element) {
 function Main({ currentRoute, mobileMode, setCurrentRoute }) {
   const onRouteChange = React.useCallback(
     ({ action, location }) => {
-      console.log({ action, location });
+      // console.log({ action, location });
       setCurrentRoute(location.pathname);
       if (["POP", "PUSH"].includes(action)) {
         if (!location.hash || location.hash.length === 0) {

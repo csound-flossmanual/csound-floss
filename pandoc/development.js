@@ -4,6 +4,7 @@ const R = require("ramda");
 const { spawn } = require("child_process");
 const { execMarkdownToHtml } = require("./build_html");
 const { buildAllHtml } = require("./build_all_html");
+const { buildOverviewPages } = require("./build_html_overview_pages");
 const { BOOK_DIRECTORY, OTHER_DIRECTORY } = require("./constants");
 
 // Build everything just once
@@ -36,5 +37,6 @@ const watcher = chokidar.watch(
 
 watcher.on("change", (path) => {
   console.log(`${path} modified`);
+  buildOverviewPages();
   execMarkdownToHtml(path);
 });

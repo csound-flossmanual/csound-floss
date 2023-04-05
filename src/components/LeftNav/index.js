@@ -258,6 +258,9 @@ function LeftNav({ routes = [], setCurrentRoute }) {
                       >
                         <p
                           style={{
+                            fontSize: "14px",
+                            lineHeight: "150%",
+                            margin: "3px 0",
                             fontWeight:
                               currentSectionIndex - 1 === idx ||
                               (lastElem && currentSectionIndex > idx)

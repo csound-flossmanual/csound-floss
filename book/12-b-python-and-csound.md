@@ -43,7 +43,9 @@ _anaconda3/lib/python3.X/site-packages_.
 
 Once this is done, open a Jupyter Notebook and type
 
-    import ctcsound
+```python
+import ctcsound
+```
 
 to see if the installation was successful.
 
@@ -223,18 +225,22 @@ Here we send the values of the browse button and the slider to Csound:
 
 Also we start and stop the Csound instrument when the Start/Stop buttons are pressed:
 
-    if event is 'Start':
-        cs.sendScore('i 1 0 -1')
-    if event is 'Stop':
-        cs.sendScore('i -1 0 1')
+```python
+if event is 'Start':
+    cs.sendScore('i 1 0 -1')
+if event is 'Stop':
+    cs.sendScore('i -1 0 1')
+```
 
 And finally, if the window is being closed, we turn off the instrument,
 delete the Csound instance and leave the while-loop:
 
-    if event is None:
-        cs.sendScore('i -1 0 1')
-        del cs
-        break
+```python
+if event is None:
+    cs.sendScore('i -1 0 1')
+    del cs
+    break
+```
 
 #### GUI displays Csound values
 
@@ -313,7 +319,7 @@ header. The example below shows a simple csd file which prints the text
 
 #### **_EXAMPLE 12B01_pyinit.csd_**
 
-```csound
+```csd
 <CsoundSynthesizer>
 <CsOptions>
 -ndm0
@@ -350,7 +356,7 @@ This can be useful for longer Python code snippets.
 
 #### **_EXAMPLE 12B02_python_global.csd_**
 
-```csound
+```csd
  <CsoundSynthesizer>
 <CsOptions>
 -ndm0
@@ -418,7 +424,7 @@ instrument 3 is called which performs both, incrementing
 
 #### **_EXAMPLE 12B03_pyrun.csd_**
 
-```csound
+```csd
 <CsoundSynthesizer>
 <CsOptions>
 -ndm0
@@ -630,7 +636,7 @@ The following csd shows a simple usage of the pycall opcodes:
 
 #### **_EXAMPLE 12B06_pycall.csd_**
 
-```csound
+```csd
 <CsoundSynthesizer>
 <CsOptions>
 -dnm0
@@ -678,7 +684,7 @@ example shows both, local and global behaviour.
 
 #### **_EXAMPLE 12B07_local_vs_global.csd_**
 
-```csound
+```csd
 <CsoundSynthesizer>
 <CsOptions>
 -dnm0
@@ -788,7 +794,7 @@ sizes of lists.
 
 #### **_EXAMPLE 12B08_markov.csd_**
 
-```csound
+```csd
 <CsoundSynthesizer>
 <CsOptions>
 -odac -dm0

@@ -320,7 +320,7 @@ CsoundUI object, we must give it a reference to our Csound object:
 CsoundUI *csoundUI = [[CsoundUI alloc] initWithCsoundObj: self.csound];
 ```
 
-```none
+```swift
 // Swift
 var csoundUI = CsoundUI(csoundObj: csound)
 ```
@@ -331,7 +331,7 @@ communicating to and from Csound. Once set-up, values passed to these
 named channels are normally accessed through the chnget opcode, for
 example:
 
-```csound
+```orc
 instr 1
 kfreq chnget "frequency"
 asig oscil 0.5 , kfreq
@@ -343,7 +343,7 @@ Conversely, in order to pass values from Csound, the chnset opcode is
 normally used with two arguments. The first is the variable, and it is
 followed by the channel name:
 
-```csound
+```orc
 instr 1
 krand randomi 300 , 2000 , 1 , 3
 asig poscil 0.5 , krand
@@ -363,7 +363,7 @@ button bindings. To add a button binding, use:
 [self.csoundUI addButton:self.button forChannelName:"channelName"];
 ```
 
-```none
+```swift
 // Swift
 csoundUI.add(button, forChannelName: "channelName")
 ```
@@ -1894,7 +1894,7 @@ finally we use this value to synchronize the graphics cursor on the waveform (sc
 
 In the Orchestra we find the corresponding code for writing in the software bus.
 
-```csound
+```orc
 chnset kfilposphas, "file_position_from_csound"
 ```
 
@@ -1933,7 +1933,7 @@ The _instr 53_ is kept active for `UPDATE_RES` sec (0.1), the _maxalloc_ opcode 
 the number of simultaneous instances (notes).
 Thus, any score events which fall inside UPDATE_RES time, are ignored.
 
-```csound
+```orc
 maxalloc 53, 1  ;iPad UI Waveforms morphing only 1 instance
 ```
 

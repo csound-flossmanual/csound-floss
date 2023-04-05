@@ -265,11 +265,15 @@ The OENTRY structure defines the details of the new opcode:
 Since we have defined our output as "s", the actual processing
 function called by csound will depend on the output type. For instance
 
-    k1  newopc  kin1, kin2, i1
+```orc
+k1  newopc  kin1, kin2, i1
+```
 
 will use _newopc_process_control()_, whereas
 
-    a1  newopc  kin1, kin2, i1
+```orc
+a1  newopc  kin1, kin2, i1
+```
 
 will use _newopc_process_audio()_. This type of code is found for
 instance in the oscillator opcodes, which can generate control or audio

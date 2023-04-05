@@ -210,7 +210,9 @@ The values of these widgets are normalized between 0 and 1,
 and can be read into Csound during performance using the _chnget_ opcode,
 like this:
 
-    kslider1_value chnget "slider1"
+```orc
+kslider1_value chnget "slider1"
+```
 
 The area below the trackpad prints messages output by Csound as it runs.
 
@@ -239,7 +241,7 @@ To read a sample from the internal storage, add `/storage/emulated/0/locationofy
 Csound's search path via the `--env:SSDIR` flag in the `<CsOptions>` tag of your _.csd_ file,
 for instance:
 
-```csound
+```csd
 <CsOptions>
 --env:SSDIR+=/storage/emulated/0/SAMPLES
 </CsOptions>
@@ -308,7 +310,7 @@ during Csound's performance (`-m3`).
 Create a blank line between `<CsInstruments>` and `</CsInstruments>` and
 type the following text:
 
-```csound
+```orc
 sr = 44100
 ksmps = 32
 nchnls = 1
@@ -327,7 +329,9 @@ plays a tone at concert A.
 
 Create a blank line between `<CsScore>` and `</CsScore>` and type:
 
-    i1 0 5
+```sco
+i1 0 5
+```
 
 This means play instrument 1 starting at time 0 for 5 seconds.
 
@@ -365,7 +369,7 @@ The first step is to declare one global variable for each of the control
 channels, with the same name as the control channel, at the top of the
 orchestra header, initialized to a value of zero:
 
-```csound
+```orc
 gkslider1 init 0
 gkslider2 init 0
 gkslider3 init 0
@@ -391,13 +395,13 @@ Then write an _always-on_ instrument that reads each of these control
 channels into each of those global variables. At the top of the
 orchestra header:
 
-```csound
+```orc
 alwayson "Controls"
 ```
 
 As the next to last instrument in your orchestra:
 
-```csound
+```orc
 instr Controls
  gkslider1 chnget "slider1"
  gkslider2 chnget "slider2"
@@ -431,7 +435,7 @@ _Gogins/Drone-IV.csd_.
 
 At the top of the orchestra header:
 
-```csound
+```orc
 alwayson "VariablesForControls"
 ```
 

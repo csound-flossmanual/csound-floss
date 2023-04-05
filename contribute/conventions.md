@@ -34,6 +34,18 @@ Remember to close the example with three backticks followed by a newline:
 
 <pre>```</pre>
 
+If playback is not desired, the following tags will highlight the csound code
+without a wasm playback engine. Pick the one depending on the snippet type.
+
+<pre>```csd</pre>
+<pre>```orc</pre>
+<pre>```sco</pre>
+
+Few additional languages are supported
+
+<pre>```python</pre>
+<pre>```c</pre>
+
 The full examples (which are collected and distributed seperately) must be
 preceded by four hashes(\#) a number and a title of the example,
 starting with the word EXAMPLE (\#\#\#\# \*\*EXAMPLE\*\*):

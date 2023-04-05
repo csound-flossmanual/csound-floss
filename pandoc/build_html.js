@@ -46,9 +46,10 @@ function execMarkdownToHtml(fileName) {
   // console.log(processedHtmlString);
   const jsxElements = html2jsx(processedHtmlString)
     .replaceAll("&amp;", "&")
-    .replaceAll('CodeElement data="', "CodeElement data={`")
-    .replaceAll('">undefined</CodeElement>', "`}></CodeElement>")
-    .replaceAll('"></CodeElement>', "`}></CodeElement>")
+    .replaceAll(' data="REPLACEME_BEG', " data={`")
+    .replaceAll('REPLACEME_END"', "`}")
+    .replaceAll("undefined</CodeElement>", "</CodeElement>")
+    // .replaceAll('"></CodeElement>', "`}></CodeElement>")
     .replace(/^</gm, "{' '}<")
     .replace(/>$/gm, ">{' '}");
 

@@ -1,8 +1,6 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
-import { jsx } from "@emotion/react";
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from "react";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { BrowserRouter } from "react-router-dom";
 import ResizeObserver from "resize-observer-polyfill";
 import MobileNav from "./components/MobileNav";
@@ -15,6 +13,21 @@ import { BookProvider } from "./BookContext";
 import routes from "./book_fragments/routes.json";
 import { equals, findIndex, isEmpty, propEq } from "ramda";
 import { browserHistory } from "./history";
+
+const theme = {
+  ...extendTheme({
+    fonts: {
+      heading: `'Roboto Condensed', sans-serif`,
+      body: `'Roboto Condensed', sans-serif`,
+    },
+    colors: {
+      linkColor: "#6f519b",
+    },
+  }),
+  styles: {
+    global: { a: { color: "#6f519b" } },
+  },
+};
 
 function App() {
   const initialState = (browserHistory.location.pathname || "").replace(
@@ -49,35 +62,37 @@ function App() {
   const mobileMode = windowWidth < 800 && currentRoute !== "/";
 
   return (
-    <BookProvider>
-      <CsoundProvider>
-        <GuiRenderer />
-        {mobileMode && (
-          <style>{`html, body {
+    <ChakraProvider theme={theme}>
+      <BookProvider>
+        <CsoundProvider>
+          <GuiRenderer />
+          {mobileMode && (
+            <style>{`html, body {
   overflow-x: hidden;
 }`}</style>
-        )}
-        <style>{`#root {flex-direction: ${
-          mobileMode ? "column" : "row"
-        };}`}</style>
-        <BrowserRouter key="hst" history={browserHistory}>
-          {!mobileMode && routeIndex > -1 && !equals(currentRoute, "/") && (
-            <LeftNav
-              routes={routes}
+          )}
+          <style>{`#root {flex-direction: ${
+            mobileMode ? "column" : "row"
+          };}`}</style>
+          <BrowserRouter key="hst" history={browserHistory}>
+            {!mobileMode && routeIndex > -1 && !equals(currentRoute, "/") && (
+              <LeftNav
+                routes={routes}
+                currentRoute={currentRoute}
+                setCurrentRoute={setCurrentRoute}
+              />
+            )}
+            <Main
               currentRoute={currentRoute}
+              mobileMode={mobileMode}
               setCurrentRoute={setCurrentRoute}
             />
-          )}
-          <Main
-            currentRoute={currentRoute}
-            mobileMode={mobileMode}
-            setCurrentRoute={setCurrentRoute}
-          />
-          {mobileMode && <MobileNav routeIndex={routeIndex} />}
-        </BrowserRouter>
-        <Console />
-      </CsoundProvider>
-    </BookProvider>
+            {mobileMode && <MobileNav routeIndex={routeIndex} />}
+          </BrowserRouter>
+          <Console />
+        </CsoundProvider>
+      </BookProvider>
+    </ChakraProvider>
   );
 }
 

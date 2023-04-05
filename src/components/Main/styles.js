@@ -6,6 +6,7 @@ export const main = css`
   padding: 48px 12px;
   position: relative;
   max-width: calc(100% - 240px - 24px);
+  width: calc(100% - 240px - 24px);
   & > div {
     background-color: #fff;
     margin-right: auto;
@@ -21,7 +22,6 @@ export const main = css`
       padding: 48px 72px;
     }
     & > div {
-      max-width: 1000px;
       padding: 50px;
     }
   }
@@ -36,6 +36,7 @@ export const main = css`
     & {
       padding: 48px 32px;
       max-width: calc(100% - 240px - 64px);
+      width: calc(100% - 240px - 64px);
     }
     & > div {
       padding: 32px;
