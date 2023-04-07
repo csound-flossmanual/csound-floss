@@ -87,7 +87,7 @@ function App() {
               mobileMode={mobileMode}
               setCurrentRoute={setCurrentRoute}
             />
-            {mobileMode && <MobileNav routeIndex={routeIndex} />}
+            {mobileMode && <MobileNav />}
           </BrowserRouter>
           <Console />
         </CsoundProvider>

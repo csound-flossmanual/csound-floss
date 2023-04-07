@@ -51,6 +51,8 @@ pre > code {
 #root {
   display: flex;
   overflow-x: hidden;
+  justify-content: space-between;
+  min-height: 100svh;
 }
 
 .cm-csound-define {

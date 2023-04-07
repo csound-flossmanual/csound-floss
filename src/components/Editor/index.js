@@ -250,7 +250,6 @@ const PlayControls = ({ initialEditorState, currentEditorState }) => {
 };
 
 const CodeElement = ({ data, lang }) => {
-  console.log({ lang });
   const isCsd = data.includes("CsoundSynthesizer") && lang !== "csd";
   const editorReference = useRef(null);
   const initialEditorState = decode(data || "");
