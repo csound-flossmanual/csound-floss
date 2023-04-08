@@ -167,7 +167,6 @@ function MobileNav() {
   const previousRoute = propOr(false, routeIndex - 1, routes);
   const currentChapter = getChapterData(currentRoute.chapter);
   const navigate = useNavigate();
-  console.log("currentRoute", currentRoute);
   // const nextChapter = nextRoute && getChapterData(nextRoute.chapter);
   // const previousChapter =
   //   previousRoute && getChapterData(previousRoute.chapter);
@@ -220,8 +219,14 @@ function MobileNav() {
               <h3>Previous Chapter</h3>
             </span>
           )}
-          <Link to="/">
-            <h3>Table of contents</h3>
+          <Link
+            to={
+              currentRoute?.url_prefix === "/introduction"
+                ? "/introduction/preface"
+                : currentRoute?.url_prefix ?? "/"
+            }
+          >
+            <h3>Overview</h3>
           </Link>
           {nextRoute ? (
             <Link to={nextRoute.url}>
