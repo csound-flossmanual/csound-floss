@@ -11,7 +11,6 @@ give some help and advice about essential opcodes, have a look at these overview
   in the Reference Manual.
 - The [Opcode Guide](/appendix/opcode-guide) in this textbook.
 
-
 ## OSCILLATORS
 
 ### Why are there so many different oscillators in Csound?
@@ -36,7 +35,35 @@ I use `poscil` in this book, because it is a very precise oscillator.
 
 ### Why should oscil be used with caution?
 
-(Show example about slow table reading.)
+The `oscil` opcode reads a table with **no** interpolation. Here comes a simple example in which the table only consists of eight numbers which are read once a second, so with a frequency of 1 Hz.
+
+```csound
+<CsoundSynthesizer>
+<CsOptions>
+</CsOptions>
+<CsInstruments>
+ksmps = 32
+
+//create GEN02 table with numbers [0,1,2,3,4,3,2,1]
+giTable = ftgen(0,0,8,-2, 0,1,2,3,4,3,2,1)
+
+instr 1
+  //let oscil cross the table values once a second
+  a1 = oscil:a(1,1,giTable)
+  //print the result every 1/10 second
+  printks("Time = %.1f sec: Table value = %f\n", 1/10, times:k(), a1[0])
+endin
+
+</CsInstruments>
+<CsScore>
+i 1 0 2.01
+</CsScore>
+</CsoundSynthesizer>
+```
+
+The printout shows that `oscil` only returns the actual table values, without anything "in between". But this "in between" is required in many cases, for instance when a sine table consists of 1024 points, and is read with a frequency of 100 Hz at a sample rate of 44100 Hz. The number of table values for one second is 102400, but we only have 44100 samples. So in this case 2.32... table values meet one sample, and this requires interpolation.
+
+Whether this lack of interpolation leads to audible artefacts or not depends on the size of the table and the oscillator's frequency. It can be audible for small tables and low frequencies. To avoid any possible artefacts, `oscili` or `poscil`should be used for linear interpolation, and `oscil3` or `poscil3` for cubic interpolation.
 
 ## SOUND FILES
 

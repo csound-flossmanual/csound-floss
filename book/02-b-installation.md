@@ -22,11 +22,11 @@ frontend should be distributed together with Csound, or not. Sometimes it was
 the case, but as for today, it is not. The main reasons are:
 
 1. Each frontend has a different design and different ways to use it. There is
-not the one standard way to build a frontend for Csound.
+   not the one standard way to build a frontend for Csound.
 2. Although it is confusing for beginners, it is important to distinguish
-between Csound as audio engine and any frontend. It is the big flexibility of
-Csound that it can be used in many contextes. Each of these contextes somehow
-establishes a new frontend.
+   between Csound as audio engine and any frontend. It is the big flexibility of
+   Csound that it can be used in many contextes. Each of these contextes somehow
+   establishes a new frontend.
 
 ### Can I install Csound without a Frontend?
 

@@ -2,17 +2,204 @@
 
 Unfortunately, Csound's print facilities are scattered amongst many different
 opcodes. You can print anything, but depending on the situation, you will need
-a particular print opcode.
+a particular print opcode. The following list is not complete, but will hopefully give some help to figure out the appropriate opcode for printing.
 
-## Basic printing of variables
+The main distinction is between printing at i-rate and printing at k-rate.
 
-### Which opcodes can I use for simple i-rate printing?
+Printing at i-rate means: Printing only once, at the start of an instrument instance.
 
-### Which opcodes can I use for simple k-rate printing?
+Printing at k-rate means: Printing during the performance of the instrument instance. Usually we will not print values every k-cycle because this would result in more than thousand printouts for a `sr = 44100` and `ksmps = 32`. So the different opcodes offer either a time interval or a trigger.
+
+## Printing at i-rate
+
+### Which opcodes can I use for basic i-rate printing?
+
+#### Numbers: **print()**
+
+`print` is for simple printing of i-rate numbers. Note that it rounds to three decimals.
+
+    iValue = 8.876543
+    print(iValue)
+    -> iValue = 8.877
+
+#### Strings: **puts()**
+
+`puts` prints a string on a new line:
+
+    String1 = "Hello ..."
+    String2 = "... newline!"
+    puts(String1,1)
+    puts(String2,1)
+    -> Hello ...
+       ... newline!
+
+
+#### Arrays: **printarray()**
+
+`printarray` prints an i-rate array.
+
+    iArr[] genarray 0,5
+    printarray(iArr)
+    ->  0.0000 1.0000 2.0000 3.0000 4.0000 5.0000
+
+### Which opcodes can I use for formatted i-rate printing?
+
+#### **prints()**
+
+`prints` offers formatting and can be used for both, numbers and strings.
+
+    iValue = 8.876543
+    String = "Hello"
+    prints("%s %f!\n",String,iValue)
+    -> Hello 8.876543!
+
+#### **printf_i()**
+
+`printf_i` has an additional trigger input. It prints only when the trigger is larger than zero. So this statement will do nothing:
+
+    iTrigger = 0
+    String = "Hello"
+    printf("%s %f!\n",iTrigger,String,iTrigger)
+
+But this will print:
+
+    iTrigger = 1
+    String = "Hello"
+    printf("%s %f!\n",iTrigger,String,iTrigger)
+    -> Hello 1.000000!
+
+### Which opcodes can I use for basic k-rate printing?
+
+#### Numbers: **printk()** or **printk2()**
+
+`printk` is for simple printing of k-rate numbers (rounded to five decimals). The first input parameter specifies the time intervall in seconds between each printout. So this code will print the control cycle count once a second:
+
+    kValue = timek()
+    printk(1,kValue)
+
+The printout for `sr = 44100` and `ksmps = 32` shows:
+
+     i   1 time     0.00000:     1.00000
+     i   1 time     1.00063:  1380.00000
+     i   1 time     2.00127:  2759.00000
+
+`printk2` is useful for printing numbers when they change.
+
+    instr 1
+      kValue = randomh(0,1,1,3)
+      printk2(kValue)
+    endin
+    schedule(1,0,2)
+    ->  i1     0.88287
+        i1     0.29134
+
+#### Strings: **puts()**
+
+`puts` prints a string on a new line. If the trigger input changes its value, the string is printed.
+
+    instr 1
+      //initialize string
+      String = "a"
+      //initialize trigger for puts()
+      kTrigger init 1
+      //printout when kTrigger is 1 and changed
+      puts(String,kTrigger)
+      //change string randomly
+      kValue = rnd:k(1)
+      if kValue > 0.999 then
+        kTrigger += 1
+        String = sprintfk("%c",random:k(65,90))
+      endif
+    endin
+    schedule(1,0,1)
+    -> a
+       W
+       H
+       X
+       D
+       A
+       N
+
+#### Arrays: **printarray()**
+
+The `printarray` opcode can also be used for k-rate arrays. It prints whenever the trigger input changes from 0 to 1.
+
+    instr 1
+      //create an array [0,1,2,3,4,5]
+      kArr[] genarray_i 0,5
+      //print the array values once a second
+      printarray(kArr,metro:k(1))
+      //change the array values randomly
+      kIndx = 0
+      while(kIndx < lenarray(kArr)) do
+        kArr[kIndx] = rnd:k(6)
+        kIndx += 1
+      od
+    endin
+    schedule(1,0,4)
+    ->  0.0000 1.0000 2.0000 3.0000 4.0000 5.0000
+        0.7974 0.4855 3.4391 4.3606 5.9973 5.3945
+        5.9479 0.1663 5.6173 1.1320 5.9309 4.3610
+        5.6611 5.7748 5.8275 5.4023 2.3570 3.7158
+
+### Which opcodes can I use for formatted k-rate printing?
+
+#### **printks()**
+
+Similar to `prints` we can fill a format string. The time between print intervals is given as first parameter. So this will print once a second:
+
+    instr 1
+      kValue = rnd:k(1)
+      printks("Time = %f, kValue = %f\n",1,times:k(),kValue)
+    endin
+    schedule(1,0,4)
+    -> Time = 0.000726, kValue = 0.973500
+       Time = 1.001361, kValue = 0.262336
+       Time = 2.001995, kValue = 0.858091
+       Time = 3.002630, kValue = 0.144621
+
+#### **printf()**
+
+`printf` works with a trigger, not with a fixed time interval between printouts.
+
+    instr 1
+      kValue = rnd:k(1)
+      if kValue > 0.999 then
+        kTrigger = 1
+      else
+        kTrigger = 0
+      endif
+      printf("Time = %f, kValue = %f\n",kTrigger,times:k(),kValue)
+    endin
+    schedule(1,0,4)
+    -> Time = 0.380952, kValue = 0.999717
+       Time = 0.383129, kValue = 0.999951
+       Time = 2.535329, kValue = 0.999191
+       Time = 3.274739, kValue = 0.999095
+       Time = 3.443810, kValue = 0.999773
+       Time = 3.950295, kValue = 0.999182
 
 ### Can I have simple a-rate printing?
 
-##
+If we want to print every sample, we can create an array of `ksmps` length, then write the samples in it and print it via `printarray`. This is an example for `ksmps = 8` and a printout for every k-cycle over 0.001 seconds.
+
+    instr 1
+      kArr[] init ksmps
+      aSine = poscil:a(1,1000)
+      kIndx = 0
+      while kIndx < ksmps do
+       kArr[kIndx] = aSine[kIndx]
+       kIndx += 1
+      od
+      printarray(kArr,-1)
+    endin
+    schedule(1,0,.001)
+    ->  0.0000 0.1420 0.2811 0.4145 0.5396 0.6536 0.7545 0.8400
+        0.9086 0.9587 0.9894 1.0000 0.9904 0.9607 0.9115 0.8439
+        0.7591 0.6590 0.5455 0.4210 0.2879 0.1490 0.0071 -0.1349
+        -0.2743 -0.4080 -0.5335 -0.6482 -0.7498 -0.8361 -0.9056 -0.9566
+        -0.9883 -0.9999 -0.9913 -0.9626 -0.9144 -0.8477 -0.7638 -0.6644
+        -0.5515 -0.4275 -0.2948 -0.1561 -0.0142 0.1279 0.2674 0.4015
 
 ## Formatting
 
