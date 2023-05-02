@@ -201,6 +201,12 @@ example ksmps=16, 32, or 64, -b32 or 64, and -B256 or 512.
 
 ### Why is my realtime audio distorted?
 
+There is not one reason for it. Many different reasons can lead to distorted audio, for instance:
+
+- A realtime audio module is selected which does not fit to your system.
+- The buffer sizes are too large or too small.
+- The Csound instruments you run consume too much CPU power.
+
 ### Why do I have so much latency when I connect a microphone?
 
 Probably you have a too large buffer size. See above about how to set the

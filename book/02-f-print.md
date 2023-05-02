@@ -1,14 +1,14 @@
 # HOW TO: PRINT
 
-Unfortunately, Csound's print facilities are scattered amongst many different
+Csound's print facilities are scattered amongst many different
 opcodes. You can print anything, but depending on the situation, you will need
-a particular print opcode. The following list is not complete, but will hopefully give some help to figure out the appropriate opcode for printing.
+a particular print opcode. The following list is not complete, but may give some help to figure out the appropriate opcode for printing.
 
 The main distinction is between printing at i-rate and printing at k-rate.
 
 Printing at i-rate means: Printing only once, at the start of an instrument instance.
 
-Printing at k-rate means: Printing during the performance of the instrument instance. Usually we will not print values every k-cycle because this would result in more than thousand printouts for a `sr = 44100` and `ksmps = 32`. So the different opcodes offer either a time interval or a trigger.
+Printing at k-rate means: Printing during the performance of the instrument instance. Usually we will not print values every k-cycle because this would result in more than thousand printouts per second for a `sr = 44100` and `ksmps = 32`. So the different opcodes offer either a time interval or a trigger.
 
 ## Printing at i-rate
 
@@ -32,7 +32,6 @@ Printing at k-rate means: Printing during the performance of the instrument inst
     puts(String2,1)
     -> Hello ...
        ... newline!
-
 
 #### Arrays: **printarray()**
 
@@ -68,6 +67,8 @@ But this will print:
     printf("%s %f!\n",iTrigger,String,iTrigger)
     -> Hello 1.000000!
 
+## Printing at k-rate
+
 ### Which opcodes can I use for basic k-rate printing?
 
 #### Numbers: **printk()** or **printk2()**
@@ -102,9 +103,9 @@ The printout for `sr = 44100` and `ksmps = 32` shows:
       String = "a"
       //initialize trigger for puts()
       kTrigger init 1
-      //printout when kTrigger is 1 and changed
+      //printout when kTrigger is larger than zero and changed
       puts(String,kTrigger)
-      //change string randomly
+      //change string randomly and increase trigger
       kValue = rnd:k(1)
       if kValue > 0.999 then
         kTrigger += 1
