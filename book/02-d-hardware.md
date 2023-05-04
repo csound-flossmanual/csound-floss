@@ -37,6 +37,9 @@ If you use a frontend, you will find it in the settings / preferences of
 [CsoundQt](https://csoundqt.github.io/pages/configuring-csoundqt.html) or
 [Blue](https://kunstmusik.github.io/blue-manual/users/gettingStarted/programOptions/#devices).
 
+(Note that Cabbage uses its own internal audio module instead of the ones
+provided by Csound. It is also hardwired to 2 channels minimum.)
+
 If you use plain Csound (command line Csound or Csound via API), use the option
 
     -+rtaudio=...
@@ -74,9 +77,9 @@ If you want another audio device than the system default, you need to get the
 number of this device first. It should be written in the Csound console when
 Csound starts. If not, run Csound with this option:
 
-    -o dac999
+    csound --devices
 
-Csound will report an error and print out the list of available devices.
+Csound will print out the list of available devices.
 
 Once you picked out the one you want to use, call it for instance as
 
@@ -97,9 +100,9 @@ If you want another audio device than the system default, you need to get the
 number of this device first. It should be written in the Csound console when
 Csound starts. If not, run Csound with this option:
 
-    -i adc999
+    csound --devices
 
-Csound will report an error and print out the list of available devices.
+Csound will print out the list of available devices.
 
 Once you picked out the one you want to use, call it for instance as
 
@@ -116,6 +119,13 @@ Or without spaces:
 
     -odac -iadc
 
+### How can I choose different number of input and output channels?
+
+The `nchnls` statement in the header of your Csound file will set the number of output channels. If you need another number of input channels, use the opcode `nchnls_i`. This statement opens 8 channels for output and 4 channels for input:
+
+    nchnls = 8
+    nchnls_i = 4
+
 ## REALTIME AUDIO SETTINGS
 
 ### How can I synchronize the sample rate in Csound and in my audio card?
@@ -127,7 +137,7 @@ Either change the sample rate in the Csound header:
 
     sr = 48000
 
-Or change the system's sample rate to 44100.
+Or change the system's sample rate to 44100. (Some systems will seamlessly handle the sampling rate requested by Csound and will not require any intervention.)
 
 ### How can I set the audio buffer size?
 
@@ -212,6 +222,15 @@ There is not one reason for it. Many different reasons can lead to distorted aud
 Probably you have a too large buffer size. See above about how to set the
 audio buffer size.
 
+### Why do I get a “wrong number of channels” error?
+
+In general it means a mismatch between the `nchnls` statement in the Csound file and the available number of hardware channels. For instance `nchnls = 4` in your Csound file will not work with a stereo sound card and using the portaudio module.
+
+For Mac, this error can also be thrown when you use the internal sound card with `nchnls = 2`. The reason is that the microphone input is mono, but with `nchnls = 2` Csound tries to open two input channels. The solution in this case is to use `nchnls_i = 1` in addition:
+
+    nchnls = 2
+    nchnls_i = 1
+
 ## MIDI DEVICES
 
 ### Do I have to handle MIDI via Csound when I use a frontend?
@@ -231,10 +250,9 @@ You should see the device numbers in the Csound console once you run Csound.
 
 If not, run Csound with
 
-    -M999
+    csound --midi-devices
 
-in the `CsOptions` tag. Csound will return a performance error and display a list
-of all available MIDI input devices.
+Csound will return a list of all available MIDI input devices.
 
 ### How can I know the MIDI output device number when using plain Csound?
 
@@ -245,10 +263,9 @@ You should see the device numbers in the Csound console once you run Csound.
 
 If not, run Csound with
 
-    -Q999
+    csound --midi-devices
 
-in the `CsOptions` tag. Csound will return a performance error and display a list
-of all available MIDI output devices.
+Csound will return a list of all available MIDI output devices.
 
 ### How can I set another MIDI module than PortMidi when using plain Csound?
 
