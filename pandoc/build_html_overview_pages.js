@@ -127,7 +127,7 @@ const buildOverviewPages = () => {
           let currentIndex = sectionsMatches.indexOf(subsectionMatch) + 1;
 
           while (withinSubsection && currentIndex < sectionsMatches.length) {
-            if (/^####?#? .*/.test(sectionsMatches[currentIndex])) {
+            if (/^### .*/.test(sectionsMatches[currentIndex])) {
               subsubSections.push(sectionsMatches[currentIndex]);
             }
             if (
