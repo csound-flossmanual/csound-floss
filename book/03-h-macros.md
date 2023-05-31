@@ -24,7 +24,7 @@ until the macro is actually used and expanded elsewhere in the orchestra
 or score. Macro expansion is a feature of the orchestra and score preprocessor
 and is not part of the compilation itself.
 
-### Orchestra Macros
+## Orchestra Macros
 
 Macros are defined using the syntax:
 
@@ -181,7 +181,7 @@ e
 ; example written by Iain McCurdy
 ```
 
-### Score Macros
+## Score Macros
 
 Score macros employ a similar syntax. Macros in the score can be used in
 situations where a long string of p-fields are likely to be repeated or,

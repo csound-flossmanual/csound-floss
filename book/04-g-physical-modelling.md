@@ -30,7 +30,9 @@ you can still build your own from scratch. This chapter will look at how
 to implement two classical models from first principles and then
 introduce a number of Csound's ready made physical modelling opcodes.
 
-## The Mass-Spring Model^[The explanation here follows chapter 8.1.1 of Martin Neukom's *Signale Systeme Klangsynthese* (Bern 2003)]
+## The Mass-Spring Model
+
+(The explanation here follows chapter 8.1.1 of Martin Neukom's _Signale Systeme Klangsynthese_, Bern 2003)
 
 Many oscillating processes in nature can be modelled as connections of
 masses and springs. Imagine one mass-spring unit which has been set into

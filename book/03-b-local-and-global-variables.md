@@ -318,6 +318,8 @@ The next few examples are going into a bit more detail. If you just want
 to see the result (= global audio usually must be cleared), you can skip
 the next examples and just go to the last one of this section.
 
+### Introductory Examples
+
 It should be understood first that a global audio variable is treated
 the same by Csound if it is applied like a local audio signal:
 
@@ -392,6 +394,8 @@ i 3 0 3
 ;example by joachim heintz
 ```
 
+### Adding Global Variables
+
 In general, you will use a global audio variable like a bus to which
 several local audio signal can be **added**. It's this addition of a
 global audio signal to its previous state which can cause some trouble.
@@ -457,6 +461,8 @@ i 2 0 1
 </CsoundSynthesizer>
 ;example by joachim heintz
 ```
+
+### Adding Audio Vectors
 
 What happens when working with audio signals instead of control signals
 in this way, repeatedly adding a signal to its previous state? Audio
@@ -580,6 +586,8 @@ control cycle being the same as in the previous one</small>*](../resources/image
 ![*<small>Partly self-erasing global audio signal because of phase inversions in
 two subsequent control cycles</small>*](../resources/images/03-b-add-freq15hz-1.png)
 
+### Clear Global Audio After Adding
+
 So the result of all is: If you work with global audio variables in a
 way that you add several local audio signals to a global audio variable
 (which works like a bus), you must **clear** this global bus at each
@@ -667,7 +675,7 @@ i 100 0 20
 ;example by joachim heintz
 ```
 
-## The _chn_ Opcodes for Global Variables
+### The _chn_ Opcodes for Global Variables
 
 Instead of using the traditional g-variables for any values or signals
 which are to transfer between several instruments, many users prefer

@@ -93,7 +93,7 @@ a start value to an (included) end value. Here are some examples:
     iArr[] genarray   1, -1, -0.5 ; [1, 0.5, 0, -0.5, -1]
     iArr[] genarray   -1, 1, 0.6 ; [-1, -0.4, 0.2, 0.8]
 
-### Copy with $=$
+### Copy with `=`
 
 The [=](https://csound.com/docs/manual/assign.html) operator copies any existing array to a new variable.
 The example shows how a global array is copied into a local one depending on a score p-field:

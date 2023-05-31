@@ -16,7 +16,7 @@ it, this is the relation of value and index:
 | VALUE | INDEX |
 | ----- | ----- |
 | 1.1   | 0     |
-| 2.2   | 1     |
+| 2.2   | 1     |
 | 3.3   | 2     |
 | 5.5   | 3     |
 | 8.8   | 4     |
@@ -934,7 +934,121 @@ i 2 7 0
 ;example by joachim heintz
 ```
 
-### Other GEN Routine Highlights
+## Reading a Text File in a Function Table
+
+Sometimes we have data in a text file which we want to use in a function table.
+As a practical example, let us assume we have a drawing from PD like this:
+
+![PD array as drawing and saved to a text file](../resources/images/03-d-pd-drawing.png)
+
+The array is scaled from 0 to 10, and the 100 data points are saved in the file _drawing_data.txt_.
+When we open the file, we see each data point as number on a new line:
+9.67289
+9.34579
+9.25233
+8.50468
+7.85049
+7.52339
+...
+We can import now this text file, and write the data points in it to a function table,
+via [GEN23](https://csound.com/docs/manual/GEN23.html), The syntax, as written in the manual:
+
+    f # time size -23 "filename.txt"
+
+The `size` parameter we will set usually to `0` which means: The table will have
+the same size as the numbers in the file (so 100 here).
+
+`-23` tells Csound to use GEN Routine 23 without normalizing the data.
+(`23` instead of `-23` would scale our data between 0 and 1 rather than 0 and 10.)
+
+"filename.txt" is the text file with the numerical data to read. Not only newlines
+can be used, but also spaces, tabs or commas as separators between the numbers.
+(So we could use a numerical spread sheet when we export it as .csv text file.)
+
+In the following example we apply a simple granular synthesis
+and we use the function table with the drawing data in two ways in it:
+
+- We interpret the drawing as number of grains per second. So at the beginning we will have a high grain density, and at the end a low grain density.
+- We set the grain duration as reciprocal of the grain density. In the simple form, it would mean that
+  for a density of 10 grains per second we have a grain duration of 1/10 seconds.
+  To avoid very long grains at the end, we modify it to half of the reciprocal
+  (so that a grain density of 10 Hz results in grains of 1/20 seconds).
+
+#### **_EXAMPLE 03D11_textfile_to_table.csd_**
+
+```csound
+<CsoundSynthesizer>
+<CsOptions>
+-odac
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 64
+nchnls = 2
+0dbfs = 1
+
+//create a function table with the drawing data from a file
+giDrawing = ftgen(0,0,0,-23,"drawing_data.txt")
+
+//sound file to be played
+gS_file = "fox.wav"
+
+instr ReadTable
+
+  //index as pointer from start to end of the table over duration (p3)
+  kIndx = linseg:k(0,p3,100)
+  //values are read at k-rate with interpolation as a global variable
+  gkDrawVals = tablei:k(kIndx,giDrawing)
+
+endin
+
+instr PlayWithData
+
+  //calculate the skiptime for the sound file compared to the duration
+  kFoxSkip = (timeinsts:k() / p3) * filelen(gS_file)
+
+  //trigger the grains in the frequency of the drawing (density)
+  kTrig = metro(gkDrawVals)
+
+  //if one grain is triggered
+  if kTrig==1 then
+
+    //calculate the grain duration as half the reciprocal of the density
+    kGrainDuration = 0.5/gkDrawVals
+
+    //call the grain and send the skiptime
+    schedulek("PlayGrain",0,kGrainDuration,kFoxSkip)
+
+  endif
+
+endin
+
+instr PlayGrain
+
+  //get the skiptime from the calling instrument
+  iSkip = p4
+  //read the sound from disk at this point
+  aSnd diskin gS_file,1,iSkip
+  //apply triangular envelope
+  aOut = linen:a(aSnd,p3/2,p3,p3/2)
+  //output
+  outall(aOut)
+
+endin
+
+</CsInstruments>
+<CsScore>
+i "ReadTable" 0 10
+i "PlayWithData" 0 10
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+```
+
+There is no need to read the table values as a global variable in a separate
+instrument. It would be perfectly fine to have it in the `PlayWithData` instrument, too.
+
+## Other GEN Routine Highlights
 
 [GEN05](https://csound.com/docs/manual/GEN05.html),
 [GEN07](https://csound.com/docs/manual/GEN07.html),
@@ -966,7 +1080,7 @@ version of the [gbuzz](https://csound.com/docs/manual/gbuzz.html)
 opcode and as it is a fixed waveform (unlike gbuzz) it can be a useful
 and efficient sound source in subtractive synthesis.
 
-## GEN08
+### GEN08
 
     f # time size 8 a n1 b n2 c n3 d ...
 
@@ -995,7 +1109,7 @@ defined. Here are some examples of GEN08 tables:
 
     f 4 0 1024 8 0 1 0.079 96 0.645 927 0
 
-## GEN16
+### GEN16
 
     f # time size 16 val1 dur1 type1 val2 [dur2 type2 val3 ... typeX valN]
 
@@ -1009,8 +1123,8 @@ opposite applies if the curvature value is negative. Below are some
 examples of GEN16 function tables:
 
 ![](../resources/images/03-d-gen16-1.png)
-
-    f 1 0 1024 16 0 512 20 1 512 20 0
+Screenshot_2023-05-31_16-20-42
+f 1 0 1024 16 0 512 20 1 512 20 0
 
 ![](../resources/images/03-d-gen16-2.png)
 
@@ -1028,11 +1142,11 @@ examples of GEN16 function tables:
 
     f 5 0 1024 16 0 512 -20 1 512 -20 0
 
-## GEN19
+### GEN19
 
     f # time size  19  pna   stra  phsa  dcoa  pnb strb  phsb  dcob  ...
 
-GEN19 follows on from GEN10 and GEN09 in terms of complexity and control
+GEN19 follows on from GEN10 and GEN09 in terms of complexity and controlScreenshot_2023-05-31_16-20-42
 options. It shares the basic concept of generating a harmonic waveform
 from stacked sinusoids but in addition to control over the strength of
 each partial (GEN10) and the partial number and phase (GEN09) it offers
@@ -1049,7 +1163,7 @@ granular synthesis. Below are some examples of GEN19:
 
     f 2 0 1024 -19 0.5 1 180 1
 
-## GEN30
+### GEN30
 
     f # time size  30  src  minh maxh [ref_sr] [interp]
 

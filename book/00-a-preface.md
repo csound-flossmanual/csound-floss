@@ -47,12 +47,12 @@ schedule("TryMe",0,-1)
 This textbook cannot cover all these use cases. Its main goal is:
 
 - To provide an interactive [**Getting Started**](01-GS-01.md) tutorial.
-- To collect as many as possible [**How to**](02-a-ht-overview.md) receipes.
+- To collect as many as possible [**How to**](/how-to) receipes.
 - To offer a readable and comprehensive introduction to the Csound language
-  in [Chapter 03](03-a-initialization-and-performance-pass.md).
+  in [Chapter 03](/csound-language).
 - To discuss some classical and recent methods of sound synthesis
-  in [Chapter 04](04-a-additive-synthesis.md) and of sound modification
-  in [Chapter 05](05-a-envelopes.md).
+  in [Chapter 04](/sound-synthesis) and of sound modification
+  in [Chapter 05](/sound-modification).
 - To offer an [Opcode Guide](15-a-opcode-guide.md) as orientation in the
   overwhelming amount of Csound opcodes.
 - To collect different in-depth descriptions and instructions to various subjects,

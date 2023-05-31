@@ -11,10 +11,10 @@ to collect links and community information in only one place.
 It is also no longer necessary to provide information about the frontends here.
 All have own websites and introductions. All we do here is to link to them.
 
-But what is really missing, in my opinion, is an up-to-date **Getting Started**.
+But what is really missing, in my opinion, is an up-to-date [**Getting Started**](/get-started).
 So I decided to write it, and let the book begin with it.
 
-It is followed by another new chapter. In this **How to ...** I start to collect
+It is followed by another new chapter. In this [**How to ...**](/how-to) I start to collect
 brief descriptions which provide instructions and advices for beginners and also
 for more experienced Csound users. From _How to install Csound for Windows_
 to _How to use my MIDI keyboard with Csound_ or _How to perform time stretch_.

@@ -1123,7 +1123,7 @@ Additionally, `getKsmps` returns the current _ksmps_ value, and
 current Csound instance. These both act directly as wrappers to Csound C
 API functions.
 
-## II. How to Fully Integrate Csound into Apple&#39;s iOS CoreAudio
+## II. How to Fully Integrate Csound into Apples iOS CoreAudio
 
 In the second part of this chapter we will study some strategies for best integration of Csound with CoreAudio,
 in order to aid the development of iOS applications.

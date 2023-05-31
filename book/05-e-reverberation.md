@@ -4,10 +4,14 @@ Reverb is the effect a room or space has on a sound where the sound we
 perceive is a mixture of the direct sound and the dense overlapping
 echoes of that sound reflecting off walls and objects within the space.
 
+## Csound opcodes for reverberation
+
 Csound's earliest reverb opcodes are _reverb_ and _nreverb_. By
 today's standards they sound rather crude and as a consequence modern
 Csound users tend to prefer the more recent opcodes _freeverb_ and
 _reverbsc_.
+
+## General considerations about using reverb in Csound
 
 The typical way to use a reverb is to run as a effect throughout the
 entire Csound performance and to send it audio from other instruments to
@@ -16,7 +20,9 @@ reverb effect for every note that is played. This arrangement is a
 reflection of how a reverb effect would be used with a mixing desk in a
 conventional studio. There are several methods of sending audio from
 sound producing instruments to the reverb instrument, three of which
-will be introduced in the coming examples
+will be introduced in the coming examples.
+
+### Method I: Global variables
 
 The _first_ method uses Csound's _global variables_, so that an audio
 variable created in one instrument can be read in another instrument.
@@ -97,6 +103,8 @@ i 5 0 300 ; start reverb
 </CsoundSynthesizer>
 ;example by Iain McCurdy
 ```
+
+### Method II: zak opcodes
 
 The _second method_ uses Csound's _zak patching system_ to send audio from
 one instrument to another. The zak system is a little like a patch bay
@@ -201,6 +209,8 @@ it may not be as well suited to the reverberation of percussive sounds.
 Also be aware that as well as reducing the reverb time, the feedback
 level parameter reduces the overall amplitude of the effect to the point
 where a setting of 1 will result in silence from the opcode.
+
+### Method III: chn opcodes
 
 As _third method_, a more recent option for sending sound from instrument to instrument in
 Csound is to use the _chn..._ opcodes. These opcodes can also be used
