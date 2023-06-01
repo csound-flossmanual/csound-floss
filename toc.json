@@ -93,7 +93,7 @@
     "chapter": 15,
     "name": "Appendix",
     "url_prefix": "/appendix",
-    "with_overview_page": false
+    "with_overview_page": true
   },
   {
     "chapter": 16,
