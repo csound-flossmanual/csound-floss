@@ -1,4 +1,4 @@
-# 16 D. RANDOM
+# 15 D. RANDOM
 
 This chapter is in three parts. Part I provides a general introduction
 to the concepts behind random numbers and how to work with them in
@@ -24,7 +24,7 @@ before (and as any other number). The second class of random number
 involves random events which depend in some way upon previous numbers or
 states. Examples here are Markov chains and random walks.
 
-![](../resources/images/16-d-random-overview.png)
+![](../resources/images/15-d-random-overview.png)
 
 The use of randomness in electronic music is widespread. In this
 chapter, we shall try to explain how the different random horses are
@@ -33,7 +33,7 @@ there are many pre-built random opcodes in Csound which can be used out
 of the box (see the
 [overview](http://wwws.csound.com/docs/manual/SiggenNoise.html) in the
 Csound Manual and the
-[Opcode Guide](15-a-opcode-guide.md)).
+[Opcode Guide](14-a-opcode-guide.md)).
 The final section of this chapter introduces some musically interesting applications of them.
 
 ### Random Without History
@@ -61,7 +61,7 @@ chain each time) in contrast to a seed being taken from the system clock
 four notes will always be the same because of the use of the same seed
 whereas the last three groups should always have a different pitch.
 
-#### **_EXAMPLE 16D01_different_seed.csd_**
+#### **_EXAMPLE 15D01_different_seed.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -120,7 +120,7 @@ repetition after 65536/44100 = 1.486 seconds.]
 In the second note, there is no perceivable repetition as the
 random generator now works with a 31-bit number.
 
-#### **_EXAMPLE 16D02_white_noises.csd_**
+#### **_EXAMPLE 15D02_white_noises.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -207,9 +207,9 @@ unirand and weibull.]
 A linear distribution means that either lower or higher values in a
 given range are more likely:
 
-![](../resources/images/16-d-linear-distributiona2.png){ width=50% }
+![](../resources/images/15-d-linear-distributiona2.png){ width=50% }
 
-![](../resources/images/16-d-linear-distributionb2.png){ width=50% }
+![](../resources/images/15-d-linear-distributionb2.png){ width=50% }
 
 To get this behaviour, two uniform random numbers are generated, and the
 lower is taken for the first shape. If the second shape with the
@@ -220,7 +220,7 @@ distribution, then a linear distribution with precedence of lower
 pitches (but longer durations), at least a linear distribution with
 precedence of higher pitches (but shorter durations).
 
-#### **_EXAMPLE 16D03_linrand.csd_**
+#### **_EXAMPLE 15D03_linrand.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -365,14 +365,14 @@ In a triangular distribution the values in the middle of the given range
 are more likely than those at the borders. The probability transition
 between the middle and the extrema are linear:
 
-![](../resources/images/16-d-triangular-distribution.png)
+![](../resources/images/15-d-triangular-distribution.png)
 
 The algorithm for getting this distribution is very simple as well.
 Generate two uniform random numbers and take the mean of them. The next
 example shows the difference between uniform and triangular distribution
 in the same environment as the previous example.
 
-#### **_EXAMPLE 16D04_trirand.csd_**
+#### **_EXAMPLE 15D04_trirand.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -540,7 +540,7 @@ element in the array is being read. If the pointer has reached the end
 of the array, the instrument which exits Csound is called instead of a
 new instance of _notes_.
 
-#### **_EXAMPLE 16D05_more_lin_tri_units.csd_**
+#### **_EXAMPLE 15D05_more_lin_tri_units.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -770,7 +770,7 @@ fixed possible values which are written into an array (from the longest
 to the shortest) by hand. The values in both arrays are then called
 according to their position in the array.
 
-#### **_EXAMPLE 16D06_scalings.csd_**
+#### **_EXAMPLE 15D06_scalings.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -975,7 +975,7 @@ A typical case for a Markov chain in music is a sequence of certain
 pitches or notes. For each note, the probability of the following note
 is written in a table like this:
 
-![](../resources/images/16-d-markov-table.png){ width=30% }
+![](../resources/images/15-d-markov-table.png){ width=30% }
 
 This means: the probability that element _a_ is repeated, is 0.2; the
 probability that _b_ follows a is 0.5; the probability that _c_ follows a is
@@ -984,7 +984,7 @@ following example shows the basic algorithm which evaluates the first
 line of the Markov table above, in the case, the previous element has
 been _a_.
 
-#### **_EXAMPLE 16D07_markov_basics.csd_**
+#### **_EXAMPLE 15D07_markov_basics.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1045,7 +1045,7 @@ and three durations. Both are defined in two-dimensional arrays:
 _giProbNotes_ and _giProbDurs_. Both Markov chains are running
 independently from each other.
 
-#### **_EXAMPLE 16D08_markov_music.csd_**
+#### **_EXAMPLE 15D08_markov_music.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1210,7 +1210,7 @@ produce a very rapid increase in speed. Similar to the pitch walk, the
 direction parameter changes from plus to minus if the upper border has
 crossed, and vice versa.
 
-#### **_EXAMPLE 16D09_random_walk.csd_**
+#### **_EXAMPLE 15D09_random_walk.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1337,7 +1337,7 @@ can be 2, 3, ...12. The following figure shows the probability function
 _p_(_x_) of these possible outcomes. _p_(_x_) is always less than or
 equal to 1. The sum of the probabilities of all possible outcomes is 1.
 
-![](../resources/images/16-d-random1.gif)
+![](../resources/images/15-d-random1.gif)
 
 For continuous random variables the probability of getting a specific
 value _x_ is 0. But the probability of getting a value within a certain
@@ -1348,7 +1348,7 @@ number smaller than 0 is 0, to get a number between 0 and 0.5 is 0.5, to
 get a number between 0.5 and 1 is 0.5 etc. Density functions _f_(_x_)
 can reach values greater than 1 but the area under the function is 1.
 
-![](../resources/images/16-d-random2.gif)
+![](../resources/images/15-d-random2.gif)
 
 #### Generating Random Numbers With a Given Probability or Density
 
@@ -1377,9 +1377,9 @@ Synthesis_^[
 Neukom, Martin. Signals, systems and sound synthesis. Bern: Peter
 Lang, 2013. Print.] chapter 10.1.4.4)
 
-![](../resources/images/16-d-random3.gif)
+![](../resources/images/15-d-random3.gif)
 
-#### **_EXAMPLE 16D10_Rejection_Sampling.csd_**
+#### **_EXAMPLE 15D10_Rejection_Sampling.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1466,9 +1466,9 @@ numbers wildly jump around.
 
     Table[RandomReal[{-1, 1}], {100}];
 
-![](../resources/images/16-d-random4a.gif)
+![](../resources/images/15-d-random4a.gif)
 
-![](../resources/images/16-d-random5a.gif)
+![](../resources/images/15-d-random5a.gif)
 
 We get a smoother path, a so-called random walk, by adding at every time
 step a random number _r_ to the actual position _x_ (_x_ += _r_).
@@ -1477,9 +1477,9 @@ step a random number _r_ to the actual position _x_ (_x_ += _r_).
 
     x = 0; walk = Table[x += RandomReal[{-.2, .2}], {300}];
 
-![](../resources/images/16-d-random6a.gif)
+![](../resources/images/15-d-random6a.gif)
 
-![](../resources/images/16-d-random7a.gif)
+![](../resources/images/15-d-random7a.gif)
 
 The path becomes even smoother by adding a random number _r_ to the
 actual velocity _v_.
@@ -1501,9 +1501,9 @@ by a small factor _d_
 
     x = 0; v = 0; walk = Table[x += v += RandomReal[{-.01, .01}], {300}];
 
-![](../resources/images/16-d-random8a.gif)
+![](../resources/images/15-d-random8a.gif)
 
-![](../resources/images/16-d-random9a.gif)
+![](../resources/images/15-d-random9a.gif)
 
 The path becomes again smoother by adding a random number _r_ to the
 actual acelleration _a_, the change of the aceleration, etc.
@@ -1517,14 +1517,14 @@ actual acelleration _a_, the change of the aceleration, etc.
     x = 0; v = 0; a = 0;
     Table[x += v += a += RandomReal[{-.0001, .0001}], {300}];
 
-![](../resources/images/16-d-random10a1.gif)
+![](../resources/images/15-d-random10a1.gif)
 
-![](../resources/images/16-d-random11a.gif)
+![](../resources/images/15-d-random11a.gif)
 
 (see Martin Neukom, _Signals, Systems and Sound Synthesis_ chapter
 10.2.3.2)
 
-#### **_EXAMPLE 16D11_Random_Walk2.csd_**
+#### **_EXAMPLE 15D11_Random_Walk2.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1624,17 +1624,17 @@ purposes, Csound includes the
 generator opcodes. The distributions generated by several of these
 opcodes are illustrated below.
 
-![](../resources/images/16-d-linrand.png)
+![](../resources/images/15-d-linrand.png)
 
-![](../resources/images/16-d-trirand.png)
+![](../resources/images/15-d-trirand.png)
 
-![](../resources/images/16-d-gauss.png)
+![](../resources/images/15-d-gauss.png)
 
-![](../resources/images/16-d-exprand.png)
+![](../resources/images/15-d-exprand.png)
 
-![](../resources/images/16-d-bexprand.png)
+![](../resources/images/15-d-bexprand.png)
 
-![](../resources/images/16-d-betarand.png)
+![](../resources/images/15-d-betarand.png)
 
 In addition to these so called _x-class noise generators_ Csound
 provides random function generators, providing values that change over
@@ -1658,7 +1658,7 @@ The instruction:
 
 will produce and output a random line which changes its value every half second between the minimum of -1 and the maximum of 1. Special care should be given to the fourth parameter _imode_ which is by default 0, but can be set to 1, 2, or 3. For _imode_=0 and _imode_=1 the random lines will start at the minimum (here -1) and will hold this value until the first period has been finished. For _imode_=2 it will start at a value set by the user (by default 0), wheras for _imode_=3 it will start at a random value between minimum und maximum. This is a generation for five seconds:
 
-![Opcode randomh with different values for imode](../resources/images/16-d-randomh.png)
+![Opcode randomh with different values for imode](../resources/images/15-d-randomh.png)
 
 Usually we will use _imode_=3, as we want the random line to start immediately at a random value. The same options are valid for [randomi](http://www.csound.com/manual/html/randomi.html) which is an
 interpolating version of _randomh_. Rather than jump to new values when
@@ -1667,7 +1667,7 @@ reaching it just as a new random value is generated. Now we see the difference b
 with randomi in the above code snippet would result in the following
 output:
 
-![Opcode randomi with different values for imode](../resources/images/16-d-randomi.png)
+![Opcode randomi with different values for imode](../resources/images/15-d-randomi.png)
 
 In practice randomi's angular changes in direction as new random values
 are generated might be audible depending on the how it is used.
@@ -1688,7 +1688,7 @@ frequencies. The following input:
 
 would generate an output something like:
 
-![](../resources/images/16-d-rspline.png)
+![](../resources/images/15-d-rspline.png)
 
 We need to be careful with what we do with rspline's output as it can
 exceed the limits set by _kmin_ and _kmax_. Minimum and maximum values can
@@ -1701,7 +1701,7 @@ A short melody is played, first without any humanising and then with
 humanising. rspline random variation is added to the amplitude and pitch
 of each note in addition to an i-time random offset.
 
-#### **_EXAMPLE 16D12_humanising.csd_**
+#### **_EXAMPLE 15D12_humanising.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -1773,7 +1773,7 @@ The final example implements a simple algorithmic note generator. It
 makes use of GEN17 to generate histograms which define the probabilities
 of certain notes and certain rhythmic gaps occuring.
 
-#### **_EXAMPLE 16D13_simple_algorithmic_note_generator.csd_**
+#### **_EXAMPLE 15D13_simple_algorithmic_note_generator.csd_**
 
 ```csound
 <CsoundSynthesizer>

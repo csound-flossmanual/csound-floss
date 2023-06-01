@@ -1,7 +1,7 @@
-# 16 B. PITCH AND FREQUENCY
+# 15 B. PITCH AND FREQUENCY
 
 Pitch and frequency are related but different terms.^[Similar
-to _volume_ and _amplitude_ -- see [next chapter](16-c-intensities.md).]
+to _volume_ and _amplitude_ -- see [next chapter](15-c-intensities.md).]
 _Pitch_ is used by musicians to describe the "height" of a tone, most obvious on a keyboard.
 _Frequency_ is a technical term. We will start with the latter and then return to pitch in
 some of its numerous aspects, including intervals, tuning systems and different conversions
@@ -47,7 +47,7 @@ For instance, a sine wave of 1000 Hz has a length of approximately 340/1000 m = 
 
 Not all sounds are periodic. In fact, periodic sounds are only one end of a range. The other end is noise. In between is a continuum which can be described from both points of view: a periodic sound which has noisy parts, or a noise which has periodic parts. The following example shows these aspects in one of their numerous possibilities. It starts with a sine tone of 1000 Hz and slowly adds aperiodicity. This is done by changing the frequency of the sine oscillator faster and faster, and in a wider and wider range. At the end noise is reached. The other way, from noise to a periodic tone, is shown with a band filter. Its band width is at first 10000 Hz around a center frequency of 1000 Hz, i.e. essentially not altering the white noise. Then the band width decreases dramatically (from 10000 Hz to 0.1 Hz) so that at the end a sine tone is nearly reached.
 
-#### **_EXAMPLE 16B01_PeriodicAperiodic.csd_**
+#### **_EXAMPLE 15B01_PeriodicAperiodic.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -90,11 +90,11 @@ i "NoiseToSine" 11 10
 
 This is what the signal looks like at the start and the end of the _SineToNoise_ process:
 
-![Sine to noise](../resources/images/16-b-sinetonoise.png)
+![Sine to noise](../resources/images/15-b-sinetonoise.png)
 
 And this is what the signal looks like at the start and the end of the _NoiseToSine_ process:
 
-![Noise to sine](../resources/images/16-b-noisetosine.png)
+![Noise to sine](../resources/images/15-b-noisetosine.png)
 
 Only when a sound is periodic, we perceive a pitch. But the human ear is very sensitive, and it is quite fascinating to observe how little periodicity is needed to sense some pitch.
 
@@ -106,13 +106,13 @@ due to a condition known as presbyacusis, or age related hearing loss.
 Most adults can hear frequencies up to about 16 kHz while most children can hear beyond
 this. At the lower end of the spectrum the human ear does not respond to
 frequencies below 20 Hz, and very low frequencies need more power to be heard than medium or high frequencies. (This is explained more in detail in the paragraph about
-the _Fletscher-Munson-Curves_ in the [next chapter](16-c-intensities.md).)
+the _Fletscher-Munson-Curves_ in the [next chapter](15-c-intensities.md).)
 
 So, in the following example, you will not hear the first (10 Hz) tone,
 and probably not the last (20 kHz) one, but hopefully the other ones
 (100 Hz, 1000 Hz, 10000 Hz):
 
-#### **_EXAMPLE 16B02_LimitsOfHearing.csd_**
+#### **_EXAMPLE 15B02_LimitsOfHearing.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -193,7 +193,7 @@ the added frequency is the same. Second, the ratio 3/2 (perfect fifth)
 is applied to the same frequencies. This spacing sounds constant,
 although the frequency displacement is different each time.
 
-#### **_EXAMPLE 16B03_Adding_vs_ratio.csd_**
+#### **_EXAMPLE 15B03_Adding_vs_ratio.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -287,7 +287,7 @@ and then converted to the corresponding frequencies,
 related to the definition of A4 (440 Hz as default).
 The opcode [mton](https://csound.com/docs/manual/mton.html) returns the note names.
 
-#### **_EXAMPLE 16B04_Midi_to_frequency.csd_**
+#### **_EXAMPLE 15B04_Midi_to_frequency.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -472,7 +472,7 @@ The following example shows the fundamentals.
 It plays the five notes C D E F G (= MIDI 60 62 64 65 67) first in
 Pythoagorean tuning, then in Meantone, then as quatertones, then as partials 1-5.
 
-#### **_EXAMPLE 16B05_Tuning_Systems.csd_**
+#### **_EXAMPLE 15B05_Tuning_Systems.csd_**
 
 ```csound
 <CsoundSynthesizer>

@@ -1,4 +1,4 @@
-# CREDITS
+# 14 G. CREDITS
 
 This textbook is a collective effort. If someone's name is missing in the list below. please contact us.
 
@@ -6,60 +6,33 @@ The goal of this work is to share knowledge about the Free (Libre) Open Source S
 for anyone. So any usage which contributes to this goal is welcome. The license below is to
 serve this goal. If you are not sure about a usage, please contact us, and we will find a solution.
 
-#### LICENSE
+## LICENSE
 
-copyright (c) 2020 by Joachim Heintz and contributors
+copyright (c) 2011-2023 by Joachim Heintz and contributors
 
 The content of this book is released under creative commons license **CC-BY 4.0**.
 In short, anyone is allowed to copy, redistribute and transform the content,
 as long as appropriate credit is given to the source.
 For more information see [https://creativecommons.org/licenses/by/4.0/](https://creativecommons.org/licenses/by/4.0/).
 
-#### 00 INTRODUCTION
+## AUTHORS
 
-_A. PREFACE_
+### 00 INTRODUCTION
+
+_PREFACE_
 Joachim Heintz, Andres Cabrera, Alex Hofmann, Iain McCurdy, Alexandre
 Abrioux
 
-_B. HOW TO USE THIS MANUAL_
-Joachim Heintz, Andres Cabrera, Iain McCurdy, Alexandre Abrioux
-
-_C. ON THIS RELEASE_
+_ON THIS RELEASE_
 Joachim Heintz, Iain McCurdy
 
-#### 01 BASICS
-
-_A. DIGITAL AUDIO_
-Alex Hofmann, Rory Walsh, Iain McCurdy, Joachim Heintz
-
-_B. PITCH AND FREQUENCY_
-Rory Walsh, Iain McCurdy, Joachim Heintz
-
-_C. INTENSITIES_
+### 01 GETTING STARTED
 Joachim Heintz
 
-_D. RANDOM_
-Joachim Heintz, Martin Neukom, Iain McCurdy
+### 02 HOW TO
+Joachim Heintz
 
-#### 02 QUICK START
-
-_A. MAKE CSOUND RUN_
-Alex Hofmann, Joachim Heintz, Andres Cabrera, Iain McCurdy, Jim Aikin,
-Jacques Laplat, Alexandre Abrioux, Menno Knevel
-
-_B. CSOUND SYNTAX_
-Alex Hofmann, Joachim Heintz, Andres Cabrera, Iain McCurdy
-
-_C. CONFIGURING MIDI_
-Andres Cabrera, Joachim Heintz, Iain McCurdy
-
-_D. LIVE AUDIO_
-Alex Hofmann, Andres Cabrera, Iain McCurdy, Joachim Heintz
-
-_E. RENDERING TO FILE_
-Joachim Heintz, Alex Hofmann, Andres Cabrera, Iain McCurdy
-
-#### 03 CSOUND LANGUAGE
+### 03 CSOUND LANGUAGE
 
 _A. INITIALIZATION AND PERFORMANCE PASS_
 Joachim Heintz
@@ -88,7 +61,7 @@ Iain McCurdy
 _I. FUNCTIONAL SYNTAX_
 Joachim Heintz
 
-#### 04 SOUND SYNTHESIS
+### 04 SOUND SYNTHESIS
 
 _A. ADDITIVE SYNTHESIS_
 Andres Cabrera, Joachim Heintz, Bjorn Houdorf
@@ -114,7 +87,7 @@ Joachim Heintz, Iain McCurdy, Martin Neukom
 _H. SCANNED SYNTHESIS_
 Christopher Saunders. Joachim Heintz
 
-#### 05 SOUND MODIFICATION
+### 05 SOUND MODIFICATION
 
 _A. ENVELOPES_
 Iain McCurdy
@@ -149,7 +122,7 @@ Oscar Pablo di Liscia
 _L. AMPLITUDE AND PITCH TRACKING_
 Iain McCurdy
 
-#### 06 SAMPLES
+### 06 SAMPLES
 
 _A. RECORD AND PLAY SOUNDFILES_
 Iain McCurdy, Joachim Heintz
@@ -157,7 +130,7 @@ Iain McCurdy, Joachim Heintz
 _B. RECORD AND PLAY BUFFERS_
 Iain McCurdy, Joachim Heintz, Andres Cabrera
 
-#### 07 MIDI
+### 07 MIDI
 
 _A. RECEIVING EVENTS BY MIDIIN_
 Iain McCurdy
@@ -174,7 +147,7 @@ Iain McCurdy
 _E. MIDI OUTPUT_
 Iain McCurdy
 
-#### 08 OTHER COMMUNICATION
+### 08 OTHER COMMUNICATION
 
 _A. OPEN SOUND CONTROL_
 Alex Hofmann, Joachim Heintz
@@ -182,7 +155,7 @@ Alex Hofmann, Joachim Heintz
 _B. CSOUND AND ARDUINO_
 Iain McCurdy
 
-#### 09 CSOUND IN OTHER APPLICATIONS
+### 09 CSOUND IN OTHER APPLICATIONS
 
 _A. CSOUND IN PD_
 Joachim Heintz, Jim Aikin
@@ -196,7 +169,7 @@ Rory Walsh
 _D. CSOUND AS A VST PLUGIN_
 Rory Walsh
 
-#### 10 CSOUND FRONTENDS
+### 10 CSOUND FRONTENDS
 
 _A. CSOUNDQT_
 Andrés Cabrera, Joachim Heintz, Peiman Khosravi
@@ -216,7 +189,7 @@ Iain McCurdy
 _F. WEB BASED CSOUND _
 Victor Lazzarini, Iain McCurdy, Ed Costello
 
-#### 11 CSOUND UTILITIES
+### 11 CSOUND UTILITIES
 
 _A. ANALYSIS_
 Iain McCurdy
@@ -227,7 +200,7 @@ Iain McCurdy
 _C. MISCELLANEOUS_
 Iain McCurdy
 
-#### 12 CSOUND AND OTHER PROGRAMMING LANGUAGES
+### 12 CSOUND AND OTHER PROGRAMMING LANGUAGES
 
 _A. THE CSOUND API_
 François Pinot, Rory Walsh
@@ -250,31 +223,47 @@ Anton Kholomiov
 _G. CSOUND AND HTML_
 Michael Gogins
 
-#### 13 EXTENDING CSOUND
+### 13 EXTENDING CSOUND
 
 _A. DEVELOPING PLUGIN OPCODES_
 Victor Lazzarini
 
-#### 14 MISCELLANEA
-
-_A. METHODS OF WRITING CSOUND SCORES_
-Iain McCurdy, Joachim Heintz, Jacob Joaquin, Menno Knevel
-
-_B. PYTHON IN CSOUNDQT_
-Tarmo Johannes, Joachim Heintz
-
-#### 15 APPENDIX
+### 14 MISCELLANEA
 
 _A. OPCODE GUIDE_
 Joachim Heintz, Iain McCurdy
 
-_B. GLOSSARY_
+_B. METHODS OF WRITING CSOUND SCORES_
+Iain McCurdy, Joachim Heintz, Jacob Joaquin, Menno Knevel
+
+_C. AMPLITUDE AND PITCH TRACKING_
+Iain McCurdy
+
+_D. PYTHON IN CSOUNDQT_
+Tarmo Johannes, Joachim Heintz
+
+_E. GLOSSARY_
 Joachim Heintz, Iain McCurdy
 
-_C. LINKS_
+_F. LINKS_
 Joachim Heintz, Stefano Bonetti
 
-<hr/>
+### 15 DIGITAL AUDIO BASICS
+
+_A. DIGITAL AUDIO_
+Alex Hofmann, Rory Walsh, Iain McCurdy, Joachim Heintz
+
+_B. PITCH AND FREQUENCY_
+Rory Walsh, Iain McCurdy, Joachim Heintz
+
+_C. INTENSITIES_
+Joachim Heintz
+
+_D. RANDOM_
+Joachim Heintz, Martin Neukom, Iain McCurdy
+
+
+## EDITING TEAMS FOR VERSIONS
 
 V.1 - Final Editing Team in March 2011:
 
@@ -301,5 +290,9 @@ V.6 - Final Editing Team March-June 2015:
 Joachim Heintz, Iain McCurdy
 
 V.7 - Final Editing and Programming Team 2019/20:
+
+Joachim Heintz, Hlöðver Sigurðsson
+
+V.8 - Final Editing and Programming Team 2023:
 
 Joachim Heintz, Hlöðver Sigurðsson

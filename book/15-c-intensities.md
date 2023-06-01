@@ -1,4 +1,4 @@
-# 16 C. INTENSITIES
+# 15 C. INTENSITIES
 
 As musicians we are dealing with volume, loudness, sound intensity.
 (In classical western music called _dynamics_, designated as _forte_, _piano_ and its variants.)
@@ -7,7 +7,7 @@ We are asked, for instance, to set the amplitude of an oscillator.
 Or we see this message at the end of a Csound performance in the console telling us
 the "overall amps" (= amplitudes):
 
-![Csound console printout](../resources/images/16-c-overall-amps.png)
+![Csound console printout](../resources/images/15-c-overall-amps.png)
 
 Amplitudes are related to sound intensities,
 but in a more complicated way than we may think.
@@ -197,7 +197,7 @@ equivalent. The following example shows a linear rise of the amplitudes
 from 0 to 1, and then a linear rise of the dB's from -80 to 0 dB, both
 over 10 seconds.
 
-#### **_EXAMPLE 16C01_db_vs_linear.csd_**
+#### **_EXAMPLE 15C01_db_vs_linear.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -252,11 +252,11 @@ Let us consider a simple example and then look at how to derive rms values
 within Csound. Assuming we have a sine wave which consists of 16
 samples, we get these amplitudes:
 
-![*<small>16 times sampled Sine Wave</small>*](../resources/images/16-c-sine-16points-v2.png){width=70%}
+![*<small>16 times sampled Sine Wave</small>*](../resources/images/15-c-sine-16points-v2.png){width=70%}
 
 These are the squared amplitudes:
 
-![*<small>Squared Amplitudes of Sine</small>*](../resources/images/16-c-sine-16points-rms-v2.png){width=70%}
+![*<small>Squared Amplitudes of Sine</small>*](../resources/images/15-c-sine-16points-rms-v2.png){width=70%}
 
 The mean of these values is:
 
@@ -274,7 +274,7 @@ system, in which the rms opcode prevents the system from exploding. Each
 time the rms value exceeds a certain value, the amount of feedback is
 reduced. This is an example^[cf Martin Neukom, Signale Systeme Klangsynthese, Zürich 2003, p.383]\:
 
-#### **_EXAMPLE 16C02_rms_feedback_system.csd_**
+#### **_EXAMPLE 15C02_rms_feedback_system.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -331,7 +331,7 @@ These curves of equal loudness are mostly called _Fletcher-Munson
 Curves_ because of the paper of H. Fletcher and W. A. Munson in 1933.
 They look like this:
 
-![](../resources/images/16-c-fletcher-munson.png){width=70%}
+![](../resources/images/15-c-fletcher-munson.png){width=70%}
 
 Try the following test. During the first 5 seconds you will hear a tone
 of 3000 Hz. Adjust the level of your amplifier to the lowest possible
@@ -346,7 +346,7 @@ this test will also depend upon the quality of your speaker hardware. If
 your speakers do not provide adequate low frequency response, you will
 not hear anything in the bass region.
 
-#### **_EXAMPLE 16C03_FletcherMunson.csd_**
+#### **_EXAMPLE 15C03_FletcherMunson.csd_**
 
 ```csound
 <CsoundSynthesizer>

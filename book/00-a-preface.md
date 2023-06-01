@@ -53,7 +53,7 @@ This textbook cannot cover all these use cases. Its main goal is:
 - To discuss some classical and recent methods of sound synthesis
   in [Chapter 04](/sound-synthesis) and of sound modification
   in [Chapter 05](/sound-modification).
-- To offer an [Opcode Guide](15-a-opcode-guide.md) as orientation in the
+- To offer an [Opcode Guide](14-a-opcode-guide.md) as orientation in the
   overwhelming amount of Csound opcodes.
 - To collect different in-depth descriptions and instructions to various subjects,
   without being complete, and sometimes not up-to-date, in chapters 06-14.

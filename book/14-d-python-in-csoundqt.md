@@ -1,4 +1,4 @@
-# 14 B. PYTHON IN CSOUNDQT
+# 14 D. PYTHON IN CSOUNDQT
 
 If CsoundQt is built with PythonQt support,^[If not, have a look at the
 [releases](https://github.com/CsoundQt/CsoundQt/releases) page.

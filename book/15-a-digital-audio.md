@@ -1,4 +1,4 @@
-# 16 A. DIGITAL AUDIO
+# 15 A. DIGITAL AUDIO
 
 At a purely physical level, sound is simply a mechanical disturbance of
 a medium. The medium in question may be air, solid, liquid, gas or a
@@ -10,7 +10,7 @@ medium can be described as sound waves. The simplest type of waveform,
 describing what is referred to as _simple harmonic motion_, is a sine
 wave.
 
-![Sine wave](../resources/images/16-a-sinewave.png){width=95%}
+![Sine wave](../resources/images/15-a-sinewave.png){width=95%}
 
 Each time the waveform signal goes above zero the molecules are in a state
 of compression meaning that each molecule within the waveform
@@ -30,7 +30,7 @@ Periodic waves have some main parameters:
 - **Frequency**: The number of cycles or periods per second, measured
   in Hertz (Hz). If a sound has a frequency of 440 Hz it
   completes 440 cycles every second. Read more about frequency in the
-  [next chapter](01-b-pitch-and-frequency.md).
+  [next chapter](15-b-pitch-and-frequency.md).
 
 - **Phase:** This is the starting point of a waveform.
   It can be expressed in degrees or in radians. A complete cycle of
@@ -89,7 +89,7 @@ are left with what is known as a _discrete signal_, consisting of a
 collection of audio samples, as illustrated in the bottom half of the
 diagram.
 
-![Sampling of an analog signal](../resources/images/16-a-sampling.png){width=70%}
+![Sampling of an analog signal](../resources/images/15-a-sampling.png){width=70%}
 
 It is important to remember that each sample represents the amount of
 voltage, positive or negative, that was present in the signal at the
@@ -125,7 +125,7 @@ happens it results in what is known as _aliasing_ or _foldover_.
 
 Here is a graphical representation of aliasing.
 
-![Aliasing (red) of a high frequency (blue)](../resources/images/16-a-aliasing-1.png)
+![Aliasing (red) of a high frequency (blue)](../resources/images/15-a-aliasing-1.png)
 
 The sinusoidal waveform in blue is being sampled at the vertical black
 lines. The line that joins the red circles together is the captured
@@ -134,7 +134,7 @@ waveform express different frequencies.
 
 Here is another example, showing for a sample rate of 40 kHz in the upper section a sine of 10 kHz, and in the lower section a sine of 30 kHz:
 
-![Aliasing of a 30 kHz sine at 40 kHz sample rate](../resources/images/16-a-aliasing-2.png)
+![Aliasing of a 30 kHz sine at 40 kHz sample rate](../resources/images/15-a-aliasing-2.png)
 
 We can see that if the sample rate is 40 kHz there is no problem with
 sampling a signal that is 10 KHz. On the other hand, in the second
@@ -155,7 +155,7 @@ and then as result of 43100 Hz input which is 1000 Hz lower than the sample rate
 Instrument 2 demonstrates unwanted aliasing as a result of harmonics beyond Nyquist:
 the 22nd partial of 1990 Hz is 43780 Hz which sounds as 44100-43780 = 320 Hz.
 
-#### **_EXAMPLE 16A01_Aliasing.csd_**
+#### **_EXAMPLE 15A01_Aliasing.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -237,7 +237,7 @@ or down when being digitized.
 
 The figure below shows the quantization issue in simplified version, assuming a depth of only 3 bit. This is like a grid of 2^3^ = 8 possible levels which can be used for each sample. At each sampling period the soundcard plots an amplitude which is adjusted to the next possible vertical position. For a signal with lower amplitude the distortion would even be stronger.
 
-![*Inaccurate amplitude values due to insufficient bit depth resolution*](../resources/images/16-a-bitdepth.png)
+![*Inaccurate amplitude values due to insufficient bit depth resolution*](../resources/images/15-a-bitdepth.png)
 
 Quantization noise becomes most apparent
 when trying to represent low amplitude (quiet) sounds. Frequently a tiny

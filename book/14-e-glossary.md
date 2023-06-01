@@ -1,4 +1,4 @@
-# 15 B. GLOSSARY
+# 14 E. GLOSSARY
 
 ## Math Symbols
 

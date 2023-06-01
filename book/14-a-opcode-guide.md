@@ -1,4 +1,4 @@
-# 15 A. OPCODE GUIDE
+# 14 A. OPCODE GUIDE
 
 If Csound is called from the command line with the option -z, a
 list of all opcodes is printed. The total number of all opcodes is more than 1500. There are already overviews of all of Csound's opcodes in the

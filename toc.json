@@ -91,13 +91,7 @@
   },
   {
     "chapter": 15,
-    "name": "Appendix",
-    "url_prefix": "/appendix",
-    "with_overview_page": true
-  },
-  {
-    "chapter": 16,
-    "name": "Digital Audio Basics",
+    "name": "Appendix: Digital Audio Basics",
     "url_prefix": "/basics",
     "with_overview_page": true
   }
