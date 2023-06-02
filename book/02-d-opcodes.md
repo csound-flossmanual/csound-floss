@@ -9,7 +9,7 @@ give some help and advice about essential opcodes, have a look at these overview
 
 - The [Opcodes Overview](https://csound.com/docs/manual/PartOpcodesOverview.html)
   in the Reference Manual.
-- The [Opcode Guide](/appendix/opcode-guide) in this textbook.
+- The [Opcode Guide](/miscellanea/opcode-guide) in this textbook.
 
 ## OSCILLATORS
 

@@ -610,8 +610,6 @@ e
 ;example by Iain McCurdy
 ```
 
-## Conclusion
-
 These examples have hopefully demonstrated the strengths of subtractive
 synthesis in its simplicity, intuitive operation and its ability to
 create organic sounding timbres. Further research could explore

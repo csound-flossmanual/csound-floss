@@ -18,7 +18,7 @@ a carrier audio signal with a modulator signal. If adapted to the modification o
 samples or live input, the carrier signal now changes to a playback unit or a microphone.
 The modulator usually remains a sine oscillator.
 
-![](../resources/images/05-f-RM.png){width=60%}
+![](../resources/images/05-f-RM.png){width=50%}
 
 The spectrum of the carrier sound is shifted by plus and minus the modulator frequency. As this is happening for each part of the spectrum, the source sound often seems to loose its center. A piano sound easily becomes bell-like, and a voice can become gnomic.
 
@@ -89,11 +89,11 @@ size 4, a line becomes a staircase:
 
 Bit Depth = high
 
-![](../resources/images/05-f-bit-depth-high.png){width=50%}
+![](../resources/images/05-f-bit-depth-high.png){width=40%}
 
 Bit Depth = 2
 
-![](../resources/images/05-f-bit-depth-2.png){width=50%}
+![](../resources/images/05-f-bit-depth-2.png){width=40%}
 
 This is the sounding result:
 

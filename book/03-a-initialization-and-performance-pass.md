@@ -857,7 +857,7 @@ printout shows values which are one less in the latter case.
 
 ### Named Instruments
 
-It has been said in chapter 02B (Quick Start) that instead of a number
+Instead of a number
 you can also use a name for an instrument. This is mostly preferable,
 because you can give meaningful names, leading to a better readable
 code. But what about the order of calculation in named instruments?

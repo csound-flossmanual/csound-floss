@@ -2,7 +2,7 @@
 
 In _Amplitude Modulation_ (AM) the amplitude of a _Carrier_ oscillator is modulated by the output of another oscillator, called _Modulator_. So the carrier amplitude consists of a constant value, by tradition called _DC Offset_, and the modulator output which are added to each other.
 
-![Basic Model of Amplitude Modulation](../resources/images/04-c-am.png){width=50%}
+![Basic Model of Amplitude Modulation](../resources/images/04-c-am.png){width=30%}
 
 If this modulation is in the sub-audio range (less than 15 Hz), it is perceived
 as periodic volume modification.^[For classical string instruments there is
@@ -53,7 +53,7 @@ So the sounding result of the following example can be calculated as this:
 $f_c$ = 440 Hz, $f_m$ = 40 Hz, so the result is a sound with 400, 440, and
 480 Hz. The sidebands have an amplitude of 0.2. The amplitude of the carrier frequency starts with 0.2, moves to 0.4, and finally moves to 0. Note that we use an alternative way of applying AM here, shown in the _AM2_ instrument:
 
-![Alternative Model of Amplitude Modulation](../resources/images/04-c-am2.png){width=80%}
+![Alternative Model of Amplitude Modulation](../resources/images/04-c-am2.png){width=60%}
 
 It is equivalent to the signal flow in the first flow chart (_AM1_ here). It takes one more line, but now you can substitute any audio signal as carrier, not only an oscillator. So this is the bridge to using AM for the modification of sampled sound as shown in [05F](05-f-am-rm-waveshaping.md).
 
@@ -101,7 +101,7 @@ Ring Modulation can thus be considered as special case of Amplitude Modulation,
 without any DC Offset. This is the very simple model:^[Here expressed as multiplication.
 The alternative would be to feed the modulator's output in the amplitude input of the carrier.]
 
-![<small>*Ring Modulation as Multiplication of two Signals*</small>](../resources/images/04-c-rm.png){width=70%}
+![<small>*Ring Modulation as Multiplication of two Signals*</small>](../resources/images/04-c-rm.png){width=60%}
 
 If Ring Modulation happens in the sub-audio domain (less than 10 Hz), it will be perceived as
 _tremolo_.^[Note that the frequency of this tremolo in RM will be perceived twice as
@@ -115,7 +115,7 @@ If either the carrier or the modulator contain more harmonics, the resulting amp
 
 Given a carrier signal which consists of three harmonics: 400, 800 and 1200 Hz. The ratio of these partials is 1 : 2 : 3, so our ear will perceice 400 Hz as base frequency. Ring Modulation with a frequency of 100 Hz will result in the frequencies 300, 500, 700, 900, 1100 and 1300 Hz. We have now a frequency every 200 Hz, and 400 Hz is not any more the base of it. (Instead, it will be heard as partials 3, 5, 7, 9, 11 and 13 of 100 Hz as base frequency.) In case we modulate with a frequency of 50 Hz, we get 350, 450, 750, 850, 1150 and 1250 Hz, so again a shifted spectrum, definitely not with 400 Hz as base frequency.
 
-![Frequency Shifting by Ring Modulation](../resources/images/04-c-rm-spectra.png)
+![Frequency Shifting by Ring Modulation](../resources/images/04-c-rm-spectra.png){width=75%}
 
 The next example plays these variants.
 

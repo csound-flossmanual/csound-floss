@@ -575,11 +575,8 @@ Most of the `CsoundPerformanceThread` class methods are used.
 
 ```c
 #include <csound/csound.hpp>
-
 #include <csound/csPerfThread.hpp>
-
 #include <iostream>
-
 #include <string>
 
 using namespace std;

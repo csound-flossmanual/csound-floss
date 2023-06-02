@@ -34,10 +34,10 @@ relation of one intensity $I$ to a reference
 intensity $I_0$ as follows:
 
 <div style="text-align: center;">
-<p style="display:inline-block; padding: 1em;">
-$\log_{10} \frac{I}{I_0}$
-*Sound Intensity Level in Bel*
-</p>
+<p style="display:inline-block; padding: 1em; magin: 0; ">
+$\log_{10} \frac{I}{I_0}$</p></br>
+<p style="display:inline-block; padding: 0; font-size: 14px; margin: 0;">
+*Sound Intensity Level in Bel*</p>
 </div>
 
 If, for example, the ratio I/I~0~ is 10, this is 1 Bel.
@@ -51,9 +51,9 @@ measuring a sound intensity is:
 
 <div style="text-align: center;">
 <p style="display:inline-block; padding: 1em;">
-$10 \cdot \log_{10} \frac{I}{I_0}$
-*Sound Intensity Level (SIL) in deci Bel (dB) with
-I~0~ = 10 ^-12^ W/m^2^*
+$10 \cdot \log_{10} \frac{I}{I_0}$</p></br>
+<p style="display:inline-block; padding: 0; font-size: 14px; margin: 0;">
+*Sound Intensity Level (SIL) in deci Bel (dB) with I~0~ = 10 ^-12^ W/m^2^*
 </p>
 </div>
 
@@ -71,7 +71,8 @@ $P$. As a formula:
 
 <div style="text-align: center;">
 <p style="display:inline-block; padding: 1em;">
-$$I \propto P^2$$
+$$I \propto P^2$$</p></br>
+<p style="display:inline-block; padding: 0; font-size: 14px; margin: 0;">
 *Relation between Sound Intensity and Sound Pressure*
 </p>
 </div>

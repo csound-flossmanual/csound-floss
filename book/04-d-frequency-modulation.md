@@ -7,7 +7,7 @@ modulated by the signal from another oscillator (called the modulator).
 The output of the modulating oscillator is added to the frequency input
 of the carrier oscillator.
 
-![Basic Model of Frequency Modulation](../resources/images/04-d-fm.png){width=50%}
+![Basic Model of Frequency Modulation](../resources/images/04-d-fm.png){width=40%}
 
 The amplitude of the modulator determines the amount of modulation, or
 the frequency deviation from the fundamental carrier frequency. The
@@ -335,7 +335,7 @@ Combining more than two oscillators (operators) is called complex FM synthesis. 
 
 In multiple modulator frequency modulation, more than one oscillator modulates a single carrier oscillator. The carrier is always the last operator in the row. Changing its pitch shifts the whole sound. All other operators are modulators, changing their pitch and especially amplitude alters the sound-spectrum. Two basic configurations are possible: parallel and serial. In parallel MM FM, two sinewaves simultaneously modulate a single carrier oscillator. The principle here is, that (Modulator1:Carrier) and (Modulator2:Carrier) will be separate modulations and later added together.
 
-![Multiple Modulator FM](../resources/images/04-d-parallel-mm-fm.jpg){width=75%}
+![Multiple Modulator FM](../resources/images/04-d-parallel-mm-fm.jpg){width=65%}
 
 #### **_EXAMPLE 04D06_Parallel_MM_FM.csd_**
 
@@ -372,7 +372,7 @@ i "parallel_MM_FM" 0 20
 
 In serial MM FM, the output of the first modulator is added with a fixed value and then fed to the second modulator, which then is applied to the frequency input of the carrier. This is much more complicated to calculate and the timbre becomes harder to predict, because Modulator1:Modulator2 produces a complex spectrum, which then modulates the carrier.
 
-![Serial Modulator FM](../resources/images/04-d-serial-mm-fm.jpg){width=60%}
+![Serial Modulator FM](../resources/images/04-d-serial-mm-fm.jpg){width=45%}
 
 #### **_EXAMPLE 04D07_Serial_MM_FM.csd_**
 
@@ -409,7 +409,7 @@ i "serial_MM_FM" 0 20
 
 By multiple carrier frequency modulation, we mean an FM instrument in which one modulator simultaneously modulates two or more carrier oscillators.
 
-![Multiple Carrier FM](../resources/images/04-d-fm-2c.jpg)
+![Multiple Carrier FM](../resources/images/04-d-fm-2c.jpg){width=75%}
 
 #### **_EXAMPLE 04D08_MC_FM.csd_**
 

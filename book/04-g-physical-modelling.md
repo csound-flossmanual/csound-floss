@@ -42,7 +42,7 @@ state _a0_ is 0 and the second state _a1_ is 0.5. Without the
 restricting force of the spring, the mass would continue moving
 unimpeded following a constant velocity:
 
-![](../resources/images/04-g-01bild1a.png){width=50%}
+![](../resources/images/04-g-01bild1a.png){width=40%}
 
 As the velocity between the first two states can be described as
 $a_1 - a_0$, the value of the third state $a_2$ will be:
@@ -57,7 +57,7 @@ mass so that for a factor of c=0.4 the next position will be:
 
 $a_2 = (a_1 + (a_1 - a_0)) - c * a_1 = 1 - 0.2 = 0.8$
 
-![](../resources/images/04-g-01bild2a.png){width=50%}
+![](../resources/images/04-g-01bild2a.png){width=40%}
 
 Csound can easily calculate the values by simply applying the formulae.
 For the first k-cycle^[See
@@ -120,7 +120,7 @@ The output starts with:
     State=11: k0 =  0.595,  k1 =  0.826,  k2 =  0.727
     State=12: k0 =  0.826,  k1 =  0.727,  k2 =  0.337
 
-![](../resources/images/04-g-01bild4a.png)
+![](../resources/images/04-g-01bild4a.png){width=80%}
 
 So, a sine wave has been created, without the use of any of Csound's
 oscillators...
@@ -236,41 +236,20 @@ the Runge--Kutta methods).
 Velocity $v$ is the difference of positions $x$ per time unit $T$,
 acceleration $a$ the difference of velocities $v$ per time unit $T$:
 
-<table cellpadding="0" cellspacing="0" style="height: auto; margin: 24px auto;">
-  <tbody>
-    <tr>
-      <td style="border: 0;">$v_t = (x_t - x_{t-1} )/T$,</td>
-      <td style="border: 0;">$a_t = (v_t - v_{t-1})/T$</td>
-    </tr>
-  </tbody>
-</table>
+$v_t = (x_t - x_{t-1} )/T$  
+$a_t = (v_t - v_{t-1})/T$
 
-<p style="margin: 24px auto; width: auto; display: table; font-size: 14px;">
 We get for $T = 1$
-<p>
 
-<table cellpadding="0" cellspacing="0" style="height: auto; margin: 24px auto;">
-  <tbody>
-    <tr>
-      <td style="border: 0;">$v_t~ = x_t - x_{t-1}$,</td>
-      <td style="border: 0;">$a_t~ = v_t - v_{t-1}$</td>
-    </tr>
-  </tbody>
-</table>
+$v_t~ = x_t - x_{t-1}$  
+$a_t~ = v_t - v_{t-1}$
 
 If we know the position and velocity of a point at time $t - 1$ and are
 able to calculate its acceleration at time $t$ we can calculate the
 velocity $v_t$ and the position $x_t$ at time $t$:
 
-<table cellpadding="0" cellspacing="0" style="height: auto; margin: 24px auto;">
-  <tbody>
-    <tr>
-      <td style="border: 0;">$v_t = v_{t-1} + a_t$</td>
-      <td style="border: 0;">and</td>
-      <td style="border: 0;">$x_t = x_{t-1} + v_t$</td>
-    </tr>
-  </tbody>
-</table>
+$v_t = v_{t-1} + a_t$ and  
+$x_t = x_{t-1} + v_t$
 
 With the following algorithm we calculate a sequence of successive
 positions _x_:

@@ -27,9 +27,11 @@ _ON THIS RELEASE_
 Joachim Heintz, Iain McCurdy
 
 ### 01 GETTING STARTED
+
 Joachim Heintz
 
 ### 02 HOW TO
+
 Joachim Heintz
 
 ### 03 CSOUND LANGUAGE
@@ -261,7 +263,6 @@ Joachim Heintz
 
 _D. RANDOM_
 Joachim Heintz, Martin Neukom, Iain McCurdy
-
 
 ## EDITING TEAMS FOR VERSIONS
 

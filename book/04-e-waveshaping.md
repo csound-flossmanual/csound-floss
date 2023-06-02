@@ -11,20 +11,16 @@ amplitude values using a simple look-up process: if the incoming value
 is x, the outgoing value becomes y. This can be written as a table with
 two columns. Here is a simple example:
 
----
-
-    **Incoming (x) Value**     **Outgoing (y) Value**
-
--0.5 or lower -1
-between -0.5 and 0.5 remain unchanged
-0.5 or higher 1
-
----
+| Incoming (x) Value   | Outgoing (y) Value |
+| -------------------- | ------------------ |
+| -0.5 or lower        | -1                 |
+| between -0.5 and 0.5 | remain unchanged   |
+| 0.5 or higher        | 1                  |
 
 Illustrating this in an x/y coordinate system results in the following
 graph:
 
-![](../resources/images/04-e-bild1a.png){width=70%}
+![](../resources/images/04-e-bild1a.png){width=50%}
 
 ## Basic Implementation Model
 
@@ -39,7 +35,7 @@ This statement will create a table of 4096 points with the desired shape:
 
     giTrnsFnc ftgen 0, 0, 4096, -7, -0.5, 1024, -0.5, 2048, 0.5, 1024, 0.5
 
-![](../resources/images/04-e-gen7table.png){width=90%}
+![](../resources/images/04-e-gen7table.png){width=60%}
 
 Now two problems must be solved. First, the index of the function table
 is not -1 to +1. Rather, it is either 0 to 4095 in the raw index mode,
@@ -97,7 +93,7 @@ i 1 0 10
 ;example by joachim heintz
 ```
 
-![](../resources/images/04-e-simple-waveshaping.png){width=90%}
+![](../resources/images/04-e-simple-waveshaping.png){width=60%}
 
 ## Powershape
 

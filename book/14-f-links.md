@@ -2,15 +2,13 @@
 
 ## Downloads
 
-Csound FLOSS Manual Files:
-<http://files.csound-tutorial.net/floss_manual/>
+Csound FLOSS Manual Files: <https://csound-flossmanual.github.io/>
 
 Csound: <http://csound.com/download.html>
 
 Csound source code: <http://github.com/csound/csound>
 
-User Defined Opcodes for Csound: <http://www.csound.com/udo/> and
-<http://github.com/csudo/csudo>
+User Defined Opcodes for Csound: <https://github.com/kunstmusik/libsyi>, <http://github.com/csudo/csudo> and others
 
 CsoundQt: <http://github.com/CsoundQt/CsoundQt/releases>
 
@@ -22,7 +20,7 @@ WinXound: <http://mnt.conts.it/winxound/>
 
 ## Community
 
-The [Csound commuity home page](http://csound.com) is the main place for news, basic infos, links and more.
+The [Csound commuity home page](https://csound.com/community.html) is the main place for news, basic infos, links and more.
 
 The [Csound Journal](http://csoundjournal.com/index.html) is a main source for different aspects of working with Csound.
 

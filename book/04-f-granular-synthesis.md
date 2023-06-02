@@ -2,7 +2,7 @@
 
 In his _Computer Music Tutorial_, Curtis Roads gives an interesting introductory model for granular synthesis. A sine as source waveform is modified by a repeating envelope. Each envelope period creates one grain.
 
-![After Curtis Roads, Computer Music Tutorial, Fig. 5.11](../resources/images/04-f-roads.png){width=50%}
+![After Curtis Roads, Computer Music Tutorial, Fig. 5.11](../resources/images/04-f-roads.png){width=40%}
 
 In our introductory example, we will start with 1 Hz as frequency for the envelope opscillator, then rising to 10 Hz, then to 20, 50 and finally 300 Hz. The grain durations are therefore 1 second, then 1/10 second, then 1/20, 1/50 and 1/300 second. In a second run, we will use the same values, but add a random value to the frequency of the envelope generator, thus avoiding regularities.
 
