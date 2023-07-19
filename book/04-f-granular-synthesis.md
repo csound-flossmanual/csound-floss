@@ -1,15 +1,14 @@
-04 F. GRANULAR SYNTHESIS
-========================
+# 04 F. GRANULAR SYNTHESIS
 
-In his *Computer Music Tutorial*, Curtis Roads gives an interesting introductory model for granular synthesis. A sine as source waveform is modified by a repeating envelope. Each envelope period creates one grain.
+In his _Computer Music Tutorial_, Curtis Roads gives an interesting introductory model for granular synthesis. A sine as source waveform is modified by a repeating envelope. Each envelope period creates one grain.
 
-![After Curtis Roads, Computer Music Tutorial, Fig. 5.11](../resources/images/04-f-roads.png){width=50%}
+![After Curtis Roads, Computer Music Tutorial, Fig. 5.11](../resources/images/04-f-roads.png){width=40%}
 
 In our introductory example, we will start with 1 Hz as frequency for the envelope opscillator, then rising to 10 Hz, then to 20, 50 and finally 300 Hz. The grain durations are therefore 1 second, then 1/10 second, then 1/20, 1/50 and 1/300 second. In a second run, we will use the same values, but add a random value to the frequency of the envelope generator, thus avoiding regularities.
 
-   ***EXAMPLE 04F01_GranSynthIntro.csd***
+#### **_EXAMPLE 04F01_GranSynthIntro.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac -m128
@@ -61,14 +60,11 @@ i . + . 100 300
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```
 
 We hear different characteristics, due to the regular or irregular sequence of the grains. To understand what happens, we will go deeper in this matter and advance to a more flexible model for grain generation.
 
-
-
-Concept Behind Granular Synthesis
----------------------------------
+## Concept Behind Granular Synthesis
 
 Granular synthesis can in general be described as a technique in which a source sound or waveform is
 broken into many fragments, often of very short duration, which are then
@@ -96,9 +92,7 @@ waveform will be perceived as a resonance peak (sometimes referred to as
 a formant); therefore transposition of the source material will result
 in the shifting of this resonance peak.
 
-
-Granular Synthesis Demonstrated Using First Principles
-------------------------------------------------------
+## Granular Synthesis Demonstrated Using First Principles
 
 The following example exemplifies the concepts discussed above. None of
 Csound's built-in granular synthesis opcodes are used, instead
@@ -127,9 +121,9 @@ periodicity is referred to as synchronous granular synthesis. Granular
 synthesis in which this periodicity is not evident is referred to as
 asynchronous granular synthesis.
 
-   ***EXAMPLE 04F02_GranSynth_basic.csd***
+#### **_EXAMPLE 04F02_GranSynth_basic.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -m0
@@ -177,14 +171,13 @@ e
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
+```
 
-Granular Synthesis of Vowels: FOF
----------------------------------
+## Granular Synthesis of Vowels: FOF
 
 The principles outlined in the previous example can be extended to
 imitate vowel sounds produced by the human voice. This type of granular
-synthesis is referred to as FOF (*fonction d'onde formatique*) synthesis
+synthesis is referred to as FOF (_fonction d'onde formatique_) synthesis
 and is based on work by Xavier Rodet on his CHANT program at IRCAM.
 Typically five synchronous granular synthesis streams will be used to
 create five different resonant peaks in a fundamental tone in order to
@@ -196,20 +189,18 @@ grain stream are also important indicators in defining the resultant
 sound.
 
 Csound has a number of opcodes that make working with FOF synthesis
-easier. We will be using
-[fof](https://csound.com/docs/manual/fof.html).
+easier. We will be using [fof](https://csound.com/docs/manual/fof.html).
 
 Information regarding frequency, bandwidth and intensity values that
 will produce various vowel sounds for different voice types can be found
-in the appendix of the Csound manual
-[here](https://csound.com/docs/manual/MiscFormants.html). These
-values are stored in function tables in the FOF synthesis example.
+in the appendix of the Csound manual [here](https://csound.com/docs/manual/MiscFormants.html).
+These values are stored in function tables in the FOF synthesis example.
 GEN07, which produces linear break point envelopes, is chosen as we will
 then be able to morph continuously between vowels.
 
-   ***EXAMPLE 04F03_Fof_vowels.csd***
+#### **_EXAMPLE 04F03_Fof_vowels.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -382,11 +373,9 @@ e
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
+```
 
-
-Asynchronous Granular Synthesis
--------------------------------
+## Asynchronous Granular Synthesis
 
 The previous two examples have played psychoacoustic phenomena
 associated with the perception of granular textures that exhibit
@@ -394,7 +383,7 @@ periodicity and patterns. If we introduce indeterminacy into some of the
 parameters of granular synthesis we begin to lose the coherence of some
 of these harmonic structures.
 
-The next example is based on the design of example *04F01.csd*. Two
+The next example is based on the design of example _04F01.csd_. Two
 streams of grains are generated. The first stream begins as a
 synchronous stream but as the note progresses the periodicity of grain
 generation is eroded through the addition of an increasing degree of
@@ -410,9 +399,9 @@ grain, grain duration, spatial location etc. can be similarly modulated
 with random functions to offset the psychoacoustic effects of
 synchronicity when using constant values.
 
-   ***EXAMPLE 04F04_Asynchronous_GS.csd***
+#### **_EXAMPLE 04F04_Asynchronous_GS.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -437,7 +426,7 @@ instr 1 ;grain generating instrument 1
   kDelay        gauss      kDelayRange
   ;                                  p1 p2 p3   p4
   ;trigger a note (grain) in instr 3
-                schedkwhen kTrig,0,0,3, abs(kDelay), kDur,kForm 
+                schedkwhen kTrig,0,0,3, abs(kDelay), kDur,kForm
 endin
 
 instr 2 ;grain generating instrument 2
@@ -472,11 +461,9 @@ e
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
+```
 
-
-Synthesis of Dynamic Sound Spectra: grain3
-------------------------------------------
+## Synthesis of Dynamic Sound Spectra: grain3
 
 The next example introduces another of Csound's built-in granular
 synthesis opcodes to demonstrate the range of dynamic sound spectra that
@@ -494,16 +481,15 @@ provided: a sawtooth, a square wave, a triangle wave, a pulse wave and a
 band limited buzz-like waveform. Some of these waveforms, particularly
 the sawtooth, square and pulse waveforms, can generate very high
 overtones, for this reason a high sample rate is recommended to reduce
-the risk of aliasing (see chapter
-[01A](01-a-digital-audio.md)).
+the risk of aliasing (see chapter [01A](01-a-digital-audio.md)).
 
 Current values for formant (cps), grain duration, density and waveform
 are printed to the terminal every second. The key for waveforms is:
 1:sawtooth; 2:square; 3:triangle; 4:pulse; 5:buzz.
 
-   ***EXAMPLE 04F05_grain3.csd***
+#### **_EXAMPLE 04F05_grain3.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -558,8 +544,7 @@ e
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
-
+```
 
 The final example introduces grain3's two built-in randomizing
 functions for phase and pitch. Phase refers to the location in the
@@ -571,10 +556,9 @@ process is applied to the pitch randomization amount parameter. This
 time grain size is relatively large:0.8 seconds and density
 correspondingly low: 20 Hz.
 
+#### **_EXAMPLE 04F06_grain3_random.csd_**
 
-   ***EXAMPLE 04F06_grain3_random.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -614,8 +598,7 @@ e
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
-
+```
 
 This chapter has introduced some of the concepts behind the synthesis of
 new sounds based on simple waveforms by using granular synthesis

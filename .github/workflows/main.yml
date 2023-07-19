@@ -1,6 +1,6 @@
 name: "CI"
 env:
- REACT_APP_CSOUND_FLOSS_VERSION: 7.0.1
+  REACT_APP_CSOUND_FLOSS_VERSION: 8.0.0
 on:
   push:
     branches:
@@ -9,49 +9,49 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2.3.4
-    - uses: cachix/install-nix-action@v12
-      with:
-        nix_path: nixpkgs=channel:nixos-unstable
-    - uses: cachix/cachix-action@v8
-      with:
-        name: csound-flossmanual
-        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
-    - name: Install build dependencies from cache
-      run: |
-        nix-env -i -f shell.nix
-        mkdir -p $HOME/.local/share/fonts
-        cp -rf $(nix-build --no-out-link '<nixpkgs>' -A fira)/share/fonts/* \
-          $HOME/.local/share/fonts
-        fc-cache -f -v
-    - name: Install npm dependencies via yarn
-      run: yarn
-    - name: Test
-      run: yarn test:ci
-    - name: Build the book website
-      run: yarn build
-    - name: Build pdf
-      run: |
-        yarn build:pdf
-        mkdir -p build/build
-        mv *.pdf build/build/csound-flossmanual-${REACT_APP_CSOUND_FLOSS_VERSION}.pdf
-    - name: Build epub
-      run: |
-        yarn build:epub
-        mv *.epub build/build/csound-flossmanual-${REACT_APP_CSOUND_FLOSS_VERSION}.epub
-    - name: Build odt
-      run: |
-        yarn build:odt
-        mv *.odt build/build/csound-flossmanual-${REACT_APP_CSOUND_FLOSS_VERSION}.odt
-    - name: Compress dist to zip
-      run: |
-        nix-env -f '<nixpkgs>' -iA zip
-        zip -r dist.zip build
-    - name: Archive Production Artifact
-      uses: actions/upload-artifact@master
-      with:
-        name: dist
-        path: dist.zip
+      - uses: actions/checkout@v2.4.0
+      - uses: cachix/install-nix-action@v20
+        with:
+          nix_path: nixpkgs=https://github.com/NixOS/nixpkgs/archive/866431777b6c766cea0db7aad347824d3816be68.tar.gz
+      - uses: cachix/cachix-action@v12
+        with:
+          name: csound-flossmanual
+          signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
+      - name: Install build dependencies from cache
+        run: |
+          nix-env -i -f shell.nix
+          mkdir -p $HOME/.local/share/fonts
+          cp -rf $(nix-build --no-out-link '<nixpkgs>' -A fira)/share/fonts/* \
+            $HOME/.local/share/fonts
+          fc-cache -f -v
+      - name: Install npm dependencies via yarn
+        run: yarn
+      - name: Test
+        run: yarn test:ci
+      - name: Build the book website
+        run: yarn build
+      - name: Build pdf
+        run: |
+          yarn build:pdf
+          mkdir -p build/build
+          mv *.pdf build/build/csound-flossmanual-${REACT_APP_CSOUND_FLOSS_VERSION}.pdf
+      - name: Build epub
+        run: |
+          yarn build:epub
+          mv *.epub build/build/csound-flossmanual-${REACT_APP_CSOUND_FLOSS_VERSION}.epub
+      - name: Build odt
+        run: |
+          yarn build:odt
+          mv *.odt build/build/csound-flossmanual-${REACT_APP_CSOUND_FLOSS_VERSION}.odt
+      - name: Compress dist to zip
+        run: |
+          nix-env -f '<nixpkgs>' -iA zip
+          zip -r dist.zip build
+      - name: Archive Production Artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: dist
+          path: dist.zip
   deploy:
     name: Deploy
     needs: build

@@ -29,7 +29,7 @@ h1 {
 h2 {
   border-bottom: none;
   color: #444444;
-  font-size: 36px;
+  font-size: 32px;
   line-height: 130%;
   margin: 0.4em 0;
   margin-top: 32px;
@@ -39,7 +39,7 @@ h2 {
 h3 {
   border-bottom: none;
   color: #444444;
-  font-size: 28px;
+  font-size: 26px;
   line-height: 130%;
   margin: 0.4em 0;
   margin-top: 26px;
@@ -58,17 +58,17 @@ h4 {
 
 p {
   text-align: left;
-  line-height: 160%;
+  line-height: 140%;
   margin: 0;
   padding: 0;
-  margin-top: 12px;
+  margin-top: 6px;
 }
 
 strong {
   font-weight: 700;
 }
 
-strong > em {
+div > strong > em {
   margin-top: 24px;
   display: inline-block;
 }
@@ -189,6 +189,7 @@ hr {
 }
 
 ul {
+  margin-top: 4px;
   padding-left: 30px;
 }
 
@@ -236,9 +237,9 @@ sub {
 }
 
 blockquote {
-  border-left: 4px solid #ddd;
+  /*border-left: 4px solid #ddd;*/
   padding: 0 15px;
-  color: #777;
+  color: #444;
 }
 blockquote > :first-child {
   margin-top: 0;
@@ -270,7 +271,7 @@ img {
   max-width: 100%;
 }
 
-code,
+code, /* code in text */
 tt {
   margin: 0 2px;
   padding: 0 5px;
@@ -279,7 +280,7 @@ tt {
   background-color: #f8f8f8;
   border-radius: 3px;
   font-family: Consolas, "Liberation Mono", Courier, monospace;
-  font-size: 16px;
+  font-size: 17px;
   color: #333;
 }
 pre > code {

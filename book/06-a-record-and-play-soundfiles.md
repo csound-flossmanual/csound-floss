@@ -1,8 +1,6 @@
-06 A. RECORD AND PLAY SOUNDFILES
-================================
+# 06 A. RECORD AND PLAY SOUNDFILES
 
-Playing Soundfiles from Disk - *diskin*
----------------------------------------
+## Playing Soundfiles from Disk - _diskin_
 
 The simplest way of playing a sound file from Csound is to use the
 [diskin](https://csound.com/docs/manual/diskin.html) opcode. This
@@ -19,21 +17,27 @@ A Solid State Disk is much faster than a traditional HDD, so a Csound
 file with a lot of *diskin* processes may run fine on a SSD which
 did not run on a HDD.]
 
-
 ### Sound File Name, Absolute or Relative Path
 
-The first input argument for *diskin* denotes the file which is to me read. It is called *ifilcod* which stems from old Csound times where a sound file should be named "soundin.1" and could then be read by the opcode
-[soundin](https://csound.com/docs/manual/soundin.html) as *1* for *ifilcod*. For now we usually give a string here as input, so *Sfilcod* would be a better name for the variable. The string can be either a *name* like "loop.wav", or it can contain the full *path* to the sound file like "/home/me/Desktop/loop.wav". Usually we will prefer to give a name instead of full path -- not only because it is shorter, but also because it makes our csd more portable. Csound will recognize a sound file by its *name* in these cases:
+The first input argument for _diskin_ denotes the file which is to me read.
+It is called _ifilcod_ which stems from old Csound times where a sound file should be named "soundin.1"
+and could then be read by the opcode [soundin](https://csound.com/docs/manual/soundin.html) as _1_ for _ifilcod_.
+For now we usually give a string here as input, so _Sfilcod_ would be a better name for the variable.
+The string can be either a _name_ like "loop.wav", or it can contain the full _path_ to the sound file
+like "/home/me/Desktop/loop.wav". Usually we will prefer to give a name instead of full
+path -- not only because it is shorter, but also because it makes our csd more portable.
+Csound will recognize a sound file by its _name_ in these cases:
 
-1. The *csd* file and the sound file are in the same directory (folder).
+1. The _csd_ file and the sound file are in the same directory (folder).
    This is the most simple way and gives full flexibility to run the same
-   *csd* from any other computer, just by copying the whole folder.
+   _csd_ from any other computer, just by copying the whole folder.
 2. The folder which contains the sound file is known to Csound. This can
-   be done with the option *--env:SSDIR+=/path/to/sound/folder*. Csound will
-   then add this folder to the *Sound Sample Directory* (SSDIR) in which it
+   be done with the option _--env:SSDIR+=/path/to/sound/folder_. Csound will
+   then add this folder to the _Sound Sample Directory_ (SSDIR) in which it
    will look for sound samples.
 
-A path to look for sound files can not only be given as *absolute* path but also as *relative* path. Let us assume we have this structure for the *csd* file and the *sound* file:
+A path to look for sound files can not only be given as _absolute_ path but also as _relative_ path.
+Let us assume we have this structure for the _csd_ file and the _sound_ file:
 
     |-home
       |-me
@@ -41,15 +45,18 @@ A path to look for sound files can not only be given as *absolute* path but also
         |-Desktop
           loop.wav
 
-The *superloop.csd* Csound file is not in the same directory as the *loop.wav* sound file. But relative to the *csd* file, the sound is in *Desktop*, and *Desktop* is indeed in the same folder as the *superloop.csd* file. So we could write this:
+The _superloop.csd_ Csound file is not in the same directory as the _loop.wav_ sound file.
+But relative to the _csd_ file, the sound is in _Desktop_,
+and _Desktop_ is indeed in the same folder as the _superloop.csd_ file.
+So we could write this:
 
     aSound diskin "Desktop/loop.wav"
 
-Or we could use this in the *CsOptions* tag:
+Or we could use this in the _CsOptions_ tag:
 
     --env:SSDIR+=Desktop
 
-And then again just give the raw name to *diskin*:
+And then again just give the raw name to _diskin_:
 
     aSound diskin "loop.wav"
 
@@ -62,67 +69,75 @@ This is another example for a possible file structure:
         |-Desktop
           superloop.csd
 
-Now the *loop.wav* is relative to the *csd* file not in a subfolder, but on the higher level folder called *me*, and then in the folder *samples*. So we have to specify the relative path like this: "Go up, then look into the folder *samples*." *Going up* is specified as two dots, so this would be relative path for *diskin*:
+Now the _loop.wav_ is relative to the _csd_ file not in a subfolder,
+but on the higher level folder called _me_, and then in the folder _samples_.
+So we have to specify the relative path like this:
+"Go up, then look into the folder _samples_." _Going up_ is specified as two dots,
+so this would be relative path for _diskin_:
 
     aSound diskin "../samples/loop.wav"
 
-Again, we could alternatively use *--env:SSDIR+=../samples* in the *CsOptions* and then simple refer to "loop.wav".
-
+Again, we could alternatively use _--env:SSDIR+=../samples_ in the _CsOptions_ and then simple refer to "loop.wav".
 
 ### Diskins Output Arguments: Single or Array
 
-In the [Csound Manual](https://csound.com/docs/manual/diskin.html) we see two different options for outputs, left hand side of the *diskin* opcode:
+In the [Csound Manual](https://csound.com/docs/manual/diskin.html) we see two different options for outputs,
+left hand side of the _diskin_ opcode:
 
     ar1 [, ar2 [, ar3 [, ... arN]]] diskin      ...
     ar1[]                           diskin      ...
 
-The first line is the traditional way. We will output here as many audio signals as the sound file has channels. Many Csound user will have read this message:
+The first line is the traditional way.
+We will output here as many audio signals as the sound file has channels.
+Many Csound user will have read this message:
 
     INIT ERROR in instr 1 line 17: diskin2:
     number of output args inconsistent with number of file channels
 
-This *inconsistency* of the *number of output arguments* and the *number of file channels* happens, if we use the *stereo* file "magic.wav" but write:
+This _inconsistency_ of the _number of output arguments_ and the _number of file channels_ happens,
+if we use the _stereo_ file "magic.wav" but write:
 
     aSample diskin "magic.wav"
 
-Or vice versa, we use the *mono* file "nice.wav" but write:
+Or vice versa, we use the _mono_ file "nice.wav" but write:
 
     aLeft, aRight diskin "nice.wav"
 
-Since Csound6, however, we have the second option mentioned on Csound's manual page for *diskin*:
+Since Csound6, however, we have the second option mentioned on Csound's manual page for _diskin_:
 
     ar1[] diskin ...
 
-If the output variable name is followed by square brackets, *diskin* will write its output in an audio *array*.^[
+If the output variable name is followed by square brackets,
+_diskin_ will write its output in an audio _array_.^[
 Chapter [03 E](03-e-arrays.md) gives more explanations about arrays in Csound.
-] The *size* (*length*) of this array mirrors the number of channels in the audio file:
+] The _size_ (_length_) of this array mirrors the number of channels in the audio file:
 1 for a mono file, 2 for a stereo file, 4 for a quadro file, etc.
 
-This is a very convenient method to avoid the mismatch error between output arguments and file channels. In the example below we will use this method. We write the audio in an array and will only use the first element for the output. So this will work with any number of channels for the input file.
-
+This is a very convenient method to avoid the mismatch error between output arguments and file channels.
+In the example below we will use this method.
+We write the audio in an array and will only use the first element for the output.
+So this will work with any number of channels for the input file.
 
 ### Speed, Skiptime and Loop
 
 After the mandatory file name or path string, we can pass some optional input arguments:
 
-- *kpitch* specifies the speed of reading the sound file. The *default* is *1*
-  here, which means normal speed. *2* would result in double speed (octave
-  higher and half time to read through the sound file), *0.5* would result
+- _kpitch_ specifies the speed of reading the sound file. The _default_ is _1_
+  here, which means normal speed. _2_ would result in double speed (octave
+  higher and half time to read through the sound file), _0.5_ would result
   in half speed (octave lower and twice as much time needed for reading).
-  Negative values read backwards. As this is a *k-rate* parameter, it
+  Negative values read backwards. As this is a _k-rate_ parameter, it
   offers a lot of possibilities for modification already.
-- *iskiptim* specifies the point in the sound file where reading starts.
-  The default is *0* (= from the beginning); *2* would mean to skip the first
+- _iskiptim_ specifies the point in the sound file where reading starts.
+  The default is _0_ (= from the beginning); _2_ would mean to skip the first
   two seconds of the sound file.
-- *iwraparound* answers the question what *diskin* will do when reading
-  reaches the end of the file. The default is here *0* which means that
-  reading stops. If we put *1* here, diskin will loop the sound file.
+- _iwraparound_ answers the question what _diskin_ will do when reading
+  reaches the end of the file. The default is here _0_ which means that
+  reading stops. If we put _1_ here, diskin will loop the sound file.
 
+#### **_EXAMPLE 06A01_Play_soundfile.csd_**
 
-
-***EXAMPLE 06A01_Play_soundfile.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac --env:SSDIR+=../SourceMaterials
@@ -160,26 +175,23 @@ i 2 20 20
 </CsScore>
 </CsoundSynthesizer>
 ;example written by Iain McCurdy and joachim heintz
-~~~
+```
 
-
-Writing Audio to Disk
----------------------
+## Writing Audio to Disk
 
 The traditional method of rendering Csound's audio to disk is to
 specify a sound file as the audio destination in the Csound command or
 under \<CsOptions\>. In fact before real-time performance became a
 possibility this was the only way in which Csound was used. With this
-method, all audio that is piped to the output using *out* and
+method, all audio that is piped to the output using _out_ and
 will be written to this file. The number of channels that the file will
 contain will be determined by the number of channels specified in the
-orchestra header using *nchnls*. The disadvantage of this method is
+orchestra header using _nchnls_. The disadvantage of this method is
 that we cannot simultaneously listen to the audio in real-time.
 
+#### **_EXAMPLE 06A02_Write_soundfile.csd_**
 
-   ***EXAMPLE 06A02_Write_soundfile.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 ; audio output destination is given as a sound file (wav format specified)
@@ -214,28 +226,25 @@ i 1 3.3 5 78
 </CsScore>
 </CsoundSynthesizer>
 ; example written by Iain McCurdy
-~~~
+```
 
-
-Both Audio to Disk and RTAudio Output - *fout* with *monitor*
----------------------------------------------------------------------------------
+## Both Audio to Disk and RTAudio Output - _fout_ with _monitor_
 
 Recording audio output to disk whilst simultaneously monitoring in
 real-time is best achieved through combining the opcodes
 [monitor](https://csound.com/docs/manual/monitor.html) and
-[fout](https://csound.com/docs/manual/fout.html). *monitor* can be
+[fout](https://csound.com/docs/manual/fout.html). _monitor_ can be
 used to create an audio signal that consists of a mix of all audio
 output from all instruments. This audio signal can then be rendered to a
-sound file on disk using *fout*. *monitor* can read multi-channel
+sound file on disk using _fout_. _monitor_ can read multi-channel
 outputs but its number of outputs should correspond to the number of
-channels defined in the header using *nchnls*. In this example it is
-read just in mono. *fout* can write audio in a number of formats and
+channels defined in the header using _nchnls_. In this example it is
+read just in mono. _fout_ can write audio in a number of formats and
 bit depths and it can also write multi-channel sound files.
 
+#### **_EXAMPLE 06A03_Write_RT.csd_**
 
-***EXAMPLE 06A03_Write_RT.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac ; activate real-time audio output
@@ -277,4 +286,4 @@ i 1 3.3 5 78
 </CsScore>
 </CsoundSynthesizer>
 ;example written by Iain McCurdy
-~~~
+```

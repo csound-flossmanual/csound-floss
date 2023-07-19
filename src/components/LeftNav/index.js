@@ -1,14 +1,15 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
-import { jsx } from "@emotion/react";
 import React from "react";
-import { Link } from "react-router-dom";
+import { jsx } from "@emotion/react";
+import { Link, useLocation } from "react-router-dom";
 import useBook from "../../BookContext";
 import {
   concat,
   dec,
   filter,
   find,
+  findIndex,
   map,
   max,
   pipe,
@@ -73,7 +74,8 @@ const createSelectDataChapter = (route, chapterNumber) => ({
 
 const createSelectDataSection = (route) => ({
   value: route.url,
-  label: moduleToName(route.module),
+  label:
+    route.url === route.url_prefix ? "Overview" : moduleToName(route.module),
 });
 
 const getChapterData = (chapterNum) => {
@@ -81,6 +83,7 @@ const getChapterData = (chapterNum) => {
     propEq("chapter", chapterNum),
     reject(propEq("module", "00--aa-toc"), routes)
   );
+
   const maybePrepend =
     raw.length > 0 ? [{ value: 0, label: raw[0].name, isDisabled: true }] : [];
   return concat(maybePrepend, map(createSelectDataSection, raw));
@@ -104,9 +107,71 @@ const getChapterZero = () => {
   )(routes);
 };
 
-function LeftNav({ routeIndex }) {
-  const [scrollBarRef, setScrollBarRef] = React.useState(null);
+function isScrolledIntoView(element) {
+  const rect = element.getBoundingClientRect();
+  const elemTop = rect.top;
+  const elemBottom = rect.bottom;
+  const isVisible = elemTop >= 0 && elemBottom <= window.innerHeight;
+
+  return isVisible;
+}
+
+function scrollIntoView(elementName) {
+  let count = 0;
+  const intervalHandler = setInterval(() => {
+    const element = document.getElementById(elementName);
+
+    if (element) {
+      try {
+        element.scrollIntoView();
+        if (isScrolledIntoView(element)) {
+          clearInterval(intervalHandler);
+          count = 999999;
+        }
+      } catch (error) {
+        console.error("error scrolling into view", error);
+      }
+    }
+
+    if (count > 1000) {
+      clearInterval(intervalHandler);
+    } else {
+      count += 1;
+    }
+  }, 10);
+}
+
+function LeftNav({ routes = [], setCurrentRoute }) {
+  const location = useLocation();
+
+  React.useEffect(() => {
+    if (
+      location.hash &&
+      typeof location.hash === "string" &&
+      location.hash.length > 1
+    ) {
+      const element = document.querySelector(location.hash);
+      if (element) {
+        element.scrollIntoView(element);
+      } else {
+        scrollIntoView(location.hash.replace("#", ""));
+      }
+    }
+  }, [location]);
+
+  const currentRoutename = location?.pathname ?? "/";
+  const routeIndex = findIndex(
+    propEq(
+      "url",
+      currentRoutename === "/" || currentRoutename === "/introduction"
+        ? "/introduction/preface"
+        : currentRoutename
+    )
+  )(routes);
+
   const currentRoute = routes[routeIndex];
+
+  const [scrollBarRef, setScrollBarRef] = React.useState(null);
   const [bookState] = useBook();
   const currentSections = propOr([], "sections", bookState);
   const currentSectionIndex = propOr(0, "sectionIndex", bookState);
@@ -119,8 +184,10 @@ function LeftNav({ routeIndex }) {
 
   const updateScroller = () => {
     try {
-      scrollBarRef && scrollBarRef.updateScroll();
-    } catch (e) {}
+      scrollBarRef &&
+        typeof scrollBarRef.updateScroll === "function" &&
+        scrollBarRef.updateScroll();
+    } catch {}
   };
 
   React.useEffect(updateScroller);
@@ -134,7 +201,9 @@ function LeftNav({ routeIndex }) {
         onClick={updateScroller}
         css={ß.chapterZeroItem}
         key={index}
-        style={{ fontWeight: isActive ? 700 : "inherit" }}
+        style={{
+          fontWeight: isActive ? 700 : "inherit",
+        }}
       >
         <p>
           {pipe(moduleToName, trimChapterNumber, trimSubChapterLetter)(module)}
@@ -145,7 +214,10 @@ function LeftNav({ routeIndex }) {
 
   const tocList = allChapters.map(({ value, label }, index) => {
     const isActive = dec(currentRoute.chapter) === index;
-    const chapterData = reject(prop("isDisabled"), getChapterData(index + 1));
+    const chapterData = pipe(
+      reject(prop("isDisabled")),
+      reject((d) => d.label.startsWith("Overview"))
+    )(getChapterData(index + 1));
     const chapterList = chapterData.map(
       ({ value: subValue, label: subLabel }, subIndex) => {
         const subChapterActive = subValue === currentRoute.url;
@@ -167,7 +239,9 @@ function LeftNav({ routeIndex }) {
                       : "inherit",
                 }}
               >
-                {trimSubChapterLetter(subLabel)}
+                {subLabel === "Overview"
+                  ? subLabel
+                  : trimSubChapterLetter(subLabel)}
               </p>
             </Link>
             {subChapterActive && (
@@ -176,9 +250,17 @@ function LeftNav({ routeIndex }) {
                   const lastElem = currentSections.length === idx + 1;
                   return (
                     <li key={idx} css={ß.subSectionLi}>
-                      <Link to={`#${id}`}>
+                      <Link
+                        to={`#${id}`}
+                        onClick={() => {
+                          document.getElementById(`${id}`)?.scrollIntoView();
+                        }}
+                      >
                         <p
                           style={{
+                            fontSize: "14px",
+                            lineHeight: "150%",
+                            margin: "3px 0",
                             fontWeight:
                               currentSectionIndex - 1 === idx ||
                               (lastElem && currentSectionIndex > idx)
@@ -195,7 +277,14 @@ function LeftNav({ routeIndex }) {
                           subSubSections.map(
                             ({ title: titleI, id: idI }, idxI) => (
                               <li css={ß.subSectionLi} key={idxI}>
-                                <Link to={`#${idI}`}>
+                                <Link
+                                  to={`#${idI}`}
+                                  onClick={() => {
+                                    document
+                                      .getElementById(`${idI}`)
+                                      ?.scrollIntoView();
+                                  }}
+                                >
                                   <p
                                     style={{
                                       lineHeight: "130%",
@@ -228,11 +317,12 @@ function LeftNav({ routeIndex }) {
     return (
       <li key={index} css={ß.chapterItem}>
         <Link
-          onClick={(e) => isActive && e.preventDefault()}
+          onClick={() => {
+            !isActive && setCurrentRoute(value);
+          }}
           to={value}
           style={{
-            pointerEvents: isActive ? "none" : "inherit",
-            cursor: isActive ? "default" : "pointer",
+            cursor: "pointer",
             fontWeight: isActive ? 700 : "inherit",
           }}
         >

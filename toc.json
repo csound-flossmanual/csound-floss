@@ -1,46 +1,98 @@
 [
-  { "chapter": 0, "name": "Introduction", "url_prefix": "/introduction" },
-  { "chapter": 1, "name": "Basics", "url_prefix": "/basics" },
-  { "chapter": 2, "name": "Quick Start", "url_prefix": "/quick-start" },
-  { "chapter": 3, "name": "Csound Language", "url_prefix": "/csound-language" },
-  { "chapter": 4, "name": "Sound Synthesis", "url_prefix": "/sound-synthesis" },
+  {
+    "chapter": 0,
+    "name": "Introduction",
+    "url_prefix": "/introduction",
+    "with_overview_page": false
+  },
+  {
+    "chapter": 1,
+    "name": "Getting Started",
+    "url_prefix": "/get-started",
+    "with_overview_page": true
+  },
+  {
+    "chapter": 2,
+    "name": "How to ...",
+    "url_prefix": "/how-to",
+    "with_overview_page": true
+  },
+  {
+    "chapter": 3,
+    "name": "Csound Language",
+    "url_prefix": "/csound-language",
+    "with_overview_page": true
+  },
+  {
+    "chapter": 4,
+    "name": "Sound Synthesis",
+    "url_prefix": "/sound-synthesis",
+    "with_overview_page": true
+  },
   {
     "chapter": 5,
     "name": "Sound Modification",
-    "url_prefix": "/sound-modification"
+    "url_prefix": "/sound-modification",
+    "with_overview_page": true
   },
-  { "chapter": 6, "name": "Samples", "url_prefix": "/samples" },
-  { "chapter": 7, "name": "Midi", "url_prefix": "/midi" },
+  {
+    "chapter": 6,
+    "name": "Samples",
+    "url_prefix": "/samples",
+    "with_overview_page": true
+  },
+  {
+    "chapter": 7,
+    "name": "Midi",
+    "url_prefix": "/midi",
+    "with_overview_page": true
+  },
   {
     "chapter": 8,
     "name": "Other Communication",
-    "url_prefix": "/other-communication"
+    "url_prefix": "/other-communication",
+    "with_overview_page": true
   },
   {
     "chapter": 9,
     "name": "Csound in other applications",
-    "url_prefix": "/csound-in-other-applications"
+    "url_prefix": "/csound-in-other-applications",
+    "with_overview_page": true
   },
   {
     "chapter": 10,
     "name": "Csound frontends",
-    "url_prefix": "/csound-frontends"
+    "url_prefix": "/csound-frontends",
+    "with_overview_page": true
   },
   {
     "chapter": 11,
     "name": "Csound utilities",
-    "url_prefix": "/csound-utilities"
+    "url_prefix": "/csound-utilities",
+    "with_overview_page": true
   },
   {
     "chapter": 12,
     "name": "Csound and other programming languages",
-    "url_prefix": "/csound-and-other-programming-languages"
+    "url_prefix": "/csound-and-other-programming-languages",
+    "with_overview_page": true
   },
   {
     "chapter": 13,
     "name": "Extending Csound",
-    "url_prefix": "/extending-csound"
+    "url_prefix": "/extending-csound",
+    "with_overview_page": true
   },
-  { "chapter": 14, "name": "Miscellanea", "url_prefix": "/miscellanea" },
-  { "chapter": 15, "name": "Appendix", "url_prefix": "/appendix" }
+  {
+    "chapter": 14,
+    "name": "Miscellanea",
+    "url_prefix": "/miscellanea",
+    "with_overview_page": true
+  },
+  {
+    "chapter": 15,
+    "name": "Appendix: Digital Audio Basics",
+    "url_prefix": "/basics",
+    "with_overview_page": true
+  }
 ]

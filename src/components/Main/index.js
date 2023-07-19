@@ -2,14 +2,15 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/react";
 // eslint-disable-next-line no-unused-vars
-import React, { lazy, Suspense, useEffect, useState } from "react";
+import React, { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import HomeScreen from "../HomeScreen";
-// import TOC from "../../book_fragments/00--aa-toc";
-import { Route, Switch } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import routes from "../../book_fragments/routes.json";
 import { map } from "ramda";
 import { browserHistory } from "../../history";
 import * as ß from "./styles";
+import "rc-slider/assets/index.css";
+import InteractiveDemo from "../../book_fragments/interactive-demo.jsx";
 
 const LoadingSpinner = () => (
   <div
@@ -26,26 +27,44 @@ const LoadingSpinner = () => (
   </div>
 );
 
+function scrollIntoView(element) {
+  let count = 0;
+  const intervalHandler = setInterval(() => {
+    try {
+      element.scrollIntoView();
+    } catch (error) {
+      console.error("error scrolling into view", error);
+    }
+    if (count === 3) {
+      clearInterval(intervalHandler);
+    } else {
+      count += 1;
+    }
+  }, 10);
+}
+
 function Main({ currentRoute, mobileMode, setCurrentRoute }) {
   const onRouteChange = React.useCallback(
-    (location, action) => {
+    ({ action, location }) => {
+      // console.log({ action, location });
       setCurrentRoute(location.pathname);
-      if (action === "PUSH") {
-        if (currentRoute !== location.pathname) {
-          setTimeout(() => window.scroll({ top: 0, left: 0 }), 0);
-        } else {
-          if (location.hash.length === 0) {
+      if (["POP", "PUSH"].includes(action)) {
+        if (!location.hash || location.hash.length === 0) {
+          window.scroll({ top: 0, left: 0 });
+          setTimeout(() => {
             window.scroll({ top: 0, left: 0 });
-          } else {
-            const hashElem = document.getElementById(
-              location.hash.replace("#", "")
-            );
-            hashElem && hashElem.scrollIntoView();
+          }, 50);
+        } else {
+          const hashElem = document.getElementById(
+            location.hash.replace("#", "")
+          );
+          if (hashElem) {
+            scrollIntoView(hashElem);
           }
         }
       }
     },
-    [currentRoute, setCurrentRoute]
+    [setCurrentRoute]
   );
 
   useEffect(() => {
@@ -53,31 +72,36 @@ function Main({ currentRoute, mobileMode, setCurrentRoute }) {
     return listener;
   }, [onRouteChange]);
 
+  const memoizedRoutes = useMemo(() => {
+    return map((route) => {
+      const LazyComp = lazy(() =>
+        import(`../../book_fragments/${route.module}`)
+      );
+      return (
+        <Route
+          path={route.url}
+          key={route.url}
+          element={
+            <Suspense fallback={<LoadingSpinner />}>
+              <LazyComp key={"lazy-" + route.url} />
+            </Suspense>
+          }
+        />
+      );
+    }, routes);
+  }, []);
+
   return (
     <main
       css={currentRoute === "/" ? ß.home : mobileMode ? ß.mainMobile : ß.main}
     >
-      <Suspense fallback={<LoadingSpinner />}>
-        <div>
-          <Switch>
-            {map(
-              (route) => (
-                <Route
-                  path={route.url}
-                  key={route.module}
-                  component={lazy(() =>
-                    import(`../../book_fragments/${route.module}`)
-                  )}
-                />
-              ),
-              routes
-            )}
-            <Route path={"/"}>
-              <HomeScreen />
-            </Route>
-          </Switch>
-        </div>
-      </Suspense>
+      <div>
+        <Routes>
+          {memoizedRoutes}
+          <Route path="/interactive-demo" element={<InteractiveDemo />} />
+          <Route path="/" element={<HomeScreen />} />
+        </Routes>
+      </div>
     </main>
   );
 }

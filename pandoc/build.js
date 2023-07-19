@@ -4,12 +4,16 @@ const R = require("ramda");
 
 buildAllHtml();
 
-const react_process = spawn("npx", ["react-scripts", "build"], {
-  env: R.assoc("EXTEND_ESLINT", "true", process.env)
-});
+const react_process = spawn(
+  "npx",
+  ["react-scripts", "--openssl-legacy-provider", "build"],
+  {
+    env: R.assoc("EXTEND_ESLINT", "true", process.env),
+  }
+);
 
-react_process.stdout.on("data", s => console.log(s.toString()));
+react_process.stdout.on("data", (s) => console.log(s.toString()));
 
-react_process.stderr.on("data", s => console.error(s.toString()));
+react_process.stderr.on("data", (s) => console.error(s.toString()));
 
-react_process.on("close", s => console.log(s.toString()) || process.exit(0));
+react_process.on("close", (s) => console.log(s.toString()) || process.exit(0));

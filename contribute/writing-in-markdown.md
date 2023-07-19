@@ -8,37 +8,29 @@ https://rmarkdown.rstudio.com/authoring_pandoc_markdown.html%23raw-tex#pandoc_ma
 For anyone who writes on this book, these features are in particular important:
 
 # 1. HEADINGS
+
+As usual in markdown:
    
-`level one heading`  
-`=================`
-
-is preferred but
-
 `# level one heading`
 
-is also possible.
-
-`level two heading`  
-`-----------------`
-
-is preferred but
+# level one heading
 
 `## level two heading`
 
-is also possible.
+## level two heading
 
 `### level three heading`  
-`#### level four heading`
-
-gets
 
 ### level three heading
+
+`#### level four heading`
+
 #### level four heading
 
 
 # 2. ITALICS
 
-please use `*this*` not `_that_`
+please use `_this_` not `*that*`
 
 
 # 3. BOLD
@@ -48,23 +40,28 @@ please usw `**this**` not `__that__`
 
 # 4. CODE EXAMPLES
 
-a) full .csd examples
----------------------
+## a) full .csd examples
 
-**must** be written as **fenced code**: three `~~~` before and after the csound code:
+**must** be written as **fenced code**:  
+<pre>```csound</pre> before and  
+<pre>```</pre> after the csound code:
 
-    ~~~
+    ```csound
     <CsoundSynthesizer>
     ...
     </CsoundSynthesizer>
-    ~~~
+    ```
 
-NOTE that **this is for examples which can be extracted and played
-as they are** (no requirement except files in resources/SourceMaterials)
+Full examples which go in the example collection are expected to be **self-
+contained** (no requirement except files in resources/SourceMaterials).
+
+Please let them preceed by four hashes(\#) a number and a title of the example,
+starting with the word EXAMPLE (\#\#\#\# \*\*EXAMPLE\*\*). For instance:
+
+<pre>#### _EXAMPLE 16D01_different_seed.csd_</pre>
 
 
-b) other code snippets
-----------------------
+## b) other code snippets
 
 are preceded by four spaces:
 
@@ -75,8 +72,7 @@ gets
     this is a small code snippet
 
 
-c) code snippets inside normal text
------------------------------------
+## c) code snippets inside normal text
 
 this is an `inside code snippet` which must by surronded by \`backticks\`.
 

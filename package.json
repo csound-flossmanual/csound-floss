@@ -2,46 +2,64 @@
   "name": "csound_floss",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=17.0.0"
+  },
   "dependencies": {
+    "@babel/core": "^7.21.3",
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.0",
+    "@babel/plugin-transform-react-jsx-self": "^7.21.0",
+    "@babel/plugin-transform-react-jsx-source": "^7.19.6",
+    "@chakra-ui/react": "^2.5.5",
+    "@codemirror/lang-cpp": "^6.0.2",
+    "@codemirror/lang-python": "^6.1.2",
+    "@codemirror/language": "^6.6.0",
+    "@codemirror/view": "^6.9.3",
+    "@csound/browser": "^6.18.7",
     "@emotion/core": "^11.0.0",
-    "@emotion/react": "^11.1.1",
-    "chokidar": "^3.4.3",
-    "codemirror": "^5.58.3",
-    "core-js": "^3.8.0",
-    "csound-manual-react": "^1.0.0-alpha16",
-    "csound-wasm": "^6.15.0-5",
-    "dom-serializer": "^1.2.0",
-    "filesize": "^6.1.0",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@hlolli/codemirror-lang-csound": "^1.0.0-alpha9",
+    "@lezer/common": "^1.0.2",
+    "acorn": "^8.8.2",
+    "acorn-jsx": "^5.3.2",
+    "chokidar": "^3.5.3",
+    "codemirror": "6.x",
+    "core-js": "^3.29.1",
+    "dom-serializer": "^2.0.0",
+    "filesize": "^10.0.6",
+    "framer-motion": "^10.10.0",
     "he": "^1.2.0",
-    "history": "^4.10.1",
+    "history": "^5.3.0",
     "html-to-jsx": "^0.0.4",
-    "htmlparser2": "^5.0.1",
+    "htmlparser2": "^8.0.2",
     "mathjax-node": "^2.1.1",
-    "mime-types": "^2.1.27",
-    "pandoc-filter": "^2.0.2",
+    "mime": "^3.0.0",
+    "pandoc-filter": "^2.1.0",
     "pandoc-filter-promisified": "^0.1.0",
-    "ramda": "^0.27.1",
-    "react": "^16.14.0",
-    "react-audio-player": "^0.14.0",
-    "react-codemirror2": "^7.2.1",
-    "react-document-title": "^2.0.3",
-    "react-dom": "^16.14.0",
+    "ramda": "^0.28.0",
+    "rc-slider": "^10.1.1",
+    "react": "^18.2.0",
+    "react-audio-player": "^0.17.0",
+    "react-dom": "^18.2.0",
     "react-mathjax": "^1.0.1",
-    "react-modal": "^3.12.1",
+    "react-modal": "^3.16.1",
     "react-perfect-scrollbar": "^1.5.8",
-    "react-rnd": "^10.2.4",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.1",
-    "react-select": "^3.1.1",
-    "react-side-effect": "^2.1.1",
+    "react-rnd": "^10.4.1",
+    "react-router-dom": "^6.9.0",
+    "react-scripts": "5.0.1",
+    "react-select": "^5.7.2",
+    "react-side-effect": "^2.1.2",
     "react-sticky-footer": "^0.1.0-rc3",
     "resize-observer-polyfill": "^1.5.1",
-    "throttle-debounce": "^3.0.1"
+    "throttle-debounce": "^5.0.0"
   },
   "resolutions": {
     "html-to-jsx/cheerio": "^1.0.0-rc.3",
     "html-to-jsx/cheerio/dom-serializer": "^1.2.0",
-    "html-to-jsx/cheerio/lodash": "^4.17.15"
+    "html-to-jsx/cheerio/lodash": "^4.17.15",
+    "**/@codemirror/state": "6.x",
+    "@codemirror/state": "6.x"
   },
   "scripts": {
     "start": "node pandoc/development.js",
@@ -51,7 +69,8 @@
     "build:odt": "node pandoc/build_odt.js",
     "extract:examples": "node pandoc/extract_csd_examples.js",
     "test": "jest",
-    "test:ci": "jest --ci"
+    "test:ci": "jest --ci",
+    "prettify": "npx prettier --write ./book"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -69,6 +88,7 @@
     ]
   },
   "devDependencies": {
-    "fast-glob": "^3.2.4"
+    "fast-glob": "^3.2.12",
+    "prettier": "^2.8.7"
   }
 }

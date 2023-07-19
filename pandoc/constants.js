@@ -5,6 +5,7 @@ const EPUB_OUTPUT = path.resolve(__dirname, "../csound_flossmanual.epub");
 const ODT_OUTPUT = path.resolve(__dirname, "../csound_flossmanual.odt");
 const JSX_OUTPUT = path.resolve(__dirname, "../src/book_fragments");
 const BOOK_DIRECTORY = path.resolve(__dirname, "../book");
+const OTHER_DIRECTORY = path.resolve(__dirname, "../other");
 const RESOURCES_DIRECTORY = path.resolve(__dirname, "../resources");
 const MARKDOWN_EXTENSIONS = [
   "markdown",
@@ -33,6 +34,7 @@ module.exports = {
   PDF_OUTPUT,
   ODT_OUTPUT,
   BOOK_DIRECTORY,
+  OTHER_DIRECTORY,
   RESOURCES_DIRECTORY,
   MARKDOWN_EXTENSIONS,
 };

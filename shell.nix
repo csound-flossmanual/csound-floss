@@ -47,10 +47,11 @@ let
     fontconfig
     fira
     haskellPackages.pandoc
+    librsvg
     tetex
     texliveDeps
-    nodejs
-    yarn
+    nodejs-18_x
+    (yarn.override { nodejs = pkgs.nodejs-18_x; })
   ];
 in pkgs.symlinkJoin {
   name = "csound-floss-build-deps";

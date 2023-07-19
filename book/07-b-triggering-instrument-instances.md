@@ -1,13 +1,11 @@
-07 B. TRIGGERING INSTRUMENT INSTANCES
-=====================================
+# 07 B. TRIGGERING INSTRUMENT INSTANCES
 
-Csound's Default System of Instrument Triggering Via Midi
----------------------------------------------------------
+## Csound's Default System of Instrument Triggering Via Midi
 
 Csound has a default system for instrument triggering via midi. Provided
 a midi keyboard has been connected and the appropriate command line
-flags for midi input have been set (see
-[configuring midi](02-c-configuring-midi.md) for further information),
+flags for midi input have been set (see [configuring midi](02-c-configuring-midi.md)
+for further information),
 then midi notes received on midi
 channel 1 will trigger instrument 1, notes on channel 2 will trigger
 instrument 2 and so on. Instruments will turn on and off in sympathy
@@ -17,9 +15,9 @@ correct layer of the same instrument begin played. Midi activated notes
 can be thought of as "held" notes, similar to notes activated in the
 score with a negative duration (p3). Midi activated notes will sustain
 indefinitely as long as the performance time will allow until a
-corresponding note off has been received - this is unless this infinite
-*p3* duration is overwritten within the instrument itself by *p3* begin
-explicitly defined.
+corresponding note off has been received - this is
+unless this infinite _p3_ duration is overwritten within
+the instrument itself by _p3_ begin explicitly defined.
 
 The following example confirms this default mapping of midi channels to
 instruments. You will need a midi keyboard that allows you to change the
@@ -32,10 +30,9 @@ If notes are received on midi channel 4 and above, because corresonding
 instruments do not exist, notes on any of these channels will be
 directed to instrument 1.
 
+#### **_EXAMPLE 07B01_MidiInstrTrigger.csd_**
 
-   ***EXAMPLE 07B01_MidiInstrTrigger.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -Ma -odac -m128
@@ -91,30 +88,26 @@ f 0 300
 </CsScore>
 <CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
+```
 
+## Using massign to Map MIDI Channels to Instruments
 
-Using massign to Map MIDI Channels to Instruments
--------------------------------------------------
-
-We can use the
-[massign](https://csound.com/docs/manual/massign.html) opcode, which
-is used just after the header statement, to explicitly map midi channels
+We can use the [massign](https://csound.com/docs/manual/massign.html) opcode,
+which is used just after the header statement, to explicitly map midi channels
 to specific instruments and thereby overrule Csound's default mappings.
-*massign* takes two input arguments, the first defines the midi channel
+_massign_ takes two input arguments, the first defines the midi channel
 to be redirected and the second defines which instrument it should be
 directed to. The following example is identical to the previous one
-except that the *massign* statements near the top of the orchestra
+except that the _massign_ statements near the top of the orchestra
 jumbles up the default mappings. Midi notes on channel 1 will be mapped
 to instrument 3, notes on channel 2 to instrument 1 and notes on channel
 3 to instrument 2. Undefined channel mappings will be mapped according
 to the default arrangement and once again midi notes on channels for
 which an instrument does not exist will be mapped to instrument 1.
 
+#### **_EXAMPLE 07B02_massign.csd_**
 
-   ***EXAMPLE 07B02_massign.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -Ma -odac -m128
@@ -178,44 +171,38 @@ f 0 300
 </CsScore>
 <CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
+```
 
-*massign* also has a couple of additional functions that may come in
-useful. A channel number of zero is interpreted as meaning *any*. The
+_massign_ also has a couple of additional functions that may come in
+useful. A channel number of zero is interpreted as meaning _any_. The
 following instruction will map notes on any and all channels to
 instrument 1.
 
     massign 0,1
 
-An instrument number of zero is interpreted as meaning *none* so the
+An instrument number of zero is interpreted as meaning _none_ so the
 following instruction will instruct Csound to ignore triggering for
 notes received on all channels.
 
     massign 0,0
 
 The above feature is useful when we want to scan midi data from an
-already active instrument using the
-[midiin](https://csound.com/docs/manual/midiin.html) opcode, as we
-did in EXAMPLE 0701.csd.
+already active instrument using the [midiin](https://csound.com/docs/manual/midiin.html) opcode,
+as we did in EXAMPLE 0701.csd.
 
+## Using Multiple Triggering
 
-Using Multiple Triggering
--------------------------
-
-Csound's
-[event](https://csound.com/docs/manual/event.html)/
-[event\_i](https://csound.com/docs/manual/event_i.html)
-opcode (see the
-[Triggering Instrument Events](03-f-live-events.md) chapter)
+Csound's [event](https://csound.com/docs/manual/event.html)/
+[event_i](https://csound.com/docs/manual/event_i.html) opcode (see
+the [Triggering Instrument Events](03-f-live-events.md) chapter)
 makes it possible to trigger any other instrument from a midi-triggered
 one. As you can assign a fractional number to an instrument, you can
 distinguish the single instances from each other. Below is an example of
 using fractional instrument numbers.
 
+#### **_EXAMPLE 07B03_MidiTriggerChain.csd_**
 
-   ***EXAMPLE 07B03_MidiTriggerChain.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -Ma
@@ -252,8 +239,7 @@ inote     =         round(frac(frac(p1)*100)*1000)
 </CsScore>
 </CsoundSynthesizer>
 ;Example by Joachim Heintz, using code of Victor Lazzarini
-~~~
-
+```
 
 This example merely demonstrates a technique for passing information
 about MIDI channel and note number from the directly triggered
@@ -279,14 +265,13 @@ In this case for any key below C3 instrument 2 will be called, for any
 key between C3 and B4 instrument 3, and for any higher key instrument 4.
 
 Using this multiple triggering you are also able to trigger more than
-one instrument at the same time (which is not possible using the
-*massign* opcode). Here is an example using a User Defined Opcode (see
+one instrument at the same time (which is not possible using
+the _massign_ opcode). Here is an example using a User Defined Opcode (see
 the [UDO chapter](03-g-user-defined-opcodes.md) of this manual):
 
+#### **_EXAMPLE 07B04_MidiMultiTrigg.csd_**
 
-   ***EXAMPLE 07B04_MidiMultiTrigg.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -Ma
@@ -354,4 +339,4 @@ inote     =         round(frac(frac(p1)*100)*1000)
 </CsScore>
 </CsoundSynthesizer>
 ;Example by Joachim Heintz, using code of Victor Lazzarini
-~~~
+```

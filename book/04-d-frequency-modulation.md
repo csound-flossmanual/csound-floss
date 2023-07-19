@@ -1,15 +1,13 @@
-04 D. FREQUENCY MODULATION
-==========================
+# 04 D. FREQUENCY MODULATION
 
-Basic Model
------------
+## Basic Model
 
 In FM synthesis, the frequency of one oscillator (called the carrier) is
 modulated by the signal from another oscillator (called the modulator).
 The output of the modulating oscillator is added to the frequency input
 of the carrier oscillator.
 
-![Basic Model of Frequency Modulation](../resources/images/04-d-fm.png){width=50%}
+![Basic Model of Frequency Modulation](../resources/images/04-d-fm.png){width=40%}
 
 The amplitude of the modulator determines the amount of modulation, or
 the frequency deviation from the fundamental carrier frequency. The
@@ -25,10 +23,9 @@ frequency F~M~, drives the frequency of the carrier oscillator both
 above and below the carrier frequency F~C~. If the modulator is
 running in the sub-audio frequency range (below 20 Hz), the result of Modulation is vibrato. When the modulator's frequency rises in the audio range, we hear it as a change in the timbre of the carrier.
 
+#### **_EXAMPLE 04D01_Frequency_modulation.csd_**
 
-   ***EXAMPLE 04D01_Frequency_modulation.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -64,8 +61,7 @@ i "FM_timbr" 10 10
 </CsScore>
 </CsoundSynthesizer>
 ;example by marijana janevska
-~~~
-
+```
 
 ### Carrier/Modulator Ratio
 
@@ -79,10 +75,9 @@ F~C~:F~M~ is not a simple integer ratio, such as 8:2.1 (as in the
 case of two signals at 800 and 210 Hz), FM generates inharmonic spectra
 (noninteger multiples of the carrier and modulator).
 
+#### **_EXAMPLE 04D02_Ratio.csd_**
 
-   ***EXAMPLE 04D02_Ratio.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -111,8 +106,7 @@ i . + . 2.1
 </CsScore>
 </CsoundSynthesizer>
 ;example written by marijana janevska
-~~~
-
+```
 
 ### Index of Modulation
 
@@ -152,10 +146,9 @@ when one waveform with a large number of spectral components frequency
 modulates another, the resulting sound can be so dense that it sounds
 harsh and undefined. Aliasing can occur easily.
 
+#### **_EXAMPLE 04D03_Index.csd_**
 
-   ***EXAMPLE 04D03_Index.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -183,8 +176,7 @@ i "Rising_index" 0 10
 </CsScore>
 </CsoundSynthesizer>
 ;example by marijana janevska and joachim heintz
-~~~
-
+```
 
 ### Standard FM with Ratio and Index
 
@@ -202,10 +194,9 @@ into the basic model:
     if R = C : M then M = C : R and
     if I = D : M then D = I · M.
 
+#### **_EXAMPLE 04D04_Standard.csd_**
 
-   ***EXAMPLE 04D04_Standard.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac  -m128
@@ -274,16 +265,15 @@ i "PlayMess" 0 30
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
-
+```
 
 ### Using the foscil opcode
 
-Basic FM synthesis can be implemented by using the [foscil](https://csound.com/docs/manual/foscil.html) opcode, which effectively connects two oscil opcodes in the familiar Chowning FM setup. In the example below *kDenominator* is a value that when multiplied by the *kCar* parameter, gives the Carrier frequency and when multiplied by the *kMod* parameter, gives the Modulating frequency.
+Basic FM synthesis can be implemented by using the [foscil](https://csound.com/docs/manual/foscil.html) opcode, which effectively connects two oscil opcodes in the familiar Chowning FM setup. In the example below _kDenominator_ is a value that when multiplied by the _kCar_ parameter, gives the Carrier frequency and when multiplied by the _kMod_ parameter, gives the Modulating frequency.
 
-   ***EXAMPLE 04D05_basic_FM_with_foscil.csd***
+#### **_EXAMPLE 04D05_basic_FM_with_foscil.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac -d
@@ -333,26 +323,23 @@ i 3 24 10
 </CsScore>
 </CsoundSynthesizer>
 ;example by Marijana Janevska
-~~~
+```
 
 In the example above, in instr 1 the Carrier has a frequency of 330 Hz, the Modulator has a frequency of 110 Hz and the value of the index changes randomly between 1 and 2, 20 times a second. In instr 2, the value of the Denominator is not static. Its value changes randomly between 100 and 120, which makes all the other parameters’ values change (Carrier and Modulator frequencies and Index). In instr 3 we add a changing value to the parameter, that when multiplied with the Denominator value, gives the frequency of the Modulator, which gives even more complex spectra because it affects the value of the Index, too.
 
-
-More Complex FM Algorithms
---------------------------
+## More Complex FM Algorithms
 
 Combining more than two oscillators (operators) is called complex FM synthesis. Operators can be connected in different combinations: Multiple modulators FM and Multiple carriers FM.
-
 
 ### Multiple Modulators (MM FM)
 
 In multiple modulator frequency modulation, more than one oscillator modulates a single carrier oscillator. The carrier is always the last operator in the row. Changing its pitch shifts the whole sound. All other operators are modulators, changing their pitch and especially amplitude alters the sound-spectrum. Two basic configurations are possible: parallel and serial. In parallel MM FM, two sinewaves simultaneously modulate a single carrier oscillator. The principle here is, that (Modulator1:Carrier) and (Modulator2:Carrier) will be separate modulations and later added together.
 
-![Multiple Modulator FM](../resources/images/04-d-parallel-mm-fm.jpg){width=75%}
+![Multiple Modulator FM](../resources/images/04-d-parallel-mm-fm.jpg){width=65%}
 
-   ***EXAMPLE 04D06_Parallel_MM_FM.csd***
+#### **_EXAMPLE 04D06_Parallel_MM_FM.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -381,15 +368,15 @@ i "parallel_MM_FM" 0 20
 </CsScore>
 </CsoundSynthesizer>
 ;example by Alex Hofmann and Marijana Janevska
-~~~
+```
 
 In serial MM FM, the output of the first modulator is added with a fixed value and then fed to the second modulator, which then is applied to the frequency input of the carrier. This is much more complicated to calculate and the timbre becomes harder to predict, because Modulator1:Modulator2 produces a complex spectrum, which then modulates the carrier.
 
-![Serial Modulator FM](../resources/images/04-d-serial-mm-fm.jpg){width=60%}
+![Serial Modulator FM](../resources/images/04-d-serial-mm-fm.jpg){width=45%}
 
-   ***EXAMPLE 04D07_Serial_MM_FM.csd***
+#### **_EXAMPLE 04D07_Serial_MM_FM.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -416,17 +403,17 @@ i "serial_MM_FM" 0 20
 </CsScore>
 </CsoundSynthesizer>
 ;example by Alex Hofmann and Marijana Janevska
-~~~
+```
 
 ### Multiple Carriers (MC FM)
 
 By multiple carrier frequency modulation, we mean an FM instrument in which one modulator simultaneously modulates two or more carrier oscillators.
 
-![Multiple Carrier FM](../resources/images/04-d-fm-2c.jpg)
+![Multiple Carrier FM](../resources/images/04-d-fm-2c.jpg){width=75%}
 
-   ***EXAMPLE 04D08_MC_FM.csd***
+#### **_EXAMPLE 04D08_MC_FM.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -451,15 +438,15 @@ i "FM_two_carriers" 0 20
 </CsScore>
 </CsoundSynthesizer>
 ;example by Marijana Janevska
-~~~
+```
 
 ### The John Chowning FM Model of a Trumpet
 
 Composer and researcher Jown Chowning worked on the first digital implementation of FM in the 1970's. By using envelopes to control the modulation index and the overall amplitude evolving sounds with enormous spectral variations can be created. Chowning showed these possibilities in his pieces, in which various sound transformations occur. In the piece Sabelithe a drum sound morphes over the time into a trumpet tone. In the example below, the amplitude of the Modulator has a complex envelope in the attack of the sound, which gives the trumpet-like timbre.
 
-   ***EXAMPLE 04D09_Trumpet.csd***
+#### **_EXAMPLE 04D09_Trumpet.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -492,13 +479,13 @@ i 1 0 2
 </CsScore>
 </CsoundSynthesizer>
 ;example by Alex Hofmann
-~~~
+```
 
 The following example uses the same instrument, with different settings to generate a bell-like sound:
 
-   ***EXAMPLE 04D10_Bell.csd***
+#### **_EXAMPLE 04D10_Bell.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -531,8 +518,7 @@ i "bell_like" 0 9
 </CsScore>
 </CsoundSynthesizer>
 ;example by Alex Hofmann
-~~~
-
+```
 
 ### Phase Modulation - the Yamaha DX7 and Feedback FM
 
@@ -540,13 +526,14 @@ There is a strong relation between frequency modulation and phase modulation, as
 
 For a feedback FM system, it can happen that the self-modulation comes to a zero point, which would hang the whole system. To avoid this, the carriers table-lookup phase is modulated, instead of its pitch.
 
-Also the most famous FM-synthesizer Yamaha DX7 is based on the phase-modulation (PM) technique, because this allows feedback. The DX7 provides 7 operators, and offers 32 routing combinations of these (cf <http://yala.freeservers.com/t2synths.htm#DX7>).
+Also the most famous FM-synthesizer Yamaha DX7 is based on the phase-modulation (PM) technique, because this allows feedback. The DX7 provides 7 operators, and offers 32 routing combinations of these
+(cf <http://yala.freeservers.com/t2synths.htm#DX7>).
 
 To build a PM-synth in Csound the tablei opcode substitutes the FM oscillator. In order to step through the f-table, a phasor will output the necessary steps.
 
-   ***EXAMPLE 04D11_Phase modulation and Feedback FM.csd***
+#### **_EXAMPLE 04D11_Phase modulation and Feedback FM.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -578,13 +565,13 @@ i "PM" 0 9
 </CsScore>
 </CsoundSynthesizer>
 ;example by Alex Hofmann
-~~~
+```
 
 In the last example we use the possibilities of self-modulation (feedback-modulation) of the oscillator. So here the oscillator is both modulator and carrier. To control the amount of modulation, an envelope scales the feedback.
 
-   ***EXAMPLE 04D12_Feedback modulation.csd***
+#### **_EXAMPLE 04D12_Feedback modulation.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac
@@ -614,4 +601,4 @@ i "feedback_PM" 0 9
 </CsScore>
 </CsoundSynthesizer>
 ;example by Alex Hofmann
-~~~
+```

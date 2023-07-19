@@ -1,4 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { ReactLink } from "react-router-dom";
+import { Link } from "@chakra-ui/react";
 
-export const InternalLink = ({ to, title }) => <Link to={to}>{title}</Link>;
+export const InternalLink = ({ to, title }) => (
+  <Link as={ReactLink} to={to} color="linkColor">
+    {title}
+  </Link>
+);

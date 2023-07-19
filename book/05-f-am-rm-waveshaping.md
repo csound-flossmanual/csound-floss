@@ -1,5 +1,4 @@
-05 F. AM / RM / WAVESHAPING
-===========================
+# 05 F. AM / RM / WAVESHAPING
 
 An introduction as well as some background theory of amplitude
 modulation, ring modulation and waveshaping is given in chapters
@@ -11,22 +10,23 @@ we will explore amplitude modulation, ring modulation and waveshaping as
 applied to non-synthesized sound.^[This is the same for Granular Synthesis
 which can either be "pure" synthesis or applied on sampled sound.]
 
+## AMPLITUDE AND RING MODULATION
 
-AMPLITUDE AND RING MODULATION
------------------------------
+As shown in chapter [04 C](04-c-amplitude-and-ring-modulation.md),
+ring modulation in digital domain can be implemented as multiplication of
+a carrier audio signal with a modulator signal. If adapted to the modification of
+samples or live input, the carrier signal now changes to a playback unit or a microphone.
+The modulator usually remains a sine oscillator.
 
-As shown in chapter [04 C](04-c-amplitude-and-ring-modulation.md), ring modulation in digital domain can be implemented as multiplication of a carrier audio signal with a modulator signal. If adapted to the modification of samples or live input, the carrier signal now changes to a playback unit or a microphone. The modulator usually remains a sine oscillator.
-
-![](../resources/images/05-f-RM.png){width=60%}
+![](../resources/images/05-f-RM.png){width=50%}
 
 The spectrum of the carrier sound is shifted by plus and minus the modulator frequency. As this is happening for each part of the spectrum, the source sound often seems to loose its center. A piano sound easily becomes bell-like, and a voice can become gnomic.
 
 In the following example, first three static modulating frequencies are applied. As the voice itself has a somehow floating pitch, we already hear an always moving artificial speactrum component. This effect is emphasized in the second instrument which applies a random glissando for the modulating frequency. If the random movements are slow (first with 1 Hz, then 10 Hz), the pitch movements are still recognizable. If they are fast (100 Hz in the last call), the sound becomes noisy.
 
+#### **_EXAMPLE 05F01_RM_modification.csd_**
 
-***EXAMPLE 05F01_RM_modification.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -o dac  --env:SSDIR+=../SourceMaterials
@@ -63,15 +63,18 @@ i .           + .  100
 </CsScore>
 </CsoundSynthesizer>
 ;written by Alex Hofmann and joachim heintz
-~~~
+```
 
-In instrument *RM_static*, the fourth parameter of the score line (p4) directly yields the frequency of the modulator. In instrument *RM_moving*, this frequency is a random movement between 400 and 1000 Hz, and p4 here yields the rate in which new random values are generated.
+In instrument _RM_static_, the fourth parameter of the score line (p4) directly
+yields the frequency of the modulator. In instrument _RM_moving_,
+this frequency is a random movement between 400 and 1000 Hz, and p4 here yields
+the rate in which new random values are generated.
 
-For amplitude modulation, a constant part - the *DC offset* - is added to the modulating signal. The result is a mixture of unchanged and ring modulated sound, in different weights. The most simple way to implement this is to add a part of the source signal to the ring modulated signal.
+For amplitude modulation, a constant part - the _DC offset_ - is added to the modulating signal.
+The result is a mixture of unchanged and ring modulated sound, in different weights.
+The most simple way to implement this is to add a part of the source signal to the ring modulated signal.
 
-
-WAVESHAPING
------------
+## WAVESHAPING
 
 In chapter [04E](04-e-waveshaping.md) waveshaping has been described as a method of applying a transfer function to an incoming signal. It has been discussed that the table which stores the transfer function must be read with an interpolating table reader to avoid degradation of the signal. On the
 other hand, degradation can be a nice thing for sound modification. So
@@ -86,18 +89,17 @@ size 4, a line becomes a staircase:
 
 Bit Depth = high
 
-![](../resources/images/05-f-bit-depth-high.png){width=50%}
+![](../resources/images/05-f-bit-depth-high.png){width=40%}
 
 Bit Depth = 2
 
-![](../resources/images/05-f-bit-depth-2.png){width=50%}
+![](../resources/images/05-f-bit-depth-2.png){width=40%}
 
 This is the sounding result:
 
+#### **_EXAMPLE 05F02_Wvshp_bit_crunch.csd_**
 
-***EXAMPLE 05F02_Wvshp_bit_crunch.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -123,23 +125,22 @@ i 1 0 2.767
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
-
+```
 
 ### Transformation and Distortion
 
 In general, the transformation of sound in applying waveshaping depends
 on the transfer function. The following example applies at first a table
-which does not change the sound at all, because the function just says
-*y = x*. The second one leads already to a heavy distortion, because the samples between an amplitude of -0.1 and +0.1 are erased.
+which does not change the sound at all, because the function just says _y = x_.
+The second one leads already to a heavy distortion, because the samples between an amplitude
+of -0.1 and +0.1 are erased.
 Tables 3 to 7 apply some chebychev functions which are well known from
 waveshaping synthesis. Finally, tables 8 and 9 approve that even a
 meaningful sentence and a nice music can regarded as noise ...
 
+#### **_EXAMPLE 05F03_Wvshp_different_transfer_funs.csd_**
 
-***EXAMPLE 05F03_Wvshp_different_transfer_funs.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -185,21 +186,19 @@ i 1 + . 9 ;guitar
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
-
+```
 
 Instead of using the "self-built" method which has been described
 here, you can use the Csound opcode
 [distort](https://csound.com/docs/manual/distort.html). It performs
 the actual waveshaping process and gives a nice control about the amount
-of distortion in the *kdist* parameter. Here is a simple example, using rather different tables:
+of distortion in the _kdist_ parameter. Here is a simple example, using rather different tables:
 
 ![](../resources/images/05-f-example-4.png)
 
+#### **_EXAMPLE 05F04_distort.csd_**
 
-***EXAMPLE 05F04_distort.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -241,4 +240,4 @@ i . + . 8 .02
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
-~~~
+```

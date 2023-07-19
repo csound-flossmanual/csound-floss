@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="790" height="390" viewBox="0 0 790 390">
+<defs>
+</defs>
+<path d="M10.0,360.0 L570.0,80.0 L710.0,360.0 L570.0,360.0 L10.0,360.0 M570.0,360.0 L570.0,80.0" stroke="black" fill="none" />
+<path d="M10.0,360.0 A350,350,0,1,1,710.0,360.0" stroke="gray" fill="none" />
+<path d="M10.0,374.0 L10.0,384.0" stroke="black" />
+<path d="M570.0,374.0 L570.0,384.0" stroke="black" />
+<path d="M710.0,374.0 L710.0,384.0" stroke="black" />
+<path d="M10.0,379.0 L262.0,379.0" stroke="black" stroke-width="0.5" />
+<path d="M318.0,379.0 L570.0,379.0" stroke="black" stroke-width="0.5" />
+<path d="M570.0,379.0 L612.0,379.0" stroke="black" stroke-width="0.5" />
+<path d="M668.0,379.0 L710.0,379.0" stroke="black" stroke-width="0.5" />
+<text x="290.0" y="379.0" font-size="14" text-anchor="middle" dy="0.4em">a = 8</text>
+<text x="640.0" y="379.0" font-size="14" text-anchor="middle" dy="0.4em">c = 2</text>
+<text x="752.0" y="220.0" font-size="14" text-anchor="middle" dy="0em">b = 4</text>
+<path d="M752.0,80.0 L752.0,200.0" stroke="black" stroke-width="0.5" />
+<path d="M752.0,240.0 L752.0,360.0" stroke="black" stroke-width="0.5" />
+<path d="M757.0,80.0 L747.0,80.0" stroke="black" />
+<path d="M757.0,360.0 L747.0,360.0" stroke="black" />
+<path d="M80.0,360.0 A70,70,0,0,0,72.6099033699941,328.69504831500296 M601.304951684997,142.6099033699941 A70,70,0,0,1,507.39009663000587,111.30495168499705 M640.0,360.0 A70,70,0,0,1,678.695048315003,297.39009663000587" stroke="black" fill="none" />
+<path d="M535.0,360.0 A35.0,35.0,0,0,1,605.0,360.0 M585.6524758424986,111.30495168499705 A35.0,35.0,0,0,1,538.695048315003,95.65247584249853" stroke="gray" fill="none" />
+<circle cx="584.0" cy="346.0" r="2" fill="gray" />
+<circle cx="556.0" cy="346.0" r="2" fill="gray" />
+<circle cx="561.25" cy="97.5" r="2" fill="gray" />
+<text x="45.0" y="353.0" font-size="14" dy="0em">α</text>
+<text x="577.0" y="136.0" font-size="14" dy="0em">α</text>
+<text x="535.0" y="129.0" font-size="14" dy="0em">β</text>
+<text x="664.5" y="335.5" font-size="14" dy="0em">β</text>
+<path d="M575.0,80.0 L741.5,80.0" stroke="gray" stroke-dasharray="3 3" />
+<path d="M715.0,360.0 L741.5,360.0" stroke="gray" stroke-dasharray="3 3" />
+</svg>

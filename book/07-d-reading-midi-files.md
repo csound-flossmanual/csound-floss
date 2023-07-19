@@ -1,5 +1,4 @@
-07 D. READING MIDI FILES
-========================
+# 07 D. READING MIDI FILES
 
 Instead of using either the standard Csound score or live midi events as
 input for an orchestra Csound can read a midi file and use the data
@@ -8,18 +7,17 @@ contained within it as if it were a live midi input.
 The command line flag to instigate reading from a midi file is
 [-F](https://csound.com/docs/manual/CommandFlags.html#FlagsMinusUpperF)
 followed by the name of the file or the complete path to the file if it
-is not in the same directory as the *.csd* file. Midi channels will be
+is not in the same directory as the _.csd_ file. Midi channels will be
 mapped to instrument according to the rules and options discussed in
 [Triggering Instrument Instances](07-b-triggering-instrument-instances.md)
 and all controllers can be interpretted as desired using the techniques
 discussed in
 [Working with Controllers](07-c-working-with-controllers.md).
 
-The following example plays back a midi file using Csound's
-*fluidsynth* family of opcodes to facilitate playing soundfonts
-(sample libraries). For more information on these opcodes please consult
-the
-[Csound Reference Manual](https://csound.com/docs/manual/index.html).
+The following example plays back a midi file using Csound's _fluidsynth_ family
+of opcodes to facilitate playing soundfonts (sample libraries).
+For more information on these opcodes please consult
+the [Csound Reference Manual](https://csound.com/docs/manual/index.html).
 In order to run
 the example you will need to download a midi file and two (ideally
 contrasting) soundfonts. Adjust the references to these files in the
@@ -29,15 +27,14 @@ soundfonts, such as a marimba and a trumpet, so that you can easily hear
 the parsing of midi channels in the midi file to different Csound
 instruments. In the example channels 1,3,5,7,9,11,13 and 15 play back
 using soundfont 1 and channels 2,4,6,8,10,12,14 and 16 play back using
-soundfont 2. When using fluidsynth in Csound we normally use an *always
-on* instrument to gather all the audio from the various soundfonts (in
+soundfont 2. When using fluidsynth in Csound we normally use
+an _always on_ instrument to gather all the audio from the various soundfonts (in
 this example instrument 99) which also conveniently keeps performance
 going while our midi file plays back.
 
+#### **_EXAMPLE 07D01_ReadMidiFile.csd_**
 
-   ***EXAMPLE 07D01_ReadMidiFile.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 ;'-F' flag reads in a midi file
@@ -89,7 +86,7 @@ i 99 0 3600 ; audio output instrument also keeps performance going
 </CsScore>
 <CsoundSynthesizer>
 ;Example by Iain McCurdy
-~~~
+```
 
 Midi file input can be combined with other Csound inputs from the score
 or from live midi and also bear in mind that a midi file doesn't need
@@ -117,10 +114,9 @@ score data. It is this second instrument that is responsible for writing
 this data to a score file. Midi channels are rendered as p1 values, midi
 note numbers as p4 and velocity values as p5.
 
+#### **_EXAMPLE 07D02_MidiToScore.csd_**
 
-   ***EXAMPLE 07D02_MidiToScore.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 ; enter name of input midi file
@@ -164,7 +160,7 @@ f 0 480 ; ensure this duration is as long or longer that duration of midi file
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
+```
 
 The example above ignores continuous controller data, pitch bend and
 aftertouch. The second example on the page in the

@@ -1,8 +1,7 @@
-05 D. DELAY AND FEEDBACK
-========================
+# 05 D. DELAY AND FEEDBACK
 
-A delay in DSP is a special kind of buffer, sometimes called a *circular
-buffer*. The length of this buffer is finite and must be declared upon
+A delay in DSP is a special kind of buffer, sometimes called a _circular
+buffer_. The length of this buffer is finite and must be declared upon
 initialization as it is stored in RAM. One way to think of the circular
 buffer is that as new items are added at the beginning of the buffer the
 oldest items at the end of the buffer are being "shoved" out.
@@ -15,32 +14,30 @@ Csound offers many opcodes for implementing delays. Some of these offer
 varying degrees of quality - often balanced against varying degrees of
 efficiency whilst some are for quite specialized purposes.
 
-
-Basic Delay Line Read-Write Unit
---------------------------------
+## Basic Delay Line Read-Write Unit
 
 To begin with, this section is going to focus upon a pair of opcodes,
 [delayr](https://csound.com/docs/manual/delayr.html) and
 [delayw](https://csound.com/docs/manual/delayw.html). Whilst not
 the most efficient to use in terms of the number of lines of code
-required, the use of *delayr* and *delayw* helps to clearly illustrate
-how a delay buffer works. Besides this, *delayr* and *delayw* actually
+required, the use of _delayr_ and _delayw_ helps to clearly illustrate
+how a delay buffer works. Besides this, _delayr_ and _delayw_ actually
 offer a lot more flexibility and versatility than many of the other
 delay opcodes.
 
-When using *delayr* and *delayw* the establishement of a delay buffer is
+When using _delayr_ and _delayw_ the establishement of a delay buffer is
 broken down into two steps: reading from the end of the buffer using
-*delayr* (and by doing this defining the length or duration of the
+_delayr_ (and by doing this defining the length or duration of the
 buffer) and then writing into the beginning of the buffer using
-*delayw*.
+_delayw_.
 
 The code employed might look like this:
 
     aSigOut  delayr  1
              delayw  aSigIn
 
-where *aSigIn* is the input signal written into the beginning of the
-buffer and *aSigOut* is the output signal read from the end of the
+where _aSigIn_ is the input signal written into the beginning of the
+buffer and _aSigOut_ is the output signal read from the end of the
 buffer. The fact that we declare reading from the buffer before writing
 to it is sometimes initially confusing but, as alluded to before, one
 reason this is done is to declare the length of the buffer. The buffer
@@ -48,18 +45,17 @@ length in this case is 1 second and this will be the apparent time delay
 between the input audio signal and audio read from the end of the
 buffer.
 
-The following example implements the delay described above in a *.csd*
-file. An input sound of sparse sine tone pulses is created. This is
+The following example implements the delay described above in a
+_.csd_ file. An input sound of sparse sine tone pulses is created. This is
 written into the delay buffer from which a new audio signal is created
 by read from the end of this buffer. The input signal (sometimes
 referred to as the dry signal) and the delay output signal (sometimes
 referred to as the wet signal) are mixed and set to the output. The
 delayed signal is attenuated with respect to the input signal.
 
+#### **_EXAMPLE 05D01_delay.csd_**
 
-   ***EXAMPLE 05D01_delay.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac ; activates real time sound output
@@ -92,11 +88,9 @@ i 1 0 25
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
+```
 
-
-Delay with Feedback
--------------------
+## Delay with Feedback
 
 If we mix some of the delayed signal into the input signal that is
 written into the buffer then we will delay some of the delayed signal
@@ -108,10 +102,9 @@ value in the range zero to 1. The rapidity with which echoes will die
 away is defined by how close to zero this value is. The following
 example implements a simple delay with feedback.
 
+#### **_EXAMPLE 05D02_delay_feedback.csd_**
 
-   ***EXAMPLE 05D02_delay_feedback.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac ;activates real time sound output
@@ -146,13 +139,15 @@ i 1 0 25
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
+```
 
-An alternative for implementing a simple delay-feedback line in Csound would be to use the [delay](https://csound.com/docs/manual/delay.html) opcode. This is the same example done in this way:
+An alternative for implementing a simple delay-feedback line in Csound would be to use
+the [delay](https://csound.com/docs/manual/delay.html) opcode.
+This is the same example done in this way:
 
-   ***EXAMPLE 05D03_delay_feedback_2.csd***
+#### **_EXAMPLE 05D03_delay_feedback_2.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -182,17 +177,15 @@ i 1 0 25
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy and joachim heintz
-~~~
+```
 
-
-Tap Delay Line
---------------
+## Tap Delay Line
 
 Constructing a delay effect in this way is rather limited as the delay
 time is static. If we want to change the delay time we need to
 reinitialise the code that implements the delay buffer. A more flexible
 approach is to read audio from within the buffer using one of Csounds
-opcodes for *tapping* a delay buffer,
+opcodes for _tapping_ a delay buffer,
 [deltap](https://csound.com/docs/manual/deltap.html),
 [deltapi](https://csound.com/docs/manual/deltapi.html),
 [deltap3](https://csound.com/docs/manual/deltap3.html) or
@@ -200,12 +193,12 @@ opcodes for *tapping* a delay buffer,
 The opcodes are listed in order of increasing quality
 which also reflects an increase in computational expense. In the next
 example a delay tap is inserted within the delay buffer (between the
-*delayr* and the *delayw* opcodes). As our delay time is modulating
-quite quickly we will use *deltapi* which uses linear interpolation as
+_delayr_ and the _delayw_ opcodes). As our delay time is modulating
+quite quickly we will use _deltapi_ which uses linear interpolation as
 it rebuilds the audio signal whenever the delay time is moving. Note
-that this time we are not using the audio output from the *delayr*
-opcode as we are using the audio output from *deltapi* instead. The
-delay time used by *deltapi* is created by *randomi* which creates a
+that this time we are not using the audio output from the _delayr_
+opcode as we are using the audio output from _deltapi_ instead. The
+delay time used by _deltapi_ is created by _randomi_ which creates a
 random function of straight line segments. A-rate is used for the delay
 time to improve the accuracy of its values, use of k-rate would result
 in a noticeably poorer sound quality. You will notice that as well as
@@ -217,17 +210,16 @@ of the buffer then pitch will drop. This side effect has led to digital
 delay buffers being used in the design of many pitch shifting effects.
 
 The user must take care that the delay time demanded from the delay tap
-does not exceed the length of the buffer as defined in the *delayr*
+does not exceed the length of the buffer as defined in the _delayr_
 line. If it does it will attempt to read data beyond the end of the RAM
 buffer -- the results of this are unpredictable. The user must also take
 care that the delay time does not go below zero, in fact the minumum
 delay time that will be permissible will be the duration of one k cycle
 (ksmps/sr).
 
+#### **_EXAMPLE 05D04_deltapi.csd_**
 
-   ***EXAMPLE 05D04_deltapi.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac ; activates real time sound output
@@ -261,21 +253,20 @@ i 1 0 30
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
-
+```
 
 We are not limited to inserting only a single delay tap within the
-buffer. If we add further taps we create what is known as a *multi-tap
-delay*. The following example implements a multi-tap delay with three
+buffer. If we add further taps we create what is known as a _multi-tap
+delay_. The following example implements a multi-tap delay with three
 delay taps. Note that only the final delay (the one closest to the end
 of the buffer) is fed back into the input in order to create feedback
 but all three taps are mixed and sent to the output. There is no reason
 not to experiment with arrangements other than this, but this one is
 most typical.
 
-   ***EXAMPLE 05D05_multi-tap_delay.csd***
+#### **_EXAMPLE 05D05_multi-tap_delay.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac ; activates real time sound output
@@ -311,12 +302,9 @@ i 1 0 25
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
+```
 
-
-
-Flanger
--------
+## Flanger
 
 As mentioned at the top of this section many familiar effects are
 actually created from using delay buffers in various ways. We will
@@ -324,17 +312,16 @@ briefly look at one of these effects: the flanger. Flanging derives from
 a phenomenon which occurs when the delay time becomes so short that we
 begin to no longer perceive individual echoes. Instead a stack of
 harmonically related resonances are perceived whichs frequencies are in
-simple ratio with *1/delay_time*. This effect is known as a comb filter and is explained in the previous chapter.
+simple ratio with _1/delay_time_. This effect is known as a comb filter and is explained in the previous chapter.
 When the delay time is slowly modulated and the resonances shifting up
 and down in sympathy the effect becomes known as a flanger. In this
 example the delay time of the flanger is modulated using an LFO that
 employs an U-shaped parabola as its waveform as this seems to provide
 the smoothest comb filter modulations.
 
+#### **_EXAMPLE 05D06_flanger.csd_**
 
-   ***EXAMPLE 05D06_flanger.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac ; activates real time sound output
@@ -371,24 +358,33 @@ i 1 0 25
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy
-~~~
+```
 
-
-As alternative to using the *deltap* group of opcodes, Csound provides opcodes which start with *vdel* (for *variable delay line*). They establish one single delay line per opcode. This may be easier to write for one or few taps, whereas for a large number of taps the method which has been described in the previous examples is preferable.
+As alternative to using the _deltap_ group of opcodes, Csound provides opcodes which start
+with _vdel_ (for _variable delay line_). They establish one single delay line per opcode.
+This may be easier to write for one or few taps, whereas for a large number of taps the
+method which has been described in the previous examples is preferable.
 
 Basically all these opcode have three main arguments:
+
 1. The audio input signal.
 2. The delay time as audio signal.
 3. The maximum possible delay time.
 
-Some caution must be given to the unit in argument 2 and 3: [vdelay](https://csound.com/docs/manual/vdelay.html) and [vdelay3](https://csound.com/docs/manual/vdelay3.html) use *milliseconds* here, whereas [vdelayx](https://csound.com/docs/manual/vdelayx.html) uses seconds (as nearly every other opcode in Csound).
+Some caution must be given to the unit in argument 2 and 3:
+[vdelay](https://csound.com/docs/manual/vdelay.html) and
+[vdelay3](https://csound.com/docs/manual/vdelay3.html) use _milliseconds_ here,
+whereas [vdelayx](https://csound.com/docs/manual/vdelayx.html) uses seconds (as nearly every other opcode in Csound).
 
-This is an identical version of the previous *flanger* example which uses *vdelayx* instead of *deltap3*. The *vdelayx* opcode has an additional parameter which allows the user to set the number of samples to be used for interpolation between 4 and 1024. The higher the number, the better the quality, requiring yet more rendering power.
+This is an identical version of the previous _flanger_ example which
+uses _vdelayx_ instead of _deltap3_.
+The _vdelayx_ opcode has an additional parameter which allows the user to set
+the number of samples to be used for interpolation between 4 and 1024.
+The higher the number, the better the quality, requiring yet more rendering power.
 
+#### **_EXAMPLE 05D07_flanger_2.csd_**
 
-   ***EXAMPLE 05D07_flanger_2.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac ; activates real time sound output
@@ -422,25 +418,33 @@ i 1 0 25
 </CsScore>
 </CsoundSynthesizer>
 ;example by Iain McCurdy and joachim heintz
-~~~
+```
 
-
-Custom Delay Line
------------------
+## Custom Delay Line
 
 As an advanced insight into sample-by-sample processing in Csound, we end here with an intruiging example by Steven Yi (showed on the Csound mailing list 2019/12/11). It demonstrates how a delay line can be created as Csound array which is written and read as circular buffer. Here are some comments:
 
-- Line 15: The array is created with the size *delay-time times sample-rate*, in our case 0.25 * 44100 = 11025. So 11025 samples can be stored in this array.
-- Line 16-17: The read pointer *kread_ptr* is set to the second element (index=1), the write pointer *kwrite_ptr* is set to the first element (index=0) at beginning.
+- Line 15: The array is created with the size _delay-time times sample-rate_,
+  in our case 0.25 \* 44100 = 11025. So 11025 samples can be stored in this array.
+- Line 16-17: The read pointer _kread_ptr_ is set to the second element (index=1),
+  the write pointer _kwrite_ptr_ is set to the first element (index=0) at beginning.
 - Line 19-20: The audio signal as input for the delay line — it can be anything.
-- Line 22-23, 30-31: The [while](https://csound.com/docs/manual/while.html) loop iterates through each sample of the audio vector: from *kindx*=0 to *kindx*=31 if [ksmps](https://csound.com/docs/manual/ksmps.html) is 32.
-- Line 24: Each element of the audio vector is copied into the appropriate position of the array. At the beginning, the first element of the audio vector is copied to position 0, the second element to position 1, and so on.
-- Line 25: The element in the array to which the read index "kread_ptr*  points is copied to the appropriate element of the delayed audio signal. As *kread_ptr* starts with 1 (not 0), at first it can only copy zeros.
-- Line 27-28: Both pointers are incremented by one and then the *modulo* is taken. This ensures that the array is not read or written beyond its boundaries, but used as a circular buffer.
+- Line 22-23, 30-31:
+  The [while](https://csound.com/docs/manual/while.html) loop iterates through each
+  sample of the audio vector: from _kindx_=0 to _kindx_=31
+  if [ksmps](https://csound.com/docs/manual/ksmps.html) is 32.
+- Line 24: Each element of the audio vector is copied into the appropriate position of the array.
+  At the beginning, the first element of the audio vector is copied to position 0,
+  the second element to position 1, and so on.
+- Line 25: The element in the array to which the read index
+  "kread_ptr* points is copied to the appropriate element of the delayed audio signal.
+  As *kread_ptr\* starts with 1 (not 0), at first it can only copy zeros.
+- Line 27-28: Both pointers are incremented by one and then the _modulo_ is taken.
+  This ensures that the array is not read or written beyond its boundaries, but used as a circular buffer.
 
-   ***EXAMPLE 05D08_custom_delay_line.csd***
+  **_EXAMPLE 05D08_custom_delay_line.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac ; activates real time sound output
@@ -483,4 +487,4 @@ i "CustomDelayLine" 0 10
 </CsScore>
 </CsoundSynthesizer>
 ;example by Steven Yi
-~~~
+```

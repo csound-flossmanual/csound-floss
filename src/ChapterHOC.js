@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useBookDispatch } from "./BookContext";
 import ReactAudioPlayer from "react-audio-player";
 import useCsound from "./CsoundContext";
-import filesize from "filesize";
+import { filesize } from "filesize";
 import Modal from "react-modal";
 import {
   append,
@@ -33,7 +33,7 @@ const modalStyle = {
 function getIndexToIns(arr, num) {
   let index = arr
     .sort((a, b) => a - b)
-    .findIndex(currentNum => num <= currentNum);
+    .findIndex((currentNum) => num <= currentNum);
   return index === -1 ? arr.length : index;
 }
 
@@ -77,7 +77,11 @@ const ChapterHOC = ({ children }) => {
       subSections
         .map(({ id }) => {
           const element = document.getElementById(id);
-          return element.offsetTop - element.scrollTop + element.clientTop;
+          if (element) {
+            return element.offsetTop - element.scrollTop + element.clientTop;
+          } else {
+            return 0;
+          }
         })
         .sort()
     );
@@ -136,10 +140,8 @@ const ChapterHOC = ({ children }) => {
     };
   }, [onScroll]);
 
-  const [
-    { filesystemDialogOpen, filesGenerated },
-    csoundDispatch,
-  ] = useCsound();
+  const [{ filesystemDialogOpen, filesGenerated }, csoundDispatch] =
+    useCsound();
 
   return (
     <div>
@@ -156,7 +158,7 @@ const ChapterHOC = ({ children }) => {
             <div key={i}>
               <hr />
               <p>
-                {f.name + " - " + filesize(f.stat.size) + " - "}
+                {f.name + " - " + filesize(f.size) + " - "}
                 <a href={f.url} download={f.name}>{`Download`}</a>
               </p>
               {f.type.startsWith("audio") && (

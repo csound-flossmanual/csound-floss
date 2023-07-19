@@ -12,7 +12,7 @@ const {
 } = require("./constants");
 
 const allChapters = R.reject(
-  md => md.includes("00--aa-toc.md"),
+  (md) => md.includes("00--aa-toc.md"),
   fg.sync([`${BOOK_DIRECTORY}/*.md`], { dot: false })
 ).sort();
 
@@ -34,8 +34,8 @@ R.pipe(
       chapter.replace(/\.\.\/resources\//g, `${RESOURCES_DIRECTORY}/`)
     );
   }, ""),
-  x => R.reduce((a, v) => a.replace(v, ""), x, deleteLinesHack),
-  singleMd => fs.writeFileSync(tmpDest, singleMd)
+  (x) => R.reduce((a, v) => a.replace(v, ""), x, deleteLinesHack),
+  (singleMd) => fs.writeFileSync(tmpDest, singleMd)
 )(allChapters);
 
 execSync(

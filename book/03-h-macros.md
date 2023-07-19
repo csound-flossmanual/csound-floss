@@ -1,6 +1,4 @@
-03 H. MACROS
-============
-
+# 03 H. MACROS
 
 Macros within Csound provide a mechanism whereby a line or a block of
 code can be referenced using a macro codeword. Whenever the user-defined
@@ -26,27 +24,27 @@ until the macro is actually used and expanded elsewhere in the orchestra
 or score. Macro expansion is a feature of the orchestra and score preprocessor
 and is not part of the compilation itself.
 
-### Orchestra Macros
+## Orchestra Macros
 
 Macros are defined using the syntax:
 
     #define NAME # replacement text #
 
-*NAME* is the user-defined name that will be used to call the macro
+_NAME_ is the user-defined name that will be used to call the macro
 at some point later in the orchestra; it must begin with a letter but
 can then contain any combination of numbers and letters. A limited range
 of special characters can be employed in the name. Apostrophes, hash
-symbols and dollar signs should be avoided. *replacement text*,
+symbols and dollar signs should be avoided. _replacement text_,
 bounded by hash symbols will be the text that will replace the macro
 name when later called. Remember that the replacement text can stretch
 over several lines. A macro can be defined anywhere within the
-*\<CsInstruments\> ... \</CsInstruments\>* sections of a .csd file. A macro
+_\<CsInstruments\> ... \</CsInstruments\>_ sections of a .csd file. A macro
 can be redefined or overwritten by reusing the same macro name in
 another macro definition. Subsequent expansions of the macro will then
 use the new version.
 
 To expand the macro later in the orchestra the macro name needs to be
-preceded with a *$* symbol thus:
+preceded with a _$_ symbol thus:
 
       $NAME
 
@@ -55,14 +53,14 @@ macros. The name of a sound file is referenced twice in the score so it
 is defined as a macro just after the header statements. Instrument 1
 derives the duration of the sound file and instructs instrument 2 to
 play a note for this duration. Instrument 2 plays the sound file. The
-score as defined in the *\<CsScore\> ... \</CsScore\>* section only lasts for
-0.01 seconds but the *event_i* statement in instrument 1 will extend this
+score as defined in the _\<CsScore\> ... \</CsScore\>_ section only lasts for
+0.01 seconds but the _event_i_ statement in instrument 1 will extend this
 for the required duration. The sound file is a mono file so you can
 replace it with any other mono file.
 
-   ***EXAMPLE 03H01_Macros_basic.csd***
+#### **_EXAMPLE 03H01_Macros_basic.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -95,7 +93,7 @@ e
 </CsScore>
 </CsoundSynthesizer>
 ; example written by Iain McCurdy
-~~~
+```
 
 In more complex situations where we require slight variations, such as
 different constant values or different sound files in each reuse of the
@@ -104,14 +102,12 @@ defined as a list of sub-macro names within brackets after the name of
 the primary macro with each macro argument being separated using an
 apostrophe as shown below.
 
-
-
     #define NAME(Arg1'Arg2'Arg3...) # replacement text #
 
 Arguments can be any text string permitted as Csound code, they should
 not be likened to opcode arguments where each must conform to a certain
 type such as i, k, a etc. Macro arguments are subsequently referenced in
-the macro text using their names preceded by a *$* symbol. When the
+the macro text using their names preceded by a _$_ symbol. When the
 main macro is called later in the orchestra its arguments are then
 replaced with the values or strings required. The Csound Reference
 Manual states that up to five arguments are permitted but this still
@@ -126,9 +122,9 @@ the orchestra twice to create two different timbres, it could be reused
 many more times however. The fundamental frequency argument is passed to
 the macro as p4 from the score.
 
-   ***EXAMPLE 03H02_Macro_6partials.csd***
+#### **_EXAMPLE 03H02_Macro_6partials.csd_**
 
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -183,26 +179,24 @@ e
 </CsScore>
 </CsoundSynthesizer>
 ; example written by Iain McCurdy
-~~~
+```
 
-### Score Macros
+## Score Macros
 
 Score macros employ a similar syntax. Macros in the score can be used in
 situations where a long string of p-fields are likely to be repeated or,
 as in the next example, to define a palette of score patterns that
 repeat but with some variation such as transposition. In this example
-two *riffs* are defined which each employ two macro arguments: the
+two _riffs_ are defined which each employ two macro arguments: the
 first to define when the riff will begin and the second to define a
 transposition factor in semitones. These riffs are played back using a
-bass guitar-like instrument using the
-[wgpluck2](http://www.csound.com/docs/manual/wgpluck2.html) opcode.
+bass guitar-like instrument using the [wgpluck2](http://www.csound.com/docs/manual/wgpluck2.html) opcode.
 Remember that mathematical expressions within the Csound score must be
 bound within square brackets `[]`.
 
+#### **_EXAMPLE 03H03_Score_macro.csd_**
 
-***EXAMPLE 03H03_Score_macro.csd***
-
-~~~csound
+```csound
 <CsoundSynthesizer>
 <CsOptions>
 -odac
@@ -256,7 +250,7 @@ e
 </CsScore>
 </CsoundSynthesizer>
 ; example written by Iain McCurdy
-~~~
+```
 
 Score macros can themselves contain macros so that, for example, the
 above example could be further expanded so that a verse, chorus

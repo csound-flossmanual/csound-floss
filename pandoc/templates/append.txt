@@ -1,6 +1,5 @@
 </ChapterHOC>
 </MathJax.Provider>
-</DocumentTitle>
 )};
 
 export default Chapter;

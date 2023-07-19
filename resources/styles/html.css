@@ -4,7 +4,7 @@ body {
   color: #333;
   background-color: #ebebeb;
   font-family: "Roboto Condensed", sans-serif;
-  font-size: 17px;
+  font-size: 18px;
   font-weight: normal;
   line-height: 145%;
   overflow-x: hidden;
@@ -43,7 +43,23 @@ pre > code {
   line-height: 19px !important;
 }
 
+.CodeMirror {
+  font-size: 16px !important;
+  line-height: 21px !important;
+}
+
 #root {
   display: flex;
   overflow-x: hidden;
+  justify-content: space-between;
+  min-height: 100svh;
 }
+
+.cm-csound-define {
+  color: #ef6020 !important;
+  font-weight: 600;
+}
+
+/* strong {
+   margin-left: 1rem;
+   } */

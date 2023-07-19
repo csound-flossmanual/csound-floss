@@ -3,13 +3,13 @@
 import { css, jsx } from "@emotion/react";
 // eslint-disable-next-line no-unused-vars
 import React, { lazy, Suspense, useEffect, useState } from "react";
-import { navigate } from "../../history";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   assoc,
   concat,
   filter,
   find,
+  findIndex,
   map,
   max,
   pipe,
@@ -109,18 +109,31 @@ const createSelectDataChapter = (route, chapterNumber) => ({
   label: `${chapterNumber} - ${route.name}`,
 });
 
-const createSelectDataSection = (route) => ({
-  value: route.url,
-  label: moduleToName(route.module),
-});
+const createSelectDataSection = (route) =>
+  route.sectionName === "Overview"
+    ? {
+        value: route.url,
+        label: "Overview",
+      }
+    : {
+        value: route.url,
+        label: moduleToName(route.module),
+      };
 
 const getChapterData = (chapterNum) => {
   const raw = filter(
     propEq("chapter", chapterNum),
     reject(propEq("module", "00--aa-toc"), routes)
   );
-  const maybePrepend =
-    raw.length > 0 ? [{ value: 0, label: raw[0].name, isDisabled: true }] : [];
+
+  let maybePrepend =
+    raw.length > 0 && raw[0].sectionName !== "Overview"
+      ? [{ value: 0, label: raw[0].name, isDisabled: true }]
+      : [];
+
+  if (raw.length > 0 && raw[0].sectionName === "Overview") {
+    raw[0].label = raw[0].name;
+  }
   return concat(maybePrepend, map(createSelectDataSection, raw));
 };
 
@@ -135,13 +148,25 @@ const getAllChapters = () => {
   )(range(0, numChapters + 1));
 };
 
-function MobileNav({ routeIndex }) {
+function MobileNav() {
   const [isBottomReached, setIsBottomReached] = useState(false);
+  const location = useLocation();
+  const currentRoutename = location?.pathname ?? "/";
+  const routeIndex = findIndex(
+    propEq(
+      "url",
+      currentRoutename === "/" || currentRoutename === "/introduction"
+        ? "/introduction/preface"
+        : currentRoutename
+    )
+  )(routes);
+
   const currentRoute = routes[routeIndex];
 
   const nextRoute = propOr(false, routeIndex + 1, routes);
   const previousRoute = propOr(false, routeIndex - 1, routes);
   const currentChapter = getChapterData(currentRoute.chapter);
+  const navigate = useNavigate();
   // const nextChapter = nextRoute && getChapterData(nextRoute.chapter);
   // const previousChapter =
   //   previousRoute && getChapterData(previousRoute.chapter);
@@ -163,6 +188,8 @@ function MobileNav({ routeIndex }) {
       }}
     />
   );
+
+  const selectDataSection = createSelectDataSection(routes[routeIndex]);
 
   return (
     <StickyMobileNav
@@ -192,8 +219,14 @@ function MobileNav({ routeIndex }) {
               <h3>Previous Chapter</h3>
             </span>
           )}
-          <Link to="/">
-            <h3>Table of contents</h3>
+          <Link
+            to={
+              currentRoute?.url_prefix === "/introduction"
+                ? "/introduction/preface"
+                : currentRoute?.url_prefix ?? "/"
+            }
+          >
+            <h3>Overview</h3>
           </Link>
           {nextRoute ? (
             <Link to={nextRoute.url}>
@@ -214,10 +247,7 @@ function MobileNav({ routeIndex }) {
           )}
           options={allChapters}
         />
-        <Selector
-          defaultValue={createSelectDataSection(routes[routeIndex])}
-          options={currentChapter}
-        />
+        <Selector defaultValue={selectDataSection} options={currentChapter} />
       </div>
     </StickyMobileNav>
   );
