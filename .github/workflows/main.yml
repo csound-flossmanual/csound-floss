@@ -72,4 +72,4 @@ jobs:
         with:
           args: deploy -P default --only hosting
         env:
-          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY_DEV }}
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
