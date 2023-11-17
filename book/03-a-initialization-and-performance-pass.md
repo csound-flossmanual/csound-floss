@@ -1142,7 +1142,7 @@ The rise and the decay are each 1/10 seconds long. If this envelope is
 produced at k-rate with a blocksize of 128 (instr 1), the noise is
 clearly audible. Try changing ksmps to 64, 32 or 16 and compare the
 amount of zipper noise. — Instrument 2 uses an envelope at audio-rate
-instead. Regardless the blocksize, each sample is calculated seperately,
+instead. Regardless the blocksize, each sample is calculated separately,
 so the envelope will always be smooth. — Instrument 3 shows a remedy for situations in which a k-rate envelope cannot be avoided: the [a()](https://csound.com/docs/manual/opa.html) will convert the k-signal to audio-rate by interpolation thus smoothing the envelope.
 
 #### **_EXAMPLE 03A18_Zipper.csd_**

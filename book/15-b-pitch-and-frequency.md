@@ -437,7 +437,7 @@ and `cent(-25)` returns the multiplier for calculating an eighth tone lower.
 
 ```csound
     instr 1
-     prints "A quater tone above A4 (440 Hz):\n"
+     prints "A quarter tone above A4 (440 Hz):\n"
      prints " 1. as mtof:i(69.5) = %f\n", mtof:i(69.5)
      prints " 2. as cpspch(8.095) = %f\n", cpspch(8.095)
      prints " 3. as 2^(50/1200)*440 = %f\n", 2^(50/1200)*440
@@ -449,7 +449,7 @@ and `cent(-25)` returns the multiplier for calculating an eighth tone lower.
 The result of this comparison is:
 
 ```
-    A quater tone above A4 (440 Hz):
+    A quarter tone above A4 (440 Hz):
      1. as mtof:i(69.5) = 452.892984
      2. as cpspch(8.095) = 452.880211
      3. as 2^(50/1200)*440 = 452.892984
@@ -470,7 +470,7 @@ are particularily suited for this approach.
 It is even simple to "tune" a MIDI keyboard in quarter tones or to any historical tuning using Csound.
 The following example shows the fundamentals.
 It plays the five notes C D E F G (= MIDI 60 62 64 65 67) first in
-Pythoagorean tuning, then in Meantone, then as quatertones, then as partials 1-5.
+Pythoagorean tuning, then in Meantone, then as quarter tones, then as partials 1-5.
 
 #### **_EXAMPLE 15B05_Tuning_Systems.csd_**
 
@@ -498,10 +498,10 @@ instr Meantone
  puts "Meantone scale",1
 endin
 
-instr Quatertone
+instr Quartertone
  giScale[] fillarray 1, 2^(1/24), 2^(2/24), 2^(3/24), 2^(4/24)
  schedule("LetPlay",0,0)
- puts "Quatertone scale",1
+ puts "Quartertone scale",1
 endin
 
 instr Partials
@@ -530,7 +530,7 @@ endin
 <CsScore>
 i "Pythagorean" 0 10
 i "Meantone" 10 10
-i "Quatertone" 20 10
+i "Quartertone" 20 10
 i "Partials" 30 10
 </CsScore>
 </CsoundSynthesizer>
