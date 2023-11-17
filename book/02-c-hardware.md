@@ -60,7 +60,7 @@ Csound on the command line or via API.
 Remember that you also need to choose a real-time audio module.
 (See above how to do this.)
 
-Csound connects with a specific sound card seperately for input and output.
+Csound connects with a specific sound card separately for input and output.
 
 #### Output
 
