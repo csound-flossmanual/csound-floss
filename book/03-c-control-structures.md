@@ -1264,7 +1264,7 @@ to the _timout_ feature:
 - You must select the one k-cycle where the _metro_ opcode sends
   a _1_. This is done with an if-statement. The rest of the
   instrument is not affected. If you use _timout_, you
-  usually must seperate the reinitialized from the not reinitialized
+  usually must separate the reinitialized from the not reinitialized
   section by a _rireturn_ statement.
 
 ### Time Loops by Using a Clock Variable
