@@ -12,7 +12,7 @@ const {
 } = require("./constants");
 
 execSync(
-  `pandoc book/*.md \
+  `pandoc book/*.md -f ${MARKDOWN_EXTENSIONS.join("+")} \
       --filter=pandoc/filters/epub_images.js \
       --epub-metadata=resources/epub-metadata.yml \
       -o ${EPUB_OUTPUT} \
