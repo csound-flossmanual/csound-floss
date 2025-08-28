@@ -9,31 +9,31 @@
 
 Nous avons jusqu’ici implémenté de nombreuses fonctionnalités pratiques à notre instrument, comme le glissando ou le volume, et des fade-in et fade-out automatiques.
 
-Mais tout ça arrivait uniquement **dans** l’instrument. Chaque fois que nous appelions notre instrument _Hello_, il jouait à la même hauteur et au même volume. Tout ce que nous pouvions faire depuis l’extérieur de l’instrument était d’ajuster **quand** l’instrument commençait à jouer, et pour **combien de temps** il devait jouer. Comme vous le savez depuis le [tutoriel 04](04_HelloFadeOut.md), ces informations sont soumises à l’instrument via des paramètres dans la partition / score.
+Mais tout ça arrivait uniquement **dans** l’instrument. Chaque fois que nous appelions notre instrument _Bonjour_, il jouait à la même hauteur et au même volume. Tout ce que nous pouvions faire depuis l’extérieur de l’instrument était d’ajuster **quand** l’instrument commençait à jouer, et pour **combien de temps** il devait jouer. Comme vous le savez depuis le [tutoriel 04](15-h-GS-fr-04.md), ces informations sont soumises à l’instrument via des paramètres dans la partition / score.
 
 - Le premier paramètre, abrévié **p1** est le numéro ou le nom de l’instrument appelé.
-- Le second paramètre, abrévié **p2** est l’heure de départ de cet instrument.
+- Le second paramètre, abrévié **p2** est l’heure de début de cet instrument.
 - Le troisième paramètre, abrévié **p3** est la durée de cet instrument.
 
-Appelons l’instrument _Hello_ avec ces lignes de partition :
+Appelons l’instrument _Bonjour_ avec ces lignes de partition :
 ```
-i "Hello" 0 2
-i "Hello" 3 3
-i "Hello" 9 1
+i "Bonjour" 0 2
+i "Bonjour" 3 3
+i "Bonjour" 9 1
 ```
 
 Ici, nous **instancions** un certain instrument. Chaque instance est un objet en cours d’exécution d’un modèle d’instrument ; c’est la "chose" concrète qui existe en tant que réalisation du modèle.
 
-![alt text](images/images_07/image.png)  
+![alt text](../resources/images/01-GS-07-a.png)  
 _Trois instances d’un instrument dans une séquence_
 
 Nous pouvons créer autant d’instances d’instrument que nous le voulons. Elles peuvent se suivre dans le temps, se superposer ou même se chevaucher partiellement, comme dans ces lignes de partition :
 ```
-i "Hello" 0 7
-i "Hello" 3 6
-i "Hello" 5 1
+i "Bonjour" 0 7
+i "Bonjour" 3 6
+i "Bonjour" 5 1
 ```
-![alt text](images/images_07/image-1.png)  
+![alt text](../resources/images/01-GS-07-b.png)  
 _Trois instances d’instrument se chevauchant mutuellement_
 
 ## Rendre les instruments plus adaptables
@@ -42,19 +42,19 @@ Mais revenons aux caractéristiques de notre instrument comme nous l’avons lai
 
 Pour ce faire, nous **ajoutons des p-fields/champs supplémentaires** à notre ligne de partition. Nous écrivons notre premier numéro de note MIDI comme quatrième paramètre **p4**, et notre second numéro MIDI comme cinquième paramètre **p5** :
 ```
-i "Hello" 0 2 72 68
+i "Bonjour" 0 2 72 68
 ```
 
 Ce qui signifie que nous appelons :
-- **p1** l’instrument "Hello",
-- **p2** l’heure de départ de cette instance qui sera zéro,
+- **p1** l’instrument "Bonjour",
+- **p2** l’heure de début de cette instance qui sera zéro,
 - **p3** sa durée en seconde – ici 2,
 - **p4** le numéro de note MIDI 72 au début, et
 - **p5** le numéro de note MIDI 68 à la fin de la durée (p3).
 
 Pour que ça fonctionne, nous insérons **p4** et **p5** dans le code de notre instrument :
 ```
-instr Hello
+instr Bonjour
     iMidiStart = p4
     iMidiEnd = p5
     kMidi = linseg:k (iMidiStart, p3, iMidiEnd)
@@ -64,12 +64,12 @@ endin
 
 L’instrument interprète ces valeurs de la même façon que le fait **p3** que nous utilisons déjà dans le code de notre instrument. Pour **p4** et **p5**, l’instance d’instrument examinera la ligne de partition, et prendra le quatrième paramètre comme valeur pour **p4**, et le cinquième comme valeur pour **p5**.
 
-![alt text](images/images_07/image-2.png)  
+![alt text](../resources/images/01-GS-07-c.png)  
 _Instrument lisant p4 et p5 sur une ligne de partition_
 
 ## Insertion directe de p-field/champs ou définition de variables ?
 
-Dans le code ci-dessus, nous avons défini des variables _i-rate_ : _iMIDIStart_ et _iMIDIEnd_. il aurait été tout à fait correct de placer **p4** et **p5** directement dans le code de l’instrument, comme ceci :
+Dans le code ci-dessus, nous avons défini des variables au taux _i-rate_ : _iMIDIStart_ et _iMIDIEnd_. Il aurait été tout à fait correct de placer **p4** et **p5** directement dans le code de l’instrument, comme ceci :
 ```
 kMidi = linseg:k (p4, p3, p5)
 ```
@@ -122,7 +122,7 @@ nchnls = 2
 0dbfs = 1
 
 /*CODE DE L’INSTRUMENT*/
-instr Hello ;Hello est écrit ici sans guillemets doubles!
+instr Bonjour ;Bonjour est écrit ici sans guillemets doubles!
    //Reçoit les notes MIDI de début et de fin depuis la partition:
    iMidiStart = p4 ;c’est un numéro de note MIDI
    iMidiEnd = p5
@@ -132,7 +132,7 @@ instr Hello ;Hello est écrit ici sans guillemets doubles!
    //durant la 1ère moitié de la durée
    kDb = linseg:k(-10, p3/2, -20)
    //Son sinusoïdal avec ampdb et mtof pour convertir 
-   //l’entrée en amp et en freq
+   //les entrée, respectivement en amp et en freq
    aSine = poscil:a(ampdb:k(kDb), mtof:k(kMidi))
    //Applique une seconde de fade-out
    aOut = linen:a(aSine, 0, p3, 1)
@@ -145,45 +145,45 @@ endin
 /* Lignes de partition */
 // Champs/fields des paramètres de partition
 // p1       p2    p3    p4 p5
-i "Hello"   0     2     72 68 ;ici "Hello", les guillemets sont nécessaires
-i "Hello"   4     3     67 73
-i "Hello"   9     5     74 66
-i "Hello"   11.5  0.5   72 73.5
-i "Hello"   12.5  0.5   73 73.5
+i "Bonjour"   0     2     72 68 ; Guillemets nécessaires
+i "Bonjour"   4     3     67 73
+i "Bonjour"   9     5     74 66
+i "Bonjour"   11.5  0.5   72 73.5
+i "Bonjour"   12.5  0.5   73 73.5
 </CsScore>
 </CsoundSynthesizer>
 ```
 
 ## Un coup d’œil sur l’histoire
 
-Les **P fields/champs** sont des éléments qui reflètent la longue histoire de Csound. C’est une figure qui vient de l’article "Musical Sounds from digital computers", par Mathews, Pierce et Guttman, montrant cette "carte informatique" :
+Les **p-fields/p-champs** sont des éléments qui reflètent la longue histoire de Csound. C’est une figure qui vient de l’article "Musical Sounds from digital computers", par Mathews, Pierce et Guttman, montrant cette "carte informatique" :
 
-![alt text](images/images_07/image-3.png)  
+![alt text](../resources/images/01-GS-07-d.png)  
 _p-fields/champs sur une carte informatique dans Mathews et.al. 1962_
 
 Ici, le champ `P0` contient l’information soit d’une "note", soit d’une "pause". `P1` est le numéro d’instrument. Comme il n’y a pas de polyphonie ici, `P2` est la durée de la chaine d’évènements. `P3` est une amplitude, ici dans la plage de 0 à 1000, et `P4` est la fréquence.
 
-Les p-field/champs existaient donc avant que les ordinateurs n’aient un écran et un clavier.
+Les p-field/p-champs existaient donc avant que les ordinateurs n’aient un écran et un clavier.
 
-C’est _MUSIC V_ de Mathews, dont c’est servi Jean-Claude Risset pour écrire son ouvrage historique "Catalogue of Computer Synthesized Sounds" en 1969. Voici un extrait dans lequel vous pouvez voir à nouveau des p-fields :
+C’est de _MUSIC V_ de Mathews, dont c’est servi Jean-Claude Risset pour écrire son ouvrage historique "Catalogue of Computer Synthesized Sounds" en 1969. Voici un extrait dans lequel vous pouvez voir à nouveau des p-fields :
 
-![alt text](images/images_07/image-4.png)  
+![alt text](../resources/images/01-GS-07-e.png)  
 _Extrait du "Catalogue" de Rissets, 1969_
 
-Les premières version du programme _MUSIC_ de Max Mathews pouvait fonctionner uniquement sur un ordinateur particulier. Le "C" de Csound pointe vers le [language de programmation C](https://en.wikipedia.org/wiki/C_(programming_language)) qui fut publié en 1972. Ce langage rendit possible la séparation entre d’une part le code source – qui est écrit et peut être lu par les humains –, et d’autre part le code machine, spécifique à un type de machine sur lequel le code s’exécute. C est toujours un langage populaire, utilisé pour tout ce qui nécessite un grande vitesse d’exécution, comme les OS (operating systems) ou les applications audio.
+Les premières version du programme _MUSIC_ de Max Mathews pouvait fonctionner uniquement sur un ordinateur particulier. Le "C" de Csound pointe vers le [language de programmation C](https://en.wikipedia.org/wiki/C_(programming_language)) qui fut publié en 1972. Ce langage rendit possible la séparation entre d’une part le code source – qui est écrit et peut être lu par les humains –, et d’autre part le code machine, spécifique au type de machine sur lequel le code s’exécute. C est toujours un langage populaire, utilisé pour tout ce qui nécessite un grande vitesse d’exécution, comme les OS (operating systems) ou les applications audio.
 
-D’un côté, les _P-fields/champs_ sont simples et donnent de nombreuses possibilités. De l’autre, il amènent des restrictions. Basiquement, un _p-field/champ_ contient un nombre. Beaucoup de travail fut nécessaire aux développeurs de Csound pour rendre possible l’écriture de chaines de caractères/strings dans un p-field. Mais il n’est toujours pas possible de passer un signal via un _p-field/champ_ à un instrument.
+D’un côté, les _p-fields/p-champs_ sont simples et donnent de nombreuses possibilités. De l’autre, il amènent des restrictions. Basiquement, un _p-field/p-champ_ contient un nombre. Beaucoup de travail fut nécessaire aux développeurs de Csound pour rendre possible l’écriture de chaines de caractères/strings dans un p-field. Mais il n’est toujours pas possible de passer un signal via un _p-field/p-champ_ à un instrument.
 
 Heureusement, les _p-fields_ sont seulement une des possibilités pour un instrument de communiquer avec le "monde extérieur". Nous discuterons d’autres façons plus tard dans ces tutoriels.
 
 ## Essayez-le vous même
 - Changez les valeurs dans la partition de façon que les directions de glissements de hauteurs soient inversées (vers le haut plutôt que vers le bas et vice-versa).
 - Changez les valeurs dans la partition afin que vous n’ayez plus de glissandos, mais des hauteurs constantes.
-- Ajoutez deux p-champs/fields dans la partition pour spécifier le premier et le dernier volume en _dB_. Référez-vous à ces p-champs comme **p6** et **p7** dans le code de l’instrument. Introduisez-y deux nouvelles variables _i-rate_ en les appelant _iDbStart_ et _iDbEnd_.
-- Changez le code afin que les changements de volume utilisent la durée totale de l’instance d’instrument tandis que les changements de hauteur utilisent seulement la moitié de la durée de l’instrument.
+- Ajoutez deux p-champs/p-fields dans la partition pour spécifier le premier et le dernier volume en _dB_. Référez-vous à ces p-champs comme **p6** et **p7** dans le code de l’instrument. Introduisez-y deux nouvelles variables de type _i-rate_ en les appelant _iDbStart_ et _iDbEnd_.
+- Changez le code afin que les changements de volume utilisent la durée totale de l’instance d’instrument tandis que les changements de hauteur utilisent seulement la moitié de cette durée.
 - Revenez au code d’origine en rechargeant la page. Maintenant, effacez le cinquième p-field de la partition et changez le code dans l’instrument afin que la variable _iMidiEnd_ soit toujours six notes MIDI en-dessous de _iMIDIStart_.
 - Réintroduisez **p5**, mais cette fois avec une signification différente : 1 dans le p-field signifiera que la note _iMidiEnd_ sera six notes MIDI plus haut que _iMidiStart_ ; -1 signifiera que la note _iMidiEnd_ sera six notes MIDI plus bas que _iMidiStart_.
-- Ajoutez un p-field/champ qui établit la durée de fade-out comme un rapport de la durée totale. (1 signifierait que le fade-out serait égale à la durée totale de l’instrument, et 0.5 signifierait que le fade out serait égale à la moitié de la durée de l’instrument).
+- Ajoutez un p-field/p-champ qui établit la durée de fade-out comme un rapport de la durée totale. (1 signifierait que le fade-out serait égale à la durée totale de l’instrument, et 0.5 signifierait que le fade out serait égale à la moitié de la durée de l’instrument).
 
 ## Termes et symboles que vous avez appris dans ce tutoriel
 
@@ -195,9 +195,9 @@ Heureusement, les _p-fields_ sont seulement une des possibilités pour un instru
 
 ## Avançons
 
-avec le tutoriel suivant : [08 Hello Schedule](08_HelloSchedule)
+avec le tutoriel suivant : [08 Hello Schedule](15-l-GS-fr-08.md)
 
-## ou lisez quelques explications supplémentaires
+## … ou lisez quelques explications supplémentaires
 
 ### Notes MIDI et déviations microtonales
 
@@ -207,11 +207,11 @@ i "Hello"   12.5    .5      73      73.5
 ```
 
 Mais quelle est la note MIDI numéro 73.5 ? Il n’existe pas de note avec ce numéro. Il n’y a que les notes 73 (C#5) et 74 (D5).  
-C’est vrai mais la conversion depui le numéro de note MIDI vers les fréquences ne marche pas seulement pour les nombres entiers de notes MIDI. Il est possible de spécifier une fraction de demi-ton située entre deux nombres entiers de note MIDI. On peut divisé un demi-ton en deux quarts de ton. C’est ce que nous avons fait en nous référant au numéro de note MIDI 73.5 : Un quart de ton plus haut que C#5, ou un quart de ton plus bas que D5. Nous pouvons exprimer n’importe quelle autre fraction de la même manière. L’usage le plus courant est de diviser un demi-ton en cent _cents_. Le numéro de note MIDI 60.14 représentera un C4 + 14 cents. 68.67 sera un A4 - 33 cents.
+C’est vrai mais la conversion depuis le numéro de note MIDI vers les fréquences ne marche pas seulement pour les nombres entiers de notes MIDI. Il est possible de spécifier une fraction de demi-ton située entre deux nombres entiers de note MIDI. On peut divisé un demi-ton en deux quarts de ton. C’est ce que nous avons fait en nous référant au numéro de note MIDI 73.5 : Un quart de ton plus haut que C#5, ou un quart de ton plus bas que D5. Nous pouvons exprimer n’importe quelle autre fraction de la même manière. L’usage le plus courant est de diviser un demi-ton en cent _cents_. Le numéro de note MIDI 60.14 représentera un C4 + 14 cents. 68.67 sera un A4 - 33 cents.
 
 ### énumération des instances en tant que parties fractionnaires
 
-Il est non seulement possible d’appeler autant d’instances d’instruments que nous le voulons ; nous pouvons aussi donner à chacune de ces instances un certain numéro. On le réalise en appelant l’instrument non pas avec un nombre entier, mais avec un nombre entier + une partie fractionnaire.
+Il est non seulement possible d’appeler autant d’instances d’instruments que nous le voulons, mais nous pouvons aussi donner à chacune de ces instances un certain numéro. On le réalise en appelant l’instrument non pas avec un nombre entier, mais avec un nombre entier + une partie fractionnaire.
 
 Dans ce cas, nous n’écrirons pas ces lignes de partition :
 ```
@@ -283,7 +283,7 @@ Il s’agit de nouveau d’une amélioration de la lisibilité du code. Mais nou
 ```
 i "EntreeLive" 0    1000
 ```
-… le premier p-field/champ `"EntreeLive"` est un string, pas un nombre. Et nous ne pouvons pas étendre un string avec `.1` comme nous le pouvons avec un nombre.  
+… le premier p-field/p-champ `"EntreeLive"` est un string, pas un nombre. Et nous ne pouvons pas étendre un string avec `.1` comme nous le pouvons avec un nombre.  
 Ceci ne fonctionnera pas :
 ```
 i "EntreeLive".1    0   1000
@@ -291,7 +291,7 @@ i "EntreeLive".1    0   1000
 
 Nous avons deux options ici :
 
-1. La première option utilise le fait que Csound convertit en interne chaque nom d’instrument en un nombre. La manière dont Csound assigne les nombres aux noms d’instruments est simple : L’instrument qui est au sommet obtient le nombre 1, le suivant le nombre 2 et ainsi de suite.
+1. La première option se sert du fait que Csound convertit en interne chaque nom d’instrument en un nombre. La manière dont Csound assigne les nombres aux noms d’instruments est simple : L’instrument qui est au sommet obtient le nombre 1, le suivant le nombre 2 et ainsi de suite.
 
 Quand nous n’avons qu’un seul instrument, nous pouvons être sûr que c’est l’instrument 1 pour Csound. Et par conséquent, le code qui suit marche sans problème :
 ```

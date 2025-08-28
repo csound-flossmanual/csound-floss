@@ -1,7 +1,7 @@
 # 01 Bonjour Csound
 
 ## Ce que vous apprendrez dans ce tutoriel
-- Comment créer et sortir un son sinusoïdal
+- Comment créer et émettre un son sinusoïdal
 - Que sont les **opcodes** dans Csound
 - Quelle est la signification de l’**audio rate / fréquence d’échantillonnage** dans Csound
 - Qu’est-ce qu’une **variable audio**
@@ -10,19 +10,19 @@
 
 ## Qu’est-ce qu’un oscillateur sinusoïdal / sine oscillator
 
-Une onde sinusoïdale peut être considérée comme l’élément sonore le plus élémentaire au monde. Quand nous dessinons une onde sinusoïdale comme un graphe montrant son amplitude au cours du temps, elle ressemble à ça :
+Une onde sinusoïdale peut être considérée comme l’élément sonore le plus élémentaire au monde. Quand nous dessinons une onde sinusoïdale comme un graphique montrant son amplitude au cours du temps, elle ressemble à ça :
 
-![alt text](images/image.png)
+![alt text](../resources/images/01-GS-01-sine.png)
 
 _Onde sinusoïdale serpent_
 
 Pour produire une onde sinusoïdale, Csound utilise un oscillateur. Un oscillateur nécessite certaines entrées pour fonctionner :
-1. Une amplitude maximum de sortie. Ce qui résultera en  son plus ou moins fort.
-2. Le nombre de périodes (cycles) par seconde à générer. Ce qui résultera en des sons plus ou moins aigüe ou graves. L’unité est le _Hertz(Hz)_. 1000 Hz signifie qu’une sinusoïde comporte 1000 périodes par seconde.
+1. Une amplitude maximum de sortie. Ce qui résultera en un son plus ou moins fort.
+2. Le nombre de périodes (cycles) par seconde à générer. Ce qui résultera en un son plus ou moins aigüe ou grave. L’unité est le _Hertz(Hz)_. 1000 Hz signifie qu’une sinusoïde comporte 1000 périodes par seconde.
 
 ## Un oscillateur sinusoïdal dans Csound : Opcode et Arguments
 
-Csound a de nombreux oscillateurs différents. (vous pouvez trouvers [ici](https://flossmanual.csound.com/how-to/opcodes) quelques descriptions et comparaisons.) Dans cet exemple, nous utilisons l’opcode `poscil`, qui signifie _precise oscillator_.
+Csound dispose de nombreux oscillateurs différents. (vous pouvez trouver [ici](https://flossmanual.csound.com/how-to/opcodes) quelques descriptions et comparaisons.) Dans cet exemple, nous utilisons l’opcode `poscil`, qui signifie _precise oscillator_.
 
 Un **opcode** est une unité de traitement dans Csound, comparable à un _object_ dans PureData ou Max, ou un _UGen_ dans SuperCollider. Si vous êtes familier des langages de programmation, vous pouvez considérer un opcode comme une _building fonction / fonction intégrée_.
 
@@ -30,9 +30,9 @@ Les entrées d’un opcode sont appelées **arguments** et sont écrites entre p
 - Le premier argument est le nombre `0.2`.
 - Le second argument est le nombre `400`.
 
-La signification des arguments en entrée dépend de la façon dont l’opcode a été implémenté. Pour `poscil`, la première entrée est l’amplitude, et la seconde entrée est la fréquence. Le [Manuel de Référence Csound](https://csound.com/docs/manual-fr/index.html) contient toutes les informations à son sujet. Nous apporterons quelques éclaircissements dans notre [Tutoriel 08](08_HelloSchedule) pour aider à son utilisation.
+La signification des arguments en entrée dépend de la façon dont l’opcode a été implémenté. Pour `poscil`, la première entrée est l’amplitude et la seconde entrée est la fréquence. Le [Manuel de Référence Csound](https://csound.com/docs/manual-fr/index.html) contient toutes les informations à son sujet. Nous apporterons quelques éclaircissements dans notre [Tutoriel 08](15-l-GS-fr-08.md) pour aider à son utilisation.
 
-Cette manière d’écrire du code est commune à tous les langages de programmation, comme `range(13)` en Python, ou `printf("no no")` en C, ou `Date.now()` en JavaScript (dans ce cas les parenthèses sont vides, ce qui signifie : pas d’argument en entrée).
+Cette manière d’écrire du code est commune à de nombreux langages de programmation, comme `range(13)` en Python, ou `printf("no no")` en C, ou `Date.now()` en JavaScript (dans ce cas les parenthèses sont vides, ce qui signifie : pas d’argument en entrée).
 > Note : Il existe une autre manière d’écrire du code Csound. Si vous voulez en apprendre plus sur ce sujet, voyez la section "Deux façons d’écrire du code dans Csound" à la fin de ce tutoriel.
 
 ## Le flux d’un signal et son code
@@ -56,12 +56,12 @@ Notez que le signal _aSine_ est d’abord la sortie de l’oscillateur, puis dev
 
 Nous pouvons dessiner le flux de ce programme comme ceci :
 
-![alt text](images/image-1.png)  
+![alt text](../resources/images/01-GS-01-a.png){width=80%}  
 _Flux de signal et code Csound pour un oscillateur sinusoïdal et une sortie._
 
 Au milieu, vous voyez le flux du signal, avec des symbols pour l’oscillateur et la sortie. Vous pouvez les imaginer comme les modules d’un synthétiseur, connectés par un cable nommé _aSine_.
 
-Sur le côté gauche, vous voyez la chaine entre les entrées, l’opcode et la sortie. notez que l’a sortie de la première chaine, contenue dans la variable _aSine_, devient l’entrée de la seconde chaine.
+Sur le côté gauche, vous voyez la chaine entre les entrées, l’opcode et la sortie. notez que la sortie de la première chaine, contenue dans la variable _aSine_, devient l’entrée de la seconde chaine.
 
 À droite, vous voyez le code Csound correspondant. Chaque ligne de code représente une chaine _entrée -> opcode -> sortie_, dans la forme _sortie = opcode(entrée)_. La ligne `outall(aSine)` n’a pas de sortie vers Csound, car elle envoie l’audio au matériel (comme l’objet `dac~` dans PD ou Max).
 
@@ -80,7 +80,7 @@ endin
 ```
 
 ### Exemple
-Nous somme maintenant prêt à exécuter notre code. Tout ce que nous avons à faire est de d’inclure le code de notre instrument dans un fichier Csound complet.
+Nous somme maintenant prêt à exécuter notre code. Tout ce qui nous reste à faire est d’inclure le code de notre instrument dans un fichier Csound complet.
 
 Regardez le code de l’exemple. Pouvez-vous repérer le code de l’instrument ?
 
@@ -100,14 +100,14 @@ ksmps = 64
 nchnls = 2
 0dbfs = 1
 
-instr Hello
+instr Bonjour
   aSine = poscil:a(0.2,400)
   outall(aSine)
 endin
 
 </CsInstruments>
 <CsScore>
-i "Hello" 0 2
+i "Bonjour" 0 2
 </CsScore>
 </CsoundSynthesizer>
 ```
@@ -116,16 +116,16 @@ i "Hello" 0 2
 En bas de notre exemple de code, vous voyez ceci :
 ```
 <CsScore>
-i "Hello" 0 2
+i "Bonjour" 0 2
 </CsScore>
 ```
 C’est la section **Partition / Score** du fichier .csd. Elle commence par la balise \<CsScore> et se termine par la balise \</CsScore>. Entre ces deux balises, il y a cette ligne de partition :
 ```
-i "Hello" 0 2
+i "Bonjour" 0 2
 ```
 Chaque colonne (champ de paramètre / parameter field) spécifie une certaine information :
-- `"Hello"` : L’instrument auquel cette ligne de partition se réfère.
-- `0` : Le temps de départ de cet instrument : `0` (= départ immédiat).
+- `"Bonjour"` : L’instrument auquel cette ligne de partition se réfère.
+- `0` : L’heure de départ de cet instrument : `0` (= départ immédiat).
 - `2` : La durée du son venant de l’instrument : `2` (secondes).
 
 #### Essayez vous-même
@@ -145,10 +145,10 @@ Chaque colonne (champ de paramètre / parameter field) spécifie une certaine in
 - `instr ... endin` sont les mots-clés qui commencent et finissent une définition d’instrument.
 
 ### Termes
-- Un signal _audio rate / fréquence audio_ ou _a-rate_ qui est mis à jour à chaque sample/échantillon.
+- Un signal à la _fréquence audio / audio rate_ ou _a-rate_ est mis à jour à chaque sample/échantillon.
 
 ## Avançons…
-Avec le tutoriel suivant : [02_Bonjour Fréquences](02_HelloFrequency.md)
+Avec le tutoriel suivant : [02_Bonjour Fréquences](15-f-GS-fr-02.md)
 
 ## Ou lisez quelques informations supplémentaires ici
 
@@ -176,10 +176,12 @@ aSine poscil 0.2, 400
     outall aSine
 ```
 Vous pouvez sans problème continuer d’écrire le code Csound ainsi. Les raisons pour lesquelles j’utilise l’écriture fonctionnelle dans ce tutoriel sont :
-1. Nous sommes tous familiers avec cette manière de déclarer une variable `y` à gauche comme étant la somme d’une autre variable `x` plus deux : `y = x + 2`.
+1. Nous sommes tous familiarisés avec cette manière de déclarer une variable `y` à gauche comme étant la somme d’une autre variable `x` plus deux : `y = x + 2`.
 2. Comme mentionné plus haut, la plupart des langages de programmation utilisent une syntaxe similaire, dans la forme `sortie = fonction(arguments)`. Donc pour les personnes ayant quelques connaissances en programmation, c’est une aide à l’apprentissage de Csound.
 3. Le style fonctionnel d’écrire du code Csound a toujours existé dans des expressions comme `ampdb(-10)` ou `ftlen(giTable)`. Ce n’est donc pas totalement nouveau, mais plutôt une extension.
-4. Chaque fois que nous voulons utiliser une expression comme argument (vous en apprendrez plus à ce sujet dans le [tutoriel 6](06_HelloDecibel.md)), nous devons écrire le code de cette manière. Il est donc bon de l’utiliser en permanence pour plus de cohérence.
+4. Chaque fois que nous voulons utiliser une expression comme argument (vous en apprendrez plus à ce sujet dans le [tutoriel 6](15-j-GS-fr-06.md)), nous devons écrire le code de cette manière. Il est donc bon de l’utiliser en permanence pour plus de cohérence.
+
+> NOTE DU TRADUCTEUR pour les francophones : Sauf dans le commentaires où ça ne pose aucun problème, n’utilisez que des caractères ASCII dans vos programmes. J’ai essayé et chez moi ça plante. Donc pas de lettres accentuées, pas de œ et autres signes propres au français.
 
 ## Au sujet de ces tutoriels
 Ce _Guide de démarrage_ a été écrit par Joachim Heintz en 2023. Il est basé sur de nombreuses expériences d’enseignement de Csound auprès de jeunes compositeurs.

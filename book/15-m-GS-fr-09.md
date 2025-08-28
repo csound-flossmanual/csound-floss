@@ -1,7 +1,7 @@
 # 09 Bonjour If / si
 ## Ce que vous apprendrez dans ce tutoriel
 
-- Comment travailler avec **if-then** dans Csound.
+- Comment travailler avec **if-then / si-alors** dans Csound.
 - Comment **imprimer des chaines/strings formatés**.
 
 ## Une instance appelle la suivante…
@@ -24,15 +24,15 @@ ksmps = 64
 nchnls = 2
 0dbfs = 1
 
-instr InfiniteCalls
-  //play a simple tone
+instr AppelsInfinis
+  //Joue une simple note
   aSine = poscil:a(.2,415)
   aOut = linen:a(aSine,0,p3,p3)
   outall(aOut)
-  //call the next instance after 3 seconds
-  schedule("InfiniteCalls",3,2)
+  //Appelle l’instance suivante au bout de 3 secondes
+  schedule("AppelsInfinis",3,2)
 endin
-schedule("InfiniteCalls",0,2)
+schedule("AppelsInfinis",0,2)
 
 </CsInstruments>
 <CsScore>
@@ -43,14 +43,14 @@ Un chaine infinie d’appels est déclenchée.
 
 Le premier appel doit être hors de l’instrument :
 ```
-schedule("InfiniteCalls",0,2)
+schedule("AppelsInfinis",0,2)
 ```
-Cette ligne de code appelle une première instance de l’instrument "InfiniteCalls". Mais à l’intérieur de cet instrument, nous avons de nouveau un appelle à un instrument. Trois secondes après la création de l’instance d’instrument, l’instance suivant arrivera :
+Cette ligne de code appelle une première instance de l’instrument "AppelsInfinis". Mais à l’intérieur de cet instrument, nous avons de nouveau un appelle à un instrument. Trois secondes après la création de l’instance d’instrument, l’instance suivant arrivera :
 ```
-schedule("InfiniteCalls",3,2)
+schedule("AppelsInfinis",3,2)
 ```
 
-Notez que l’heure de départ de la nouvelle instance est très important ici. Si vous le réglez sur 2 secondes plutôt que sur 3 secondes, il créera l’instance suivante immédiatement après l’instance courante. Et si vous réglé l’heure de départ de l’instance suivante sur 1 seconde, les deux instances se chevaucheront.
+Notez que l’heure de début de la nouvelle instance est très important ici. Si vous la réglez sur 2 secondes plutôt que sur 3 secondes, il créera l’instance suivante immédiatement après l’instance courante. Et si vous réglé l’heure de début de l’instance suivante sur 1 seconde, les deux instances se chevaucheront.
 
 ## Planifier/Schedule en fonction de conditions
 
@@ -59,13 +59,13 @@ Cette auto-planification / self/scheduling est une fonctionnalité très intére
 Nous allons maintenant implémenter un instrument qui se déclenche lui-même six fois.  
 Voici ce que nous devons faire :
 
-- Nous devons passe le nombre 6 en tant que variable de compte à la première instance de l’instrument.
+- Nous devons passer le nombre 6 en tant que variable de compte à la première instance de l’instrument.
 - La secondes instance est alors appelée avec le nombre 5 comme variable de compte, et ainsi de suite.
 - Si l’instance avec la variable de compte `1` est atteinte, plus aucune instance n’est appelée.
 
 Nous pouvons dessiner ce flux de programme :
 
-![alt text](images/images_09/image.png)  
+![alt text](../resources/images/01-GS-09-a.png)  
 _Flux de programme pour un re-déclenchement conditionnel d’instances d’un instrument._
 
 ## L’opcode 'if' dans Csound
@@ -126,12 +126,13 @@ instr Salut
    iMidiStart = p4
    //Note midi de fin
    iMidiEnd = p5
-   //Diminution glissée du volume en dB
+   //Diminution progressive du volume en dB
    kDb = linseg:k(-10, p3/2, -20)
    //Glissando en n° de notes MIDI
    kMidi = linseg:k(iMidiStart, p3/3, iMidiEnd)
-   //Crée un oscillateur a-rate dont le paramètre
-   //amplitude est une conversion dB > amp, et MIDI > freq
+   //Crée un oscillateur a-rate dont les paramètres
+   //d’amplitude et de fréquence sont une
+   //conversion dB > amp, et MIDI > freq
    aSine = poscil:a(ampdb(kDb), mtof(kMidi))
    //Ajoute un fade-in et un fade-out au signal
    aOut = linen:a(aSine, 0.01, p3, 1)
@@ -162,8 +163,8 @@ schedule("Salut", 0, 2, 72, 68, 6)
 
 ## Essayez-le vous-même
 Changez le code afin que d’instance en instance :
-- La durée entre deux instances augmente,
-- durée entre deux instances diminue d’un rapport 1/2,
+- la durée entre deux instances augmente,
+- la durée entre deux instances diminue d’un rapport 1/2,
 - la durée augmente d’un rapport de 3/2
 - la première hauteur MIDI augmente de deux demi-tons, tandis que
 - la seconde hauteur MIDI diminue de une demi-ton.
@@ -175,7 +176,7 @@ Changez le code afin que d’instance en instance :
 Suivent quelques exemples simples basés sur des situations du quotidien.
 
 ### if - else
-« Si le soleil brille, alors je vais sortir, sinon je resterai à la maison .»
+« Si le soleil brille, alors je sortirai, sinon je resterai à la maison.»
 
 Voici la version Csound. Changez la variable _iSoleil_ s’il-vous-plait.
 ```
@@ -205,11 +206,11 @@ i "If_Then" 0 0
 </CsoundSynthesizer>
 ```
 
-Dans `if(iSoleil == 1)`, nous exigeons une égalité. C’est la raison pour laquelle nous utilisons `==` plutôt que `=`. Le double-signe `==` exige une égalité entre la gauche et la droite. Le simple signe `=` sert à relier la partie gauche (le nom de la variable) à la partie droite de la variable (sa valeur), comme ceci : `iSoleil = 1`. Csound accepte aussi `if(iSoleil = 1)`, mais je pense qu’il vaut mieux distinguer les deux fonctionnalités.
+Dans `if(iSoleil == 1)`, nous exigeons une égalité. C’est la raison pour laquelle nous utilisons `==` plutôt que `=`. Le double-signe `==` exige une égalité entre la gauche et la droite. Le simple signe `=` sert à relier la partie gauche (le nom d’une variable) à la partie droite de cette variable (sa valeur), comme ceci : `iSoleil = 1`. Csound accepte aussi `if(iSoleil = 1)`, mais je pense qu’il vaut mieux distinguer les deux fonctionnalités.
 
 Les parenthèse dans (iSoleil == 1) peuvent être omises, mais je préfère les garder pour des questions de lisibilité, et la plupart des autres langages de programmation les utilisent.
 
-Csound ne comporte pas de symbol ou de mot-clé pour le booléen "True" et "False". Habituellement, nous utilisons `1` pour True/Yes, et `0` pour False/No.
+Csound ne comporte pas de symbol ou de mot-clé pour les booléens "True" et "False". Habituellement, nous utilisons `1` pour True/Yes, et `0` pour False/No.
 
 ## if - elseif - else
 
@@ -366,11 +367,11 @@ i  "AndOr"  0  0
 
 ## Les opcodes que vous avez appris dans ce tutoriel
 
-- Les branchements conditionnels `if … then … [elseif] … [else] … [endif]
+- Les branchements conditionnels `if … then … [elseif] … [else] … [endif]`
 
 ## Avançons
 
-avec le tutoriel suivant : [10 Hello Random/aléatoire](10_HelloRandom.md).
+avec le tutoriel suivant : [10 Hello Random/aléatoire](15-n-GS-fr-10.md).
 
 ## Ou lisez quelques explications supplémentaires ici
 
@@ -397,7 +398,7 @@ Vous pouvez trouver un autre exemple [ici](https://flossmanual.csound.com/csound
 Il est même possible de construire des boucles avec l’opcode `if`. Je l’indique à titre d’information, pas pour écrire du code dans ce style. Mais ça montre que même pour la construction des boucles dans les langages de programmation, 'if' est dans les coulisses.
 
 Tout ce dont nous avons besoin, en plus de l’opcode `if`, c’est :
-- Une 'étiquette/label' qui marque une certaine position dans le texte du programme. Dans Csound, ces étiquettes/labels finissent par un deux-points. Ici, utilisons `start:` comme étiquette/label.
+- Une 'étiquette/label' qui marque une certaine position dans le texte du programme. Dans Csound, ces étiquettes/labels finissent par le symbole deux-points `:`. Ici, utilisons `start:` comme étiquette/label.
 - Un mécanisme 'sauter vers / jump to'. Dans Csound, c’est `goto`.
 
 Cette "ancienne façon" de boucler compte – dans le code suivant – de 10 à 1, puis quitte la boucle :
@@ -436,14 +437,14 @@ Nous aurions pu écrire la ligne `iCount = iCount - 1` comme ceci : `iCount -=
 L’opcode `prints` imprime une chaine/string dans la console.  
 La chaine peut être une chaine de format / format string. Ça signifie qu’elle comporte des parties vides ou endroits réservés qui peuvent être remplis par des variables.
 
- Ces endroits réservés commencent toujours par `%` suivi d’un caractère qui représente un type de données. Les plus communes sont :
- - `%d` pour un entier
- - `%f` pour un nombre en virgule flottante
- - `%s` pour une string / chaine
+Ces endroits réservés commencent toujours par `%` suivi d’un caractère qui représente un type de données. Les plus communes sont :
+- `%d` pour un entier
+- `%f` pour un nombre en virgule flottante
+- `%s` pour une string / chaine
 
- Notez qu’une nouvelle ligne doit est assignée par `\n`. Sinon, un fois imprimé, le message suivant serait collé immédiatement après, sur la même ligne.
+Notez qu’une nouvelle ligne doit est assignée par `\n`. Sinon, un fois imprimé, le message suivant serait collé immédiatement après, sur la même ligne.
 
- Voici un exemple simple :
+Voici un exemple simple :
 ```
 <CsoundSynthesizer>
 <CsOptions>
@@ -471,4 +472,4 @@ i "FormatString" 0 0
 </CsoundSynthesizer>
 ```
 
-Vous pouvez en apprendre davantage sur l’impression [ici](https://flossmanual.csound.com/how-to/print) dans ce livre. Les spécificateurs de formats sont basiquement les mêmes que ceux présent dans le langage de programmation C, dont vous trouverez une référence [ici](https://cplusplus.com/reference/cstdio/printf/).
+Vous pouvez en apprendre davantage sur l’impression [ici](https://flossmanual.csound.com/how-to/print) dans ce livre. Les spécificateurs de formats sont basiquement les mêmes que ceux présents dans le langage de programmation C, dont vous trouverez une référence [ici](https://cplusplus.com/reference/cstdio/printf/).

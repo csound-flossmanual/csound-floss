@@ -7,11 +7,11 @@
 
 ## Fondu en entrée et fondu en sortie (Fade-in and Fade-out)
 
-Jusqu’ici, notre instrument produit une fin de son brutale. Cela est dû à une coupure brutale à la fin de la durée de l’instrument.
+Jusqu’ici, le son produit par notre instrument s’achève brutalement. Cela est dû à une coupure brusque à la fin de la durée de l’instrument.
 
 Imaginez une onde sinusoïdale qui est coupée n’importe où. Peut-être par exemple comme ça :
 
-![alt text](images/images_04/image.png)  
+![alt text](../resources/images/01-GS-04-a.png)  
 _Là, on obtient un 'clic' à la fin de l’onde sinusoïdale._
 
 Dans ce cas, nous entendrons un clic à la fin. Mais même sans ce clic, on préfère généralement adoucir la fin, comme les sons naturels se terminent.
@@ -21,34 +21,34 @@ L’opcode Csound `linen` est très pratique pour appliquer de simples fondus/fa
 ### L’opcode 'linen'
 Une enveloppe créée par `linen` ressemble à ça :
 
-![alt text](images/images_04/image-1.png)  
+![alt text](../resources/images/01-GS-04-b.png)  
 _L’opcode 'linen'_
 
 Nous avons besoin de trois nombres pour ajuster les fondus dans `linen` :
 1. La durée du fondu en entrée,
 2. La durée totale,
-3. La durée du fondu en sortie
+3. La durée du fondu en sortie.
 
 ## Les champs/fields de paramètres de la partition/score
 
-Généralement, nous voulons configurer la durée totale de `linen` comme la durée de la note.
+Généralement, nous voulons configurer la durée totale de `linen` comme étant la durée totale de la note.
 
 Par exemple, si la durée de la note est 2 secondes, nous voudrons 2 secondes comme durée totale de `linen`. Si la durée de la note est 3 secondes, nous voudrons 3 secondes comme durée totale de `linen`.
 
-Dans le [Tutoriel 01](01_HelloCsound.md), vous avez appris comment la durée d’un instrument est configurée dans Csound. Vous vous souvenez que ça s’écrit dans la partition :
+Dans le [Tutoriel 01](15-e-GS-fr-01.md), vous avez appris comment la durée d’un instrument est configurée dans Csound. Vous vous souvenez que ça s’écrit dans la partition :
 ```
-i "Hello" 0 2
+i "Bonjour" 0 2
 ```
 Après le premier champ `i` qui indique un _évènement d’instrument_, nous avons trois valeurs :
 1. Le nom de l’instrument
-2. Le moment du départ
+2. L’heure de début
 3. La durée
 
-Nous appelons ces valeurs des `**parameter fields / champs de paramètres**, ou **p-fields**.
+Nous appelons ces valeurs des `**parameter fields / champs de paramètres**, ou **p-fields / p-champs**.
 
 Nous avons trois p-fields dans la partition, abrégés en **p1**, **p2** et **p3**.
 
-![alt text](images/images_04/image-2.png)  
+![alt text](../resources/images/01-GS-04-c.png)  
 _Champs/fields de paramètres dans la partition._
 
 ## 'p3' dans un instrument
@@ -84,7 +84,7 @@ ksmps = 64
 nchnls = 2
 0dbfs = 1
 
-instr Hello
+instr Bonjour
   kAmp = linseg:k(0.3,0.5,0.1)
   kFreq = linseg:k(500,0.5,400)
   aSine = poscil:a(kAmp,kFreq)
@@ -94,7 +94,7 @@ endin
 
 </CsInstruments>
 <CsScore>
-i "Hello" 0 2
+i "Bonjour" 0 2
 </CsScore>
 </CsoundSynthesizer>
 ```
@@ -105,14 +105,14 @@ Comment pouvons-nous appliquer le signal que nous avons dessiné dans le schéma
 
 Ça se fait par multiplication. Nous multiplions le signal audio par le signal d’enveloppe généré par `linen` :
 ```
-aEnv = linen:a(1,0.5,p3,0.5)
+aEnv = linen:a(1,0,p3,1)
 aSin = poscil:a(0.2,400)
 aOut = aEnv * aSine
 ```
 
 La forme
 ```
-aOut = linen:a(aSine,0.5,p3,0.5)
+aOut = linen:a(aSine,0,p3,1)
 ```
 est un raccourci pour cette multiplication.
 
@@ -134,15 +134,15 @@ Changez le code pour que :
 
 ## Symbols
 - `p1` : le premier paramètre d’une ligne de partition, qui appelle l’instrument à l’aide du nom ou du numéro de cet instrument.
-- `p2` : le second paramètre d’une ligne de partition qui définit l’heure de départ de l’instrument.
+- `p2` : le second paramètre d’une ligne de partition qui définit l’heure de début de l’instrument.
 - `p3` : le troisième paramètre d’une ligne de partition qui définit la durée de cet évènement instrumental.
 
 > Note : `p3` fait référence à la partition, mais n’a aucune signification à l’intérieur de celle-ci. Csound affichera une erreur si vous écrivez **p3** comme symbole dans la partition. Il n’a de signification que dans le code de l’**instrument**.
 
 ## Avançons
-avec le tutoriel suivant : [05. Bonjour touches/keys MIDI](05_HelloMidiKeys.md).
+avec le tutoriel suivant : [05. Bonjour touches/keys MIDI](15-i-GS-fr-05.md).
 
-## Ou lisez quelque explications supplémentaires ici
+## … Ou lisez quelque explications supplémentaires ici
 
 ### L’entrée d’amplitude de 'linen'
 
@@ -150,10 +150,10 @@ La première entrée de `linen` est l’amplitude.
 
 Dans le cas le plus simple, cette amplitude est un nombre fixe. Si c’est 1, alors nous obtenons la forme de base que nous avons vue au début de ce chapitre :
 
-![alt text](images/images_04/image-3.png)  
+![alt text](../resources/images/01-GS-04-d.png)  
 _linen avec une amplitude de 1_
 
-`linen:a(1,0.2,p3,0.5)` produira un fade-in entre 0 et 1 en 0.2 secondes, et un fade-out entre 1 et 0 en 0.5 secondes, sur une durée totale **p3** définie dans un évènement instrumentale dans la partition.
+`linen:a(1,0.2,p3,0.5)` produira un fade-in entre 0 et 1 en 0.2 secondes, et un fade-out entre 1 et 0 en 0.5 secondes, sur une durée totale **p3** définie dans un évènement instrumentale dans la partition/score.
 
 Dans l’exemple, nous avons utilisé l’opcode `linen` en insérant directement un signal audio dans la première entrée.
 ```
@@ -181,9 +181,9 @@ Un fondu linéaire est un fondu qui dessine une ligne pour créer une transition
 
 Une alternative consiste à utiliser des courbes pour les fondus/fades.
 
-![alt text](images/images_04/image-4.png)  
+![alt text](../resources/images/01-GS-04-e.png)  
 _Fondus linéaire versus courbe._
 
-Acoustiquement, les fondus linéaires ne sont pas les meilleurs. Nous en discuterons les raisons dans le [Tutoriel 06](06_HelloDecibel.md).
+Acoustiquement, les fondus linéaires ne sont pas les meilleurs. Nous en discuterons les raisons dans le [Tutoriel 06](15-j-GS-fr-06.md).
 
 Pratiquement, les fondus linéaires que génère `linen` sont suffisants dans bien des cas. Mais gardez en tête qu’il existe d’autres possibilités de formes pour les fondus, et essayez-les quand vous n’êtes pas satisfait du résultat sonore. L’opcode `transeg` est alors votre ami.

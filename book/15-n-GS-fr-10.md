@@ -62,13 +62,13 @@ Maintenant, insérez `seed(1)` ou `seed(2)` ou autre, à la place. Vous verrez q
 
 ## "Espace global / global space" ou "instrument 0"
 
-Comme vous l’avez appris dans le [tutoriel 02](02_HelloFrequency.md) et dans le [tutoriel 08](08_HelloSchedule.md), l’espace qui contient le code Csound dans un document csd est inséré entre les balises `<CsInstruments>` et `<\CsInstruments>`. Cet espace est également appelé "orchestre/orchestra".
+Comme vous l’avez appris dans le [tutoriel 02](15-f-GS-fr-02.md) et dans le [tutoriel 08](15-l-GS-fr-08.md), l’espace qui contient le code Csound dans un document csd est inséré entre les balises `<CsInstruments>` et `<\CsInstruments>`. Cet espace est également appelé "orchestre/orchestra".
 
 À l’intérieur de l’orchestre, nous avons les définitions des instruments. Chaque instrument commence par le mot-clé `instr` et finit par le mot-clé `endin`.
 
 Mais nous avons également un "espace global" dans l’orchestre. "global" signifie ici **à l’extérieur** de toute définition d’instrument.
 
-![alt text](images/images_10/image.png)  
+![alt text](../resources/images/01-GS-10-b.png)  
 _Espace Global (en vert) et définitions d’instruments (en saumon) dans une section CsInstruments._
 
 Comme vous le voyez, l’espace global n’est pas seulement celui situé en haut de l’orchestre. En fait, toute ligne vide hors d’une définition d’instrument fait partie de l’espace global.
@@ -124,7 +124,7 @@ seed(1234)
 
 instr Salut
    //Notes MIDI aléatoires entre 55 et 80
-   //pour pour le début et la fin du glissando.
+   //pour le début et la fin du glissando.
    iMidiDebut = random:i(55,80)
    iMidiFin = random:i(55,80)
    //décibels aléatoires entre -40 et -20
@@ -161,7 +161,7 @@ Nous avons beaucoup d’opcodes `random()` dans ce code. Examinons de plus prêt
 iMidiDebu = random:i(55,80)
 iMidiFun = random:i(55,80)
 ```
-Régler le début et la fin de la ligne du glissando dans une plage entre les note MIDI 55 (F#4) et 80 (G#6) génère une probabilité égale d’obtenir des lignes ascendante ou descendantes. Certaines auront une forte pente, d’autres une pente légère, et même – même si la probabilité est faible – d’autres encore hériterons d’une ligne horizontale.
+Régler le début et la fin de la ligne du glissando dans une plage entre les notes MIDI 55 (F#4) et 80 (G#6) génère une probabilité égale d’obtenir des lignes ascendante ou descendantes. Certaines auront une forte pente, d’autres une pente légère, et même – même si la probabilité est faible – d’autres encore hériterons d’une ligne horizontale.
 
 Une alternative serait ce code :
 ```
@@ -191,7 +191,7 @@ Mais la durée des notes est gérée de telle façon que la durée de la note su
 
 Pour la première note qui a une durée de deux secondes, ça signifie une plage aléatoire entre une et quatre secondes. Les durées ont donc tendance à s’allonger de plus en plus. Voici ce qui se produit dans l’exemple précédent pour les sept premières notes :
 
-![alt text](images/images_10/image-1.png)  
+![alt text](../resources//images/01-GS-10-a.png)  
 _Développement des durées pour les notes 1 à 7._
 
 C’est intéressant de voir que les notes 2 et 3 allongent leur durées comme attendu, mais que les notes 4 et 5 les raccourcissent car elles ont choisi leurs durée proche du minimum.
@@ -201,14 +201,14 @@ Mais sur des exécutions longues, les durée plus grandes prévaudront, de telle
 ## Essayez-le vous-même
 - Définissez la graine à `seed(0)` plutôt que `seed(12345)` et écoutez quelques exécutions.
 - Changez la ligne `iDur = …` afin d’obtenir des possibilités égales de durées courtes ou de durées longues. Faites-vous votre idée de cette version.
-- Changez la même ligne que précédemment afin que le durées les plus longues deviennent de plus en plus courtes.
+- Changez la même ligne que précédemment afin que les durées les plus longues deviennent de plus en plus courtes.
 - Changez le code afin que les durées deviennent plus longues pour la moitié des notes jouées, et plus courtes pour l’autre moitié.
 - Changez le code de manière à ce que la distance entre les notes successives diminue dans la première moitié des notes, puis qu’elle augmente dans la seconde moitié.
 - Appliquez aussi ce changement aux hauteurs et aux volumes afin que la première moitié des hauteurs augmente tandis que les volumes diminuent, et l’inverse dans la seconde moitié.
 
 ## Marche aléatoire
 
-Dans une _marche aléatoire_, les valeurs aléatoires du pas suivant dépend du pas précédent.
+Dans une _marche aléatoire_, les valeurs aléatoires d’un pas dépend des valeurs du pas précédent.
 
 Dans l’exemple ci-dessus, les durées suivent une marche aléatoire, tandis que les autres décisions aléatoires sont indépendantes du pas précédent.
 
@@ -251,7 +251,7 @@ instr RandomWalk
     //La hauteur suivante est à un demi-ton au dessus 
     //ou en dessous des demi-tons maximum/minimum actuels
     iNextPitch = iMidiPitch + random:i(-1,1)
-    //Le volume suivant est à 2d1 au dessus ou dessous des dB maximum/minimum
+    //Le volume suivant est à ±2dB au dessus ou dessous des dB maximum/minimum
     //actuel, mais toujours dans une plage entre -50 et -6
     iNextDb = iDecibel + random:i(-3,3)
     if (iNextDb > -6) || (iNextDb < -50) then
@@ -294,18 +294,19 @@ En général, le hasard en art fait partie de notre fantaisie et de notre invent
 
 avec le  tutoriel suivant : [11 Hello Keys]() (à venir).
 
-## Ou lisez quelques explications supplémentaires ici
+## … Ou lisez quelques explications supplémentaires ici
 
 ### Souvenez-vous de i-rate et k-rate…
 
-Vous avez peut-être remarqué que jusqu’ici nous n’avons utilisé random qu’au taux d’instrument (i-rate). Comme vous l’avez appris dans le [Tutoriel 05](05_HelloMidiKeys.md), ça signifie que la valeur aléatoire n’est générée qu’une fois, au moment de l’initialisation de l’instance de l’instrument.  
+Vous avez peut-être remarqué que jusqu’ici nous n’avons utilisé random qu’au taux d’instrument (i-rate). Comme vous l’avez appris dans le [Tutoriel 05](15-i-GS-fr-05.md), ça signifie que la valeur aléatoire n’est générée qu’une fois, au moment de l’initialisation de l’instance de l’instrument.  
 Que se passe-t-il si nous utilisons `random` au taux de contrôle (k-rate) ? Comme :
 ```
 kMidi = random:k(55,80)
 ```
-Ici, un nombre aléatoire entre 55 et 80 sera généré **tous les k-cycles**. Selon les calcules effectués [ici](https://flossmanual.csound.com/get-started/GS-03#some-notes-about-ksmps), autour de 1000 fois par seconde.
+Ici, un nombre aléatoire entre 55 et 80 sera généré **tous les k-cycles**. Selon les calcules effectués  
+[ici](15-g-GS-fr-03.md#quelques-notes-sur-ksmps), autour de 1000 fois par seconde.
 
-C’est donc une très grande différence qui est introduite entre un appel à `random:i`, un appel à `random:k`. Bien que ce soit logique, juste, et que ça corresponde parfaitement avec ce que nous avons appris dans les [tutoriel 02](02_HelloFrequency.md) et [tutoriel 05](05_HelloMidiKeys.md), c’est souvent surprenant pour un débutant.
+C’est donc une très grande différence qui est introduite entre un appel à `random:i`, un appel à `random:k`. Bien que ce soit logique, juste, et que ça corresponde parfaitement avec ce que nous avons appris dans les [tutoriel 02](15-f-GS-fr-02.md) et [tutoriel 05](15-i-GS-fr-05.md), c’est souvent surprenant pour un débutant.
 
 Nous pouvons même utiliser l’opcode `random` au taux audio (a-rate). Alors nous générons une valeur aléatoire à chaque échantillon/sample, soit 44100 fois par secondes si c’est le taux d’échantillonnage (sample rate) courant. Dans ce cas, si nous choisissons des plages minimum et maximum raisonnables, nous pouvons entendre un résultat qui se nomme bruit blanc / white noise.
 ```
@@ -326,7 +327,7 @@ Les argument d’entrée pour `randomi` sont :
 
 Voici une ligne aléatoire entre 0 et 1, avec une nouvelle valeur chaque seconde :
 
-![alt text](images/images_10/image-2.png)  
+![alt text](../resources/images/01-GS-10-d.png)  
 _Interpolation aléatoire._
 
 Parfois nous voulons que la valeur aléatoire se maintienne jusqu’à la suivante. C’est le boulot de l’opcode `randomh` (_h_ pour _hold_ = maintien)
@@ -334,7 +335,7 @@ Parfois nous voulons que la valeur aléatoire se maintienne jusqu’à la suivan
 Les arguments d’entrée de `randomh` ont la même signification que ceux de `randomi`.  
 Voici – avec les même arguments d’entrée du tracé précédent – la sortie obtenue avec `randomh` :
 
-![alt text](images/images_10/image-3.png)  
+![alt text](../resources/images/01-GS-10-e.png)  
 Random avec valeurs maintenues.
 
 Tout ça n’est qu’un petit aperçu de l’univers immense de _random_.
@@ -353,7 +354,7 @@ Vous avez maintenant terminé les dix premiers de ces tutoriels. Ce bloc a été
 - Vous savez comment définir des **instruments** en tant qu’unités principales de tout programme Csound.
 - Vous savez comment appeler une **instance** d’instrument via une **ligne de partition / score line**.
 - Vous savez comment faire la même chose depuis l’intérieur du code de l’orchestre via **schedule**.
-- Vous savez ce que sont **i-rate**, **k-rate** et **a-rate** (au cas où vous vous sentiriez un peu fragile à ce propos, voyez [ici](02_HelloFrequency.md#Signal-k-rate-a-la-frequence-de-controle) et [ici](05_HelloFrequency.md#Les-variables-i-rate-dans-Csound.md)).
+- Vous savez ce que sont **i-rate**, **k-rate** et **a-rate** (au cas où vous vous sentiriez un peu fragile à ce propos, voyez [ici](15-f-GS-fr-02.md#Signal-k-rate-a-la-frequence-de-controle) et [ici](15-i-GS-fr-05.md#Les-variables-i-rate-dans-Csound.md)).
 - Vous savez comment utiliser les **opcodes** et comment lire le [Manuel de Référence Csound](https://csound.com/docs/manual-fr/index.html).
 
 - Vous connaissez déjà quelques opcodes essentiels comme :
@@ -363,7 +364,7 @@ Vous avez maintenant terminé les dix premiers de ces tutoriels. Ce bloc a été
   - `linen` comme outil simple pour les fondus (fades).
   - `mtof` et `ampdb` comme convertisseurs pour les hauteurs et les volumes.
   - `if` comme condition de branchement.
-  - `random` et ses dérivés comme générateurs d’aléatoire.
+  - `random` et ses dérivés comme générateurs d’aléatoires.
 
 Je pense que ça devrait être suffisant pour vous permettre de vous repérer dans ce manuel et d’approfondir vos connaissances.
 - Rendez-vous par exemple au [chapitre 03](https://flossmanual.csound.com/csound-language) pour aller plus loin avec le langage Csound.

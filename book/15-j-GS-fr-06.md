@@ -1,6 +1,6 @@
 # 06 Bonjour Decibels
 ## Ce que vous apprendrez dans ce tutoriel
-- Comment la **perception humaine** suit les **ratios/rapports**, non seulement dans le domaine des fréquences, mais aussi dans celui des **amplitudes**.
+- Comment la **perception humaine** suit des **ratios/rapports**, non seulement dans le domaine des fréquences, mais aussi dans celui des **amplitudes**.
 - Comment fonctionne l’échelle des **Decibels (dB)**.
 - Comment **convertir** des valeurs en **Decibels** en **amplitudes**.
 - Comment utiliser une **expression** comme **argument d’entrée** sans créer une variable.
@@ -37,7 +37,7 @@ Comme vous le voyez, après seulement quatre "octaves d’intensité", nous obte
 
 ## Decibel
 
-C’est l’échelle en **décibels (dB)** qui reflète cela. Comme vous l’avez appris dans le [tutoriel 02](02_HelloFrequency.md), nous réglons l’amplitude 1 comme référence à la valeur zéro dB par cette instruction dans l’entête de l’orchestre :
+C’est l’échelle en **décibels (dB)** qui reflète cela. Comme vous l’avez appris dans le [tutoriel 02](15-f-GS-fr-02.md), nous réglons l’amplitude 1 comme référence à la valeur zéro dB par cette instruction dans l’entête de l’orchestre :
 ```
 0dbfs = 1
 ```
@@ -57,11 +57,11 @@ Zéro dB signifie ici : L’amplitude la plus élevée possible. Chaque rapp
 |0.001995 |-54 |
 |0.001    |-60 |
 
-> Note 1 : Pour être précis, pour un rapport/ratio d’amplitude de 1/2, la différence est _-6.0206_dB_ plutôt que _-6 DB_. La colonne d’amplitude ne suit donc pas précisément le rapport 1/2.
+Note 1 : Pour être précis, pour un rapport/ratio d’amplitude de 1/2, la différence est _-6.0206_dB_ plutôt que _-6 DB_. La colonne d’amplitude ne suit donc pas précisément le rapport 1/2.
 
-> Note 2 : Vous pouvez en apprendre davantage sur les intensités sonores dan [ce livre](https://flossmanual.csound.com/basics/intensities).
+Note 2 : Vous pouvez en apprendre davantage sur les intensités sonores dan [ce livre](https://flossmanual.csound.com/basics/intensities).
 
-> Note 3 : Pour un contexte plus général, voyez la [loi Weber-Fechner](https://en.wikipedia.org/wiki/Weber%E2%80%93Fechner_law).
+Note 3 : Pour un contexte plus général, voyez la [loi Weber-Fechner](https://en.wikipedia.org/wiki/Weber%E2%80%93Fechner_law).
 
 ## L’opcode 'ampdb'
 
@@ -97,7 +97,7 @@ instr 1:  iAmp = 0.501
 
 Similaire à l’opcode `mtof`, l’opcode `ampdb` peut s’exécuter à l’_i-rate_ ou au _k-rate_. Ici nous avons utilisé _i-rate_, donc `ampdb:i`, car nous avons un nombre en entrée et non pas un signal.
 
-Nous utiliserons `ampdb:k` quand nous aurons des valeurs en décibel variables dans le temps en entrée. Dans le cas le plus simple, il s’agit d’une croissance linéaire ou d’une décroissance/decay. Nous pouvons créer ce signal d’entrée comme d’habitude avec l’opcode `linseg`. Voici un signal qui se déplace de -10 dB à -20 dB en une demi seconde :
+Nous utiliserons `ampdb:k` quand nous aurons des valeurs en décibel variables dans le temps en entrée. Dans le cas le plus simple, il s’agit d’une croissance ou d’une décroissance/decay linéaires. Nous pouvons créer ce signal d’entrée comme d’habitude avec l’opcode `linseg`. Voici un signal qui se déplace de -10 dB à -20 dB en une demi seconde :
 ```
 kDb = linseg:k(-10,0.5,-20)
 ```
@@ -110,7 +110,7 @@ kAmp = ampdb:k(kDb)
 
 Jusqu’ici, nous avons toujours stocké la sortie d’un opcode dans une variable ; la sortie d’un opcode obtient ainsi un nom, et ce nom est alors utilisé comme entrée pour l’opcode suivant dans la chaine. Nous avons actuellement quatre liens chainés. Ces liens chainés sont écrits en tant que nombres à droite dans la figure suivante :
 
-![alt text](images/images_06/image.png)  
+![alt text](../resources/images/01-GS-06-a.png)  
 _Chaine d’entrée-sortie avec des variables._
 
 Il est possible d’omettre les noms de variables et de passer directement une expression comme argument d’entrée dans le lien chainé suivant. Voici le code pour sauter les noms de variables pour le lien chainé 2 :
@@ -120,11 +120,11 @@ aSine = poscil:a(ampdb:k(kDb),mtof:k(kMidi))
 
 La figure peut maintenant être dessinée ainsi :
 
-![alt text](images/images_06/image-1.png)  
+![alt text](../resources/images/01-GS-06-b.png)  
 _Connexion directe au lien chainé 2._
 
 ## Exemple
-Cette version est utilisée dans le code exemple.
+Cette version est utilisée dans l’exemple de code.
 ```
 <CsoundSynthesizer>
 <CsOptions>
@@ -137,7 +137,7 @@ ksmps = 64
 nchnls = 2
 0dbfs = 1
 
-instr Hello
+instr Bonjour
   kDb = linseg:k(-10,0.5,-20)
   kMidi = linseg:k(72,0.5,68)
   aSine = poscil:a(ampdb:k(kDb),mtof:k(kMidi))
@@ -147,7 +147,7 @@ endin
 
 </CsInstruments>
 <CsScore>
-i "Hello" 0 2
+i "Bonjour" 0 2
 </CsScore>
 </CsoundSynthesizer>
 ```
@@ -156,7 +156,7 @@ i "Hello" 0 2
 
 La possibilité d’insérer directement la sortie d’un opcode dans un autre est potentiellement infinie. Cela permet d’obtenir un code plus court.
 
-D’un autre côté, si un nombre important de ces expressions sont insérés les une dans les autres, le code peut se transformer en un désert rocailleux de (, :, , et ).
+D’un autre côté, si un nombre important de ces expressions sont insérés les une dans les autres, le code peut se transformer en un désert rocailleux de signes `, :, , et )`.
 
 Les variables ne sont en réalité pas un mal nécessaire. Elles peuvent être d’une grande aide pour comprendre ce qui se passe dans le code, à condition qu’elles portent un nom significatif. C’est ce que j’ai essayé en définissant _kMidi_, _aSine_, … Vous trouverez peut-être de meilleurs noms ; essayez !.
 
@@ -181,11 +181,11 @@ Vous êtes le meilleur juge. Relisez votre code une semaine après, et alors fai
 - Jouez à omettre les noms de variables dans les liens chainés 1, 3 ou 4. Quelle version préférez-vous?
 
 ## Les opcodes que vous avez appris dans ce tutoriel
-- `ampdb:i(iDecibel)` : convertit un nombre de décibels en nombre d’amplitude.
-- `ampdb:k(kDecibel)` : convertit un signal de décibels en un signal d’amplitudes.
+- `ampdb:i(iDecibel)` : convertit un nombre en décibels en un nombre en amplitude.
+- `ampdb:k(kDecibel)` : convertit un signal en décibels en un signal en amplitudes.
 
 ## Avançons…
-avec le tutoriel suivant : [07 Hello p-Fields](07_Hello_p-Fields.md)
+avec le tutoriel suivant : [07 Hello p-Fields](15-k-GS-fr-07.md)
 
 ## ou lisez quelques explications supplémentaires ici
 
@@ -203,17 +203,17 @@ En **acoustique**, 0 dB correspond à une valeur très faible. Pour le dire d�
 
 Mais, comme expliqué plus haut, en **audio numérique**, c’est l’inverse. Ici, notre réglage **0 dB** correspond au **maximum**, à l’amplitude la plus élevée possible.
 
-En audio-numérique, nous avons un certain nombre de bits pour chaque sample/échantillon : 16 bit, 25 bit, 32 bit. Quelque soit ce nombre, il y a un maximum. Imaginez un nombre numérique en 16 bit dans lequel chaque bit pout être 0 ou 1. Alors l’amplitude maximum possible est quand tous les bits sont des 1.
+En audio-numérique, nous avons un certain nombre de bits pour chaque sample/échantillon : 16 bit, 24 bit, 32 bit. Quelque soit ce nombre, il y a un maximum. Imaginez un nombre numérique en 16 bit dans lequel chaque bit pout être 0 ou 1. Alors l’amplitude maximum possible est quand tous les bits sont des 1.
 
 Idem pour les autres résolutions. Elle n’ajoutent rien en plus. Elles offrent juste une plus fine résolution entre le maximum et le minimum.
 
-C’est donc parfaitement sensé de régler ce maximum possible à 0 dB. Mais ça signifie aussi qu’en audio-numérique nous n’avons que de valeurs **négatives** de dB.
+C’est donc parfaitement sensé de régler ce maximum possible à 0 dB. Mais ça signifie aussi qu’en audio-numérique nous n’avons que des valeurs **négatives** en dB.
 
 ### Puis-je utiliser des valeurs en dB ?
 
-Il y a une exception à ce qui vient d’être dit. Oui, il est vrai qu’il ne peut y avoir d’amplitude plus élevée que 0 dB. Mais nous pouvons utiliser des dB positifs en audio-numérique quand nous **amplifions** des sons doux.
+Il y a une exception à ce qui vient d’être dit. Oui, il est vrai qu’il ne peut y avoir d’amplitude plus élevée que 0 dB. Mais nous pouvons utiliser des dB positifs en audio-numérique quand nous **amplifions** des sons de faible intensité.
 
-Comme nous l’avons vu dans le [tutoriel 4](04_HelloFadeOut.md), amplifier un signal signifie le multiplier par une valeurs supérieur à 1. Il est tout à fait logique d’exprimer cela en décibel plutôt qu’en un multiplicateur.
+Comme nous l’avons vu dans le [tutoriel 4](15-h-GS-fr-04.md), amplifier un signal signifie le multiplier par une valeurs supérieur à 1. Il est tout à fait logique d’exprimer cela en décibels plutôt qu’en un multiplicateur.
 
 Nous pouvons donc dire : "J’amplifie ce signal de 6 dB", plutôt que : "J’amplifie ce signal par un facteur de 2". Et : "J’amplifie ce signal de 12 dB" devrait être meilleur que "Je l’amplifie d’un facteur de 4".
 
@@ -233,7 +233,7 @@ nchnls = 2
 
 instr Amplify
    iDb = p4
-   //créer un bruit rose très doux:
+   //crée un bruit rose très doux:
    aNoise = pinkish(0.01)
    //Amplification
    aOut = aNoise * ampdb(iDb)
@@ -253,7 +253,7 @@ i "Amplify" 4  2  20 //amplification de 20 Db
 
 Il est souvent intéressant de revenir, à partir de la musique électronique, sur certaines traditions très anciennes dont elle est l’héritière. Je voudrais ici faire un détour par l’une de ces traditions.
 
-Ce que nous avons abordé dans ce tutoriel et dans le précédent à propos des transitions _linéaire et proportionnelle_ en fréquences et en amplitudes a été décrit par des mathématiciens de la Grèce antique comme des séries _arithmétiques_ et _géométriques_.
+Ce que nous avons abordé dans ce tutoriel et dans le précédent à propos des transitions _linéaires et proportionnelles_ en fréquences et en amplitudes a été décrit par des mathématiciens de la Grèce antique comme des séries _arithmétiques_ et _géométriques_.
 
 Si nous avons deux nombres, ou longueurs, et que nous cherchons celui qui se trouve "entre les deux", la moyenne **arithmétique** recherche la **distance** égale entre le plus petit et le plus grand. Ou, selon les mots d’Archytas de Tarente (débat du IVè siècle av. J.C) :
 > La moyenne arithmétique se produit lorsqu’il y a trois termes présentant successivement le même excès : le deuxième dépasse le troisième de la même quantité que le premier dépasse le deuxième. Dans cette proportion, le rapport des nombres les plus grands est inférieur, et celui des plus petits est supérieur.
@@ -273,10 +273,10 @@ Mais comme l’affirme Archytas, "Le rapport entre les grands nombres est moindr
 8/5 = 1.6
 5/2 = 2.6
 ```
-![alt text](images/images_06/image-2.png)  
+![alt text](../resources/images/01-GS-06-c.png)  
 _Moyenne arithmétique de 8 et 2_
 
-Ça correspond à ce que nous avons décrit  comme "D’abord trop lent, ensuite trop vite" dans le [précédent tutoriel](05_HelloMidiKeys.md)
+Ça correspond à ce que nous avons décrit  comme "D’abord trop lent, ensuite trop vite" dans le [précédent tutoriel](15-i-GS-fr-05.md)
 
 Voici comment Archytas décrit la moyenne **géométrique** :
 
@@ -289,34 +289,39 @@ Donc si nous cherchons la moyenne géométrique G entre 8 et 2, nous calculons�
 16 = G<sup>2</sup>
 G = 4
 ```
-![alt text](images/images_06/image-3.png)  
+![alt text](../resources/images/01-GS-06-c1.png)  
 _Moyenne géométrique de 8 et 2_
 
 La moyenne géométrique de 8 et 2 est 4, car le rapport du nombre le plus large avec la moyenne, et le rapport de la moyenne avec le plus petit nombre est le même : 8/4 = 2, et 4/2 = 2.
 
 Il est intéressant d’observer la manière _géométrique_ de construire cette moyenne, telle qu’elle est présentée dans les Éléments d’Euclide (VI.8) :
-> Si, dans un triangle rectangle, une ligne droite est tracée à partir de l’angle droit perpendiculairement à la base, alors les triangles autour de la perpendiculaire sont similaires à l’ensemble du triangle et entre eux.
+> Si, dans un triangle rectangle, une ligne droite est tracée à partir de l’angle droit perpendiculairement à la base, alors les triangles autour de la perpendiculaire sont similaires à l’ensemble du triangle et entre eux.  
+[Euclid's Elements of Geometry, Translation R. Fitzpatrick, p. 164, cited after](https://farside.ph.utexas.edu/Books/Euclid/Elements.pdf).
 
-![alt text](images/images_06/image-4.png)  
+![alt text](../resources/images/01-GS-06-d.png)  
 _Construction de la moyenne géométrique d’Euclide._
 
 Euclide décrit comment les deux triangles qui sont à gauche et à droite de cette perpendiculaire ont les mêmes angles, et que c’est également le cas quand on observe le grand triangle. Ça établit une similitude parfaite.
 
 La longueur de cette perpendiculaire est la moyenne géométrique des deux parties de la base. Selon le théorème de l’altitude du triangle rectangle, le carré de cette altitude est égal au produit des parties de base :
+
 ```
-b2=a⋅c
-b=√a⋅c
+$$
+b^2 = a \cdot c \\
+b = \sqrt{a \cdot c}
+$$
 ```
+
 C'est exactement la formule de la moyenne géométrique.
 
 Il existe également un lien étroit avec le nombre d'or, célèbre pour son utilisation dans l'art et la nature. Dans le triangle décrit par Euclide, cela signifie : Trouvez un triangle dont la plus petite partie de la base plus la hauteur est égale à la plus grande partie de la base :
 
-![alt text](images/images_06/image0.png)  
+![alt text](../resources/images/01-GS-06-e.png)  
 _Le nombre d'or en tant que moyenne géométrique._
 
 Actuellement, nous avons a=8, c=2 et b=4. De toute évidence, 8=4+2 n'est pas vrai.
 Nous pouvons déplacer légèrement le point de séparation vers la gauche, de sorte que a=7
- et c=3. Cela donne 7=√21+3, ce qui n'est pas vrai non plus.
+ et c=3. Cela donne $7 = \sqrt{21} + 3$, ce qui n'est pas vrai non plus.
 
 Malheureusement, le nombre d'or peut être facilement construit géométriquement, mais c'est un nombre irrationnel. Nous nous rapprochons toutefois lorsque nous choisissons des nombres de Fibonacci plus élevés. Par exemple, pour les nombres de Fibonacci b=88 et c=55, on obtient : a=b⋅b/c=88⋅88/55=140,8 au lieu des 143 souhaités.
 

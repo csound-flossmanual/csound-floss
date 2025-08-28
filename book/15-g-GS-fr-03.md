@@ -11,11 +11,11 @@
 
 ## Une ligne pour l’amplitude
 
-Maintenant que nous avons compris comment créer des lignes, nous pouvons appliquer un mouvement linéaire à l’amplitude également.
+Maintenant que nous avons compris comment créer des lignes, nous pouvons également appliquer un mouvement linéaire à l’amplitude.
 
 Voici un signal qui se déplace de 0.3 à 0.1 en une demi-seconde :
 
-![alt text](images/image-6.png)  
+![alt text](../resources/images/01-GS-03-a.png)  
 _Amplitude decay/décroissance_
 
 Et ce code devrait déjà vous être familier :
@@ -30,23 +30,23 @@ Considérons maintenant quelques réglages importants qui sont écrits au début
 ```
 <CsInstruments>
 
-sr = 44100 //sr = **s**ample **r**ate
+sr = 44100 //sr = sample rate
 ksmps = 64
-nchnls = 2 //nchnls = **n**umber of **chnls**channels
+nchnls = 2 //nchnls = number of channels
 0dbfs = 1
 ```
-Cet ensembles de configurations est parfois appelé Entête d’Orchestre / Orchestra Header.
+Cet ensembles de configurations est parfois appelé Entête de l’Orchestre / Orchestra Header.
 
 Nous y voyons quatre **constantes** qui doivent être écrites explicitement dans tout fichier Csound.
 
-On les appelle **constantes** car vous ne pouvez pas les changer en cours d’exécution de Csound. Une fois Csound démarré et que Csound compile votre fichier, ces valeurs restent inchangées tout le temps de l’exécution.
+On les appelle **constantes** car vous ne pouvez pas les changer en cours d’exécution de Csound. Une fois Csound lancé et que Csound compile votre fichier, ces valeurs restent inchangées tout le temps de l’exécution.
 
 Quelle est la signification de ces constantes ?
 
 ### sr
 **sr** signifie **s**ample **r**ate. C’est le nombre d’échantillons audio par seconde. Les valeurs les plus courantes sont 44100 (le standard CD), 48000 (le standard vidéo), ou de plus hautes valeurs comme 96000 ou 192000.
 
-Comme le _sample rate / taux d’échantillonnage_ est mesuré par seconde, il est souvent exprimé en Hertz (Hz), ou ne kilo Hertz (kHz).
+Comme le _sample rate / taux d’échantillonnage_ est mesuré par seconde, il est souvent exprimé en Hertz (Hz), ou en kilo Hertz (kHz).
 
 Vous devriez choisir un sample rate qui convienne à vos besoins. Par exemple, quand vous produisez de l’audio pour une vidéo _mpeg_ qui nécessite 48 kHz, vous devriez configurer :
 ```
@@ -58,7 +58,7 @@ Quand votre carte son tourne à 44100 Hz, vous devriez configurer votre `sr` �
 ### ksmps
 **ksmps** signifie **nombre de samples/échantillons pendant une période de contrôle**.
 
-Comme vous l’avez appris dans le [Tutoriel 02](02_HelloFrequency.md), le _k-rate_ est basé sur le sample-rate. Un **groupe** ou **block de samples** est collecté dans un paquet. Imaginez-vous debout devant un tapis-roulant. De petites statues arrivent sur le tapis à intervalles réguliers, disons une fois par seconde. Plutôt que prendre chaque statue pour les passer une à une à un collègue, vous en mettez au fur et à mesure 64 dans un paquet. Et vous ne passez ce paquet à votre collègue qu’une fois le paquet rempli des 64 statues prévues. Vous passerez donc un paquet toutes les 64 secondes.
+Comme vous l’avez appris dans le [Tutoriel 02](15-f-GS-fr-02.md), le _k-rate_ est basé sur le sample-rate. Un **groupe** ou **block de samples** est collecté dans un paquet. Imaginez-vous debout devant un tapis-roulant. De petites statues arrivent sur le tapis à intervalles réguliers, disons une fois par seconde. Plutôt que prendre chaque statue pour les passer une à une à un collègue, vous en mettez au fur et à mesure 64 dans un paquet. Et vous ne passez ce paquet à votre collègue qu’une fois le paquet rempli des 64 statues prévues. Vous passerez donc un paquet toutes les 64 secondes.
 
 Cet interval de temps pour passer un paquet (en temps que paquets par seconde) est le _control rate_, ou **k-rate**. L’interval de temps pendant lequel les petites statues arrivent une par une est l’audio-rate, ou **a-rate**. Dans notre exemple, le _k-rate_ est 64 fois plus lent que le _a-rate_.
 
@@ -121,7 +121,7 @@ ksmps = 64
 nchnls = 2
 0dbfs = 1
 
-instr Hello
+instr Bonjour
   kAmp = linseg:k(0.3,0.5,0.1)
   kFreq = linseg:k(500,0.5,400)
   aSine = poscil:a(kAmp,kFreq)
@@ -130,14 +130,14 @@ endin
 
 </CsInstruments>
 <CsScore>
-i "Hello" 0 2
+i "Bonjour" 0 2
 </CsScore>
 
 </CsoundSynthesizer>
 ```
 
 ## Essayez-le vous-même
-- Changez la durée dans le signal _kAmp_ de 0.5 à 1 ou 2. Les lignes de fréquence et d’amplitude de déplacent maintenant indépendamment d’une de l’autre.
+- Changez la durée dans le signal _kAmp_ de 0.5 à 1 ou 2. Les lignes de fréquence et d’amplitude se déplacent maintenant indépendamment d’une de l’autre.
 - Changez les valeurs du signal _kAmp_ afin d’obtenir une augmentation plutôt qu’une diminution de l’amplitude.
 - Changez `0dbfs` à 2. Vous devriez entendre les sons moins forts puisque le niveau à pleine échelle est maintenant deux fois plus haut.
 - Changez `0dbfs` à 0.5. Vous devriez cette fois entendre les sons plus fort.
@@ -146,17 +146,17 @@ i "Hello" 0 2
 ## Flux du signal et ordre d’exécution
 Nous pouvons dessiner le flux du signal de notre instrument ainsi :
 
-![alt text](images/image-7.png)  
+![alt text](../resources/images/01-GS-03-b.png)  
 _Flux du signal_
 
-S’il vous plait, comparez cette version au [diagram de flux du signal du Tutoriel 1](01_HelloCsound#le-flux-dun-signal-et-son-code). Les deux entrées pour l’oscillateur `poscil` ne sont plus deux nombres, mais deux signaux, qui sont les sorties des opcodes `linseg`.
+S’il vous plait, comparez cette version au [diagram de flux du signal du Tutoriel 1](15-e-GS-fr-01.md#le-flux-dun-signal-et-son-code). Les deux entrées pour l’oscillateur `poscil` ne sont plus deux nombres, mais deux signaux, qui sont les sorties des opcodes `linseg`.
 
 Csound lit le code de notre programme ligne par ligne. Chaque fois que quelques chose est utilisé comme entrée pour un opcode, il doit déjà exister à ce moment.
 
 ## Lisez les messages d’erreur
-Quand nous avons placé la troisième ligne de l’instrument en haut, nous demandons à Csound d’utiliser quelque chose qui n’est pas encore connu :
+Quand nous avons placé la troisième ligne de l’instrument en haut, nous avons demané à Csound d’utiliser quelque chose qui n’est pas encore connu :
 ```
-instr Hello
+instr Bonjour
   aSine = poscil:a(kAmp,kFreq)
   kAmp = linseg:k(0.3,0.5,0.1)
   kFreq = linseg:k(500,0.5,400)
@@ -164,7 +164,7 @@ instr Hello
 endin
 ```
 
-L’oscillateur `poscil` demande _kAmp_ et _kFreq_ en entrée. Mais à ce point du code, il n’y a pas encore ni _kAmp_, ni _kFreq_. Csound retournera donc un message d’erreur "used before defined" :
+L’oscillateur `poscil` demande _kAmp_ et _kFreq_ en entrée. Mais à ce point du code, il n’y a pas encore ni _kAmp_, ni _kFreq_. Csound retournera donc un message d’erreur "used before defined / utilisé avant d’avoir été défini" :
 ```
 error: Variable 'kAmp' used before defined
 ```
@@ -191,15 +191,15 @@ Pour résumer :
 - _Block Size_ et _Vector Size_ sont des termes équivalent à `ksmps` dans Csound : le nombre de samples dans un cycle de contrôle.
 
 ## Avançons
-avec le tutoriel suivant : [04 Bonjour Fondu en sortie](04_HelloFadeOut.md)
+avec le tutoriel suivant : [04 Bonjour Fondu en sortie](15-h-GS-fr-04.md)
 
 ## ou lisez quelques explications supplémentaires ici
 
 ### Quelques notes sur ksmps
 
-Note 1 : Il est recommandé d’utiliser des valeurs **puissance-de deux** pour `ksmps`. Des valeurs courantes sont 32 (2<sup>5</sup>) ou 64 (2<sup>6</sup>). Ceci est dû à la gestion des entrées/sorties de l’audio. Vous trouverez la même chose dans d’autres applications.
+Note 1 : Il est recommandé d’utiliser des valeurs **puissance-de deux** pour `ksmps`. Les valeurs courantes sont 32 (= $2^5$) ou 64 (= $2^6$). Ceci est dû à la gestion des entrées/sorties de l’audio. Vous trouverez la même chose dans d’autres applications.
 
-Note 2 : L’avantage d’un `ksmps` **plus petit** est une meilleur définition temporelle pour le control rate. Si le sample rate est 441000 Hz, nous avons une résolution temporelle de 1/44100 secondes par sample/échantillon. C’est une durée d’environ 0.000023 secondes, ou 0.023 millisecondes entre deux samples. Quand nous réglons `ksmps = 64` pour ce sample rate de 44.100 Hz, nous obtenons 64/44100 secondes comme résolution temporelle entre deux blocs, ou deux valeurs de contrôle. Ça se situe autour de 0.00145 secondes, ou 1.45 milliseconds entre deux blocs, ou valeurs de contrôles. Quand nous réglons `ksmps = 32` pour le même sample rate, nous obtenons 0.725 millisecondes comme résolution temporelle pour chaque nouvelle valeur de contrôle.
+Note 2 : L’avantage d’un `ksmps` **plus petit** est une meilleur définition temporelle pour le control rate. Si le sample rate est 441000 Hz, nous avons une résolution temporelle de 1/44100 secondes par sample/échantillon. C’est une durée d’environ 0.000023 secondes, ou 0.023 millisecondes entre deux samples. Quand nous réglons `ksmps = 64` pour ce sample rate de 44100 Hz, nous obtenons 64/44100 secondes comme résolution temporelle entre deux blocs, ou deux valeurs de contrôle. Ça se situe autour de 0.00145 secondes, ou 1.45 milliseconds entre deux blocs, ou valeurs de contrôles. Quand nous réglons `ksmps = 32` pour le même sample rate, nous obtenons 0.725 millisecondes comme résolution temporelle pour chaque nouvelle valeur de contrôle.
 
 Note 3 : L’avantage d’un `ksmps` plus large est une meilleure performance en termes de vitesse. Si vous avez un fichier Csound complexe et très consommateur de ressource CPU, vous risquez d’obtenir des 'dropouts / pertes'. Dans ce cas, tentez d’augmenter `ksmps`.
 
@@ -214,19 +214,19 @@ Il pourrait être intéressant de regarder comment des constantes importantes co
 
 Toutes les configurations peuvent être trouvées dans les _audio settings_… qui ressemblent à ça dans ma version de PD :
 
-![alt text](images/image-8.png)  
+![alt text](../resources/images/01-GS-03-pd-audio.png)  
 _Fenêtre de configuration audio dans PD._
 
-- en haut à gauche, le **sample rate** est réglé. En dessous à droite, on sélectionne la **taille de bloc / block size**. C’est exactement la même chose que le _ksmps_ dans Csound. La taille de bloc sélectionnée de 64 est ce que nous avons fait avec :
+- en haut à gauche, on règle le **sample rate**. En dessous à droite, on sélectionne la **taille de bloc / block size**. C’est exactement la même chose que le _ksmps_ dans Csound. La taille de bloc sélectionnée de 64 est ce que nous avons fait avec :
 ```
 ksmps = 64
 ```
 
-- En dessous, nous pouvons configurer les appareils d’entrée et de sortie, et le nombre de canaux d’entrée et de sortie. La deuxième chose est ce que nous avons fait avec
+- En dessous, nous pouvons configurer les périphériques d’entrée et de sortie, et le nombre de canaux d’entrée et de sortie. La deuxième chose est ce que nous avons fait avec
 ```
 nchnls = 2
 ```
 
-Par rapport à cette images, nous n’avons sélectionné aucun appareil audio car nous utilisons pour ces tutoriel un navigateur web. Nous utilisons donc ici _Web Audio_. Mais bien sûr, vous pouvez sélectionner vos appareils d’entrée et de sortie dans Csound également.
+Par rapport à cette images, nous n’avons sélectionné aucun périphérique audio car nous utilisons pour ces tutoriel un navigateur web. Nous utilisons donc ici _Web Audio_. Mais bien sûr, vous pouvez sélectionner vos périphériques d’entrée et de sortie dans Csound également.
 
 Et qu’en est-il de 0dbfs ? Cette valeur est **toujours** définie sur 1 dans PD, il n’y a donc pas de champ pour cela.
