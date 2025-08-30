@@ -9,19 +9,17 @@
 - Qu’est-ce qu’une **partition/score** Csound
 
 ## Qu’est-ce qu’un oscillateur sinusoïdal / sine oscillator
-
 Une onde sinusoïdale peut être considérée comme l’élément sonore le plus élémentaire au monde. Quand nous dessinons une onde sinusoïdale comme un graphique montrant son amplitude au cours du temps, elle ressemble à ça :
 
-![alt text](../resources/images/01-GS-01-sine.png)
+![Onde sinusoïdale serpent](../resources/images/01-GS-01-sine.png)
 
-_Onde sinusoïdale serpent_
+
 
 Pour produire une onde sinusoïdale, Csound utilise un oscillateur. Un oscillateur nécessite certaines entrées pour fonctionner :
 1. Une amplitude maximum de sortie. Ce qui résultera en un son plus ou moins fort.
 2. Le nombre de périodes (cycles) par seconde à générer. Ce qui résultera en un son plus ou moins aigüe ou grave. L’unité est le _Hertz(Hz)_. 1000 Hz signifie qu’une sinusoïde comporte 1000 périodes par seconde.
 
 ## Un oscillateur sinusoïdal dans Csound : Opcode et Arguments
-
 Csound dispose de nombreux oscillateurs différents. (vous pouvez trouver [ici](https://flossmanual.csound.com/how-to/opcodes) quelques descriptions et comparaisons.) Dans cet exemple, nous utilisons l’opcode `poscil`, qui signifie _precise oscillator_.
 
 Un **opcode** est une unité de traitement dans Csound, comparable à un _object_ dans PureData ou Max, ou un _UGen_ dans SuperCollider. Si vous êtes familier des langages de programmation, vous pouvez considérer un opcode comme une _building fonction / fonction intégrée_.
@@ -33,7 +31,7 @@ Les entrées d’un opcode sont appelées **arguments** et sont écrites entre p
 La signification des arguments en entrée dépend de la façon dont l’opcode a été implémenté. Pour `poscil`, la première entrée est l’amplitude et la seconde entrée est la fréquence. Le [Manuel de Référence Csound](https://csound.com/docs/manual-fr/index.html) contient toutes les informations à son sujet. Nous apporterons quelques éclaircissements dans notre [Tutoriel 08](15-l-GS-fr-08.md) pour aider à son utilisation.
 
 Cette manière d’écrire du code est commune à de nombreux langages de programmation, comme `range(13)` en Python, ou `printf("no no")` en C, ou `Date.now()` en JavaScript (dans ce cas les parenthèses sont vides, ce qui signifie : pas d’argument en entrée).
-> Note : Il existe une autre manière d’écrire du code Csound. Si vous voulez en apprendre plus sur ce sujet, voyez la section "Deux façons d’écrire du code dans Csound" à la fin de ce tutoriel.
+    Note : Il existe une autre manière d’écrire du code Csound. Si vous voulez en apprendre plus sur ce sujet, voyez la section "Deux façons d’écrire du code dans Csound" à la fin de ce tutoriel.
 
 ## Le flux d’un signal et son code
 Nous créons maintenant une onde sinusoïdale d’une amplitude de 0.2 et de 400 cycles par seconde (Hz).  
@@ -56,8 +54,7 @@ Notez que le signal _aSine_ est d’abord la sortie de l’oscillateur, puis dev
 
 Nous pouvons dessiner le flux de ce programme comme ceci :
 
-![alt text](../resources/images/01-GS-01-a.png){width=80%}  
-_Flux de signal et code Csound pour un oscillateur sinusoïdal et une sortie._
+![Flux de signal et code Csound pour un oscillateur sinusoïdal et une sortie.](../resources/images/01-GS-01-a.png){width=80%}  
 
 Au milieu, vous voyez le flux du signal, avec des symbols pour l’oscillateur et la sortie. Vous pouvez les imaginer comme les modules d’un synthétiseur, connectés par un cable nommé _aSine_.
 
@@ -66,7 +63,6 @@ Sur le côté gauche, vous voyez la chaine entre les entrées, l’opcode et la 
 À droite, vous voyez le code Csound correspondant. Chaque ligne de code représente une chaine _entrée -> opcode -> sortie_, dans la forme _sortie = opcode(entrée)_. La ligne `outall(aSine)` n’a pas de sortie vers Csound, car elle envoie l’audio au matériel (comme l’objet `dac~` dans PD ou Max).
 
 ## Votre premier instrument Csound
-
 Dans Csound, tous les oscillateurs, filtres, lecteurs d’échantillons / sample players, et autres unités de traitement sont encapsulés dans un **instrument**. Un instrument comporte les mots-clé :
 - `instr` à son début
 - et `endin` à sa fin.
@@ -124,15 +120,23 @@ C’est la section **Partition / Score** du fichier .csd. Elle commence par la b
 i "Bonjour" 0 2
 ```
 Chaque colonne (champ de paramètre / parameter field) spécifie une certaine information :
+
 - `"Bonjour"` : L’instrument auquel cette ligne de partition se réfère.
+
 - `0` : L’heure de départ de cet instrument : `0` (= départ immédiat).
+
 - `2` : La durée du son venant de l’instrument : `2` (secondes).
 
 #### Essayez vous-même
+
 (Vous pouvez éditer l’exemple juste en tapant à l’intérieur)
+
 - Changez la durée de l’instrument
+
 - Changez l’heure de départ de l’instrument
+
 - Changez la fréquence de l’oscillateur
+
 - Changez l’amplitude de l’oscillateur
 
 ## Opcodes, Mots-Clés et termes que vous avez appris dans ce tutoriel
@@ -152,7 +156,8 @@ Avec le tutoriel suivant : [02_Bonjour Fréquences](15-f-GS-fr-02.md)
 
 ## Ou lisez quelques informations supplémentaires ici
 
-### Pourquoi le sinus est-il « le son le plus élémentaire au monde » ?
+### Pourquoi l’onde sinusoïdale est-elle « le son le plus élémentaire au monde » ?
+
 Pour être honnête, j'aime les sons sinusoïdaux. Je sais que beaucoup de gens les trouvent ennuyeux. J'aime leur simplicité, alors contre tous les bons conseils, je vais consacrer les dix premiers tutoriels uniquement aux sons sinusoïdaux. Désolé de vous en faire subir les conséquences...
 
 Mais revenons à la question : qu'y a-t-il d'élémentaire dans les ondes sinusoïdales ?
@@ -181,7 +186,7 @@ Vous pouvez sans problème continuer d’écrire le code Csound ainsi. Les raiso
 3. Le style fonctionnel d’écrire du code Csound a toujours existé dans des expressions comme `ampdb(-10)` ou `ftlen(giTable)`. Ce n’est donc pas totalement nouveau, mais plutôt une extension.
 4. Chaque fois que nous voulons utiliser une expression comme argument (vous en apprendrez plus à ce sujet dans le [tutoriel 6](15-j-GS-fr-06.md)), nous devons écrire le code de cette manière. Il est donc bon de l’utiliser en permanence pour plus de cohérence.
 
-> NOTE DU TRADUCTEUR pour les francophones : Sauf dans le commentaires où ça ne pose aucun problème, n’utilisez que des caractères ASCII dans vos programmes. J’ai essayé et chez moi ça plante. Donc pas de lettres accentuées, pas de œ et autres signes propres au français.
+    NOTE DU TRADUCTEUR pour les francophones : Sauf dans les commentaires où ça ne pose aucun problème, n’utilisez que des caractères ASCII dans vos programmes. J’ai essayé et chez moi ça plante. Donc pas de lettres accentuées, pas de œ et autres signes propres au français.
 
 ## Au sujet de ces tutoriels
 Ce _Guide de démarrage_ a été écrit par Joachim Heintz en 2023. Il est basé sur de nombreuses expériences d’enseignement de Csound auprès de jeunes compositeurs.

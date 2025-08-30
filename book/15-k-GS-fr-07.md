@@ -24,17 +24,18 @@ i "Bonjour" 9 1
 
 Ici, nous **instancions** un certain instrument. Chaque instance est un objet en cours d’exécution d’un modèle d’instrument ; c’est la "chose" concrète qui existe en tant que réalisation du modèle.
 
-![alt text](../resources/images/01-GS-07-a.png)  
-_Trois instances d’un instrument dans une séquence_
+![Trois instances d’un instrument dans une séquence](../resources/images/01-GS-07-a.png)
 
 Nous pouvons créer autant d’instances d’instrument que nous le voulons. Elles peuvent se suivre dans le temps, se superposer ou même se chevaucher partiellement, comme dans ces lignes de partition :
+
 ```
 i "Bonjour" 0 7
 i "Bonjour" 3 6
 i "Bonjour" 5 1
 ```
-![alt text](../resources/images/01-GS-07-b.png)  
-_Trois instances d’instrument se chevauchant mutuellement_
+
+![Trois instances d’instrument se chevauchant mutuellement](../resources/images/01-GS-07-b.png)  
+
 
 ## Rendre les instruments plus adaptables
 
@@ -46,6 +47,7 @@ i "Bonjour" 0 2 72 68
 ```
 
 Ce qui signifie que nous appelons :
+
 - **p1** l’instrument "Bonjour",
 - **p2** l’heure de début de cette instance qui sera zéro,
 - **p3** sa durée en seconde – ici 2,
@@ -53,6 +55,7 @@ Ce qui signifie que nous appelons :
 - **p5** le numéro de note MIDI 68 à la fin de la durée (p3).
 
 Pour que ça fonctionne, nous insérons **p4** et **p5** dans le code de notre instrument :
+
 ```
 instr Bonjour
     iMidiStart = p4
@@ -64,12 +67,12 @@ endin
 
 L’instrument interprète ces valeurs de la même façon que le fait **p3** que nous utilisons déjà dans le code de notre instrument. Pour **p4** et **p5**, l’instance d’instrument examinera la ligne de partition, et prendra le quatrième paramètre comme valeur pour **p4**, et le cinquième comme valeur pour **p5**.
 
-![alt text](../resources/images/01-GS-07-c.png)  
-_Instrument lisant p4 et p5 sur une ligne de partition_
+![Instrument lisant p4 et p5 sur une ligne de partition](../resources/images/01-GS-07-c.png)  
 
 ## Insertion directe de p-field/champs ou définition de variables ?
 
 Dans le code ci-dessus, nous avons défini des variables au taux _i-rate_ : _iMIDIStart_ et _iMIDIEnd_. Il aurait été tout à fait correct de placer **p4** et **p5** directement dans le code de l’instrument, comme ceci :
+
 ```
 kMidi = linseg:k (p4, p3, p5)
 ```
@@ -85,6 +88,7 @@ Les noms de variables devraient être les plus significatifs possible, sans deve
 La lisibilité peut aussi être améliorée par des commentaires ; en particulier quand le code est long.
 
 Csound offre trois possibilités pour commenter :
+
 - `//` et `;` sont des signes qui précèdent un commentaire sur une ligne.
 - Ce qui est entre `/*` et `*/` sera également ignoré par Csound. Dans ce cas, le commentaire peut comporter plusieurs lignes.
 
@@ -92,6 +96,7 @@ Je suggère de commenter abondamment. En particulier quand vous commencez à app
 
 Je commence même souvent par des commentaire quand je code. Les commentaires sont alors là pour clarifier ce que vous chercher à faire.  
 Par exemple :
+
 ```
 instr JeSaisPas
 //génère deux nombres aléatoires
@@ -109,6 +114,7 @@ endin
 ## Exemple
 
 À partir de maintenant, nous insèrerons des commentaires dans le code. D’abord abondamment ; dans les derniers tutoriels, nous les réduirons en nous concentrant sur les nouveaux éléments dans le code.
+
 ```
 <CsoundSynthesizer>
 <CsOptions>
@@ -158,8 +164,8 @@ i "Bonjour"   12.5  0.5   73 73.5
 
 Les **p-fields/p-champs** sont des éléments qui reflètent la longue histoire de Csound. C’est une figure qui vient de l’article "Musical Sounds from digital computers", par Mathews, Pierce et Guttman, montrant cette "carte informatique" :
 
-![alt text](../resources/images/01-GS-07-d.png)  
-_p-fields/champs sur une carte informatique dans Mathews et.al. 1962_
+![p-fields/champs sur une carte informatique dans Mathews et.al. 1962](../resources/images/01-GS-07-d.png)  
+
 
 Ici, le champ `P0` contient l’information soit d’une "note", soit d’une "pause". `P1` est le numéro d’instrument. Comme il n’y a pas de polyphonie ici, `P2` est la durée de la chaine d’évènements. `P3` est une amplitude, ici dans la plage de 0 à 1000, et `P4` est la fréquence.
 
@@ -167,8 +173,8 @@ Les p-field/p-champs existaient donc avant que les ordinateurs n’aient un écr
 
 C’est de _MUSIC V_ de Mathews, dont c’est servi Jean-Claude Risset pour écrire son ouvrage historique "Catalogue of Computer Synthesized Sounds" en 1969. Voici un extrait dans lequel vous pouvez voir à nouveau des p-fields :
 
-![alt text](../resources/images/01-GS-07-e.png)  
-_Extrait du "Catalogue" de Rissets, 1969_
+![Extrait du "Catalogue" de Rissets, 1969](../resources/images/01-GS-07-e.png)  
+
 
 Les premières version du programme _MUSIC_ de Max Mathews pouvait fonctionner uniquement sur un ordinateur particulier. Le "C" de Csound pointe vers le [language de programmation C](https://en.wikipedia.org/wiki/C_(programming_language)) qui fut publié en 1972. Ce langage rendit possible la séparation entre d’une part le code source – qui est écrit et peut être lu par les humains –, et d’autre part le code machine, spécifique au type de machine sur lequel le code s’exécute. C est toujours un langage populaire, utilisé pour tout ce qui nécessite un grande vitesse d’exécution, comme les OS (operating systems) ou les applications audio.
 
@@ -195,18 +201,20 @@ Heureusement, les _p-fields_ sont seulement une des possibilités pour un instru
 
 ## Avançons
 
-avec le tutoriel suivant : [08 Hello Schedule](15-l-GS-fr-08.md)
+avec le tutoriel suivant : [08 Bonjour Schedule](15-l-GS-fr-08.md)
 
 ## … ou lisez quelques explications supplémentaires
 
 ### Notes MIDI et déviations microtonales
 
 Vous aurez peut-être remarqué que dans la dernière ligne de partition de l’exemple, il était écrit :
+
 ```
 i "Hello"   12.5    .5      73      73.5
 ```
 
-Mais quelle est la note MIDI numéro 73.5 ? Il n’existe pas de note avec ce numéro. Il n’y a que les notes 73 (C#5) et 74 (D5).  
+Mais quelle est la note MIDI numéro 73.5 ? Il n’existe pas de note avec ce numéro. Il n’y a que les notes 73 (C#5) et 74 (D5).
+
 C’est vrai mais la conversion depuis le numéro de note MIDI vers les fréquences ne marche pas seulement pour les nombres entiers de notes MIDI. Il est possible de spécifier une fraction de demi-ton située entre deux nombres entiers de note MIDI. On peut divisé un demi-ton en deux quarts de ton. C’est ce que nous avons fait en nous référant au numéro de note MIDI 73.5 : Un quart de ton plus haut que C#5, ou un quart de ton plus bas que D5. Nous pouvons exprimer n’importe quelle autre fraction de la même manière. L’usage le plus courant est de diviser un demi-ton en cent _cents_. Le numéro de note MIDI 60.14 représentera un C4 + 14 cents. 68.67 sera un A4 - 33 cents.
 
 ### énumération des instances en tant que parties fractionnaires
@@ -214,20 +222,25 @@ C’est vrai mais la conversion depuis le numéro de note MIDI vers les fréquen
 Il est non seulement possible d’appeler autant d’instances d’instruments que nous le voulons, mais nous pouvons aussi donner à chacune de ces instances un certain numéro. On le réalise en appelant l’instrument non pas avec un nombre entier, mais avec un nombre entier + une partie fractionnaire.
 
 Dans ce cas, nous n’écrirons pas ces lignes de partition :
+
 ```
 i 1 0   3
 i 1 2   2
 i 1 5   1
 ```
+
 … mais nous écrirons plutôt ces lignes de partition :
+
 ```
 i 1.1   0   3
 i 1.2   2   2
 i 1.3   5   1
 ```
+
 Ici nous avons appelé l’instrument 1.1 comme première instance de l’instrument 1, 1.2 comme seconde instance, et 1.3 comme troisième instance.
 
 Comme vous le voyez dans ce simple exemple, l’instance d’instrument obtient ces informations :
+
 ```
 <CsoundSynthesizer>
 <CsOptions>
@@ -261,7 +274,9 @@ i  1.3   5  1
 </CsScore>
 </CsoundSynthesizer>
 ```
+
 Vous devriez voir ceci imprimé dans la console :
+
 ```
 instr 1:  iMyInstance = 1.100
 instr 1:  iMyInstance = 1.200
@@ -273,6 +288,7 @@ instr 1:  iMyInstance = 1.300
 
 Nous pouvons donner un nom ou un numéro à un instrument. Je préfère personnellement les noms car ils décrivent ce que fait l’instrument.  
 Par exemple :
+
 ```
 instr EntreeLive
 instr EnregistreSurDisque
@@ -280,11 +296,14 @@ instr AnalyseRMS
 ```
 
 Il s’agit de nouveau d’une amélioration de la lisibilité du code. Mais nous ne pouvons pas appeler un instrument avec un nombre fractionnaire si nous l’appelons par son nom. Dans la ligne de code
+
 ```
 i "EntreeLive" 0    1000
 ```
+
 … le premier p-field/p-champ `"EntreeLive"` est un string, pas un nombre. Et nous ne pouvons pas étendre un string avec `.1` comme nous le pouvons avec un nombre.  
 Ceci ne fonctionnera pas :
+
 ```
 i "EntreeLive".1    0   1000
 ```
@@ -294,6 +313,7 @@ Nous avons deux options ici :
 1. La première option se sert du fait que Csound convertit en interne chaque nom d’instrument en un nombre. La manière dont Csound assigne les nombres aux noms d’instruments est simple : L’instrument qui est au sommet obtient le nombre 1, le suivant le nombre 2 et ainsi de suite.
 
 Quand nous n’avons qu’un seul instrument, nous pouvons être sûr que c’est l’instrument 1 pour Csound. Et par conséquent, le code qui suit marche sans problème :
+
 ```
 <CsoundSynthesizer>
 <CsOptions>

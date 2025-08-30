@@ -16,9 +16,10 @@ Vous avez appris dans le [Tutoriel 02](15-f-GS-fr-02.md) qu’un fichier Csound 
 
 - La section `CsScore` contient les lignes de partition. Chaque ligne de partition commençant par `i` initie une instance d’instrument, à un certain moment, pour une certaine durée, et éventuellement d’autres paramètres.
 
-D’une certaine façon, il s’agit là d’une façon raisonnable de diviser le travail. Dans `CsInstruments`, nous codons les instruments, dans `CsScore` nous les appelons, et dans les `CsOptions` nous déterminons quelques réglages concernant la performance. Dans les premiers temps de Csound, les définitions d’instrument et la partition résidaient dans deux fichiers texte séparés. Les définitions d’instruments, ou orchestre/orchestra, étaient collectées dans un fichier _.orc_, et les lignes de partition étaient collectées dans un fichier _.sco_. Les options étaient écrites à l’aide de drapeaux que vous pouvez toujours voir dans la section `CsOptions`. Le drapeau `-o`, par exemple, assigne la sortie audio(out).
+D’une certaine manière, il s’agit là d’une façon raisonnable de diviser le travail. Dans `CsInstruments`, nous codons les instruments, dans `CsScore` nous les appelons, et dans les `CsOptions` nous déterminons quelques réglages concernant la performance. Dans les premiers temps de Csound, les définitions d’instrument et la partition résidaient dans deux fichiers texte séparés. Les définitions d’instruments, ou orchestre/orchestra, étaient collectées dans un fichier _.orc_, et les lignes de partition étaient collectées dans un fichier _.sco_. Les options étaient écrites à l’aide de drapeaux que vous pouvez toujours voir dans la section `CsOptions`. Le drapeau `-o`, par exemple, assigne la sortie audio(out).
 
 Il est encore possible d’utiliser Csound de cette façon à partir de la "ligne de commande", ou "Terminal". Une exécution de Csound est démarrée par un ligne de commande comme celle-ci :
+
 ```
 csound -o dac -m 128 my_instruments.orc my_score_lines.sco
 ```
@@ -37,7 +38,7 @@ Par contre, la partition/score ne sait rien des instruments. Même pas la fréqu
 
 Il existe cependant quelques situations dans lesquelles nous avons besoin d’**un** langage pour tout faire. Nous pouvons vouloir démarrer des instruments à partir d’un autre instrument. Nous pouvons vouloir passer une variable à un instrument dont nous calculerons la durée pendant la performance. Nous pouvons vouloir déclencher des instances d’instrument depuis une entrée live, comme un écran tactile, un clavier MIDI ou des messages provenant d’autres applications.
 
-Csound offre cette souplesse. Les opcodes les plus utilisés pour appeler des instruments depuis l’intérieur de la section `CsInstruments`, sont `schedule` et `schedulek`. Nous introduirons d’abord `schedule`, puis passerons dans le [tutoriel 11]() à `schedulek` (à venir).
+Csound offre cette souplesse. Les opcodes les plus utilisés pour appeler des instruments depuis l’intérieur de la section `CsInstruments`, sont `schedule` et `schedulek`. Nous introduirons d’abord `schedule`, puis passerons dans le _tutoriel_ 11 à `schedulek` (à venir).
 
 Donc à partir de maintenant vous verrez la section _score_ vide la plupart du temps. Mais bien sûr, il existe encore de nombreuses situations dans lesquelles une partition/score traditionnelle peut être utilisée. Vous trouverez quelques conseils concernant l’usage de _score_ dans une section optionnelle de ce tutoriel.
 
@@ -50,11 +51,13 @@ L’opcode `schedule` a la même fonction qu’une ligne de partition/score comm
 3. la durée de l’instrument appelé.
 
 Le code suivant appelle l’instrument "Bonjour" à l’heure de départ zéro pour une durée de deux secondes :
+
 ```
 schedule("Bonjour",0,1)
 ```
 
 Comme `Schedule` est un opcode, ses arguments d’entrée sont **séparés par des virgules**. C’est la grosse différence avec la score/partition, dans laquelle les champs/fields de paramètres sont séparés par des espaces :
+
 ```
 i "Bonjour" 0 1
 ```
@@ -62,6 +65,7 @@ i "Bonjour" 0 1
 Note 1 : Comme vous pouvez le voir, le `i` du début présent dans la section \<score> est omi. C’est possible car `schedule` n’instancie que des évènements de type _instrument_, alors qu’une ligne de partition/score peut avoir d’autres types d’instructions. Voyez plus bas dans la partie optionnelle de ce tutoriel si vous voulez en savoir plus à ce sujet.
 
 Note 2 : Vous êtes libres de choisir d’ajouter ou non des espaces aux virgules dans la liste d’argument de `schedule`. Pour Csound, les virgules sont le séparateur. Sachant cela, vous pouvez utiliser des espaces ou tabulations en plus, ou pas. Ces deux ligne sont donc valides :
+
 ```
 //Les arguments sont séparés par des virgules seulement :
 schedule("Hello",0,2)
@@ -72,6 +76,7 @@ schedule("Hello", 0, 2)
 ## Exemple
 
 L’exemple suivant transfère simplement les lignes de partition du [Tutoriel 07](15-k-GS-fr-07.md) vers l’instruction `schedule`. Il sonnera exactement de la même façon que l’exemple du tutoriel 07 :
+
 ```
 <CsoundSynthesizer>
 <CsOptions>
@@ -136,23 +141,30 @@ Toute l’information concernant l’usage d’un opcode est collectée dans le 
 Chaque opcode a sa propre page ici. S’il-vous-plait, examinez la page pour l’opcode `schedule` qui est à <https://csound.com/docs/manual-fr/schedule.html>.
 
 Vous verrez que la méthode d’écriture de code native de Csound est utilisée ici. Plutôt que :
+
 ```
 schedule(insnum, iwhen, idur, [, ip4] [, ip5] [...])
 ```
+
 Il est écrit :
+
 ```
 schedule insnum, iwhen, idur [, ip4] [, ip5] [...]
 ```
+
 Ça n’est pas très différent. Dans la syntaxe native de Csound, vous écrivez les arguments d’entrée d’un opcode à droite, et la sortie d’un opcode à gauche.
 
 Comme l’ opcode `schedule` a seulement des argument d’entrée, nous n’avons rien à gauche.
 
 Pour vous familiariser avec cette façon d’écrire, regardons la page de manuel de l’opcode `linseg`. Vous la trouverez [ici](https://csound.com/docs/manual-fr/linseg.html) dans le manuel de référence, et voici ses informations concernant la syntaxe de `linseg` :
+
 ```
 ares linseg ia, idur1, ib [, idur2] [, ic] [...]
 kres linseg ia, idur1, ib [, idur3] [, ic] [...]
 ```
+
 Dans le style de codage fonctionnel qui est utilisé dans ce tutoriel, nous aurions :
+
 ```
 ares = linseg:a(ia, idur1, ib [, idur2] [, ic] [...])
 kres = linseg:k(ia, idur1, ib [, idur2] [, ic] [...])
@@ -160,7 +172,7 @@ kres = linseg:k(ia, idur1, ib [, idur2] [, ic] [...])
 
 Vous trouverez des informations détaillées dans ces pages de référence. Certaines seront sans doute trop techniques pour vous. Vous y trouverez aussi un exemple fonctionnel pour chaque opcode qui est très intéressant pour se faire une idée du fonctionnement de l’opcode et de ce qu’il peut faire.
 
-Vous lirez peut être aussi quelque chose d’obsolète sur l’une de ces pages. Pour un projet Open Source, c’est souvent un problème majeur de garder la documentation à jour. Chacun de nous peut contribuer, par exemple en ouvrant un ticket sur Github ou en suggérant une amélioration au manuel de référence à la [communauté Csound](https://csound.com/community).
+Vous lirez peut être aussi quelque chose d’obsolète sur l’une de ces pages. Pour un projet Open Source, c’est souvent un problème majeur de garder la documentation à jour. Chacun de nous peut contribuer, par exemple en ouvrant un ticket sur Github ou en suggérant une amélioration au manuel de référence à la [communauté Csound](https://csound.com/contribute.html).
 
 ## Les opcodes que vous avez appris dans ce tutoriel
 ### Opcodes
@@ -169,7 +181,7 @@ Vous lirez peut être aussi quelque chose d’obsolète sur l’une de ces pages
 
 ## Avançons
 
-Avec le tutoriel suivante : [09 Hello If](15-m-GS-fr-09.md).
+Avec le tutoriel suivante : [09 Bonjour If](15-m-GS-fr-09.md).
 
 ## … Ou lisez quelques explications supplémentaires ici
 
@@ -186,7 +198,7 @@ Nous avons également mentionné l’instruction `e` qui arrête Csound au bout 
 Une autre instruction utile est l’instruction `t` ou "Tempo", qui définit la durée d’un temps (beat), en unités métronomiques. Par défaut, il est de 60, ce qui signifie qu’un temps/beat égale une seconde. Mais il peut être réglé sur d’autres valeurs ; pas seulement une fois pour la performance entière, mais aussi avec différentes valeurs à différents moments. Il peuvent également être interpolés entre eux (ce qui résulte en un tempo qui accélère ou qui ralentit).
 
 Voici une vue d’ensemble, avec des liens vers des descriptions détaillées dans le Manuel de Référence Csound :  
-https://csound.com/docs/manual-fr/ScoreStatements.html.
+<https://csound.com/docs/manual-fr/ScoreStatements.html.>
 
 …Et dans ce livre, le Csound FLOSS Manual, nous avons un chapitre qui concerne les [méthodes d’écrire des scores/partitions](https://flossmanual.csound.com/miscellanea/methods-of-writing-csound-scores).
 
@@ -234,6 +246,7 @@ endin
 ### Trois durées particulières : 0, -1 et z
 
 Nous avons déjà utilisé quelques fois une durée de 0 dans les exemple. Par exemple :
+
 ```
 <CsoundSynthesizer>
 <CsOptions>
@@ -255,6 +268,7 @@ i "Zero" 0 0
 </CsScore>
 </CsoundSynthesizer>
 ```
+
 Quand vous regardez la sortie de la console, vous voyez `Look at me`.
 
 L’instance de l’instrument a donc bien été appelée, bien qu’il y ait "no duration" dans la ligne de score : le troisième paramètre est `0`.
@@ -268,6 +282,7 @@ L’autre durée particulière est `-1`. Elle représente une _durée illimitée
 - Nous pouvons stopper cette instance en envoyant un évènement de score avec un **p1** négatif.
 
 Voici un exemple simple :
+
 ```
 <CsoundSynthesizer>
 <CsOptions>
@@ -303,6 +318,7 @@ Toutefois, après dix secondes la note tenue s’arrête élégamment, interromp
 Si nous voulons un instrument qui joue indéfiniment, nous pouvons utiliser le caractère `z`, un symbole spécial pour la durée. Conformément au [Manuel de référence Csound](https://csound.com/docs/manual-fr/ScoreTop.html), `z` oblige l’instrument à s’exécuter "environ 25367 ans".
 
 Bien, je ne mets pas ça en doute. Mais dans ce cas, au bout de dix secondes je démarrai un autre instrument qui arrête toutes les instances de l’instrument "Zett". Nous utiliserons `turnoff2` ou `turnoff2_i` plus tard.
+
 ```
 <CsoundSynthesizer>
 <CsOptions>

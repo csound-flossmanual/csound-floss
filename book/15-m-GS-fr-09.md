@@ -12,6 +12,7 @@ Nous avons placé le code `schedule` hors du code de l’instrument. Dans ce cas
 Mais que se passe-t-il si je place aussi l’instruction `schedule` à l’intérieur d’un instrument ?
 
 Essayez-le :
+
 ```
 <CsoundSynthesizer>
 <CsOptions>
@@ -45,7 +46,9 @@ Le premier appel doit être hors de l’instrument :
 ```
 schedule("AppelsInfinis",0,2)
 ```
+
 Cette ligne de code appelle une première instance de l’instrument "AppelsInfinis". Mais à l’intérieur de cet instrument, nous avons de nouveau un appelle à un instrument. Trois secondes après la création de l’instance d’instrument, l’instance suivant arrivera :
+
 ```
 schedule("AppelsInfinis",3,2)
 ```
@@ -65,12 +68,12 @@ Voici ce que nous devons faire :
 
 Nous pouvons dessiner ce flux de programme :
 
-![alt text](../resources/images/01-GS-09-a.png)  
-_Flux de programme pour un re-déclenchement conditionnel d’instances d’un instrument._
+![Flux de programme pour un re-déclenchement conditionnel d’instances d’un instrument.](../resources/images/01-GS-09-a.png)
 
 ## L’opcode 'if' dans Csound
 
 Nous pouvons implémenter cette chaine limitée d’auto-planification / self-scheduling avec l’aide de l’opcode `if`. Essayez cet exemple en l’exécutant et en changeant la variable _iCount_ de 6 à 1, et observez la sortie :
+
 ```
 <CsoundSynthesizer>
 <CsOptions>
@@ -179,6 +182,7 @@ Suivent quelques exemples simples basés sur des situations du quotidien.
 « Si le soleil brille, alors je sortirai, sinon je resterai à la maison.»
 
 Voici la version Csound. Changez la variable _iSoleil_ s’il-vous-plait.
+
 ```
 <CsoundSynthesizer>
 <CsOptions>
@@ -267,16 +271,21 @@ Notez que dans la seconde condition `elseif(iHauteur > 60)`, nous incluons toute
 ## 'if(s) imbriqués, AND et OR
 ### Les if(s) imbriqués
 Nous pouvons avoir plusieurs niveaux de ramifications :
+
 "Si (if) le soleil brille, alors (then)
+
 - Si (if) j’ai besoin de fruits, alors (then) j’irai au marché,
 - Sinon (else) j’irai au bois ;
+
 Sinon (else) (= si le soleil est caché) :
+
 - Si (if) j’ai faim, alors (then) je me préparerai une petit plat,
 - Sinon (else) (= Si je n’ai pas faim) :
    - Si (if) je ne suis pas fatigué, j’apprendrai un peu de Csound,
    - Sinon (else) je ferai une sieste."
 
 La version Csound :
+
 ```
 <CsoundSynthesizer>
 <CsOptions>
@@ -329,6 +338,7 @@ Dans Csound, comme dans la plupart des langages de programmation, le symbole AND
 …et le symbol pour le OR logique est `||`.
 
 Voici un exemple qui utilise ces deux symboles. Essayez de changer les valeurs et regardez la sortie :
+
 ```
 <CsoundSynthesizer>
 <CsOptions>
@@ -380,6 +390,7 @@ avec le tutoriel suivant : [10 Hello Random/aléatoire](15-n-GS-fr-10.md).
 Dans Csound, il existe une forme courte pour `if` qui est très pratique quand on définit une variable à une certaine valeur en fonction d’une condition.
 
 Plutôt que :
+
 ```
 if(iCondition == 1) then
     iVariable = 10
@@ -387,7 +398,9 @@ else
     iVariable = 20
 endif
 ```
+
 … nous pouvons écrire :
+
 ```
 iVariable = (iCondition == 1) ? 10 : 20
 ```
@@ -398,10 +411,12 @@ Vous pouvez trouver un autre exemple [ici](https://flossmanual.csound.com/csound
 Il est même possible de construire des boucles avec l’opcode `if`. Je l’indique à titre d’information, pas pour écrire du code dans ce style. Mais ça montre que même pour la construction des boucles dans les langages de programmation, 'if' est dans les coulisses.
 
 Tout ce dont nous avons besoin, en plus de l’opcode `if`, c’est :
+
 - Une 'étiquette/label' qui marque une certaine position dans le texte du programme. Dans Csound, ces étiquettes/labels finissent par le symbole deux-points `:`. Ici, utilisons `start:` comme étiquette/label.
 - Un mécanisme 'sauter vers / jump to'. Dans Csound, c’est `goto`.
 
 Cette "ancienne façon" de boucler compte – dans le code suivant – de 10 à 1, puis quitte la boucle :
+
 ```
 <CsoundSynthesizer>
 <CsOptions>
@@ -438,6 +453,7 @@ L’opcode `prints` imprime une chaine/string dans la console.
 La chaine peut être une chaine de format / format string. Ça signifie qu’elle comporte des parties vides ou endroits réservés qui peuvent être remplis par des variables.
 
 Ces endroits réservés commencent toujours par `%` suivi d’un caractère qui représente un type de données. Les plus communes sont :
+
 - `%d` pour un entier
 - `%f` pour un nombre en virgule flottante
 - `%s` pour une string / chaine
@@ -445,6 +461,7 @@ Ces endroits réservés commencent toujours par `%` suivi d’un caractère qui 
 Notez qu’une nouvelle ligne doit est assignée par `\n`. Sinon, un fois imprimé, le message suivant serait collé immédiatement après, sur la même ligne.
 
 Voici un exemple simple :
+
 ```
 <CsoundSynthesizer>
 <CsOptions>

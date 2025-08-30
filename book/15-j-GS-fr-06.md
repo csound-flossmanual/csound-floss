@@ -43,6 +43,7 @@ C’est l’échelle en **décibels (dB)** qui reflète cela. Comme vous l’ave
 ```
 
 Zéro dB signifie ici : L’amplitude la plus élevée possible. Chaque rapport/ratio d’amplitude de 1/2 correspond alors une perte d’environ 6 dB. Il en résulte les relations suivantes entre les amplitudes et les décibels :
+
 |Amplitude|dB |
 |---------|---:|
 |1        |0   |
@@ -57,15 +58,16 @@ Zéro dB signifie ici : L’amplitude la plus élevée possible. Chaque rapp
 |0.001995 |-54 |
 |0.001    |-60 |
 
-Note 1 : Pour être précis, pour un rapport/ratio d’amplitude de 1/2, la différence est _-6.0206_dB_ plutôt que _-6 DB_. La colonne d’amplitude ne suit donc pas précisément le rapport 1/2.
+    Note 1 : Pour être précis, pour un rapport/ratio d’amplitude de 1/2, la différence est _-6.0206_dB_ plutôt que _-6 DB_. La colonne d’amplitude ne suit donc pas précisément le rapport 1/2.
 
-Note 2 : Vous pouvez en apprendre davantage sur les intensités sonores dan [ce livre](https://flossmanual.csound.com/basics/intensities).
+    Note 2 : Vous pouvez en apprendre davantage sur les intensités sonores dan [ce livre](https://flossmanual.csound.com/basics/intensities).
 
-Note 3 : Pour un contexte plus général, voyez la [loi Weber-Fechner](https://en.wikipedia.org/wiki/Weber%E2%80%93Fechner_law).
+    Note 3 : Pour un contexte plus général, voyez la [loi Weber-Fechner](https://en.wikipedia.org/wiki/Weber%E2%80%93Fechner_law).
 
 ## L’opcode 'ampdb'
 
 Nous préfèrerons donc habituellement travailler avec les décibels plutôt que les amplitudes brutes. Comme un oscillateur requière un amplitude comme argument d’entrée, nous devons **convertir les décibels en amplitudes**. Cette tache est accomplie par l’opcode `ampdb` (amplitude depuis décibel). Exécutez ceci, et regardez la sortie de la console :
+
 ```
 <CsoundSynthesizer>
 <CsOptions>
@@ -91,6 +93,7 @@ i "Convert" 0 0
 ```
 
 Vous devriez voir ce message :
+
 ```
 instr 1:  iAmp = 0.501
 ```
@@ -98,10 +101,13 @@ instr 1:  iAmp = 0.501
 Similaire à l’opcode `mtof`, l’opcode `ampdb` peut s’exécuter à l’_i-rate_ ou au _k-rate_. Ici nous avons utilisé _i-rate_, donc `ampdb:i`, car nous avons un nombre en entrée et non pas un signal.
 
 Nous utiliserons `ampdb:k` quand nous aurons des valeurs en décibel variables dans le temps en entrée. Dans le cas le plus simple, il s’agit d’une croissance ou d’une décroissance/decay linéaires. Nous pouvons créer ce signal d’entrée comme d’habitude avec l’opcode `linseg`. Voici un signal qui se déplace de -10 dB à -20 dB en une demi seconde :
+
 ```
 kDb = linseg:k(-10,0.5,-20)
 ```
+
 …et voici la conversion en amplitudes qui suit :
+
 ```
 kAmp = ampdb:k(kDb)
 ```
@@ -110,21 +116,21 @@ kAmp = ampdb:k(kDb)
 
 Jusqu’ici, nous avons toujours stocké la sortie d’un opcode dans une variable ; la sortie d’un opcode obtient ainsi un nom, et ce nom est alors utilisé comme entrée pour l’opcode suivant dans la chaine. Nous avons actuellement quatre liens chainés. Ces liens chainés sont écrits en tant que nombres à droite dans la figure suivante :
 
-![alt text](../resources/images/01-GS-06-a.png)  
-_Chaine d’entrée-sortie avec des variables._
+![Chaine d’entrée-sortie avec des variables.](../resources/images/01-GS-06-a.png)
 
 Il est possible d’omettre les noms de variables et de passer directement une expression comme argument d’entrée dans le lien chainé suivant. Voici le code pour sauter les noms de variables pour le lien chainé 2 :
+
 ```
 aSine = poscil:a(ampdb:k(kDb),mtof:k(kMidi))
 ```
 
 La figure peut maintenant être dessinée ainsi :
 
-![alt text](../resources/images/01-GS-06-b.png)  
-_Connexion directe au lien chainé 2._
+![Connexion directe au lien chainé 2.](../resources/images/01-GS-06-b.png)  
 
 ## Exemple
 Cette version est utilisée dans l’exemple de code.
+
 ```
 <CsoundSynthesizer>
 <CsOptions>
@@ -220,6 +226,7 @@ Nous pouvons donc dire : "J’amplifie ce signal de 6 dB", plutôt que : "
 Dans ce contexte, nous utiliserons un nombre positif comme entrée pour l’opcode `ampdb`.
 
 Voici une simple exemple :
+
 ```
 <CsoundSynthesizer>
 <CsOptions>
@@ -259,6 +266,7 @@ Si nous avons deux nombres, ou longueurs, et que nous cherchons celui qui se tro
 > La moyenne arithmétique se produit lorsqu’il y a trois termes présentant successivement le même excès : le deuxième dépasse le troisième de la même quantité que le premier dépasse le deuxième. Dans cette proportion, le rapport des nombres les plus grands est inférieur, et celui des plus petits est supérieur.
 
 Si le premier nombre est 8, et le deuxième est 2, nous recherchons le deuxième nombre comme moyenne arithmétique A et l’"excès" x, comme suit :
+
 ```
 A = x + 2
 8 = x + A
@@ -266,6 +274,7 @@ A = x + 2
 x + x = 6
 x = 3
 ```
+
 Donc la moyenne arithmétique A est 5, car 2 + 3 = 5, et 5 + 3 = D.
 
 Mais comme l’affirme Archytas, "Le rapport entre les grands nombres est moindre, celui entre les petits nombres est plus grand". Ici :
@@ -273,8 +282,8 @@ Mais comme l’affirme Archytas, "Le rapport entre les grands nombres est moindr
 8/5 = 1.6
 5/2 = 2.6
 ```
-![alt text](../resources/images/01-GS-06-c.png)  
-_Moyenne arithmétique de 8 et 2_
+![Moyenne arithmétique de 8 et 2](../resources/images/01-GS-06-c.png)  
+
 
 Ça correspond à ce que nous avons décrit  comme "D’abord trop lent, ensuite trop vite" dans le [précédent tutoriel](15-i-GS-fr-05.md)
 
@@ -283,46 +292,42 @@ Voici comment Archytas décrit la moyenne **géométrique** :
 La moyenne géométrique est le rapport entre le deuxième et le troisième élément, tel que le premier est au deuxième ; dans ce cas, les plus grands nombres ont le même rapport que les plus petits.
 
 Donc si nous cherchons la moyenne géométrique G entre 8 et 2, nous calculons :
-```
-8/G = G/2
-8 = G * G/2
-16 = G<sup>2</sup>
-G = 4
-```
-![alt text](../resources/images/01-GS-06-c1.png)  
-_Moyenne géométrique de 8 et 2_
+
+$8/G = G/2$  
+$8 = G * G/2$  
+$16 = G^2$  
+$G = 4$  
+
+![Moyenne géométrique de 8 et 2](../resources/images/01-GS-06-c1.png)  
 
 La moyenne géométrique de 8 et 2 est 4, car le rapport du nombre le plus large avec la moyenne, et le rapport de la moyenne avec le plus petit nombre est le même : 8/4 = 2, et 4/2 = 2.
 
 Il est intéressant d’observer la manière _géométrique_ de construire cette moyenne, telle qu’elle est présentée dans les Éléments d’Euclide (VI.8) :
-> Si, dans un triangle rectangle, une ligne droite est tracée à partir de l’angle droit perpendiculairement à la base, alors les triangles autour de la perpendiculaire sont similaires à l’ensemble du triangle et entre eux.  
-[Euclid's Elements of Geometry, Translation R. Fitzpatrick, p. 164, cited after](https://farside.ph.utexas.edu/Books/Euclid/Elements.pdf).
 
-![alt text](../resources/images/01-GS-06-d.png)  
-_Construction de la moyenne géométrique d’Euclide._
+    Si, dans un triangle rectangle, une ligne droite est tracée à partir de l’angle droit perpendiculairement à la base, alors les triangles autour de la perpendiculaire sont similaires à l’ensemble du triangle et entre eux.  
+    [Euclid's Elements of Geometry, Translation R. Fitzpatrick, p. 164, cited after](https://farside.ph.utexas.edu/Books/Euclid/Elements.pdf).
+
+![Construction de la moyenne géométrique d’Euclide.](../resources/images/01-GS-06-d.png)  
 
 Euclide décrit comment les deux triangles qui sont à gauche et à droite de cette perpendiculaire ont les mêmes angles, et que c’est également le cas quand on observe le grand triangle. Ça établit une similitude parfaite.
 
 La longueur de cette perpendiculaire est la moyenne géométrique des deux parties de la base. Selon le théorème de l’altitude du triangle rectangle, le carré de cette altitude est égal au produit des parties de base :
 
-```
 $$
 b^2 = a \cdot c \\
 b = \sqrt{a \cdot c}
 $$
-```
 
 C'est exactement la formule de la moyenne géométrique.
 
 Il existe également un lien étroit avec le nombre d'or, célèbre pour son utilisation dans l'art et la nature. Dans le triangle décrit par Euclide, cela signifie : Trouvez un triangle dont la plus petite partie de la base plus la hauteur est égale à la plus grande partie de la base :
 
-![alt text](../resources/images/01-GS-06-e.png)  
-_Le nombre d'or en tant que moyenne géométrique._
+![Le nombre d'or en tant que moyenne géométrique.](../resources/images/01-GS-06-e.png)  
 
-Actuellement, nous avons a=8, c=2 et b=4. De toute évidence, 8=4+2 n'est pas vrai.
-Nous pouvons déplacer légèrement le point de séparation vers la gauche, de sorte que a=7
- et c=3. Cela donne $7 = \sqrt{21} + 3$, ce qui n'est pas vrai non plus.
+Actuellement, nous avons a=8, $c=2$ et $b=4$. De toute évidence, $8=4+2$ n'est pas vrai.
+Nous pouvons déplacer légèrement le point de séparation vers la gauche, de sorte que $a=7$
+ et $c=3$. Cela donne $7 = \sqrt{21} + 3$, ce qui n'est pas vrai non plus.
 
-Malheureusement, le nombre d'or peut être facilement construit géométriquement, mais c'est un nombre irrationnel. Nous nous rapprochons toutefois lorsque nous choisissons des nombres de Fibonacci plus élevés. Par exemple, pour les nombres de Fibonacci b=88 et c=55, on obtient : a=b⋅b/c=88⋅88/55=140,8 au lieu des 143 souhaités.
+Malheureusement, le nombre d'or peut être facilement construit géométriquement, mais c'est un nombre irrationnel. Nous nous rapprochons toutefois lorsque nous choisissons des nombres de Fibonacci plus élevés. Par exemple, pour les nombres de Fibonacci b=88 et c=55, on obtient : $a=b⋅b/c=88⋅88/55=140,8$ au lieu des 143 souhaités.
 
 Cela convient peut-être pour la musique, qui a toujours besoin d'un peu d'imperfection pour vivre…
