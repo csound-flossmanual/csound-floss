@@ -1,4 +1,5 @@
 # 09 Bonjour If / si
+
 ## Ce que vous apprendrez dans ce tutoriel
 
 - Comment travailler avec **if-then / si-alors** dans Csound.
@@ -40,9 +41,11 @@ schedule("AppelsInfinis",0,2)
 </CsScore>
 </CsoundSynthesizer>
 ```
+
 Un chaine infinie d’appels est déclenchée.
 
 Le premier appel doit être hors de l’instrument :
+
 ```
 schedule("AppelsInfinis",0,2)
 ```
@@ -165,7 +168,9 @@ schedule("Salut", 0, 2, 72, 68, 6)
 ```
 
 ## Essayez-le vous-même
+
 Changez le code afin que d’instance en instance :
+
 - la durée entre deux instances augmente,
 - la durée entre deux instances diminue d’un rapport 1/2,
 - la durée augmente d’un rapport de 3/2
@@ -179,6 +184,7 @@ Changez le code afin que d’instance en instance :
 Suivent quelques exemples simples basés sur des situations du quotidien.
 
 ### if - else
+
 « Si le soleil brille, alors je sortirai, sinon je resterai à la maison.»
 
 Voici la version Csound. Changez la variable _iSoleil_ s’il-vous-plait.
@@ -269,7 +275,9 @@ i  "If_Elseif_then" 0 1
 Notez que dans la seconde condition `elseif(iHauteur > 60)`, nous incluons toutes les hauteurs plus hautes que 60 et plus graves ou égales à 80, car nous ne parvenons à cette branche que si la première condition `if(iHauteur > 80)` n’est pas remplie (not true).
 
 ## 'if(s) imbriqués, AND et OR
+
 ### Les if(s) imbriqués
+
 Nous pouvons avoir plusieurs niveaux de ramifications :
 
 "Si (if) le soleil brille, alors (then)
@@ -281,8 +289,8 @@ Sinon (else) (= si le soleil est caché) :
 
 - Si (if) j’ai faim, alors (then) je me préparerai une petit plat,
 - Sinon (else) (= Si je n’ai pas faim) :
-   - Si (if) je ne suis pas fatigué, j’apprendrai un peu de Csound,
-   - Sinon (else) je ferai une sieste."
+  - Si (if) je ne suis pas fatigué, j’apprendrai un peu de Csound,
+  - Sinon (else) je ferai une sieste."
 
 La version Csound :
 
@@ -404,6 +412,7 @@ endif
 ```
 iVariable = (iCondition == 1) ? 10 : 20
 ```
+
 Vous pouvez trouver un autre exemple [ici](https://flossmanual.csound.com/csound-language/control-structures#short-form-a-v-b-x-y) dans ce livre.
 
 ### Les boucles avec 'if'
@@ -445,6 +454,7 @@ i "LoopIf"  0  0  10
 </CsScore>
 </CsoundSynthesizer>
 ```
+
 Nous aurions pu écrire la ligne `iCount = iCount - 1` comme ceci : `iCount -=`
 
 ### Formatage des strings/chaines de caractères

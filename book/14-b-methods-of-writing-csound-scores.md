@@ -184,6 +184,7 @@ written:
 
 To test this, first save this file as _print.py_ in the same folder
 where your .csd examples are:
+
 ```python
 
 from sys import argv
@@ -219,7 +220,7 @@ And again a complaint about the invalid score file:
 
 To get rid of the complaints we must write the score file. This is a simple example, saved as _test.py_:
 
-``` python
+```python
 from sys import argv
 print("Script = '%s'" % argv[0])
 print("File to read = '%s'" % argv[1])
@@ -230,7 +231,7 @@ with open(argv[2], 'w') as out:
 
 Which is called in this Csound file:
 
-``` csound-csd 
+```csound-csd
 <CsoundSynthesizer>
 <CsInstruments>
 instr 1

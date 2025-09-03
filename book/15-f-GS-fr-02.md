@@ -9,9 +9,9 @@
 
 - Comment un **document .csd** Csound est structuré :
 
-    - Que sont les **CsOptions** et
+  - Que sont les **CsOptions** et
 
-    - Qu’est-ce que la section **CsInstruments** ou **orchestra**.
+  - Qu’est-ce que la section **CsInstruments** ou **orchestra**.
 
 ## Une ligne pour la fréquence
 
@@ -27,8 +27,7 @@ Le cas le plus simple de ce genre de mouvement est une ligne. Nous avons besoin 
 
 Voici une ligne qui se déplace de 500 à 400 en 0.5 secondes, et qui reste à 400 pendant 1.5 secondes :
 
-![Ligne de fréquence.](../resources/images/01-GS-02-a.png)  
-
+![Ligne de fréquence.](../resources/images/01-GS-02-a.png)
 
     Note : Acoustiquement, cette façon d’appliquer un _glissando_ est discutable. Nous en parlerons dans le [Tutoriel 05](15-i-GS-fr-05.md).
 
@@ -39,9 +38,11 @@ Voici une ligne qui se déplace de 500 à 400 en 0.5 secondes, et qui reste à
 Dans Csound, nous créons ce genre de ligne avec l’opcode `linseg`, qui signifie "linear segments / segments linéaires". Ici, nous n’avons besoin que d’un seul segment qui se déplace de 500 à 400 en 0.5 secondes.
 
 Voici le code Csound pour ce mouvement linéaire :
+
 ```
 kFreq = linseg:k(500, 0.5, 400)
 ```
+
 ## Signal k-rate (à la fréquence de contrôle)
 
 Un signal est quelque chose dont les valeurs changent au cours du temps. Mais qu’est-ce que le temps dans une application audio comme Csound ?
@@ -50,14 +51,14 @@ Le temps fondamental est donné par la **sample rate / fréquence d’échantill
 
 La seconde résolution temporelle possible dans Csound est moins fine. Elle ne calcule pas une nouvelle valeur à chaque échantillon, mais seulement par **groupe d’échantillons**. Cette résolution temporelle est appelée **control rate / fréquence de contrôle**.
 
-![audio rate vs control rate](../resources/images/01-GS-02-b.png)  
-
+![audio rate vs control rate](../resources/images/01-GS-02-b.png)
 
 Les variable Csound qui comportent un **k** comme premier caractère, utilisent la fréquence de contrôle / control rate. Leurs valeurs sont mises à jour à la fréquence de contrôle. C’est la raison pour laquelle nous écrivons _**k**Freq_.
 
 Après l’opcode, avant la parenthèse, nous plaçons `:k` pour signifier que cet opcode utilise la fréquence de contrôle comme résolution temporelle.
 
 Je recommande toujours d’utiliser **k** ou **a** aux deux positions :
+
 - À gauche de la variable, et aussi
 - à droite, juste après le opcode.
 
@@ -70,7 +71,7 @@ Vous en apprendre plus sur _k-rate_ dans le prochain tutoriel.
 
 ## Exemple
 
-Appuyez sur le bouton "Play". Vous entendrez un son dont la hauteur descend.  
+Appuyez sur le bouton "Play". Vous entendrez un son dont la hauteur descend.
 Pouvez-vous voir comment la ligne mobile est introduite dans l’oscillateur ?
 
 ```
@@ -102,7 +103,7 @@ i "Bonjour" 0 2
 
 Si vous examinez le code de notre instrument, vous constaterez qu’il existe un schéma commun :
 
-![Input output insertions](../resources/images/01-GS-02-c.png)  
+![Input output insertions](../resources/images/01-GS-02-c.png)
 
 - La première ligne produit un signal et le stocke dans la variable _kFreq_. Cette variable est ensuite utilisée comme entrée dans la seconde ligne.
 
@@ -123,6 +124,7 @@ Comme vous pouvez le voir, ces trois paires de balises sont englobées entre une
 ```
 <CsoundSynthesizer>...</CsoundSynthesizer>
 ```
+
 Cette dernière paire de balises définit les limites d’écriture pour le programme Csound. En d’autre termes : Ce que nous écrivons hors de ces limites est ignoré par Csound.
 
 ## Essayez-le vous-même
@@ -179,7 +181,7 @@ endin
 
 Si vous exécutez ce code, vous entendrez que `line` comporte une importante différence par rapport à `linseg` : il ne s’arrête pas à la valeur-cible, mais continue son mouvement :
 
-![line vs linseg](../resources/images/01-GS-02-d.png)  
+![line vs linseg](../resources/images/01-GS-02-d.png)
 
 Les cas d’utilisation de `line` ne sont pas courants. Je recommande donc toujours d’utiliser `linseg`, sauf exception.
 
@@ -250,7 +252,6 @@ aFreq = linseg:a(500,0.5,400)
 aSine = poscil:a(0.2,aFreq)
 outall(aSine)
 ```
-
 
 Un simple avis :
 

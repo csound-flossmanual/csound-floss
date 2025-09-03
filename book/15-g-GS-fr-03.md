@@ -17,7 +17,7 @@ Maintenant que nous avons compris comment créer des lignes, nous pouvons égale
 
 Voici un signal qui se déplace de 0.3 à 0.1 en une demi-seconde :
 
-![Amplitude decay/décroissance](../resources/images/01-GS-03-a.png)  
+![Amplitude decay/décroissance](../resources/images/01-GS-03-a.png)
 
 Et ce code devrait déjà vous être familier :
 
@@ -80,8 +80,8 @@ La constante **ksmps** définit combien d’échantillons audio sont collectés 
 
 - Quand vous utilisez huit haut-parleurs, vous devez configurer `nchnls = 8`. Vous aurez besoin d’une carte son avec au moins huit canaux pour la sortie en temps réel.
 
-    Note : Csound suppose que vous avez le même nombre de canaux d’entrée que de canaux de sortie. Si ce n’est pas le cas, vous devez utiliser la constante `nchnls_i` pour configurer le nombre de canaux d’entrée.  
-    Par exemple, si vous avez 8 canaux de sortie mais 4 canaux d’entrée sur votre interface audio, configurez :
+  Note : Csound suppose que vous avez le même nombre de canaux d’entrée que de canaux de sortie. Si ce n’est pas le cas, vous devez utiliser la constante `nchnls_i` pour configurer le nombre de canaux d’entrée.
+  Par exemple, si vous avez 8 canaux de sortie mais 4 canaux d’entrée sur votre interface audio, configurez :
 
 ```
 nchnls = 8
@@ -126,7 +126,7 @@ Comme vous avez pu le comprendre, il est donc fortement recommandé de toujours 
 
 ## Exemple
 
-Voyez comment les lignes _kAmp_ et _kFreq_ sont créées par l’opcode `linseg`.  
+Voyez comment les lignes _kAmp_ et _kFreq_ sont créées par l’opcode `linseg`.
 Ces deux lignes sont alimentées via les deux noms de variables dans l’oscillateur `poscil`.
 
 ```
@@ -172,7 +172,7 @@ i "Bonjour" 0 2
 
 Nous pouvons dessiner le flux du signal de notre instrument ainsi :
 
-![Flux du signal](../resources/images/01-GS-03-b.png)  
+![Flux du signal](../resources/images/01-GS-03-b.png)
 
 S’il vous plait, comparez cette version au [diagram de flux du signal du Tutoriel 1](15-e-GS-fr-01.md#le-flux-dun-signal-et-son-code). Les deux entrées pour l’oscillateur `poscil` ne sont plus deux nombres, mais deux signaux, qui sont les sorties des opcodes `linseg`.
 
@@ -221,9 +221,11 @@ Pour résumer :
 - `0dbfs` nombre pour représenter l’amplitude maximum à zéro dB à pleine échelle.
 
 ### Termes
+
 - _Block Size_ et _Vector Size_ sont des termes équivalent à `ksmps` dans Csound : le nombre de samples dans un cycle de contrôle.
 
 ## Avançons
+
 avec le tutoriel suivant : [04 Bonjour Fondu en sortie](15-h-GS-fr-04.md)
 
 ## ou lisez quelques explications supplémentaires ici
@@ -239,6 +241,7 @@ avec le tutoriel suivant : [04 Bonjour Fondu en sortie](15-h-GS-fr-04.md)
     Note 4 : Bien que `ksmps` soit une constante, nous pouvons configurer une **ksmps locale** dans un instrument. L’opcode destiné à cette opération est `setksmps`. Parfois, nous voulons exécuter un opcode _k-rate_ dans un instrument échantillon par échantillon. Dans ce cas, nous pouvons utiliser `setksmps(1)`. Nous pouvons seulement séparer le `ksmps` globale en parties plus petite, jamais l’inverse.
 
 ### Comment cela se passe-t-il dans PD ?
+
 [Pure Data](http://puredata.info/) est un autre langage de programmation audio populaire. Contrairement à Csound, il n’est pas basé sur le texte, mais utilise des symboles visuels pour la programmation. Vous pouvez imaginer que le flux du programme que nous avons dessiné plus haut sous forme de symboles est maintenant sur votre écran, et vous connectez les boites-objet avec des cables symboliques.
 
 (Il est possible, de cette façon, d’emballer Csound dans PD). Apprenez en plus dans [ce livre](https://flossmanual.csound.com/csound-in-other-applications/csound-in-pd) si vous êtes intéressé.
@@ -247,8 +250,7 @@ Il pourrait être intéressant de regarder comment des constantes importantes co
 
 Toutes les configurations peuvent être trouvées dans les _audio settings_… qui ressemblent à ça dans ma version de PD :
 
-![Fenêtre de configuration audio dans PD.](../resources/images/01-GS-03-pd-audio.png)  
-
+![Fenêtre de configuration audio dans PD.](../resources/images/01-GS-03-pd-audio.png)
 
 - en haut à gauche, on règle le **sample rate**. En dessous à droite, on sélectionne la **taille de bloc / block size**. C’est exactement la même chose que le _ksmps_ dans Csound. La taille de bloc sélectionnée de 64 est ce que nous avons fait avec :
 

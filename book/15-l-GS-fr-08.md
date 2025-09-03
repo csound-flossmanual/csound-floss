@@ -108,7 +108,7 @@ schedule("Bonjour",   12.5,   .5, 73, 73.5)
 </CsInstruments>
 <CsScore>
 </CsScore>
-</CsoundSynthesizer> 
+</CsoundSynthesizer>
 ```
 
 ## Essayez-le vous même
@@ -124,7 +124,7 @@ Assurez-vous que vous arrêtez et redémarrez toujours Csound quand vous vous d�
 - En interne, Csound convertit tous les instruments nommés en un nombre entier positif. Vous pouvez obtenir ce nombre via l’opcode `nstrnum`. Placez le code `iQuelEstTonNumero = nstrnum("Bonjour")` n’importe où dans la section `CsInstruments`, par exemple sous les lignes `schedule`. La performance Csound devrait être identique.
 
 - Quand nous appelons l’instrument "Bonjour" cinq fois, comme nous l’avons fait dans l’exemple, nous appelons cinq instances de cet instrument. Nous pouvons assigner des nombres à ces instances en appelant l’instrument comme un nombre fractionnaire. Plutôt que d’appeler l’instrument **1**, nous appellerons l’instrument 1.1, 1.2, 1.3, 1.4 et 1.5.  
-Remplacez le premier argument de `schedule` par ces nombres et insérez `print(p1)` dans le code de l’instrument, pour prouver que l’instrument reçoit cette information.
+  Remplacez le premier argument de `schedule` par ces nombres et insérez `print(p1)` dans le code de l’instrument, pour prouver que l’instrument reçoit cette information.
 
 ## Csound s’exécute, s’exécute et s’exécute…
 
@@ -175,7 +175,9 @@ Vous trouverez des informations détaillées dans ces pages de référence. Cert
 Vous lirez peut être aussi quelque chose d’obsolète sur l’une de ces pages. Pour un projet Open Source, c’est souvent un problème majeur de garder la documentation à jour. Chacun de nous peut contribuer, par exemple en ouvrant un ticket sur Github ou en suggérant une amélioration au manuel de référence à la [communauté Csound](https://csound.com/contribute.html).
 
 ## Les opcodes que vous avez appris dans ce tutoriel
+
 ### Opcodes
+
 - `schedule` appelle une instance d’instrument comme le fait une ligne de partition `i`.
 - `nstrnum` retourne le numéro interne à Csound d’un nom d’instrument.
 
@@ -311,7 +313,7 @@ i -1 10 0 0
 </CsoundSynthesizer>
 ```
 
-Nous entendons que quand la seconde instance démarre après une seconde, la première instance est brutalement arrêtée. Csound suppose que nous voulons continuer une ligne _legato_ ; donc aucune raison pour qu’il y ait plus d’une instance en même temps.
+Nous entendons que quand la seconde instance démarre après une seconde, la première instance est brutalement arrêtée. Csound suppose que nous voulons continuer une ligne *legato* ; donc aucune raison pour qu’il y ait plus d’une instance en même temps.
 
 Toutefois, après dix secondes la note tenue s’arrête élégamment, interrompue par le dernier évènement de score, qui comporte `-1` comme premier paramètre. Le fade-out est ici produit par l’opcode `linenr`. Nous en dirons plus à son sujet quand nous en serons à parler de l’entrée MIDI temps réel.
 
