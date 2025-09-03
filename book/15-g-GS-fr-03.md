@@ -25,7 +25,8 @@ Et ce code devrait déjà vous être familier :
 kAmp = linseg:k(0.3,0.5,0.1)
 ```
 
-    Notez qu’acoustiquement, cette façon de changer le volume est discutable. Nous en parlerons dans le Tutoriel 06.
+    Notez qu’acoustiquement, cette façon de changer le volume est discutable.
+    Nous en parlerons dans le Tutoriel 06.
 
 ## Retour au début
 
@@ -232,13 +233,36 @@ avec le tutoriel suivant : [04 Bonjour Fondu en sortie](15-h-GS-fr-04.md)
 
 ### Quelques notes sur ksmps
 
-    Note 1 : Il est recommandé d’utiliser des valeurs **puissance-de deux** pour `ksmps`. Les valeurs courantes sont 32 (= $2^5$) ou 64 (= $2^6$). Ceci est dû à la gestion des entrées/sorties de l’audio. Vous trouverez la même chose dans d’autres applications.
+    Note 1 : Il est recommandé d'utiliser des valeurs **puissance-de deux**
+    pour `ksmps`. Les valeurs courantes sont 32 (= $2^5$) ou 64 (= $2^6$).
+    Ceci est dû à la gestion des entrées/sorties de l'audio. Vous trouverez
+    la même chose dans d'autres applications.
 
-    Note 2 : L’avantage d’un `ksmps` **plus petit** est une meilleur définition temporelle pour le control rate. Si le sample rate est 441000 Hz, nous avons une résolution temporelle de 1/44100 secondes par sample/échantillon. C’est une durée d’environ 0.000023 secondes, ou 0.023 millisecondes entre deux samples. Quand nous réglons `ksmps = 64` pour ce sample rate de 44100 Hz, nous obtenons 64/44100 secondes comme résolution temporelle entre deux blocs, ou deux valeurs de contrôle. Ça se situe autour de 0.00145 secondes, ou 1.45 milliseconds entre deux blocs, ou valeurs de contrôles. Quand nous réglons `ksmps = 32` pour le même sample rate, nous obtenons 0.725 millisecondes comme résolution temporelle pour chaque nouvelle valeur de contrôle.
+    Note 2 : L'avantage d'un `ksmps` **plus petit** est une meilleur
+    définition temporelle pour le control rate. Si le sample rate est
+    441000 Hz, nous avons une résolution temporelle de 1/44100 secondes
+    par sample/échantillon. C'est une durée d'environ 0.000023 secondes,
+    ou 0.023 millisecondes entre deux samples. Quand nous réglons
+    `ksmps = 64` pour ce sample rate de 44100 Hz, nous obtenons
+    64/44100 secondes comme résolution temporelle entre deux blocs, ou
+    deux valeurs de contrôle. Ça se situe autour de 0.00145 secondes,
+    ou 1.45 milliseconds entre deux blocs, ou valeurs de contrôles.
+    Quand nous réglons `ksmps = 32` pour le même sample rate, nous
+    obtenons 0.725 millisecondes comme résolution temporelle pour
+    chaque nouvelle valeur de contrôle.
 
-    Note 3 : L’avantage d’un `ksmps` plus large est une meilleure performance en termes de vitesse. Si vous avez un fichier Csound complexe et très consommateur de ressource CPU, vous risquez d’obtenir des 'dropouts / pertes'. Dans ce cas, tentez d’augmenter `ksmps`.
+    Note 3 : L'avantage d'un `ksmps` plus large est une meilleure
+    performance en termes de vitesse. Si vous avez un fichier Csound
+    complexe et très consommateur de ressource CPU, vous risquez
+    d'obtenir des 'dropouts / pertes'. Dans ce cas, tentez d'augmenter
+    `ksmps`.
 
-    Note 4 : Bien que `ksmps` soit une constante, nous pouvons configurer une **ksmps locale** dans un instrument. L’opcode destiné à cette opération est `setksmps`. Parfois, nous voulons exécuter un opcode _k-rate_ dans un instrument échantillon par échantillon. Dans ce cas, nous pouvons utiliser `setksmps(1)`. Nous pouvons seulement séparer le `ksmps` globale en parties plus petite, jamais l’inverse.
+    Note 4 : Bien que `ksmps` soit une constante, nous pouvons configurer
+    une **ksmps locale** dans un instrument. L'opcode destiné à cette
+    opération est `setksmps`. Parfois, nous voulons exécuter un opcode
+    _k-rate_ dans un instrument échantillon par échantillon. Dans ce cas,
+    nous pouvons utiliser `setksmps(1)`. Nous pouvons seulement séparer
+    le `ksmps` globale en parties plus petite, jamais l'inverse.
 
 ### Comment cela se passe-t-il dans PD ?
 

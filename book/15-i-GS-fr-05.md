@@ -95,7 +95,10 @@ Vous devriez voir ce message vers la fin de la sortie de la console :
 instr 1: iFreq = 293.665
 ```
 
-    Note : l’opcode `print` ne fonctionne **qu’avec les variables i-rate**. Vous ne pouvez pas utiliser cet opcode pour imprimer des variables _k-rate_ ou _a-rate_. Nous verrons plus tard des opcodes pour imprimer des variables k-rate ou a-rate.
+    Note : l'opcode `print` ne fonctionne **qu'avec les variables i-rate**.
+    Vous ne pouvez pas utiliser cet opcode pour imprimer des variables
+    _k-rate_ ou _a-rate_. Nous verrons plus tard des opcodes pour imprimer
+    des variables k-rate ou a-rate.
 
 ## Exemple
 
@@ -434,6 +437,8 @@ iFreq = 466.164
 
 … n’ont rien à voir l’un avec l’autre.
 
-Plus généralement, la partition/score n’est pas constituée de code Csound. La partition est à la base une liste d’appels d’instruments, accompagnée de quelques simples conventions. Aucun langage de programmation ici.
+Plus généralement, la partition/score n’est pas constituée de code Csound.
+La partition est à la base une liste d’appels d’instruments, accompagnée de quelques simples conventions. Aucun langage de programmation ici.
 
-Ça peut parfois prêter à confusion pour des débutants. Mais en Csound moderne, la partition reste souvent vide. Nous verrons comment ça fonctionne dans le [tutoriel 07](15-k-GS-fr-07.md).
+Ça peut parfois prêter à confusion pour des débutants. Mais en Csound moderne, la partition reste souvent vide.
+Nous verrons comment ça fonctionne dans le [tutoriel 07](15-k-GS-fr-07.md).
