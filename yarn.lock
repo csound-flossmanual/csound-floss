@@ -2525,10 +2525,10 @@
     style-mod "^4.0.0"
     w3c-keyname "^2.2.4"
 
-"@csound/browser@^7.0.0-beta3":
-  version "7.0.0-beta3"
-  resolved "https://registry.yarnpkg.com/@csound/browser/-/browser-7.0.0-beta3.tgz#749bad570569b00679c94af6f65c77760f36788d"
-  integrity sha512-tNC8flrNFQnaYynaOdm9ztkTQkePCs7mUM+y8iEviXUwhKR2d+1RVqwFcaU1B5x6n5SIpxF5MT+saLWclvOKEA==
+"@csound/browser@^7.0.0-beta5":
+  version "7.0.0-beta5"
+  resolved "https://registry.yarnpkg.com/@csound/browser/-/browser-7.0.0-beta5.tgz#26342367ffdc959ab77df6345d15752a99f2f9ce"
+  integrity sha512-fpE2CRINucbvt02eA6I9+fQUOTUpHzVvX4ZlVJi3Tuf0kWYxALy0OQSH6j9Qsv25kfKiBNrGyj6gnfw9GoyeZw==
   dependencies:
     eventemitter3 "^4.0.7"
     google-closure-compiler "^20221102.0.1"
