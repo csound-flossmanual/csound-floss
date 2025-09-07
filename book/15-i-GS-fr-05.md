@@ -1,4 +1,5 @@
 # 05. Bonjour touches MIDI / Midi keys
+
 ## Ce que vous apprendrez dans ce tutoriel
 
 - Comment travailler avec les **numéros de note MIDI** plutôt que les valeurs de fréquences.
@@ -8,11 +9,13 @@
 ## Problèmes liés à l’utilisation des fréquences brutes
 
 Dans [Bonjour Fréquences](15-f-GS-fr-02.md), nous avions créé une _line_, ou en terme musical, un _glissando_ de la fréquence 500 Hz à 400 Hz :
+
 ```
 kFreq = linseg:k(500, 0.5, 400)
 ```
 
 Ici, nous avons deux problèmes :
+
 1. Quand nous demandons à un musicien de jouer une certaine hauteur, nous disons « Peux-tu jouer un **Ré / D** », ou « Peux-tu jouer un **Ré4 / D4** ». Mais à quelle note correspond 500 Hz ?
 2. Lorsque nous effectuons un glissando de 500 Hz à 400 Hz, nous ne le faisons en réalité pas de manière aussi linéaire que nous pourrions le penser.
 
@@ -26,7 +29,7 @@ Je recommande l’utilisation des numéros de notes MIDI, car ils sont faciles �
 
 Tout ce que vous devez savoir au sujet des numéros ou touches MIDI : _C4_ est réglé sur la note numéro 60. Puis chaque demi-ton, ou chaque touche suivante sur un clavier MIDI, est _plus un_ pour monter, et _moins un_ pour descendre.
 
-![Numéros de notes MIDI.](../resources/images/01-GS-05-a.png)  
+![Numéros de notes MIDI.](../resources/images/01-GS-05-a.png)
 
 Si vous voulez convertir n’importe quelle note MIDI en sa fréquence relative, utilisez l’opcode `mtof` (midi to frequency).
 
@@ -92,13 +95,20 @@ Vous devriez voir ce message vers la fin de la sortie de la console :
 instr 1: iFreq = 293.665
 ```
 
+<<<<<<< HEAD
 Note : l’opcode `print` ne fonctionne **qu’avec les variables i-rate**. Vous ne pouvez pas utiliser cet opcode pour imprimer des variables _k-rate_ ou _a-rate_. Nous verrons plus tard des opcodes pour imprimer des variables k-rate ou a-rate.
+=======
+    Note : l'opcode `print` ne fonctionne **qu'avec les variables i-rate**.
+    Vous ne pouvez pas utiliser cet opcode pour imprimer des variables
+    _k-rate_ ou _a-rate_. Nous verrons plus tard des opcodes pour imprimer
+    des variables k-rate ou a-rate.
+>>>>>>> c9576890a19c871cb299cf2796c5d68c80ef27f0
 
 ## Exemple
 
 Nous allons maintenant utiliser des notes MIDI pour le glissando, plutôt que des fréquences brutes.
 
-Nous créons une _line_ qui se déplace en une demi seconde de la note MIDI 72 (C5) à la note MIDI 68 (Ab4). Nous stockons cette _line_ de notes MIDI dans la variable _kMidi_ :
+Nous créons une _line_ qui se déplace en une demi seconde de la note MIDI 72 (C5) à la note MIDI 68 (Ab4). Nous stockons cette _line_ de notes MIDI dans la variable *kMidi* :
 
 ```
 kMidi = linseg:k(72,0.5,68)
@@ -143,20 +153,22 @@ i "Bonjour" 0 2
 ```
 
 ## L’opcode 'prints' et les 'strings/chaines de caractères'
+
 Jusqu’à présent nous n’avons eu à faire qu’à des nombres.
 
 Nous avons vu que des nombres peuvent être calculés seulement une fois, à l’_i-rate_, ou qu’il sont calculés encore et encore à chaque bloc de samples, donc au _k-rate_, ou même qu’ils sont calculés encore et encore à chaque sample/échantillon, donc à l’_a-rate_.
 
-Mais tous sont des nombres.  
+Mais tous sont des nombres.
 C’est assez naturel pour une application audio, comparée par exemple à un traitement de texte.
 
 Cependant, même dans une application audio, nous avons parfois besoins d’écrire du texte, par exemple quand nous pointons un fichier son comme "monfichier.wav".
 
 Ce type de données, qui commence et finit par des guillemets doubles, est appelé une **string/chaine de caractère**.
 
-L’opcode `prints` est similaire à l’opcode `print`, sauf qu’il imprime un string, et pas un nombre.  
+L’opcode `prints` est similaire à l’opcode `print`, sauf qu’il imprime un string, et pas un nombre.
 
 Essayez-le :
+
 ```
 <CsoundSynthesizer>
 <CsOptions>
@@ -184,7 +196,7 @@ Vous vous demandez peut-être ce qu’est ce `\n` à la fin du string. C’est u
 
 S’il-vous-plait, comparez : supprimez les deux caractères `\n` et exécutez le code de nouveau. Vous verrez que la sortie de la console est maintenant suivie immédiatement par le message Csound suivant, sans saut de ligne.
 
-Ou ajoutez  un autre `\n`, et vous verrez une ligne vide après "Hello String!".  
+Ou ajoutez un autre `\n`, et vous verrez une ligne vide après "Hello String!".
 En fait, il existe bien d’autres spécificateurs de format. Nous y reviendront dans le [Tutoriel 09](15-m-GS-fr-09.md).
 
 ## Essayez-le vous même
@@ -199,27 +211,32 @@ Changez le signal _kMidi_ afin que :
 Changez aussi ceci :
 
 5. Créez deux variables _iFreqStart_ et _iFreqEnd_ pour les deux notes MIDI. (vous aurez besoin de convertir les notes MIDI au taux _i-rate_ pour ça.) Insérez alors ces _i-variables_ dans la ligne `kFreq = linseg(...)`. Comparez le résultat à celui de l’exemple.
-6. Codez une "échelle chromatique" (= toujours utiliser la note MIDI suivante) qui descend de _D5_ à _A4_. Chaque note MIDI dure une seconde, puis se déplace à la note suivante. Vous pouvez obtenir ça avec `linseg` en utilisant zéro comme durée entre deux notes. Voici le début :  
-`kMidi = linseg:k(74,1,74,0,73,...)`. N’oubliez pas d’ajuster la durée totale dans la partition ; sinon vous n’entendrez pas les series de hauteurs bien que vous les ayez créées.
+6. Codez une "échelle chromatique" (= toujours utiliser la note MIDI suivante) qui descend de _D5_ à _A4_. Chaque note MIDI dure une seconde, puis se déplace à la note suivante. Vous pouvez obtenir ça avec `linseg` en utilisant zéro comme durée entre deux notes. Voici le début :
+   `kMidi = linseg:k(74,1,74,0,73,...)`. N’oubliez pas d’ajuster la durée totale dans la partition ; sinon vous n’entendrez pas les series de hauteurs bien que vous les ayez créées.
 
 ## Opcodes et termes que vous avez appris dans ce tutoriel
+
 ### Opcodes
+
 - `mtof:i(MIDI_note)` Convertisseur MIDI-to-frequency pour une note MIDI.
 - `mtof:k(MIDI_notes)` Convertisseur MIDI-to-frequency pour un signal _k-rate_.
 - `print(iVariable)` Imprime les variables de type _i-rate_ sur la console Csound.
 - `prints(String)` Imprime une string/chaine de caractères sur la console Csound.
 
 ### Termes
+
 - _i-rate_ est le moment (en tant que point, non en tant que durée) où un instrument est initialisé.
 - _une variable i-rate_, ou _i-variable_ est une variable qui obtient une valeur seulement une fois, au moment de l’initialisation d’un instrument.
 - A _string_ est une chaine de caractères, délimitée par des guillemets doubles. Je recommande d’utiliser uniquement des caractères ASCII dans Csound pour éviter les problèmes.
 
 ## Avançons
+
 avec le tutoriel suivant : [06 Bonjour Decibel](15-j-GS-fr-06.md).
 
 ## … ou lisez quelques explications supplémentaires ici
 
 ### Le même n’est pas le même…
+
 Il vaut la peine d’examiner de plus près le cas d’une ligne de hauteurs par rapport à une ligne de fréquences. Nous avons deux possibilités lorsque nous créons un _glissando_ entre deux notes MIDI :
 
 1. Soit nous créons d’abord la ligne entre les deux notes MIDI. Puis nous convertissons cette ligne en fréquences. C’est ce que nous avons fait dans l’exemple de code :
@@ -258,7 +275,7 @@ kFreqLine_2 = linseg:k(iFreqStart, 12, iFreqEnd)
 
 Quand nous utilisons un oscillateur pour chacune des deux lignes de fréquences, nous pouvons écouter les deux versions en même temps. La _kFreqLine_1_ sortira sur le canal gauche, et la _kFreqLine_2_ sur le canal droit.
 
-Pour mieux comparer, nous voulons aussi voir le numéro de note MIDI dans chaque version de signal. Pour _kFreqLine_1_, c’est le signal _kMidiLine_1_ que nous avons créé. Mais quelles hauteurs MIDI correspondent avec les fréquences du signal _kFreqLine_2_ ?
+Pour mieux comparer, nous voulons aussi voir le numéro de note MIDI dans chaque version de signal. Pour _kFreqLine_1_, c’est le signal _kMidiLine_1_ que nous avons créé. Mais quelles hauteurs MIDI correspondent avec les fréquences du signal *kFreqLine_2* ?
 
 Nous pouvons obtenir ces hauteurs via l’opcode `ftom` (frequency to midi). Cet opcode est l’inverse de l’opcode `mtof`. Pour `ftom`, nous avons une fréquence en entrée, et obtenons un numéro de note MIDI en sortie. Donc, pour obtenir les hauteurs correspondant à _kFreqLine_2_, nous écrivons :
 
@@ -328,13 +345,15 @@ Time   Pitches_1  Freqs_1      Freqs_2  Pitches_2
 11      59.00     246.942      275.000    60.86
 12      57.00     220.000      220.000    57.00
 ```
+
 Lorsque nous traçons les deux courbes de fréquence, nous constatons que la première ressemble à une courbe concave, tandis que la seconde est une ligne droite :
 
 ![Transition proportionnelle vs. linéaire.](../resources/images/01-GS-05-b.png)
 
-Sur ce graphique, nous voyons que _Freqs_1 atteint 440 Hz à la moitié de la durée, tandis que _Freqs_2 atteint 550 Hz à la moitié de la durée.
+Sur ce graphique, nous voyons que \_Freqs_1 atteint 440 Hz à la moitié de la durée, tandis que \_Freqs_2 atteint 550 Hz à la moitié de la durée.
 
 La line _Freqs_2_ **soustrait** 55 Hz à chaque seconde de l’exécution :
+
 ```
 880.000 - 55.000 = 825.000
 825.000 - 55.000 = 770.000
@@ -355,14 +374,14 @@ Notre perception suit des **ratios/rapports**. Nous y reviendrons dans le [tutor
 
 Ce que nous entendons est ce que les impressions des _Hauteurs/Pitches_ montrent :
 
-![Vue des Pitch/Hauteur des transitions proportionnelles vs. linéaires des fréquences.](../resources/images/01-GS-05-c.png)  
+![Vue des Pitch/Hauteur des transitions proportionnelles vs. linéaires des fréquences.](../resources/images/01-GS-05-c.png)
 
 Nous entendons que la première ligne descend régulièrement, tandis que la seconde est trop lente au début, puis trop rapide à la fin.
 
 Dans le graphique, les points sur les lignes pointent la note MIDI 69, qui est une octave plus bas que la note de départ.
 
 - Ce point est atteint après 6 secondes par la ligne _Pitches_1_. C’est correcte pour une hauteur qui décroit régulièrement. Nous avons deux octaves qui sont parcourues en 12 secondes, donc chaque octave a besoin de 6 secondes.
-- La ligne _Pitches_2, toutefois, atteint la note MIDI 69 après 8 secondes. Elle a donc besoin des 2/3 du temps total pour arriver à la première octave, puis seulement 1/3 pour arriver à la seconde octave.
+- La ligne \_Pitches_2, toutefois, atteint la note MIDI 69 après 8 secondes. Elle a donc besoin des 2/3 du temps total pour arriver à la première octave, puis seulement 1/3 pour arriver à la seconde octave.
 
 l’écriture en notation musicale de ces "trop lent" et "trop vite" donne ça :
 
@@ -419,8 +438,11 @@ iFreq = 466.164
 ```
 
 ### 'i' dans la partition/score, et 'i-rate'…
+
 … n’ont rien à voir l’un avec l’autre.
 
-Plus généralement, la partition/score n’est pas constituée de code Csound. La partition est à la base une liste d’appels d’instruments, accompagnée de quelques simples conventions. Aucun langage de programmation ici.
+Plus généralement, la partition/score n’est pas constituée de code Csound.
+La partition est à la base une liste d’appels d’instruments, accompagnée de quelques simples conventions. Aucun langage de programmation ici.
 
-Ça peut parfois prêter à confusion pour des débutants. Mais en Csound moderne, la partition reste souvent vide. Nous verrons comment ça fonctionne dans le [tutoriel 07](15-k-GS-fr-07.md).
+Ça peut parfois prêter à confusion pour des débutants. Mais en Csound moderne, la partition reste souvent vide.
+Nous verrons comment ça fonctionne dans le [tutoriel 07](15-k-GS-fr-07.md).

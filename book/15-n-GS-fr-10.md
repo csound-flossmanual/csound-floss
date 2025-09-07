@@ -1,4 +1,5 @@
 # 10 Bonjour Aléatoire / Random
+
 ## Ce que vous apprendrez dans ce tutoriel
 
 - Comment travailler avec des **nombres aléatoires** dans Csound.
@@ -57,6 +58,7 @@ Nombre aléatoire entre 10 et 20: 18.828730
 Ce point de départ d’une séquence aléatoire est appelé **seed/graine**. Si nous ne définissons pas une graine/seed, Csound utilise un nombre fixe. C’est la raison pour laquelle nous obtenons toujours le même nombre.
 
 L’opcode `seed` offre deux possibilités :
+
 - `seed(0)` sera défini par l’heure actuelle. C’est ce que font la plupart des applications par défaut. Le nombre résultant donnera donc toujours un valeur de départ différente. En général, c’est ce que nous voulons quand on utilise le hasard/random.
 - Pour chaque nombre entier placé dans `seed`, par exemple `seed(1)` ou `seed(783298)`, nous obtenons une certaine valeur de départ pour la séquence aléatoire. `seed(1)` produira un résultat différent que `seed(783298)`. Mais une fois que vous exécutez votre programme Csound une deuxième fois avec `seed(1)`, il en résultera la même valeur aléatoire. C’est une bonne occasion de découvrir différentes possibilités aléatoires, tout en gardant la possibilité de reproduire chacune d’entre elles précisément.
 
@@ -102,8 +104,14 @@ Voici ce que nous pouvons faire dans l’espace global :
 
 - Nous pouvons définir des paramètres comme le taux d’échantillonnage, etc., et aussi le `seed`, car c’est un paramètre global également.
 - Nous pouvons définir nos propres fonctions ou importer du code externe.
+<<<<<<< HEAD
 - Nous pouvons créer des tables/tampons (buffers) et assigner des canaux  logiciels.
 - Nous pouvons exécuter des expression _i-rate_. Par exemple, `prints("Bonjour Espace Global!\n")` dans l’espace global, et regarder son résultat dans la sortie de console.
+=======
+- Nous pouvons créer des tables/tampons (buffers) et assigner des canaux logiciels.
+- Nous pouvons exécuter des expression _i-rate_. Par exemple,  
+   `prints("Bonjour Espace Global!\n")` dans l’espace global, et regarder son résultat dans la sortie de console.
+>>>>>>> c9576890a19c871cb299cf2796c5d68c80ef27f0
 
 Ce que nous ne pouvons pas faire dans l’espace globale :
 
@@ -213,6 +221,7 @@ C’est intéressant de voir que les notes 2 et 3 allongent leur durées comme a
 Mais sur des exécutions longues, les durée plus grandes prévaudront, de telle façon que de plus en plus de notes sonneront en même temps, formant un accord de plus en plus complexe.
 
 ## Essayez-le vous-même
+
 - Définissez la graine à `seed(0)` plutôt que `seed(12345)` et écoutez quelques exécutions.
 - Changez la ligne `iDur = …` afin d’obtenir des possibilités égales de durées courtes ou de durées longues. Faites-vous votre idée de cette version.
 - Changez la même ligne que précédemment afin que les durées les plus longues deviennent de plus en plus courtes.
@@ -259,10 +268,10 @@ instr RandomWalk
   if (iCount > 1) then
     //Les notes se suivent toujours
     iStart = p3
-    //La durée suivante est plus ou moins la moitié 
+    //La durée suivante est plus ou moins la moitié
     //des maximum/minimum courants
     iDur = p3 + random:i(-p3/2,p3/2)
-    //La hauteur suivante est à un demi-ton au dessus 
+    //La hauteur suivante est à un demi-ton au dessus
     //ou en dessous des demi-tons maximum/minimum actuels
     iNextPitch = iMidiPitch + random:i(-1,1)
     //Le volume suivant est à ±2dB au dessus ou dessous des dB maximum/minimum
@@ -289,6 +298,7 @@ schedule("RandomWalk",0,2,71,-20,50)
 </CsScore>
 </CsoundSynthesizer>
 ```
+
 _Marche Aléatoire_
 
 Sans changer les conditions de cette marche aléatoire, nous obtenons une extrême réduction des durées à la fin de la séquence.
@@ -306,13 +316,13 @@ En général, le hasard en art fait partie de notre fantaisie et de notre invent
 
 ## Avançons
 
-avec le  tutoriel suivant : _11 Hello Keys_ (à venir).
+avec le tutoriel suivant : _11 Hello Keys_ (à venir).
 
 ## … Ou lisez quelques explications supplémentaires ici
 
 ### Souvenez-vous de i-rate et k-rate…
 
-Vous avez peut-être remarqué que jusqu’ici nous n’avons utilisé random qu’au taux d’instrument (i-rate). Comme vous l’avez appris dans le [Tutoriel 05](15-i-GS-fr-05.md), ça signifie que la valeur aléatoire n’est générée qu’une fois, au moment de l’initialisation de l’instance de l’instrument.  
+Vous avez peut-être remarqué que jusqu’ici nous n’avons utilisé random qu’au taux d’instrument (i-rate). Comme vous l’avez appris dans le [Tutoriel 05](15-i-GS-fr-05.md), ça signifie que la valeur aléatoire n’est générée qu’une fois, au moment de l’initialisation de l’instance de l’instrument.
 
 Que se passe-t-il si nous utilisons `random` au taux de contrôle (k-rate) ? Comme :
 
@@ -353,8 +363,7 @@ Parfois nous voulons que la valeur aléatoire se maintienne jusqu’à la suivan
 Les arguments d’entrée de `randomh` ont la même signification que ceux de `randomi`.  
 Voici – avec les même arguments d’entrée du tracé précédent – la sortie obtenue avec `randomh` :
 
-![Random avec valeurs maintenues.](../resources/images/01-GS-10-e.png)  
-
+![Random avec valeurs maintenues.](../resources/images/01-GS-10-e.png)
 
 Tout ça n’est qu’un petit aperçu de l’univers immense de _random_.
 
@@ -392,4 +401,8 @@ Je pense que ça devrait être suffisant pour vous permettre de vous repérer da
 - Ou au [chapitre 04](https://flossmanual.csound.com/sound-synthesis) pour étudier les méthodes de synthèse sonore.
 - Ou encore au [chapitre 05](https://flossmanual.csound.com/sound-modification) où vous découvrirez comment modifier des sons existants.
 
+<<<<<<< HEAD
 Note du traducteur : Les trois chapitres mentionnés ci-dessus ne sont pas encore traduits en français. Peut-être un jour ;)
+=======
+  Note du traducteur : Les trois chapitres mentionnés ci-dessus ne sont pas encore traduits en français. Peut-être un jour ;)
+>>>>>>> c9576890a19c871cb299cf2796c5d68c80ef27f0

@@ -1,5 +1,7 @@
 # 06 Bonjour Decibels
+
 ## Ce que vous apprendrez dans ce tutoriel
+
 - Comment la **perception humaine** suit des **ratios/rapports**, non seulement dans le domaine des fréquences, mais aussi dans celui des **amplitudes**.
 - Comment fonctionne l’échelle des **Decibels (dB)**.
 - Comment **convertir** des valeurs en **Decibels** en **amplitudes**.
@@ -13,56 +15,69 @@ Il existe un défaut similaire quand on travail avec des valeurs d’amplitude b
 
 Nous entendons les fréquences de la colonne de gauche comme des octaves, car elles ont toutes le rapport/ratio 2/1 :
 
-|Fréquence|Vers >|Ratio/Rapport|
-|---|---|---|
-|8000 Hz|> 8000 Hz/4000 Hz =|2:1|
-|4000 Hz|> 4000 Hz/2000 Hz =|2:1|
-|2000 Hz|> 2000 Hz/1000 Hz =|2:1|
-|1000 Hz|> 1000 Hz/500 Hz = |2:1|
-|500 Hz |> 500 Hz/250 Hz  = |2:1|
-|250 Hz |> 250 Hz/125 Hz  = |2:1|
-|125 Hz |||
+| Fréquence | Vers >              | Ratio/Rapport |
+| --------- | ------------------- | ------------- |
+| 8000 Hz   | > 8000 Hz/4000 Hz = | 2:1           |
+| 4000 Hz   | > 4000 Hz/2000 Hz = | 2:1           |
+| 2000 Hz   | > 2000 Hz/1000 Hz = | 2:1           |
+| 1000 Hz   | > 1000 Hz/500 Hz =  | 2:1           |
+| 500 Hz    | > 500 Hz/250 Hz =   | 2:1           |
+| 250 Hz    | > 250 Hz/125 Hz =   | 2:1           |
+| 125 Hz    |                     |               |
 
 De la même façon, nous percevons ces amplitudes comme ayant une perte de volume égale, car elles suivent toutes le même rapport :
 
-|Amplitude|Vers >|Ratio/Rapport|
-|---|---|---|
-|1     |>1/0.5        =|2|
-|0.5   |>0.5/0.25     =|2|
-|0.25  |>0.25/0.125   =|2|
-|0.125 |>0.125/0.0625 =|2|
-|0.0625|||
+| Amplitude | Vers >          | Ratio/Rapport |
+| --------- | --------------- | ------------- |
+| 1         | >1/0.5 =        | 2             |
+| 0.5       | >0.5/0.25 =     | 2             |
+| 0.25      | >0.25/0.125 =   | 2             |
+| 0.125     | >0.125/0.0625 = | 2             |
+| 0.0625    |                 |               |
 
 Comme vous le voyez, après seulement quatre "octaves d’intensité", nous obtenons une amplitude inférieure à 0.1. Mais l’oreille humaine est capable de percevoir environ **quinze** de ces octaves d’intensité !
 
 ## Decibel
 
 C’est l’échelle en **décibels (dB)** qui reflète cela. Comme vous l’avez appris dans le [tutoriel 02](15-f-GS-fr-02.md), nous réglons l’amplitude 1 comme référence à la valeur zéro dB par cette instruction dans l’entête de l’orchestre :
+
 ```
 0dbfs = 1
 ```
 
 Zéro dB signifie ici : L’amplitude la plus élevée possible. Chaque rapport/ratio d’amplitude de 1/2 correspond alors une perte d’environ 6 dB. Il en résulte les relations suivantes entre les amplitudes et les décibels :
 
-|Amplitude|dB |
-|---------|---:|
-|1        |0   |
-|0.5      |-6  |
-|0.25     |-12 |
-|0.125    |-18 |
-|0.063    |-24 |
-|0.0316   |-30 |
-|0.01585  |-36 |
-|0.00794  |-42 |
-|0.00398  |-48 |
-|0.001995 |-54 |
-|0.001    |-60 |
+| Amplitude |  dB |
+| --------- | --: |
+| 1         |   0 |
+| 0.5       |  -6 |
+| 0.25      | -12 |
+| 0.125     | -18 |
+| 0.063     | -24 |
+| 0.0316    | -30 |
+| 0.01585   | -36 |
+| 0.00794   | -42 |
+| 0.00398   | -48 |
+| 0.001995  | -54 |
+| 0.001     | -60 |
 
+<<<<<<< HEAD
 Note 1 : Pour être précis, pour un rapport/ratio d’amplitude de 1/2, la différence est _-6.0206_dB_ plutôt que _-6 DB_. La colonne d’amplitude ne suit donc pas précisément le rapport 1/2.
 
 Note 2 : Vous pouvez en apprendre davantage sur les intensités sonores dan [ce livre](https://flossmanual.csound.com/basics/intensities).
 
 Note 3 : Pour un contexte plus général, voyez la [loi Weber-Fechner](https://en.wikipedia.org/wiki/Weber%E2%80%93Fechner_law).
+=======
+    Note 1 : Pour être précis, pour un rapport/ratio d’amplitude de 1/2,
+    la différence est _-6.0206_dB_ plutôt que _-6 DB_. La colonne d’amplitude
+    ne suit donc pas précisément le rapport 1/2.
+
+    Note 2 : Vous pouvez en apprendre davantage sur les intensités sonores
+    dan[ce livre](https://flossmanual.csound.com/basics/intensities).
+
+    Note 3 : Pour un contexte plus général, voyez la
+    [loi Weber-Fechner](https://en.wikipedia.org/wiki/Weber%E2%80%93Fechner_law).
+>>>>>>> c9576890a19c871cb299cf2796c5d68c80ef27f0
 
 ## L’opcode 'ampdb'
 
@@ -126,9 +141,10 @@ aSine = poscil:a(ampdb:k(kDb),mtof:k(kMidi))
 
 La figure peut maintenant être dessinée ainsi :
 
-![Connexion directe au lien chainé 2.](../resources/images/01-GS-06-b.png)  
+![Connexion directe au lien chainé 2.](../resources/images/01-GS-06-b.png)
 
 ## Exemple
+
 Cette version est utilisée dans l’exemple de code.
 
 ```
@@ -187,10 +203,12 @@ Vous êtes le meilleur juge. Relisez votre code une semaine après, et alors fai
 - Jouez à omettre les noms de variables dans les liens chainés 1, 3 ou 4. Quelle version préférez-vous?
 
 ## Les opcodes que vous avez appris dans ce tutoriel
+
 - `ampdb:i(iDecibel)` : convertit un nombre en décibels en un nombre en amplitude.
 - `ampdb:k(kDecibel)` : convertit un signal en décibels en un signal en amplitudes.
 
 ## Avançons…
+
 avec le tutoriel suivant : [07 Hello p-Fields](15-k-GS-fr-07.md)
 
 ## ou lisez quelques explications supplémentaires ici
@@ -263,6 +281,7 @@ Il est souvent intéressant de revenir, à partir de la musique électronique, s
 Ce que nous avons abordé dans ce tutoriel et dans le précédent à propos des transitions _linéaires et proportionnelles_ en fréquences et en amplitudes a été décrit par des mathématiciens de la Grèce antique comme des séries _arithmétiques_ et _géométriques_.
 
 Si nous avons deux nombres, ou longueurs, et que nous cherchons celui qui se trouve "entre les deux", la moyenne **arithmétique** recherche la **distance** égale entre le plus petit et le plus grand. Ou, selon les mots d’Archytas de Tarente (débat du IVè siècle av. J.C) :
+
 > La moyenne arithmétique se produit lorsqu’il y a trois termes présentant successivement le même excès : le deuxième dépasse le troisième de la même quantité que le premier dépasse le deuxième. Dans cette proportion, le rapport des nombres les plus grands est inférieur, et celui des plus petits est supérieur.
 
 Si le premier nombre est 8, et le deuxième est 2, nous recherchons le deuxième nombre comme moyenne arithmétique A et l’"excès" x, comme suit :
@@ -278,14 +297,15 @@ x = 3
 Donc la moyenne arithmétique A est 5, car 2 + 3 = 5, et 5 + 3 = D.
 
 Mais comme l’affirme Archytas, "Le rapport entre les grands nombres est moindre, celui entre les petits nombres est plus grand". Ici :
+
 ```
 8/5 = 1.6
 5/2 = 2.6
 ```
-![Moyenne arithmétique de 8 et 2](../resources/images/01-GS-06-c.png)  
 
+![Moyenne arithmétique de 8 et 2](../resources/images/01-GS-06-c.png)
 
-Ça correspond à ce que nous avons décrit  comme "D’abord trop lent, ensuite trop vite" dans le [précédent tutoriel](15-i-GS-fr-05.md)
+Ça correspond à ce que nous avons décrit comme "D’abord trop lent, ensuite trop vite" dans le [précédent tutoriel](15-i-GS-fr-05.md)
 
 Voici comment Archytas décrit la moyenne **géométrique** :
 
@@ -293,21 +313,31 @@ La moyenne géométrique est le rapport entre le deuxième et le troisième él�
 
 Donc si nous cherchons la moyenne géométrique G entre 8 et 2, nous calculons :
 
-$8/G = G/2$  
-$8 = G * G/2$  
-$16 = G^2$  
-$G = 4$  
+$8/G = G/2$
+$8 = G * G/2$
+$16 = G^2$
+$G = 4$
 
-![Moyenne géométrique de 8 et 2](../resources/images/01-GS-06-c1.png)  
+![Moyenne géométrique de 8 et 2](../resources/images/01-GS-06-c1.png)
 
 La moyenne géométrique de 8 et 2 est 4, car le rapport du nombre le plus large avec la moyenne, et le rapport de la moyenne avec le plus petit nombre est le même : 8/4 = 2, et 4/2 = 2.
 
 Il est intéressant d’observer la manière _géométrique_ de construire cette moyenne, telle qu’elle est présentée dans les Éléments d’Euclide (VI.8) :
 
+<<<<<<< HEAD
 Si, dans un triangle rectangle, une ligne droite est tracée à partir de l’angle droit perpendiculairement à la base, alors les triangles autour de la perpendiculaire sont similaires à l’ensemble du triangle et entre eux.  
 [Euclid's Elements of Geometry, Translation R. Fitzpatrick, p. 164, cited after](https://farside.ph.utexas.edu/Books/Euclid/Elements.pdf).
+=======
+    Si, dans un triangle rectangle, une ligne droite est tracée à partir
+    de l'angle droit
+    perpendiculairement à la base, alors les triangles autour de la
+    perpendiculaire sont similaires à
+    l’ensemble du triangle et entre eux.
+    [Euclid's Elements of Geometry, Translation R. Fitzpatrick, p. 164,
+    cited after](https://farside.ph.utexas.edu/Books/Euclid/Elements.pdf).
+>>>>>>> c9576890a19c871cb299cf2796c5d68c80ef27f0
 
-![Construction de la moyenne géométrique d’Euclide.](../resources/images/01-GS-06-d.png)  
+![Construction de la moyenne géométrique d’Euclide.](../resources/images/01-GS-06-d.png)
 
 Euclide décrit comment les deux triangles qui sont à gauche et à droite de cette perpendiculaire ont les mêmes angles, et que c’est également le cas quand on observe le grand triangle. Ça établit une similitude parfaite.
 
@@ -322,11 +352,11 @@ C'est exactement la formule de la moyenne géométrique.
 
 Il existe également un lien étroit avec le nombre d'or, célèbre pour son utilisation dans l'art et la nature. Dans le triangle décrit par Euclide, cela signifie : Trouvez un triangle dont la plus petite partie de la base plus la hauteur est égale à la plus grande partie de la base :
 
-![Le nombre d'or en tant que moyenne géométrique.](../resources/images/01-GS-06-e.png)  
+![Le nombre d'or en tant que moyenne géométrique.](../resources/images/01-GS-06-e.png)
 
 Actuellement, nous avons a=8, $c=2$ et $b=4$. De toute évidence, $8=4+2$ n'est pas vrai.
 Nous pouvons déplacer légèrement le point de séparation vers la gauche, de sorte que $a=7$
- et $c=3$. Cela donne $7 = \sqrt{21} + 3$, ce qui n'est pas vrai non plus.
+et $c=3$. Cela donne $7 = \sqrt{21} + 3$, ce qui n'est pas vrai non plus.
 
 Malheureusement, le nombre d'or peut être facilement construit géométriquement, mais c'est un nombre irrationnel. Nous nous rapprochons toutefois lorsque nous choisissons des nombres de Fibonacci plus élevés. Par exemple, pour les nombres de Fibonacci b=88 et c=55, on obtient : $a=b⋅b/c=88⋅88/55=140,8$ au lieu des 143 souhaités.
 

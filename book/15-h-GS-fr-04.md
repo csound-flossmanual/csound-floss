@@ -1,6 +1,7 @@
 # 04 Bonjour fondu en sortie / fade out
 
 ## Ce que vous apprendrez dans ce tutoriel
+
 - Comment appliquer des **fondus/fades linéaires** à un instrument.
 - Ce que sont le **p-fields / p-champs**.
 - Ce que signifie **p3** dans un instrument.
@@ -11,17 +12,17 @@ Jusqu’ici, le son produit par notre instrument s’achève brutalement. Cela e
 
 Imaginez une onde sinusoïdale qui est coupée n’importe où. Peut-être par exemple comme ça :
 
-![Là, on obtient un 'clic' à la fin de l’onde sinusoïdale.](../resources/images/01-GS-04-a.png)  
-
+![Là, on obtient un 'clic' à la fin de l’onde sinusoïdale.](../resources/images/01-GS-04-a.png)
 
 Dans ce cas, nous entendrons un clic à la fin. Mais même sans ce clic, on préfère généralement adoucir la fin, comme les sons naturels se terminent.
 
 L’opcode Csound `linen` est très pratique pour appliquer de simples fondus/fades à un signal audio.
 
 ### L’opcode 'linen'
+
 Une enveloppe créée par `linen` ressemble à ça :
 
-![L’opcode 'linen'](../resources/images/01-GS-04-b.png)  
+![L’opcode 'linen'](../resources/images/01-GS-04-b.png)
 
 Nous avons besoin de trois nombres pour ajuster les fondus dans `linen` :
 
@@ -51,7 +52,7 @@ Nous appelons ces valeurs des `**parameter fields / champs de paramètres**, ou 
 
 Nous avons trois p-fields dans la partition, abrégés en **p1**, **p2** et **p3**.
 
-![Champs/fields de paramètres dans la partition.](../resources/images/01-GS-04-c.png)  
+![Champs/fields de paramètres dans la partition.](../resources/images/01-GS-04-c.png)
 
 ## 'p3' dans un instrument
 
@@ -138,16 +139,23 @@ Changez le code pour que :
 ## Opcodes et symbols que vous avez appris dans ce tutoriel
 
 ### Opcodes
+
 - `linen:a(aIn,Fade-in,Duration,Fade-out)` fade-in et fade-out linéaire.
 
 ## Symbols
+
 - `p1` : le premier paramètre d’une ligne de partition, qui appelle l’instrument à l’aide du nom ou du numéro de cet instrument.
 - `p2` : le second paramètre d’une ligne de partition qui définit l’heure de début de l’instrument.
 - `p3` : le troisième paramètre d’une ligne de partition qui définit la durée de cet évènement instrumental.
 
+<<<<<<< HEAD
 Note : `p3` fait référence à la partition, mais n’a aucune signification à l’intérieur de celle-ci. Csound affichera une erreur si vous écrivez **p3** comme symbole dans la partition. Il n’a de signification que dans le code de l’**instrument**.
+=======
+  Note : `p3` fait référence à la partition, mais n’a aucune signification à l’intérieur de celle-ci. Csound affichera une erreur si vous écrivez **p3** comme symbole dans la partition. Il n’a de signification que dans le code de l’**instrument**.
+>>>>>>> c9576890a19c871cb299cf2796c5d68c80ef27f0
 
 ## Avançons
+
 avec le tutoriel suivant : [05. Bonjour touches/keys MIDI](15-i-GS-fr-05.md).
 
 ## … Ou lisez quelque explications supplémentaires ici
@@ -158,7 +166,7 @@ La première entrée de `linen` est l’amplitude.
 
 Dans le cas le plus simple, cette amplitude est un nombre fixe. Si c’est 1, alors nous obtenons la forme de base que nous avons vue au début de ce chapitre :
 
-![linen avec une amplitude de 1](../resources/images/01-GS-04-d.png)  
+![linen avec une amplitude de 1](../resources/images/01-GS-04-d.png)
 
 `linen:a(1,0.2,p3,0.5)` produira un fade-in entre 0 et 1 en 0.2 secondes, et un fade-out entre 1 et 0 en 0.5 secondes, sur une durée totale **p3** définie dans un évènement instrumentale dans la partition/score.
 
@@ -188,8 +196,8 @@ D’un autre côté, les enveloppes _a-rate_ sont préférables car elles sont r
 
 Vous pouvez en apprendre davantage à ce sujet [ici](https://flossmanual.csound.com/csound-language/initialization-and-performance-pass#possible-problems-with-k-rate-tick-size). Je recommande personnellement de toujours utiliser des enveloppes a-rate.
 
-Est-ce bien d’utiliser des fondus/fades linéaires ?  
-Un fondu linéaire est un fondu qui dessine une ligne pour créer une transition entre 0 et 1, ou entre 1 et 0. C’est de là que vient le nom _linen_ : un générateur d’enveloppe linéaire.
+Est-ce bien d’utiliser des fondus/fades linéaires ?
+Un fondu linéaire est un fondu qui dessine une ligne pour créer une transition entre 0 et 1, ou entre 1 et 0. C’est de là que vient le nom *linen* : un générateur d’enveloppe linéaire.
 
 Une alternative consiste à utiliser des courbes pour les fondus/fades.
 
