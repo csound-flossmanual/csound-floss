@@ -31,7 +31,7 @@ Les entrées d’un opcode sont appelées **arguments** et sont écrites entre p
 La signification des arguments en entrée dépend de la façon dont l’opcode a été implémenté. Pour `poscil`, la première entrée est l’amplitude et la seconde entrée est la fréquence. Le [Manuel de Référence Csound](https://csound.com/docs/manual-fr/index.html) contient toutes les informations à son sujet. Nous apporterons quelques éclaircissements dans notre [Tutoriel 08](15-l-GS-fr-08.md) pour aider à son utilisation.
 
 Cette manière d’écrire du code est commune à de nombreux langages de programmation, comme `range(13)` en Python, ou `printf("no no")` en C, ou `Date.now()` en JavaScript (dans ce cas les parenthèses sont vides, ce qui signifie : pas d’argument en entrée).
-    Note : Il existe une autre manière d’écrire du code Csound. Si vous voulez en apprendre plus sur ce sujet, voyez la section "Deux façons d’écrire du code dans Csound" à la fin de ce tutoriel.
+Note : Il existe une autre manière d’écrire du code Csound. Si vous voulez en apprendre plus sur ce sujet, voyez la section "Deux façons d’écrire du code dans Csound" à la fin de ce tutoriel.
 
 ## Le flux d’un signal et son code
 Nous créons maintenant une onde sinusoïdale d’une amplitude de 0.2 et de 400 cycles par seconde (Hz).  
@@ -186,7 +186,8 @@ Vous pouvez sans problème continuer d’écrire le code Csound ainsi. Les raiso
 3. Le style fonctionnel d’écrire du code Csound a toujours existé dans des expressions comme `ampdb(-10)` ou `ftlen(giTable)`. Ce n’est donc pas totalement nouveau, mais plutôt une extension.
 4. Chaque fois que nous voulons utiliser une expression comme argument (vous en apprendrez plus à ce sujet dans le [tutoriel 6](15-j-GS-fr-06.md)), nous devons écrire le code de cette manière. Il est donc bon de l’utiliser en permanence pour plus de cohérence.
 
-    NOTE DU TRADUCTEUR pour les francophones : Sauf dans les commentaires où ça ne pose aucun problème, n’utilisez que des caractères ASCII dans vos programmes. J’ai essayé et chez moi ça plante. Donc pas de lettres accentuées, pas de œ et autres signes propres au français.
+NOTE DU TRADUCTEUR pour les francophones : Sauf dans les commentaires où ça ne pose aucun problème, n’utilisez que des caractères ASCII dans vos programmes.
+J’ai essayé et chez moi ça plante. Donc pas de lettres accentuées, pas de œ et autres signes propres au français.
 
 ## Au sujet de ces tutoriels
 Ce _Guide de démarrage_ a été écrit par Joachim Heintz en 2023. Il est basé sur de nombreuses expériences d’enseignement de Csound auprès de jeunes compositeurs.

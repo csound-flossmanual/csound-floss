@@ -145,7 +145,7 @@ Changez le code pour que :
 - `p2` : le second paramètre d’une ligne de partition qui définit l’heure de début de l’instrument.
 - `p3` : le troisième paramètre d’une ligne de partition qui définit la durée de cet évènement instrumental.
 
-    Note : `p3` fait référence à la partition, mais n’a aucune signification à l’intérieur de celle-ci. Csound affichera une erreur si vous écrivez **p3** comme symbole dans la partition. Il n’a de signification que dans le code de l’**instrument**.
+Note : `p3` fait référence à la partition, mais n’a aucune signification à l’intérieur de celle-ci. Csound affichera une erreur si vous écrivez **p3** comme symbole dans la partition. Il n’a de signification que dans le code de l’**instrument**.
 
 ## Avançons
 avec le tutoriel suivant : [05. Bonjour touches/keys MIDI](15-i-GS-fr-05.md).
