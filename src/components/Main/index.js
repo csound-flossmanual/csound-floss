@@ -4,8 +4,10 @@ import { jsx } from "@emotion/react";
 // eslint-disable-next-line no-unused-vars
 import React, { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import HomeScreen from "../HomeScreen";
+import HomeScreenFr from "../HomeScreenFr";
 import { Route, Routes } from "react-router-dom";
 import routes from "../../book_fragments/routes.json";
+import routesFr from "../../book_fragments_fr/routes.json";
 import { map } from "ramda";
 import { browserHistory } from "../../history";
 import * as ß from "./styles";
@@ -73,9 +75,9 @@ function Main({ currentRoute, mobileMode, setCurrentRoute }) {
   }, [onRouteChange]);
 
   const memoizedRoutes = useMemo(() => {
-    return map((route) => {
-      const LazyComp = lazy(() =>
-        import(`../../book_fragments/${route.module}`)
+    const englishRoutes = map((route) => {
+      const LazyComp = lazy(
+        () => import(`../../book_fragments/${route.module}`)
       );
       return (
         <Route
@@ -89,6 +91,25 @@ function Main({ currentRoute, mobileMode, setCurrentRoute }) {
         />
       );
     }, routes);
+
+    const frenchRoutes = map((route) => {
+      const LazyComp = lazy(
+        () => import(`../../book_fragments_fr/${route.module}`)
+      );
+      return (
+        <Route
+          path={route.url}
+          key={route.url}
+          element={
+            <Suspense fallback={<LoadingSpinner />}>
+              <LazyComp key={"lazy-fr-" + route.url} />
+            </Suspense>
+          }
+        />
+      );
+    }, routesFr || []);
+
+    return [...englishRoutes, ...frenchRoutes];
   }, []);
 
   return (
@@ -99,6 +120,7 @@ function Main({ currentRoute, mobileMode, setCurrentRoute }) {
         <Routes>
           {memoizedRoutes}
           <Route path="/interactive-demo" element={<InteractiveDemo />} />
+          <Route path="/fr" element={<HomeScreenFr />} />
           <Route path="/" element={<HomeScreen />} />
         </Routes>
       </div>

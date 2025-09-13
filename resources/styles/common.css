@@ -217,7 +217,7 @@ li {
 }
 
 q {
-  quotes: "\201C""\201D""\2018""\2019";
+  quotes: "\201C" "\201D" "\2018" "\2019";
 }
 
 sub,
@@ -269,6 +269,40 @@ table td {
 img {
   border: 0;
   max-width: 100%;
+}
+
+/* PNG images background for dark mode visibility - using DarkReader's approach */
+img[src$=".png"],
+img[src*=".png?"],
+img[src*=".png#"] {
+  background-color: transparent;
+  transition: background-color 0.3s ease;
+  /* Add a subtle border to help with visibility */
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 4px;
+}
+
+/* DarkReader will automatically invert colors, so we use a class-based approach */
+.dark-mode img[src$=".png"],
+.dark-mode img[src*=".png?"],
+.dark-mode img[src*=".png#"],
+body.dark-mode img[src$=".png"],
+body.dark-mode img[src*=".png?"],
+body.dark-mode img[src*=".png#"] {
+  background-color: #f0f0f0 !important;
+  border-color: #ddd !important;
+}
+
+/* Force background for PNG images when any dark theme is detected */
+html[style*="filter"] img[src$=".png"],
+html[style*="filter"] img[src*=".png?"],
+html[style*="filter"] img[src*=".png#"],
+body[style*="filter"] img[src$=".png"],
+body[style*="filter"] img[src*=".png?"],
+body[style*="filter"] img[src*=".png#"] {
+  background-color: #f0f0f0 !important;
+  border-color: #ddd !important;
 }
 
 code, /* code in text */

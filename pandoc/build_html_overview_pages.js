@@ -2,8 +2,13 @@ const path = require("path");
 const R = require("ramda");
 const fg = require("fast-glob");
 const fs = require("fs");
-const { BOOK_DIRECTORY, JSX_OUTPUT } = require("./constants");
-const toc = require("../toc.json");
+const {
+  BOOK_DIRECTORY,
+  JSX_OUTPUT,
+  TOC_FILE,
+  IS_FRENCH,
+} = require("./constants");
+const toc = require(TOC_FILE);
 
 const prepend = ({ title }) => `
 import React, { useEffect } from "react";
@@ -52,22 +57,35 @@ const makeId = (s) =>
     .toLowerCase()
     .replace(/\//, "")
     .replace(/([\W])+/g, "-")
-    .replace(/(_|\-| )+$/, "")
-    .replace(/^(_|\-| )+/, "")
-    .replace(/\-_/g, "-")
-    .replace(/_\-/g, "-")
-    .replace(/\-+/g, "-")
+    .replace(/(_|-| )+$/, "")
+    .replace(/^(_|-| )+/, "")
+    .replace(/-_/g, "-")
+    .replace(/_-/g, "-")
+    .replace(/-+/g, "-")
     .replace("-csd", ".csd");
 
-const buildOverviewPages = () => {
+const buildOverviewPages = (lang = null) => {
+  // Determine language: prioritize argument, fall back to env var, default to 'en'
+  const currentLang = lang || process.env.LANG || "en";
+  const isFrench = currentLang === "fr";
+
+  // Load language-specific constants
+  const langDirSuffix = isFrench ? "-fr" : "";
+  const fragmentsDirSuffix = isFrench ? "_fr" : "";
+  const bookDirectory = path.resolve(__dirname, `../book${langDirSuffix}`);
+  const jsxOutput = path.resolve(
+    __dirname,
+    `../src/book_fragments${fragmentsDirSuffix}`
+  );
+  const tocFile = isFrench ? "../toc-fr.json" : "../toc.json";
+  const toc = require(tocFile);
+
   for (const { chapter, with_overview_page = false, name, url_prefix } of toc) {
     if (with_overview_page) {
       const chapterPrefix = chapter < 10 ? `0${chapter}` : `${chapter}`;
       const chapterFiles = fg
-        .sync([`${BOOK_DIRECTORY}/${chapterPrefix}*.md`], { dot: false })
+        .sync([`${bookDirectory}/${chapterPrefix}*.md`], { dot: false })
         .sort();
-
-      const sections = [];
       let overviewMarkdown = `<Heading as='h1' fontWeight="400" noOfLines={1}>Chapter ${chapter} overview - ${name}</Heading>`;
       // overviewMarkdown = `${overviewMarkdown}\n<Heading as='h2'>${name}</Heading>`;
       overviewMarkdown = `${overviewMarkdown}\n<Accordion sx={{borderColor: "aliceblue"}} allowMultiple>`;
@@ -147,7 +165,7 @@ const buildOverviewPages = () => {
             to="${url_prefix}/${sectionBasename}#${subsectionId}">${subsectionClean}</Link>\n`;
 
           overviewMarkdown = `${overviewMarkdown}<UnorderedList p="0">`;
-          subsubSectionsMd = subsubSections.map((s) => [
+          const subsubSectionsMd = subsubSections.map((s) => [
             `${(s || "undefined subchapter")
               .replace(/[0-9]_/g, " ")
               .replace(cleanHeadingIdRegex, "")}`,
@@ -178,7 +196,7 @@ const buildOverviewPages = () => {
       })}\n${overviewMarkdown}\n${append}`;
       // console.log(jsxPage);
       fs.writeFileSync(
-        path.join(JSX_OUTPUT, `${chapterPrefix}-overview.jsx`),
+        path.join(jsxOutput, `${chapterPrefix}-overview.jsx`),
         jsxPage
       );
     }

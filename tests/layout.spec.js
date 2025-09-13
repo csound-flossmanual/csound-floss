@@ -2,9 +2,12 @@ const each = require("jest-each").default;
 const path = require("path");
 const R = require("ramda");
 const chalk = require("chalk");
-const { BOOK_DIRECTORY } = require("../pandoc/constants");
+const { BOOK_DIRECTORY, BOOK_DIRECTORY_FR } = require("../pandoc/constants");
 const fg = require("fast-glob");
-const allChapters = fg.sync([`${BOOK_DIRECTORY}/*.md`], { dot: false });
+const allChapters = fg.sync(
+  [`${BOOK_DIRECTORY}/*.md`, `${BOOK_DIRECTORY_FR}/*.md`],
+  { dot: false }
+);
 const { execSync } = require("child_process");
 
 const toBeShorterThanFn = (received, limit) => {
@@ -26,7 +29,7 @@ expect.extend({
   },
 });
 
-each(allChapters).describe(`Testing %s`, mdPath => {
+each(allChapters).describe(`Testing %s`, (mdPath) => {
   let ast = {};
   it("Pandoc can parse it", () => {
     const out = execSync(`pandoc -t json ${mdPath}`, { encoding: "utf-8" });
@@ -44,17 +47,17 @@ each(allChapters).describe(`Testing %s`, mdPath => {
     )(ast);
 
     // Print all possible failures pre-emptively
-    codeBlocks.forEach(txt => {
+    codeBlocks.forEach((txt) => {
       const lines = txt.split(/\r?\n/);
-      lines.forEach(line => {
+      lines.forEach((line) => {
         const { pass, message } = toBeShorterThanFn(line, 79);
         !pass && console.error(mdPath, message());
       });
     });
 
-    codeBlocks.forEach(txt => {
+    codeBlocks.forEach((txt) => {
       const lines = txt.split(/\r?\n/);
-      lines.forEach(line => {
+      lines.forEach((line) => {
         expect(line).toBeShorterThan(79);
       });
     });

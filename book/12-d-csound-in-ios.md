@@ -56,6 +56,10 @@ should select _Groups_ rather than _Folder References_, and it is
 recommended that you elect to copy the csound-iOS folder into your
 project folder ("Copy Items if Needed").
 
+You need to add Accelerate framework to your project to make it build. In your Xcode project settings select "General", scroll down to Frameworks, Libraries and Embedded Content" and add Accelerate.framework with default option "Do Not Embed".
+
+![](../resources/images/12-d-xcode.png)
+
 Once you have successfully added this folder, including the CsoundObj
 class (the class that manages Csound on iOS) is as simple as adding an
 import statement to the class. For example:

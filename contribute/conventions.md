@@ -46,7 +46,7 @@ Few additional languages are supported
 <pre>```python</pre>
 <pre>```c</pre>
 
-The full examples (which are collected and distributed seperately) must be
+The full examples (which are collected and distributed separately) must be
 preceded by four hashes(\#) a number and a title of the example,
 starting with the word EXAMPLE (\#\#\#\# \*\*EXAMPLE\*\*):
 

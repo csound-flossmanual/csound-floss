@@ -37,14 +37,16 @@
 \definecolor{anchorcolor}{RGB}{111,81,155}
 
 \usepackage{fancyhdr}
+\usepackage{truncate}
 \pagestyle{fancy}
 \fancyhead{}
 
 %% \fancyfoot{}
 %% \fancyfoot[C]{\robotocondensed\color{titlecolor}\thepage}
 
-\fancyhead[LE,RO]{\robotocondensed\color{titlecolor}\textsl{\rightmark}}
-\fancyhead[LO,RE]{\robotocondensed\color{titlecolor}\textsl{\leftmark}}
+% Truncate headers to prevent overflow
+\fancyhead[LE,RO]{\robotocondensed\color{titlecolor}\textsl{\truncate{0.45\textwidth}{\rightmark}}}
+\fancyhead[LO,RE]{\robotocondensed\color{titlecolor}\textsl{\truncate{0.45\textwidth}{\leftmark}}}
 
 \renewcommand{\chaptermark}[1]{\markboth{#1}{}}
 \renewcommand{\sectionmark}[1]{\markright{#1}}
@@ -153,6 +155,21 @@ $endfor$
 \usepackage[raggedright]{titlesec}
 
 \newcommand{\passthrough}[1]{\lstset{mathescape=false}#1\lstset{mathescape=true}}
+
+% Define pandocbounded command for Pandoc 3.x compatibility
+\newcommand{\pandocbounded}[1]{#1}
+
+% Fix "Too deeply nested" error by redefining quote environment
+% Use a simpler quote environment that doesn't nest as deeply
+\renewenvironment{quote}%
+  {\par\addvspace{\baselineskip}%
+   \leftskip=2em\rightskip=2em\small}%
+  {\par\addvspace{\baselineskip}}
+
+% Increase maximum nesting depth for lists
+\makeatletter
+\setcounter{secnumdepth}{6}
+\makeatother
 
 \usepackage{titlesec}
 \titleformat{\chapter}[display] {\normalfont\bfseries}{}{0pt}{\fontsize{20}{22}}

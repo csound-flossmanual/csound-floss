@@ -215,6 +215,59 @@ i 1 0 0 2; prints function table 2
 ;example by joachim heintz
 ```
 
+Most of the GEN routines offer the possibility to insert the arguments as array rather than as single values. The manual page for ftgen shows this line:
+
+```csound
+gir     ftgen     ifn, itime, isize, igen, iarray
+```
+
+The `iarray` will contain the arguments of the GEN routine as array. Note that you cannot mix here numbers and strings as currently Csound can only have an array of one single type. Usually the array will contain numbers. This is a simple example in which we generate an array containing the numbers from 1 to 7, and then put the array in a GEN02 function table. As in the previsou example, we simply print the content of the table.
+
+#### **_EXAMPLE 03D03_ftgen_array_arg.csd_**
+
+```csound
+<CsoundSynthesizer>
+<CsOptions>
+-nm0
+</CsOptions>
+<CsInstruments>
+
+// create i-array
+iArray[] = genarray(1,7)
+
+// put this array into a function table via GEN02
+giFt ftgen 0, 0, -7, -2, iArray
+
+instr 1; prints the values of giFt
+  prints("%nFunction Table giFt:%n")
+  indx = 0
+  while (indx < 7) do
+    prints("  Index %d = %f%n", indx, table:i(indx,giFt))
+    indx += 1
+  od
+endin
+
+</CsInstruments>
+<CsScore>
+i 1 0 0
+</CsScore>
+</CsoundSynthesizer>
+;example by joachim heintz
+```
+
+Prints:
+
+    Function Table giFt:
+    Index 0 = 1.000000
+    Index 1 = 2.000000
+    Index 2 = 3.000000
+    Index 3 = 4.000000
+    Index 4 = 5.000000
+    Index 5 = 6.000000
+    Index 6 = 7.000000
+
+This feature is very powerful, and can be much more than an abbreviation. Have a look at example 03D06 below, at the end of the GEN10 explanation.
+
 ### GEN01: Importing a Soundfile
 
 [GEN01](http://www.csound.com/docs/manual/GEN01.html) is used for
@@ -265,7 +318,7 @@ and then plays it. Reading the function table here is done using
 the [poscil3](http://www.csound.com/docs/manual/poscil3.html) opcode,
 as one of many choices in Csound.
 
-#### **_EXAMPLE 03D03_Sample_to_table.csd_**
+#### **_EXAMPLE 03D04_Sample_to_table.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -317,7 +370,7 @@ sinusoids. This is done in the next example by instruments 1-5.
 Instrument 6 uses the sine wavetable twice: for generating both the
 sound and the envelope.
 
-#### **_EXAMPLE 03D04_Standard_waveforms_with_GEN10.csd_**
+#### **_EXAMPLE 03D05_Standard_waveforms_with_GEN10.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -387,6 +440,82 @@ i "Sine_with_env" 20 3
 
 ![](../resources/images/03-d-waveforms.png)
 
+The last example for GEN10 continues what was explained above (example 03D03) about the usage of arrays. It is rather complex; if you are a beginner in Csound, just skip it.
+
+We use four arrays here to create four random GEN10 tables, representing four different timbres. Each of these arrays are filled with 40 amplitude values for the first 40 harmonics. In a loop a random number between -1 and +1 is generated. If its absolut value is below 0.8, the value is set to zero. If its absolut value is above 0.8, it is kept with a standard attenuation for the higher partials.  
+For the wavetable transformation we imagine a square with the four tables as corners. We imagine a two-dimensional area with a range of 0-1 for both, the horizontal and vertical axis. In the example we move from table 1 (bottom left of the square) to table to (bottom right), to table 3 (top right), to table 4 (top left), and back to table 1. Then we move in the diagonal to the middle in which all four tables mix to one sound.
+
+#### **_EXAMPLE 03D06_random_GEN10_wavetable.csd_**
+
+```csound
+<CsoundSynthesizer>
+<CsOptions>
+-odac
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 64
+0dbfs = 1
+nchnls = 2
+seed 13 ;try other values here
+
+// create an array containing the number of four tables
+gifn[ ] init 4
+
+// create an array for 40 harmonics
+ihar[ ] init 40
+
+// for each table ...
+ii = 0
+while ii < 4 do
+
+  // ... put 40 random amplitudes for the harmonics in it
+ ik = 1
+ while ik < 40 do
+   // generate random values between 0 and 1
+   irnd = abs(random:i(-1,1))
+   // use only the ones above 0.8 and scale
+   ihar[ik-1] = irnd < 0.8 ? 0 : irnd/ik
+   ik += 1
+ od
+ // here the array is inserted as argument to GEN10
+ gifn[ii] = ftgen(0,0,8192,10,ihar)
+ ii += 1
+od
+
+instr Wavetable
+
+  // set volume and base frequency
+  iAmp = 0.2
+  iFreq = 133
+
+  // go table 1 -> 2 -> 3 -> 4 -> 1, then to a mix of all
+  kh = linseg:k(0,10,1,10,1,10,0,10,0,10,0.5)
+  kv = linseg:k(0,10,0,10,1,10,1,10,0,10,0.5)
+
+  // read the four tables ...
+  a1 = poscil:a(iAmp,iFreq,gifn[0])
+  a2 = poscil:a(iAmp,iFreq,gifn[1])
+  a3 = poscil:a(iAmp,iFreq,gifn[2])
+  a4 = poscil:a(iAmp,iFreq,gifn[3])
+
+  // ... and mix according to kh and kv
+  aMix = (a1*(1-kh)+a2*kh)*(1-kv) + (a3*(1-kh)+a4*kh)*kv
+
+  // fades and output
+  aOut = linen:a(aMix,1,p3,10)
+  outall(aOut)
+
+endin
+
+</CsInstruments>
+<CsScore>
+i "Wavetable" 0 60
+</CsScore>
+</CsoundSynthesizer>
+;Example by Victor Lazzarini, adapted by joachim heintz
+```
+
 ## How to Write Values to a Function Table
 
 As we have seen, GEN Routines generate function tables, and by doing
@@ -447,7 +576,7 @@ in the header (filled with zeros), then instrument 1 calculates the
 values in an i-time loop and writes them to the table using tableiw.
 Instrument 2 simply prints all the values in a list to the terminal.
 
-#### **_EXAMPLE 03D05_Write_Fibo_to_table.csd_**
+#### **_EXAMPLE 03D07_Write_Fibo_to_table.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -497,7 +626,7 @@ be used to record any kind of user input, for instance by MIDI or
 widgets. It can also be used to record random movements of k-signals,
 like here:
 
-#### **_EXAMPLE 03D06_Record_ksig_to_table.csd_**
+#### **_EXAMPLE 03D08_Record_ksig_to_table.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -589,7 +718,7 @@ index that changes at a-rate. The next example first records a randomly
 generated audio signal and then plays it back. It then records the live
 audio input for 5 seconds and subsequently plays it back.
 
-#### **_EXAMPLE 03D07_Record_audio_to_table.csd_**
+#### **_EXAMPLE 03D09_Record_audio_to_table.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -728,7 +857,7 @@ and an a-rate signal from a buffer
 with [poscil3](http://www.csound.com/docs/manual/html/poscil3.html) (an
 oscillator with a cubic interpolation):
 
-#### **_EXAMPLE 03D08_RecPlay_ak_signals.csd_**
+#### **_EXAMPLE 03D10_RecPlay_ak_signals.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -828,7 +957,7 @@ same folder as your .csd: "i-tim_save.txt" saves function table 1 (a
 sine wave) at i-time; "k-time_save.txt" saves function table 2 (a
 linear increment produced during the performance) at k-time.
 
-#### **_EXAMPLE 03D09_ftsave.csd_**
+#### **_EXAMPLE 03D11_ftsave.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -885,7 +1014,7 @@ values and writing them as an audio signal to disk. After this is done,
 the instrument is turned off by executing
 the [turnoff](http://www.csound.com/manual/html/turnoff.html) statement.
 
-#### **_EXAMPLE 03D10_Table_to_soundfile.csd_**
+#### **_EXAMPLE 03D12_Table_to_soundfile.csd_**
 
 ```csound
 <CsoundSynthesizer>
@@ -974,7 +1103,7 @@ and we use the function table with the drawing data in two ways in it:
   To avoid very long grains at the end, we modify it to half of the reciprocal
   (so that a grain density of 10 Hz results in grains of 1/20 seconds).
 
-#### **_EXAMPLE 03D11_textfile_to_table.csd_**
+#### **_EXAMPLE 03D13_textfile_to_table.csd_**
 
 ```csound
 <CsoundSynthesizer>

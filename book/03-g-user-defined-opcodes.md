@@ -634,43 +634,59 @@ Recursion means that a function can call itself. This is a feature which
 can be useful in many situations. Also User Defined Opcodes can be
 recursive. You can do many things with a recursive UDO which you cannot
 do in any other way; at least not in a simliarly simple way. This is an
-example of generating eight partials by a recursive UDO. See the last
+example of generating seven partials by a recursive UDO. See the last
 example in the next section for a more musical application of a
 recursive UDO.
+
+As seen in this example, instruments can do recursion, too.
+Here we set a number of repetitions in p4. As long as this number has not
+reached 1, the next instance is called after this instance has finished.
 
 #### **_EXAMPLE 03G09_Recursive_UDO.csd_**
 
 ```csound
 <CsoundSynthesizer>
 <CsOptions>
+-o dac -m 128
 </CsOptions>
 <CsInstruments>
 sr = 44100
 ksmps = 32
 nchnls = 2
 0dbfs = 1
+seed 0
 
-  opcode Recursion, a, iip
-;input: frequency, number of partials, first partial (default=1)
-ifreq, inparts, istart xin
-iamp = 1/inparts/istart ;decreasing amplitudes for higher partials
- if istart < inparts then ;if inparts have not yet reached
-acall Recursion ifreq, inparts, istart+1 ;call another instance of this UDO
- endif
-aout      oscils    iamp, ifreq*istart, 0 ;execute this partial
-aout      =         aout + acall ;add the audio signals
-          xout      aout
-  endop
+opcode Recursion, a, iip
+  //input: frequency, number of partials, this partial (default=1)
+  iFreq, iNumParts, iThisPart xin
+  //amplitude decreases for higher partials
+  iAmp = 1/iNumParts/iThisPart
+  //apply small frequency deviation except for the first partial
+  iFreqMult = (iThisPart == 1) ? 1 : iThisPart*random:i(0.95,1.05)
+  //create this partial
+  aOut = poscil:a(iAmp,iFreq*iFreqMult)
+  //add the other partials via recursion
+  if (iThisPart < iNumParts) then
+    aOut += Recursion(iFreq,iNumParts,iThisPart+1)
+  endif
+  xout(aOut)
+endop
 
-  instr 1
-amix      Recursion 400, 8 ;8 partials with a base frequency of 400 Hz
-aout      linen     amix, .01, p3, .1
-          outs      aout, aout
-  endin
+instr I_can_do_the_same
+  //call a sound with 7 partials based on 400 Hz
+  aPartials = Recursion(400,7)
+  aOut = linen:a(aPartials,0.01,p3,0.5)
+  outall(aOut)
+  //call this instrument again for p4 times
+  if (p4 > 1) then
+    schedule(p1,p3,p3,p4-1)
+  endif
+endin
 
 </CsInstruments>
 <CsScore>
-i 1 0 1
+i "I_can_do_the_same" 0 3 3
+e 9
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz
@@ -905,93 +921,87 @@ Prints (for example):
 
 ### A Recursive User Defined Opcode for Additive Synthesis
 
-In example 03F11
-a number of partials were synthesized, each with a random frequency
-deviation of up to 10% compared to precise harmonic spectrum frequencies
-and a unique duration for each partial. This can also be written as a
+Smilar to example 03F11 we synthesize here a number of partials,
+and add a random frequency deviation to it. We use a maximum possible
+deviation of plus/minus three semitones compared to the harmonic frequencies.
+Also we apply a unique duration for each partial. This is written as a
 recursive UDO. Each UDO generates one partial, and calls the UDO again
-until the last partial is generated. Now the code can be reduced to two
-instruments: instrument 1 performs the time loop, calculates the basic
-values for one note, and triggers the event. Then instrument 11 is
-called which feeds the UDO with the values and passes the audio signals
-to the output.
+until the last partial is generated. The _Main_ instrument itself
+performs the time loop as recursion, calculating the basic
+values for one note and performing the event. Here the recursive call is
+limited by time: After 60 seconds no more calls to the _Main_ instrument,
+but instead to another instrument which exits Csound by a score "e"
+statement.
 
 #### **_EXAMPLE 03G13_UDO_Recursive_AddSynth.csd_**
 
 ```csound
 <CsoundSynthesizer>
 <CsOptions>
--odac
+-odac -m128
 </CsOptions>
 <CsInstruments>
 sr = 44100
-ksmps = 32
+ksmps = 128
 nchnls = 2
 0dbfs = 1
+seed 0
 
-giSine    ftgen     0, 0, 2^10, 10, 1
-          seed      0
+opcode Partials, aa, iiip
+  //plays iNumParts partials with frequency deviation and own envelopes and
+  //own durations for each partial
+  //iBasFreq: base frequency of sound mixture
+  //iNumParts: total number of partials
+  //iPan: panning
+  //iThisPart: which partial is this (1-N, default=1)
+  iBasFreq, iNumParts, iPan, iThisPart xin
+  //this partial's frequency
+  iFreq = iBasFreq * iThisPart * semitone(random:i(-3,3))
+  //additional time for this partial
+  iDur = random:i(p3/3,p3*3)
+  //volume with random deviation of 6 dB maximum (and the higher the softer)
+  iAmp = (1/iNumParts) * ampdb(random:i(-6,0)-iThisPart)
+  //partial envelope and tone
+  aEnv = transeg:a(0,0.005,0,iAmp,iDur-0.005,-10,0)
+  aTone = poscil:a(aEnv,iFreq)
+  //panning with slight deviations arount the iPan input
+  aL,aR pan2 aTone, iPan+random:i(-0.1,0.1)
+  //recursion
+  if (iThisPart < iNumParts) then
+    aL2,aR2 Partials iBasFreq,iNumParts,iPan,iThisPart+1
+    aL += aL2
+    aR += aR2
+  endif
+  p3 = iDur
+  xout(aL,aR)
+endop
 
-  opcode PlayPartials, aa, iiipo
-;plays inumparts partials with frequency deviation and own envelopes and
-;durations for each partial
-;ibasfreq: base frequency of sound mixture
-;inumparts: total number of partials
-;ipan: panning
-;ipartnum: which partial is this (1 - N, default=1)
-;ixtratim: extra time in addition to p3 needed for this partial (default=0)
+instr Walk
+  p3 = random:i(1,5)
+  iNumPartials = int(random:i(8,14))
+  iBasFreq = mtof:i(random:i(24,84))
+  iPan = random:i(0.2,0.8)
+  aL,aR Partials iBasFreq, iNumPartials, iPan
+  outs(aL,aR)
+  //play for 60 seconds
+  if (times:i() < 60) then
+    schedule(p1,random:i(1,4),1)
+  //then exit gently (= after 10 seconds)
+  else
+    schedule("Turnoff",10,1)
+  endif
+endin
+schedule("Walk",0,1)
 
-ibasfreq, inumparts, ipan, ipartnum, ixtratim xin
-ifreqgen  =         ibasfreq * ipartnum; general frequency of this partial
-ifreqdev  random    -10, 10; frequency deviation between -10% and +10%
-ifreq     =         ifreqgen + (ifreqdev*ifreqgen)/100; real frequency
-ixtratim1 random    0, p3; calculate additional time for this partial
-imaxamp   =         1/inumparts; maximum amplitude
-idbdev    random    -6, 0; random deviation in dB for this partial
-iamp = imaxamp * ampdb(idbdev-ipartnum); higher partials are softer
-ipandev   random    -.1, .1; panning deviation
-ipan      =         ipan + ipandev
-aEnv      transeg   0, .005, 0, iamp, p3+ixtratim1-.005, -10, 0; envelope
-aSine     poscil    aEnv, ifreq, giSine
-aL1, aR1  pan2      aSine, ipan
- if ixtratim1 > ixtratim then
-ixtratim  =  ixtratim1 ;set ixtratim to the ixtratim1 if the latter is larger
- endif
- if ipartnum < inumparts then ;if this is not the last partial
-; -- call the next one
-aL2, aR2  PlayPartials ibasfreq, inumparts, ipan, ipartnum+1, ixtratim
- else               ;if this is the last partial
-p3        =         p3 + ixtratim; reset p3 to the longest ixtratim value
- endif
-          xout      aL1+aL2, aR1+aR2
-  endop
-
-  instr 1; time loop with metro
-kfreq     init      1; give a start value for the trigger frequency
-kTrig     metro     kfreq
- if kTrig == 1 then ;if trigger impulse:
-kdur      random    1, 5; random duration for instr 10
-knumparts random    8, 14
-knumparts =         int(knumparts); 8-13 partials
-kbasoct   random    5, 10; base pitch in octave values
-kbasfreq  =         cpsoct(kbasoct) ;base frequency
-kpan      random    .2, .8; random panning between left (0) and right (1)
-          event     "i", 11, 0, kdur, kbasfreq, knumparts, kpan; call instr 11
-kfreq     random    .25, 1; set new value for trigger frequency
- endif
-  endin
-
-  instr 11; plays one mixture with 8-13 partials
-aL, aR    PlayPartials p4, p5, p6
-          outs      aL, aR
-  endin
+instr Turnoff
+  event_i("e",0)
+endin
 
 </CsInstruments>
 <CsScore>
-i 1 0 300
 </CsScore>
 </CsoundSynthesizer>
-;Example by Joachim Heintz
+;Example by joachim heintz
 ```
 
 ### Filter implementation via Sample-by-Sample Processing

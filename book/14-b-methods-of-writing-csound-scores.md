@@ -186,6 +186,7 @@ To test this, first save this file as _print.py_ in the same folder
 where your .csd examples are:
 
 ```python
+
 from sys import argv
 print("Script = '%s'" % argv[0])
 print("File to read = '%s'" % argv[1])
@@ -216,6 +217,31 @@ The output should include these lines:
 And again a complaint about the invalid score file:
 
     cannot open scorefile /tmp/csound-NbMTfJ.sco
+
+To get rid of the complaints we must write the score file. This is a simple example, saved as _test.py_:
+
+```python
+from sys import argv
+print("Script = '%s'" % argv[0])
+print("File to read = '%s'" % argv[1])
+print("File to write = '%s'" % argv[2])
+with open(argv[2], 'w') as out:
+    out.write('i 1 0 1')
+```
+
+Which is called in this Csound file:
+
+```csound-csd
+<CsoundSynthesizer>
+<CsInstruments>
+instr 1
+  outall(poscil(.2,expon(1500,p3,400)))
+endin
+</CsInstruments>
+<CsScore bin="python3 test.py">
+</CsScore>
+</CsoundSynthesizer>
+```
 
 ### CsBeats
 
@@ -267,7 +293,7 @@ e
 ```perl
 # cs_sco_rand.pl
 my ($in, $out) = @ARGV;
-open(EXT, "<", $in);
+open(EXT, "<", $in);When you execute this .csd file in the terminal, your
 open(SCO, ">", $out);
 
 while (<EXT>) {

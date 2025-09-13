@@ -116,7 +116,8 @@ const reducer = (state, action) => {
           ).then(() => {});
           return pipe(
             assoc("isPaused", false),
-            assoc("isPlaying", false)
+            assoc("isPlaying", false),
+            assoc("loadedSamples", [])
           )(state);
         }
         case "play": {

@@ -24,7 +24,7 @@ import {
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
 import StickyEl from "../../vendor/react-sticky-el.min.js";
-import routes from "../../book_fragments/routes.json";
+// Routes are now passed as props to support multiple languages
 import DarkModeToggle from "./DarkMode";
 import * as ß from "./styles";
 
@@ -72,26 +72,33 @@ const createSelectDataChapter = (route, chapterNumber) => ({
   label: `${chapterNumber} - ${route.name}`,
 });
 
-const createSelectDataSection = (route) => ({
+const createSelectDataSection = (route, isFrenchlang = false) => ({
   value: route.url,
   label:
-    route.url === route.url_prefix ? "Overview" : moduleToName(route.module),
+    route.url === route.url_prefix
+      ? isFrenchlang
+        ? "Aperçu"
+        : "Overview"
+      : moduleToName(route.module),
 });
 
-const getChapterData = (chapterNum) => {
+const getChapterData = (chapterNum, routesData, isFrenchlang = false) => {
   const raw = filter(
     propEq("chapter", chapterNum),
-    reject(propEq("module", "00--aa-toc"), routes)
+    reject(propEq("module", "00--aa-toc"), routesData)
   );
 
   const maybePrepend =
     raw.length > 0 ? [{ value: 0, label: raw[0].name, isDisabled: true }] : [];
-  return concat(maybePrepend, map(createSelectDataSection, raw));
+  return concat(
+    maybePrepend,
+    map((route) => createSelectDataSection(route, isFrenchlang), raw)
+  );
 };
 
-const getAllChapters = () => {
-  const numChapters = reduce(max, -Infinity, map(prop("chapter"), routes));
-  const routesWithoutTOC = reject(propEq("module", "00--aa-toc"), routes);
+const getAllChapters = (routesData) => {
+  const numChapters = reduce(max, -Infinity, map(prop("chapter"), routesData));
+  const routesWithoutTOC = reject(propEq("module", "00--aa-toc"), routesData);
   return map((n) =>
     createSelectDataChapter(
       find(propEq("chapter", n), routesWithoutTOC),
@@ -100,11 +107,11 @@ const getAllChapters = () => {
   )(range(1, numChapters + 1));
 };
 
-const getChapterZero = () => {
+const getChapterZero = (routesData) => {
   return pipe(
     filter(propEq("chapter", 0)),
     reject(propEq("module", "00--aa-toc"))
-  )(routes);
+  )(routesData);
 };
 
 function isScrolledIntoView(element) {
@@ -179,8 +186,12 @@ function LeftNav({ routes = [], setCurrentRoute }) {
 
   const nextRoute = propOr(false, routeIndex + 1, routes);
   const previousRoute = propOr(false, routeIndex - 1, routes);
-  const chapterZero = getChapterZero();
-  const allChapters = getAllChapters();
+
+  // Detect if we're in French mode based on current route
+  const isFrenchRoute = currentRoutename.startsWith("/fr");
+
+  const chapterZero = getChapterZero(routes);
+  const allChapters = getAllChapters(routes);
 
   const updateScroller = () => {
     try {
@@ -216,8 +227,8 @@ function LeftNav({ routes = [], setCurrentRoute }) {
     const isActive = dec(currentRoute.chapter) === index;
     const chapterData = pipe(
       reject(prop("isDisabled")),
-      reject((d) => d.label.startsWith("Overview"))
-    )(getChapterData(index + 1));
+      reject((d) => d.label.startsWith(isFrenchRoute ? "Aperçu" : "Overview"))
+    )(getChapterData(index + 1, routes, isFrenchRoute));
     const chapterList = chapterData.map(
       ({ value: subValue, label: subLabel }, subIndex) => {
         const subChapterActive = subValue === currentRoute.url;
@@ -239,7 +250,7 @@ function LeftNav({ routes = [], setCurrentRoute }) {
                       : "inherit",
                 }}
               >
-                {subLabel === "Overview"
+                {subLabel === (isFrenchRoute ? "Aperçu" : "Overview")
                   ? subLabel
                   : trimSubChapterLetter(subLabel)}
               </p>

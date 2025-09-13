@@ -176,7 +176,7 @@ const PlayControls = ({ initialEditorState, currentEditorState }) => {
       await libcsound.fs.writeFile(fileName, fetchesResources[fileName]);
     });
     // forcing 2 channel output until I track down the bug
-    await libcsound.compileCsdText(currentEditorState);
+    await libcsound.compileCSD(currentEditorState, 1);
     await libcsound.start();
   }, [
     libcsound,
@@ -284,27 +284,35 @@ const CodeElement = ({ data, lang }) => {
                 python(),
               ]
             : lang === "c"
-            ? [
-                EditorState.readOnly.of(true),
-                syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
-                language.of(cpp()),
-              ]
-            : ["orc", "csd", "sco"].includes(lang)
-            ? [
-                EditorState.readOnly.of(true),
-                syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
-                csoundMode({
-                  fileType: lang,
-                  enableSynopsis: false,
-                  enableCompletion: false,
-                }),
-              ]
-            : isCsd
-            ? [basicSetup, csoundMode(), EditorView.updateListener.of(onChange)]
-            : [
-                EditorState.readOnly.of(true),
-                syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
-              ],
+              ? [
+                  EditorState.readOnly.of(true),
+                  syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
+                  language.of(cpp()),
+                ]
+              : ["orc", "csd", "sco"].includes(lang)
+                ? [
+                    EditorState.readOnly.of(true),
+                    syntaxHighlighting(defaultHighlightStyle, {
+                      fallback: true,
+                    }),
+                    csoundMode({
+                      fileType: lang,
+                      enableSynopsis: false,
+                      enableCompletion: false,
+                    }),
+                  ]
+                : isCsd
+                  ? [
+                      basicSetup,
+                      csoundMode(),
+                      EditorView.updateListener.of(onChange),
+                    ]
+                  : [
+                      EditorState.readOnly.of(true),
+                      syntaxHighlighting(defaultHighlightStyle, {
+                        fallback: true,
+                      }),
+                    ],
         parent: editorReference.current,
       });
       setEditorView(newEditor);
