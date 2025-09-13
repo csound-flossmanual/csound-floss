@@ -1,9 +1,9 @@
 *.iml
 /.idea
 /tmp
-csound_flossmanual.pdf
-csound_flossmanual.epub
-csound_flossmanual.odt
+*.pdf
+*.epub
+*.odt
 csound-floss-export*
 html2pdf*.html
 __pycache__
@@ -15,7 +15,7 @@ __pycache__
 build
 .firebase
 node_modules
-src/book_fragments/*
+src/book_fragments*
 python-env
 .eslintcache
 *.log
