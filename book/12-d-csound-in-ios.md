@@ -1008,8 +1008,7 @@ The process demonstrated in the code examples below can be described as:
 }
 ```
 
-Note that in Swift, we have to create a `CVaListPointer` (equivalent to a
-`va_list *` in C) for use with the `vsnprintf()` function:
+
 
 ```swift
 // Swift
@@ -1017,10 +1016,8 @@ func messageCallback(_ infoObj: NSValue) {
     var info = Message()
     infoObj.getValue(&info)
     let message = UnsafeMutablePointer<Int8>.allocate(capacity: 1024)
-    let va_ptr: CVaListPointer = CVaListPointer(
-      _fromUnsafeMutablePointer: &(info.valist)
-    )
-    vsnprintf(message, 1024, info.format, va_ptr)
+
+    vsnprintf(message, 1024, info.format, info.valist)
     let messageStr = String(cString: message)
     print(messageStr)
 }
