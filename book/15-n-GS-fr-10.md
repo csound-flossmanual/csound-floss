@@ -104,14 +104,9 @@ Voici ce que nous pouvons faire dans l’espace global :
 
 - Nous pouvons définir des paramètres comme le taux d’échantillonnage, etc., et aussi le `seed`, car c’est un paramètre global également.
 - Nous pouvons définir nos propres fonctions ou importer du code externe.
-  <<<<<<< HEAD
-- Nous pouvons créer des tables/tampons (buffers) et assigner des canaux logiciels.
-- # Nous pouvons exécuter des expression _i-rate_. Par exemple, `prints("Bonjour Espace Global!\n")` dans l’espace global, et regarder son résultat dans la sortie de console.
 - Nous pouvons créer des tables/tampons (buffers) et assigner des canaux logiciels.
 - Nous pouvons exécuter des expression _i-rate_. Par exemple,  
-   `prints("Bonjour Espace Global!\n")` dans l’espace global, et regarder son résultat dans la sortie de console.
-  > > > > > > > c9576890a19c871cb299cf2796c5d68c80ef27f0
-
+   `prints("Bonjour Espace Global!\n")` dans l'espace global, et regarder son résultat dans la sortie de console.
 Ce que nous ne pouvons pas faire dans l’espace globale :
 
 - Nous ne pouvons exécuter aucune instruction `k-rate` ou `a-rate`.
@@ -400,9 +395,4 @@ Je pense que ça devrait être suffisant pour vous permettre de vous repérer da
 - Ou au [chapitre 04](https://flossmanual.csound.com/sound-synthesis) pour étudier les méthodes de synthèse sonore.
 - Ou encore au [chapitre 05](https://flossmanual.csound.com/sound-modification) où vous découvrirez comment modifier des sons existants.
 
-<<<<<<< HEAD
-Note du traducteur : Les trois chapitres mentionnés ci-dessus ne sont pas encore traduits en français. Peut-être un jour ;)
-=======
-Note du traducteur : Les trois chapitres mentionnés ci-dessus ne sont pas encore traduits en français. Peut-être un jour ;)
-
-> > > > > > > c9576890a19c871cb299cf2796c5d68c80ef27f0
+Note du traducteur : Les trois chapitres mentionnés ci-dessus ne sont pas encore traduits en français. Peut-être un jour ;)

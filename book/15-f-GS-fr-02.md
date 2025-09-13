@@ -32,22 +32,9 @@ Voici une ligne qui se déplace de 500 à 400 en 0.5 secondes, et qui reste à
     Note : Acoustiquement, cette façon d’appliquer un _glissando_ est discutable.
     Nous en parlerons dans le [Tutoriel 05](15-i-GS-fr-05.md).
 
-<<<<<<< HEAD
-Note : Acoustiquement, cette façon d’appliquer un _glissando_ est discutable. Nous en parlerons dans le [Tutoriel 05](15-i-GS-fr-05.md).
+Note : Acoustiquement, cette façon d'appliquer un _glissando_ est discutable. Nous en parlerons dans le [Tutoriel 05](15-i-GS-fr-05.md).
 
-# Note 2 : Ne devrions-nous pas dire : "Voici une ligne qui se déplace depuis 500 Hz jusqu’à 400 Hz, en 0.5 secondes", plutôt que "Voici une ligne qui se déplace depuis 500 jusqu’à 400 en 0.5 secondes" ? Non. La ligne produit des nombres. Ces nombres peuvent être utilisés pour des fréquences, mais peuvent avoir une signification différente dans un autre contexte.
-
-    Note 2 : Ne devrions-nous pas dire : "Voici une ligne qui se déplace
-    depuis 500 Hz jusqu'à 400 Hz,
-    en 0.5 secondes",
-    plutôt que "Voici une ligne qui se déplace depuis 500 jusqu'à 400
-    en 05 secondes" ?
-    Non. La ligne produit des nombres. Ces nombres peuvent être utilisés
-    pour des fréquences,
-    mais peuvent avoir une signification différente dans un autre contexte.
-
-> > > > > > > c9576890a19c871cb299cf2796c5d68c80ef27f0
-
+Note 2 : Ne devrions-nous pas dire : "Voici une ligne qui se déplace depuis 500 Hz jusqu'à 400 Hz, en 0.5 secondes", plutôt que "Voici une ligne qui se déplace depuis 500 jusqu'à 400 en 0.5 secondes" ? Non. La ligne produit des nombres. Ces nombres peuvent être utilisés pour des fréquences, mais peuvent avoir une signification différente dans un autre contexte.
 ## Une ligne Dessinée avec l’opcode 'linseg'
 
 Dans Csound, nous créons ce genre de ligne avec l’opcode `linseg`, qui signifie "linear segments / segments linéaires". Ici, nous n’avons besoin que d’un seul segment qui se déplace de 500 à 400 en 0.5 secondes.

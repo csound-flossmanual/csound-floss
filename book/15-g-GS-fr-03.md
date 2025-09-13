@@ -25,14 +25,7 @@ Et ce code devrait déjà vous être familier :
 kAmp = linseg:k(0.3,0.5,0.1)
 ```
 
-<<<<<<< HEAD
-Notez qu’acoustiquement, cette façon de changer le volume est discutable. Nous en parlerons dans le Tutoriel 06.
-=======
-Notez qu’acoustiquement, cette façon de changer le volume est discutable.
-Nous en parlerons dans le Tutoriel 06.
-
-> > > > > > > c9576890a19c871cb299cf2796c5d68c80ef27f0
-
+Notez qu'acoustiquement, cette façon de changer le volume est discutable. Nous en parlerons dans le Tutoriel 06.
 ## Retour au début
 
 Considérons maintenant quelques réglages importants qui sont écrits au début de la balise \<CsInstruments> :
@@ -86,15 +79,8 @@ La constante **ksmps** définit combien d’échantillons audio sont collectés 
 
 - Quand vous utilisez huit haut-parleurs, vous devez configurer `nchnls = 8`. Vous aurez besoin d’une carte son avec au moins huit canaux pour la sortie en temps réel.
 
-<<<<<<< HEAD
-Note : Csound suppose que vous avez le même nombre de canaux d’entrée que de canaux de sortie. Si ce n’est pas le cas, vous devez utiliser la constante `nchnls_i` pour configurer le nombre de canaux d’entrée.  
-Par exemple, si vous avez 8 canaux de sortie mais 4 canaux d’entrée sur votre interface audio, configurez :
-=======
-Note : Csound suppose que vous avez le même nombre de canaux d’entrée que de canaux de sortie. Si ce n’est pas le cas, vous devez utiliser la constante `nchnls_i` pour configurer le nombre de canaux d’entrée.
-Par exemple, si vous avez 8 canaux de sortie mais 4 canaux d’entrée sur votre interface audio, configurez :
-
-> > > > > > > c9576890a19c871cb299cf2796c5d68c80ef27f0
-
+Note : Csound suppose que vous avez le même nombre de canaux d'entrée que de canaux de sortie. Si ce n'est pas le cas, vous devez utiliser la constante `nchnls_i` pour configurer le nombre de canaux d'entrée.  
+Par exemple, si vous avez 8 canaux de sortie mais 4 canaux d'entrée sur votre interface audio, configurez :
 ```
 nchnls = 8
 nchnls_i = 4
@@ -244,48 +230,13 @@ avec le tutoriel suivant : [04 Bonjour Fondu en sortie](15-h-GS-fr-04.md)
 
 ### Quelques notes sur ksmps
 
-<<<<<<< HEAD
-Note 1 : Il est recommandé d’utiliser des valeurs **puissance-de deux** pour `ksmps`. Les valeurs courantes sont 32 (= $2^5$) ou 64 (= $2^6$). Ceci est dû à la gestion des entrées/sorties de l’audio. Vous trouverez la même chose dans d’autres applications.
+Note 1 : Il est recommandé d'utiliser des valeurs **puissance-de deux** pour `ksmps`. Les valeurs courantes sont 32 (= $2^5$) ou 64 (= $2^6$). Ceci est dû à la gestion des entrées/sorties de l'audio. Vous trouverez la même chose dans d'autres applications.
 
-Note 2 : L’avantage d’un `ksmps` **plus petit** est une meilleur définition temporelle pour le control rate. Si le sample rate est 441000 Hz, nous avons une résolution temporelle de 1/44100 secondes par sample/échantillon. C’est une durée d’environ 0.000023 secondes, ou 0.023 millisecondes entre deux samples. Quand nous réglons `ksmps = 64` pour ce sample rate de 44100 Hz, nous obtenons 64/44100 secondes comme résolution temporelle entre deux blocs, ou deux valeurs de contrôle. Ça se situe autour de 0.00145 secondes, ou 1.45 milliseconds entre deux blocs, ou valeurs de contrôles. Quand nous réglons `ksmps = 32` pour le même sample rate, nous obtenons 0.725 millisecondes comme résolution temporelle pour chaque nouvelle valeur de contrôle.
+Note 2 : L'avantage d'un `ksmps` **plus petit** est une meilleur définition temporelle pour le control rate. Si le sample rate est 441000 Hz, nous avons une résolution temporelle de 1/44100 secondes par sample/échantillon. C'est une durée d'environ 0.000023 secondes, ou 0.023 millisecondes entre deux samples. Quand nous réglons `ksmps = 64` pour ce sample rate de 44100 Hz, nous obtenons 64/44100 secondes comme résolution temporelle entre deux blocs, ou deux valeurs de contrôle. Ça se situe autour de 0.00145 secondes, ou 1.45 milliseconds entre deux blocs, ou valeurs de contrôles. Quand nous réglons `ksmps = 32` pour le même sample rate, nous obtenons 0.725 millisecondes comme résolution temporelle pour chaque nouvelle valeur de contrôle.
 
-Note 3 : L’avantage d’un `ksmps` plus large est une meilleure performance en termes de vitesse. Si vous avez un fichier Csound complexe et très consommateur de ressource CPU, vous risquez d’obtenir des 'dropouts / pertes'. Dans ce cas, tentez d’augmenter `ksmps`.
+Note 3 : L'avantage d'un `ksmps` plus large est une meilleure performance en termes de vitesse. Si vous avez un fichier Csound complexe et très consommateur de ressource CPU, vous risquez d'obtenir des 'dropouts / pertes'. Dans ce cas, tentez d'augmenter `ksmps`.
 
-# Note 4 : Bien que `ksmps` soit une constante, nous pouvons configurer une **ksmps locale** dans un instrument. L’opcode destiné à cette opération est `setksmps`. Parfois, nous voulons exécuter un opcode _k-rate_ dans un instrument échantillon par échantillon. Dans ce cas, nous pouvons utiliser `setksmps(1)`. Nous pouvons seulement séparer le `ksmps` globale en parties plus petite, jamais l’inverse.
-
-    Note 1 : Il est recommandé d'utiliser des valeurs **puissance-de deux**
-    pour `ksmps`. Les valeurs courantes sont 32 (= $2^5$) ou 64 (= $2^6$).
-    Ceci est dû à la gestion des entrées/sorties de l'audio. Vous trouverez
-    la même chose dans d'autres applications.
-
-    Note 2 : L'avantage d'un `ksmps` **plus petit** est une meilleur
-    définition temporelle pour le control rate. Si le sample rate est
-    441000 Hz, nous avons une résolution temporelle de 1/44100 secondes
-    par sample/échantillon. C'est une durée d'environ 0.000023 secondes,
-    ou 0.023 millisecondes entre deux samples. Quand nous réglons
-    `ksmps = 64` pour ce sample rate de 44100 Hz, nous obtenons
-    64/44100 secondes comme résolution temporelle entre deux blocs, ou
-    deux valeurs de contrôle. Ça se situe autour de 0.00145 secondes,
-    ou 1.45 milliseconds entre deux blocs, ou valeurs de contrôles.
-    Quand nous réglons `ksmps = 32` pour le même sample rate, nous
-    obtenons 0.725 millisecondes comme résolution temporelle pour
-    chaque nouvelle valeur de contrôle.
-
-    Note 3 : L'avantage d'un `ksmps` plus large est une meilleure
-    performance en termes de vitesse. Si vous avez un fichier Csound
-    complexe et très consommateur de ressource CPU, vous risquez
-    d'obtenir des 'dropouts / pertes'. Dans ce cas, tentez d'augmenter
-    `ksmps`.
-
-    Note 4 : Bien que `ksmps` soit une constante, nous pouvons configurer
-    une **ksmps locale** dans un instrument. L'opcode destiné à cette
-    opération est `setksmps`. Parfois, nous voulons exécuter un opcode
-    _k-rate_ dans un instrument échantillon par échantillon. Dans ce cas,
-    nous pouvons utiliser `setksmps(1)`. Nous pouvons seulement séparer
-    le `ksmps` globale en parties plus petite, jamais l'inverse.
-
-> > > > > > > c9576890a19c871cb299cf2796c5d68c80ef27f0
-
+Note 4 : Bien que `ksmps` soit une constante, nous pouvons configurer une **ksmps locale** dans un instrument. L'opcode destiné à cette opération est `setksmps`. Parfois, nous voulons exécuter un opcode _k-rate_ dans un instrument échantillon par échantillon. Dans ce cas, nous pouvons utiliser `setksmps(1)`. Nous pouvons seulement séparer le `ksmps` globale en parties plus petite, jamais l'inverse.
 ### Comment cela se passe-t-il dans PD ?
 
 [Pure Data](http://puredata.info/) est un autre langage de programmation audio populaire. Contrairement à Csound, il n’est pas basé sur le texte, mais utilise des symboles visuels pour la programmation. Vous pouvez imaginer que le flux du programme que nous avons dessiné plus haut sous forme de symboles est maintenant sur votre écran, et vous connectez les boites-objet avec des cables symboliques.

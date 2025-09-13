@@ -208,33 +208,5 @@ Vous pouvez sans problème continuer d’écrire le code Csound ainsi. Les raiso
 3. Le style fonctionnel d’écrire du code Csound a toujours existé dans des expressions comme `ampdb(-10)` ou `ftlen(giTable)`. Ce n’est donc pas totalement nouveau, mais plutôt une extension.
 4. Chaque fois que nous voulons utiliser une expression comme argument (vous en apprendrez plus à ce sujet dans le [tutoriel 6](15-j-GS-fr-06.md)), nous devons écrire le code de cette manière. Il est donc bon de l’utiliser en permanence pour plus de cohérence.
 
-<<<<<<< HEAD
-NOTE DU TRADUCTEUR pour les francophones : Sauf dans les commentaires où ça ne pose aucun problème, n’utilisez que des caractères ASCII dans vos programmes.
-J’ai essayé et chez moi ça plante. Donc pas de lettres accentuées, pas de œ et autres signes propres au français.
-=======
-NOTE DU TRADUCTEUR pour les francophones : Sauf dans les commentaires où ça ne pose aucun
-problème, n’utilisez que des caractères ASCII dans vos programmes. J’ai essayé et chez moi ça plante. Donc pas de lettres accentuées, pas de œ et autres signes propres au français.
-
-> > > > > > > c9576890a19c871cb299cf2796c5d68c80ef27f0
-
-## Au sujet de ces tutoriels
-
-Ce _Guide de démarrage_ a été écrit par Joachim Heintz en 2023. Il est basé sur de nombreuses expériences d’enseignement de Csound auprès de jeunes compositeurs.
-
-J’espère que ce tutoriel permettra à davantage de musiciens de réaliser à quel point il était et reste admirable et fructueux de transformer le plus ancien langage de programmation audio en un langage moderne, sans perdre aucune composition réalisée avec Csound, même écrite il y a de nombreuses années.
-
-Chaque tutoriel comporte une première partie à lire _impérativement_, suivie d’une partie facultative (dans laquelle se trouvent bien sûr les choses les plus intéressantes). Pour que quelque chose au moins dans ce monde soit stable, chaque partie à lire _impérativement_ comporte cinq rubriques, et chaque partie à lire _facultativement_ en comporte trois. En fait, j’avais prévu 4+3, mais j’ai demandé à Csound qui m’a répondu :
-
-```
-if 4+3 == 7 then
-    "Écrivez ce Tutoriel!\n"
-else
-    8!
-endif
-```
-
-J’ai pris cela comme une révélation et j’ai opté pour 5+3 entêtes, afin de satisfaire également l’exigence `8!`. D’après mon expérience, il vaut toujours mieux satisfaire les deux dieux d’une branche conditionnelle.
-
-Les parties "À lire absolument" comprennent également une section "À faire absolument". Tout d’abord un exemple central, oui très central, substantiel, opportun, agréable et bien sûr très instructif. Puis une section "Essayez vous-même" qui représente en quelque sorte le revers de la médaille : Autant il est facile d’appuyer sur le bouton "Exécuter/Run", autant il sera peut-être difficile de résoudre ces maudits exercices. Mais, pour citer John Ffitch : "Nous sommes tous passés par là…".
-
-Je dois admettre que ce _Guide de démarrage_ n’en est qu’un parmi d’autres. Il se concentre sur l’apprentissage du langage : comment penser et programmer en Csound. Je pense que pour ceux qui comprennent cela et apprécient la simplicité et la clarté de Csound, toutes les portes sont ouvertes pour explorer l’univers infini de ce langage de programmation audio. Qu’il s’agisse de live coding, de [Bela Board](https://bela.io/) ou de [Raspberry Pi](https://www.raspberrypi.com/), de musique _noise_ ou de la production des sons les plus doux et les plus subtiles, de supports fixes ou d’applications en temps réel les plus rapides possibles, que vous utilisiez Csound en tant que logiciel autonome ou en tant que plugin pour votre DAW. En ce qui concerne les sons, je vous invite à écouter les exemples de Iain McCurdy, soit sur son [site web](http://iainmccurdy.org/csound.html), sois dans [Cabbage](https://cabbageaudio.com/). Ils constituent une source inépuisable d’inspiration et une référence en matière de qualité sonore.
+NOTE DU TRADUCTEUR pour les francophones : Sauf dans les commentaires où ça ne pose aucun problème, n'utilisez que des caractères ASCII dans vos programmes.
+J'ai essayé et chez moi ça plante. Donc pas de lettres accentuées, pas de œ et autres signes propres au français.
