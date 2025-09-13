@@ -14,6 +14,8 @@ const {
   JSX_OUTPUT,
   BOOK_DIRECTORY,
   MARKDOWN_EXTENSIONS,
+  IS_FRENCH,
+  LANG,
 } = require("./constants");
 const html2jsx = require("html-to-jsx");
 const R = require("ramda");
@@ -29,7 +31,7 @@ function execMarkdownToHtml(fileName) {
       "+"
     )} -o ${tmpDest} --mathjax`;
 
-    console.log(`Processing ${fileName} with pandoc...`);
+    console.log(`Processing ${LANG.toUpperCase()} ${fileName} with pandoc...`);
     const stdout = execSync(pandocCommand, { encoding: "utf8" });
 
     // Log stdout if there's any output from pandoc
@@ -105,7 +107,11 @@ function execMarkdownToHtml(fileName) {
       path.join(JSX_OUTPUT, `${chapterBasename}.jsx`),
       wrapChapterInTemplate(
         jsxElements,
-        R.propOr("Untitled Chapter", "sectionName", linkData)
+        R.propOr(
+          IS_FRENCH ? "Chapitre Sans Titre" : "Untitled Chapter",
+          "sectionName",
+          linkData
+        )
       )
     );
     console.log(`Successfully generated ${chapterBasename}.jsx`);

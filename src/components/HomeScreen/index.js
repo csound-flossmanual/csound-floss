@@ -31,6 +31,18 @@ const HomeScreen = () => (
         style={{ fontSize: 42, fontWeight: 100, lineHeight: 1.2 }}
       >{`Read the interactive book`}</p>
     </Link>
+    <div style={{ marginTop: 20, marginBottom: 20 }}>
+      <Link to={`/fr/premiers-pas/gs-01`} reloadDocument>
+        <p
+          style={{
+            fontSize: 24,
+            fontWeight: 100,
+            lineHeight: 1.2,
+            color: "#6f519b",
+          }}
+        >{`Lire le livre en français`}</p>
+      </Link>
+    </div>
     <hr style={{ backgroundColor: "#333", height: 2 }} />
     <div css={ß.grid}>
       <a
@@ -62,6 +74,42 @@ const HomeScreen = () => (
       >
         <img src={odfLogo} alt="odf version" style={{ width: 24 }} />
         <p>{`Download OpenDocument version`}</p>
+      </a>
+    </div>
+    <div css={ß.grid}>
+      <a
+        href={`/build/csound-flossmanual-fr-${
+          process.env.REACT_APP_CSOUND_FLOSS_VERSION || "dev"
+        }.epub`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img
+          src={epubLogo}
+          alt="epub version française"
+          style={{ width: 24 }}
+        />
+        <p>{`Télécharger la version EPUB française`}</p>
+      </a>
+      <a
+        href={`/build/csound-flossmanual-fr-${
+          process.env.REACT_APP_CSOUND_FLOSS_VERSION || "dev"
+        }.pdf`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img src={pdfLogo} alt="pdf version française" style={{ width: 24 }} />
+        <p>{`Télécharger la version PDF française`}</p>
+      </a>
+      <a
+        href={`/build/csound-flossmanual-fr-${
+          process.env.REACT_APP_CSOUND_FLOSS_VERSION || "dev"
+        }.odt`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img src={odfLogo} alt="odf version française" style={{ width: 24 }} />
+        <p>{`Télécharger la version OpenDocument française`}</p>
       </a>
     </div>
     <div>

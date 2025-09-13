@@ -1,7 +1,8 @@
 const R = require("ramda");
 const fs = require("fs");
 const path = require("path");
-const toc = require("../toc.json");
+const { TOC_FILE, IS_FRENCH } = require("./constants");
+const toc = require(TOC_FILE);
 
 const deleteFolderRecursive = (dirPath) => {
   if (fs.existsSync(dirPath)) {
@@ -70,7 +71,7 @@ const buildLink = (url) => {
     }
     let sectionName = toTitleCase(sectionBasename.replace(/\-/g, " "));
     if (sectionName.includes("Aa Toc")) {
-      sectionName = "Table of Contents";
+      sectionName = IS_FRENCH ? "Table des Matières" : "Table of Contents";
     }
     return {
       url: `${prefixData.url_prefix}/${sectionBasename}`,

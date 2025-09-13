@@ -5,9 +5,14 @@ const fs = require("fs");
 const { tmpdir } = require("os");
 const { execMarkdownToHtml } = require("./build_html");
 const { ensureEmptyDir } = require("./utils");
-const { BOOK_DIRECTORY, JSX_OUTPUT } = require("./constants");
+const {
+  BOOK_DIRECTORY,
+  JSX_OUTPUT,
+  TOC_FILE,
+  IS_FRENCH,
+} = require("./constants");
 const { buildOverviewPages } = require("./build_html_overview_pages");
-const toc = require("../toc.json");
+const toc = require(TOC_FILE);
 
 const allChapters = fg.sync([`${BOOK_DIRECTORY}/*.md`], { dot: false });
 
@@ -35,7 +40,7 @@ const buildAllHtml = () => {
               chapter: thisChapterNum,
               module: `${thisChapterPrefix}-overview`,
               url: `${thisToc.url_prefix}`,
-              sectionName: "Overview",
+              sectionName: IS_FRENCH ? "Aperçu" : "Overview",
             });
           } else {
             console.error("Didn't find matching chapter defined in TOC!");

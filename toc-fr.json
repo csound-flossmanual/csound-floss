@@ -1,0 +1,98 @@
+[
+  {
+    "chapter": 0,
+    "name": "Introduction",
+    "url_prefix": "/fr/introduction",
+    "with_overview_page": false
+  },
+  {
+    "chapter": 1,
+    "name": "Premiers Pas",
+    "url_prefix": "/fr/premiers-pas",
+    "with_overview_page": true
+  },
+  {
+    "chapter": 2,
+    "name": "Comment faire ...",
+    "url_prefix": "/fr/comment-faire",
+    "with_overview_page": true
+  },
+  {
+    "chapter": 3,
+    "name": "Langage Csound",
+    "url_prefix": "/fr/langage-csound",
+    "with_overview_page": true
+  },
+  {
+    "chapter": 4,
+    "name": "Synthèse Sonore",
+    "url_prefix": "/fr/synthese-sonore",
+    "with_overview_page": true
+  },
+  {
+    "chapter": 5,
+    "name": "Modification Sonore",
+    "url_prefix": "/fr/modification-sonore",
+    "with_overview_page": true
+  },
+  {
+    "chapter": 6,
+    "name": "Échantillons",
+    "url_prefix": "/fr/echantillons",
+    "with_overview_page": true
+  },
+  {
+    "chapter": 7,
+    "name": "Midi",
+    "url_prefix": "/fr/midi",
+    "with_overview_page": true
+  },
+  {
+    "chapter": 8,
+    "name": "Autres Communications",
+    "url_prefix": "/fr/autres-communications",
+    "with_overview_page": true
+  },
+  {
+    "chapter": 9,
+    "name": "Csound dans d'autres applications",
+    "url_prefix": "/fr/csound-dans-autres-applications",
+    "with_overview_page": true
+  },
+  {
+    "chapter": 10,
+    "name": "Interfaces Csound",
+    "url_prefix": "/fr/interfaces-csound",
+    "with_overview_page": true
+  },
+  {
+    "chapter": 11,
+    "name": "Utilitaires Csound",
+    "url_prefix": "/fr/utilitaires-csound",
+    "with_overview_page": true
+  },
+  {
+    "chapter": 12,
+    "name": "Csound et autres langages de programmation",
+    "url_prefix": "/fr/csound-et-autres-langages",
+    "with_overview_page": true
+  },
+  {
+    "chapter": 13,
+    "name": "Étendre Csound",
+    "url_prefix": "/fr/etendre-csound",
+    "with_overview_page": true
+  },
+  {
+    "chapter": 14,
+    "name": "Divers",
+    "url_prefix": "/fr/divers",
+    "with_overview_page": true
+  },
+  {
+    "chapter": 15,
+    "name": "Annexe",
+    "url_prefix": "/fr/annexe",
+    "with_overview_page": true
+  }
+]

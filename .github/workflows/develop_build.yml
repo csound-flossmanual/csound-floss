@@ -38,14 +38,26 @@ jobs:
           yarn build:pdf
           mkdir -p build/build
           mv *.pdf build/build/csound-flossmanual-${REACT_APP_CSOUND_FLOSS_VERSION}.pdf
+      - name: Build French pdf
+        run: |
+          LANG=fr yarn build:pdf
+          mv *_fr.pdf build/build/csound-flossmanual-fr-${REACT_APP_CSOUND_FLOSS_VERSION}.pdf
       - name: Build epub
         run: |
           yarn build:epub
           mv *.epub build/build/csound-flossmanual-${REACT_APP_CSOUND_FLOSS_VERSION}.epub
+      - name: Build French epub
+        run: |
+          LANG=fr yarn build:epub
+          mv *_fr.epub build/build/csound-flossmanual-fr-${REACT_APP_CSOUND_FLOSS_VERSION}.epub
       - name: Build odt
         run: |
           yarn build:odt
           mv *.odt build/build/csound-flossmanual-${REACT_APP_CSOUND_FLOSS_VERSION}.odt
+      - name: Build French odt
+        run: |
+          LANG=fr yarn build:odt
+          mv *_fr.odt build/build/csound-flossmanual-fr-${REACT_APP_CSOUND_FLOSS_VERSION}.odt
       - name: Compress dist to zip
         run: |
           nix-env -f '<nixpkgs>' -iA zip

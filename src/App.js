@@ -11,6 +11,7 @@ import GuiRenderer from "./components/Gui";
 import { CsoundProvider } from "./CsoundContext";
 import { BookProvider } from "./BookContext";
 import routes from "./book_fragments/routes.json";
+import routesFr from "./book_fragments_fr/routes.json";
 import { equals, findIndex, isEmpty, propEq } from "ramda";
 import { browserHistory } from "./history";
 
@@ -39,6 +40,10 @@ function App() {
     isEmpty(initialState) ? "/" : initialState
   );
 
+  // Determine if we're on French routes
+  const isFrenchRoute = currentRoute.startsWith("/fr");
+  const allRoutes = isFrenchRoute ? routesFr || [] : routes;
+
   const routeIndex = findIndex(
     propEq(
       "url",
@@ -46,7 +51,7 @@ function App() {
         ? "/introduction/preface"
         : currentRoute
     )
-  )(routes);
+  )(allRoutes);
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -77,7 +82,7 @@ function App() {
           <BrowserRouter key="hst" history={browserHistory}>
             {!mobileMode && routeIndex > -1 && !equals(currentRoute, "/") && (
               <LeftNav
-                routes={routes}
+                routes={allRoutes}
                 currentRoute={currentRoute}
                 setCurrentRoute={setCurrentRoute}
               />

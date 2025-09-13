@@ -1,0 +1,101 @@
+[
+  {
+    "chapter": 1,
+    "name": "Premiers Pas",
+    "url_prefix": "/fr/premiers-pas",
+    "with_overview_page": true,
+    "module": "01-overview",
+    "url": "/fr/premiers-pas",
+    "sectionName": "Aperçu"
+  },
+  {
+    "chapter": 1,
+    "name": "Premiers Pas",
+    "url_prefix": "/fr/premiers-pas",
+    "with_overview_page": true,
+    "module": "01-GS-01",
+    "url": "/fr/premiers-pas/gs-01",
+    "sectionName": "Bonjour Csound"
+  },
+  {
+    "chapter": 1,
+    "name": "Premiers Pas",
+    "url_prefix": "/fr/premiers-pas",
+    "with_overview_page": true,
+    "module": "01-GS-02",
+    "url": "/fr/premiers-pas/gs-02",
+    "sectionName": "Bonjour Fréquences"
+  },
+  {
+    "chapter": 1,
+    "name": "Premiers Pas",
+    "url_prefix": "/fr/premiers-pas",
+    "with_overview_page": true,
+    "module": "01-GS-03",
+    "url": "/fr/premiers-pas/gs-03",
+    "sectionName": "GS 03"
+  },
+  {
+    "chapter": 1,
+    "name": "Premiers Pas",
+    "url_prefix": "/fr/premiers-pas",
+    "with_overview_page": true,
+    "module": "01-GS-04",
+    "url": "/fr/premiers-pas/gs-04",
+    "sectionName": "GS 04"
+  },
+  {
+    "chapter": 1,
+    "name": "Premiers Pas",
+    "url_prefix": "/fr/premiers-pas",
+    "with_overview_page": true,
+    "module": "01-GS-05",
+    "url": "/fr/premiers-pas/gs-05",
+    "sectionName": "GS 05"
+  },
+  {
+    "chapter": 1,
+    "name": "Premiers Pas",
+    "url_prefix": "/fr/premiers-pas",
+    "with_overview_page": true,
+    "module": "01-GS-06",
+    "url": "/fr/premiers-pas/gs-06",
+    "sectionName": "GS 06"
+  },
+  {
+    "chapter": 1,
+    "name": "Premiers Pas",
+    "url_prefix": "/fr/premiers-pas",
+    "with_overview_page": true,
+    "module": "01-GS-07",
+    "url": "/fr/premiers-pas/gs-07",
+    "sectionName": "GS 07"
+  },
+  {
+    "chapter": 1,
+    "name": "Premiers Pas",
+    "url_prefix": "/fr/premiers-pas",
+    "with_overview_page": true,
+    "module": "01-GS-08",
+    "url": "/fr/premiers-pas/gs-08",
+    "sectionName": "GS 08"
+  },
+  {
+    "chapter": 1,
+    "name": "Premiers Pas",
+    "url_prefix": "/fr/premiers-pas",
+    "with_overview_page": true,
+    "module": "01-GS-09",
+    "url": "/fr/premiers-pas/gs-09",
+    "sectionName": "GS 09"
+  },
+  {
+    "chapter": 1,
+    "name": "Premiers Pas",
+    "url_prefix": "/fr/premiers-pas",
+    "with_overview_page": true,
+    "module": "01-GS-10",
+    "url": "/fr/premiers-pas/gs-10",
+    "sectionName": "GS 10"
+  }
+]

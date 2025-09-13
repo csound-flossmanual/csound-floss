@@ -9,14 +9,15 @@ const {
   BOOK_DIRECTORY,
   MARKDOWN_EXTENSIONS,
   RESOURCES_DIRECTORY,
+  IS_FRENCH,
 } = require("./constants");
 
 execSync(
-  `pandoc book/*.md -f ${MARKDOWN_EXTENSIONS.join("+")} \
+  `pandoc ${BOOK_DIRECTORY}/*.md -f ${MARKDOWN_EXTENSIONS.join("+")} \
       --filter=pandoc/filters/epub_math.js \
       --filter=pandoc/filters/epub_images.js \
       --epub-metadata=resources/epub-metadata.yml \
-      --metadata title="The Csound FLOSS Manual" \
+      --metadata title="${IS_FRENCH ? "Le Manuel FLOSS Csound" : "The Csound FLOSS Manual"}" \
       -o ${EPUB_OUTPUT} \
       --mathml`,
   { encoding: "utf-8" }

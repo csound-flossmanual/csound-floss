@@ -2,8 +2,13 @@ const path = require("path");
 const R = require("ramda");
 const fg = require("fast-glob");
 const fs = require("fs");
-const { BOOK_DIRECTORY, JSX_OUTPUT } = require("./constants");
-const toc = require("../toc.json");
+const {
+  BOOK_DIRECTORY,
+  JSX_OUTPUT,
+  TOC_FILE,
+  IS_FRENCH,
+} = require("./constants");
+const toc = require(TOC_FILE);
 
 const prepend = ({ title }) => `
 import React, { useEffect } from "react";

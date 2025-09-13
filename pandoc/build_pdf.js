@@ -9,6 +9,7 @@ const {
   BOOK_DIRECTORY,
   MARKDOWN_EXTENSIONS,
   RESOURCES_DIRECTORY,
+  IS_FRENCH,
 } = require("./constants");
 
 const allChapters = R.reject(
@@ -18,7 +19,10 @@ const allChapters = R.reject(
 
 // const allChapters = R.take(10, allChapters_);
 
-const tmpDest = path.join(tmpdir(), "csound_flossmanual_single.md");
+const tmpDest = path.join(
+  tmpdir(),
+  `csound_flossmanual_single${IS_FRENCH ? "_fr" : ""}.md`
+);
 
 const deleteLinesHack = [
   "![](https://gogins.github.io/csound-extended/scrims.html){width=100% height=600px object-fit=contain}",
@@ -50,6 +54,7 @@ execSync(
       --pdf-engine=xelatex \
       --filter=pandoc/filters/pdf_interlinks.js \
       --filter=pandoc/filters/pdf_codeblocks.js \
+      --metadata title="${IS_FRENCH ? "Le Manuel FLOSS Csound" : "The Csound FLOSS Manual"}" \
       -o ${PDF_OUTPUT}`,
   { encoding: "utf-8" }
 );
