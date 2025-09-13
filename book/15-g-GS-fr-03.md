@@ -28,9 +28,10 @@ kAmp = linseg:k(0.3,0.5,0.1)
 <<<<<<< HEAD
 Notez qu’acoustiquement, cette façon de changer le volume est discutable. Nous en parlerons dans le Tutoriel 06.
 =======
-    Notez qu’acoustiquement, cette façon de changer le volume est discutable.
-    Nous en parlerons dans le Tutoriel 06.
->>>>>>> c9576890a19c871cb299cf2796c5d68c80ef27f0
+Notez qu’acoustiquement, cette façon de changer le volume est discutable.
+Nous en parlerons dans le Tutoriel 06.
+
+> > > > > > > c9576890a19c871cb299cf2796c5d68c80ef27f0
 
 ## Retour au début
 
@@ -89,9 +90,10 @@ La constante **ksmps** définit combien d’échantillons audio sont collectés 
 Note : Csound suppose que vous avez le même nombre de canaux d’entrée que de canaux de sortie. Si ce n’est pas le cas, vous devez utiliser la constante `nchnls_i` pour configurer le nombre de canaux d’entrée.  
 Par exemple, si vous avez 8 canaux de sortie mais 4 canaux d’entrée sur votre interface audio, configurez :
 =======
-  Note : Csound suppose que vous avez le même nombre de canaux d’entrée que de canaux de sortie. Si ce n’est pas le cas, vous devez utiliser la constante `nchnls_i` pour configurer le nombre de canaux d’entrée.
-  Par exemple, si vous avez 8 canaux de sortie mais 4 canaux d’entrée sur votre interface audio, configurez :
->>>>>>> c9576890a19c871cb299cf2796c5d68c80ef27f0
+Note : Csound suppose que vous avez le même nombre de canaux d’entrée que de canaux de sortie. Si ce n’est pas le cas, vous devez utiliser la constante `nchnls_i` pour configurer le nombre de canaux d’entrée.
+Par exemple, si vous avez 8 canaux de sortie mais 4 canaux d’entrée sur votre interface audio, configurez :
+
+> > > > > > > c9576890a19c871cb299cf2796c5d68c80ef27f0
 
 ```
 nchnls = 8
@@ -249,8 +251,8 @@ Note 2 : L’avantage d’un `ksmps` **plus petit** est une meilleur définiti
 
 Note 3 : L’avantage d’un `ksmps` plus large est une meilleure performance en termes de vitesse. Si vous avez un fichier Csound complexe et très consommateur de ressource CPU, vous risquez d’obtenir des 'dropouts / pertes'. Dans ce cas, tentez d’augmenter `ksmps`.
 
-Note 4 : Bien que `ksmps` soit une constante, nous pouvons configurer une **ksmps locale** dans un instrument. L’opcode destiné à cette opération est `setksmps`. Parfois, nous voulons exécuter un opcode _k-rate_ dans un instrument échantillon par échantillon. Dans ce cas, nous pouvons utiliser `setksmps(1)`. Nous pouvons seulement séparer le `ksmps` globale en parties plus petite, jamais l’inverse.
-=======
+# Note 4 : Bien que `ksmps` soit une constante, nous pouvons configurer une **ksmps locale** dans un instrument. L’opcode destiné à cette opération est `setksmps`. Parfois, nous voulons exécuter un opcode _k-rate_ dans un instrument échantillon par échantillon. Dans ce cas, nous pouvons utiliser `setksmps(1)`. Nous pouvons seulement séparer le `ksmps` globale en parties plus petite, jamais l’inverse.
+
     Note 1 : Il est recommandé d'utiliser des valeurs **puissance-de deux**
     pour `ksmps`. Les valeurs courantes sont 32 (= $2^5$) ou 64 (= $2^6$).
     Ceci est dû à la gestion des entrées/sorties de l'audio. Vous trouverez
@@ -281,7 +283,8 @@ Note 4 : Bien que `ksmps` soit une constante, nous pouvons configurer une **ks
     _k-rate_ dans un instrument échantillon par échantillon. Dans ce cas,
     nous pouvons utiliser `setksmps(1)`. Nous pouvons seulement séparer
     le `ksmps` globale en parties plus petite, jamais l'inverse.
->>>>>>> c9576890a19c871cb299cf2796c5d68c80ef27f0
+
+> > > > > > > c9576890a19c871cb299cf2796c5d68c80ef27f0
 
 ### Comment cela se passe-t-il dans PD ?
 

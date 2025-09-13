@@ -212,9 +212,10 @@ Vous pouvez sans problème continuer d’écrire le code Csound ainsi. Les raiso
 NOTE DU TRADUCTEUR pour les francophones : Sauf dans les commentaires où ça ne pose aucun problème, n’utilisez que des caractères ASCII dans vos programmes.
 J’ai essayé et chez moi ça plante. Donc pas de lettres accentuées, pas de œ et autres signes propres au français.
 =======
-   NOTE DU TRADUCTEUR pour les francophones : Sauf dans les commentaires où ça ne pose aucun
-   problème, n’utilisez que des caractères ASCII dans vos programmes. J’ai essayé et chez moi ça plante. Donc pas de lettres accentuées, pas de œ et autres signes propres au français.
->>>>>>> c9576890a19c871cb299cf2796c5d68c80ef27f0
+NOTE DU TRADUCTEUR pour les francophones : Sauf dans les commentaires où ça ne pose aucun
+problème, n’utilisez que des caractères ASCII dans vos programmes. J’ai essayé et chez moi ça plante. Donc pas de lettres accentuées, pas de œ et autres signes propres au français.
+
+> > > > > > > c9576890a19c871cb299cf2796c5d68c80ef27f0
 
 ## Au sujet de ces tutoriels
 

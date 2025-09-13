@@ -151,8 +151,9 @@ Changez le code pour que :
 <<<<<<< HEAD
 Note : `p3` fait référence à la partition, mais n’a aucune signification à l’intérieur de celle-ci. Csound affichera une erreur si vous écrivez **p3** comme symbole dans la partition. Il n’a de signification que dans le code de l’**instrument**.
 =======
-  Note : `p3` fait référence à la partition, mais n’a aucune signification à l’intérieur de celle-ci. Csound affichera une erreur si vous écrivez **p3** comme symbole dans la partition. Il n’a de signification que dans le code de l’**instrument**.
->>>>>>> c9576890a19c871cb299cf2796c5d68c80ef27f0
+Note : `p3` fait référence à la partition, mais n’a aucune signification à l’intérieur de celle-ci. Csound affichera une erreur si vous écrivez **p3** comme symbole dans la partition. Il n’a de signification que dans le code de l’**instrument**.
+
+> > > > > > > c9576890a19c871cb299cf2796c5d68c80ef27f0
 
 ## Avançons
 

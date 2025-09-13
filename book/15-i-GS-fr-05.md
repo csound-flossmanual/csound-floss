@@ -98,11 +98,12 @@ instr 1: iFreq = 293.665
 <<<<<<< HEAD
 Note : l’opcode `print` ne fonctionne **qu’avec les variables i-rate**. Vous ne pouvez pas utiliser cet opcode pour imprimer des variables _k-rate_ ou _a-rate_. Nous verrons plus tard des opcodes pour imprimer des variables k-rate ou a-rate.
 =======
-    Note : l'opcode `print` ne fonctionne **qu'avec les variables i-rate**.
-    Vous ne pouvez pas utiliser cet opcode pour imprimer des variables
-    _k-rate_ ou _a-rate_. Nous verrons plus tard des opcodes pour imprimer
-    des variables k-rate ou a-rate.
->>>>>>> c9576890a19c871cb299cf2796c5d68c80ef27f0
+Note : l'opcode `print` ne fonctionne **qu'avec les variables i-rate**.
+Vous ne pouvez pas utiliser cet opcode pour imprimer des variables
+_k-rate_ ou _a-rate_. Nous verrons plus tard des opcodes pour imprimer
+des variables k-rate ou a-rate.
+
+> > > > > > > c9576890a19c871cb299cf2796c5d68c80ef27f0
 
 ## Exemple
 

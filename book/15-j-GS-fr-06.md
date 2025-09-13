@@ -66,8 +66,8 @@ Note 1 : Pour être précis, pour un rapport/ratio d’amplitude de 1/2, la di
 
 Note 2 : Vous pouvez en apprendre davantage sur les intensités sonores dan [ce livre](https://flossmanual.csound.com/basics/intensities).
 
-Note 3 : Pour un contexte plus général, voyez la [loi Weber-Fechner](https://en.wikipedia.org/wiki/Weber%E2%80%93Fechner_law).
-=======
+# Note 3 : Pour un contexte plus général, voyez la [loi Weber-Fechner](https://en.wikipedia.org/wiki/Weber%E2%80%93Fechner_law).
+
     Note 1 : Pour être précis, pour un rapport/ratio d’amplitude de 1/2,
     la différence est _-6.0206_dB_ plutôt que _-6 DB_. La colonne d’amplitude
     ne suit donc pas précisément le rapport 1/2.
@@ -77,7 +77,8 @@ Note 3 : Pour un contexte plus général, voyez la [loi Weber-Fechner](https:/
 
     Note 3 : Pour un contexte plus général, voyez la
     [loi Weber-Fechner](https://en.wikipedia.org/wiki/Weber%E2%80%93Fechner_law).
->>>>>>> c9576890a19c871cb299cf2796c5d68c80ef27f0
+
+> > > > > > > c9576890a19c871cb299cf2796c5d68c80ef27f0
 
 ## L’opcode 'ampdb'
 
@@ -328,14 +329,15 @@ Il est intéressant d’observer la manière _géométrique_ de construire cette
 Si, dans un triangle rectangle, une ligne droite est tracée à partir de l’angle droit perpendiculairement à la base, alors les triangles autour de la perpendiculaire sont similaires à l’ensemble du triangle et entre eux.  
 [Euclid's Elements of Geometry, Translation R. Fitzpatrick, p. 164, cited after](https://farside.ph.utexas.edu/Books/Euclid/Elements.pdf).
 =======
-    Si, dans un triangle rectangle, une ligne droite est tracée à partir
-    de l'angle droit
-    perpendiculairement à la base, alors les triangles autour de la
-    perpendiculaire sont similaires à
-    l’ensemble du triangle et entre eux.
-    [Euclid's Elements of Geometry, Translation R. Fitzpatrick, p. 164,
-    cited after](https://farside.ph.utexas.edu/Books/Euclid/Elements.pdf).
->>>>>>> c9576890a19c871cb299cf2796c5d68c80ef27f0
+Si, dans un triangle rectangle, une ligne droite est tracée à partir
+de l'angle droit
+perpendiculairement à la base, alors les triangles autour de la
+perpendiculaire sont similaires à
+l’ensemble du triangle et entre eux.
+[Euclid's Elements of Geometry, Translation R. Fitzpatrick, p. 164,
+cited after](https://farside.ph.utexas.edu/Books/Euclid/Elements.pdf).
+
+> > > > > > > c9576890a19c871cb299cf2796c5d68c80ef27f0
 
 ![Construction de la moyenne géométrique d’Euclide.](../resources/images/01-GS-06-d.png)
 
