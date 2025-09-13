@@ -12,8 +12,13 @@ import { CsoundProvider } from "./CsoundContext";
 import { BookProvider } from "./BookContext";
 import routes from "./book_fragments/routes.json";
 import routesFr from "./book_fragments_fr/routes.json";
-import { equals, findIndex, isEmpty, propEq } from "ramda";
+import { findIndex, isEmpty, propEq } from "ramda";
 import { browserHistory } from "./history";
+import {
+  isFrenchRoute,
+  getDefaultContentRoute,
+  isHomeRoute,
+} from "./constants/routes";
 
 const theme = {
   ...extendTheme({
@@ -41,16 +46,11 @@ function App() {
   );
 
   // Determine if we're on French routes
-  const isFrenchRoute = currentRoute.startsWith("/fr");
-  const allRoutes = isFrenchRoute ? routesFr || [] : routes;
+  const isCurrentRouteFrench = isFrenchRoute(currentRoute);
+  const allRoutes = isCurrentRouteFrench ? routesFr || [] : routes;
 
   const routeIndex = findIndex(
-    propEq(
-      "url",
-      currentRoute === "/" || currentRoute === "/introduction"
-        ? "/introduction/preface"
-        : currentRoute
-    )
+    propEq("url", getDefaultContentRoute(currentRoute))
   )(allRoutes);
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -64,7 +64,7 @@ function App() {
     };
   }, [setWindowWidth]);
 
-  const mobileMode = windowWidth < 800 && currentRoute !== "/";
+  const mobileMode = windowWidth < 800 && !isHomeRoute(currentRoute);
 
   return (
     <ChakraProvider theme={theme}>
@@ -80,7 +80,7 @@ function App() {
             mobileMode ? "column" : "row"
           };}`}</style>
           <BrowserRouter key="hst" history={browserHistory}>
-            {!mobileMode && routeIndex > -1 && !equals(currentRoute, "/") && (
+            {!mobileMode && routeIndex > -1 && !isHomeRoute(currentRoute) && (
               <LeftNav
                 routes={allRoutes}
                 currentRoute={currentRoute}

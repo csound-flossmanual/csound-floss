@@ -4,6 +4,7 @@ import React from "react";
 import { jsx } from "@emotion/react";
 import { Link, useLocation } from "react-router-dom";
 import useBook from "../../BookContext";
+import { isFrenchRoute, getDefaultContentRoute } from "../../constants/routes";
 import {
   concat,
   dec,
@@ -157,23 +158,29 @@ function LeftNav({ routes = [], setCurrentRoute }) {
       typeof location.hash === "string" &&
       location.hash.length > 1
     ) {
-      const element = document.querySelector(location.hash);
-      if (element) {
-        element.scrollIntoView(element);
-      } else {
-        scrollIntoView(location.hash.replace("#", ""));
+      const decodedHash = decodeURIComponent(location.hash);
+      const elementId = decodedHash.replace("#", "");
+
+      try {
+        // First try querySelector with the decoded hash (for CSS selector syntax)
+        const element = document.querySelector(decodedHash);
+        if (element) {
+          element.scrollIntoView();
+          return;
+        }
+      } catch (error) {
+        // querySelector failed, likely due to special characters in the selector
+        console.warn("querySelector failed, trying getElementById:", error);
       }
+
+      // Fallback: use getElementById with the decoded element ID
+      scrollIntoView(elementId);
     }
   }, [location]);
 
   const currentRoutename = location?.pathname ?? "/";
   const routeIndex = findIndex(
-    propEq(
-      "url",
-      currentRoutename === "/" || currentRoutename === "/introduction"
-        ? "/introduction/preface"
-        : currentRoutename
-    )
+    propEq("url", getDefaultContentRoute(currentRoutename))
   )(routes);
 
   const currentRoute = routes[routeIndex];
@@ -188,7 +195,7 @@ function LeftNav({ routes = [], setCurrentRoute }) {
   const previousRoute = propOr(false, routeIndex - 1, routes);
 
   // Detect if we're in French mode based on current route
-  const isFrenchRoute = currentRoutename.startsWith("/fr");
+  const isCurrentRouteFrench = isFrenchRoute(currentRoutename);
 
   const chapterZero = getChapterZero(routes);
   const allChapters = getAllChapters(routes);
@@ -227,8 +234,10 @@ function LeftNav({ routes = [], setCurrentRoute }) {
     const isActive = dec(currentRoute.chapter) === index;
     const chapterData = pipe(
       reject(prop("isDisabled")),
-      reject((d) => d.label.startsWith(isFrenchRoute ? "Aperçu" : "Overview"))
-    )(getChapterData(index + 1, routes, isFrenchRoute));
+      reject((d) =>
+        d.label.startsWith(isCurrentRouteFrench ? "Aperçu" : "Overview")
+      )
+    )(getChapterData(index + 1, routes, isCurrentRouteFrench));
     const chapterList = chapterData.map(
       ({ value: subValue, label: subLabel }, subIndex) => {
         const subChapterActive = subValue === currentRoute.url;
@@ -250,7 +259,7 @@ function LeftNav({ routes = [], setCurrentRoute }) {
                       : "inherit",
                 }}
               >
-                {subLabel === (isFrenchRoute ? "Aperçu" : "Overview")
+                {subLabel === (isCurrentRouteFrench ? "Aperçu" : "Overview")
                   ? subLabel
                   : trimSubChapterLetter(subLabel)}
               </p>

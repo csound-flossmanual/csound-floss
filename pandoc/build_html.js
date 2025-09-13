@@ -104,8 +104,27 @@ function execMarkdownToHtml(fileName, lang = null) {
       .replaceAll('REPLACEME_END"', "`}")
       .replaceAll("undefined</CodeElement>", "</CodeElement>")
       // .replaceAll('"></CodeElement>', "`}></CodeElement>")
-      .replace(/^</gm, "{' '}<")
-      .replace(/>$/gm, ">{' '}");
+      .split("\n")
+      .map((line) => {
+        // Don't add whitespace around table-related elements
+        const isTableElement = /^<\/?(?:table|tbody|thead|tr|td|th)/.test(
+          line.trim()
+        );
+        const endsWithTableElement = /(?:table|tbody|thead|tr|td|th)>$/.test(
+          line.trim()
+        );
+
+        if (isTableElement && endsWithTableElement) {
+          return line; // No whitespace for table elements
+        } else if (isTableElement) {
+          return line; // No leading whitespace for table elements
+        } else if (endsWithTableElement) {
+          return line.replace(/^</, "{' '}<"); // Only leading whitespace for non-table elements
+        } else {
+          return line.replace(/^</, "{' '}<").replace(/>$/, ">{' '}"); // Normal whitespace handling
+        }
+      })
+      .join("\n");
   } catch (error) {
     console.error(`Error in html2jsx conversion for file ${fileName}:`);
     console.error(`Error details:`, error.message);

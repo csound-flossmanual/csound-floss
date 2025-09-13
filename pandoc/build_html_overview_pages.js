@@ -96,6 +96,11 @@ const buildOverviewPages = (lang = null) => {
           .replace(/\d\d-/i, "")
           .replace(".md", "")
           .replace(/^[a-z]-/i, "");
+
+        // Convert section basename to lowercase for French URLs (same logic as in utils.js)
+        const urlSectionBasename = isFrench
+          ? sectionBasename.toLowerCase()
+          : sectionBasename;
         const sectionsMatches = Array.from(
           content.matchAll(/#{1,6}.+(?=\n)/g)
         ).map((m) => Array.isArray(m) && m[0]);
@@ -117,7 +122,7 @@ const buildOverviewPages = (lang = null) => {
         const sectionNameButton = `<Heading as='h3' margin="0" size="md">
         <AccordionButton cursor="initial" fontSize="inherit">
           <Box as="span" flex='1' textAlign='left'>
-           <Link as={ReactLink} to="${url_prefix}/${sectionBasename}" color="linkColor">
+           <Link as={ReactLink} to="${url_prefix}/${urlSectionBasename}" color="linkColor">
             ${sectionName}
             </Link>
            </Box>
@@ -162,7 +167,7 @@ const buildOverviewPages = (lang = null) => {
           const subsectionId = makeId(subsectionMatch.replace(/#/g, ""));
           overviewMarkdown = `${overviewMarkdown}<ListItem>
            <Link as={ReactLink} color="linkColor" fontSize="17px" fontWeight="600"
-            to="${url_prefix}/${sectionBasename}#${subsectionId}">${subsectionClean}</Link>\n`;
+            to="${url_prefix}/${urlSectionBasename}#${subsectionId}">${subsectionClean}</Link>\n`;
 
           overviewMarkdown = `${overviewMarkdown}<UnorderedList p="0">`;
           const subsubSectionsMd = subsubSections.map((s) => [
@@ -178,7 +183,7 @@ const buildOverviewPages = (lang = null) => {
                 id,
               ]) => `<ListItem maxWidth="100%!important" w="100%"> <Link as={ReactLink}
                   color="linkColor" fontSize="15px" fontWeight="400"
-                  to="${url_prefix}/${sectionBasename}#${id}">${word}</Link></ListItem>`
+                  to="${url_prefix}/${urlSectionBasename}#${id}">${word}</Link></ListItem>`
             )
             .join("\n")}`;
           overviewMarkdown = `${overviewMarkdown}</UnorderedList></ListItem>`;
