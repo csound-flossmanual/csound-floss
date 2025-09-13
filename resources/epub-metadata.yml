@@ -1,5 +1,13 @@
 title:
-- type: main
-  text: Csound Floss Manual
-css:
-  resources/styles/common.css
+  - type: main
+    text: The Csound FLOSS Manual
+  - type: subtitle
+    text: Release 7 (work in progress)
+creator:
+  - role: author
+    text: Joachim Heintz, Iain McCurdy and contributors
+publisher: CC BY
+language: en-US
+subject: reference
+rights: Copyright 2010 The contributors. Licensed under Creative Commons BY
+css: resources/styles/common.css

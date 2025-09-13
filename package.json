@@ -15,7 +15,7 @@
     "@codemirror/lang-python": "^6.1.2",
     "@codemirror/language": "^6.6.0",
     "@codemirror/view": "^6.9.3",
-    "@csound/browser": "^7.0.0-beta5",
+    "@csound/browser": "^7.0.0-beta6",
     "@emotion/core": "^11.0.0",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",

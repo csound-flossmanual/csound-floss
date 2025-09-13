@@ -13,10 +13,12 @@ const {
 
 execSync(
   `pandoc book/*.md -f ${MARKDOWN_EXTENSIONS.join("+")} \
+      --filter=pandoc/filters/epub_math.js \
       --filter=pandoc/filters/epub_images.js \
       --epub-metadata=resources/epub-metadata.yml \
+      --metadata title="The Csound FLOSS Manual" \
       -o ${EPUB_OUTPUT} \
-      --mathjax`,
+      --mathml`,
   { encoding: "utf-8" }
 );
 
