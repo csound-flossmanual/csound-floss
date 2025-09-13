@@ -143,6 +143,94 @@ const setLocalStorageState = (enabled) =>
   typeof window.localStorage.setItem === "function" &&
   window.localStorage.setItem("dark_mode_enabled", enabled ? "1" : "0");
 
+const injectPngBackgroundCSS = () => {
+  const styleId = "png-dark-mode-background";
+  let style = document.getElementById(styleId);
+
+  if (!style) {
+    style = document.createElement("style");
+    style.id = styleId;
+    document.head.appendChild(style);
+    // Add data attribute to prevent DarkReader from processing this style
+    style.setAttribute("data-darkreader-inline-bgcolor", "");
+  }
+
+  // Create wrapper divs for PNG images instead of CSS
+  const pngImages = document.querySelectorAll(
+    'img[src$=".png"], img[src*=".png?"], img[src*=".png#"]'
+  );
+
+  pngImages.forEach((img) => {
+    // Skip if already wrapped
+    if (
+      img.parentElement &&
+      img.parentElement.classList.contains("png-white-bg-wrapper")
+    ) {
+      return;
+    }
+
+    // Create wrapper div
+    const wrapper = document.createElement("div");
+    wrapper.className = "png-white-bg-wrapper";
+    wrapper.style.cssText = `
+      display: inline-block !important;
+      background: white !important;
+      padding: 8px !important;
+      border-radius: 4px !important;
+      border: 1px solid #ccc !important;
+      box-sizing: border-box !important;
+      margin: 24px auto !important;
+    `;
+
+    // Add DarkReader ignore attribute
+    wrapper.setAttribute("data-darkreader-ignore", "");
+
+    // Wrap the image
+    img.parentNode.insertBefore(wrapper, img);
+    wrapper.appendChild(img);
+
+    // Reset image styles
+    img.style.cssText = `
+      display: block !important;
+      margin: 0 !important;
+      background: transparent !important;
+      border: none !important;
+      padding: 0 !important;
+    `;
+  });
+};
+
+const removePngBackgroundCSS = () => {
+  // Remove wrapper divs and restore original image placement
+  const wrappers = document.querySelectorAll(".png-white-bg-wrapper");
+
+  wrappers.forEach((wrapper) => {
+    const img = wrapper.querySelector("img");
+    if (img) {
+      // Restore original image styles
+      img.style.cssText = `
+        display: block !important;
+        margin: 24px auto !important;
+        max-width: 100% !important;
+        border: 0 !important;
+      `;
+
+      // Move image back to original position
+      wrapper.parentNode.insertBefore(img, wrapper);
+    }
+
+    // Remove the wrapper
+    wrapper.remove();
+  });
+
+  // Also remove any leftover style element
+  const styleId = "png-dark-mode-background";
+  const style = document.getElementById(styleId);
+  if (style) {
+    style.remove();
+  }
+};
+
 const DarkModeToggle = () => {
   const [enabled, setEnabled] = React.useState(getLocalStorageVal());
 
@@ -150,6 +238,8 @@ const DarkModeToggle = () => {
     if (getLocalStorageVal()) {
       enableDynamicTheme();
       setEnabled(true);
+      // Add PNG background CSS after a short delay to ensure DarkReader is active
+      setTimeout(injectPngBackgroundCSS, 100);
     }
     // eslint-disable-next-line
   }, []);
@@ -159,10 +249,13 @@ const DarkModeToggle = () => {
       setEnabled(false);
       disableDynamicTheme();
       setLocalStorageState(false);
+      removePngBackgroundCSS();
     } else {
       setEnabled(true);
       enableDynamicTheme();
       setLocalStorageState(true);
+      // Add PNG background CSS after a short delay to ensure DarkReader is active
+      setTimeout(injectPngBackgroundCSS, 100);
     }
   };
 
