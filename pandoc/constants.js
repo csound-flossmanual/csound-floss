@@ -26,6 +26,8 @@ const JSX_OUTPUT = path.resolve(
   `../src/book_fragments${FRAGMENTS_DIR_SUFFIX}`
 );
 const BOOK_DIRECTORY = path.resolve(__dirname, `../book${LANG_DIR_SUFFIX}`);
+const BOOK_DIRECTORY_FR = path.resolve(__dirname, `../book_fr`);
+
 const OTHER_DIRECTORY = path.resolve(__dirname, "../other");
 const RESOURCES_DIRECTORY = path.resolve(__dirname, "../resources");
 

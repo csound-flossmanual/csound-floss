@@ -4,6 +4,7 @@ import { jsx } from "@emotion/react";
 // eslint-disable-next-line no-unused-vars
 import React, { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import HomeScreen from "../HomeScreen";
+import HomeScreenFr from "../HomeScreenFr";
 import { Route, Routes } from "react-router-dom";
 import routes from "../../book_fragments/routes.json";
 import routesFr from "../../book_fragments_fr/routes.json";
@@ -119,6 +120,7 @@ function Main({ currentRoute, mobileMode, setCurrentRoute }) {
         <Routes>
           {memoizedRoutes}
           <Route path="/interactive-demo" element={<InteractiveDemo />} />
+          <Route path="/fr" element={<HomeScreenFr />} />
           <Route path="/" element={<HomeScreen />} />
         </Routes>
       </div>

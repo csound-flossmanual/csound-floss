@@ -24,6 +24,7 @@ import {
 import StickyMobileNav from "react-sticky-footer";
 import Select from "react-select";
 import routes from "../../book_fragments/routes.json";
+import routesFr from "../../book_fragments_fr/routes.json";
 
 const rootStyle = css`
   display: flex;
@@ -120,10 +121,10 @@ const createSelectDataSection = (route) =>
         label: moduleToName(route.module),
       };
 
-const getChapterData = (chapterNum) => {
+const getChapterData = (chapterNum, routesData) => {
   const raw = filter(
     propEq("chapter", chapterNum),
-    reject(propEq("module", "00--aa-toc"), routes)
+    reject(propEq("module", "00--aa-toc"), routesData)
   );
 
   let maybePrepend =
@@ -137,9 +138,9 @@ const getChapterData = (chapterNum) => {
   return concat(maybePrepend, map(createSelectDataSection, raw));
 };
 
-const getAllChapters = () => {
-  const numChapters = reduce(max, -Infinity, map(prop("chapter"), routes));
-  const routesWithoutTOC = reject(propEq("module", "00--aa-toc"), routes);
+const getAllChapters = (routesData) => {
+  const numChapters = reduce(max, -Infinity, map(prop("chapter"), routesData));
+  const routesWithoutTOC = reject(propEq("module", "00--aa-toc"), routesData);
   return map((n) =>
     createSelectDataChapter(
       find(propEq("chapter", n), routesWithoutTOC),
@@ -151,26 +152,45 @@ const getAllChapters = () => {
 function MobileNav() {
   const [isBottomReached, setIsBottomReached] = useState(false);
   const location = useLocation();
-  const currentRoutename = location?.pathname ?? "/";
-  const routeIndex = findIndex(
-    propEq(
-      "url",
-      currentRoutename === "/" || currentRoutename === "/introduction"
-        ? "/introduction/preface"
-        : currentRoutename
-    )
-  )(routes);
-
-  const currentRoute = routes[routeIndex];
-
-  const nextRoute = propOr(false, routeIndex + 1, routes);
-  const previousRoute = propOr(false, routeIndex - 1, routes);
-  const currentChapter = getChapterData(currentRoute.chapter);
   const navigate = useNavigate();
-  // const nextChapter = nextRoute && getChapterData(nextRoute.chapter);
+  const currentRoutename = location?.pathname ?? "/";
+
+  // Determine if we're on French routes
+  const isFrenchRoute = currentRoutename.startsWith("/fr");
+  const allRoutes = isFrenchRoute ? routesFr || [] : routes;
+
+  // Map home routes to their default content pages
+  let targetUrl = currentRoutename;
+  if (isFrenchRoute) {
+    if (currentRoutename === "/fr") {
+      targetUrl = "/fr/premiers-pas/gs-01";
+    }
+  } else {
+    if (currentRoutename === "/" || currentRoutename === "/introduction") {
+      targetUrl = "/introduction/preface";
+    }
+  }
+
+  const routeIndex = findIndex(propEq("url", targetUrl))(allRoutes);
+
+  const currentRoute = allRoutes[routeIndex];
+
+  // Add defensive check for currentRoute
+  if (!currentRoute) {
+    console.warn(
+      `MobileNav: No route found for URL "${targetUrl}". Available routes:`,
+      allRoutes.map((r) => r.url)
+    );
+    return null; // or return a fallback component
+  }
+
+  const nextRoute = propOr(false, routeIndex + 1, allRoutes);
+  const previousRoute = propOr(false, routeIndex - 1, allRoutes);
+  const currentChapter = getChapterData(currentRoute.chapter, allRoutes);
+  // const nextChapter = nextRoute && getChapterData(nextRoute.chapter, allRoutes);
   // const previousChapter =
-  //   previousRoute && getChapterData(previousRoute.chapter);
-  const allChapters = getAllChapters();
+  //   previousRoute && getChapterData(previousRoute.chapter, allRoutes);
+  const allChapters = getAllChapters(allRoutes);
   const Selector = ({ defaultValue, options }) => (
     <Select
       defaultValue={defaultValue}
@@ -189,7 +209,7 @@ function MobileNav() {
     />
   );
 
-  const selectDataSection = createSelectDataSection(routes[routeIndex]);
+  const selectDataSection = createSelectDataSection(allRoutes[routeIndex]);
 
   return (
     <StickyMobileNav
@@ -242,7 +262,7 @@ function MobileNav() {
       <div css={buttonGroupStyle}>
         <Selector
           defaultValue={createSelectDataChapter(
-            routes[routeIndex],
+            allRoutes[routeIndex],
             currentRoute.chapter
           )}
           options={allChapters}

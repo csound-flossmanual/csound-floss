@@ -6,6 +6,27 @@ const { buildLink } = require("../utils");
 
 const isAbsoluteUrl = (url) => /^https?:\/\//i.test(url);
 
+const fixImagePaths = (dom, lang = null) => {
+  try {
+    // Determine language: prioritize argument, fall back to env var, default to 'en'
+    const currentLang = lang || process.env.LANG || "en";
+    const isFrench = currentLang === "fr";
+
+    DomUtils.findAll((elem) => elem.name === "img", dom).forEach((elem) => {
+      if (elem.attribs.src && !isAbsoluteUrl(elem.attribs.src)) {
+        // For French pages, we need one more ../ because they're at /fr/premiers-pas/gs-01
+        // instead of /get-started/GS-01
+        if (isFrench && elem.attribs.src.startsWith("../resources/")) {
+          elem.attribs.src = "../" + elem.attribs.src;
+        }
+      }
+    });
+    return dom;
+  } catch (error) {
+    throw new Error(`Error in fixImagePaths: ${error.message}`);
+  }
+};
+
 const newArray = (arr) => arr.map((a) => Object.assign({}, a));
 
 const parse = (str) => {
@@ -141,7 +162,7 @@ const wrapMathJax = (dom) => {
   }
 };
 
-module.exports = (htmlString, fileName = "unknown file") => {
+module.exports = (htmlString, fileName = "unknown file", lang = null) => {
   try {
     return R.pipe(
       parse,
@@ -149,6 +170,7 @@ module.exports = (htmlString, fileName = "unknown file") => {
       fixPreTags,
       fixCodeTags,
       wrapMathJax,
+      (dom) => fixImagePaths(dom, lang),
       (elems) =>
         DomUtils.getOuterHTML(elems, { decodeEntities: true, xmlMode: true })
     )(htmlString);

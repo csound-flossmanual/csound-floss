@@ -64,12 +64,27 @@ const makeId = (s) =>
     .replace(/-+/g, "-")
     .replace("-csd", ".csd");
 
-const buildOverviewPages = () => {
+const buildOverviewPages = (lang = null) => {
+  // Determine language: prioritize argument, fall back to env var, default to 'en'
+  const currentLang = lang || process.env.LANG || "en";
+  const isFrench = currentLang === "fr";
+
+  // Load language-specific constants
+  const langDirSuffix = isFrench ? "-fr" : "";
+  const fragmentsDirSuffix = isFrench ? "_fr" : "";
+  const bookDirectory = path.resolve(__dirname, `../book${langDirSuffix}`);
+  const jsxOutput = path.resolve(
+    __dirname,
+    `../src/book_fragments${fragmentsDirSuffix}`
+  );
+  const tocFile = isFrench ? "../toc-fr.json" : "../toc.json";
+  const toc = require(tocFile);
+
   for (const { chapter, with_overview_page = false, name, url_prefix } of toc) {
     if (with_overview_page) {
       const chapterPrefix = chapter < 10 ? `0${chapter}` : `${chapter}`;
       const chapterFiles = fg
-        .sync([`${BOOK_DIRECTORY}/${chapterPrefix}*.md`], { dot: false })
+        .sync([`${bookDirectory}/${chapterPrefix}*.md`], { dot: false })
         .sort();
       let overviewMarkdown = `<Heading as='h1' fontWeight="400" noOfLines={1}>Chapter ${chapter} overview - ${name}</Heading>`;
       // overviewMarkdown = `${overviewMarkdown}\n<Heading as='h2'>${name}</Heading>`;
@@ -181,7 +196,7 @@ const buildOverviewPages = () => {
       })}\n${overviewMarkdown}\n${append}`;
       // console.log(jsxPage);
       fs.writeFileSync(
-        path.join(JSX_OUTPUT, `${chapterPrefix}-overview.jsx`),
+        path.join(jsxOutput, `${chapterPrefix}-overview.jsx`),
         jsxPage
       );
     }

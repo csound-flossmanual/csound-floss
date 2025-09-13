@@ -22,7 +22,18 @@ const R = require("ramda");
 
 const wrapChapterInTemplate = makeWrapChapterInTemplate();
 
-function execMarkdownToHtml(fileName) {
+function execMarkdownToHtml(fileName, lang = null) {
+  // Determine language: prioritize argument, fall back to env var, default to 'en'
+  const currentLang = lang || process.env.LANG || "en";
+  const isFrench = currentLang === "fr";
+
+  // Load language-specific constants
+  const fragmentsDirSuffix = isFrench ? "_fr" : "";
+  const jsxOutput = path.resolve(
+    __dirname,
+    `../src/book_fragments${fragmentsDirSuffix}`
+  );
+
   const chapterBasename = path.basename(fileName, ".md");
   const tmpDest = path.join(tmpdir(), chapterBasename) + ".html";
 
@@ -69,7 +80,11 @@ function execMarkdownToHtml(fileName) {
   let processedHtmlString;
   try {
     console.log(`Post-processing HTML for ${fileName}...`);
-    processedHtmlString = postProcessHtml(escapedHtmlString, fileName);
+    processedHtmlString = postProcessHtml(
+      escapedHtmlString,
+      fileName,
+      currentLang
+    );
   } catch (error) {
     console.error(`Error in postProcessHtml for file ${fileName}:`);
     console.error(`Error details:`, error.message);
@@ -100,15 +115,15 @@ function execMarkdownToHtml(fileName) {
     );
   }
 
-  const linkData = buildLink(path.basename(fileName));
+  const linkData = buildLink(path.basename(fileName), currentLang);
 
   try {
     fs.writeFileSync(
-      path.join(JSX_OUTPUT, `${chapterBasename}.jsx`),
+      path.join(jsxOutput, `${chapterBasename}.jsx`),
       wrapChapterInTemplate(
         jsxElements,
         R.propOr(
-          IS_FRENCH ? "Chapitre Sans Titre" : "Untitled Chapter",
+          isFrench ? "Chapitre Sans Titre" : "Untitled Chapter",
           "sectionName",
           linkData
         )
@@ -118,7 +133,7 @@ function execMarkdownToHtml(fileName) {
   } catch (error) {
     console.error(`Error writing JSX file for ${fileName}:`);
     console.error(
-      `Output path: ${path.join(JSX_OUTPUT, `${chapterBasename}.jsx`)}`
+      `Output path: ${path.join(jsxOutput, `${chapterBasename}.jsx`)}`
     );
     console.error(`Error details:`, error.message);
     throw new Error(

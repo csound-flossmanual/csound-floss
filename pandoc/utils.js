@@ -1,8 +1,6 @@
 const R = require("ramda");
 const fs = require("fs");
 const path = require("path");
-const { TOC_FILE, IS_FRENCH } = require("./constants");
-const toc = require(TOC_FILE);
 
 const deleteFolderRecursive = (dirPath) => {
   if (fs.existsSync(dirPath)) {
@@ -54,7 +52,15 @@ const toTitleCase = (phrase) => {
     .join(" ");
 };
 
-const buildLink = (url) => {
+const buildLink = (url, lang = null) => {
+  // Determine language: prioritize argument, fall back to env var, default to 'en'
+  const currentLang = lang || process.env.LANG || "en";
+  const isFrench = currentLang === "fr";
+
+  // Load appropriate TOC file
+  const tocFile = isFrench ? "../toc-fr.json" : "../toc.json";
+  const toc = require(tocFile);
+
   const urlWithoutHash = url.replace(/#+.*/, "");
   if (urlWithoutHash.endsWith(".md") && startsWithChapterMark(urlWithoutHash)) {
     const chapterNumber = parseInt(urlWithoutHash.match(/^\d\d/i).toString());
@@ -71,10 +77,14 @@ const buildLink = (url) => {
     }
     let sectionName = toTitleCase(sectionBasename.replace(/\-/g, " "));
     if (sectionName.includes("Aa Toc")) {
-      sectionName = IS_FRENCH ? "Table des Matières" : "Table of Contents";
+      sectionName = isFrench ? "Table des Matières" : "Table of Contents";
     }
+    // Convert section basename to lowercase for French URLs
+    const urlSectionBasename = isFrench
+      ? sectionBasename.toLowerCase()
+      : sectionBasename;
     return {
-      url: `${prefixData.url_prefix}/${sectionBasename}`,
+      url: `${prefixData.url_prefix}/${urlSectionBasename}`,
       sectionName,
       ...prefixData,
     };
