@@ -55,6 +55,7 @@ let
       stmaryrd
       titlesec
       translator
+      truncate
       unicode-math
       wrapfig
       xcolor
