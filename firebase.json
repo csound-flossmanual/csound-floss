@@ -15,7 +15,7 @@
     ],
     "rewrites": [
       {
-        "source": "**",
+        "source": "!/@(service-worker.js|sw.js|workbox-*.js)",
         "destination": "/index.html"
       }
     ],
