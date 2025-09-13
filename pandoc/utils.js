@@ -79,6 +79,17 @@ const buildLink = (url, lang = null) => {
     if (sectionName.includes("Aa Toc")) {
       sectionName = isFrench ? "Table des Matières" : "Table of Contents";
     }
+
+    // French translations for specific section names
+    if (isFrench) {
+      const frenchTranslations = {
+        Preface: "Préface",
+        "On This Release": "À propos de cette version",
+      };
+      if (frenchTranslations[sectionName]) {
+        sectionName = frenchTranslations[sectionName];
+      }
+    }
     // Convert section basename to lowercase for French URLs
     const urlSectionBasename = isFrench
       ? sectionBasename.toLowerCase()

@@ -10,6 +10,7 @@ import pdfLogo from "../../assets/pdf_icon_wikimedia.svg";
 import odfLogo from "../../assets/odf_logo_wikimedia.png";
 import { Link } from "react-router-dom";
 import * as ß from "./styles";
+import { getRouteConstants } from "../../constants/routes";
 
 const HomeScreen = () => (
   <div css={ß.root}>
@@ -21,7 +22,7 @@ const HomeScreen = () => (
           : ""}
       </h3>
     </div>
-    <Link to={`/introduction/preface`} reloadDocument>
+    <Link to={getRouteConstants("en").defaultContentRoute} reloadDocument>
       <img
         src={wasmLogo}
         alt="WebAssembly Logo"

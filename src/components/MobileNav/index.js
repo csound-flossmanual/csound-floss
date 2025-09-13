@@ -25,6 +25,7 @@ import StickyMobileNav from "react-sticky-footer";
 import Select from "react-select";
 import routes from "../../book_fragments/routes.json";
 import routesFr from "../../book_fragments_fr/routes.json";
+import { isFrenchRoute, getDefaultContentRoute } from "../../constants/routes";
 
 const rootStyle = css`
   display: flex;
@@ -156,20 +157,11 @@ function MobileNav() {
   const currentRoutename = location?.pathname ?? "/";
 
   // Determine if we're on French routes
-  const isFrenchRoute = currentRoutename.startsWith("/fr");
-  const allRoutes = isFrenchRoute ? routesFr || [] : routes;
+  const isCurrentRouteFrench = isFrenchRoute(currentRoutename);
+  const allRoutes = isCurrentRouteFrench ? routesFr || [] : routes;
 
   // Map home routes to their default content pages
-  let targetUrl = currentRoutename;
-  if (isFrenchRoute) {
-    if (currentRoutename === "/fr") {
-      targetUrl = "/fr/premiers-pas/gs-01";
-    }
-  } else {
-    if (currentRoutename === "/" || currentRoutename === "/introduction") {
-      targetUrl = "/introduction/preface";
-    }
-  }
+  const targetUrl = getDefaultContentRoute(currentRoutename);
 
   const routeIndex = findIndex(propEq("url", targetUrl))(allRoutes);
 
@@ -241,9 +233,9 @@ function MobileNav() {
           )}
           <Link
             to={
-              currentRoute?.url_prefix === "/introduction"
-                ? "/introduction/preface"
-                : currentRoute?.url_prefix ?? "/"
+              currentRoute?.url_prefix
+                ? getDefaultContentRoute(currentRoute.url_prefix)
+                : "/"
             }
           >
             <h3>Overview</h3>

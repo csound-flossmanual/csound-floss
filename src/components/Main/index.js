@@ -13,6 +13,7 @@ import { browserHistory } from "../../history";
 import * as ß from "./styles";
 import "rc-slider/assets/index.css";
 import InteractiveDemo from "../../book_fragments/interactive-demo.jsx";
+import { isHomeRoute } from "../../constants/routes";
 
 const LoadingSpinner = () => (
   <div
@@ -57,9 +58,10 @@ function Main({ currentRoute, mobileMode, setCurrentRoute }) {
             window.scroll({ top: 0, left: 0 });
           }, 50);
         } else {
-          const hashElem = document.getElementById(
+          const decodedHash = decodeURIComponent(
             location.hash.replace("#", "")
           );
+          const hashElem = document.getElementById(decodedHash);
           if (hashElem) {
             scrollIntoView(hashElem);
           }
@@ -114,7 +116,9 @@ function Main({ currentRoute, mobileMode, setCurrentRoute }) {
 
   return (
     <main
-      css={currentRoute === "/" ? ß.home : mobileMode ? ß.mainMobile : ß.main}
+      css={
+        isHomeRoute(currentRoute) ? ß.home : mobileMode ? ß.mainMobile : ß.main
+      }
     >
       <div>
         <Routes>
