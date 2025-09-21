@@ -2,7 +2,12 @@ const { buildAllHtml } = require("./build_all_html");
 const { spawn } = require("child_process");
 const R = require("ramda");
 
-buildAllHtml();
+// Build content for both languages
+console.log("Building English content...");
+buildAllHtml("en");
+
+console.log("Building French content...");
+buildAllHtml("fr");
 
 const react_process = spawn(
   "npx",
