@@ -1,6 +1,6 @@
 name: "CI"
 env:
-  REACT_APP_CSOUND_FLOSS_VERSION: 8.1.0
+  REACT_APP_CSOUND_FLOSS_VERSION: 8.1.1
 on:
   push:
     branches:
