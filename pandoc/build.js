@@ -9,6 +9,9 @@ buildAllHtml("en");
 console.log("Building French content...");
 buildAllHtml("fr");
 
+console.log("Building Persian content...");
+buildAllHtml("fa");
+
 const react_process = spawn(
   "npx",
   ["react-scripts", "--openssl-legacy-provider", "build"],
