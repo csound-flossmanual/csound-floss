@@ -5,9 +5,11 @@ import { jsx } from "@emotion/react";
 import React, { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import HomeScreen from "../HomeScreen";
 import HomeScreenFr from "../HomeScreenFr";
+import HomeScreenFa from "../HomeScreenFa";
 import { Route, Routes } from "react-router-dom";
 import routes from "../../book_fragments/routes.json";
 import routesFr from "../../book_fragments_fr/routes.json";
+import routesFa from "../../book_fragments_fa/routes.json";
 import { map } from "ramda";
 import { browserHistory } from "../../history";
 import * as ß from "./styles";
@@ -111,7 +113,24 @@ function Main({ currentRoute, mobileMode, setCurrentRoute }) {
       );
     }, routesFr || []);
 
-    return [...englishRoutes, ...frenchRoutes];
+    const farsiRoutes = map((route) => {
+      const LazyComp = lazy(
+        () => import(`../../book_fragments_fa/${route.module}`)
+      );
+      return (
+        <Route
+          path={route.url}
+          key={route.url}
+          element={
+            <Suspense fallback={<LoadingSpinner />}>
+              <LazyComp key={"lazy-fa-" + route.url} />
+            </Suspense>
+          }
+        />
+      );
+    }, routesFa || []);
+
+    return [...englishRoutes, ...frenchRoutes, ...farsiRoutes];
   }, []);
 
   return (
@@ -125,6 +144,7 @@ function Main({ currentRoute, mobileMode, setCurrentRoute }) {
           {memoizedRoutes}
           <Route path="/interactive-demo" element={<InteractiveDemo />} />
           <Route path="/fr" element={<HomeScreenFr />} />
+          <Route path="/fa" element={<HomeScreenFa />} />
           <Route path="/" element={<HomeScreen />} />
         </Routes>
       </div>

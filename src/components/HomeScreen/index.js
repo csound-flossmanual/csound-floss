@@ -43,11 +43,21 @@ const HomeScreen = () => (
           }}
         >{`Lire le livre en français`}</p>
       </Link>
+      <Link to={`/fa`} reloadDocument>
+        <p
+          style={{
+            fontSize: 24,
+            fontWeight: 100,
+            lineHeight: 1.2,
+            color: "#6f519b",
+          }}
+        >{`Read the book in Farsi`}</p>
+      </Link>
     </div>
     <hr style={{ backgroundColor: "#333", height: 2 }} />
     <div css={ß.grid}>
       <a
-        href={`/build/csound-flossmanual-${
+        href={`/build/csound-flossmanual-en-${
           process.env.REACT_APP_CSOUND_FLOSS_VERSION || "dev"
         }.epub`}
         target="_blank"
@@ -57,7 +67,7 @@ const HomeScreen = () => (
         <p>{`Download the EPUB version`}</p>
       </a>
       <a
-        href={`/build/csound-flossmanual-${
+        href={`/build/csound-flossmanual-en-${
           process.env.REACT_APP_CSOUND_FLOSS_VERSION || "dev"
         }.pdf`}
         target="_blank"
@@ -67,7 +77,7 @@ const HomeScreen = () => (
         <p>{`Download the PDF version`}</p>
       </a>
       <a
-        href={`/build/csound-flossmanual-${
+        href={`/build/csound-flossmanual-en-${
           process.env.REACT_APP_CSOUND_FLOSS_VERSION || "dev"
         }.odt`}
         target="_blank"

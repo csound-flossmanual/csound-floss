@@ -1,6 +1,7 @@
 name: "CI:DEV"
 env:
   REACT_APP_CSOUND_FLOSS_VERSION: $GITHUB_SHA
+  LANGUAGES: "en fr fa"
 on:
   push:
     branches:
@@ -33,31 +34,24 @@ jobs:
         run: yarn test:ci
       - name: Build the book website
         run: yarn build
-      - name: Build pdf
+      - name: Build multi-language documents
         run: |
-          yarn build:pdf
           mkdir -p build/build
-          mv *.pdf build/build/csound-flossmanual-${REACT_APP_CSOUND_FLOSS_VERSION}.pdf
-      - name: Build French pdf
-        run: |
-          LANG=fr yarn build:pdf
-          mv *_fr.pdf build/build/csound-flossmanual-fr-${REACT_APP_CSOUND_FLOSS_VERSION}.pdf
-      - name: Build epub
-        run: |
-          yarn build:epub
-          mv *.epub build/build/csound-flossmanual-${REACT_APP_CSOUND_FLOSS_VERSION}.epub
-      - name: Build French epub
-        run: |
-          LANG=fr yarn build:epub
-          mv *_fr.epub build/build/csound-flossmanual-fr-${REACT_APP_CSOUND_FLOSS_VERSION}.epub
-      - name: Build odt
-        run: |
-          yarn build:odt
-          mv *.odt build/build/csound-flossmanual-${REACT_APP_CSOUND_FLOSS_VERSION}.odt
-      - name: Build French odt
-        run: |
-          LANG=fr yarn build:odt
-          mv *_fr.odt build/build/csound-flossmanual-fr-${REACT_APP_CSOUND_FLOSS_VERSION}.odt
+          for lang in $LANGUAGES; do
+            echo "Building $lang documents..."
+
+            # Build PDF
+            LANG=$lang yarn build:pdf
+            mv *_${lang}.pdf build/build/csound-flossmanual-${lang}-${REACT_APP_CSOUND_FLOSS_VERSION}.pdf
+
+            # Build EPUB
+            LANG=$lang yarn build:epub
+            mv *_${lang}.epub build/build/csound-flossmanual-${lang}-${REACT_APP_CSOUND_FLOSS_VERSION}.epub
+
+            # Build ODT
+            LANG=$lang yarn build:odt
+            mv *_${lang}.odt build/build/csound-flossmanual-${lang}-${REACT_APP_CSOUND_FLOSS_VERSION}.odt
+          done
       - name: Compress dist to zip
         run: |
           nix-env -f '<nixpkgs>' -iA zip

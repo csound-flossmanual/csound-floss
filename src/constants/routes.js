@@ -1,4 +1,4 @@
-// Route constants for English and French versions
+// Route constants for English, French, and Farsi versions
 // Single source of truth for route paths and default redirects
 
 export const ROUTE_CONSTANTS = {
@@ -14,11 +14,17 @@ export const ROUTE_CONSTANTS = {
     defaultContentRoute: "/fr/premiers-pas/gs-01",
     languagePrefix: "/fr",
   },
+  fa: {
+    homeRoute: "/fa",
+    introductionRoute: "/fa/introduction",
+    defaultContentRoute: "/fa/introduction/preface",
+    languagePrefix: "/fa",
+  },
 };
 
 /**
  * Get route constants for a specific language
- * @param {string} language - 'en' or 'fr'
+ * @param {string} language - 'en', 'fr', or 'fa'
  * @returns {object} Route constants for the specified language
  */
 export const getRouteConstants = (language = "en") => {
@@ -35,15 +41,32 @@ export const isFrenchRoute = (currentRoute) => {
 };
 
 /**
+ * Determine if a route is Farsi based on the path
+ * @param {string} currentRoute - Current route path
+ * @returns {boolean} True if Farsi route
+ */
+export const isFarsiRoute = (currentRoute) => {
+  return currentRoute.startsWith("/fa");
+};
+
+/**
  * Get the appropriate default content route based on current route
  * @param {string} currentRoute - Current route path
  * @returns {string} Default content route for the language
  */
 export const getDefaultContentRoute = (currentRoute) => {
-  const language = isFrenchRoute(currentRoute) ? "fr" : "en";
+  let language;
+  if (isFrenchRoute(currentRoute)) {
+    language = "fr";
+  } else if (isFarsiRoute(currentRoute)) {
+    language = "fa";
+  } else {
+    language = "en";
+  }
+
   const constants = getRouteConstants(language);
 
-  if (language === "fr") {
+  if (language === "fr" || language === "fa") {
     return currentRoute === constants.homeRoute
       ? constants.defaultContentRoute
       : currentRoute;
@@ -57,7 +80,7 @@ export const getDefaultContentRoute = (currentRoute) => {
 
 /**
  * Get the home route for a specific language
- * @param {string} language - 'en' or 'fr'
+ * @param {string} language - 'en', 'fr', or 'fa'
  * @returns {string} Home route for the language
  */
 export const getHomeRoute = (language = "en") => {
@@ -66,7 +89,7 @@ export const getHomeRoute = (language = "en") => {
 
 /**
  * Get the introduction route for a specific language
- * @param {string} language - 'en' or 'fr'
+ * @param {string} language - 'en', 'fr', or 'fa'
  * @returns {string} Introduction route for the language
  */
 export const getIntroductionRoute = (language = "en") => {
@@ -74,13 +97,14 @@ export const getIntroductionRoute = (language = "en") => {
 };
 
 /**
- * Check if the current route is a home route (either English or French)
+ * Check if the current route is a home route (English, French, or Farsi)
  * @param {string} currentRoute - Current route path
  * @returns {boolean} True if it's a home route
  */
 export const isHomeRoute = (currentRoute) => {
   return (
     currentRoute === ROUTE_CONSTANTS.en.homeRoute ||
-    currentRoute === ROUTE_CONSTANTS.fr.homeRoute
+    currentRoute === ROUTE_CONSTANTS.fr.homeRoute ||
+    currentRoute === ROUTE_CONSTANTS.fa.homeRoute
   );
 };

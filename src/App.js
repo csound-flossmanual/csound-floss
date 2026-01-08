@@ -12,10 +12,12 @@ import { CsoundProvider } from "./CsoundContext";
 import { BookProvider } from "./BookContext";
 import routes from "./book_fragments/routes.json";
 import routesFr from "./book_fragments_fr/routes.json";
+import routesFa from "./book_fragments_fa/routes.json";
 import { findIndex, isEmpty, propEq } from "ramda";
 import { browserHistory } from "./history";
 import {
   isFrenchRoute,
+  isFarsiRoute,
   getDefaultContentRoute,
   isHomeRoute,
 } from "./constants/routes";
@@ -45,9 +47,14 @@ function App() {
     isEmpty(initialState) ? "/" : initialState
   );
 
-  // Determine if we're on French routes
+  // Determine which language routes we're on
   const isCurrentRouteFrench = isFrenchRoute(currentRoute);
-  const allRoutes = isCurrentRouteFrench ? routesFr || [] : routes;
+  const isCurrentRouteFarsi = isFarsiRoute(currentRoute);
+  const allRoutes = isCurrentRouteFrench
+    ? routesFr || []
+    : isCurrentRouteFarsi
+      ? routesFa || []
+      : routes;
 
   const routeIndex = findIndex(
     propEq("url", getDefaultContentRoute(currentRoute))

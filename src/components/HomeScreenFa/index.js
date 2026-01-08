@@ -11,25 +11,25 @@ import { Link } from "react-router-dom";
 import * as ß from "../HomeScreen/styles";
 import { getRouteConstants } from "../../constants/routes";
 
-const HomeScreenFr = () => (
+const HomeScreenFa = () => (
   <div css={ß.root}>
     <div style={{ marginBottom: 24 }}>
-      <h1 style={{ marginBottom: 6 }}>{`Le Manuel FLOSS de Csound`}</h1>
+      <h1 style={{ marginBottom: 6 }}>{`راهنمای FLOSS Csound`}</h1>
       <h3 style={{ marginTop: 0, fontWeight: 100 }}>
         {process.env.REACT_APP_CSOUND_FLOSS_VERSION
-          ? `Version: ${process.env.REACT_APP_CSOUND_FLOSS_VERSION}`
+          ? `نسخه: ${process.env.REACT_APP_CSOUND_FLOSS_VERSION}`
           : ""}
       </h3>
     </div>
-    <Link to={getRouteConstants("fr").defaultContentRoute} reloadDocument>
+    <Link to={getRouteConstants("fa").defaultContentRoute} reloadDocument>
       <img
         src={wasmLogo}
-        alt="Logo WebAssembly"
+        alt="لوگو WebAssembly"
         style={{ width: 48, marginBottom: -6 }}
       />
       <p
         style={{ fontSize: 42, fontWeight: 100, lineHeight: 1.2 }}
-      >{`Lire le livre interactif`}</p>
+      >{`کتاب تعاملی را بخوانید`}</p>
     </Link>
     <div style={{ marginTop: 20, marginBottom: 20 }}>
       <Link to={`/`} reloadDocument>
@@ -42,7 +42,7 @@ const HomeScreenFr = () => (
           }}
         >{`Read the book in English`}</p>
       </Link>
-      <Link to={`/fa`} reloadDocument>
+      <Link to={`/fr`} reloadDocument>
         <p
           style={{
             fontSize: 24,
@@ -50,44 +50,40 @@ const HomeScreenFr = () => (
             lineHeight: 1.2,
             color: "#6f519b",
           }}
-        >{`Read the book in Farsi`}</p>
+        >{`Lire le livre en français`}</p>
       </Link>
     </div>
     <hr style={{ backgroundColor: "#333", height: 2 }} />
     <div css={ß.grid}>
       <a
-        href={`/build/csound-flossmanual-fr-${
+        href={`/build/csound-flossmanual-fa-${
           process.env.REACT_APP_CSOUND_FLOSS_VERSION || "dev"
         }.epub`}
         target="_blank"
         rel="noopener noreferrer"
       >
-        <img
-          src={epubLogo}
-          alt="version epub française"
-          style={{ width: 24 }}
-        />
-        <p>{`Télécharger la version EPUB française`}</p>
+        <img src={epubLogo} alt="نسخه فارسی epub" style={{ width: 24 }} />
+        <p>{`دانلود نسخه فارسی EPUB`}</p>
       </a>
       <a
-        href={`/build/csound-flossmanual-fr-${
+        href={`/build/csound-flossmanual-fa-${
           process.env.REACT_APP_CSOUND_FLOSS_VERSION || "dev"
         }.pdf`}
         target="_blank"
         rel="noopener noreferrer"
       >
-        <img src={pdfLogo} alt="version pdf française" style={{ width: 24 }} />
-        <p>{`Télécharger la version PDF française`}</p>
+        <img src={pdfLogo} alt="نسخه فارسی pdf" style={{ width: 24 }} />
+        <p>{`دانلود نسخه فارسی PDF`}</p>
       </a>
       <a
-        href={`/build/csound-flossmanual-fr-${
+        href={`/build/csound-flossmanual-fa-${
           process.env.REACT_APP_CSOUND_FLOSS_VERSION || "dev"
         }.odt`}
         target="_blank"
         rel="noopener noreferrer"
       >
-        <img src={odfLogo} alt="version odf française" style={{ width: 24 }} />
-        <p>{`Télécharger la version OpenDocument française`}</p>
+        <img src={odfLogo} alt="نسخه فارسی odf" style={{ width: 24 }} />
+        <p>{`دانلود نسخه فارسی OpenDocument`}</p>
       </a>
     </div>
     <div>
@@ -97,10 +93,10 @@ const HomeScreenFr = () => (
         target="_blank"
         rel="noopener noreferrer"
       >
-        <p>{`Liste et fichiers zip de toutes les versions et matériaux`}</p>
+        <p>{`لیست و فایل‌های فشرده تمام نسخه‌ها و مواد`}</p>
       </a>
     </div>
   </div>
 );
 
-export default HomeScreenFr;
+export default HomeScreenFa;
