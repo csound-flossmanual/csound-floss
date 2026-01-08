@@ -3,24 +3,19 @@ const path = require("path");
 // Get language from environment variable, default to 'en'
 const LANG = process.env.LANG || "en";
 const IS_FRENCH = LANG === "fr";
+const IS_FARSI = LANG === "fa";
 
 // Language-aware paths
-const LANG_SUFFIX = IS_FRENCH ? "_fr" : "";
-const LANG_DIR_SUFFIX = IS_FRENCH ? "-fr" : "";
-const FRAGMENTS_DIR_SUFFIX = IS_FRENCH ? "_fr" : "";
+const LANG_SUFFIX = LANG === "en" ? "" : `_${LANG}`;
+const LANG_DIR_SUFFIX = LANG === "en" ? "" : `-${LANG}`;
+const FRAGMENTS_DIR_SUFFIX = LANG === "en" ? "" : `_${LANG}`;
 
-const PDF_OUTPUT = path.resolve(
-  __dirname,
-  `../csound_flossmanual${LANG_SUFFIX}.pdf`
-);
+const PDF_OUTPUT = path.resolve(__dirname, `../csound-flossmanual-${LANG}.pdf`);
 const EPUB_OUTPUT = path.resolve(
   __dirname,
-  `../csound_flossmanual${LANG_SUFFIX}.epub`
+  `../csound-flossmanual-${LANG}.epub`
 );
-const ODT_OUTPUT = path.resolve(
-  __dirname,
-  `../csound_flossmanual${LANG_SUFFIX}.odt`
-);
+const ODT_OUTPUT = path.resolve(__dirname, `../csound-flossmanual-${LANG}.odt`);
 const JSX_OUTPUT = path.resolve(
   __dirname,
   `../src/book_fragments${FRAGMENTS_DIR_SUFFIX}`
@@ -67,4 +62,5 @@ module.exports = {
   TOC_FILE,
   LANG,
   IS_FRENCH,
+  IS_FARSI,
 };

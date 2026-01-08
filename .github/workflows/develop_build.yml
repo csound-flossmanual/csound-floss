@@ -42,15 +42,15 @@ jobs:
 
             # Build PDF
             LANG=$lang yarn build:pdf
-            mv *_${lang}.pdf build/build/csound-flossmanual-${lang}-${REACT_APP_CSOUND_FLOSS_VERSION}.pdf
+            mv csound-flossmanual-${lang}.pdf build/build/csound-flossmanual-${lang}-${REACT_APP_CSOUND_FLOSS_VERSION}.pdf
 
             # Build EPUB
             LANG=$lang yarn build:epub
-            mv *_${lang}.epub build/build/csound-flossmanual-${lang}-${REACT_APP_CSOUND_FLOSS_VERSION}.epub
+            mv csound-flossmanual-${lang}.epub build/build/csound-flossmanual-${lang}-${REACT_APP_CSOUND_FLOSS_VERSION}.epub
 
             # Build ODT
             LANG=$lang yarn build:odt
-            mv *_${lang}.odt build/build/csound-flossmanual-${lang}-${REACT_APP_CSOUND_FLOSS_VERSION}.odt
+            mv csound-flossmanual-${lang}.odt build/build/csound-flossmanual-${lang}-${REACT_APP_CSOUND_FLOSS_VERSION}.odt
           done
       - name: Compress dist to zip
         run: |
