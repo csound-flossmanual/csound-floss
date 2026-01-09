@@ -24,4 +24,12 @@ react_process.stdout.on("data", (s) => console.log(s.toString()));
 
 react_process.stderr.on("data", (s) => console.error(s.toString()));
 
-react_process.on("close", (s) => console.log(s.toString()) || process.exit(0));
+react_process.on("close", (code) => {
+  if (code !== 0) {
+    console.error(`React build failed with exit code ${code}`);
+    process.exit(code);
+  } else {
+    console.log("React build completed successfully");
+    process.exit(0);
+  }
+});

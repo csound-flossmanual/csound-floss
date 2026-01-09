@@ -20,19 +20,42 @@ const buildAllHtml = (lang = null) => {
   // Determine language: prioritize argument, fall back to env var, default to 'en'
   const currentLang = lang || process.env.LANG || "en";
   const isFrench = currentLang === "fr";
+  const isFarsi = currentLang === "fa";
 
   // Load language-specific constants
-  const langSuffix = isFrench ? "_fr" : "";
-  const langDirSuffix = isFrench ? "-fr" : "";
-  const fragmentsDirSuffix = isFrench ? "_fr" : "";
+  let langSuffix, langDirSuffix, fragmentsDirSuffix, tocFile;
+
+  if (isFrench) {
+    langSuffix = "_fr";
+    langDirSuffix = "-fr";
+    fragmentsDirSuffix = "_fr";
+    tocFile = "../toc-fr.json";
+  } else if (isFarsi) {
+    langSuffix = "_fa";
+    langDirSuffix = "-fa";
+    fragmentsDirSuffix = "_fa";
+    tocFile = "../toc-fa.json";
+  } else {
+    langSuffix = "";
+    langDirSuffix = "";
+    fragmentsDirSuffix = "";
+    tocFile = "../toc.json";
+  }
 
   const jsxOutput = path.resolve(
     __dirname,
     `../src/book_fragments${fragmentsDirSuffix}`
   );
   const bookDirectory = path.resolve(__dirname, `../book${langDirSuffix}`);
-  const tocFile = isFrench ? "../toc-fr.json" : "../toc.json";
-  const toc = require(tocFile);
+
+  // Check if TOC file exists, if not fall back to English
+  let toc;
+  try {
+    toc = require(tocFile);
+  } catch (e) {
+    console.warn(`TOC file ${tocFile} not found, falling back to English TOC`);
+    toc = require("../toc.json");
+  }
 
   const allChapters = fg.sync([`${bookDirectory}/*.md`], { dot: false });
 
@@ -59,7 +82,11 @@ const buildAllHtml = (lang = null) => {
               chapter: thisChapterNum,
               module: `${thisChapterPrefix}-overview`,
               url: `${thisToc.url_prefix}`,
-              sectionName: isFrench ? "Aperçu" : "Overview",
+              sectionName: isFrench
+                ? "Aperçu"
+                : isFarsi
+                  ? "مرور کلی"
+                  : "Overview",
             });
           } else {
             console.error("Didn't find matching chapter defined in TOC!");

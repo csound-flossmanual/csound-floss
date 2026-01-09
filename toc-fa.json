@@ -1,0 +1,98 @@
+[
+  {
+    "chapter": 0,
+    "name": "مقدمه",
+    "url_prefix": "/fa/introduction",
+    "with_overview_page": false
+  },
+  {
+    "chapter": 1,
+    "name": "شروع به کار",
+    "url_prefix": "/fa/get-started",
+    "with_overview_page": true
+  },
+  {
+    "chapter": 2,
+    "name": "نحوه انجام کارها",
+    "url_prefix": "/fa/how-to",
+    "with_overview_page": true
+  },
+  {
+    "chapter": 3,
+    "name": "زبان سساوند",
+    "url_prefix": "/fa/csound-language",
+    "with_overview_page": true
+  },
+  {
+    "chapter": 4,
+    "name": "سنتز صدا",
+    "url_prefix": "/fa/sound-synthesis",
+    "with_overview_page": true
+  },
+  {
+    "chapter": 5,
+    "name": "تغییر صدا",
+    "url_prefix": "/fa/sound-modification",
+    "with_overview_page": true
+  },
+  {
+    "chapter": 6,
+    "name": "نمونه‌ها",
+    "url_prefix": "/fa/samples",
+    "with_overview_page": true
+  },
+  {
+    "chapter": 7,
+    "name": "میدی",
+    "url_prefix": "/fa/midi",
+    "with_overview_page": true
+  },
+  {
+    "chapter": 8,
+    "name": "ارتباطات دیگر",
+    "url_prefix": "/fa/other-communication",
+    "with_overview_page": true
+  },
+  {
+    "chapter": 9,
+    "name": "سساوند در برنامه‌های دیگر",
+    "url_prefix": "/fa/csound-in-other-applications",
+    "with_overview_page": true
+  },
+  {
+    "chapter": 10,
+    "name": "رابط‌های کاربری سساوند",
+    "url_prefix": "/fa/csound-frontends",
+    "with_overview_page": true
+  },
+  {
+    "chapter": 11,
+    "name": "ابزارهای سساوند",
+    "url_prefix": "/fa/csound-utilities",
+    "with_overview_page": true
+  },
+  {
+    "chapter": 12,
+    "name": "سساوند و زبان‌های برنامه‌نویسی دیگر",
+    "url_prefix": "/fa/csound-and-other-programming-languages",
+    "with_overview_page": true
+  },
+  {
+    "chapter": 13,
+    "name": "گسترش سساوند",
+    "url_prefix": "/fa/extending-csound",
+    "with_overview_page": true
+  },
+  {
+    "chapter": 14,
+    "name": "متفرقه",
+    "url_prefix": "/fa/miscellanea",
+    "with_overview_page": true
+  },
+  {
+    "chapter": 15,
+    "name": "پیوست",
+    "url_prefix": "/fa/basics",
+    "with_overview_page": true
+  }
+]
