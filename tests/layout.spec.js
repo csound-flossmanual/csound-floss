@@ -2,10 +2,18 @@ const each = require("jest-each").default;
 const path = require("path");
 const R = require("ramda");
 const chalk = require("chalk");
-const { BOOK_DIRECTORY, BOOK_DIRECTORY_FR } = require("../pandoc/constants");
+const {
+  BOOK_DIRECTORY_EN,
+  BOOK_DIRECTORY_FR,
+  BOOK_DIRECTORY_FA,
+} = require("../pandoc/constants");
 const fg = require("fast-glob");
 const allChapters = fg.sync(
-  [`${BOOK_DIRECTORY}/*.md`, `${BOOK_DIRECTORY_FR}/*.md`],
+  [
+    `${BOOK_DIRECTORY_EN}/*.md`,
+    `${BOOK_DIRECTORY_FR}/*.md`,
+    `${BOOK_DIRECTORY_FA}/*.md`,
+  ],
   { dot: false }
 );
 const { execSync } = require("child_process");

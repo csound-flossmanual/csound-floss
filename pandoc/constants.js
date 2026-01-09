@@ -21,7 +21,9 @@ const JSX_OUTPUT = path.resolve(
   `../src/book_fragments${FRAGMENTS_DIR_SUFFIX}`
 );
 const BOOK_DIRECTORY = path.resolve(__dirname, `../book${LANG_DIR_SUFFIX}`);
-const BOOK_DIRECTORY_FR = path.resolve(__dirname, `../book_fr`);
+const BOOK_DIRECTORY_EN = path.resolve(__dirname, `../book`);
+const BOOK_DIRECTORY_FR = path.resolve(__dirname, `../book-fr`);
+const BOOK_DIRECTORY_FA = path.resolve(__dirname, `../book_fa`);
 
 const OTHER_DIRECTORY = path.resolve(__dirname, "../other");
 const RESOURCES_DIRECTORY = path.resolve(__dirname, "../resources");
@@ -55,6 +57,8 @@ module.exports = {
   PDF_OUTPUT,
   ODT_OUTPUT,
   BOOK_DIRECTORY,
+  BOOK_DIRECTORY_EN,
+  BOOK_DIRECTORY_FA,
   BOOK_DIRECTORY_FR,
   OTHER_DIRECTORY,
   RESOURCES_DIRECTORY,
