@@ -100,7 +100,7 @@ const fixCodeTags = (dom) => {
       if (R.pathOr("", ["attribs", "class"], elem).match(/^sourceCode +/g)) {
         elem.name = "CodeElement";
         elem.attribs.data = DomUtils.getText(elem);
-        console.log(elem.attribs.data);
+        // console.log(elem.attribs.data);
         elem.attribs = {
           data:
             "REPLACEME_BEG" +

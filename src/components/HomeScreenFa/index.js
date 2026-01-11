@@ -31,7 +31,16 @@ const HomeScreenFa = () => (
         style={{ fontSize: 42, fontWeight: 100, lineHeight: 1.2 }}
       >{`کتاب تعاملی را بخوانید`}</p>
     </Link>
-    <div style={{ marginTop: 20, marginBottom: 20 }}>
+    <div
+      style={{
+        marginTop: 20,
+        marginBottom: 20,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        flexWrap: "wrap",
+      }}
+    >
       <Link to={`/`} reloadDocument>
         <p
           style={{
