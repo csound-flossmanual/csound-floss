@@ -1,53 +1,24 @@
 // eslint-disable-next-line no-unused-vars
-import React, { createContext, useContext, useReducer } from "react";
-import { getType as mimeLookup } from "mime/lite";
-import { append, assoc, concat, isEmpty, pipe, reject, when } from "ramda";
+import React, {
+  createContext,
+  useContext,
+  useReducer,
+  useRef,
+  useEffect,
+} from "react";
+import { append, assoc, pipe, when } from "ramda";
+
+import { createPlaybackController } from "./csound/playback";
 
 export const CsoundStateContext = createContext();
 export const CsoundDispatchContext = createContext();
 CsoundStateContext.displayName = "CsoundStateContext";
-CsoundStateContext.displayName = "CsoundStateContext";
+CsoundDispatchContext.displayName = "CsoundDispatchContext";
 
-const handleEndOfPerformance = async (
-  csoundDispatch,
-  libcsound,
-  loadedSamples
-) => {
-  try {
-    await libcsound.cleanup();
-  } catch (error) {
-    console.error("error while cleaning up csound instance", error);
-  }
-
-  const files = await libcsound.fs.readdir("/");
-  const newFiles = reject((f) => loadedSamples.includes(f), files);
-
-  if (!isEmpty(newFiles)) {
-    const newFilesWithBlobs = await Promise.all(
-      newFiles.map(async (f) => {
-        const arrayBuffer = await libcsound.fs.readFile(f);
-        const mimeType = mimeLookup(f);
-        const blob = new Blob([arrayBuffer], { type: mimeType });
-        const url = (window.URL || window.webkitURL).createObjectURL(blob);
-        return { type: mimeType, url, name: f, size: arrayBuffer.byteLength };
-      })
-    );
-    csoundDispatch({
-      type: "NOTIFY_NEW_FILES",
-      filesGenerated: newFilesWithBlobs,
-    });
-  }
-};
-
-const reducer = (state, action) => {
+export const reducer = (state, action) => {
   switch (action.type) {
     case "STORE_LIBCSOUND": {
-      return pipe(
-        assoc("libcsound", action.libcsound),
-        assoc("filesystemDialogOpen", false),
-        assoc("filesGenerated", []),
-        assoc("logs", [])
-      )(state);
+      return assoc("libcsound", action.libcsound, state);
     }
     case "STORE_GUI_CODE": {
       return assoc("guiCode", action.guiCode, state);
@@ -58,18 +29,11 @@ const reducer = (state, action) => {
     case "CLEAR_LOGS": {
       return assoc("logs", [], state);
     }
-    case "STORE_CSOUND": {
-      return assoc("csound", action.csound, state);
-    }
     case "SET_IS_LOADING": {
       return assoc("isLoading", action.isLoading, state);
     }
-    case "CONJ_LOADED_SAMPLES": {
-      return assoc(
-        "loadedSamples",
-        concat(state.loadedSamples, action.newSamples),
-        state
-      );
+    case "SET_IS_RENDERING": {
+      return assoc("isRendering", action.isRendering, state);
     }
     case "NOTIFY_NEW_FILES": {
       if (action.filesGenerated.length > 0) {
@@ -85,7 +49,6 @@ const reducer = (state, action) => {
       }
     }
     case "CLOSE_FILES_DIALOG": {
-      // action.filesGenerated.forEach(state.libcsound.fs.unlink);
       return pipe(
         assoc("filesystemDialogOpen", false),
         assoc("filesGenerated", [])
@@ -109,15 +72,11 @@ const reducer = (state, action) => {
     case "HANDLE_PLAY_STATE_CHANGE": {
       switch (action.change) {
         case "stop": {
-          handleEndOfPerformance(
-            action.csoundDispatch,
-            state.libcsound,
-            state.loadedSamples
-          ).then(() => {});
           return pipe(
             assoc("isPaused", false),
             assoc("isPlaying", false),
-            assoc("loadedSamples", [])
+            assoc("isLoading", false),
+            assoc("isRendering", false)
           )(state);
         }
         case "play": {
@@ -149,11 +108,11 @@ const reducer = (state, action) => {
 
 export const CsoundProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, {
-    csound: null,
     libcsound: null,
     isPaused: false,
     isPlaying: false,
-    loadedSamples: [],
+    isLoading: false,
+    isRendering: false,
     logDialogOpen: false,
     logDialogClosed: false,
     guiDialogOpen: false,
@@ -163,8 +122,24 @@ export const CsoundProvider = ({ children }) => {
     logs: [],
   });
 
+  const controller = useRef();
+  if (!controller.current)
+    controller.current = createPlaybackController(dispatch);
+  useEffect(
+    () => () => {
+      void controller.current.dispose();
+    },
+    []
+  );
+  useEffect(() => {
+    const files = state.filesGenerated;
+    return () => files.forEach(({ url }) => URL.revokeObjectURL(url));
+  }, [state.filesGenerated]);
+
   return (
-    <CsoundStateContext.Provider value={state}>
+    <CsoundStateContext.Provider
+      value={{ ...state, playback: controller.current }}
+    >
       <CsoundDispatchContext.Provider value={dispatch}>
         {children}
       </CsoundDispatchContext.Provider>

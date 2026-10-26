@@ -113,7 +113,7 @@ const GuiRenderer = () => {
             {GuiElements.length > 0 && GuiElements}
           </div>
           <span
-            onClick={() => csoundDispatch({ type: "CLOSE_LOG_DIALOG" })}
+            onClick={() => csoundDispatch({ type: "CLOSE_GUI_DIALOG" })}
             css={ß.closeIconContainer}
           >
             <img alt="close" src={CloseIcon} />
