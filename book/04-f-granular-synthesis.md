@@ -481,7 +481,7 @@ provided: a sawtooth, a square wave, a triangle wave, a pulse wave and a
 band limited buzz-like waveform. Some of these waveforms, particularly
 the sawtooth, square and pulse waveforms, can generate very high
 overtones, for this reason a high sample rate is recommended to reduce
-the risk of aliasing (see chapter [01A](01-a-digital-audio.md)).
+the risk of aliasing (see chapter [01A](15-a-digital-audio.md)).
 
 Current values for formant (cps), grain duration, density and waveform
 are printed to the terminal every second. The key for waveforms is:

@@ -268,7 +268,7 @@ exponential shapes rather than linear shapes. _expon_ and _expseg_ can
 often be more musically useful for envelopes that define amplitude or
 frequency as they will reflect the logarithmic nature of how these
 parameters are perceived.^[See chapter
-[01 C](01-c-intensities.md) for some background information.]
+[01 C](15-c-intensities.md) for some background information.]
 On account of the mathematics that are used to
 define these curves, we cannot define a value of zero at any node in the
 envelope and an envelope cannot cross the zero axis. If we require a

@@ -26,6 +26,10 @@ The build writes the website to `build/`. Vite handles JSX and bundles the
 site without Babel. To rebuild only the frontend after generating chapters,
 run `npm run build:site`.
 
+Document builds resolve chapter links against the exported headings and fail on
+unresolved links or Pandoc warnings. Links to chapters not yet translated open
+the English website.
+
 Build downloadable documents with:
 
 ```sh
@@ -58,10 +62,10 @@ npm run build
 ```
 
 The dependency update command runs `ncu -u`, including prereleases such as the
-Csound editor package. The HTML-to-JSX converter uses current Cheerio through an
-npm override.
-CodeMirror shares one state package to keep extensions compatible. An XML parser
-override avoids the deprecated patch pinned by MathJax's speech tools.
+Csound editor package. The HTML-to-JSX converter uses current Cheerio and its
+encoding helper through npm overrides. CodeMirror shares one state package to keep extensions compatible.
+MathJax 4 loads from jsDelivr when a chapter contains equations. Csound loads its
+upstream module and embedded WASM as a separate asset when playback starts.
 
 ## Contributing
 

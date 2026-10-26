@@ -7,7 +7,7 @@
 
 %% documentclass
 \renewcommand{\linethickness}{0.05pt}
-\documentclass[UTF8,17pt,english,a4,twoside,openright]{book}
+\documentclass[10pt,a4paper,twoside,openright]{book}
 
 \usepackage{textcomp} % provide euro and other symbols
 \usepackage{parskip} % sensible indent and break in paragraphs
@@ -51,7 +51,6 @@
 \renewcommand{\chaptermark}[1]{\markboth{#1}{}}
 \renewcommand{\sectionmark}[1]{\markright{#1}}
 
-\usepackage{beamerarticle}
 \usepackage{wrapfig}
 \usepackage{setspace}
 \setstretch{1.25}
@@ -59,8 +58,8 @@
 \usepackage{fontspec}
 
 \usepackage[sfdefault]{roboto}
-\usepackage{FiraMono}
-\setmonofont{FiraMono-Regular.otf}
+% DejaVu Mono includes the narrow no-break space used in French examples.
+\setmonofont{DejaVuSansMono.ttf}
 
 \usepackage{caption}
 
@@ -133,6 +132,8 @@ $endif$
 
 \usepackage{graphicx}
 
+\usepackage[raggedright]{titlesec}
+
 $for(header-includes)$
 $header-includes$
 $endfor$
@@ -152,8 +153,6 @@ $endfor$
 \renewcommand{\@seccntformat}[1]{}
 \makeatother
 
-\usepackage[raggedright]{titlesec}
-
 \newcommand{\passthrough}[1]{\lstset{mathescape=false}#1\lstset{mathescape=true}}
 
 % Define pandocbounded command for Pandoc 3.x compatibility
@@ -171,7 +170,6 @@ $endfor$
 \setcounter{secnumdepth}{6}
 \makeatother
 
-\usepackage{titlesec}
 \titleformat{\chapter}[display] {\normalfont\bfseries}{}{0pt}{\fontsize{20}{22}}
 \titleformat{\section}[display]{\normalfont\bfseries}{}{0pt}{\fontsize{16}{19}}
 \titleformat{\subsection}[display]{\normalfont\bfseries}{}{0pt}{\fontsize{14}{16}}

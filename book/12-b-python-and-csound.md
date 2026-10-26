@@ -18,7 +18,7 @@ into [Jupyter Notebooks](https://jupyter.org/) and the new implementation of And
 We will describe in the first part of this chapter some features of using Csound inside Python via _ctcsound_.
 In the second part we will describe some use cases of the old Python Opcodes in Csound. The possibility
 to use Python in the score section of a _.csd_ file is described in
-[chapter 14 A](14-a-methods-of-writing-csound-scores.md).
+[chapter 14 A](14-b-methods-of-writing-csound-scores.md).
 
 ## Csound in Python using ctcsound
 

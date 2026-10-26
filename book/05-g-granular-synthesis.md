@@ -122,7 +122,7 @@ It is a tiring job to write a score line for each grain ... — no one will do t
 But with but a small change we can read through the whole sound file by calling our _Grain_ instrument only once!
 The technique we use in the next example is to start a new instance of the _Grain_ instrument by the running instance,
 as long as the end of the sound file has not yet been reached.
-(This technique has been described in paragraph _Self-Triggering and Recursion_ of chapter [03 C](03-d-control-structures.md).)
+(This technique has been described in paragraph _Self-Triggering and Recursion_ of chapter [03 C](03-c-control-structures.md).)
 
 #### **_EXAMPLE 05G02_simple_grain_continuous.csd_**
 

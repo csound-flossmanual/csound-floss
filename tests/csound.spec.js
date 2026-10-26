@@ -4,7 +4,7 @@ import React, { act } from "react";
 import { createRoot } from "react-dom/client";
 import { CsoundProvider, reducer } from "../src/CsoundContext";
 import PlayControls from "../src/components/Editor/PlayControls";
-import { Csound } from "@csound/browser";
+import { Csound } from "../src/csound/engine";
 
 vi.mock("@chakra-ui/react", () => ({
   Button: ({ children, variant, isDisabled, ...props }) =>
@@ -14,7 +14,7 @@ vi.mock("@chakra-ui/react", () => ({
       children,
     ),
 }));
-vi.mock("@csound/browser", () => ({
+vi.mock("../src/csound/engine", () => ({
   __esModule: true,
   default: vi.fn(),
   Csound: vi.fn(),

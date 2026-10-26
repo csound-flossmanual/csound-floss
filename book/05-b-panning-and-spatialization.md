@@ -109,7 +109,7 @@ signal can be continuously panned between the left and right channels.
 
 The problem with this method is that the overall power drops as the
 sound is panned to the middle.^[The reason has been touched in chapter
-[01C](01-c-intensities.md): The sound intensity is not proportional
+[01C](15-c-intensities.md): The sound intensity is not proportional
 to the amplitude but to the squared amplitude.]
 
 One possible solution to this problem is to take the square root of the
@@ -918,7 +918,7 @@ $W_{m,1} = S·cos(mψ)$ and $W_{m,2} = S·sin(mψ)$
 \
 
 From the n = 2m + 1 B-Format channels the loudspeaker signals p~i~ of n
-loudspeakers which are set up symmetrically on a circle (with angle ϕ~i~)
+loudspeakers which are set up symmetrically on a circle (with angle $\phi_i$)
 are:
 
 \

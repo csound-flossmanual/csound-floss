@@ -302,7 +302,7 @@ Although these selections come from some experience in using and teaching Csound
 
 ### File IO
 
-[fout](https://csound.com/docs/manual/fout.html) — write out real-time audio output _(for rendered audio file output see chapter [02E](02-e-rendering-to-file.md) and [06A](06-a-record-and-play-soundfiles.md))_\
+[fout](https://csound.com/docs/manual/fout.html) — write out real-time audio output _(for rendered audio file output see chapter [06A](06-a-record-and-play-soundfiles.md#writing-audio-to-disk) and [06A](06-a-record-and-play-soundfiles.md))_\
 [ftsave(k)](https://csound.com/docs/manual/ftsave.html) — save table(s) to text file or binary\
 [fprint(k)s](https://csound.com/docs/manual/fprints.html) — formatted printing to file\
 [readf(i)](https://csound.com/docs/manual/readf.html) — reads an external file line by line\
@@ -382,7 +382,7 @@ see overview [here](https://csound.com/docs/manual/SiggenSample.html#SiggenSampl
 
 ##### Sound File Output
 
-[fout](https://csound.com/docs/manual/fout.html) — write out real-time audio output _(for rendered audio file output see chapter [02E](02-e-rendering-to-file.md) and [06A](06-a-record-and-play-soundfiles.md))_
+[fout](https://csound.com/docs/manual/fout.html) — write out real-time audio output _(for rendered audio file output see chapter [06A](06-a-record-and-play-soundfiles.md#writing-audio-to-disk) and [06A](06-a-record-and-play-soundfiles.md))_
 
 ### II. SIGNAL GENERATORS
 

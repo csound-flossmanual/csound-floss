@@ -38,7 +38,7 @@ Ce livre ne peut couvrir tous les cas d’utilisations. Ses objectifs principaux
 - Compiler de nombreuses [recettes](https://flossmanual.csound.com/how-to).
 - Offrir une introduction au langage Csound lisible et compréhensible au [Chapitre 03](https://flossmanual.csound.com/csound-language).
 - Discuter quelques méthodes de synthèse sonore classiques et plus récentes au [Chapitre 04](https://flossmanual.csound.com/sound-synthesis), ainsi que de modification des sons au [Chapitre 05](https://flossmanual.csound.com/sound-modification).
-- Offrir un [Guide des Opcodes]() pour aider l’utilisateur à s’orienter dans la quantité toujours croissante d’opcodes Csound.
+- Offrir un [Guide des Opcodes](https://flossmanual.csound.com/miscellanea/opcode-guide) pour aider l’utilisateur à s’orienter dans la quantité toujours croissante d’opcodes Csound.
 - Recueillir différentes descriptions et instructions approfondies sur divers sujets, pas forcément complètes et parfois non à jour, dans les _chapitres 06 à 14_.
 
 _Pour le moment, seul le Guide de Démarrage est traduit en français._

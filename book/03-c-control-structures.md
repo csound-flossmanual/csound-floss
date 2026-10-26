@@ -1271,7 +1271,7 @@ to the _timout_ feature:
 
 Perhaps both, the most simple and the most _Csoundish_ way to perform time
 loops is to use Csound's internal clock. As explained
-in [chapter 03A](03-a-initialization-and-control-pass.md),
+in [chapter 03A](03-a-initialization-and-performance-pass.md),
 each control cycle in Csound is equivalent to a certain time. This time
 is calculated as relation between the number of samples per
 control cycle [ksmps](https://csound.com/docs/manual/ksmps.html) and

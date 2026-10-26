@@ -727,7 +727,7 @@ endin
 
 Whether you can play examples like this in realtime will depend on the
 power of your computer. Have a look at chapter
-[2D](02-d-live-audio.md) (Live Audio) for tips
+[Hardware](02-c-hardware.md) (Live Audio) for tips
 on getting the best possible performance from your Csound orchestra.
 
 ### Using a Recursive UDO

@@ -91,7 +91,7 @@ for instance generate noise, read an audio file, create an envelope or oscillate
 In other audio programming languages it is called UGen (Unit Generator) or object.
 An opcode can also be compared to a build-in function (e.g. in Python),
 whereas a User Defined Opcode (UDO) can be compared to a function which is written by the user.
-For an overview, see the [Opcode Guide](15-a-opcode-guide.md).
+For an overview, see the [Opcode Guide](14-a-opcode-guide.md).
 
 **options** comprised as **csound options** and also called **command line flags** contain
 important decisions about how Csound has to run a _.csd_ file.
@@ -121,7 +121,7 @@ The main events are _instrument_ event, where each line starts with
 the character **i**. Another type of events is the **f** event which creates a function table.
 In modern Csound usage the score can be omitted,
 as all score jobs can also be done from inside the Csound instruments.
-See the [score chapter](14-a-methods-of-writing-csound-scores.md) for more information.
+See the [score chapter](14-b-methods-of-writing-csound-scores.md) for more information.
 
 **time domain** means to look at a signal considering the changes of amplitudes over time.
 It is the common way to plot audio signals (time as x-axis, amplitudes as y-axis).
