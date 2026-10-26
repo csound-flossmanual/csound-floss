@@ -2,7 +2,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useCallback, useState, useRef, useEffect } from "react";
 import { decode } from "he";
-import { csoundMode } from "@hlolli/codemirror-lang-csound";
+import { csound } from "@kunstmusik/codemirror-lang-csound";
 import { EditorView, basicSetup } from "codemirror";
 import { EditorState, Compartment } from "@codemirror/state";
 import { cpp } from "@codemirror/lang-cpp";
@@ -12,6 +12,7 @@ import {
   syntaxHighlighting,
 } from "@codemirror/language";
 import PlayControls from "./PlayControls";
+import { csoundTheme } from "./csound-theme";
 import * as ß from "./styles";
 
 const CodeElement = ({ data, lang }) => {
@@ -21,6 +22,8 @@ const CodeElement = ({ data, lang }) => {
   const [state, setState] = useState(initialEditorState);
   const [hasMounted, setHasMounted] = useState(false);
   const [editorView, setEditorView] = useState(null);
+
+  useEffect(() => () => editorView?.destroy(), [editorView]);
 
   useEffect(() => {
     if (!hasMounted) {
@@ -34,7 +37,7 @@ const CodeElement = ({ data, lang }) => {
         setState(event.state.doc.toString());
       }
     },
-    [setState]
+    [setState],
   );
 
   useEffect(() => {
@@ -60,16 +63,18 @@ const CodeElement = ({ data, lang }) => {
                     syntaxHighlighting(defaultHighlightStyle, {
                       fallback: true,
                     }),
-                    csoundMode({
-                      fileType: lang,
-                      enableSynopsis: false,
-                      enableCompletion: false,
+                    csound({
+                      mode: lang,
+                      hover: false,
+                      completion: false,
                     }),
+                    csoundTheme,
                   ]
                 : isCsd
                   ? [
                       basicSetup,
-                      csoundMode(),
+                      csound({ mode: "csd" }),
+                      csoundTheme,
                       EditorView.updateListener.of(onChange),
                     ]
                   : [

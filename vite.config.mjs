@@ -11,9 +11,12 @@ export default defineConfig({
           groups: [
             {
               name: (id) =>
-                id
-                  .match(/node_modules\/(@[^/]+\/[^/]+|[^/]+)/)?.[1]
-                  .replaceAll("/", "-") ?? null,
+                // Keep the language package's on-demand help out of the editor bundle.
+                id.endsWith("/codemirror-lang-csound/dist/opcodes-rich.js")
+                  ? "csound-opcode-help"
+                  : (id
+                      .match(/node_modules\/(@[^/]+\/[^/]+|[^/]+)/)?.[1]
+                      .replaceAll("/", "-") ?? null),
               test: /node_modules/,
             },
           ],
