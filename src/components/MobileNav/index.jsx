@@ -24,6 +24,7 @@ import Select from "react-select";
 import routes from "../../book_fragments/routes.json";
 import routesFr from "../../book_fragments_fr/routes.json";
 import { isFrenchRoute, getDefaultContentRoute } from "../../constants/routes";
+import { layers } from "../../constants/layers";
 
 const rootStyle = css`
   display: flex;
@@ -206,13 +207,13 @@ function MobileNav() {
       onFooterStateChange={setIsBottomReached}
       bottomThreshold={50}
       normalStyles={{
-        zIndex: 1000,
+        zIndex: layers.navigation,
         backgroundColor: "rgba(255,255,255,.8)",
         padding: "2rem",
         width: "100%",
       }}
       stickyStyles={{
-        zIndex: 1000,
+        zIndex: layers.navigation,
         backgroundColor: "rgba(255,255,255,.8)",
         padding: "12px",
         width: "100vw",

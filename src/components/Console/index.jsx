@@ -7,10 +7,11 @@ import {
   PianoKeysIcon,
   TerminalWindowIcon,
   DotsSixIcon,
-  CaretDownIcon,
+  MinusIcon,
 } from "@phosphor-icons/react";
 import useCsound from "../../CsoundContext";
 import Transport from "./Transport";
+import Log from "./Log";
 import { fitConsole } from "./geometry";
 import * as styles from "./styles";
 
@@ -28,26 +29,37 @@ function ConsoleDialog() {
   ] = useCsound();
   const [spectrum, setSpectrum] = useState(false),
     [keyboard, setKeyboard] = useState(false);
-  const [follow, setFollow] = useState(true);
+  const [minimized, setMinimized] = useState(false);
   const [box, setBox] = useState(() =>
     fitConsole(
       {
         x: window.innerWidth - 576,
-        y: viewport().height - 342,
+        y: viewport().height - 304,
         width: 552,
-        height: 318,
+        height: 280,
       },
       viewport(),
     ),
   );
-  const pre = useRef(null);
   const opener = useRef(document.activeElement);
   const closeButton = useRef(null);
+  const minimizeButton = useRef(null);
+  const restoreButton = useRef(null);
+  const changedView = useRef(false);
   useEffect(() => {
     if (opener.current?.getAttribute("aria-label") === "Open console")
       closeButton.current?.focus();
   }, []);
-  const height = 318 + (spectrum ? 252 : 0) + (keyboard ? 220 : 0);
+  useEffect(() => {
+    if (changedView.current) {
+      (minimized ? restoreButton : minimizeButton).current?.focus();
+    }
+  }, [minimized]);
+  const setCompact = (value) => {
+    changedView.current = true;
+    setMinimized(value);
+  };
+  const height = 280 + (spectrum ? 252 : 0) + (keyboard ? 220 : 0);
   useEffect(() => {
     const resize = () => setBox((box) => fitConsole(box, viewport(), height));
     resize();
@@ -58,9 +70,6 @@ function ConsoleDialog() {
       window.visualViewport?.removeEventListener("resize", resize);
     };
   }, [height]);
-  useEffect(() => {
-    if (follow && pre.current) pre.current.scrollTop = pre.current.scrollHeight;
-  }, [logs, follow]);
   const close = () => {
     dispatch({ type: "CLOSE_LOG_DIALOG" });
     opener.current?.focus();
@@ -76,6 +85,37 @@ function ConsoleDialog() {
           : example
             ? "Stopped"
             : "Ready";
+  const onKeyDown = (event) => {
+    if (event.key === "Escape") {
+      event.stopPropagation();
+      close();
+    }
+  };
+  if (minimized) {
+    return (
+      <div css={styles.layer}>
+        <div
+          css={[styles.controls, styles.panel, styles.minimized]}
+          role="dialog"
+          aria-modal="false"
+          aria-label="Csound WebAssembly console"
+          onKeyDown={onKeyDown}
+        >
+          <Button
+            ref={restoreButton}
+            variant="plain"
+            className="restore-console"
+            aria-label="Restore console"
+            title={`Restore console: ${example?.filename ?? "Your sound starts here"}`}
+            onClick={() => setCompact(false)}
+          >
+            <span>{example?.filename ?? "Your sound starts here"}</span>
+          </Button>
+          <Transport showPause={false} />
+        </div>
+      </div>
+    );
+  }
   return (
     <div css={styles.layer}>
       <Rnd
@@ -83,7 +123,7 @@ function ConsoleDialog() {
         size={{ width: box.width, height: box.height }}
         position={{ x: box.x, y: box.y }}
         minWidth={Math.min(340, viewport().width - 16)}
-        minHeight={Math.min(280, viewport().height - 16)}
+        minHeight={Math.min(240, viewport().height - 16)}
         maxWidth={viewport().width - 16}
         maxHeight={viewport().height - 16}
         bounds="parent"
@@ -113,15 +153,10 @@ function ConsoleDialog() {
         role="dialog"
         aria-modal="false"
         aria-label="Csound WebAssembly console"
-        onKeyDown={(event) => {
-          if (event.key === "Escape") {
-            event.stopPropagation();
-            close();
-          }
-        }}
+        onKeyDown={onKeyDown}
       >
         <header className="console-header">
-          <TerminalWindowIcon size={34} className="console-mark" />
+          <TerminalWindowIcon size={30} className="console-mark" />
           <div className="console-title">
             <small>Csound running in your browser</small>
             <strong title={example?.filename}>
@@ -155,6 +190,16 @@ function ConsoleDialog() {
             <DotsSixIcon size={20} />
           </Button>
           <Button
+            ref={minimizeButton}
+            className="icon-button"
+            variant="plain"
+            aria-label="Minimize console"
+            title="Minimize console"
+            onClick={() => setCompact(true)}
+          >
+            <MinusIcon size={18} />
+          </Button>
+          <Button
             ref={closeButton}
             className="icon-button"
             variant="plain"
@@ -172,41 +217,21 @@ function ConsoleDialog() {
           </span>
         </div>
         <div className="console-body">
-          <div className="log-heading">
-            <strong>Output</strong>
-            <Button
-              variant="plain"
-              aria-pressed={follow}
-              onClick={() => setFollow(!follow)}
-            >
-              <CaretDownIcon size={12} />
-              {follow ? "Following log" : "Follow log"}
-            </Button>
-          </div>
-          <pre
-            ref={pre}
-            className={`log${logs.length ? "" : " empty"}`}
-            aria-label="Csound output"
-            tabIndex={0}
-            onScroll={(event) => {
-              const el = event.currentTarget;
-              setFollow(el.scrollHeight - el.scrollTop - el.clientHeight < 12);
-            }}
-          >
-            {logs.length
-              ? logs.join("\n")
-              : "Press Play above an example. Its messages will appear here."}
-          </pre>
-          <Suspense
-            fallback={
-              <div className="tool-panel" role="status">
-                Loading tools…
-              </div>
-            }
-          >
-            {spectrum && <Spectrogram />}
-            {keyboard && <MidiKeyboard />}
-          </Suspense>
+          <Log logs={logs} />
+          {(spectrum || keyboard) && (
+            <div className="tool-content">
+              <Suspense
+                fallback={
+                  <div className="tool-panel" role="status">
+                    Loading tools…
+                  </div>
+                }
+              >
+                {spectrum && <Spectrogram />}
+                {keyboard && <MidiKeyboard />}
+              </Suspense>
+            </div>
+          )}
         </div>
         <footer className="tools" css={styles.controls}>
           <Button
@@ -216,7 +241,7 @@ function ConsoleDialog() {
             aria-pressed={spectrum}
             onClick={() => setSpectrum(!spectrum)}
           >
-            <WaveformIcon size={19} />
+            <WaveformIcon size={16} />
             Spectrogram
           </Button>
           <Button
@@ -226,7 +251,7 @@ function ConsoleDialog() {
             aria-pressed={keyboard}
             onClick={() => setKeyboard(!keyboard)}
           >
-            <PianoKeysIcon size={19} />
+            <PianoKeysIcon size={16} />
             MIDI keyboard
           </Button>
         </footer>

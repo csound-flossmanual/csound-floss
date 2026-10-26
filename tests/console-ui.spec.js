@@ -7,6 +7,7 @@ import {
 } from "../src/CsoundContext";
 import MidiKeyboard from "../src/components/Console/MidiKeyboard";
 import Transport from "../src/components/Console/Transport";
+import Console from "../src/components/Console";
 import PlayControls from "../src/components/Editor/PlayControls";
 import { downloadExample } from "../src/csound/download";
 
@@ -24,6 +25,8 @@ beforeEach(() => {
   document.body.append(host);
   root = createRoot(host);
   state = {
+    logDialogOpen: true,
+    logs: [],
     isPlaying: true,
     isPaused: false,
     isLoading: false,
@@ -40,6 +43,7 @@ afterEach(async () => {
   await act(() => root.unmount());
   host.remove();
   vi.clearAllMocks();
+  vi.unstubAllGlobals();
 });
 async function render(component) {
   await act(async () =>
@@ -61,6 +65,79 @@ const key = async (target, type, key) =>
   act(() =>
     target.dispatchEvent(new KeyboardEvent(type, { key, bubbles: true })),
   );
+
+it("follows new logs and resized output, but leaves old output in place while reading", async () => {
+  let resize;
+  vi.stubGlobal(
+    "ResizeObserver",
+    class {
+      connected = false;
+      constructor(callback) {
+        resize = () => this.connected && callback();
+      }
+      observe() {
+        this.connected = true;
+      }
+      disconnect() {
+        this.connected = false;
+      }
+    },
+  );
+  await render(React.createElement(Console));
+  const log = host.querySelector('pre[aria-label="Csound output"]');
+  let height = 400;
+  Object.defineProperties(log, {
+    scrollHeight: { get: () => height },
+    clientHeight: { value: 100 },
+  });
+  state = { ...state, logs: ["First line", "Newest line"] };
+  await render(React.createElement(Console));
+  expect(log.scrollTop).toBe(height);
+
+  // Narrowing the dialog wraps lines and changes the scroll height.
+  height = 600;
+  await act(() => log.dispatchEvent(new Event("scroll")));
+  await act(() => resize?.());
+  expect(log.scrollTop).toBe(height);
+
+  await act(() => {
+    log.scrollTop = 50;
+    log.dispatchEvent(new Event("scroll"));
+  });
+  state = { ...state, logs: [...state.logs, "Another line"] };
+  await render(React.createElement(Console));
+  expect(log.scrollTop).toBe(50);
+  const follow = [...host.querySelectorAll("button")].find(
+    (b) => b.textContent === "Follow log",
+  );
+  await act(() => follow.click());
+  expect(log.scrollTop).toBe(height);
+});
+
+it("minimizes to a title and transport, releases MIDI notes, and restores the tools", async () => {
+  await render(React.createElement(Console));
+  const keyboard = () =>
+    host.querySelector('button[aria-controls="console-keyboard"]');
+  await act(() => keyboard().click());
+  await key(button("C3"), "keydown", " ");
+  expect(state.libcsound.midiMessage).toHaveBeenLastCalledWith(0x90, 48, 96);
+  await act(() => button("Minimize console").click());
+  expect(state.libcsound.midiMessage).toHaveBeenLastCalledWith(0x80, 48, 0);
+  expect(host.querySelectorAll("button")).toHaveLength(3);
+  expect(host.querySelector("pre")).toBeNull();
+  expect(button("Restore console").textContent).toBe("tone.csd");
+  expect(document.activeElement).toBe(button("Restore console"));
+  await act(() => button("Stop").click());
+  expect(state.playback.stop).toHaveBeenCalledOnce();
+  state = { ...state, isPlaying: false, isPaused: true };
+  await render(React.createElement(Console));
+  await act(() => button("Resume").click());
+  expect(state.playback.resume).toHaveBeenCalledOnce();
+  await act(() => button("Restore console").click());
+  expect(keyboard().getAttribute("aria-expanded")).toBe("true");
+  expect(host.querySelector("pre")).not.toBeNull();
+  expect(document.activeElement).toBe(button("Minimize console"));
+});
 
 it("plays from the console, resumes paused code, and stops while loading", async () => {
   state.isPlaying = false;
