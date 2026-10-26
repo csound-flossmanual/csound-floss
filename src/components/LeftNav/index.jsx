@@ -1,7 +1,4 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
 import React from "react";
-import { jsx } from "@emotion/react";
 import { Link, useLocation } from "react-router-dom";
 import useBook from "../../BookContext";
 import { isFrenchRoute, getDefaultContentRoute } from "../../constants/routes";
@@ -24,7 +21,7 @@ import {
 } from "ramda";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
-import StickyEl from "../../vendor/react-sticky-el.min.js";
+import StickyEl from "react-sticky-el";
 // Routes are now passed as props to support multiple languages
 import DarkModeToggle from "./DarkMode";
 import * as ß from "./styles";
@@ -85,8 +82,8 @@ const createSelectDataSection = (route, isFrenchlang = false) => ({
 
 const getChapterData = (chapterNum, routesData, isFrenchlang = false) => {
   const raw = filter(
-    propEq("chapter", chapterNum),
-    reject(propEq("module", "00--aa-toc"), routesData)
+    propEq(chapterNum, "chapter"),
+    reject(propEq("00--aa-toc", "module"), routesData)
   );
 
   const maybePrepend =
@@ -99,10 +96,10 @@ const getChapterData = (chapterNum, routesData, isFrenchlang = false) => {
 
 const getAllChapters = (routesData) => {
   const numChapters = reduce(max, -Infinity, map(prop("chapter"), routesData));
-  const routesWithoutTOC = reject(propEq("module", "00--aa-toc"), routesData);
+  const routesWithoutTOC = reject(propEq("00--aa-toc", "module"), routesData);
   return map((n) =>
     createSelectDataChapter(
-      find(propEq("chapter", n), routesWithoutTOC),
+      find(propEq(n, "chapter"), routesWithoutTOC),
       n || 1
     )
   )(range(1, numChapters + 1));
@@ -110,8 +107,8 @@ const getAllChapters = (routesData) => {
 
 const getChapterZero = (routesData) => {
   return pipe(
-    filter(propEq("chapter", 0)),
-    reject(propEq("module", "00--aa-toc"))
+    filter(propEq(0, "chapter")),
+    reject(propEq("00--aa-toc", "module"))
   )(routesData);
 };
 
@@ -180,7 +177,7 @@ function LeftNav({ routes = [], setCurrentRoute }) {
 
   const currentRoutename = location?.pathname ?? "/";
   const routeIndex = findIndex(
-    propEq("url", getDefaultContentRoute(currentRoutename))
+    propEq(getDefaultContentRoute(currentRoutename), "url")
   )(routes);
 
   const currentRoute = routes[routeIndex];

@@ -71,7 +71,6 @@ let
     tetex
     texliveDeps
     nodejs
-    (yarn.override { nodejs = pkgs.nodejs; })
     pandoc
   ];
 in

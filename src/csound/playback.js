@@ -1,4 +1,4 @@
-import { getType } from "mime/lite";
+import mime from "mime/lite";
 import SourceMaterials from "../assets/source_materials.json";
 import { requestsFileOutput } from "./options";
 import { beginPlaybackAudioSession } from "./audio-session";
@@ -35,7 +35,7 @@ export async function collectOutputFiles(engine, originalFiles) {
     for (const path of await listFiles(engine.fs)) {
       if (originalFiles.has(path)) continue;
       const bytes = await engine.fs.readFile(path);
-      const type = getType(path) || "application/octet-stream";
+      const type = mime.getType(path) || "application/octet-stream";
       const url = URL.createObjectURL(new Blob([bytes], { type }));
       files.push({ name: path.slice(1), type, url, size: bytes.byteLength });
     }

@@ -36,7 +36,7 @@ const makeWrapChapterInTemplate = () => {
     .readFileSync(path.resolve(__dirname, "./templates/prepend.txt"))
     .toString();
   const append = fs.readFileSync(
-    path.resolve(__dirname, "./templates/append.txt")
+    path.resolve(__dirname, "./templates/append.txt"),
   );
   return (chapter, title) =>
     `${prepend.replace("CHANGEME", title)}${chapter}${append}`;
@@ -56,9 +56,14 @@ const buildLink = (url, lang = null) => {
   // Determine language: prioritize argument, fall back to env var, default to 'en'
   const currentLang = lang || process.env.LANG || "en";
   const isFrench = currentLang === "fr";
+  const isFarsi = currentLang === "fa";
 
   // Load appropriate TOC file
-  const tocFile = isFrench ? "../toc-fr.json" : "../toc.json";
+  const tocFile = isFrench
+    ? "../toc-fr.json"
+    : isFarsi
+      ? "../toc-fa.json"
+      : "../toc.json";
   const toc = require(tocFile);
 
   const urlWithoutHash = url.replace(/#+.*/, "");
@@ -68,10 +73,10 @@ const buildLink = (url, lang = null) => {
       .replace(/\d\d-/i, "")
       .replace(".md", "")
       .replace(/^[a-z]-/i, "");
-    const prefixData = R.find(R.propEq("chapter", chapterNumber))(toc);
+    const prefixData = R.find(R.propEq(chapterNumber, "chapter"))(toc);
     if (!prefixData) {
       console.error(
-        "ERROR: missing table of content entry for markdown data: " + url
+        "ERROR: missing table of content entry for markdown data: " + url,
       );
       process.exit(1);
     }

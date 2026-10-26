@@ -1,7 +1,4 @@
 /* eslint-disable */
-/** @jsxRuntime classic */
-/** @jsx jsx */
-import { jsx } from "@emotion/react";
 // eslint-disable-next-line no-unused-vars
 import React, { useCallback, useState, useRef, useEffect } from "react";
 import { decode } from "he";

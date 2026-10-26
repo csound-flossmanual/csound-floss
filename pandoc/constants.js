@@ -1,7 +1,9 @@
 const path = require("path");
 
 // Get language from environment variable, default to 'en'
-const LANG = process.env.LANG || "en";
+const LANG = ["en", "fr", "fa"].includes(process.env.LANG)
+  ? process.env.LANG
+  : "en";
 const IS_FRENCH = LANG === "fr";
 const IS_FARSI = LANG === "fa";
 
@@ -13,23 +15,27 @@ const FRAGMENTS_DIR_SUFFIX = LANG === "en" ? "" : `_${LANG}`;
 const PDF_OUTPUT = path.resolve(__dirname, `../csound-flossmanual-${LANG}.pdf`);
 const EPUB_OUTPUT = path.resolve(
   __dirname,
-  `../csound-flossmanual-${LANG}.epub`
+  `../csound-flossmanual-${LANG}.epub`,
 );
 const ODT_OUTPUT = path.resolve(__dirname, `../csound-flossmanual-${LANG}.odt`);
 const JSX_OUTPUT = path.resolve(
   __dirname,
-  `../src/book_fragments${FRAGMENTS_DIR_SUFFIX}`
+  `../src/book_fragments${FRAGMENTS_DIR_SUFFIX}`,
 );
 const BOOK_DIRECTORY = path.resolve(__dirname, `../book${LANG_DIR_SUFFIX}`);
 const BOOK_DIRECTORY_EN = path.resolve(__dirname, `../book`);
 const BOOK_DIRECTORY_FR = path.resolve(__dirname, `../book-fr`);
-const BOOK_DIRECTORY_FA = path.resolve(__dirname, `../book_fa`);
+const BOOK_DIRECTORY_FA = path.resolve(__dirname, `../book-fa`);
 
 const OTHER_DIRECTORY = path.resolve(__dirname, "../other");
 const RESOURCES_DIRECTORY = path.resolve(__dirname, "../resources");
 
 // TOC file path
-const TOC_FILE = IS_FRENCH ? "../toc-fr.json" : "../toc.json";
+const TOC_FILE = IS_FRENCH
+  ? "../toc-fr.json"
+  : IS_FARSI
+    ? "../toc-fa.json"
+    : "../toc.json";
 const MARKDOWN_EXTENSIONS = [
   "markdown",
   "line_blocks",

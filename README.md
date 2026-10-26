@@ -1,45 +1,67 @@
-## Building
+## Requirements
 
-```
-# first install npm dependencies
-yarn
-# then build with
-yarn build
-# build pdf with
-yarn build:pdf
-```
-
-### Requirements
-
-- pandoc 2.3+
-- Node.js 22.13.0 or later (required by Csound 7)
-- yarn 1.x but no later (make sure it's less than 2.x)
+- Node.js 22.22.2+, 24.15+, or 26+ (required by the current test and watch tools)
+- npm 10+ (included with Node.js)
+- Pandoc 2.3+ for chapter generation and tests
+- XeLaTeX and the fonts in `shell.nix` for PDF builds
 
 ## Developing
 
+```sh
+npm ci
+npm start
 ```
-# first install npm dependencies
-yarn
-# then start writing the book (this will auto-reload any change in the browser)
-yarn start
+
+This builds the English, French, and Persian chapters, starts Vite at
+[localhost:3000](http://localhost:3000), and watches the book sources for changes.
+
+## Building
+
+```sh
+npm run build
+npm run preview
+```
+
+The build writes the website to `build/`. Vite handles JSX and bundles the
+site without Babel. To rebuild only the frontend after generating chapters,
+run `npm run build:site`.
+
+Build downloadable documents with:
+
+```sh
+npm run build:pdf
+npm run build:epub
+npm run build:odt
+LANG=fr npm run build:pdf
 ```
 
 ## Tests
 
-To run tests locally:
-
+```sh
+npm test
+npm run test:watch
 ```
-# Recommended
-yarn test
 
-# Alternatively (either)
-npx jest
-yarn jest
+Vitest runs the book checks and playback logic tests. The book checks need
+Pandoc on `PATH`.
 
-# Avoid those two
-yarn add jest --global && jest
-npm i jest --globall && jest
+## Dependencies
+
+Use `npm ci` for a clean install from `package-lock.json`. Use `npm install`
+when adding or changing packages, and commit the updated lockfile.
+
+```sh
+npm run update:dependencies
+npm install
+npm test
+npm run build
 ```
+
+The dependency update command runs `ncu -u`, including prereleases such as the
+Csound editor package. The HTML-to-JSX converter uses current Cheerio through an
+npm override.
+CodeMirror shares one state package to keep extensions compatible. An XML parser
+override avoids the deprecated patch pinned by MathJax's speech tools.
 
 ## Contributing
 
@@ -61,5 +83,5 @@ npm i jest --globall && jest
 
 ## Continuous Integration and Firebaseapp Build
 
-After each merge into develop, a preview of the manual is built and hosted
-as from firebase, it's available at: [https://csound-floss-dev.firebaseapp.com/](https://csound-floss-dev.firebaseapp.com/).
+Each merge into `develop` builds a [preview on Firebase](https://csound-floss-dev.firebaseapp.com/).
+Both build workflows pin Nixpkgs to a commit of `nixpkgs-unstable` for the document tools.

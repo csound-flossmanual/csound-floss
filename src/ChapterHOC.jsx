@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useBookDispatch } from "./BookContext";
-import ReactAudioPlayer from "react-audio-player";
 import useCsound from "./CsoundContext";
 import { filesize } from "filesize";
 import Modal from "react-modal";
@@ -42,25 +41,25 @@ var updatePath = curry(function updatePath(p, transform, coll) {
 });
 
 const getSections = reduce((acc, el) => {
-  if (propEq("type", "h2", el)) {
+  if (propEq("h2", "type", el)) {
     return append(
       {
         title: pathOr("unnamed section", ["props", "children"], el),
         id: pathOr("unknown", ["props", "id"], el),
         subSubSections: [],
       },
-      acc
+      acc,
     );
   } else if (isEmpty(acc)) {
     return acc;
-  } else if (propEq("type", "h3", el)) {
+  } else if (propEq("h3", "type", el)) {
     return updatePath(
       [acc.length - 1, "subSubSections"],
       append({
         title: pathOr("unnamed section", ["props", "children"], el),
         id: pathOr("unknown", ["props", "id"], el),
       }),
-      acc
+      acc,
     );
   } else {
     return acc;
@@ -83,7 +82,7 @@ const ChapterHOC = ({ children }) => {
             return 0;
           }
         })
-        .sort()
+        .sort(),
     );
 
   const onScroll = debounce(100, () => {
@@ -95,7 +94,7 @@ const ChapterHOC = ({ children }) => {
     const currSubSub = propOr(
       [],
       "subSubSections",
-      propOr({}, sectionIdx - 1, subSections)
+      propOr({}, sectionIdx - 1, subSections),
     );
 
     const currSubSubPoints =
@@ -161,9 +160,7 @@ const ChapterHOC = ({ children }) => {
                 {f.name + " - " + filesize(f.size) + " - "}
                 <a href={f.url} download={f.name}>{`Download`}</a>
               </p>
-              {f.type.startsWith("audio") && (
-                <ReactAudioPlayer src={f.url} controls />
-              )}
+              {f.type.startsWith("audio") && <audio src={f.url} controls />}
               <br />
 
               <hr />

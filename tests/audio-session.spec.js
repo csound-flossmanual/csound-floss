@@ -1,12 +1,8 @@
-/** @jest-environment jsdom */
-const { beginPlaybackAudioSession } = require("../src/csound/audio-session");
+import { vi } from "vitest";
+/** @vitest-environment jsdom */
+import { beginPlaybackAudioSession } from "../src/csound/audio-session";
 
-const original = Object.getOwnPropertyDescriptor(global, "navigator");
-const vi = {
-  stubGlobal: (key, value) =>
-    Object.defineProperty(global, key, { configurable: true, value }),
-};
-afterEach(() => Object.defineProperty(global, "navigator", original));
+afterEach(() => vi.unstubAllGlobals());
 
 function device(userAgent = "iPhone", maxTouchPoints = 5) {
   const session = { type: "auto" };
@@ -26,7 +22,7 @@ it.each(["iPhone", "iPad", "iPod", "Macintosh"])(
     expect(session.type).toBe("playback");
     playback?.release();
     expect(session.type).toBe("auto");
-  }
+  },
 );
 
 it.each(["Android", "Windows NT", "Macintosh"])(
@@ -35,7 +31,7 @@ it.each(["Android", "Windows NT", "Macintosh"])(
     const session = device(userAgent, 0);
     expect(beginPlaybackAudioSession()).toBeUndefined();
     expect(session.type).toBe("auto");
-  }
+  },
 );
 
 it("supports playback when Audio Session is absent", () => {

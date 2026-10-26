@@ -1,4 +1,4 @@
-const { requestsFileOutput } = require("../src/csound/options");
+import { requestsFileOutput } from "../src/csound/options";
 it.each([
   ["-o result.wav", true],
   ["-oresult.wav", true],
@@ -16,13 +16,13 @@ it.each([
   ["", false],
 ])("reads output policy from %s", (options, expected) => {
   expect(requestsFileOutput(`<CsOptions>${options}</CsOptions>`)).toBe(
-    expected
+    expected,
   );
 });
 it("ignores options in XML comments and instrument strings", () => {
   expect(
     requestsFileOutput(
-      "<!-- <CsOptions>-o file.wav</CsOptions> -->\n<CsInstruments>S1 = {{<CsOptions>-o file.wav</CsOptions>}}"
-    )
+      "<!-- <CsOptions>-o file.wav</CsOptions> -->\n<CsInstruments>S1 = {{<CsOptions>-o file.wav</CsOptions>}}",
+    ),
   ).toBe(false);
 });

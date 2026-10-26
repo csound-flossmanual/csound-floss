@@ -1,48 +1,46 @@
-/** @jest-environment jsdom */
-const React = require("react");
-const { createRoot } = require("react-dom/client");
-const { act } = require("react-dom/test-utils");
-const { CsoundProvider, reducer } = require("../src/CsoundContext");
-const PlayControls = require("../src/components/Editor/PlayControls").default;
+import { vi } from "vitest";
+/** @vitest-environment jsdom */
+import React, { act } from "react";
+import { createRoot } from "react-dom/client";
+import { CsoundProvider, reducer } from "../src/CsoundContext";
+import PlayControls from "../src/components/Editor/PlayControls";
+import { Csound } from "@csound/browser";
 
-jest.mock("@chakra-ui/react", () => ({
+vi.mock("@chakra-ui/react", () => ({
   Button: ({ children, variant, isDisabled, ...props }) =>
-    require("react").createElement(
+    React.createElement(
       "button",
       { ...props, disabled: props.disabled || isDisabled },
-      children
+      children,
     ),
 }));
-jest.mock(
-  "@csound/browser",
-  () => ({
-    __esModule: true,
-    default: jest.fn(),
-    Csound: jest.fn(),
-  }),
-  { virtual: true }
-);
+vi.mock("@csound/browser", () => ({
+  __esModule: true,
+  default: vi.fn(),
+  Csound: vi.fn(),
+}));
 
 let root, container, engine;
 beforeEach(() => {
   global.IS_REACT_ACT_ENVIRONMENT = true;
-  window.AudioContext = jest.fn(() => ({
-    resume: jest.fn().mockResolvedValue(),
-    close: jest.fn().mockResolvedValue(),
-    state: "running",
-  }));
+  window.AudioContext = vi.fn(function () {
+    return {
+      resume: vi.fn().mockResolvedValue(),
+      close: vi.fn().mockResolvedValue(),
+      state: "running",
+    };
+  });
   engine = {
-    on: jest.fn(),
-    setOption: jest.fn().mockResolvedValue(0),
-    compileCSD: jest.fn().mockResolvedValue(-1),
-    start: jest.fn().mockResolvedValue(0),
-    cleanup: jest.fn().mockResolvedValue(0),
-    removeAllListeners: jest.fn(),
-    terminateInstance: jest.fn().mockResolvedValue(),
-    fs: { readdir: jest.fn().mockResolvedValue([]) },
+    on: vi.fn(),
+    setOption: vi.fn().mockResolvedValue(0),
+    compileCSD: vi.fn().mockResolvedValue(-1),
+    start: vi.fn().mockResolvedValue(0),
+    cleanup: vi.fn().mockResolvedValue(0),
+    removeAllListeners: vi.fn(),
+    terminateInstance: vi.fn().mockResolvedValue(),
+    fs: { readdir: vi.fn().mockResolvedValue([]) },
   };
-  require("@csound/browser").default.mockResolvedValue(engine);
-  require("@csound/browser").Csound.mockResolvedValue(engine);
+  Csound.mockResolvedValue(engine);
   container = document.createElement("div");
   document.body.appendChild(container);
   root = createRoot(container);
@@ -50,7 +48,7 @@ beforeEach(() => {
 afterEach(async () => {
   await act(async () => root.unmount());
   container.remove();
-  jest.clearAllMocks();
+  vi.clearAllMocks();
 });
 async function mount() {
   await act(async () =>
@@ -60,9 +58,9 @@ async function mount() {
         null,
         React.createElement(PlayControls, {
           currentEditorState: "<CsoundSynthesizer>invalid</CsoundSynthesizer>",
-        })
-      )
-    )
+        }),
+      ),
+    ),
   );
 }
 it("does not start an invalid CSD", async () => {
@@ -81,7 +79,7 @@ it("keeps engine effects out of the reducer", () => {
   reducer(state, {
     type: "HANDLE_PLAY_STATE_CHANGE",
     change: "stop",
-    csoundDispatch: jest.fn(),
+    csoundDispatch: vi.fn(),
   });
   expect(engine.cleanup).not.toHaveBeenCalled();
 });

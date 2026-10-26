@@ -1,6 +1,3 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
-import { jsx } from "@emotion/react";
 // eslint-disable-next-line no-unused-vars
 import React, { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import HomeScreen from "../HomeScreen";
@@ -48,6 +45,13 @@ function scrollIntoView(element) {
   }, 10);
 }
 
+const chapterModules = import.meta.glob([
+  "../../book_fragments/*.jsx",
+  "../../book_fragments_fr/*.jsx",
+  "../../book_fragments_fa/*.jsx",
+  "!../../book_fragments/interactive-demo.jsx",
+]);
+
 function Main({ currentRoute, mobileMode, setCurrentRoute }) {
   const onRouteChange = React.useCallback(
     ({ action, location }) => {
@@ -61,7 +65,7 @@ function Main({ currentRoute, mobileMode, setCurrentRoute }) {
           }, 50);
         } else {
           const decodedHash = decodeURIComponent(
-            location.hash.replace("#", "")
+            location.hash.replace("#", ""),
           );
           const hashElem = document.getElementById(decodedHash);
           if (hashElem) {
@@ -70,7 +74,7 @@ function Main({ currentRoute, mobileMode, setCurrentRoute }) {
         }
       }
     },
-    [setCurrentRoute]
+    [setCurrentRoute],
   );
 
   useEffect(() => {
@@ -81,7 +85,7 @@ function Main({ currentRoute, mobileMode, setCurrentRoute }) {
   const memoizedRoutes = useMemo(() => {
     const englishRoutes = map((route) => {
       const LazyComp = lazy(
-        () => import(`../../book_fragments/${route.module}`)
+        chapterModules[`../../book_fragments/${route.module}.jsx`],
       );
       return (
         <Route
@@ -98,7 +102,7 @@ function Main({ currentRoute, mobileMode, setCurrentRoute }) {
 
     const frenchRoutes = map((route) => {
       const LazyComp = lazy(
-        () => import(`../../book_fragments_fr/${route.module}`)
+        chapterModules[`../../book_fragments_fr/${route.module}.jsx`],
       );
       return (
         <Route
@@ -115,7 +119,7 @@ function Main({ currentRoute, mobileMode, setCurrentRoute }) {
 
     const farsiRoutes = map((route) => {
       const LazyComp = lazy(
-        () => import(`../../book_fragments_fa/${route.module}`)
+        chapterModules[`../../book_fragments_fa/${route.module}.jsx`],
       );
       return (
         <Route

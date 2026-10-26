@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import CodeElement from "../components/Editor";
-import MathJax from "react-mathjax";
+import MathJax from "../components/Math";
 import { useTitle } from "../use-title";
 import ChapterHOC from "../ChapterHOC";
 
