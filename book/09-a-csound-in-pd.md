@@ -166,7 +166,7 @@ iAmp      ampmidi   8;gets amplitude and scales 0-8
 iRatio    random    .9, 1.1; ratio randomly between 0.9 and 1.1
 aTone     foscili   .1, iFreq, 1, iRatio/5, iAmp+1, giSine; fm
 aEnv      linenr    aTone, 0, .01, .01; avoiding clicks at the end of a note
-          outs      aEnv, aEnv
+          out       aEnv, aEnv
 endin
 
 </CsInstruments>
@@ -211,7 +211,7 @@ idB       random    -18, -6
 kFreq     linseg    iFreq1, iDur, iFreq2
 kEnv      transeg   ampdb(idB), p3, -10, 0
 aTone     poscil    kEnv, kFreq
-          outs      aTone, aTone
+          out       aTone, aTone
 endin
 
 </CsInstruments>

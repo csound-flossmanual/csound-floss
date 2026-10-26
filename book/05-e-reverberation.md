@@ -80,7 +80,7 @@ gaRvbSend    init      0 ; global audio variable initialized to zero
   instr 1 ; sound generating instrument (sparse noise bursts)
 kEnv         loopseg   0.5,0,0,1,0.003,1,0.0001,0,0.9969,0,0; amp. env.
 aSig         pinkish   kEnv              ; noise pulses
-             outs      aSig, aSig        ; audio to outs
+             out      aSig, aSig        ; audio to out
 iRvbSendAmt  =         0.8               ; reverb send amount (0 - 1)
 ;add some of the audio from this instrument to the global reverb send variable
 gaRvbSend    =         gaRvbSend + (aSig * iRvbSendAmt)
@@ -91,7 +91,7 @@ kroomsize    init      0.85          ; room size (range 0 to 1)
 kHFDamp      init      0.5           ; high freq. damping (range 0 to 1)
 ; create reverberated version of input signal (note stereo input and output)
 aRvbL,aRvbR  freeverb  gaRvbSend, gaRvbSend,kroomsize,kHFDamp
-             outs      aRvbL, aRvbR ; send audio to outputs
+             out       aRvbL, aRvbR ; send audio to outputs
              clear     gaRvbSend    ; clear global audio variable
   endin
 
@@ -175,7 +175,7 @@ nchnls = 2
   instr 1 ; sound generating instrument - sparse noise bursts
 kEnv         loopseg   0.5,0, 0,1,0.003,1,0.0001,0,0.9969,0,0; amp. env.
 aSig         pinkish   kEnv       ; pink noise pulses
-             outs      aSig, aSig ; send audio to outputs
+             out       aSig, aSig ; send audio to outputs
 iRvbSendAmt  =         0.8        ; reverb send amount (0 - 1)
 ; write to zak audio channel 1 with mixing
              zawm      aSig*iRvbSendAmt, 1
@@ -187,7 +187,7 @@ kFblvl       init      0.88 ; feedback level - i.e. reverb time
 kFco         init      8000 ; cutoff freq. of a filter within the reverb
 ; create reverberated version of input signal (note stereo input and output)
 aRvbL,aRvbR  reverbsc  aInSig, aInSig, kFblvl, kFco
-             outs      aRvbL, aRvbR ; send audio to outputs
+             out       aRvbL, aRvbR ; send audio to outputs
              zacl      0, 1         ; clear zak audio channels
   endin
 
@@ -234,7 +234,7 @@ nchnls = 2
   instr 1 ; sound generating instrument - sparse noise bursts
 kEnv         loopseg   0.5,0, 0,1,0.003,1,0.0001,0,0.9969,0,0 ; amp. envelope
 aSig         pinkish   kEnv                                 ; noise pulses
-             outs      aSig, aSig                           ; audio to outs
+             out      aSig, aSig                           ; audio to out
 iRvbSendAmt  =         0.4                        ; reverb send amount (0 - 1)
 ;write audio into the named software channel:
              chnmix    aSig*iRvbSendAmt, "ReverbSend"
@@ -245,7 +245,7 @@ aInSig       chnget    "ReverbSend"   ; read audio from the named channel
 kTime        init      4              ; reverb time
 kHDif        init      0.5            ; 'high frequency diffusion' (0 - 1)
 aRvb         nreverb   aInSig, kTime, kHDif ; create reverb signal
-outs         aRvb, aRvb               ; send audio to outputs
+out          aRvb, aRvb               ; send audio to outputs
              chnclear  "ReverbSend"   ; clear the named channel
 endin
 
@@ -336,7 +336,7 @@ aenv        line        1,p3,0.001           ; amplitude envelope (percussive)
 icps        exprand     30                   ; cycles-per-second offset
 kcps        expon       icps+120,p3,20       ; pitch glissando
 aSig        oscil       aenv*0.5*iamp,kcps,giSine  ; oscillator
-            outs        aSig, aSig           ; send audio to outputs
+            out         aSig, aSig           ; send audio to outputs
 gaRvbSend   =           gaRvbSend + (aSig * giRvbSendAmt) ; add to send
   endin
 
@@ -352,7 +352,7 @@ aTne        oscil      aEnv, kCps*aJit, giSine ; create tone component
 aSig        sum        aNse*0.1, aTne          ; mix noise and tone components
 aRes        comb       aSig, 0.02, 0.0035      ; comb creates a 'ring'
 aSig        =          aRes * aEnv * iAmp      ; apply env. and amp. factor
-            outs       aSig, aSig              ; send audio to outputs
+            out        aSig, aSig              ; send audio to outputs
 gaRvbSend   =          gaRvbSend + (aSig * giRvbSendAmt); add to send
   endin
 
@@ -363,7 +363,7 @@ aEnv        expon       1,p3,0.001           ; amplitude envelope (percussive)
 aSig        noise       aEnv, 0              ; create sound for closed hi-hat
 aSig        buthp       aSig*0.5*iAmp, 12000 ; highpass filter sound
 aSig        buthp       aSig,          12000 ; -and again to sharpen cutoff
-            outs        aSig, aSig           ; send audio to outputs
+            out         aSig, aSig           ; send audio to outputs
 gaRvbSend   =           gaRvbSend + (aSig * giRvbSendAmt) ; add to send
   endin
 
@@ -390,7 +390,7 @@ a5 alpass asum, 0.1, 0.005 ; send mix through first allpass filter
 aOut        alpass a5, 0.1, 0.02291 ; send 1st allpass through 2nd allpass
 
 amix        ntrpol      gaRvbSend, aOut, kMix  ; create a dry/wet mix
-            outs        amix, amix             ; send audio to outputs
+            out         amix, amix             ; send audio to outputs
             clear       gaRvbSend              ; clear global audio variable
   endin
 

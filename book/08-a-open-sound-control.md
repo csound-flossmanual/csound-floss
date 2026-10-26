@@ -52,17 +52,17 @@ ksmps = 32
 nchnls	= 2
 0dbfs	= 1
 
-giPortHandle OSCinit 47120
+giPortHandle oscinit 47120
 
 instr Send
  kSendTrigger = 1
  kSendValue = 17
- OSCsend kSendTrigger, "", 47120, "/exmp_1/int", "i", kSendValue
+ oscsend kSendTrigger, "", 47120, "/exmp_1/int", "i", kSendValue
 endin
 
 instr Receive
  kReceiveValue init 0
- kGotIt OSClisten giPortHandle, "/exmp_1/int", "i", kReceiveValue
+ kGotIt osclisten giPortHandle, "/exmp_1/int", "i", kReceiveValue
  if kGotIt == 1 then
   printf "Message Received for '%s' at time %f: kReceiveValue = %d\n",
          1, "/exmp_1/int", times:k(), kReceiveValue
@@ -80,22 +80,22 @@ i "Send" 1 1    ;then after one second send message
 
 To understand the main functionalities to use OSC in Csound, we will look more closely to what happens in the code.
 
-#### OSCinit
+#### oscinit
 
-    giPortHandle OSCinit 47120
+    giPortHandle oscinit 47120
 
-The [OSCinit](https://csound.com/docs/manual/OSCinit.html) statement is necessary for
-the [OSClisten](https://csound.com/docs/manual/OSClisten.html) opcode.
+The [oscinit](https://csound.com/manual/opcodes/OSCinit/) statement is necessary for
+the [osclisten](https://csound.com/manual/opcodes/OSClisten/) opcode.
 It takes a port number as input argument and returns a handle, called _giHandle_ in this case.
 This statement should usually be done in the global space.
 
-#### OSCsend
+#### oscsend
 
     kSendTrigger = 1
     kSendValue = 17
-    OSCsend kSendTrigger, "", 47120, "/exmp_1/int", "i", kSendValue
+    oscsend kSendTrigger, "", 47120, "/exmp_1/int", "i", kSendValue
 
-The [OSCsend](https://csound.com/docs/manual/OSCsend.html) opcode will send a
+The [oscsend](https://csound.com/manual/opcodes/OSCsend/) opcode will send a
 message whenever the _kSendTrigger_ will change its value.
 As this variable is set here to a fixed number, only one message will be sent.
 The second input for _OSCsend_ is the host to which the message is being sent.
@@ -104,10 +104,10 @@ Third argument is the port number, here 47120, followed by the destination addre
 here "/exmp_1/int". As we are sending an integer here, the type specifier is "i" as fifth argument,
 followed by the value itself.
 
-#### OSClisten
+#### osclisten
 
     kReceiveValue init 0
-    kGotIt OSClisten giPortHandle, "/exmp_1/int", "i", kReceiveValue
+    kGotIt osclisten giPortHandle, "/exmp_1/int", "i", kReceiveValue
 
 On the receiver side, we find the _giPortHandle_ which was returned by _OSCinit_,
 and the address string again, as well as the expected type, here "i" for integer.
@@ -153,19 +153,19 @@ ksmps = 32
 nchnls	= 2
 0dbfs	= 1
 
-giPortHandle OSCinit 47120
+giPortHandle oscinit 47120
 
 instr Send
  kSendTrigger = 1
  kFloat = 1.23456789
  Sstring = "bla bla"
- OSCsend kSendTrigger, "", 47120, "/exmp_2/more", "fs", kFloat, Sstring
+ oscsend kSendTrigger, "", 47120, "/exmp_2/more", "fs", kFloat, Sstring
 endin
 
 instr Receive
  kReceiveFloat init 0
  SReceiveString init ""
- kGotIt OSClisten giPortHandle, "/exmp_2/more", "fs",
+ kGotIt osclisten giPortHandle, "/exmp_2/more", "fs",
                   kReceiveFloat, SReceiveString
  if kGotIt == 1 then
   printf "kReceiveFloat = %f\nSReceiveString = '%s'\n",
@@ -207,7 +207,7 @@ ksmps = 32
 nchnls	= 2
 0dbfs	= 1
 
-giPortHandle OSCinit 47120
+giPortHandle oscinit 47120
 
 instr Send
  kSendTrigger init 0
@@ -216,12 +216,12 @@ instr Send
   kSendTrigger += 1
   kArray *= 2
  endif
- OSCsend kSendTrigger, "", 47120, "/exmp_3/array", "A", kArray
+ oscsend kSendTrigger, "", 47120, "/exmp_3/array", "A", kArray
 endin
 
 instr Receive
  kReceiveArray[] init 7
- kGotIt OSClisten giPortHandle, "/exmp_3/array", "A", kReceiveArray
+ kGotIt osclisten giPortHandle, "/exmp_3/array", "A", kReceiveArray
  if kGotIt == 1 then
   printarray kReceiveArray
  endif
@@ -262,7 +262,7 @@ ksmps = 32
 nchnls	= 2
 0dbfs	= 1
 
-giPortHandle OSCinit 47120
+giPortHandle oscinit 47120
 
 giTable_1 ftgen 0, 0, 1024, 10, 1
 giTable_2 ftgen 0, 0, 1024, 10, 1, 1, 1, 1, 1
@@ -273,7 +273,7 @@ instr Send
  kSendTrigger init 1
  kTable init giTable_1
  kTime init 0
- OSCsend kSendTrigger, "", 47120, "/exmp_4/table", "G", kTable
+ oscsend kSendTrigger, "", 47120, "/exmp_4/table", "G", kTable
  if timeinsts() >= kTime+1 then
   kSendTrigger += 1
   kTable += 1
@@ -283,7 +283,7 @@ endin
 
 instr Receive
  iReceiveTable ftgen 0, 0, 1024, 2, 0
- kGotIt OSClisten giPortHandle, "/exmp_4/table", "G", iReceiveTable
+ kGotIt osclisten giPortHandle, "/exmp_4/table", "G", iReceiveTable
  aOut poscil .2, 400, iReceiveTable
  out aOut, aOut
 endin
@@ -318,18 +318,18 @@ ksmps = 128
 nchnls	= 2
 0dbfs	= 1
 
-giPortHandle OSCinit 47120
+giPortHandle oscinit 47120
 
 instr Send
  kSendTrigger init 1
  aSend poscil .2, 400
- OSCsend kSendTrigger, "", 47120, "/exmp_5/audio", "a", aSend
+ oscsend kSendTrigger, "", 47120, "/exmp_5/audio", "a", aSend
  kSendTrigger += 1
 endin
 
 instr Receive
  aReceive init 0
- kGotIt OSClisten giPortHandle, "/exmp_5/audio", "a", aReceive
+ kGotIt osclisten giPortHandle, "/exmp_5/audio", "a", aReceive
  out aReceive, aReceive
 endin
 
@@ -346,9 +346,9 @@ i "Send" 0 5
 
 The examples in this chapter were simple demonstrations of how different data types can be sent and received via OSC. The real usage requires a different application as partner for Csound, instead of the soliloquy we performed here. It should be added that there are some OSC opcodes which extend the basic functionality of _OSCsend_ and _OSClisten_:
 
-- [OSCcount](https://csound.com/docs/manual/OSCcount.html) returns the count of OSC messages currently unread.
-- [OSCraw](https://csound.com/docs/manual/OSCraw.html) listens for all messages at a given port.
-- [OSCbundle](https://csound.com/docs/manual/OSCbundle.html) sends OSC messages in a bundle rather than single messages.
+- [osccount](https://csound.com/manual/opcodes/OSCcount/) returns the count of OSC messages currently unread.
+- [oscraw](https://csound.com/manual/opcodes/OSCraw/) listens for all messages at a given port.
+- [oscbundle](https://csound.com/manual/opcodes/OSCbundle/) sends OSC messages in a bundle rather than single messages.
 - There is a variant of _OSCsend_ called _OSCsend_lo_ which uses the liblo library.
 
 ## Practical Examples with Processing
@@ -365,7 +365,7 @@ A simple case is that we have a live electronic setup and at a certain point we 
 We may want to start the video in Processing with a Csound message like this:
 
     instr StartVideo
-      OSCsend(1,"",12000,"/launch2/start","i",1)
+      oscsend(1,"",12000,"/launch2/start","i",1)
     endin
 
 This means that we send the integer 1 to the address "launch2/start" on port 12000.
@@ -435,7 +435,7 @@ endin
 schedule("ReceiveKey",0,-1)
 
 instr StartVideo
- OSCsend(1,"",12000,"/launch2/start","i",1)
+ oscsend(1,"",12000,"/launch2/start","i",1)
 endin
 ```
 
@@ -503,8 +503,8 @@ nchnls = 2
 0dbfs = 1
 
 instr ReceiveOSC
- iPort = OSCinit(12002)
- kAns, kMess[] OSClisten iPort, "/P5/pressed", "i"
+ iPort = oscinit(12002)
+ kAns, kMess[] osclisten iPort, "/P5/pressed", "i"
  printf "Mouse in Processing pressed %d times!\n", kAns, kMess[0]
 endin
 schedule("ReceiveOSC",0,-1)
@@ -621,7 +621,7 @@ void draw(){
 On the Csound side, we receive the four x-positions on "/p5/xpos" as
 floating point numbers and write it to the global array _gkPos_:
 
-    kAns,gkPos[] OSClisten iPort, "/P5/xpos", "ffff"
+    kAns,gkPos[] osclisten iPort, "/P5/xpos", "ffff"
 
 Each line in the Processing sketch is played by one instance of instrument "Line" in this way:
 
@@ -653,9 +653,9 @@ nchnls = 2
 
 instr GetLinePositions
  //initialize port to receive OSC messages
- iPort = OSCinit(12002)
+ iPort = oscinit(12002)
  //write the four x-positions in the global array gkPos
- kAns,gkPos[] OSClisten iPort, "/P5/xpos", "ffff"
+ kAns,gkPos[] osclisten iPort, "/P5/xpos", "ffff"
  //call four instances of the instrument Line
  indx = 0
  while indx < 4 do

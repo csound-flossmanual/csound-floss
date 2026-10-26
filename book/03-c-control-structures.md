@@ -117,7 +117,7 @@ aR        =          aL
  else   ;stereo
 aL, aR    soundin    Sfile
  endif
-          outs       aL, aR
+          out        aL, aR
   endin
 
 </CsInstruments>
@@ -167,7 +167,7 @@ kVol      =         0; otherwise close gate
  endif
 kVol      port      kVol, .02; smooth volume curve to avoid clicks
 aOut      =         aSig * kVol
-          outs      aOut, aOut
+          out       aOut, aOut
   endin
 
 </CsInstruments>
@@ -216,7 +216,7 @@ kVol      init      0
 kVol      =         (kGate > 0.5 ? ampdb(kdB) : 0); short form of condition
 kVol      port      kVol, .02; smooth volume curve to avoid clicks
 aOut      =         aSig * kVol
-          outs      aOut, aOut
+          out       aOut, aOut
   endin
 
 </CsInstruments>
@@ -244,10 +244,10 @@ i-time
      igoto that; same as else
     this: ;the label "this" ...
     ...
-    igoto continue ;skip the "that" block
+    igoto branch_end ;skip the "that" block
     that: ; ... and the label "that" must be found
     ...
-    continue: ;go on after the conditional branch
+    branch_end: ;go on after the conditional branch
     ...
 
 k-time
@@ -256,10 +256,10 @@ k-time
      kgoto that; same as else
     this: ;the label "this" ...
     ...
-    kgoto continue ;skip the "that" block
+    kgoto branch_end ;skip the "that" block
     that: ; ... and the label "that" must be found
     ...
-    continue: ;go on after the conditional branch
+    branch_end: ;go on after the conditional branch
     ...
 
 In case raw _goto_ is used, it is a combination of _igoto_ and _kgoto_,
@@ -292,10 +292,10 @@ if ifilchnls == 1 igoto mono; condition if true
  igoto stereo; else condition
 mono:
           prints     "The file is mono!%n"
-          igoto      continue
+          igoto      branch_end
 stereo:
           prints     "The file is stereo!%n"
-continue:
+branch_end:
   endin
 
 </CsInstruments>
@@ -332,11 +332,11 @@ ifilchnls filenchnls Sfile
 mono:
 aL        soundin    Sfile
 aR        =          aL
-          goto      continue
+          goto      branch_end
 stereo:
 aL, aR    soundin    Sfile
-continue:
-          outs       aL, aR
+branch_end:
+          out        aL, aR
   endin
 
 </CsInstruments>
@@ -380,13 +380,13 @@ kVol      init      0
   kgoto close; "else" condition
 open:
 kVol      =         ampdb(kdB)
-kgoto continue
+kgoto branch_end
 close:
 kVol      =         0
-continue:
+branch_end:
 kVol      port      kVol, .02; smooth volume curve to avoid clicks
 aOut      =         aSig * kVol
-          outs      aOut, aOut
+          out       aOut, aOut
   endin
 
 </CsInstruments>
@@ -450,16 +450,16 @@ to a _label_ as the starting point of the loop, an _index variable_ as a
 counter, an _increment_ or _decrement_,
 and finally a _reference value_ (maximum or minimum) as comparision:
 
-- [loop_lt](http://www.csound.com/docs/manual/loop_lt.html) counts
+- [looplt](https://csound.com/manual/opcodes/loop_lt/) counts
   upwards and looks if the index variable is **lower than** the
   reference value;
-- [loop_le](http://www.csound.com/docs/manual/loop_le.html) also
+- [loople](https://csound.com/manual/opcodes/loop_le/) also
   counts upwards and looks if the index
   is **lower than or equal to** the reference value;
-- [loop_gt](http://www.csound.com/docs/manual/loop_gt.html) counts
+- [loopgt](https://csound.com/manual/opcodes/loop_gt/) counts
   downwards and looks if the index is **greater than** the reference
   value;
-- [loop_ge](http://www.csound.com/docs/manual/loop_ge.html) also
+- [loopge](https://csound.com/manual/opcodes/loop_ge/) also
   counts downwards and looks if the index is **greater than or equal
   to** the reference value.
 
@@ -480,35 +480,35 @@ The following .csd provides a simple example for all four loop opcodes:
 </CsOptions>
 <CsInstruments>
 
-  instr 1 ;loop_lt: counts from 1 upwards and checks if < 10
+  instr 1 ;looplt: counts from 1 upwards and checks if < 10
 icount    =         1
 loop:
           print     icount
-          loop_lt   icount, 1, 10, loop
+          looplt    icount, 1, 10, loop
           prints    "Instr 1 terminated!%n"
   endin
 
-  instr 2 ;loop_le: counts from 1 upwards and checks if <= 10
+  instr 2 ;loople: counts from 1 upwards and checks if <= 10
 icount    =         1
 loop:
           print     icount
-          loop_le   icount, 1, 10, loop
+          loople    icount, 1, 10, loop
           prints    "Instr 2 terminated!%n"
   endin
 
-  instr 3 ;loop_gt: counts from 10 downwards and checks if > 0
+  instr 3 ;loopgt: counts from 10 downwards and checks if > 0
 icount    =         10
 loop:
           print     icount
-          loop_gt   icount, 1, 0, loop
+          loopgt    icount, 1, 0, loop
           prints    "Instr 3 terminated!%n"
   endin
 
-  instr 4 ;loop_ge: counts from 10 downwards and checks if >= 0
+  instr 4 ;loopge: counts from 10 downwards and checks if >= 0
 icount    =         10
 loop:
           print     icount
-          loop_ge   icount, 1, 0, loop
+          loopge    icount, 1, 0, loop
           prints    "Instr 4 terminated!%n"
   endin
 
@@ -542,8 +542,8 @@ loop:
 ichar     random    65, 90.999
 Schar     sprintf   "%c", int(ichar); new character
 Sname     strcat    Sname, Schar; append to Sname
-          loop_lt   icount, 1, 10, loop; loop construction
-          printf_i  "My name is '%s'!\n", 1, Sname; print result
+          looplt    icount, 1, 10, loop; loop construction
+          printfi   "My name is '%s'!\n", 1, Sname; print result
   endin
 
 </CsInstruments>
@@ -581,8 +581,8 @@ icount    =         0
 loop:
 ival      random    0, 10.999 ;random value
 ; --- write in giTable at first, second, third ... position
-          tableiw   int(ival), icount, giTable
-          loop_lt   icount, 1, 20, loop; loop construction
+          tablew    int(ival), icount, giTable
+          looplt    icount, 1, 20, loop; loop construction
   endin
 
   instr 2; reads from the table
@@ -591,7 +591,7 @@ loop:
 ; --- read from giTable at first, second, third ... position
 ival      tablei    icount, giTable
           print     ival; prints the content
-          loop_lt   icount, 1, 20, loop; loop construction
+          looplt    icount, 1, 20, loop; loop construction
   endin
 
 </CsInstruments>
@@ -637,11 +637,11 @@ krand     random    -.1, .1;random factor for deviations
 kval      table     kndx, giSine; read old value
 knewval   =         kval + (kval * krand); calculate new value
           tablew    knewval, kndx, giSine; write new value
-          loop_lt   kndx, 1, 256, loop; loop construction
+          looplt    kndx, 1, 256, loop; loop construction
 kcount    =         kcount + 1; increase counter
  endif
 asig      poscil    .2, 400, giSine
-          outs      asig, asig
+          out       asig, asig
   endin
 
 </CsInstruments>
@@ -853,7 +853,7 @@ giSine    ftgen     0, 0, 2^10, 10, 1
   instr 1
 kFreq     expseg    400, p3, 600
 aTone     poscil    .2, kFreq, giSine
-          outs      aTone, aTone
+          out       aTone, aTone
   endin
 
 </CsInstruments>
@@ -891,7 +891,7 @@ loop:
 play:
 kFreq     expseg    400, 1, 600
 aTone     poscil    .2, kFreq, giSine
-          outs      aTone, aTone
+          out       aTone, aTone
   endin
 
 </CsInstruments>
@@ -956,7 +956,7 @@ aTone1    oscil3    .2, kFreq1, giSine
 kFreq2    expseg    400, p3, 600
 aTone2    poscil    .2, kFreq2, giSine
 
-          outs      aTone1+aTone2, aTone1+aTone2
+          out       aTone1+aTone2, aTone1+aTone2
   endin
 
 </CsInstruments>
@@ -996,7 +996,7 @@ loop:
 play:
 kFreq     expseg    400, p3/5, 600
 aTone     poscil    .2, kFreq, giSine
-          outs      aTone, aTone
+          out       aTone, aTone
   endin
 
 </CsInstruments>
@@ -1034,7 +1034,7 @@ idur      random    .5, 3 ;new value between 0.5 and 3 seconds each time
 play:
 kFreq     expseg    400, idur, 600
 aTone     poscil    .2, kFreq, giSine
-          outs      aTone, aTone
+          out       aTone, aTone
   endin
 
 </CsInstruments>
@@ -1051,8 +1051,8 @@ when the next loop begins. In this way it is not possible to have any
 overlapping of events. To achieve this, the time loop can be used to
 simply **trigger an event**. This can be done with
 [schedule](https://csound.com/docs/manual/schedule.html),
-[event_i](https://csound.com/docs/manual/event_i.html) or
-[scoreline_i](https://csound.com/docs/manual/scoreline_i.html). In
+[eventi](https://csound.com/manual/opcodes/event_i/) or
+[scorelinei](https://csound.com/manual/opcodes/scoreline_i/). In
 the following example, the time loop in instrument 1 triggers a new
 instance of instrument 2 with a duration of 1 to 5 seconds, every 0.5 to
 2 seconds. So in most cases, the previous instance of instrument 2 will
@@ -1082,7 +1082,7 @@ idurloop  random    .5, 2 ;duration of each loop
           reinit    loop
 play:
 idurins   random    1, 5 ;duration of the triggered instrument
-          event_i   "i", 2, 0, idurins ;triggers instrument 2
+          eventi    "i", 2, 0, idurins ;triggers instrument 2
   endin
 
   instr 2
@@ -1093,7 +1093,7 @@ kFreq     expseg    ifreq1, p3, ifreq2 ;glissando
 iMaxdb    random    -12, 0 ;peak randomly between -12 and 0 dB
 kAmp      transeg   ampdb(iMaxdb), p3, -10, 0 ;envelope
 aTone     poscil    kAmp, kFreq, giSine
-          outs      aTone, aTone
+          out       aTone, aTone
   endin
 
 </CsInstruments>
@@ -1144,7 +1144,7 @@ kdb       linseg    ival1, idurloop, ival2
 ival1     =         ival2; let ival2 be ival1 for next loop
           rireturn  ;end reinit section
 aTone     poscil    ampdb(kdb), 400, giSine
-          outs      aTone, aTone
+          out       aTone, aTone
   endin
 
 </CsInstruments>
@@ -1194,7 +1194,7 @@ kTrig     metro     2; outputs "1" twice a second
   instr 2; triggered instrument
 aSig      poscil    .2, 400
 aEnv      transeg   1, p3, -10, 0
-          outs      aSig*aEnv, aSig*aEnv
+          out       aSig*aEnv, aSig*aEnv
   endin
 
 </CsInstruments>
@@ -1242,7 +1242,7 @@ kFreq     expseg    ifreq1, p3, ifreq2; glissando
 iMaxdb    random    -18, -6; peak randomly between -12 and 0 dB
 kAmp      transeg   ampdb(iMaxdb), p3, -10, 0; envelope
 aTone     poscil    kAmp, kFreq
-          outs      aTone, aTone
+          out       aTone, aTone
   endin
 
 </CsInstruments>

@@ -120,7 +120,7 @@ aOsc8     poscil    ibaseamp/8, ibasefrq*8
 kenv      linen     1, p3/4, p3, p3/4
 ;add partials and write to output
 aOut = aOsc1 + aOsc2 + aOsc3 + aOsc4 + aOsc5 + aOsc6 + aOsc7 + aOsc8
-          outs      aOut*kenv, aOut*kenv
+          out       aOut*kenv, aOut*kenv
     endin
 
     instr 2 ;inharmonic additive synthesis
@@ -137,7 +137,7 @@ aOsc7     poscil    ibaseamp/7, ibasefrq*1.39
 aOsc8     poscil    ibaseamp/8, ibasefrq*1.41
 kenv      linen     1, p3/4, p3, p3/4
 aOut = aOsc1 + aOsc2 + aOsc3 + aOsc4 + aOsc5 + aOsc6 + aOsc7 + aOsc8
-          outs aOut*kenv, aOut*kenv
+          out aOut*kenv, aOut*kenv
     endin
 
 </CsInstruments>
@@ -210,7 +210,7 @@ iFreq     =         iBaseFreq * iFreqMult
 iAmp      =         iBaseAmp * iAmpMult
 kEnv      linen     iAmp, p3/4, p3, p3/4
 aOsc      poscil    kEnv, iFreq, giSine
-          outs      aOsc, aOsc
+          out       aOsc, aOsc
     endin
 
 </CsInstruments>
@@ -309,7 +309,7 @@ iBaseAmp  =         ampdb(p5)
 iFtNum    =         p6
 aOsc      poscil    iBaseAmp, iBasFreq, iFtNum
 aEnv      linen     aOsc, p3/4, p3, p3/4
-          outs      aEnv, aEnv
+          out       aEnv, aEnv
     endin
 
 </CsInstruments>
@@ -376,7 +376,7 @@ giTri  ftgen  4, 0, 4096, 10, 1, 0, -1/9, 0, 1/25, 0, -1/49, 0, 1/81, 0
 
 instr 1
 asig   poscil .2, 457, p4
-       outs   asig, asig
+       out    asig, asig
 endin
 
 </CsInstruments>
@@ -435,8 +435,8 @@ ipart     =         1 ;count variable for loop
 loop:
 ifreq     =         ibasfreq * ipart
 iamp      =         1/ipart/inumparts
-          event_i   "i", 10, 0, p3, ifreq, iamp
-          loop_le   ipart, 1, inumparts, loop
+          eventi    "i", 10, 0, p3, ifreq, iamp
+          loople    ipart, 1, inumparts, loop
 endin
 
 instr 10 ;subinstrument for playing one partial
@@ -444,7 +444,7 @@ ifreq     =         p4 ;frequency of this partial
 iamp      =         p5 ;amplitude of this partial
 aenv      transeg   0, .01, 0, iamp, p3-0.1, -10, 0
 apart     poscil    aenv, ifreq
-          outs      apart, apart
+          out       apart, apart
 endin
 
 </CsInstruments>
@@ -487,8 +487,8 @@ ipart     =         1 ;count variable for loop
 loop:
 ifreq     =         ibasfreq * ipart
 iamp      =         1/ipart/inparts
-          event_i   "i", 10, 0, 1, ifreq, iamp
-          loop_le   ipart, 1, inparts, loop
+          eventi    "i", 10, 0, 1, ifreq, iamp
+          loople    ipart, 1, inparts, loop
 endin
 
 instr 10 ;subinstrument for playing one partial
@@ -496,7 +496,7 @@ ifreq     =         p4 ;frequency of this partial
 iamp      =         p5 ;amplitude of this partial
 aenv      transeg   0, .01, 0, iamp, p3-.01, -3, 0
 apart     poscil    aenv, ifreq
-          outs      apart/3, apart/3
+          out       apart/3, apart/3
 endin
 
 </CsInstruments>
@@ -584,7 +584,7 @@ while indx < 11 do
  ifreq     =         ibasfreq * ifqmult
  iampmult  =         giAmps[indx] ;get amp multiplier
  iamp      =         iampmult / 20 ;scale
-          event_i   "i", 10, 0, p3, ifreq, iamp, ifqdev, iampdev, idurdev
+          eventi    "i", 10, 0, p3, ifreq, iamp, ifqdev, iampdev, idurdev
  indx      +=        1
 od
 endin
@@ -609,7 +609,7 @@ p3        =         iptdur ;set p3 to the calculated value
 ;play partial
 aenv      transeg   0, .01, 0, iamp, p3-.01, -10, 0
 apart     poscil    aenv, ifreq
-          outs      apart, apart
+          out       apart, apart
 endin
 
 </CsInstruments>
@@ -689,7 +689,7 @@ while indx < 11 do
  ifreq     =         ibasfreq * ifqmult
  iampmult  =         giAmps[indx]
  iamp      =         iampmult / 20 ;scale
-          event_i   "i", 10, 0, 3, ifreq, iamp, ifqdev, iampdev, idurdev
+          eventi    "i", 10, 0, 3, ifreq, iamp, ifqdev, iampdev, idurdev
  indx      +=        1
 od
 endin
@@ -714,7 +714,7 @@ p3        =         iptdur ;set p3 to the calculated value
 ;play partial
 aenv      transeg   0, .01, 0, iamp, p3-.01, -10, 0
 apart     poscil    aenv, ifreq
-          outs      apart, apart
+          out       apart, apart
 endin
 
 </CsInstruments>
@@ -868,7 +868,7 @@ knh  line  1, p3, 20  ; number of harmonics
 klh  =     1          ; lowest harmonic
 kmul =     1          ; amplitude coefficient multiplier
 asig gbuzz 1, 100, knh, klh, kmul, gicos
-     outs  asig, asig
+     out   asig, asig
  endin
 
 </CsInstruments>
@@ -915,7 +915,7 @@ knh  =     20
 klh  line  1, p3, 20
 kmul =     1
 asig gbuzz 1, 100, knh, klh, kmul, gicos
-     outs  asig, asig
+     out   asig, asig
  endin
 
 </CsInstruments>
@@ -963,7 +963,7 @@ knh  =     20
 klh  =     1
 kmul line  0, p3, 2
 asig gbuzz 1, 100, knh, klh, kmul, gicos
-     outs  asig, asig
+     out   asig, asig
  endin
 
 </CsInstruments>

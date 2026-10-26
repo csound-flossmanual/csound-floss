@@ -163,15 +163,15 @@ instr 1
 iats_file=p4
 ;instr1 just reads the file header and loads its data into several variables
 ;and prints the result in the Csound prompt.
-i_sampling_rate         ATSinfo iats_file,  $ATS_SR
-i_frame_size            ATSinfo iats_file,  $ATS_FS
-i_window_size           ATSinfo iats_file,  $ATS_WS
-i_number_of_partials    ATSinfo iats_file,  $ATS_NP
-i_number_of_frames      ATSinfo iats_file,  $ATS_NF
-i_max_amp               ATSinfo iats_file,  $ATS_AM
-i_max_freq              ATSinfo iats_file,  $ATS_FM
-i_duration              ATSinfo iats_file,  $ATS_DU
-i_ats_file_type         ATSinfo iats_file,  $ATS_TY
+i_sampling_rate         atsinfo iats_file,  $ATS_SR
+i_frame_size            atsinfo iats_file,  $ATS_FS
+i_window_size           atsinfo iats_file,  $ATS_WS
+i_number_of_partials    atsinfo iats_file,  $ATS_NP
+i_number_of_frames      atsinfo iats_file,  $ATS_NF
+i_max_amp               atsinfo iats_file,  $ATS_AM
+i_max_freq              atsinfo iats_file,  $ATS_FM
+i_duration              atsinfo iats_file,  $ATS_DU
+i_ats_file_type         atsinfo iats_file,  $ATS_TY
 
 print i_sampling_rate
 print i_frame_size
@@ -281,14 +281,14 @@ resemble the original sound.
 ### Csound Opcodes for Reading ATS Data Files
 
 The opcodes
-[ATSread](https://csound.com/docs/manual/ATSread.html),
-[ATSreadnz](https://csound.com/docs/manual/ATSreadnz.html),
-[ATSbufread](https://csound.com/docs/manual/ATSbufread.html),
-[ATSinterpread](https://csound.com/docs/manual/ATSinterpread.html) and
-[ATSpartialtap](https://csound.com/docs/manual/ATSpartialtap.html)
+[atsread](https://csound.com/manual/opcodes/ATSread/),
+[atsreadnz](https://csound.com/manual/opcodes/ATSreadnz/),
+[atsbufread](https://csound.com/manual/opcodes/ATSbufread/),
+[atsinterpread](https://csound.com/manual/opcodes/ATSinterpread/) and
+[atspartialtap](https://csound.com/manual/opcodes/ATSpartialtap/)
 were essentially developed to read ATS data from ATS files.
 
-#### ATSread
+#### atsread
 
 This opcode reads the deterministic ATS data from an ATS file. It
 outputs frequency/amplitude pairs of a sinusoidal trajectory
@@ -332,11 +332,11 @@ ipar = p6                       ;partial required
 itab = p7                       ;audio table
 iatsfile = p8                   ;ats file
 
-idur ATSinfo iatsfile, 7        ;get duration
+idur atsinfo iatsfile, 7        ;get duration
 
 ktime line 0, p3, idur          ;time pointer
 
-kfreq, kamp ATSread ktime, iatsfile, ipar ;get frequency and amplitude values
+kfreq, kamp atsread ktime, iatsfile, ipar ;get frequency and amplitude values
 aamp        interp  kamp                  ;interpolate amplitude values
 afreq       interp  kfreq                 ;interpolate frequency values
 aout oscil3 aamp*iamp, afreq*ifreq, itab ;synthesize with amp and freq scaling
@@ -389,16 +389,16 @@ giSine     ftgen      0, 0, 16384, 10, 1 ; sine wave table
 
 instr Master ;call instr "Play" for each partial
 iNumParts  =          p4 ;how many partials to synthesize
-idur       ATSinfo    gS_ATS_file, 7 ;get ats file duration
+idur       atsinfo    gS_ATS_file, 7 ;get ats file duration
 
-iAmps[]    array      1, .1 ;array for even and odd partials
+iAmps[]    fillarray      1, .1 ;array for even and odd partials
 iParts[]   genarray   1,iNumParts ;creates array [1, 2, ..., iNumParts]
 
 indx       =          0 ;initialize index
  ;loop for number of elements in iParts array
 until indx == iNumParts do
   ;call an instance of instr "Play" for each partial
-           event_i    "i", "Play", 0, p3, iAmps[indx%2], iParts[indx], idur
+           eventi     "i", "Play", 0, p3, iAmps[indx%2], iParts[indx], idur
 indx       +=         1 ;increment index
 od ;end of do ... od block
 
@@ -412,7 +412,7 @@ idur       =          p6 ;ats file duration
 
 ktime      line       0, p3, idur ;time pointer
 
-kfreq, kamp ATSread ktime, gS_ATS_file, ipar
+kfreq, kamp atsread ktime, gS_ATS_file, ipar
 aamp       interp     kamp ;interpolate amplitude values
 afreq      interp     kfreq ;interpolate frequency values
 aout       oscil3     aamp*iamp, afreq, giSine ;synthesize with amp scaling
@@ -430,7 +430,7 @@ i .         +    .   10
 ;example by Oscar Pablo Di Liscia and Joachim Heintz
 ```
 
-#### ATSreadnz
+#### atsreadnz
 
 This opcode is similar to _ATSread_ in the sense that it reads the noise
 data of an ATS file, delivering k-rate energy values for the requested
@@ -490,11 +490,11 @@ icf     = if1 + idif*.5         ;center frequency value
 ibw     = icf*p6                ;bandwidth
 iatsfile = p8                   ;ats file name
 
-idur    ATSinfo iatsfile, 7     ;get duration
+idur    atsinfo iatsfile, 7     ;get duration
 
 ktime   line    0, p3, idur     ;time pointer
 
-ken     ATSreadnz ktime, iatsfile, iband ;get frequency and amplitude values
+ken     atsreadnz ktime, iatsfile, iband ;get frequency and amplitude values
 anoise  gauss 1
 aout    reson anoise*sqrt(ken), icf, ibw, iscal ;synthesize with scaling
 
@@ -552,9 +552,9 @@ e
 ;example by Oscar Pablo Di Liscia
 ```
 
-#### ATSbufread, ATSinterpread, ATSpartialtap.
+#### atsbufread, atsinterpread, atspartialtap.
 
-The [ATSbufread](https://csound.com/docs/manual/ATSbufread.html) opcode
+The [atsbufread](https://csound.com/manual/opcodes/ATSbufread/) opcode
 reads an ATS file and stores its frequency and amplitude data
 into an internal table. The first and third input arguments are the same
 as in the _ATSread_ and the _ATSreadnz_ Opcodes: a time pointer and an
@@ -568,7 +568,7 @@ amplitude data is available to be used by other opcode. In this case,
 two examples are provided, the first one uses the _ATSinterpread_ opcode
 and the second one uses the _ATSpartialtap_ opcode.
 
-The [ATSinterpread](https://csound.com/docs/manual/ATSinterpread.html)
+The [atsinterpread](https://csound.com/manual/opcodes/ATSinterpread/)
 opcode reads an ATS table generated by the _ATSbufread_ opcode and
 outputs amplitude values interpolating them between the two amplitude
 values of the two frequency trajectories that are closer to a given
@@ -584,7 +584,7 @@ frequencies that are in-between the ones of the first and second
 partials of the ATS file, and their amplitudes are scaled by an
 interpolation between the amplitudes of the first and second partials.
 The more the frequency requested approaches the one of a partial, the
-more the amplitude envelope rendered by ATSinterpread is similar to the
+more the amplitude envelope rendered by atsinterpread is similar to the
 one of this partial. So, the example shows a gradual morphing beween
 the amplitude envelope of the first partial to the amplitude envelope of
 the second according to their frequency values.
@@ -609,12 +609,12 @@ ifreq =     p5                  ;frequency scaler
 iatsfile =  p7                  ;atsfile
 itab =      p6                  ;audio table
 ifreqscal = 1                   ;frequency scaler
-ipars   ATSinfo iatsfile, 3     ;how many partials
-idur    ATSinfo iatsfile, 7     ;get duration
+ipars   atsinfo iatsfile, 3     ;how many partials
+idur    atsinfo iatsfile, 7     ;get duration
 ktime   line    0, p3, idur     ;time pointer
 
-        ATSbufread ktime, ifreqscal, iatsfile, ipars ;reads an ATS buffer
-kamp    ATSinterpread ifreq         ;get the amp values according to freq
+        atsbufread ktime, ifreqscal, iatsfile, ipars ;reads an ATS buffer
+kamp    atsinterpread ifreq         ;get the amp values according to freq
 aamp    interp kamp                               ;interpolate amp values
 aout    oscil3 aamp, ifreq, itab                  ;synthesize
 
@@ -639,7 +639,7 @@ e
 ;example by Oscar Pablo Di Liscia
 ```
 
-The [ATSpartialtap](https://csound.com/docs/manual/ATSpartialtap.html)
+The [atspartialtap](https://csound.com/manual/opcodes/ATSpartialtap/)
 opcode reads an ATS table generated by the _ATSbufread_ Opcode and
 outputs the frequency and amplitude k-rate values of a specific partial
 number. The example presented here uses four of these opcodes that read
@@ -671,23 +671,23 @@ ip3 =   p9              ;third partial to be synthesized
 ip4 =   p10             ;fourth partial to be synthesized
 iatsfile = p11          ;atsfile
 
-ipars   ATSinfo iatsfile, 3     ;get how many partials
-idur    ATSinfo iatsfile, 7     ;get duration
+ipars   atsinfo iatsfile, 3     ;get how many partials
+idur    atsinfo iatsfile, 7     ;get duration
 
 ktime   line    0, p3, idur     ;time pointer
 
-        ATSbufread ktime, ifreq, iatsfile, ipars ;reads an ATS buffer
+        atsbufread ktime, ifreq, iatsfile, ipars ;reads an ATS buffer
 
-kf1,ka1 ATSpartialtap ip1 ;get the amp values according each partial number
+kf1,ka1 atspartialtap ip1 ;get the amp values according each partial number
 af1     interp kf1
 aa1     interp ka1
-kf2,ka2 ATSpartialtap ip2       ;ditto
+kf2,ka2 atspartialtap ip2       ;ditto
 af2     interp kf2
 aa2     interp ka2
-kf3,ka3 ATSpartialtap ip3       ;ditto
+kf3,ka3 atspartialtap ip3       ;ditto
 af3     interp kf3
 aa3     interp ka3
-kf4,ka4 ATSpartialtap ip4       ;ditto
+kf4,ka4 atspartialtap ip4       ;ditto
 af4     interp kf4
 aa4     interp ka4
 
@@ -716,7 +716,7 @@ e
 ;example by Oscar Pablo Di Liscia
 ```
 
-### Synthesizing ATS data: ATSadd, ATSaddnz, ATSsinnoi. ATScross.
+### Synthesizing ATS data: atsadd, atsaddnz, atssinnoi. atscross.
 
 The four opcodes that will be presented in this section synthesize ATS
 analysis data internally and allow for some modifications of these data
@@ -725,7 +725,7 @@ synthesis method cannot be chosen by the user. The synthesis methods
 used by all of these opcodes are fully explained in _Juan Pampin 2011_
 and _Oscar Pablo Di Liscia 2013_ (see footnotes 1 and 6).
 
-The [ATSadd](https://csound.com/docs/manual/ATSadd.html) opcode
+The [atsadd](https://csound.com/manual/opcodes/ATSadd/) opcode
 synthesizes deterministic data from an ATS file using an array of table
 lookup oscillators whose amplitude and frequency values are obtained by
 linear interpolation of the ones in the ATS file according to the time
@@ -777,8 +777,8 @@ instr 1
 
 /*read some ATS data from the file header*/
 iatsfile = p11
-i_number_of_partials    ATSinfo iatsfile,  $ATS_NP
-i_duration              ATSinfo iatsfile,  $ATS_DU
+i_number_of_partials    atsinfo iatsfile,  $ATS_NP
+i_duration              atsinfo iatsfile,  $ATS_DU
 
 iamp     =      p4              ;amplitude scaler
 ifreqdev =      2^(p5/12)       ;frequency deviation (p5=semitones up or down)
@@ -802,7 +802,7 @@ OK: ;data is OK
 igatefn =      p10               ;amplitude scaling table
 
 ktime   linseg 0, p3, i_duration
-asig ATSadd ktime, ifreqdev, iatsfile, itable, inpars, ipofst, ipincr, igatefn
+asig atsadd ktime, ifreqdev, iatsfile, itable, inpars, ipofst, ipincr, igatefn
 
  out    asig*iamp
 endin
@@ -834,13 +834,13 @@ e
 ;example by Oscar Pablo Di Liscia
 ```
 
-The [ATSaddnz](https://csound.com/docs/manual/ATSaddnz.html) opcode
+The [atsaddnz](https://csound.com/manual/opcodes/ATSaddnz/) opcode
 synthesizes residual ("noise") data from an ATS file using the method
 explained above. This opcode works in a similar fashion to
 _ATSadd_ except that frequency warping of the noise bands is not
 permitted and the maximum number of noise bands will always be 25 (the
 25 critical bands, see Zwicker/Fastl, footnote 3). The optional arguments
-_offset_ and _increment_ work in a similar fashion to that in ATSadd.
+_offset_ and _increment_ work in a similar fashion to that in atsadd.
 The _ATSaddnz_ opcode allows the synthesis of several combinations of
 noise bands, but individual amplitude scaling of them is not possible.
 
@@ -865,7 +865,7 @@ nchnls = 1
 instr 1
 /*read some ATS data from the file header*/
 iatsfile = p8
-i_duration ATSinfo iatsfile, $ATS_DU
+i_duration atsinfo iatsfile, $ATS_DU
 
 iamp    =       p4                ;amplitude scaler
 
@@ -885,7 +885,7 @@ ibincr  = 1
 OK: ;data is OK
 /********************************************************************/
 ktime   linseg   0, p3, i_duration
-asig    ATSaddnz ktime, iatsfile, inb, ibofst, ibincr
+asig    atsaddnz ktime, iatsfile, inb, ibofst, ibincr
 
         out      asig*iamp
 endin
@@ -908,7 +908,7 @@ e
 ;example by Oscar Pablo Di Liscia
 ```
 
-The [ATSsinnoi](https://csound.com/docs/manual/ATSsinnoi.html) opcode
+The [atssinnoi](https://csound.com/manual/opcodes/ATSsinnoi/) opcode
 synthesizes both deterministic and residual ("noise") data from an ATS file.
 This opcode may be regarded as a combination of the two previous opcodes but with
 the allowance of individual amplitude scaling of the mixes of
@@ -939,8 +939,8 @@ nchnls = 1
 instr 1
 iatsfile = p11
 /*read some ATS data from the file header*/
-i_number_of_partials    ATSinfo iatsfile, $ATS_NP
-i_duration              ATSinfo iatsfile, $ATS_DU
+i_number_of_partials    atsinfo iatsfile, $ATS_NP
+i_duration              atsinfo iatsfile, $ATS_DU
 print i_number_of_partials
 
 iamp     =      p4              ;amplitude scaler
@@ -965,7 +965,7 @@ OK: ;data is OK
 /********************************************************************/
 
 ktime   linseg     0, p3, i_duration
-asig    ATSsinnoi  ktime, isinlev, inoislev, ifreqdev, iatsfile,
+asig    atssinnoi  ktime, isinlev, inoislev, ifreqdev, iatsfile,
                    inpars, ipofst, ipincr
 
         out        asig*iamp
@@ -996,7 +996,7 @@ e
 ;example by Oscar Pablo Di Liscia
 ```
 
-[ATScross](https://csound.com/docs/manual/ATScross.html) is an
+[atscross](https://csound.com/manual/opcodes/ATScross/) is an
 opcode that performs some kind of "interpolation" of the amplitude
 data between two ATS analyses. One of these two ATS analyses must be
 obtained using the _ATSbufread_ opcode (see above) and the other is to
@@ -1010,7 +1010,7 @@ amplitude values corresponding to the frequency values of the analysis
 read by _ATScross_. So, a value of 0 for _kbuflev_ and 1 for _kmylev_
 will retain the original ATS analysis read by _ATScross_ unchanged
 whilst the converse (_kbuflev_ =1 and _kmylev_=0) will retain the
-frequency values of the ATScross analysis but scaled by the amplitude
+frequency values of the atscross analysis but scaled by the amplitude
 values of the _ATSbufread_ analysis. As the time pointers of both units
 need not be the same, and frequency warping and number of partials may
 also be changed, very complex cross synthesis and sound hybridation can
@@ -1047,16 +1047,16 @@ ifd2    = 2^(p8/12)     ;frequency deviation for iats2 partials
 itau    = p9            ;audio table
 
 /*get ats file data*/
-inp1  ATSinfo $ats1, 3
-inp2  ATSinfo $ats2, 3
-idur1 ATSinfo $ats1, 7
-idur2 ATSinfo $ats2, 7
+inp1  atsinfo $ats1, 3
+inp2  atsinfo $ats2, 3
+idur1 atsinfo $ats1, 7
+idur2 atsinfo $ats2, 7
 
 ktime   line    0, p3, idur1
 ktime2  line    0, p3, idur2
 
-        ATSbufread ktime,  ifd1, $ats1, inp1
-aout    ATScross   ktime2, ifd2, $ats2, itau, ilev2, ilev1, inp2
+        atsbufread ktime,  ifd1, $ats1, inp1
+aout    atscross   ktime2, ifd2, $ats2, itau, ilev2, ilev1, inp2
 
         out        aout*iamp
 

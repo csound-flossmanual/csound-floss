@@ -137,7 +137,7 @@ kctrl2  invalue  "ctrl2"
 koct    =        (kctrl2*4)+7
 ; create an oscillator
 a1      vco2     kctrl1,cpsoct(koct),4,0.1
-        outs     a1,a1
+        out      a1,a1
  endin
 </CsInstruments>
 <CsScore>
@@ -149,7 +149,7 @@ i 1 0 10000
 
 Communication from Pd into Csound is established using
 the [invalue](https://csound.com/docs/manual/invalue.html) opcodes and
-audio is passed back to Pd from Csound using [outs](https://csound.com/docs/manual/outs.html).
+audio is passed back to Pd from Csound using [out](https://csound.com/manual/opcodes/out/).
 Note that Csound does not address the computer's audio hardware itself but merely
 passes audio signals back to Pd. Greater detail about using Csound
 within Pd can be found in the chapter [Csound in Pd](09-a-csound-in-pd.md).
@@ -221,13 +221,13 @@ nchnls = 1
 0dbfs = 1
 
 ; handle used to reference osc stream
-gihandle OSCinit 12001
+gihandle oscinit 12001
 
  instr 1
 ; initialise variable used for analog values
 gkana0      init       0
 ; read in OSC channel '/analog/0'
-gktrigana0  OSClisten  gihandle, "/analog/0", "i", gkana0
+gktrigana0  osclisten  gihandle, "/analog/0", "i", gkana0
 ; print changed values to terminal
             printk2    gkana0
  endin
@@ -300,9 +300,9 @@ for reading MIDI controller data.
 
 Serial data can also be read directly from the Arduino by Csound by
 using Matt Ingalls' opcodes for serial communication:
-[serialBegin](https://csound.com/docs/manual/serialBegin.html)
+[serialbegin](https://csound.com/manual/opcodes/serialBegin/)
 and
-[serialRead.](https://csound.com/docs/manual/serialRead.html)
+[serialread.](https://csound.com/manual/opcodes/serialRead/)
 
 An example Arduino sketch for serial communication could be as simple as
 this:
@@ -360,8 +360,8 @@ ksmps = 500 ; the default krate can be too fast for the arduino to handle
 0dbfs = 1
 
 instr 1
-        iPort   serialBegin     "/COM4", 9600
-        kVal    serialRead      iPort
+        iPort   serialbegin     "/COM4", 9600
+        kVal    serialread      iPort
                 printk2         kVal
 endin
 
@@ -499,25 +499,25 @@ kPot    init 0
 kLight  init 0
 kButton init 0
 
-iPort   serialBegin "/COM5", 9600 ;connect to the arduino with baudrate = 9600
-        serialWrite iPort, 1    ;Triggering the Arduino (k-rate)
+iPort   serialbegin "/COM5", 9600 ;connect to the arduino with baudrate = 9600
+        serialwrite iPort, 1    ;Triggering the Arduino (k-rate)
 
 kValue  = 0
-kType   serialRead iPort        ; Read type of data (pot, light, button)
+kType   serialread iPort        ; Read type of data (pot, light, button)
 
 if (kType >= 128) then
 
         kIndex = 0
-        kSize  serialRead iPort
+        kSize  serialread iPort
 
         loopStart:
             kValue      = kValue << 7
-            kByte       serialRead iPort
+            kByte       serialread iPort
             kValue      = kValue + kByte
-            loop_lt kIndex, 1, kSize, loopStart
+            looplt kIndex, 1, kSize, loopStart
 endif
 
-if (kValue < 0) kgoto continue
+if (kValue < 0) kgoto branch_end
 
 if (kType == 128) then          ; This is the potmeter
         kPot    = kValue
@@ -527,7 +527,7 @@ elseif (kType == 130) then      ; This is the button (on/off)
         kButton = kValue
 endif
 
-continue:
+branch_end:
 
 ; Here you can do something with the variables kPot, kLight and kButton
 ; printks "Pot %f\n", 1, kPot

@@ -216,7 +216,7 @@ giSine     ftgen      0, 0, 2^10, 10, 1
 instr Rise
 kFreq      init       100
 aSine      poscil     .2, kFreq, giSine
-           outs       aSine, aSine
+           out        aSine, aSine
 ;increment frequency by 10 Hz for each k-cycle
 kFreq      =          kFreq + 10
 ;print out the frequency for the last k-cycle
@@ -234,7 +234,7 @@ kCount     init       100
 kFreq      =          kCount
  endif
 aSine      poscil     .2, kFreq, giSine
-           outs       aSine, aSine
+           out        aSine, aSine
 ;increment kCount
 kCount     =          kCount + 1
 ;print out kFreq whenever it has changed
@@ -384,7 +384,7 @@ iFreq     =       p5 ;frequency taken from the 5th parameter
 kPan      line      0, p3, 1
 aNote     poscil  iAmp, iFreq ;create an audio signal
 aL, aR    pan2    aNote, kPan ;let the signal move from left to right
-          outs    aL, aR ;write it to the output
+          out     aL, aR ;write it to the output
 endin
 </CsInstruments>
 <CsScore>
@@ -649,7 +649,7 @@ instr 1 ;without explicit init
   if i1 == 1 then
   a2 poscil 0.5, 600
   endif
-  outs a1, a2
+  out a1, a2
 endin
 
 instr 2 ;with explicit init
@@ -662,7 +662,7 @@ instr 2 ;with explicit init
   a2 poscil 0.5, 600
   a1 init 0
   endif
-  outs a1, a2
+  out a1, a2
 endin
 
 </CsInstruments>
@@ -1022,9 +1022,9 @@ like [filelen](http://csound.com/docs/manual/filelen.html) or
 [ftgen](http://csound.com/docs/manual/ftgen.html). Others
 are just for k-rate variables
 like [metro](http://csound.com/docs/manual/metro.html) or
-[max_k](http://csound.com/docs/manual/max_k.html). Many
+[maxk](https://csound.com/manual/opcodes/max_k/). Many
 opcodes have variants for either i-rate-variables or k-rate-variables,
-like [printf_i](http://csound.com/docs/manual/printf.html)
+like [printfi](http://csound.com/docs/manual/printf.html)
 and [printf](http://csound.com/docs/manual/printf.html),
 [sprintf](http://csound.com/docs/manual/sprintf.html) and
 [sprintfk](http://csound.com/docs/manual/sprintf.html),
@@ -1079,26 +1079,26 @@ instr 1 ;i-rate random
 iPch      random    300, 600
 aAmp      linseg    .5, p3, 0
 aSine     poscil    aAmp, iPch, giSine
-          outs      aSine, aSine
+          out       aSine, aSine
 endin
 
 instr 2 ;k-rate random: noisy
 kPch      random    300, 600
 aAmp      linseg    .5, p3, 0
 aSine     poscil    aAmp, kPch, giSine
-          outs      aSine, aSine
+          out       aSine, aSine
 endin
 
 instr 3 ;k-rate random with interpolation: sliding pitch
 kPch      randomi   300, 600, 3
 aAmp      linseg    .5, p3, 0
 aSine     poscil    aAmp, kPch, giSine
-          outs      aSine, aSine
+          out       aSine, aSine
 endin
 
 instr 4 ;a-rate random: white noise
 aNoise    random    -.1, .1
-          outs      aNoise, aNoise
+          out       aNoise, aNoise
 endin
 
 </CsInstruments>
@@ -1163,21 +1163,21 @@ instr 1 ;envelope at k-time
 aSine     poscil    .5, 800
 kEnv      transeg   0, .1, 5, 1, .1, -5, 0
 aOut      =         aSine * kEnv
-          outs      aOut, aOut
+          out       aOut, aOut
 endin
 
 instr 2 ;envelope at a-time
 aSine     poscil    .5, 800
 aEnv      transeg   0, .1, 5, 1, .1, -5, 0
 aOut      =         aSine * aEnv
-          outs      aOut, aOut
+          out       aOut, aOut
 endin
 
 instr 3 ;envelope at k-time with a-time interpolation
 aSine     poscil    .5, 800
 kEnv      transeg   0, .1, 5, 1, .1, -5, 0
 aOut      =         aSine * a(kEnv)
-          outs      aOut, aOut
+          out       aOut, aOut
 endin
 
 </CsInstruments>
@@ -1449,9 +1449,9 @@ instr 1
 
  ;print out at init-time
  prints "k_Exp -> %d\n", k_Exp
- printf_i "S_Exp -> %s\n", 1, S_Exp
+ printfi "S_Exp -> %s\n", 1, S_Exp
  prints "k_Imp -> %d\n", k_Imp
- printf_i "S_Imp -> %s\n", 1, S_Imp
+ printfi "S_Imp -> %s\n", 1, S_Imp
 
 endin
 
@@ -1511,7 +1511,7 @@ instr 1
 
  ;print out at init-time
  prints "k_var -> %d\n", k_var
- printf_i "S_var -> %s\n", 1, S_var
+ printfi "S_var -> %s\n", 1, S_var
 
 endin
 
@@ -1564,7 +1564,7 @@ instr 1
  String strcpyk "yes!\n"
 
  ;print it at init-time
- printf_i "INIT 1: %s", 1, String
+ printfi "INIT 1: %s", 1, String
 
  ;a copy assignment that will never become true during performance
  kBla = 0
@@ -1573,7 +1573,7 @@ instr 1
  endif
 
  ;nevertheless the string variable is initialized by it
- printf_i "INIT 2: %s", 1, String
+ printfi "INIT 2: %s", 1, String
 
  ;during performance only "yes!" remains
  printf "PERF %d: %s", timeinstk(), timeinstk(), String
@@ -1668,8 +1668,8 @@ endin
 </CsInstruments>
 <CsScore>
 i 1 0 .1
-i 2 + .
-i 3 + .
+i 2 .1 .1
+i 3 .2 .1
 </CsScore>
 </CsoundSynthesizer>
 ;example by joachim heintz

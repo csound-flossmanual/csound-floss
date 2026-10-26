@@ -71,7 +71,7 @@ aVar1     poscil     .2, 400; first audio signal: sine
 aVar2     rand       1; second audio signal: noise
 aVar3     butbp      aVar2, 1200, 12; third audio signal: noise filtered
 aVar      =          aVar1 + aVar3; audio variables can also be added
-          outs       aVar, aVar; write to sound card
+          out        aVar, aVar; write to sound card
   endin
 
   instr 4; S-variables
@@ -80,7 +80,7 @@ kMyVar    random     0, 10; one random value per each control-cycle
  ;S-variable updated just at init-time
 SMyVar1 sprintf "This string is updated just at init-time: kMyVar = %d\n",
                 iMyVar
-          printf_i  "%s", 1, SMyVar1
+          printfi   "%s", 1, SMyVar1
  ;S-variable updates at each control-cycle
 printks   "This string is updated at k-time: kMyVar = %.3f\n", .1, kMyVar
   endin
@@ -92,7 +92,7 @@ fSig1     pvsanal    aSig, 1024, 256, 1024, 1
 ; second f-signal (spectral bandpass filter)
 fSig2     pvsbandp   fSig1, 350, 400, 400, 450
 aOut      pvsynth    fSig2; change back to audio signal
-          outs       aOut*20, aOut*20
+          out        aOut*20, aOut*20
   endin
 
 </CsInstruments>
@@ -153,7 +153,7 @@ kMyVar    =         kMyVar + 1
           printk    0, kMyVar
 ;a-variable
 aMyVar    oscils    .2, 400, 0
-          outs      aMyVar, aMyVar
+          out       aMyVar, aMyVar
 ;S-variable updated just at init-time
 SMyVar1 sprintf "This string is updated just at init-time: kMyVar = %d\n",
                 i(kMyVar)
@@ -174,7 +174,7 @@ kMyVar    =         kMyVar + 1
           printk    0, kMyVar
 ;a-variable
 aMyVar    oscils    .3, 600, 0
-          outs      aMyVar, aMyVar
+          out       aMyVar, aMyVar
 ;S-variable updated just at init-time
 SMyVar1 sprintf "This string is updated just at init-time: kMyVar = %d\n",
                 i(kMyVar)
@@ -341,7 +341,7 @@ gaSig     oscils    .1, 400, 0
   endin
 
   instr 2; outputs gaSig
-          outs      gaSig, gaSig
+          out       gaSig, gaSig
   endin
 
 </CsInstruments>
@@ -381,7 +381,7 @@ gaSig     oscils    .1, 600, 0
   endin
 
   instr 3; outputs gaSig
-          outs      gaSig, gaSig
+          out       gaSig, gaSig
   endin
 
 </CsInstruments>
@@ -503,9 +503,9 @@ aSum      init      0
 aAdd      oscils    .1, 400, 0
  ;add it to the general audio (= the previous vector)
 aSum      =         aSum + aAdd
-kmax      max_k     aSum, 1, 1; calculate maximum
+kmax      maxk      aSum, 1, 1; calculate maximum
           printk    0, kmax; print it out
-          outs      aSum, aSum
+          out       aSum, aSum
   endin
 
 </CsInstruments>
@@ -554,9 +554,9 @@ gaSum     =         gaSum + aAdd
   endin
 
   instr 2
-kmax      max_k     gaSum, 1, 1; calculate maximum
+kmax      maxk      gaSum, 1, 1; calculate maximum
           printk    0, kmax; print it out
-          outs      gaSum, gaSum
+          out       gaSum, gaSum
   endin
 
 </CsInstruments>
@@ -656,7 +656,7 @@ gaBusR    =         gaBusR + aR
 
   instr 3; reverb of gaBus and output
 aL, aR    freeverb  gaBusL, gaBusR, .8, .5
-          outs      aL, aR
+          out        aL, aR
   endin
 
   instr 100; clear global audios at the end
@@ -721,9 +721,9 @@ anois     rand      .1
           chnset    anois, "noise"
  loop:
 idur      random    .3, 1.5
-          timout    0, idur, do
+          timout    0, idur, play_note
           reinit    loop
- do:
+ play_note:
 ifreq     random    400, 1200
 iamp      random    .1, .3
 asig      oscils    iamp, ifreq, 0
@@ -754,7 +754,7 @@ amix2     chnget     "filtered"
   instr 20; receive and reverb
 amix      chnget     "mix"
 aL, aR    freeverb   amix, amix, .8, .5
-          outs       aL, aR
+          out        aL, aR
   endin
 
   instr 100; clear

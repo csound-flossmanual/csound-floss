@@ -306,7 +306,7 @@ function _opcodeExtists_, for instance:
 
     py> q.opcodeExists('line')
     True
-    py> q.opcodeExists('OSCsend')
+    py> q.opcodeExists('oscsend')
     True
     py> q.opcodeExists('Line')
     False

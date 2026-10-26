@@ -449,7 +449,7 @@ events as a string. The second is _event_i()_, which generates a properly
 formatted Csound score event. Take the following Pysco event for
 example:
 
-    event_i(1, 0, 1.5, 0.707 8.02)
+    eventi(1, 0, 1.5, 0.707 8.02)
 
 The _event_i()_ function transforms the input, outputting the following
 Csound score code:
@@ -471,7 +471,7 @@ score('t 0 160')
 for time in range(8):
     with cue(time):
         frequency = 100 + random() * 900
-        event_i(1, 0, 1, 0.707, frequency)
+        eventi(1, 0, 1, 0.707, frequency)
 ```
 
 Python's _for_ statement combined with _range()_ loops through the
@@ -600,7 +600,7 @@ The output is:
 
 
     ; ------- begin of field 1 --- seconds: 0.00 - 20.00 --------
-    ;ins    time    dur     p4      p5      p6
+    ;in    time    dur     p4      p5      p6
 
     i1      0       0.37    3205.55 3.57    0.8
     i1      0.07    0.24    3190.83 3.55    0.28

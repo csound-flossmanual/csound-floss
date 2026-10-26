@@ -193,7 +193,7 @@ as we did in EXAMPLE 0701.csd.
 ## Using Multiple Triggering
 
 Csound's [event](https://csound.com/docs/manual/event.html)/
-[event_i](https://csound.com/docs/manual/event_i.html) opcode (see
+[eventi](https://csound.com/manual/opcodes/event_i/) opcode (see
 the [Triggering Instrument Events](03-f-live-events.md) chapter)
 makes it possible to trigger any other instrument from a midi-triggered
 one. As you can assign a fractional number to an instrument, you can
@@ -220,7 +220,7 @@ inote     notnum    ;get midi note number
 ichn      midichn   ;get midi channel
 instrnum  =         2 + ichn/100 + inote/100000 ;make fractional instr number
      ; -- call with indefinite duration
-           event_i   "i", instrnum, 0, -1, ichn, inote
+           eventi    "i", instrnum, 0, -1, ichn, inote
 kend      release   ;get a "1" if instrument is turned off
  if kend == 1 then
           event     "i", -instrnum, 0, 1 ;then turn this instance off
@@ -296,12 +296,12 @@ inote     notnum
 ichn      midichn
 iturnon   =         0
 turnon:
-iinstrnum tab_i     iturnon, ifn
+iinstrnum tabi      iturnon, ifn
 if iinstrnum > 0 then
 ifracnum  =         iinstrnum + ichn/100 + inote/100000
-         event_i   "i", ifracnum, 0, -1
+         eventi    "i", ifracnum, 0, -1
 endif
-         loop_lt   iturnon, 1, inum, turnon
+         looplt    iturnon, 1, inum, turnon
 kend      release
 if kend == 1 then
 kturnoff  =         0
@@ -310,7 +310,7 @@ kinstrnum tab       kturnoff, ifn
  if kinstrnum > 0 then
 kfracnum  =         kinstrnum + ichn/100 + inote/100000
          event     "i", -kfracnum, 0, 1
-         loop_lt   kturnoff, 1, inum, turnoff
+         looplt    kturnoff, 1, inum, turnoff
  endif
 endif
  endop

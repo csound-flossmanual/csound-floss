@@ -67,8 +67,8 @@ instr 2
 kCycle timek
 prints "  Instrument 2 is here at initialization.\n"
 printks "  Instrument 2: kCycle = %d\n", 0, kCycle
-event_i "i", 3, 0, .02
-event_i "i", 1, 0, .02
+eventi "i", 3, 0, .02
+eventi "i", 1, 0, .02
 endin
 
 instr 3
@@ -225,7 +225,7 @@ kFadout   linseg    1, .5, 0 ;and make fade out
  endif
 kEnv      linseg    0, .01, p4, abs(p3)-.1, p4, .09, 0; normal fade out
 aSig      poscil    kEnv*kFadout, p5, giWav
-          outs      aSig, aSig
+          out       aSig, aSig
   endin
 
 </CsInstruments>
@@ -312,7 +312,7 @@ iAmp      ampmidi   8 ;gets amplitude and scales 0-8
 iRatio    random    .9, 1.1 ;ratio randomly between 0.9 and 1.1
 aTone     foscili   .1, iFreq, 1, iRatio/5, iAmp+1, giSine ;fm
 aEnv      linenr    aTone, 0, .01, .01 ; avoiding clicks at the note-end
-          outs      aEnv, aEnv
+          out       aEnv, aEnv
   endin
 
 </CsInstruments>
@@ -368,7 +368,7 @@ ioct      random    8, 11; random values between 8th and 11th octave
 idb       random    -18, -6; random values between -6 and -18 dB
 aSig      poscil    ampdb(idb), cpsoct(ioct)
 aEnv      transeg   1, p3, -10, 0
-          outs      aSig*aEnv, aSig*aEnv
+          out       aSig*aEnv, aSig*aEnv
   endin
 
 instr 2
@@ -446,7 +446,7 @@ ioct      random    8, 11; random values between 8th and 11th octave
 idb       random    -18, -6; random values between -6 and -18 dB
 aSig      oscils    ampdb(idb), cpsoct(ioct), 0
 aEnv      transeg   1, p3, -10, 0
-          outs      aSig*aEnv, aSig*aEnv
+          out       aSig*aEnv, aSig*aEnv
   endin
 
 </CsInstruments>
@@ -540,13 +540,13 @@ kstat     =         1; change status to "down"
   instr 2; triggered if threshold has been crossed from down to up
 asig      poscil    .2, 500
 aenv      transeg   1, p3, -10, 0
-          outs      asig*aenv, asig*aenv
+          out       asig*aenv, asig*aenv
   endin
 
   instr 3; triggered if threshold has been crossed from up to down
 asig      poscil    .2, 400
 aenv      transeg   1, p3, -10, 0
-          outs      asig*aenv, asig*aenv
+          out       asig*aenv, asig*aenv
   endin
 
 </CsInstruments>
@@ -566,10 +566,10 @@ inside an instrument. The score events are then executed later.
 
 Using this opportunity we can introduce the
 [scoreline](http://www.csound.com/docs/manual/scoreline.html) /
-[scoreline_i](http://www.csound.com/docs/manual/scoreline_i.html)
+[scorelinei](https://csound.com/manual/opcodes/scoreline_i/)
 opcode. It is quite similar to the
 [event](http://www.csound.com/docs/manual/event.html) /
-[event_i](http://www.csound.com/docs/manual/event_i.html) opcode but
+[eventi](https://csound.com/manual/opcodes/event_i/) opcode but
 has two major benefits:
 
 - You can write more than one scoreline by using _{{_ at the
@@ -596,7 +596,7 @@ nchnls = 2
           seed      0; random seed different each time
 
   instr 1 ;master instrument with event pool
-          scoreline_i {{i 2 0 2 7.09
+          scorelinei {{i 2 0 2 7.09
                         i 2 2 2 8.04
                         i 2 4 2 8.03
                         i 2 6 1 8.04}}
@@ -605,7 +605,7 @@ nchnls = 2
   instr 2 ;plays the notes
 asig      pluck     .2, cpspch(p4), cpspch(p4), 0, 1
 aenv      transeg   1, p3, 0, 0
-          outs      asig*aenv, asig*aenv
+          out       asig*aenv, asig*aenv
   endin
 
 </CsInstruments>
@@ -656,9 +656,9 @@ ipch      table     itabndx, giPch ;random pitch value from the table
 Sline     sprintf   "i 2 %d %d %.2f\n", istart, idur, ipch ;new scoreline
 Slines    strcat    Slines, Sline ;append to previous scorelines
 istart    =         istart + idur ;recalculate start for next scoreline
-          loop_lt   icnt, 1, itimes, loop ;end of the i-time loop
+          looplt    icnt, 1, itimes, loop ;end of the i-time loop
           puts      Slines, 1 ;print the scorelines
-          scoreline_i Slines ;execute them
+          scorelinei Slines ;execute them
 iend      =         istart + idur ;calculate the total duration
 p3        =         iend ;set p3 to the sum of all durations
           print     p3 ;print it
@@ -667,7 +667,7 @@ p3        =         iend ;set p3 to the sum of all durations
   instr 2 ;plays the notes
 asig      pluck     .2, cpspch(p4), cpspch(p4), 0, 1
 aenv      transeg   1, p3, 0, 0
-          outs      asig*aenv, asig*aenv
+          out       asig*aenv, asig*aenv
   endin
 
 </CsInstruments>
@@ -681,7 +681,7 @@ e
 
 In this example, seven events have been rendered in an i-time loop in
 instrument 1. The result is stored in the string variable _Slines_. This
-string is given at i-time to scoreline_i, which executes them then one
+string is given at i-time to scorelinei, which executes them then one
 by one according to their starting times (p2), durations (p3) and other
 parameters.
 
@@ -689,8 +689,8 @@ Instead of collecting all score lines in a single string, you can also
 execute them inside the i-time loop. Also in this way all the single
 score lines are added to Csound's event pool. The next example shows an
 alternative version of the previous one by adding the instrument events
-one by one in the i-time loop, either with event_i (instr 1) or with
-scoreline_i (instr 2):
+one by one in the i-time loop, either with eventi (instr 1) or with
+scorelinei (instr 2):
 
 #### **_EXAMPLE 03F10_Events_collected.csd_**
 
@@ -708,7 +708,7 @@ nchnls = 2
 giPch     ftgen     0, 0, 4, -2, 7.09, 8.04, 8.03, 8.04
           seed      0; random seed different each time
 
-  instr 1; master instrument with event_i
+  instr 1; master instrument with eventi
 itimes    =         7; number of events to produce
 icnt      =         0; counter
 istart    =         0
@@ -718,15 +718,15 @@ idur      =         int(idur); either 1 or 2
 itabndx   random    0, 3.9999; index for the giPch table:
 itabndx   =         int(itabndx); 0-3
 ipch      table     itabndx, giPch; random pitch value from the table
-          event_i   "i", 3, istart, idur, ipch; new instrument event
+          eventi    "i", 3, istart, idur, ipch; new instrument event
 istart    =         istart + idur; recalculate start for next scoreline
-          loop_lt   icnt, 1, itimes, loop; end of the i-time loop
+          looplt    icnt, 1, itimes, loop; end of the i-time loop
 iend      =         istart + idur; calculate the total duration
 p3        =         iend; set p3 to the sum of all durations
           print     p3; print it
   endin
 
-  instr 2; master instrument with scoreline_i
+  instr 2; master instrument with scorelinei
 itimes    =         7; number of events to produce
 icnt      =         0; counter
 istart    =         0
@@ -737,10 +737,10 @@ itabndx   random    0, 3.9999; index for the giPch table:
 itabndx   =         int(itabndx); 0-3
 ipch      table     itabndx, giPch; random pitch value from the table
 Sline     sprintf   "i 3 %d %d %.2f", istart, idur, ipch; new scoreline
-          scoreline_i Sline; execute it
+          scorelinei Sline; execute it
           puts      Sline, 1; print it
 istart    =         istart + idur; recalculate start for next scoreline
-          loop_lt   icnt, 1, itimes, loop; end of the i-time loop
+          looplt    icnt, 1, itimes, loop; end of the i-time loop
 iend      =         istart + idur; calculate the total duration
 p3        =         iend; set p3 to the sum of all durations
           print     p3; print it
@@ -749,7 +749,7 @@ p3        =         iend; set p3 to the sum of all durations
   instr 3; plays the notes
 asig      pluck     .2, cpspch(p4), cpspch(p4), 0, 1
 aenv      transeg   1, p3, 0, 0
-          outs      asig*aenv, asig*aenv
+          out       asig*aenv, asig*aenv
   endin
 
 </CsInstruments>
@@ -792,14 +792,14 @@ nchnls = 2
 
           seed      0
 
-  instr 1; time loop with timout. events are triggered by event_i (i-rate)
+  instr 1; time loop with timout. events are triggered by eventi (i-rate)
 loop:
 idurloop  random    1, 4; duration of each loop
           timout    0, idurloop, play
           reinit    loop
 play:
 idurins   random    1, 5; duration of the triggered instrument
-          event_i   "i", 10, 0, idurins; triggers instrument 10
+          eventi    "i", 10, 0, idurins; triggers instrument 10
   endin
 
   instr 2; time loop with metro. events are triggered by event (k-rate)
@@ -820,8 +820,8 @@ ibasfreq  =         cpsoct(ibasoct)
 ipan      random    .2, .8; random panning between left (0) and right (1)
 icnt      =         0; counter
 loop:
-          event_i   "i", 100, 0, p3, ibasfreq, icnt+1, inumparts, ipan
-          loop_lt   icnt, 1, inumparts, loop
+          eventi    "i", 100, 0, p3, ibasfreq, icnt+1, inumparts, ipan
+          looplt    icnt, 1, inumparts, loop
   endin
 
   instr 100; plays one partial
@@ -843,7 +843,7 @@ ipan      =         ipan + ipandev
 aEnv      transeg   0, .005, 0, iamp, p3-.005, -10, 0
 aSine     poscil    aEnv, ifreq
 aL, aR    pan2      aSine, ipan
-          outs      aL, aR
+          out       aL, aR
           prints    "ibasfreq = %d, ipartial = %d, ifreq = %d%n",\
                      ibasfreq, ipartnum, ifreq
   endin
@@ -861,13 +861,13 @@ i 1 0 300 ;try this, or the next line (or both)
 
 Csound users are often confused about the variety of opcodes available
 to trigger instrument events. Should I use event, scoreline, schedule or
-schedkwhen? Should I use event or event_i?
+schedkwhen? Should I use event or eventi?
 
 Let us start with the latter, which actually leads to the general
 question about _i-rate_ and _k-rate_ opcodes.^[See
 chapter [03A](03-a-initialization-and-performance-pass.md) about
 Initialization and Performance Pass for a detailed discussion.]
-In short: Using **event_i** (the i-rate version) will only trigger
+In short: Using **eventi** (the i-rate version) will only trigger
 an event **once**, when the instrument in which this opcode works is
 initiated. Using **event** (the k-rate version) will trigger an event
 potentially **again and again**, as long as the instrument runs,
@@ -890,7 +890,7 @@ giInstCk init 1
 
 instr Call_i
 ;call another instrument at i-rate
-event_i "i", "Called_i", 0, 1
+eventi "i", "Called_i", 0, 1
 endin
 
 instr Call_k
@@ -963,9 +963,9 @@ spaces:
 
     schedule iInstrNum (or "InstrName"), iStart, iDur [, ip4] [, ip5] [...]
 
-[event_i](https://csound.com/docs/manual/event_i.html) is very similar:
+[eventi](https://csound.com/manual/opcodes/event_i/) is very similar:
 
-    event_i "i", iInstrNum (or "InstrName"), iStart, iDur [, ip4] [, ip5] [...]
+    eventi "i", iInstrNum (or "InstrName"), iStart, iDur [, ip4] [, ip5] [...]
 
 There are two differences between _schedule_ and _event_i_. The first is that
 _schedule_ can only trigger instruments, whereas _event_i_ can also trigger _f_
@@ -979,21 +979,21 @@ this code ...
 
 ... it is allright; but with the same line for _event_i_ ...
 
-    event_i "i", "bla", 0, 1, "blu"
+    eventi "i", "bla", 0, 1, "blu"
 
 ... you will get this error message in the console:
 
-    error: Unable to find opcode entry for 'event_i' with matching argument types:
-    Found: (null) event_i SccS
+    error: Unable to find opcode entry for 'eventi' with matching argument types:
+    Found: (null) eventi SccS
 
-With [scoreline_i](https://csound.com/docs/manual/scoreline_i.html)
+With [scorelinei](https://csound.com/manual/opcodes/scoreline_i/)
 sending strings is also possible. This opcode takes one or more lines
 of score statements which follow the same conventions as if written
 in the score section itself.^[This means that score parameter fields
 are separated by spaces, not by commas.]
 If you enclose the line(s) by _{{_ and _}}_, you can include as many strings in it as you wish:
 
-    scoreline_i {{
+    scorelinei {{
                   i "bla" 0 1 "blu" "sound"
                   i "bla" 1 1 "brown" "earth"
                 }}
@@ -1082,7 +1082,7 @@ this text in a simple text (ASCII) format as "to_recompile.orc":
     iAmp = .2
     iFreq = 465
     aSig oscils iAmp, iFreq, 0
-    outs aSig, aSig
+    out aSig, aSig
     endin
 
 Then save this csd in the same directory:
@@ -1105,7 +1105,7 @@ massign 0, 9999
 instr 9999
 ires compileorc "to_recompile.orc"
 print ires ; 0 if compiled successfully
-event_i "i", 1, 0, 3 ;send event
+eventi "i", 1, 0, 3 ;send event
 endin
 
 </CsInstruments>
@@ -1184,7 +1184,7 @@ print ires ; ... and returns 0
 
  ;call the new instrument
  ;(note that the overall performance is extended)
-scoreline_i "i 2 0 3 .2 415"
+scorelinei "i 2 0 3 .2 415"
 
 endin
 

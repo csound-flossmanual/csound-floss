@@ -52,9 +52,9 @@ Printing at k-rate means: Printing during the performance of the instrument inst
     prints("%s %f!\n",String,iValue)
     -> Hello 8.876543!
 
-#### **printf_i()**
+#### **printfi()**
 
-`printf_i` has an additional trigger input. It prints only when the trigger is larger than zero. So this statement will do nothing:
+`printfi` has an additional trigger input. It prints only when the trigger is larger than zero. So this statement will do nothing:
 
     iTrigger = 0
     String = "Hello"
@@ -127,7 +127,7 @@ The `printarray` opcode can also be used for k-rate arrays. It prints whenever t
 
     instr 1
       //create an array [0,1,2,3,4,5]
-      kArr[] genarray_i 0,5
+      kArr[] genarrayi 0,5
       //print the array values once a second
       printarray(kArr,metro:k(1))
       //change the array values randomly
@@ -223,49 +223,49 @@ loop:                 ;for all characters in input string:
 ichr       strchar    Sin, ipos ;get its ascii code number
 Snew       sprintf    "%d ", ichr ;put this number into a new string
 Sres       strcat     Sres, Snew ;append this to the output string
-           loop_lt    ipos, 1, ilen, loop ;see comment for 'loop:'
+           looplt     ipos, 1, ilen, loop ;see comment for 'loop:'
            xout       Sres ;return output string
   endop
 
   instr Integers
-printf_i "\nIntegers:\n  normal: %d or %d\n", 1, 123, -123
-printf_i "  signed if positive: %+d\n", 1, 123
-printf_i "  space left if positive:...% d...% d\n", 1, 123, -123
-printf_i "  fixed width left ...%-10d...or right...%10d\n", 1, 123, 123
-printf_i "  starting with zeros if ", 1
-printf_i "  necessary: %05d %05d %05d %05d %05d %05d\n",
+printfi "\nIntegers:\n  normal: %d or %d\n", 1, 123, -123
+printfi "  signed if positive: %+d\n", 1, 123
+printfi "  space left if positive:...% d...% d\n", 1, 123, -123
+printfi "  fixed width left ...%-10d...or right...%10d\n", 1, 123, 123
+printfi "  starting with zeros if ", 1
+printfi "  necessary: %05d %05d %05d %05d %05d %05d\n",
               1, 1, 12, 123, 1234, 12345, 123456
-printf_i "  floats are rounded: 1.1 -> %d, 1.9 -> %d\n", 1, 1.1, 1.9
+printfi "  floats are rounded: 1.1 -> %d, 1.9 -> %d\n", 1, 1.1, 1.9
   endin
 
   instr Floats
-printf_i "\nFloats:\n  normal: %f or %f\n", 1, 1.23, -1.23
-printf_i "  number of digits after point: %f %.5f %.3f %.1f\n",
+printfi "\nFloats:\n  normal: %f or %f\n", 1, 1.23, -1.23
+printfi "  number of digits after point: %f %.5f %.3f %.1f\n",
               1, 1.23456789, 1.23456789, 1.23456789, 1.23456789
-printf_i "  space left if positive:...% .3f...% .3f\n", 1, 123, -123
-printf_i "  signed if positive: %+f\n", 1, 1.23
-printf_i "  fixed width left ...%-10.3f...or right...%10.3f\n",
+printfi "  space left if positive:...% .3f...% .3f\n", 1, 123, -123
+printfi "  signed if positive: %+f\n", 1, 1.23
+printfi "  fixed width left ...%-10.3f...or right...%10.3f\n",
               1, 1.23456, 1.23456
   endin
 
   instr Strings
-printf_i "\nStrings:\n  normal: %s\n", 1, "csound"
-printf_i "  fixed width left ...%-10s...or right...%10s\n",
+printfi "\nStrings:\n  normal: %s\n", 1, "csound"
+printfi "  fixed width left ...%-10s...or right...%10s\n",
               1, "csound", "csound"
-printf_i {{  a string over
+printfi {{  a string over
     multiple lines in which
       you can insert also quotes: "%s"\n}}, 1, "csound"
   endin
 
   instr Characters
-printf_i "\nCharacters:\n  given as single strings: %s%s%s%s%s%s\n",
+printfi "\nCharacters:\n  given as single strings: %s%s%s%s%s%s\n",
             1, "c", "s", "o", "u", "n", "d"
-printf_i "  but can also be given as numbers: %c%c%c%c%c%c\n",
+printfi "  but can also be given as numbers: %c%c%c%c%c%c\n",
               1, 99, 115, 111, 117, 110, 100
 Scsound ToAscii "csound"
-printf_i "  in csound, the ASCII code of a character ", 1
-printf_i "can be accessed with the opcode strchar.%s", 1, "\n"
-printf_i "  the name 'csound' returns the numbers %s\n\n", 1, Scsound
+printfi "  in csound, the ASCII code of a character ", 1
+printfi "can be accessed with the opcode strchar.%s", 1, "\n"
+printfi "  the name 'csound' returns the numbers %s\n\n", 1, Scsound
   endin
 
 </CsInstruments>

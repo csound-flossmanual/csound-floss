@@ -128,7 +128,7 @@ nchnls = 2
 instr 1
  prints  "Playing %d Hertz!\n", p4
  asig    poscil  .2, p4
- outs    asig, asig
+ out     asig, asig
 endin
 
 </CsInstruments>
@@ -210,14 +210,14 @@ instr 1
  prints "Playing %d Hertz!\n", p4
  asig poscil .2, p4
  aout linen asig, 0, p3, p3
- outs aout, aout
+ out aout, aout
 endin
 
 instr 2
  prints  "Adding %d Hertz to %d Hertz!\n", p5, p4
  asig    poscil  .2, p4+p5
  aout linen asig, 0, p3, p3
- outs aout, aout
+ out aout, aout
 endin
 
 instr 3
@@ -225,7 +225,7 @@ instr 3
          p5, p4*p5, p4
  asig    poscil  .2, p4*p5
  aout linen asig, 0, p3, p3
- outs aout, aout
+ out aout, aout
 endin
 
 </CsInstruments>
@@ -321,7 +321,7 @@ instr Play
  iMidiKey = p4
  iFreq mtof iMidiKey
  S_name mton iMidiKey
- printf_i "Midi Note = %d, Frequency = %f, Note name = %s\n",
+ printfi "Midi Note = %d, Frequency = %f, Note name = %s\n",
           1, iMidiKey, iFreq, S_name
  aPluck pluck .2, iFreq, iFreq, 0, 1
  aOut linen aPluck, 0, p3, p3/2

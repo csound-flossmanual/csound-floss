@@ -392,37 +392,37 @@ giImp     ftgen     0, 0, 2^10, 10, 1, 1, 1, 1, 1, 1, 1, 1, 1
   instr Sine
 aSine     poscil    .2, 400, giSine
 aEnv      linen     aSine, .01, p3, .05
-          outs      aEnv, aEnv
+          out       aEnv, aEnv
   endin
 
   instr Saw
 aSaw      poscil    .2, 400, giSaw
 aEnv      linen     aSaw, .01, p3, .05
-          outs      aEnv, aEnv
+          out       aEnv, aEnv
   endin
 
   instr Square
 aSqu      poscil    .2, 400, giSquare
 aEnv      linen     aSqu, .01, p3, .05
-          outs      aEnv, aEnv
+          out       aEnv, aEnv
   endin
 
   instr Triangle
 aTri      poscil    .2, 400, giTri
 aEnv      linen     aTri, .01, p3, .05
-          outs      aEnv, aEnv
+          out       aEnv, aEnv
   endin
 
   instr Impulse
 aImp      poscil    .2, 400, giImp
 aEnv      linen     aImp, .01, p3, .05
-          outs      aEnv, aEnv
+          out       aEnv, aEnv
   endin
 
   instr Sine_with_env
 aEnv      poscil    .2, (1/p3)/2, giSine
 aSine     poscil    aEnv, 400, giSine
-          outs      aSine, aSine
+          out       aSine, aSine
   endin
 
 </CsInstruments>
@@ -536,13 +536,13 @@ The simplest to use opcode that writes values to existing function
 tables during a note's performance
 is [tablew](http://www.csound.com/docs/manual/tablew.html) and
 its i-time equivalent
-is [tableiw](http://www.csound.com/manual/html/tableiw.html).
+is [tablew](http://www.csound.com/manual/html/tablew.html).
 As usual, you must
 differentiate if your signal (variable) is i-rate, k-rate or a-rate. The
 usage is simple and differs just in the class of values you want to
 write to the table (i-, k- or a-variables):
 
-    tableiw   isig, indx, ifn [, ixmode] [, ixoff] [, iwgmode]
+    tablew   isig, indx, ifn [, ixmode] [, ixoff] [, iwgmode]
     tablew    ksig, kndx, ifn [, ixmode] [, ixoff] [, iwgmode]
     tablew    asig, andx, ifn [, ixmode] [, ixoff] [, iwgmode]
 
@@ -573,7 +573,7 @@ Here are some examples for i-, k- and a-rate values.
 The following example calculates the first 12 values of a Fibonacci
 series and writes them to a table. An empty table has first been created
 in the header (filled with zeros), then instrument 1 calculates the
-values in an i-time loop and writes them to the table using tableiw.
+values in an i-time loop and writes them to the table using tablew.
 Instrument 2 simply prints all the values in a list to the terminal.
 
 #### **_EXAMPLE 03D07_Write_Fibo_to_table.csd_**
@@ -592,7 +592,7 @@ instr 1; calculates first 12 fibonacci values and writes them to giFt
  inext =	 2
  indx = 0
  while indx < 12 do
-  tableiw istart, indx, giFt ;writes istart to table
+  tablew istart, indx, giFt ;writes istart to table
   istartold = istart ;keep previous value of istart
   istart = inext ;reset istart for next loop
   inext = istartold + inext ;reset inext for next loop
@@ -647,7 +647,7 @@ giWave    ftgen     0, 0, 2^10, 10, 1, .5, .3, .1; waveform for oscillator
   instr 1
 kFreq     randomi   400, 1000, 1 ;random frequency
 aSnd      poscil    .2, kFreq, giWave ;play it
-          outs      aSnd, aSnd
+          out       aSnd, aSnd
 ;;record the k-signal
           prints    "RECORDING!%n"
  ;create a writing pointer in the table,
@@ -666,7 +666,7 @@ kindx     linseg    0, 5, ftlen(giFt)
  ;read the k-signal
 kFreq     table     kindx, giFt
 aSnd      oscil3    .2, kFreq, giWave; play it
-          outs      aSnd, aSnd
+          out       aSnd, aSnd
   endin
 
 </CsInstruments>
@@ -700,7 +700,7 @@ in which case it moves in reverse from 1 to zero then wrapping around to
         instr 1; rec/play of a random frequency movement for 5 seconds
         kFreq     randomi   400, 1000, 1; random frequency
         aSnd      oscil3    .2, kFreq, giWave; play it
-                  outs      aSnd, aSnd
+                  out      aSnd, aSnd
         ;;record the k-signal with a phasor as index
                   prints    "RECORDING!%n"
          ;create a writing pointer in the table,
@@ -739,7 +739,7 @@ aNois     rand      .2
 kCfreq    randomi   200, 2000, 3; random center frequency
 aFilt     butbp     aNois, kCfreq, kCfreq/10; filtered noise
 aBal      balance   aFilt, aNois, 1; balance amplitude
-          outs      aBal, aBal
+          out       aBal, aBal
 ;;record the audiosignal with a phasor as index
           prints    "RECORDING FILTERED NOISE!%n"
  ;create a writing pointer in the table,
@@ -753,7 +753,7 @@ aindx     phasor    1/5
           prints    "PLAYING FILTERED NOISE!%n"
 aindx     phasor    1/5
 aSnd      table3    aindx, giFt, 1
-          outs      aSnd, aSnd
+          out       aSnd, aSnd
   endin
 
   instr 3 ;record live input
@@ -761,7 +761,7 @@ ktim      timeinsts ; playing time of the instrument in seconds
           prints    "PLEASE GIVE YOUR LIVE INPUT AFTER THE BEEP!%n"
 kBeepEnv  linseg    0, 1, 0, .01, 1, .5, 1, .01, 0
 aBeep     oscils    .2, 600, 0
-          outs      aBeep*kBeepEnv, aBeep*kBeepEnv
+          out       aBeep*kBeepEnv, aBeep*kBeepEnv
 ;;record the audiosignal after 2 seconds
  if ktim > 2 then
 ain       inch      1
@@ -778,7 +778,7 @@ aindx     phasor    1/5
           prints    "PLAYING LIVE INPUT!%n"
 aindx     phasor    1/5
 aSnd      table3    aindx, giFt, 1
-          outs      aSnd, aSnd
+          out       aSnd, aSnd
   endin
 
 </CsInstruments>
@@ -804,7 +804,7 @@ reading a table at k-rate or a-rate.
 
 The [table](http://www.csound.com/docs/manual/table.html) opcode is
 quite similar in syntax to
-the [tableiw](http://www.csound.com/docs/manual/html/tableiw.html)/
+the [tablew](http://www.csound.com/docs/manual/html/tablew.html)/
 [tablew](http://www.csound.com/docs/manual/html/tablew.html) opcodes
 (which are explained above). It is simply its counterpart for
 reading values from a function table instead of writing them. Its output
@@ -813,7 +813,7 @@ output automatically selects either the a- k- or a-rate version of the
 opcode. The first input is an index at the appropriate rate (i-index for
 i-output, k-index for k-output, a-index for a-output). The other
 arguments are as explained above
-for [tableiw](http://www.csound.com/docs/manual/html/tableiw.html)/
+for [tablew](http://www.csound.com/docs/manual/html/tablew.html)/
 [tablew](http://www.csound.com/docs/manual/html/tablew.html).
 
     ires      table    indx, ifn [, ixmode] [, ixoff] [, iwrap]
@@ -881,7 +881,7 @@ giWave    ftgen     0, 0, 2^10, 10, 1, .5, .3, .1; waveform for oscillator
   instr 1
 kFreq     randomi   400, 1000, 1; random frequency
 aSnd      poscil    .2, kFreq, giWave; play it
-          outs      aSnd, aSnd
+          out       aSnd, aSnd
 ;;record the k-signal with a phasor as index
           prints    "RECORDING RANDOM CONTROL SIGNAL!%n"
  ;create a writing pointer in the table,
@@ -895,7 +895,7 @@ kindx     phasor    1/5
           prints    "PLAYING CONTROL SIGNAL!%n"
 kFreq     poscil    1, 1/5, giControl
 aSnd      poscil    .2, kFreq, giWave; play it
-          outs      aSnd, aSnd
+          out       aSnd, aSnd
   endin
 
   instr 3; record live input
@@ -903,7 +903,7 @@ ktim      timeinsts ; playing time of the instrument in seconds
           prints    "PLEASE GIVE YOUR LIVE INPUT AFTER THE BEEP!%n"
 kBeepEnv  linseg    0, 1, 0, .01, 1, .5, 1, .01, 0
 aBeep     oscils    .2, 600, 0
-          outs      aBeep*kBeepEnv, aBeep*kBeepEnv
+          out       aBeep*kBeepEnv, aBeep*kBeepEnv
 ;;record the audiosignal after 2 seconds
  if ktim > 2 then
 ain       inch      1
@@ -919,7 +919,7 @@ aindx     phasor    1/5
   instr 4; read the values from the table and play it with poscil
           prints    "PLAYING LIVE INPUT!%n"
 aSnd      poscil    .5, 1/5, giAudio
-          outs      aSnd, aSnd
+          out       aSnd, aSnd
   endin
 
 </CsInstruments>
@@ -1034,7 +1034,7 @@ ktim      timeinsts ; playing time of the instrument in seconds
           prints    "PLEASE GIVE YOUR LIVE INPUT AFTER THE BEEP!%n"
 kBeepEnv  linseg    0, 1, 0, .01, 1, .5, 1, .01, 0
 aBeep     oscils    .2, 600, 0
-          outs      aBeep*kBeepEnv, aBeep*kBeepEnv
+          out       aBeep*kBeepEnv, aBeep*kBeepEnv
 ;;record the audiosignal after 2 seconds
  if ktim > 2 then
 ain       inch      1

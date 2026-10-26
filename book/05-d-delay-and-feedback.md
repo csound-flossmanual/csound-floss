@@ -428,6 +428,7 @@ As an advanced insight into sample-by-sample processing in Csound, we end here w
   in our case 0.25 \* 44100 = 11025. So 11025 samples can be stored in this array.
 - Line 16-17: The read pointer _kread_ptr_ is set to the second element (index=1),
   the write pointer _kwrite_ptr_ is set to the first element (index=0) at beginning.
+- Line 18: Initialize _adel_ before writing to its individual samples.
 - Line 19-20: The audio signal as input for the delay line — it can be anything.
 - Line 22-23, 30-31:
   The [while](https://csound.com/docs/manual/while.html) loop iterates through each
@@ -462,9 +463,9 @@ instr CustomDelayLine
   kdelay_line[] init idel_size
   kread_ptr init 1
   kwrite_ptr init 0
-
+  adel init 0
   asig = vco2(0.3, 220 * (1 + int(lfo:k(3, 2, 2))) * expon(1, p3, 4), 10)
-  asig = zdf_ladder(asig, 2000, 4)
+  asig = zdfladder(asig, 2000, 4)
 
   kindx = 0
   while (kindx < ksmps) do

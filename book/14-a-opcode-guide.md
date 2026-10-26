@@ -43,12 +43,12 @@ Although these selections come from some experience in using and teaching Csound
 
 ### Line Smooth
 
-[sc_lag(ud)](https://csound.com/docs/manual/sc_lag.html) — exponential lag (with different smoothing times)
+[lag(ud)](https://csound.com/manual/opcodes/lag/) — exponential lag (with different smoothing times)
 (traditional alternatives are [port(k)](https://csound.com/docs/manual/port.html) and [tonek](https://csound.com/docs/manual/tonek.html))
 
 ### Sound Files / Samples
 
-[diskin](https://csound.com/docs/manual/diskin2.html) — sound file read/playback with different options
+[diskin](https://csound.com/manual/opcodes/diskin2/) — sound file read/playback with different options
 
 ### Audio I/O
 
@@ -149,16 +149,16 @@ Although these selections come from some experience in using and teaching Csound
 
 ### Line Smooth
 
-[sc_lag(ud)](https://csound.com/docs/manual/sc_lag.html) — exponential lag (with different smoothing times)
+[lag(ud)](https://csound.com/manual/opcodes/lag/) — exponential lag (with different smoothing times)
 
 ### Sound Files / Samples
 
-[diskin](https://csound.com/docs/manual/diskin2.html) — sound file read/playback with different options\
+[diskin](https://csound.com/manual/opcodes/diskin2/) — sound file read/playback with different options\
 [mp3in](https://csound.com/docs/manual/mp3in.html) — mp3 read/playback\
 [loscil(3/x)](https://csound.com/docs/manual/loscil.html) — read sampled sound from a table\
 [flooper(2)](https://csound.com/docs/manual/flooper.html) — crossfading looper\
 [filescal/mincer](https://csound.com/docs/manual/filescal.html) — phase-locked vocoder processing with time and pitch scale\
-[filelen](https://csound.com/docs/manual/filelen.html) — length of sound file
+[filelen](https://csound.com/manual/opcodes/filelen/) — length of sound file
 
 ### Audio I/O
 
@@ -215,9 +215,9 @@ Although these selections come from some experience in using and teaching Csound
 
 ### OSC
 
-[OSClisten](https://csound.com/docs/manual/OSClisten.html) — receive messages\
-[OSCraw](https://csound.com/docs/manual/OSCraw.html) — listens to all messages\
-[OSCsend](https://csound.com/docs/manual/OSCsend.html) — send messages
+[osclisten](https://csound.com/manual/opcodes/OSClisten/) — receive messages\
+[oscraw](https://csound.com/manual/opcodes/OSCraw/) — listens to all messages\
+[oscsend](https://csound.com/manual/opcodes/OSCsend/) — send messages
 
 ### Key
 
@@ -272,7 +272,7 @@ Although these selections come from some experience in using and teaching Csound
 [reson](https://csound.com/docs/manual/reson.html) — second order resonant filter\
 [butbp(hp/lp)](https://csound.com/docs/manual/butterbp.html) — second order butterworth filter\
 [mode](https://csound.com/docs/manual/mode.html) — mass-spring system modelled\
-[zdf_ladder](https://csound.com/docs/manual/zdf_ladder.html) — zero delay feedback implementation of 4 pole ladder filter
+[zdfladder](https://csound.com/manual/opcodes/zdf_ladder/) — zero delay feedback implementation of 4 pole ladder filter
 
 ### Level
 
@@ -327,7 +327,7 @@ _Note that modern Csound frontends handle most of the Audio I/O settings. For co
 [nchnls](https://csound.com/docs/manual/nchnls.html) — set number of I/O channels (default=1)\
 [nchnls_i](https://csound.com/docs/manual/nchnls_i.html) — set number of input channels if different from output\
 [0dbfs](https://csound.com/docs/manual/Zerodbfs.html) — set zero dB full scale (default=32767) _(setting 0dbfs=1 is strongly recommended)_\
-[nchnls_hw](https://csound.com/docs/manual/nchnls_hw.html) — report number of channels in hardware\
+[nchnlshw](https://csound.com/manual/opcodes/nchnls_hw/) — report number of channels in hardware\
 [setksmps](https://csound.com/docs/manual/setksmps.html) — set local ksmps in User-Defined-Opcodes or instruments
 
 ##### Signal Input and Output
@@ -341,7 +341,7 @@ _Note that modern Csound frontends handle most of the Audio I/O settings. For co
 
 ##### Sound File Playback
 
-[diskin](https://csound.com/docs/manual/diskin2.html) — sound file read/playback with different options\
+[diskin](https://csound.com/manual/opcodes/diskin2/) — sound file read/playback with different options\
 [mp3in](https://csound.com/docs/manual/mp3in.html) — mp3 read/playback
 
 ##### Sample Playback
@@ -367,7 +367,7 @@ see overview [here](https://csound.com/docs/manual/SiggenSample.html#SiggenSampl
 
 ##### Sound File Queries
 
-[filelen](https://csound.com/docs/manual/filelen.html) — length of sound file\
+[filelen](https://csound.com/manual/opcodes/filelen/) — length of sound file\
 [filesr](https://csound.com/docs/manual/filesr.html) — sample rate of sound file\
 [filenchnls](https://csound.com/docs/manual/filenchnls.html) — number of channels in sound file\
 [filepeak](https://csound.com/docs/manual/filepeak.html) — peak in sound file\
@@ -409,7 +409,7 @@ _Note_: [oscil](https://csound.com./docs/manual/oscil.html) is not recommended a
 [phasor](https://csound.com/docs/manual/phasor.html) — standard phasor\
 [syncphasor](https://csound.com/docs/manual/syncphasor.html) — phasor with sync I/O\
 [ephasor](https://csound.com/docs/manual/ephasor.html) — phasor with additional exponential decay output\
-[sc_phasor](https://csound.com/docs/manual/sc_phasor.html) — resettable phasor
+[trigphasor](https://csound.com/manual/opcodes/trigphasor/) — resettable phasor
 
 #### RANDOM AND NOISE GENERATORS
 
@@ -474,7 +474,7 @@ _Note_: [oscil](https://csound.com./docs/manual/oscil.html) is not recommended a
 ##### Signal Smooth
 
 [port(k)](https://csound.com/docs/manual/port.html) — portamento-like smoothing for control signals (with variable half-time)\
-[sc_lag(ud)](https://csound.com/docs/manual/sc_lag.html) — exponential lag (with different smoothing times)\
+[lag(ud)](https://csound.com/manual/opcodes/lag/) — exponential lag (with different smoothing times)\
 [(t)lineto](https://csound.com/docs/manual/lineto.html) — generate glissando from control signal
 
 #### PHYSICAL MODELS AND FM INSTRUMENTS
@@ -614,7 +614,7 @@ _Note_: Convolution reverb can be performed with\
 
 [rms](https://csound.com/docs/manual/rms.html) — RMS measurement\
 [peak](https://csound.com/docs/manual/peak.html) — maintains highest value received\
-[max_k](https://csound.com/docs/manual/max_k.html) — local maximum/minimum of audio signal\
+[maxk](https://csound.com/manual/opcodes/max_k/) — local maximum/minimum of audio signal\
 [follow(2)](https://csound.com/docs/manual/follow.html) — envelopoe follower\
 [vactrol](https://csound.com/docs/manual/vactrol.html) — envelope follower
 
@@ -963,7 +963,7 @@ _Note: for sound files see SOUND FILES AND SAMPLES_
 
 [metro(2)](https://csound.com/docs/manual/metro.html) — trigger metronome\
 [trigger](https://csound.com/docs/manual/trigger.html) — threshold trigger\
-[sc_trig](https://csound.com/docs/manual/sc_trig.html) — timed trigger\
+[trighold](https://csound.com/manual/opcodes/trighold/) — timed trigger\
 [seqtime(2)](https://csound.com/docs/manual/seqtime.html) — generates trigger according to values stored in a table\
 [timedseq](https://csound.com/docs/manual/timedseq.html) — time-variant sequencer
 
@@ -998,9 +998,9 @@ _Note: for sound files see SOUND FILES AND SAMPLES_
 
 ##### Chn Opcodes
 
-[chn_k](https://csound.com/docs/manual/chn.html) — declare k-signal channel\
-[chn_a](https://csound.com/docs/manual/chn.html) — declare a-signal channel\
-[chn_S](https://csound.com/docs/manual/chn.html) — declare string channel\
+[chnk](https://csound.com/docs/manual/chn.html) — declare k-signal channel\
+[chna](https://csound.com/docs/manual/chn.html) — declare a-signal channel\
+[chnS](https://csound.com/docs/manual/chn.html) — declare string channel\
 [chnset](https://csound.com/docs/manual/chnset.html) — set value in channel\
 [chnget](https://csound.com/docs/manual/chnget.html) — get value from channel\
 [chnmix](https://csound.com/docs/manual/chnmix.html) — mix value to channel\
@@ -1143,13 +1143,13 @@ _Note: Modern frontends now usually handle MIDI input._
 
 ##### Open Sound Control
 
-[OSCinit](https://csound.com/docs/manual/OSCinit.html) — initalize OSClisten port\
-[OSCinitM](https://csound.com/docs/manual/OSCinitM.html) — initializes multicast OSC listener\
-[OSClisten](https://csound.com/docs/manual/OSClisten.html) — receive messages\
-[OSCraw](https://csound.com/docs/manual/OSCraw.html) — listens to all messages\
-[OSCsend](https://csound.com/docs/manual/OSCsend.html) — send messages\
-[OSCbundle](https://csound.com/docs/manual/OSCbundle.html) — send data in a bundle\
-[OSCcount](https://csound.com/docs/manual/OSCcount.html) — report messages received but unread
+[oscinit](https://csound.com/manual/opcodes/OSCinit/) — initalize osclisten port\
+[oscinitm](https://csound.com/manual/opcodes/OSCinitM/) — initializes multicast OSC listener\
+[osclisten](https://csound.com/manual/opcodes/OSClisten/) — receive messages\
+[oscraw](https://csound.com/manual/opcodes/OSCraw/) — listens to all messages\
+[oscsend](https://csound.com/manual/opcodes/OSCsend/) — send messages\
+[oscbundle](https://csound.com/manual/opcodes/OSCbundle/) — send data in a bundle\
+[osccount](https://csound.com/manual/opcodes/OSCcount/) — report messages received but unread
 
 ##### Network Audio
 
@@ -1184,12 +1184,12 @@ FLTK overview [here](https://csound.com/docs/manual/ControlFltkIntro.html)
 
 ##### Serial Opcodes
 
-[serialBegin](https://csound.com/docs/manual/serialBegin.html) — open a serial port\
-[serialEnd](https://csound.com/docs/manual/serialEnd.html) — close a serial port\
-[serialFlush](https://csound.com/docs/manual/serialFlush.html) — flush data from a serial port\
-[serialPrint](https://csound.com/docs/manual/serialPrint.html) — print data from a serial port\
-[serialRead](https://csound.com/docs/manual/serialBegin.html) — read data from a serial port\
-[serialWrite(\_i)](https://csound.com/docs/manual/serialWrite.html) — write data to a serial port
+[serialbegin](https://csound.com/manual/opcodes/serialBegin/) — open a serial port\
+[serialend](https://csound.com/manual/opcodes/serialEnd/) — close a serial port\
+[serialflush](https://csound.com/manual/opcodes/serialFlush/) — flush data from a serial port\
+[serialprint](https://csound.com/manual/opcodes/serialPrint/) — print data from a serial port\
+[serialread](https://csound.com/manual/opcodes/serialBegin/) — read data from a serial port\
+[serialwrite(\_i)](https://csound.com/manual/opcodes/serialWrite/) — write data to a serial port
 
 #### SYSTEM
 

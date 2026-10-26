@@ -147,7 +147,7 @@ instr MassSpring
  ic        =         0.01 ;spring constant
  ;calculation of the next value
  a2        =         a1+(a1-a0) - ic*a1
-           outs      a0, a0
+           out       a0, a0
  ;actualize values for the next step
  a0        =         a1
  a1        =         a2
@@ -197,7 +197,7 @@ instr MassSpring
  kc        randomi   .001, .05, 8, 3
  ;calculation of the next value
  a2        =         a1+(a1-a0) - kc*a1
-           outs      a0, a0
+           out       a0, a0
  ;actualize values for the next step
  a0        =         a1
  a1        =         a2
@@ -630,17 +630,17 @@ nchnls = 1
   ;performs the karplus-strong algorithm
 iTab, iTbSiz xin
 ;calculate the mean of the last two values
-iUlt      tab_i     iTbSiz-1, iTab
-iPenUlt   tab_i     iTbSiz-2, iTab
+iUlt      tabi      iTbSiz-1, iTab
+iPenUlt   tabi      iTbSiz-2, iTab
 iNewVal   =         (iUlt + iPenUlt) / 2
 ;shift values one position to the right
 indx      =         iTbSiz-2
 loop:
-iVal      tab_i     indx, iTab
-          tabw_i    iVal, indx+1, iTab
-          loop_ge   indx, 1, 0, loop
+iVal      tabi      indx, iTab
+          tabwi     iVal, indx+1, iTab
+          loopge    indx, 1, 0, loop
 ;fill the new value at the beginning of the table
-          tabw_i    iNewVal, 0, iTab
+          tabwi     iNewVal, 0, iTab
   endop
 
   opcode PrintTab, 0, iiS
@@ -649,10 +649,10 @@ iTab, iTbSiz, Sin xin
 indx      =         0
 Sout      strcpy    Sin
 loop:
-iVal      tab_i     indx, iTab
+iVal      tabi      indx, iTab
 Snew      sprintf   "%8.3f", iVal
 Sout      strcat    Sout, Snew
-          loop_lt   indx, 1, iTbSiz, loop
+          looplt    indx, 1, iTbSiz, loop
           puts      Sout, 1
   endop
 
@@ -669,8 +669,8 @@ Scycle    sprintf   "Cycle %d:", iCycle
 iState    =         0
 state:
           KS        iTab, iTbLen
-          loop_lt   iState, 1, iTbLen, state
-          loop_lt   iCycle, 1, 10, cycle
+          looplt    iState, 1, iTbLen, state
+          looplt    iCycle, 1, 10, cycle
 endin
 
 </CsInstruments>
@@ -731,7 +731,7 @@ aUlt1     init      0 ;delayed by one sample
 aMean     =         (aUlt+aUlt1)/2 ;mean of these two
 aUlt      delay     aFill+aMean, iDelTm
 aUlt1     delay1    aUlt
-          outs      aUlt, aUlt
+          out       aUlt, aUlt
 endin
 
 </CsInstruments>
@@ -832,7 +832,7 @@ kdel     rspline  0.01,0.1,0.1,0.5
 ; bow pressure parameter delayed by a varying time in the right channel
 kpres    vdel_k   kpres,kdel,0.2,2
 aSigR    wgbow    kamp,kfreq,kpres,krat,kvibf,kvibamp,gisine,iminfreq
-         outs     aSigL,aSigR
+         out      aSigL,aSigR
 ; send some audio to the reverb
 gaSendL  =        gaSendL + aSigL/3
 gaSendR  =        gaSendR + aSigR/3
@@ -840,7 +840,7 @@ gaSendR  =        gaSendR + aSigR/3
 
  instr 2 ; reverb
 aRvbL,aRvbR reverbsc gaSendL,gaSendR,0.9,7000
-            outs     aRvbL,aRvbR
+            out      aRvbL,aRvbR
             clear    gaSendL,gaSendR
  endin
 
@@ -902,13 +902,13 @@ iminfreq =        20
 aSig     wgbow    kamp,kfreq,kpres,krat,kvibf,kvibamp,gisine,iminfreq
 aSig     butlp     aSig,2000
 aSig     pareq    aSig,80,6,0.707
-         outs     aSig,aSig
+         out      aSig,aSig
 gaSend   =        gaSend + aSig/3
  endin
 
  instr 2 ; reverb
 aRvbL,aRvbR reverbsc gaSend,gaSend,0.9,7000
-            outs     aRvbL,aRvbR
+            out      aRvbL,aRvbR
             clear    gaSend
  endin
 
@@ -1034,7 +1034,7 @@ iwid    =               0.1156
 aSig    barmodel        kbcL,kbcR,iK,ib,kscan,iT30,ipos,ivel,iwid
 kPan    rspline         0.1,0.9,0.5,2
 aL,aR   pan2            aSig,kPan
-        outs             aL,aR
+        out              aL,aR
  endin
 
 </CsInstruments>

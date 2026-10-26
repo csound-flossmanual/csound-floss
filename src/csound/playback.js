@@ -4,16 +4,23 @@ import { requestsFileOutput } from "./options";
 import { beginPlaybackAudioSession } from "./audio-session";
 
 export async function loadSourceMaterials(engine, source) {
+  let includesDirectory = false;
   for (const name of SourceMaterials) {
     if (!source.includes(name)) continue;
     const fileName = name === "circularstring" ? "circularstring-128" : name;
     const response = await fetch(`/resources/SourceMaterials/${fileName}`);
     if (!response.ok)
       throw new Error(`Could not load ${fileName} (${response.status}).`);
-    await engine.fs.writeFile(
-      fileName,
-      new Uint8Array(await response.arrayBuffer())
-    );
+    const bytes = new Uint8Array(await response.arrayBuffer());
+    await engine.fs.writeFile(fileName, bytes);
+    // The downloaded examples also refer to ../SourceMaterials for UDO includes.
+    if (source.includes(`SourceMaterials/${fileName}`)) {
+      if (!includesDirectory) {
+        await engine.fs.mkdir("/SourceMaterials");
+        includesDirectory = true;
+      }
+      await engine.fs.writeFile(`/SourceMaterials/${fileName}`, bytes);
+    }
   }
 }
 
@@ -22,6 +29,8 @@ async function listFiles(fs, directory = "/") {
   for (const name of await fs.readdir(directory)) {
     if (name === "." || name === "..") continue;
     const path = `${directory}${name}`;
+    // STK unpacks these bundled inputs during compilation, after our snapshot.
+    if (path === "/.csound-stk-rawwaves") continue;
     const stat = await fs.stat(path);
     if (stat?.isDirectory) files.push(...(await listFiles(fs, `${path}/`)));
     else if (stat?.isFile) files.push(path);
@@ -63,7 +72,7 @@ export function createPlaybackController(
     audioContext = createContext,
     audioSession = beginPlaybackAudioSession,
     loadSamples = loadSourceMaterials,
-  } = {}
+  } = {},
 ) {
   let active;
   const reportError = (error) => {
@@ -84,7 +93,7 @@ export function createPlaybackController(
           await run.engine.reset();
           const filesGenerated = await collectOutputFiles(
             run.engine,
-            run.originalFiles
+            run.originalFiles,
           );
           if (run.discardFiles) {
             filesGenerated.forEach(({ url }) => URL.revokeObjectURL(url));
@@ -174,7 +183,7 @@ export function createPlaybackController(
       check();
       if (compiled !== 0)
         throw new Error(
-          "Csound could not compile this example. See the console for details."
+          "Csound could not compile this example. See the console for details.",
         );
       const output = await engine.getOutputName();
       run.rendering = !output?.startsWith("dac");
@@ -191,7 +200,7 @@ export function createPlaybackController(
       check();
       if (started !== 0)
         throw new Error(
-          "Csound could not start this example. See the console for details."
+          "Csound could not start this example. See the console for details.",
         );
       run.starting = false;
       dispatch({ type: "SET_IS_RENDERING", isRendering: run.rendering });

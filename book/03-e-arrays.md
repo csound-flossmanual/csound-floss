@@ -88,7 +88,7 @@ This opcode creates an array which is filled by a series of numbers from
 a start value to an (included) end value. Here are some examples:
 
     iArr[] genarray   1, 5 ; creates i-array with [1, 2, 3, 4, 5]
-    kArr[] genarray_i 1, 5 ; creates k-array at init-time with [1, 2, 3, 4, 5]
+    kArr[] genarrayi 1, 5 ; creates k-array at init-time with [1, 2, 3, 4, 5]
     iArr[] genarray   -1, 1, 0.5 ; i-array with [-1, -0.5, 0, 0.5, 1]
     iArr[] genarray   1, -1, -0.5 ; [1, 0.5, 0, -0.5, -1]
     iArr[] genarray   -1, 1, 0.6 ; [-1, -0.4, 0.2, 0.8]
@@ -367,19 +367,19 @@ The next example demonstrates local and global arrays at both _i_- and _k_-rate.
 ksmps = 32
 
 instr i_local
-iArr[] array  1, 2, 3
+iArr[] fillarray  1, 2, 3
        prints "   iArr[0] = %d   iArr[1] = %d   iArr[2] = %d\n",
               iArr[0], iArr[1], iArr[2]
 endin
 
 instr i_local_diff ;same name, different content
-iArr[] array  4, 5, 6
+iArr[] fillarray  4, 5, 6
        prints "   iArr[0] = %d   iArr[1] = %d   iArr[2] = %d\n",
               iArr[0], iArr[1], iArr[2]
 endin
 
 instr i_global
-giArr[] array 11, 12, 13
+giArr[] fillarray 11, 12, 13
 endin
 
 instr i_global_read ;understands giArr though not defined here
@@ -388,21 +388,21 @@ instr i_global_read ;understands giArr though not defined here
 endin
 
 instr k_local
-kArr[] array  -1, -2, -3
+kArr[] fillarray  -1, -2, -3
        printks "   kArr[0] = %d   kArr[1] = %d   kArr[2] = %d\n",
                0, kArr[0], kArr[1], kArr[2]
        turnoff
 endin
 
 instr k_local_diff
-kArr[] array  -4, -5, -6
+kArr[] fillarray  -4, -5, -6
        printks "   kArr[0] = %d   kArr[1] = %d   kArr[2] = %d\n",
                0, kArr[0], kArr[1], kArr[2]
        turnoff
 endin
 
 instr k_global
-gkArr[] array -11, -12, -13
+gkArr[] fillarray -11, -12, -13
        turnoff
 endin
 
@@ -676,7 +676,7 @@ two arrays from one input array in alternating its values:
 
 Which prints:
 
-    input array:
+    input fillarray:
      1 2 3 4 5 6 7 8 9 10
     deinterleaved 1:
      1 3 5 7 9
@@ -709,27 +709,27 @@ An optional argument defines the increment which is one by default:
 #### _trim_/_trim_i_ — Lengthen or Shorten Array
 
 Arrays have a fixed length, and it may be needed to shorten or lengthen it.
-[trim_i](https://csound.com/docs/manual/trim.html) works for any array at i-rate:
+[trimi](https://csound.com/docs/manual/trim.html) works for any array at i-rate:
 
     iArr[] fillarray  1, 3, 9, 5, 6, -1, 17
-    trim_i iArr, 3
+    trimi iArr, 3
     printarray(iArr, "%d") -> 1 3 9
     kArr[] fillarray  1, 3, 9, 5, 6, -1, 17
-    trim_i kArr, 5
+    trimi kArr, 5
     printarray(kArr, 1, "%d") ; -> 1 3 9 5 6
     aArr[] diskin "fox.wav"
     prints "%d\n", lenarray(aArr) ; -> 1
-    trim_i aArr, 2
+    trimi aArr, 2
     prints "%d\n", lenarray(aArr) ; -> 2
     SArr[] fillarray "a", "b", "c", "d"
-    trim_i SArr, 2
+    trimi SArr, 2
     printarray(SArr) ; -> "a", "b"
 
 If a length bigger than the current array size is required, the additional elements are set to zero.
 This can only be used for the init-time version _trim_i_:
 
     iArr[] fillarray  1, 3, 9
-    trim_i iArr, 5
+    trimi iArr, 5
     printarray(iArr, "%d") ; -> 1 3 9 0 0
 
 At performance rather than initialization [trim](https://csound.com/docs/manual/trim.html) can be used.

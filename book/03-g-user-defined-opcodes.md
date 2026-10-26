@@ -77,7 +77,7 @@ aDel vdelayx aFilt + iFb*aDel, aDelTm, 1, 128; variable delay
 kdbFilt randomi -12, 0, 1; two random movements between -12 and 0 (dB) ...
 kdbDel randomi -12, 0, 1; ... for the filtered and the delayed signal
 aOut = aFilt*ampdb(kdbFilt) + aDel*ampdb(kdbDel); mix it
-outs aOut, aOut
+out aOut, aOut
   endin
 
 </CsInstruments>
@@ -248,13 +248,13 @@ aOut = aFilt*ampdb(kdbFilt) + aDel*ampdb(kdbDel); mix it
   instr 1; white noise input
 aSnd      rand      .2
 aOut      FiltFb    aSnd
-          outs      aOut, aOut
+          out       aOut, aOut
   endin
 
   instr 2; live audio input
 aSnd      inch      1; input from channel 1
 aOut      FiltFb    aSnd
-          outs      aOut, aOut
+          out       aOut, aOut
   endin
 
 </CsInstruments>
@@ -360,14 +360,14 @@ kdbFilt   randomi   -12, 0, 1; two random movements between -12 and 0 (dB) ...
 kdbDel    randomi   -12, 0, 1; ... for the noise and the delay signal
 aOut      =         aFilt*ampdb(kdbFilt) + aDel*ampdb(kdbDel); mix it
 aOut      linen     aOut, .1, p3, 3
-          outs      aOut, aOut
+          out       aOut, aOut
   endin
 
   instr 2; well known context UDO which embeds another UDO
 aSnd      rand      .2
 aOut      Opus123_FiltFb aSnd
 aOut      linen     aOut, .1, p3, 3
-          outs      aOut, aOut
+          out       aOut, aOut
   endin
 
   instr 3; other context: two delay lines with buzz
@@ -382,7 +382,7 @@ a0, aDel1 FiltFb    aSnd, kFb1, kFiltFq, 1, 1, aDelTm1; delay signal 1
 a0, aDel2 FiltFb    aSnd, kFb2, kFiltFq, 1, 1, aDelTm2; delay signal 2
 aDel1     linen     aDel1, .1, p3, 3
 aDel2     linen     aDel2, .1, p3, 3
-          outs      aDel1, aDel2
+          out       aDel1, aDel2
   endin
 
 </CsInstruments>
@@ -760,12 +760,12 @@ aL, aR      diskin    Sfil, kspeed, iskip, iloop
 
   instr 1
 aMono     FilePlay  "fox.wav", 1
-          outs       aMono, aMono
+          out        aMono, aMono
   endin
 
   instr 2
 aL, aR    FilePlay  "fox.wav", 1
-          outs       aL, aR
+          out        aL, aR
   endin
 
 </CsInstruments>
@@ -982,7 +982,7 @@ instr Walk
   iBasFreq = mtof:i(random:i(24,84))
   iPan = random:i(0.2,0.8)
   aL,aR Partials iBasFreq, iNumPartials, iPan
-  outs(aL,aR)
+  out(aL,aR)
   //play for 60 seconds
   if (times:i() < 60) then
     schedule(p1,random:i(1,4),1)
@@ -994,7 +994,7 @@ endin
 schedule("Walk",0,1)
 
 instr Turnoff
-  event_i("e",0)
+  eventi("e",0)
 endin
 
 </CsInstruments>

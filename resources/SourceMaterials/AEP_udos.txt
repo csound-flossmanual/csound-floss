@@ -463,7 +463,7 @@ kel = $M_PI*kel/180
 kx = kdist*cos(kel)*cos(kaz)
 ky = kdist*cos(kel)*sin(kaz)
 kz = kdist*sin(kel)
-ispeaker[] array 0, table(3,ifn)*cos(($M_PI/180)*table(2,ifn))*cos(($M_PI/180)*table(1,ifn)), table(3,ifn)*cos(($M_PI/180)*table(2,ifn))*sin(($M_PI/180)*table(1,ifn)),table(3,ifn)*sin(($M_PI/180)*table(2,ifn))
+ispeaker[] fillarray 0, table(3,ifn)*cos(($M_PI/180)*table(2,ifn))*cos(($M_PI/180)*table(1,ifn)), table(3,ifn)*cos(($M_PI/180)*table(2,ifn))*sin(($M_PI/180)*table(1,ifn)),table(3,ifn)*sin(($M_PI/180)*table(2,ifn))
 idsmax	 table 0,ifn
 kdist =		kdist+0.000001
 kfade	=		.5*(1 - exp(-abs(kdist)))
@@ -483,7 +483,7 @@ kel = $M_PI*kel/180
 kx = kdist*cos(kel)*cos(kaz)
 ky = kdist*cos(kel)*sin(kaz)
 kz = kdist*sin(kel)
-ispeaker[] array 0, table(3,ifn)*cos(($M_PI/180)*table(2,ifn))*cos(($M_PI/180)*table(1,ifn)), table(3,ifn)*cos(($M_PI/180)*table(2,ifn))*sin(($M_PI/180)*table(1,ifn)),table(3,ifn)*sin(($M_PI/180)*table(2,ifn)),
+ispeaker[] fillarray 0, table(3,ifn)*cos(($M_PI/180)*table(2,ifn))*cos(($M_PI/180)*table(1,ifn)), table(3,ifn)*cos(($M_PI/180)*table(2,ifn))*sin(($M_PI/180)*table(1,ifn)),table(3,ifn)*sin(($M_PI/180)*table(2,ifn)),
 table(6,ifn)*cos(($M_PI/180)*table(5,ifn))*cos(($M_PI/180)*table(4,ifn)), table(6,ifn)*cos(($M_PI/180)*table(5,ifn))*sin(($M_PI/180)*table(4,ifn)),table(6,ifn)*sin(($M_PI/180)*table(5,ifn))
 
 idsmax	 table 0,ifn
@@ -506,7 +506,7 @@ kel = $M_PI*kel/180
 kx = kdist*cos(kel)*cos(kaz)
 ky = kdist*cos(kel)*sin(kaz)
 kz = kdist*sin(kel)
-ispeaker[] array 0, table(3,ifn)*cos(($M_PI/180)*table(2,ifn))*cos(($M_PI/180)*table(1,ifn)), table(3,ifn)*cos(($M_PI/180)*table(2,ifn))*sin(($M_PI/180)*table(1,ifn)),table(3,ifn)*sin(($M_PI/180)*table(2,ifn)),
+ispeaker[] fillarray 0, table(3,ifn)*cos(($M_PI/180)*table(2,ifn))*cos(($M_PI/180)*table(1,ifn)), table(3,ifn)*cos(($M_PI/180)*table(2,ifn))*sin(($M_PI/180)*table(1,ifn)),table(3,ifn)*sin(($M_PI/180)*table(2,ifn)),
 table(6,ifn)*cos(($M_PI/180)*table(5,ifn))*cos(($M_PI/180)*table(4,ifn)), table(6,ifn)*cos(($M_PI/180)*table(5,ifn))*sin(($M_PI/180)*table(4,ifn)),table(6,ifn)*sin(($M_PI/180)*table(5,ifn)),
 table(9,ifn)*cos(($M_PI/180)*table(8,ifn))*cos(($M_PI/180)*table(7,ifn)), table(9,ifn)*cos(($M_PI/180)*table(8,ifn))*sin(($M_PI/180)*table(7,ifn)),table(9,ifn)*sin(($M_PI/180)*table(8,ifn))
 
@@ -532,7 +532,7 @@ kel = $M_PI*kel/180
 kx = kdist*cos(kel)*cos(kaz)
 ky = kdist*cos(kel)*sin(kaz)
 kz = kdist*sin(kel)
-ispeaker[] array 0, table(3,ifn)*cos(($M_PI/180)*table(2,ifn))*cos(($M_PI/180)*table(1,ifn)), table(3,ifn)*cos(($M_PI/180)*table(2,ifn))*sin(($M_PI/180)*table(1,ifn)),table(3,ifn)*sin(($M_PI/180)*table(2,ifn)),
+ispeaker[] fillarray 0, table(3,ifn)*cos(($M_PI/180)*table(2,ifn))*cos(($M_PI/180)*table(1,ifn)), table(3,ifn)*cos(($M_PI/180)*table(2,ifn))*sin(($M_PI/180)*table(1,ifn)),table(3,ifn)*sin(($M_PI/180)*table(2,ifn)),
 table(6,ifn)*cos(($M_PI/180)*table(5,ifn))*cos(($M_PI/180)*table(4,ifn)), table(6,ifn)*cos(($M_PI/180)*table(5,ifn))*sin(($M_PI/180)*table(4,ifn)),table(6,ifn)*sin(($M_PI/180)*table(5,ifn)),
 table(9,ifn)*cos(($M_PI/180)*table(8,ifn))*cos(($M_PI/180)*table(7,ifn)), table(9,ifn)*cos(($M_PI/180)*table(8,ifn))*sin(($M_PI/180)*table(7,ifn)),table(9,ifn)*sin(($M_PI/180)*table(8,ifn)),
 table(12,ifn)*cos(($M_PI/180)*table(11,ifn))*cos(($M_PI/180)*table(10,ifn)), table(12,ifn)*cos(($M_PI/180)*table(11,ifn))*sin(($M_PI/180)*table(10,ifn)),table(12,ifn)*sin(($M_PI/180)*table(11,ifn))
@@ -561,7 +561,7 @@ kel = $M_PI*kel/180
 kx = kdist*cos(kel)*cos(kaz)
 ky = kdist*cos(kel)*sin(kaz)
 kz = kdist*sin(kel)
-ispeaker[] array 0, table(3,ifn)*cos(($M_PI/180)*table(2,ifn))*cos(($M_PI/180)*table(1,ifn)), table(3,ifn)*cos(($M_PI/180)*table(2,ifn))*sin(($M_PI/180)*table(1,ifn)),table(3,ifn)*sin(($M_PI/180)*table(2,ifn)),
+ispeaker[] fillarray 0, table(3,ifn)*cos(($M_PI/180)*table(2,ifn))*cos(($M_PI/180)*table(1,ifn)), table(3,ifn)*cos(($M_PI/180)*table(2,ifn))*sin(($M_PI/180)*table(1,ifn)),table(3,ifn)*sin(($M_PI/180)*table(2,ifn)),
 table(6,ifn)*cos(($M_PI/180)*table(5,ifn))*cos(($M_PI/180)*table(4,ifn)), table(6,ifn)*cos(($M_PI/180)*table(5,ifn))*sin(($M_PI/180)*table(4,ifn)),table(6,ifn)*sin(($M_PI/180)*table(5,ifn)),
 table(9,ifn)*cos(($M_PI/180)*table(8,ifn))*cos(($M_PI/180)*table(7,ifn)), table(9,ifn)*cos(($M_PI/180)*table(8,ifn))*sin(($M_PI/180)*table(7,ifn)),table(9,ifn)*sin(($M_PI/180)*table(8,ifn)),
 table(12,ifn)*cos(($M_PI/180)*table(11,ifn))*cos(($M_PI/180)*table(10,ifn)), table(12,ifn)*cos(($M_PI/180)*table(11,ifn))*sin(($M_PI/180)*table(10,ifn)),table(12,ifn)*sin(($M_PI/180)*table(11,ifn)),
@@ -593,7 +593,7 @@ kel = $M_PI*kel/180
 kx = kdist*cos(kel)*cos(kaz)
 ky = kdist*cos(kel)*sin(kaz)
 kz = kdist*sin(kel)
-ispeaker[] array 0, table(3,ifn)*cos(($M_PI/180)*table(2,ifn))*cos(($M_PI/180)*table(1,ifn)), table(3,ifn)*cos(($M_PI/180)*table(2,ifn))*sin(($M_PI/180)*table(1,ifn)),table(3,ifn)*sin(($M_PI/180)*table(2,ifn)),
+ispeaker[] fillarray 0, table(3,ifn)*cos(($M_PI/180)*table(2,ifn))*cos(($M_PI/180)*table(1,ifn)), table(3,ifn)*cos(($M_PI/180)*table(2,ifn))*sin(($M_PI/180)*table(1,ifn)),table(3,ifn)*sin(($M_PI/180)*table(2,ifn)),
 table(6,ifn)*cos(($M_PI/180)*table(5,ifn))*cos(($M_PI/180)*table(4,ifn)), table(6,ifn)*cos(($M_PI/180)*table(5,ifn))*sin(($M_PI/180)*table(4,ifn)),table(6,ifn)*sin(($M_PI/180)*table(5,ifn)),
 table(9,ifn)*cos(($M_PI/180)*table(8,ifn))*cos(($M_PI/180)*table(7,ifn)), table(9,ifn)*cos(($M_PI/180)*table(8,ifn))*sin(($M_PI/180)*table(7,ifn)),table(9,ifn)*sin(($M_PI/180)*table(8,ifn)),
 table(12,ifn)*cos(($M_PI/180)*table(11,ifn))*cos(($M_PI/180)*table(10,ifn)), table(12,ifn)*cos(($M_PI/180)*table(11,ifn))*sin(($M_PI/180)*table(10,ifn)),table(12,ifn)*sin(($M_PI/180)*table(11,ifn)),
@@ -628,7 +628,7 @@ kel = $M_PI*kel/180
 kx = kdist*cos(kel)*cos(kaz)
 ky = kdist*cos(kel)*sin(kaz)
 kz = kdist*sin(kel)
-ispeaker[] array 0, table(3,ifn)*cos(($M_PI/180)*table(2,ifn))*cos(($M_PI/180)*table(1,ifn)), table(3,ifn)*cos(($M_PI/180)*table(2,ifn))*sin(($M_PI/180)*table(1,ifn)),table(3,ifn)*sin(($M_PI/180)*table(2,ifn)),
+ispeaker[] fillarray 0, table(3,ifn)*cos(($M_PI/180)*table(2,ifn))*cos(($M_PI/180)*table(1,ifn)), table(3,ifn)*cos(($M_PI/180)*table(2,ifn))*sin(($M_PI/180)*table(1,ifn)),table(3,ifn)*sin(($M_PI/180)*table(2,ifn)),
 table(6,ifn)*cos(($M_PI/180)*table(5,ifn))*cos(($M_PI/180)*table(4,ifn)), table(6,ifn)*cos(($M_PI/180)*table(5,ifn))*sin(($M_PI/180)*table(4,ifn)),table(6,ifn)*sin(($M_PI/180)*table(5,ifn)),
 table(9,ifn)*cos(($M_PI/180)*table(8,ifn))*cos(($M_PI/180)*table(7,ifn)), table(9,ifn)*cos(($M_PI/180)*table(8,ifn))*sin(($M_PI/180)*table(7,ifn)),table(9,ifn)*sin(($M_PI/180)*table(8,ifn)),
 table(12,ifn)*cos(($M_PI/180)*table(11,ifn))*cos(($M_PI/180)*table(10,ifn)), table(12,ifn)*cos(($M_PI/180)*table(11,ifn))*sin(($M_PI/180)*table(10,ifn)),table(12,ifn)*sin(($M_PI/180)*table(11,ifn)),
@@ -666,7 +666,7 @@ kel = $M_PI*kel/180
 kx = kdist*cos(kel)*cos(kaz)
 ky = kdist*cos(kel)*sin(kaz)
 kz = kdist*sin(kel)
-ispeaker[] array 0, table(3,ifn)*cos(($M_PI/180)*table(2,ifn))*cos(($M_PI/180)*table(1,ifn)), table(3,ifn)*cos(($M_PI/180)*table(2,ifn))*sin(($M_PI/180)*table(1,ifn)),table(3,ifn)*sin(($M_PI/180)*table(2,ifn)),
+ispeaker[] fillarray 0, table(3,ifn)*cos(($M_PI/180)*table(2,ifn))*cos(($M_PI/180)*table(1,ifn)), table(3,ifn)*cos(($M_PI/180)*table(2,ifn))*sin(($M_PI/180)*table(1,ifn)),table(3,ifn)*sin(($M_PI/180)*table(2,ifn)),
 table(6,ifn)*cos(($M_PI/180)*table(5,ifn))*cos(($M_PI/180)*table(4,ifn)), table(6,ifn)*cos(($M_PI/180)*table(5,ifn))*sin(($M_PI/180)*table(4,ifn)),table(6,ifn)*sin(($M_PI/180)*table(5,ifn)),
 table(9,ifn)*cos(($M_PI/180)*table(8,ifn))*cos(($M_PI/180)*table(7,ifn)), table(9,ifn)*cos(($M_PI/180)*table(8,ifn))*sin(($M_PI/180)*table(7,ifn)),table(9,ifn)*sin(($M_PI/180)*table(8,ifn)),
 table(12,ifn)*cos(($M_PI/180)*table(11,ifn))*cos(($M_PI/180)*table(10,ifn)), table(12,ifn)*cos(($M_PI/180)*table(11,ifn))*sin(($M_PI/180)*table(10,ifn)),table(12,ifn)*sin(($M_PI/180)*table(11,ifn)),

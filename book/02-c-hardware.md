@@ -398,7 +398,7 @@ instr 1
   //use this value as varying frequency for a sine wave
   aOut = poscil:a(0.2, kFreq)
   //output
-  outall(aOut)´
+  outall(aOut)
 endin
 
 </CsInstruments>

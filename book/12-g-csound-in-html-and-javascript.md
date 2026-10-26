@@ -438,7 +438,7 @@ instr MasterOutput
   ainright inleta "inright"
   aoutleft = gk_MasterLevel * ainleft
   aoutright = gk_MasterLevel * ainright
-  outs aoutleft, aoutright
+  out aoutleft, aoutright
   prints "instr %4d t %9.4f d %9.4f k %9.4f v %9.4f p %9.4f\n", \
           p1, p2, p3, p4, p5, p7
 endin

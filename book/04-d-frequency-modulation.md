@@ -293,7 +293,7 @@ instr 1; basic FM using the foscil opcode
  kMod = 1
  kIndex randomi 1, 2, 20
  aFM foscil 0.1, kDenominator, kCar, kMod, kIndex, giSine
- outs aFM, aFM
+ out aFM, aFM
 endin
 
 instr 2; basic FM with jumping (noisy) Denominator value
@@ -302,7 +302,7 @@ instr 2; basic FM with jumping (noisy) Denominator value
  kMod = 1
  kIndex randomi 1, 2, 20
  aFM foscil 0.1, kDenominator, kCar, kMod, kIndex, giSine
- outs aFM, aFM
+ out aFM, aFM
 endin
 
 instr 3; basic FM with jumping Denominator and moving Modulator
@@ -311,7 +311,7 @@ instr 3; basic FM with jumping Denominator and moving Modulator
  kMod randomi 0, 5, 100, 3
  kIndex randomi 1, 2, 20
  aFM foscil 0.1, kDenominator, kCar, kMod, kIndex, giSine
-outs aFM, aFM
+out aFM, aFM
 endin
 
 </CsInstruments>
@@ -319,7 +319,6 @@ endin
 i 1 0 10
 i 2 12 10
 i 3 24 10
-</CsInstruments>
 </CsScore>
 </CsoundSynthesizer>
 ;example by Marijana Janevska
@@ -394,7 +393,7 @@ instr serial_MM_FM
  kAmpMod1 linseg 400, 15, 1800
  aModulator1 poscil kAmpMod1, 290+aModulator2
  aCarrier poscil 0.2, 440+aModulator1
- outs aCarrier, aCarrier
+ out aCarrier, aCarrier
 endin
 
 </CsInstruments>
@@ -429,7 +428,7 @@ instr FM_two_carriers
  aModulator poscil 100, randomi:k(10,15,1,3)
  aCarrier1 poscil 0.3, 700 + aModulator
  aCarrier2 poscil 0.1, 701 + aModulator
- outs aCarrier1+aCarrier2, aCarrier1+aCarrier2
+ out aCarrier1+aCarrier2, aCarrier1+aCarrier2
 endin
 
 </CsInstruments>
@@ -470,7 +469,7 @@ instr simple_trumpet
  aModAmp = kMinDev+kVarDev*aEnv
  aModulator poscil aModAmp, kModFreq
  aCarrier poscil 0.3*aEnv, kCarFreq+aModulator
- outs aCarrier, aCarrier
+ out aCarrier, aCarrier
 endin
 
 </CsInstruments>
@@ -509,7 +508,7 @@ instr bell_like
  aModAmp = kMinDev+kVarDev*aEnv
  aModulator poscil aModAmp, kModFreq
  aCarrier poscil 0.3*aEnv, kCarFreq+aModulator
- outs aCarrier, aCarrier
+ out aCarrier, aCarrier
 endin
 
 </CsInstruments>
@@ -592,7 +591,7 @@ instr feedback_PM
  aPhase phasor kCarFreq
  aCarrier init 0 ; init for feedback
  aCarrier tablei aPhase+(aCarrier*kFeedbackAmountEnv), giSine, 1, 0, 1
- outs aCarrier*aAmpEnv, aCarrier*aAmpEnv
+ out aCarrier*aAmpEnv, aCarrier*aAmpEnv
 endin
 
 </CsInstruments>

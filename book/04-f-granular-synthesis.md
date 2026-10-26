@@ -350,7 +350,7 @@ instr 1
   ; formants are mixed
   aMix     sum       aForm1,aForm2,aForm3,aForm4,aForm5
   kEnv     linseg    0,3,1,p3-6,1,3,0     ; an amplitude envelope
-           outs      aMix*kEnv*0.3, aMix*kEnv*0.3 ; send audio to outputs
+           out       aMix*kEnv*0.3, aMix*kEnv*0.3 ; send audio to outputs
 endin
 
 </CsInstruments>

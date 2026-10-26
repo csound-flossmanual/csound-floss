@@ -99,7 +99,7 @@ other side by 0 minus the same variable like this:
 
     aSigL  =    aSig * (1 – kPan)
     aSigR  =    aSig * kPan
-           outs aSigL, aSigR
+           out aSigL, aSigR
 
 kPan should be a value within the range _zero_ and _one_. If kPan is 0 all of
 the signal will be in the left channel, if it is 1, all of the signal
@@ -118,7 +118,7 @@ signal like this:
 
     aSigL  =     aSig * sqrt((1 – kPan))
     aSigR  =     aSig * sqrt(kPan)
-           outs  aSigL, aSigR
+           out  aSigL, aSigR
 
 By doing this, the straight line function of the input panning variable
 becomes a convex curve, so that less power is lost as the sound is
@@ -131,7 +131,7 @@ below.
 
     aSigL  =     aSig * cos(kPan*$M_PI_2)
     aSigR  =     aSig * sin(kPan*$M_PI_2)
-           outs  aSigL, aSigR
+           out  aSigL, aSigR
 
 (Note that _\\$M_PI_2_ is one of
 [Csound\'s built in macros](https://csound.com/docs/manual/define.html)
@@ -147,7 +147,7 @@ using the following code:
 
     aSigL  =     aSig * cos((kPan + 0.5) * $M_PI_2)
     aSigR  =     aSig * sin((kPan + 0.5) * $M_PI_2)
-           outs  aSigL, aSigR
+           out  aSigL, aSigR
 
 The following example demonstrates all these methods one after the other
 for comparison. Panning movement is controlled by a slow moving LFO. The
@@ -204,7 +204,7 @@ aPanR   =  sin((aPan + 0.5) * $M_PI_2)
 ;------------------------------------------------------------
  endif
 
-         outs    a1*aPanL, a1*aPanR ; audio sent to outputs
+         out     a1*aPanL, a1*aPanR ; audio sent to outputs
   endin
 
 </CsInstruments>
@@ -256,7 +256,7 @@ aPan           =         aPan + 0.5       ; DC shifted + 0.5
 aSigL, aSigR   pan2      aSig, aPan, imethod; create stereo panned output
 ;------------------------------------------------------------------------
 
-               outs      aSigL, aSigR     ; audio sent to outputs
+               out       aSigL, aSigR     ; audio sent to outputs
   endin
 
 </CsInstruments>
@@ -283,7 +283,7 @@ Newer ones are
 [hrtfmove](https://csound.com/docs/manual/hrtfmove.html),
 [hrtfmove2](https://csound.com/docs/manual/hrtfmove2.html)
 and
-[hrtfstat](https://csound.com/docs/manual/hrtfstat.html).
+[hrtfstat](https://csound.com/manual/opcodes/hrtfstat/).
 The main parameters for control of the opcodes are azimuth (the
 horizontal direction of the source expressed as an angle formed from the
 direction in which we are facing) and elevation (the angle by which the
@@ -335,7 +335,7 @@ kAz            linseg      0, 8, 360
 kElev          linseg      0, 8,   0, 4, 90, 8, -40, 4, 0
 ; apply hrtfmove2 opcode to audio source - create stereo ouput
 aLeft, aRight  hrtfmove2   aSig, kAz, kElev, gS_HRTF_left, gS_HRTF_right
-               outs        aLeft, aRight                 ; audio to outputs
+               out         aLeft, aRight                 ; audio to outputs
 endin
 
 </CsInstruments>
@@ -366,8 +366,8 @@ Csound will render any multi-channel file independently from your sound card.
 ## Sending Multichannel Sound to the Loudspeakers
 
 In order to send multichannel audio or render a multichannel file we must use opcodes designed for that task. So far we have often used
-[outs](https://csound.com/docs/manual/outs.html) to send stereo sound to a pair of loudspeakers. The opcode
-[out](https://csound.com/docs/manual/out.html) can also be used, and offers any number of output channels up to the maximum of the _nchnls_ setting in the header of your .csd file.
+[out](https://csound.com/manual/opcodes/out/) to send stereo sound to a pair of loudspeakers. The opcode
+[out](https://csound.com/manual/opcodes/out/) can also be used, and offers any number of output channels up to the maximum of the _nchnls_ setting in the header of your .csd file.
 
 So for _nchnls=2_ the maximum output is stereo:
 
@@ -701,10 +701,10 @@ nchnls = 8
   instr 1
 Sfile      =          "ClassGuit.wav"
 p3         filelen    Sfile
-aSnd[]     diskin     Sfile
+aSnd, aRight diskin     Sfile
 kAzim      line       0, p3, 360 ;counterclockwise (!)
 iSetup     =          4 ;octogon
-aw, ax, ay, az bformenc1 aSnd[0], kAzim, 0
+aw, ax, ay, az bformenc1 aSnd, kAzim, 0
 a1, a2, a3, a4, a5, a6, a7, a8 bformdec1 iSetup, aw, ax, ay, az
            out        a1, a2, a3, a4, a5, a6, a7, a8
   endin
@@ -716,6 +716,9 @@ i 1 0 1
 ;example by joachim heintz
 ```
 
+The _diskin_ opcode reads the stereo file into _aSnd_ (left) and
+_aRight_ (right). This example encodes the left channel.
+
 The first thing to note is that for a counterclockwise circle, the
 azimuth now has the line 0 -\> 360, instead of 0 -\> -360 as was used in
 the VBAP example. This is because Ambisonics usually reads the angle in
@@ -724,7 +727,7 @@ encoding process is carried out in the line:
 
     aw, ax, ay, az bformenc1 aSnd, kAzim, 0
 
-Input arguments are the monophonic sound source _aSnd[0]_, the xy-angle
+Input arguments are the monophonic sound source _aSnd_, the xy-angle
 _kAzim_, and the elevation angle which is set to zero. Output signals
 are the spatial information in x-, y- and z- direction (_ax, ay, az_),
 and also an omnidirectional signal called _aw_.
@@ -767,16 +770,16 @@ ksmps = 32
 nchnls = 8
 
   instr 1 ;first order
-aSnd[]     diskin     "ClassGuit.wav"
+aSnd, aRight diskin     "ClassGuit.wav"
 kAzim      line       0, p3, 360
 iSetup     =          4 ;octogon
-aw, ax, ay, az bformenc1 aSnd[0], kAzim, 0
+aw, ax, ay, az bformenc1 aSnd, kAzim, 0
 a1, a2, a3, a4, a5, a6, a7, a8 bformdec1 iSetup, aw, ax, ay, az
            out        a1, a2, a3, a4, a5, a6, a7, a8
   endin
 
   instr 2 ;second order
-aSnd[]     diskin     "ClassGuit.wav"
+aSnd, aRight diskin     "ClassGuit.wav"
 kAzim      line       0, p3, 360
 iSetup     =          4 ;octogon
 aw, ax, ay, az, ar, as, at, au, av bformenc1 aSnd, kAzim, 0
@@ -786,7 +789,7 @@ a1, a2, a3, a4, a5, a6, a7, a8 bformdec1 iSetup,
   endin
 
   instr 3 ;third order
-aSnd[]     diskin     "ClassGuit.wav"
+aSnd, aRight diskin     "ClassGuit.wav"
 kAzim      line       0, p3, 360
 iSetup     =          4 ;octogon
 aw,ax,ay,az,ar,as,at,au,av,ak,al,am,an,ao,ap,aq bformenc1 aSnd, kAzim, 0
@@ -1219,10 +1222,10 @@ endop
 ;in-phase-decoding
 opcode  ambi2D_dec_inph, a, ii
 ; weights and norms up to 12th order
-iNorm2D[] array 1,0.75,0.625,0.546875,0.492188,0.451172,0.418945,
+iNorm2D[] fillarray 1,0.75,0.625,0.546875,0.492188,0.451172,0.418945,
                 0.392761,0.370941,0.352394,0.336376,0.322360
 iWeight2D[][] init   12,12
-iWeight2D     array  0.5,0,0,0,0,0,0,0,0,0,0,0,
+iWeight2D     fillarray  0.5,0,0,0,0,0,0,0,0,0,0,0,
         0.666667,0.166667,0,0,0,0,0,0,0,0,0,0,
         0.75,0.3,0.05,0,0,0,0,0,0,0,0,0,
         0.8,0.4,0.114286,0.0142857,0,0,0,0,0,0,0,0,
@@ -1373,8 +1376,7 @@ kdist    line        p6,p3,p7
 endin
 
 instr 10
-a1,a2,a3,a4,
-a5,a6,a7,a8         ambi2D_decode        8,0,45,90,135,180,225,270,315
+a1,a2,a3,a4,a5,a6,a7,a8 ambi2D_decode 8,0,45,90,135,180,225,270,315
         outc    a1,a2,a3,a4,a5,a6,a7,a8
         zacl     0,16
 endin
@@ -1462,8 +1464,7 @@ adop    Doppler  .2*aabs,kdist
 endin
 
 instr 10        ;decode all instruments
-a1,a2,a3,a4,
-a5,a6,a7,a8     ambi2D_dec_inph 5,0,45,90,135,180,225,270,315
+a1,a2,a3,a4,a5,a6,a7,a8     ambi2D_dec_inph 5,0,45,90,135,180,225,270,315
                 outc            a1,a2,a3,a4,a5,a6,a7,a8
 ;               fout "B_format2D.wav",12,zar(0),zar(1),zar(2),zar(3),zar(4),
 ;                                zar(5),zar(6),zar(7),zar(8),zar(9),zar(10)
@@ -1688,7 +1689,7 @@ zakinit 81, 1 ; zak space for up to 81 channels of the 8th order B-format
 opcode    ambi_dec1_inph3, a, iii
 ; weights up to 8th order
 iWeight3D[][] init   8,8
-iWeight3D     array  0.333333,0,0,0,0,0,0,0,
+iWeight3D     fillarray  0.333333,0,0,0,0,0,0,0,
     0.5,0.1,0,0,0,0,0,0,
     0.6,0.2,0.0285714,0,0,0,0,0,
     0.666667,0.285714,0.0714286,0.0079365,0,0,0,0,
@@ -1982,7 +1983,7 @@ kel = $M_PI*kel/180
 kx = kdist*cos(kel)*cos(kaz)
 ky = kdist*cos(kel)*sin(kaz)
 kz = kdist*sin(kel)
-ispeaker[] array 0,
+ispeaker[] fillarray 0,
 table(3,ifn)*cos(($M_PI/180)*table(2,ifn))*cos(($M_PI/180)*table(1,ifn)),
 table(3,ifn)*cos(($M_PI/180)*table(2,ifn))*sin(($M_PI/180)*table(1,ifn)),
 table(3,ifn)*sin(($M_PI/180)*table(2,ifn)),

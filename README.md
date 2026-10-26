@@ -49,6 +49,12 @@ npm run test:watch
 Vitest runs the book checks and playback logic tests. The book checks need
 Pandoc on `PATH`.
 
+The Csound check compiles complete CSD examples in all three books with the site's
+WASM engine and fails on errors or warnings. It also checks the delay example's
+audio output and all four WASM plugins. Native-only plugins and external score
+generators are outside this check. To run it alone, use
+`node scripts/check-csound-examples.mjs`.
+
 ## Dependencies
 
 Use `npm ci` for a clean install from `package-lock.json`. Use `npm install`
@@ -68,6 +74,9 @@ The HTML-to-JSX converter uses current Cheerio and its encoding helper through
 npm overrides. CodeMirror shares one state package to keep extensions compatible.
 MathJax 4 loads from jsDelivr when a chapter contains equations. Csound loads its
 upstream module and embedded WASM as a separate asset when playback starts.
+Playback also loads `@csound/plugins` for Chua, STK, image, and linear algebra
+opcodes. STK includes its raw-wave samples. Examples that need other plugins,
+such as Python or FLTK, still report Csound errors in the console.
 
 ## Contributing
 

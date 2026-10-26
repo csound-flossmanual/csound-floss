@@ -77,7 +77,7 @@ nchnls  =       1
  instr  1
 ; use an expansion of the macro in deriving the duration of the sound file
 idur  filelen   $SOUNDFILE
-      event_i   "i",2,0,idur
+      eventi    "i",2,0,idur
  endin
 
  instr  2

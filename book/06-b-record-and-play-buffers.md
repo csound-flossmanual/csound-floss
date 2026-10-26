@@ -363,7 +363,10 @@ opcode playBuffer, a, ik
  if kplay == 1 then
   aRead table a(kndx), ift
   kndx = (kndx+1) % ftlen(ift)
+ else
+  aRead = 0
  endif
+ xout aRead
 endop
 
 
