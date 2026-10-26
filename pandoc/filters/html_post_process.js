@@ -2,6 +2,7 @@ const R = require("ramda");
 const { DomHandler, DomUtils, Parser } = require("htmlparser2");
 const util = require("util");
 const { buildLink } = require("../utils");
+const { nameExamples } = require("../examples");
 
 const isAbsoluteUrl = (url) => /^https?:\/\//i.test(url);
 
@@ -55,7 +56,7 @@ const insertLinkElement = (dom) => {
         elem.name = "Link";
         elem.attribs = R.pipe(
           R.assoc("to", buildLink(elem.attribs.href).url),
-          R.dissoc("href")
+          R.dissoc("href"),
         )(elem.attribs || {});
       }
     });
@@ -101,6 +102,7 @@ const fixCodeTags = (dom) => {
         elem.attribs.data = DomUtils.getText(elem);
         // console.log(elem.attribs.data);
         elem.attribs = {
+          ...(elem.attribs.filename ? { filename: elem.attribs.filename } : {}),
           data:
             "REPLACEME_BEG" +
             escapeCodeData(elem.attribs.data) +
@@ -137,7 +139,7 @@ const wrapMathJax = (dom) => {
   try {
     DomUtils.findAll(
       (elem) => R.pathOr("", ["attribs", "class"], elem).startsWith("math"),
-      dom
+      dom,
     ).forEach((elem) => {
       if (R.hasPath(["children", 0, "data"], elem)) {
         elem.name = "MathJax.Node";
@@ -148,9 +150,9 @@ const wrapMathJax = (dom) => {
               .replace(/\\\[/g, "")
               .replace(/\\\(/g, "")
               .replace(/\\\)/g, "")
-              .replace(/\\\]/g, "")
+              .replace(/\\\]/g, ""),
           ),
-          R.assoc("inline", "true")
+          R.assoc("inline", "true"),
         )(elem.attribs);
         elem.children = [];
       }
@@ -165,20 +167,24 @@ module.exports = (htmlString, fileName = "unknown file", lang = null) => {
   try {
     return R.pipe(
       parse,
+      (dom) => {
+        nameExamples(dom, fileName);
+        return dom;
+      },
       insertLinkElement,
       fixPreTags,
       fixCodeTags,
       wrapMathJax,
       (dom) => fixImagePaths(dom, lang),
       (elems) =>
-        DomUtils.getOuterHTML(elems, { decodeEntities: true, xmlMode: true })
+        DomUtils.getOuterHTML(elems, { decodeEntities: true, xmlMode: true }),
     )(htmlString);
   } catch (error) {
     console.error(`Error in HTML post-processing pipeline for ${fileName}:`);
     console.error(`Error details:`, error.message);
     console.error(`Stack trace:`, error.stack);
     throw new Error(
-      `HTML post-processing failed for ${fileName}: ${error.message}`
+      `HTML post-processing failed for ${fileName}: ${error.message}`,
     );
   }
 };

@@ -1,94 +1,64 @@
+import { useState } from "react";
 import { Button } from "@chakra-ui/react";
+import {
+  DownloadSimpleIcon,
+  TerminalWindowIcon,
+  CircleNotchIcon,
+} from "@phosphor-icons/react";
 import useCsound from "../../CsoundContext";
-import PlayIcon from "../../assets/play.svg";
-import PauseIcon from "../../assets/pause.svg";
-import StopIcon from "../../assets/stop.svg";
-import LogIcon from "../../assets/logs_icon_wikimedia.svg";
-import * as ß from "./styles";
+import Transport from "../Console/Transport";
+import { controls } from "../Console/styles";
 
-const PlayControlsLoadingSpinner = () => (
-  <div
-    style={{
-      backgroundColor: "unset",
-      height: "100%",
-      display: "flex",
-      justifyContent: "center",
-      border: "none",
-    }}
-  >
-    <div css={ß.playLoadingSpinner} />
-  </div>
-);
-
-const PlayControls = ({ initialEditorState, currentEditorState }) => {
-  const [
-    {
-      playback,
-      isLoading,
-      isPaused,
-      isPlaying,
-      isRendering,
-      logDialogClosed,
-      logDialogOpen,
-    },
-    csoundDispatch,
-  ] = useCsound();
-  const onPlay = () =>
-    isPaused
-      ? playback.resume()
-      : playback.play(currentEditorState ?? initialEditorState);
+export default function PlayControls({
+  initialEditorState,
+  currentEditorState,
+  filename = "example.csd",
+}) {
+  const [{ logDialogOpen }, dispatch] = useCsound();
+  const [downloading, setDownloading] = useState(false);
+  const [error, setError] = useState("");
+  const source = currentEditorState ?? initialEditorState;
+  const download = async () => {
+    setDownloading(true);
+    setError("");
+    try {
+      const { downloadExample } = await import("../../csound/download");
+      await downloadExample(source, filename);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setDownloading(false);
+    }
+  };
   return (
-    <div css={ß.controllers}>
-      <Button
-        onClick={onPlay}
-        disabled={isPlaying || isLoading}
-        variant="outline"
-      >
-        {isLoading ? (
-          <PlayControlsLoadingSpinner />
-        ) : (
-          <img
-            alt="play"
-            src={PlayIcon}
-            style={{ height: 40, width: 20, marginLeft: 1 }}
-          />
-        )}
-      </Button>
-      <Button
-        onClick={() => playback.pause()}
-        style={{ marginLeft: 3 }}
-        disabled={!isPlaying || isLoading || isRendering}
-        variant="outline"
-      >
-        <img alt="pause" src={PauseIcon} style={{ height: 30, width: 20 }} />
-      </Button>
-      <Button
-        onClick={() => playback.stop()}
-        style={{ marginLeft: 3 }}
-        disabled={!isPlaying && !isPaused}
-        variant="outline"
-      >
-        <img alt="stop" src={StopIcon} style={{ height: 22, width: 22 }} />
-      </Button>
-      <Button
-        onClick={() => csoundDispatch({ type: "OPEN_LOG_DIALOG" })}
-        style={{ marginLeft: 3 }}
-        disabled={logDialogOpen || (!logDialogOpen && !logDialogClosed)}
-        variant="outline"
-      >
-        <img
-          alt="console logs"
-          src={LogIcon}
-          style={{
-            height: 22,
-            width: 22,
-            marginTop: 5,
-            filter: "unset",
-          }}
-        />
-      </Button>
-    </div>
+    <>
+      <div css={controls} className="editor-controls">
+        <Transport source={source} filename={filename} />
+        <Button
+          variant="outline"
+          aria-label="Open console"
+          title="Open WebAssembly console"
+          disabled={logDialogOpen}
+          onClick={() => dispatch({ type: "OPEN_LOG_DIALOG" })}
+        >
+          <TerminalWindowIcon size={20} />
+        </Button>
+        <Button
+          variant="outline"
+          className="download"
+          onClick={download}
+          disabled={downloading}
+          title="Download this code and its samples as a ZIP"
+        >
+          {downloading ? (
+            <CircleNotchIcon size={18} className="loading" />
+          ) : (
+            <DownloadSimpleIcon size={18} />
+          )}
+          {downloading ? "Preparing…" : "Download ZIP"}
+        </Button>
+      </div>
+      {error && <p role="alert">{error}</p>}
+    </>
   );
-};
-
-export default PlayControls;
+}

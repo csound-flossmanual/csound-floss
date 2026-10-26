@@ -1,7 +1,7 @@
 const { buildAllHtml } = require("./build_all_html");
 
 async function main() {
-  for (const lang of ["en", "fr", "fa"]) buildAllHtml(lang);
+  for (const lang of ["en", "fr", "fa"]) await buildAllHtml(lang);
   const { build } = await import("vite");
   await build();
 }

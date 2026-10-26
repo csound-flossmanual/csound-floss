@@ -26,6 +26,19 @@ The build writes the website to `build/`. Vite handles JSX and bundles the
 site without Babel. To rebuild only the frontend after generating chapters,
 run `npm run build:site`.
 
+Chapter builds also create a ZIP of examples and referenced samples for each
+language in `public/examples/`. The home pages link to these archives.
+Each editor's **Download ZIP** button saves its current code and the bundled
+samples and include files it uses. Extract the whole ZIP before running a CSD;
+keep its folders together. Files created by earlier examples, custom files,
+and filenames built at runtime may need to be supplied separately.
+
+The floating WebAssembly console shows the running filename and playback
+controls. Its spectrogram and MIDI keyboard expand below the log. The keyboard
+sends notes to the selected MIDI channel when the example enables MIDI input
+(for example, with `-M0`). Focus the piano to play with the home row; Z and X
+change octave. Typing in an editor never plays notes.
+
 Document builds resolve chapter links against the exported headings and fail on
 unresolved links or Pandoc warnings. Links to chapters not yet translated open
 the English website.

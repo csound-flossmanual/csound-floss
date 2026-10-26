@@ -15,7 +15,7 @@ import PlayControls from "./PlayControls";
 import { csoundTheme } from "./csound-theme";
 import * as ß from "./styles";
 
-const CodeElement = ({ data, lang }) => {
+const CodeElement = ({ data, lang, filename = "example.csd" }) => {
   const editorReference = useRef(null);
   const initialEditorState = decode(data || "");
   const isCsd =
@@ -109,6 +109,7 @@ const CodeElement = ({ data, lang }) => {
     <div css={isCsd ? ß.codeMirror(isCsd) : [ß.codeMirror(isCsd), ß.readOnly]}>
       {isCsd && (
         <PlayControls
+          filename={filename}
           currentEditorState={state}
           initialEditorState={initialEditorState}
         />

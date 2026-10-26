@@ -8,7 +8,7 @@ async function main() {
     [path.resolve(__dirname, "../book-fr"), "fr"],
     [path.resolve(__dirname, "../book-fa"), "fa"],
   ]);
-  for (const lang of books.values()) buildAllHtml(lang);
+  for (const lang of books.values()) await buildAllHtml(lang);
 
   const { createServer } = await import("vite");
   const server = await createServer();
@@ -20,7 +20,7 @@ async function main() {
   const watcher = chokidar.watch([...books.keys(), otherDirectory], {
     ignoreInitial: true,
   });
-  watcher.on("all", (event, file) => {
+  watcher.on("all", async (event, file) => {
     if (!["add", "change", "unlink"].includes(event) || !file.endsWith(".md"))
       return;
     const lang =
@@ -29,7 +29,7 @@ async function main() {
         : books.get(path.dirname(file));
     if (!lang) return;
     try {
-      buildAllHtml(lang);
+      await buildAllHtml(lang);
     } catch (error) {
       console.error(error);
     }
