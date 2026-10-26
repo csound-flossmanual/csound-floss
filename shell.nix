@@ -8,7 +8,7 @@ with import <nixpkgs> {
 };
 
 let
-  texliveDeps = pkgs.texliveSmall.withPackages (ps: with ps; [
+  texliveDeps = (pkgs.texliveSmall.withPackages (ps: with ps; [
     adjustbox
     booktabs
     caption
@@ -46,7 +46,20 @@ let
     xcolor
     xetex
     xkeyval
-  ]);
+  ])).overrideAttrs (old: {
+    # libxslt needs an XML catalog to resolve fontconfig's DTD URN.
+    fontconfigFile = old.fontconfigFile.overrideAttrs (fonts: {
+      buildCommand = ''
+        export XML_CATALOG_FILES=${pkgs.writeText "fontconfig-catalog.xml" ''
+          <?xml version="1.0"?>
+          <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+            <system systemId="urn:fontconfig:fonts.dtd"
+              uri="${pkgs.fontconfig.out}/share/xml/fontconfig/fonts.dtd"/>
+          </catalog>
+        ''}
+      '' + fonts.buildCommand;
+    });
+  });
   deps = with pkgs; [
     fontconfig
     fira
