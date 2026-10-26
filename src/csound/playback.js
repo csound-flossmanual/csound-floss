@@ -47,7 +47,7 @@ export async function collectOutputFiles(engine, originalFiles) {
 }
 
 const createEngine = async (options) => {
-  const { Csound } = await import("@csound/browser");
+  const { Csound } = await import("./engine");
   return Csound(options);
 };
 const createContext = () => {

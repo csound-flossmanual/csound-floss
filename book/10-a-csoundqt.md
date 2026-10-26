@@ -54,11 +54,11 @@ it, and display it in the _HTML5 Gui_ window. HTML code in this window
 can control Csound via a selected part of the Csound API that is exposed
 in JavaScript. This can be used to define custom user interfaces,
 display video and 3D graphics, generate Csound scores, and much more.
-See chapter [Csound and Html](12-g-csound-and-html.md) for more information.
+See chapter [Csound and Html](12-g-csound-in-html-and-javascript.md) for more information.
 
 CsoundQt also offers convenient facilities for score editing in a
 spreadsheet like environment which can be transformed using Python
-scripting (see also the chapter about [Python in CsoundQt](14-b-python-in-csoundqt.md)).
+scripting (see also the chapter about [Python in CsoundQt](14-d-python-in-csoundqt.md)).
 
 ![](../resources/images/10-a-snapshot3.png)
 

@@ -1011,7 +1011,7 @@ been shown at some basic examples. This feature is really substantial
 for writing digital filters. This can perfectly be done in the Csound
 language itself. The next example shows an implementation of the zero
 delay state variable filter by Steven Yi. In his collection at
-[www.github.com/kunstmusik/libsyi](www.github.com/kunstmusik/libsyi)
+[www.github.com/kunstmusik/libsyi](https://www.github.com/kunstmusik/libsyi)
 more details and other implementaions can be found. --- Note also that
 this code is another example of overloading a UDO definition. The same opcode
 name is defined here twice; first with the input types aKK (one audio

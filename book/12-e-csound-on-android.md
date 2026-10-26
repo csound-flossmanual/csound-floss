@@ -51,7 +51,7 @@ Csound object with a JavaScript interface that implements useful functions
 of the Csound API. This can be used to control Csound from JavaScript, handle
 events from HTML user interfaces, generate scores, and do many other things.
 For a more complete introduction to the use of HTML with Csound,
-see [12 G](12-g-csound-and-html.md).
+see [12 G](12-g-csound-in-html-and-javascript.md).
 
 The app has some limitations and missing features compared with the
 longer-established platforms:
@@ -353,7 +353,7 @@ That's it!
 This section shows how to use the built-in widgets of the Csound for
 Android app for controlling Csound in performance. For instructions on
 how to use the `<html>` element of the CSD file to create custom user
-interfaces, see the [Csound and HTML](12-g-csound-and-html.md) chapter of
+interfaces, see the [Csound and HTML](12-g-csound-in-html-and-javascript.md) chapter of
 this book.
 
 The Csound for Android app provides access to a set of predefined

@@ -4,7 +4,7 @@
 
 Csound has a default system for instrument triggering via midi. Provided
 a midi keyboard has been connected and the appropriate command line
-flags for midi input have been set (see [configuring midi](02-c-configuring-midi.md)
+flags for midi input have been set (see [configuring midi](02-c-hardware.md#midi-devices)
 for further information),
 then midi notes received on midi
 channel 1 will trigger instrument 1, notes on channel 2 will trigger

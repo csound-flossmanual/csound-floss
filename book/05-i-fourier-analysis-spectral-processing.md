@@ -216,7 +216,7 @@ i 2 3 10
 You should hear first the _fox.wav_ sample, and then the slightly
 delayed live input signal. The delay (or latency) that you will observe
 will depend first of all on the general settings for realtime input
-(ksmps, -b and -B: see chapter [02 D](02-d-live-audio.md)),
+(ksmps, -b and -B: see chapter [Hardware](02-c-hardware.md)),
 but it will also be added to by the FFT process.
 The window size here is 1024 samples, so the additional delay is 1024/44100 = 0.023 seconds.
 If you change the window size _gifftsiz_ to 2048 or to 512 samples, you should notice a larger or

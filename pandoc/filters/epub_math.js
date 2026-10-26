@@ -1,30 +1,27 @@
 #!/usr/bin/env node
 
-const fs = require("fs");
-const path = require("path");
 const { stdio } = require("pandoc-filter");
-const R = require("ramda");
 
 function processMathContent(mathContent) {
   // Clean up the math content and handle multi-line equations
   let cleaned = mathContent.trim();
 
-  // If the content contains \\, wrap it in an align* environment for proper LaTeX
-  if (cleaned.includes("\\\\")) {
+  // If the content contains \\, wrap it in an aligned environment for proper LaTeX
+  if (cleaned.includes("\\\\") && !cleaned.includes("\\begin{")) {
     // Split by \\ and join with proper line breaks for align environment
     const lines = cleaned
       .split("\\\\")
       .map((line) => line.trim())
       .filter((line) => line.length > 0);
-    cleaned = `\\begin{align*}\n${lines.join(" \\\\\n")}\n\\end{align*}`;
+    cleaned = `\\begin{aligned}\n${lines.join(" \\\\\n")}\n\\end{aligned}`;
   }
 
   return cleaned;
 }
 
 function action({ t: type, c: value }, format, meta) {
-  // Only process for EPUB format
-  if (format !== "epub" && format !== "epub3") {
+  // All document writers need valid display-math environments.
+  if (!["epub", "epub3", "odt", "latex"].includes(format)) {
     return;
   }
 
