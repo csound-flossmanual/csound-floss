@@ -28,6 +28,13 @@ jobs:
           cp -rf $(nix-build --no-out-link '<nixpkgs>' -A fira)/share/fonts/* \
             $HOME/.local/share/fonts
           fc-cache -f -v
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      # Nix's Yarn uses its bundled Node, so install Yarn under Node 22.
+      - name: Install Yarn
+        run: npm install --global yarn@1.22.22
       - name: Install npm dependencies via yarn
         run: yarn
       - name: Test
