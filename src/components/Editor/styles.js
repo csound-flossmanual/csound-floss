@@ -6,6 +6,9 @@ export const codeMirror = (isCsd) => css`
   margin-top: 12px;
   white-space: pre-wrap;
   margin-bottom: 24px;
+  & .cm-editor {
+    font-size: calc(1em - 1pt);
+  }
   & .CodeMirror-cursors {
     display: ${isCsd ? "inherit" : "none!important"};
   }

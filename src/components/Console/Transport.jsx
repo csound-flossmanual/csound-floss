@@ -7,7 +7,12 @@ import {
 } from "@phosphor-icons/react";
 import useCsound from "../../CsoundContext";
 
-export default function Transport({ source, filename, labels = false }) {
+export default function Transport({
+  source,
+  filename,
+  labels = false,
+  showPause = true,
+}) {
   const [{ playback, example, isPlaying, isPaused, isLoading, isRendering }] =
     useCsound();
   const name = filename ?? example?.filename;
@@ -31,15 +36,17 @@ export default function Transport({ source, filename, labels = false }) {
         )}
         {labels && (isLoading ? "Working…" : isPaused ? "Resume" : "Play")}
       </Button>
-      <Button
-        variant="outline"
-        aria-label="Pause"
-        disabled={!current || !isPlaying || isLoading || isRendering}
-        onClick={() => playback.pause()}
-      >
-        <PauseIcon size={18} weight="fill" />
-        {labels && "Pause"}
-      </Button>
+      {showPause && (
+        <Button
+          variant="outline"
+          aria-label="Pause"
+          disabled={!current || !isPlaying || isLoading || isRendering}
+          onClick={() => playback.pause()}
+        >
+          <PauseIcon size={18} weight="fill" />
+          {labels && "Pause"}
+        </Button>
+      )}
       <Button
         variant="outline"
         aria-label="Stop"

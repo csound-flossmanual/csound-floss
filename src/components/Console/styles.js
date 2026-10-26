@@ -94,12 +94,19 @@ export const panel = css`
     0 2px 8px #36244918;
   font-family: system-ui, sans-serif;
   font-size: 13px;
+  line-height: 1.4;
   overflow: hidden;
+  && .transport button {
+    height: 32px;
+    min-height: 32px;
+    padding: 0 10px;
+    font-size: 12px;
+  }
   .console-header {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 12px 14px 8px;
+    gap: 6px;
+    padding: 8px 8px 4px;
     flex-shrink: 0;
     cursor: grab;
   }
@@ -110,7 +117,7 @@ export const panel = css`
     color: #6f519b;
     background: #eee8f5;
     border-radius: 8px;
-    padding: 7px;
+    padding: 5px;
     flex-shrink: 0;
   }
   .console-title {
@@ -121,19 +128,23 @@ export const panel = css`
     display: block;
     color: #72677c;
     font-size: 11px;
-    margin-bottom: 3px;
+    line-height: 14px;
+    margin: 0;
   }
   .console-title strong {
     display: block;
     font-size: 14px;
+    line-height: 18px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
-  .icon-button {
+  && .icon-button {
     padding: 0;
-    width: 36px;
-    min-height: 36px;
+    width: 28px;
+    min-width: 28px;
+    height: 28px;
+    min-height: 28px;
     border: 0;
     background: transparent;
   }
@@ -142,8 +153,8 @@ export const panel = css`
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: 10px;
-    padding: 4px 14px 12px;
+    gap: 6px;
+    padding: 4px 8px 6px;
     flex-shrink: 0;
   }
   .status {
@@ -165,16 +176,30 @@ export const panel = css`
     box-shadow: 0 0 0 3px #6f519b22;
   }
   .console-body {
-    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
     min-height: 0;
     flex: 1;
+  }
+  .log-pane {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    flex: 1 0 96px;
+  }
+  .tool-content {
+    overflow: auto;
+    min-height: 0;
+    flex: 0 1 auto;
     overscroll-behavior: contain;
   }
   .log-heading {
-    padding: 8px 14px 4px;
+    padding: 0 8px 4px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-shrink: 0;
   }
   .log-heading strong {
     font-size: 10px;
@@ -183,25 +208,27 @@ export const panel = css`
     color: #756b80;
   }
   && .log-heading button {
-    height: 28px;
-    min-height: 28px;
+    height: 24px;
+    min-height: 24px;
     font-size: 10px;
     padding: 0 8px;
   }
   .log {
     white-space: pre-wrap;
     overflow-wrap: anywhere;
-    margin: 0 14px 12px;
-    padding: 10px 12px;
-    height: 100px;
-    min-height: 90px;
+    margin: 0 8px 8px;
+    padding: 8px;
+    flex: 1;
+    min-height: 0;
     overflow: auto;
+    overscroll-behavior: contain;
+    overflow-anchor: none;
     border: 1px solid #e4dfea;
     border-radius: 7px;
     background: #f1eef5;
     color: #4b4059;
     font:
-      11px/1.55 ui-monospace,
+      calc(11px + 1pt)/1.55 ui-monospace,
       monospace;
   }
   .log.empty {
@@ -210,7 +237,7 @@ export const panel = css`
     color: #756b80;
   }
   && .tool-panel {
-    padding: 12px 14px;
+    padding: 10px 8px;
     margin: 0;
     border-top: 1px solid #e4dfea;
   }
@@ -237,18 +264,58 @@ export const panel = css`
     line-height: 1.5;
   }
   .tools {
-    padding: 10px 14px;
+    padding: 6px 8px;
     background: #f5f2f8;
     border-top: 1px solid #e4dfea;
     flex-shrink: 0;
   }
-  .tools button {
-    flex: 1;
+  && .tools button {
+    height: 28px;
+    min-height: 28px;
+    padding: 0 8px;
+    font-size: 11px;
+    gap: 5px;
   }
   @media (max-width: 600px) {
     border-radius: 12px;
-    .console-header {
-      padding-top: 10px;
+    .move-console {
+      display: none;
     }
+  }
+`;
+
+export const minimized = css`
+  position: absolute;
+  right: max(8px, env(safe-area-inset-right));
+  bottom: max(8px, env(safe-area-inset-bottom));
+  width: 340px;
+  max-width: calc(100% - 16px);
+  height: 48px;
+  padding: 6px;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  border-radius: 10px;
+  && .restore-console {
+    height: 32px;
+    min-height: 32px;
+    flex: 1;
+    min-width: 0;
+    justify-content: flex-start;
+    background: transparent;
+    border-color: transparent;
+  }
+  .restore-console span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .transport {
+    flex-shrink: 0;
+  }
+  && .transport button {
+    width: 32px;
+    min-width: 32px;
+    padding: 0;
   }
 `;
