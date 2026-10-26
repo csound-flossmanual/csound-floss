@@ -83,6 +83,8 @@ npm run build
 The dependency update command runs `ncu -u`, including prereleases.
 The Csound editor uses `@kunstmusik/codemirror-lang-csound` for CSD, ORC, and SCO
 syntax, completion, and opcode help. The help catalog loads on demand.
+Unlabelled CSD sections and simple score events also get syntax highlighting;
+other unlabelled code stays plain. Snippets remain read-only.
 The HTML-to-JSX converter uses current Cheerio and its encoding helper through
 npm overrides. CodeMirror shares one state package to keep extensions compatible.
 MathJax 4 loads from jsDelivr when a chapter contains equations. Csound loads its
