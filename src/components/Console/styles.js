@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import { layers } from "../../constants/layers";
 
 export const controls = css`
   display: flex;
@@ -75,7 +76,7 @@ export const controls = css`
 export const layer = css`
   position: fixed;
   inset: 0;
-  z-index: 1200;
+  z-index: ${layers.console};
   pointer-events: none;
 `;
 export const panel = css`

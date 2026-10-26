@@ -4,7 +4,7 @@ import React, { act } from "react";
 import { createRoot } from "react-dom/client";
 import { EditorState } from "@codemirror/state";
 import { getIndentation, syntaxTree } from "@codemirror/language";
-import { EditorView } from "@codemirror/view";
+import { activateHover, EditorView } from "@codemirror/view";
 import { CompletionContext } from "@codemirror/autocomplete";
 import { csound } from "@kunstmusik/codemirror-lang-csound";
 import CodeElement from "../src/components/Editor";
@@ -47,6 +47,7 @@ afterEach(async () => {
   await act(() => root.unmount());
   host.remove();
   vi.clearAllMocks();
+  vi.restoreAllMocks();
 });
 
 async function mount(data, lang) {
@@ -68,6 +69,33 @@ function expectParsed(state, rootName) {
   expect(tree.length).toBe(state.doc.length);
   expect(errors).toEqual([]);
 }
+
+it("contains long opcode help in the scrollable tooltip host", async () => {
+  // jsdom has no text layout; leave positioning to the browser checks.
+  const createRange = document.createRange.bind(document);
+  vi.spyOn(document, "createRange").mockImplementation(() => {
+    const range = createRange();
+    range.getClientRects = () => [];
+    range.getBoundingClientRect = () => new DOMRect();
+    return range;
+  });
+  const view = await mount(csd, "csd");
+  await act(async () => {
+    activateHover(view, csd.indexOf("oscili") + 2, 1);
+    await vi.waitFor(() => {
+      expect(host.querySelector(".cm-csoundHoverTooltip")).not.toBeNull();
+    });
+  });
+  const body = host.querySelector(".cm-csoundHoverTooltip");
+  const tooltip = body.closest(".cm-tooltip");
+  expect(tooltip).not.toBe(body);
+  expect(body.textContent).toContain("Examples");
+  // CodeMirror constrains the host's height when it reaches the viewport edge.
+  tooltip.style.height = "120px";
+  const style = getComputedStyle(tooltip);
+  expect(style.overflowY).toBe("auto");
+  expect(style.backgroundColor).not.toBe("rgba(0, 0, 0, 0)");
+});
 
 it.each([undefined, "", "undefined", "csound", "csd"])(
   "highlights a score section with language label '%s'",
