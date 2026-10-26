@@ -1,6 +1,3 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
-import { jsx } from "@emotion/react";
 import { Button } from "@chakra-ui/react";
 import useCsound from "../../CsoundContext";
 import PlayIcon from "../../assets/play.svg";
@@ -44,7 +41,7 @@ const PlayControls = ({ initialEditorState, currentEditorState }) => {
     <div css={ß.controllers}>
       <Button
         onClick={onPlay}
-        isDisabled={isPlaying || isLoading}
+        disabled={isPlaying || isLoading}
         variant="outline"
       >
         {isLoading ? (
@@ -60,7 +57,7 @@ const PlayControls = ({ initialEditorState, currentEditorState }) => {
       <Button
         onClick={() => playback.pause()}
         style={{ marginLeft: 3 }}
-        isDisabled={!isPlaying || isLoading || isRendering}
+        disabled={!isPlaying || isLoading || isRendering}
         variant="outline"
       >
         <img alt="pause" src={PauseIcon} style={{ height: 30, width: 20 }} />
@@ -68,7 +65,7 @@ const PlayControls = ({ initialEditorState, currentEditorState }) => {
       <Button
         onClick={() => playback.stop()}
         style={{ marginLeft: 3 }}
-        isDisabled={!isPlaying && !isPaused}
+        disabled={!isPlaying && !isPaused}
         variant="outline"
       >
         <img alt="stop" src={StopIcon} style={{ height: 22, width: 22 }} />
@@ -76,7 +73,7 @@ const PlayControls = ({ initialEditorState, currentEditorState }) => {
       <Button
         onClick={() => csoundDispatch({ type: "OPEN_LOG_DIALOG" })}
         style={{ marginLeft: 3 }}
-        isDisabled={logDialogOpen || (!logDialogOpen && !logDialogClosed)}
+        disabled={logDialogOpen || (!logDialogOpen && !logDialogClosed)}
         variant="outline"
       >
         <img

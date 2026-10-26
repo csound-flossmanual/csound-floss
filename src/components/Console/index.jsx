@@ -1,9 +1,6 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
-import { jsx } from "@emotion/react";
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useRef, useState } from "react";
-import StickyEl from "../../vendor/react-sticky-el.min.js";
+import StickyEl from "react-sticky-el";
 import CloseIcon from "../../assets/close.svg";
 import useCsound from "../../CsoundContext";
 import { Rnd } from "react-rnd";

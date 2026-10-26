@@ -1,35 +1,33 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
-import { jsx } from "@emotion/react";
 // eslint-disable-next-line no-unused-vars
 import React from "react";
+// import pwaLogo from "../../assets/pwa_wikimedia.png";
 import wasmLogo from "../../assets/wasm_wikimedia.svg";
 import epubLogo from "../../assets/epub_icon_wikimedia.svg";
 import pdfLogo from "../../assets/pdf_icon_wikimedia.svg";
 import odfLogo from "../../assets/odf_logo_wikimedia.png";
 import { Link } from "react-router-dom";
-import * as ß from "../HomeScreen/styles";
+import * as ß from "./styles";
 import { getRouteConstants } from "../../constants/routes";
 
-const HomeScreenFr = () => (
+const HomeScreen = () => (
   <div css={ß.root}>
     <div style={{ marginBottom: 24 }}>
-      <h1 style={{ marginBottom: 6 }}>{`Le Manuel FLOSS de Csound`}</h1>
+      <h1 style={{ marginBottom: 6 }}>{`The Csound FLOSS Manual`}</h1>
       <h3 style={{ marginTop: 0, fontWeight: 100 }}>
-        {process.env.REACT_APP_CSOUND_FLOSS_VERSION
-          ? `Version: ${process.env.REACT_APP_CSOUND_FLOSS_VERSION}`
+        {import.meta.env.VITE_CSOUND_FLOSS_VERSION
+          ? `Version: ${import.meta.env.VITE_CSOUND_FLOSS_VERSION}`
           : ""}
       </h3>
     </div>
-    <Link to={getRouteConstants("fr").defaultContentRoute} reloadDocument>
+    <Link to={getRouteConstants("en").defaultContentRoute} reloadDocument>
       <img
         src={wasmLogo}
-        alt="Logo WebAssembly"
+        alt="WebAssembly Logo"
         style={{ width: 48, marginBottom: -6 }}
       />
       <p
         style={{ fontSize: 42, fontWeight: 100, lineHeight: 1.2 }}
-      >{`Lire le livre interactif`}</p>
+      >{`Read the interactive book`}</p>
     </Link>
     <div
       style={{
@@ -41,7 +39,7 @@ const HomeScreenFr = () => (
         flexWrap: "wrap",
       }}
     >
-      <Link to={`/`} reloadDocument>
+      <Link to={`/fr`} reloadDocument>
         <p
           style={{
             fontSize: 24,
@@ -49,7 +47,7 @@ const HomeScreenFr = () => (
             lineHeight: 1.2,
             color: "#6f519b",
           }}
-        >{`Read the book in English`}</p>
+        >{`Lire le livre en français`}</p>
       </Link>
       <Link to={`/fa`} reloadDocument>
         <p
@@ -65,38 +63,34 @@ const HomeScreenFr = () => (
     <hr style={{ backgroundColor: "#333", height: 2 }} />
     <div css={ß.grid}>
       <a
-        href={`/build/csound-flossmanual-fr-${
-          process.env.REACT_APP_CSOUND_FLOSS_VERSION || "dev"
+        href={`/build/csound-flossmanual-en-${
+          import.meta.env.VITE_CSOUND_FLOSS_VERSION || "dev"
         }.epub`}
         target="_blank"
         rel="noopener noreferrer"
       >
-        <img
-          src={epubLogo}
-          alt="version epub française"
-          style={{ width: 24 }}
-        />
-        <p>{`Télécharger la version EPUB française`}</p>
+        <img src={epubLogo} alt="epub version" style={{ width: 24 }} />
+        <p>{`Download the EPUB version`}</p>
       </a>
       <a
-        href={`/build/csound-flossmanual-fr-${
-          process.env.REACT_APP_CSOUND_FLOSS_VERSION || "dev"
+        href={`/build/csound-flossmanual-en-${
+          import.meta.env.VITE_CSOUND_FLOSS_VERSION || "dev"
         }.pdf`}
         target="_blank"
         rel="noopener noreferrer"
       >
-        <img src={pdfLogo} alt="version pdf française" style={{ width: 24 }} />
-        <p>{`Télécharger la version PDF française`}</p>
+        <img src={pdfLogo} alt="pdf version" style={{ width: 24 }} />
+        <p>{`Download the PDF version`}</p>
       </a>
       <a
-        href={`/build/csound-flossmanual-fr-${
-          process.env.REACT_APP_CSOUND_FLOSS_VERSION || "dev"
+        href={`/build/csound-flossmanual-en-${
+          import.meta.env.VITE_CSOUND_FLOSS_VERSION || "dev"
         }.odt`}
         target="_blank"
         rel="noopener noreferrer"
       >
-        <img src={odfLogo} alt="version odf française" style={{ width: 24 }} />
-        <p>{`Télécharger la version OpenDocument française`}</p>
+        <img src={odfLogo} alt="odf version" style={{ width: 24 }} />
+        <p>{`Download OpenDocument version`}</p>
       </a>
     </div>
     <div>
@@ -106,10 +100,10 @@ const HomeScreenFr = () => (
         target="_blank"
         rel="noopener noreferrer"
       >
-        <p>{`Liste et fichiers zip de toutes les versions et matériaux`}</p>
+        <p>{`List and zip files of all releases and materials`}</p>
       </a>
     </div>
   </div>
 );
 
-export default HomeScreenFr;
+export default HomeScreen;

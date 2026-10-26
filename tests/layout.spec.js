@@ -1,22 +1,20 @@
-const each = require("jest-each").default;
-const path = require("path");
-const R = require("ramda");
-const chalk = require("chalk");
-const {
+import * as R from "ramda";
+import chalk from "chalk";
+import {
   BOOK_DIRECTORY_EN,
   BOOK_DIRECTORY_FR,
   BOOK_DIRECTORY_FA,
-} = require("../pandoc/constants");
-const fg = require("fast-glob");
+} from "../pandoc/constants";
+import fg from "fast-glob";
 const allChapters = fg.sync(
   [
     `${BOOK_DIRECTORY_EN}/*.md`,
     `${BOOK_DIRECTORY_FR}/*.md`,
     `${BOOK_DIRECTORY_FA}/*.md`,
   ],
-  { dot: false }
+  { dot: false },
 );
-const { execSync } = require("child_process");
+import { execSync } from "node:child_process";
 
 const toBeShorterThanFn = (received, limit) => {
   if (received.length < limit) {
@@ -37,7 +35,7 @@ expect.extend({
   },
 });
 
-each(allChapters).describe(`Testing %s`, (mdPath) => {
+describe.each(allChapters)(`Testing %s`, (mdPath) => {
   let ast = {};
   it("Pandoc can parse it", () => {
     const out = execSync(`pandoc -t json ${mdPath}`, { encoding: "utf-8" });
@@ -49,9 +47,9 @@ each(allChapters).describe(`Testing %s`, (mdPath) => {
 
   it("CodeBlocks lines never exceed 78 characters", () => {
     const codeBlocks = R.pipe(
-      R.filter(R.propEq("t", "CodeBlock")),
+      R.filter(R.propEq("CodeBlock", "t")),
       R.pluck("c"),
-      R.map(R.last)
+      R.map(R.last),
     )(ast);
 
     // Print all possible failures pre-emptively

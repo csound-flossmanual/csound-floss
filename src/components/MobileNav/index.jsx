@@ -1,6 +1,4 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
-import { css, jsx } from "@emotion/react";
+import { css } from "@emotion/react";
 // eslint-disable-next-line no-unused-vars
 import React, { lazy, Suspense, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -21,7 +19,7 @@ import {
   reject,
   replace,
 } from "ramda";
-import StickyMobileNav from "react-sticky-footer";
+import StickyMobileNav from "./StickyFooter";
 import Select from "react-select";
 import routes from "../../book_fragments/routes.json";
 import routesFr from "../../book_fragments_fr/routes.json";
@@ -124,8 +122,8 @@ const createSelectDataSection = (route) =>
 
 const getChapterData = (chapterNum, routesData) => {
   const raw = filter(
-    propEq("chapter", chapterNum),
-    reject(propEq("module", "00--aa-toc"), routesData)
+    propEq(chapterNum, "chapter"),
+    reject(propEq("00--aa-toc", "module"), routesData)
   );
 
   let maybePrepend =
@@ -141,10 +139,10 @@ const getChapterData = (chapterNum, routesData) => {
 
 const getAllChapters = (routesData) => {
   const numChapters = reduce(max, -Infinity, map(prop("chapter"), routesData));
-  const routesWithoutTOC = reject(propEq("module", "00--aa-toc"), routesData);
+  const routesWithoutTOC = reject(propEq("00--aa-toc", "module"), routesData);
   return map((n) =>
     createSelectDataChapter(
-      find(propEq("chapter", n), routesWithoutTOC),
+      find(propEq(n, "chapter"), routesWithoutTOC),
       n || 0
     )
   )(range(0, numChapters + 1));
@@ -163,7 +161,7 @@ function MobileNav() {
   // Map home routes to their default content pages
   const targetUrl = getDefaultContentRoute(currentRoutename);
 
-  const routeIndex = findIndex(propEq("url", targetUrl))(allRoutes);
+  const routeIndex = findIndex(propEq(targetUrl, "url"))(allRoutes);
 
   const currentRoute = allRoutes[routeIndex];
 
@@ -205,7 +203,7 @@ function MobileNav() {
 
   return (
     <StickyMobileNav
-      onMobileNavStateChange={setIsBottomReached}
+      onFooterStateChange={setIsBottomReached}
       bottomThreshold={50}
       normalStyles={{
         zIndex: 1000,

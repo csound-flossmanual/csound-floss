@@ -1,6 +1,6 @@
 name: "CI"
 env:
-  REACT_APP_CSOUND_FLOSS_VERSION: 8.1.1
+  VITE_CSOUND_FLOSS_VERSION: 8.1.1
   LANGUAGES: "en fr fa"
 on:
   push:
@@ -11,9 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: cachix/install-nix-action@v22
+      - uses: cachix/install-nix-action@31.11.3
         with:
-          nix_path: nixpkgs=https://github.com/NixOS/nixpkgs/archive/866431777b6c766cea0db7aad347824d3816be68.tar.gz
+          nix_path: nixpkgs=https://github.com/NixOS/nixpkgs/archive/d3b13ad75cc492690728f9307e443dec9ef9a20e.tar.gz
       - uses: cachix/cachix-action@v14
         with:
           name: csound-flossmanual
@@ -29,15 +29,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "22"
-      # Nix's Yarn uses its bundled Node, so install Yarn under Node 22.
-      - name: Install Yarn
-        run: npm install --global yarn@1.22.22
-      - name: Install npm dependencies via yarn
-        run: yarn
+      - name: Install npm dependencies
+        run: npm ci
       - name: Test
-        run: yarn test:ci
+        run: npm run test:ci
       - name: Build the book website
-        run: yarn build
+        run: npm run build
       - name: Build multi-language documents
         run: |
           mkdir -p build/build
@@ -45,16 +42,16 @@ jobs:
             echo "Building $lang documents..."
 
             # Build PDF
-            LANG=$lang yarn build:pdf
-            mv csound-flossmanual-${lang}.pdf build/build/csound-flossmanual-${lang}-${REACT_APP_CSOUND_FLOSS_VERSION}.pdf
+            LANG=$lang npm run build:pdf
+            mv csound-flossmanual-${lang}.pdf build/build/csound-flossmanual-${lang}-${VITE_CSOUND_FLOSS_VERSION}.pdf
 
             # Build EPUB
-            LANG=$lang yarn build:epub
-            mv csound-flossmanual-${lang}.epub build/build/csound-flossmanual-${lang}-${REACT_APP_CSOUND_FLOSS_VERSION}.epub
+            LANG=$lang npm run build:epub
+            mv csound-flossmanual-${lang}.epub build/build/csound-flossmanual-${lang}-${VITE_CSOUND_FLOSS_VERSION}.epub
 
             # Build ODT
-            LANG=$lang yarn build:odt
-            mv csound-flossmanual-${lang}.odt build/build/csound-flossmanual-${lang}-${REACT_APP_CSOUND_FLOSS_VERSION}.odt
+            LANG=$lang npm run build:odt
+            mv csound-flossmanual-${lang}.odt build/build/csound-flossmanual-${lang}-${VITE_CSOUND_FLOSS_VERSION}.odt
           done
       - name: Compress dist to zip
         run: |

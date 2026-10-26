@@ -1,12 +1,14 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
-import { jsx, css } from "@emotion/react";
+import { css } from "@emotion/react";
 import { equals } from "ramda";
 import React from "react";
-const {
-  enableDynamicTheme,
-  disableDynamicTheme,
-} = require("../../vendor/darkreader.js");
+import {
+  enable as enableDynamicTheme,
+  disable as disableDynamicTheme,
+  setFetchMethod,
+} from "darkreader";
+
+// Let Dark Reader read the font stylesheets through the browser's CORS checks.
+setFetchMethod((url) => fetch(url));
 
 // https://codepen.io/aaroniker/pen/oaQdQZ
 // By: Aaron Iker
@@ -157,7 +159,7 @@ const injectPngBackgroundCSS = () => {
 
   // Create wrapper divs for PNG images instead of CSS
   const pngImages = document.querySelectorAll(
-    'img[src$=".png"], img[src*=".png?"], img[src*=".png#"]'
+    'img[src$=".png"], img[src*=".png?"], img[src*=".png#"]',
   );
 
   pngImages.forEach((img) => {

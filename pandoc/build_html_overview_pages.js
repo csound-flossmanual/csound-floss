@@ -15,18 +15,10 @@ import React, { useEffect } from "react";
 import { Link as ReactLink } from "react-router-dom";
 import {
   Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionPanel,
-  AccordionIcon,
   Box,
   Heading,
   Link,
   List,
-  ListItem,
-  ListIcon,
-  OrderedList,
-  UnorderedList,
   Stack
 } from "@chakra-ui/react";
 import ChapterHOC from "../ChapterHOC";
@@ -35,7 +27,7 @@ import { useTitle } from "../use-title";
 const Chapter = () => {
   useTitle("${title}");
 return (
-   <Stack spacing={6}>`;
+   <Stack gap={6}>`;
 
 const append = `</Stack>
 )};
@@ -68,16 +60,21 @@ const buildOverviewPages = (lang = null) => {
   // Determine language: prioritize argument, fall back to env var, default to 'en'
   const currentLang = lang || process.env.LANG || "en";
   const isFrench = currentLang === "fr";
+  const isFarsi = currentLang === "fa";
 
   // Load language-specific constants
-  const langDirSuffix = isFrench ? "-fr" : "";
-  const fragmentsDirSuffix = isFrench ? "_fr" : "";
+  const langDirSuffix = isFrench ? "-fr" : isFarsi ? "-fa" : "";
+  const fragmentsDirSuffix = isFrench ? "_fr" : isFarsi ? "_fa" : "";
   const bookDirectory = path.resolve(__dirname, `../book${langDirSuffix}`);
   const jsxOutput = path.resolve(
     __dirname,
-    `../src/book_fragments${fragmentsDirSuffix}`
+    `../src/book_fragments${fragmentsDirSuffix}`,
   );
-  const tocFile = isFrench ? "../toc-fr.json" : "../toc.json";
+  const tocFile = isFrench
+    ? "../toc-fr.json"
+    : isFarsi
+      ? "../toc-fa.json"
+      : "../toc.json";
   const toc = require(tocFile);
 
   for (const { chapter, with_overview_page = false, name, url_prefix } of toc) {
@@ -86,9 +83,9 @@ const buildOverviewPages = (lang = null) => {
       const chapterFiles = fg
         .sync([`${bookDirectory}/${chapterPrefix}*.md`], { dot: false })
         .sort();
-      let overviewMarkdown = `<Heading as='h1' fontWeight="400" noOfLines={1}>Chapter ${chapter} overview - ${name}</Heading>`;
+      let overviewMarkdown = `<Heading as='h1' fontWeight="400" lineClamp={1}>Chapter ${chapter} overview - ${name}</Heading>`;
       // overviewMarkdown = `${overviewMarkdown}\n<Heading as='h2'>${name}</Heading>`;
-      overviewMarkdown = `${overviewMarkdown}\n<Accordion sx={{borderColor: "aliceblue"}} allowMultiple>`;
+      overviewMarkdown = `${overviewMarkdown}\n<Accordion.Root css={{borderColor: "aliceblue"}} multiple>`;
       for (const chapterFile of chapterFiles) {
         const content = fs.readFileSync(chapterFile).toString();
         const sectionBasename = path
@@ -102,15 +99,15 @@ const buildOverviewPages = (lang = null) => {
           ? sectionBasename.toLowerCase()
           : sectionBasename;
         const sectionsMatches = Array.from(
-          content.matchAll(/#{1,6}.+(?=\n)/g)
+          content.matchAll(/#{1,6}.+(?=\n)/g),
         ).map((m) => Array.isArray(m) && m[0]);
 
         const sectionNameMatches = sectionsMatches.filter(
-          (s) => typeof s === "string" && /^# .*/.test(s)
+          (s) => typeof s === "string" && /^# .*/.test(s),
         );
 
         const subSectionNameMatches = sectionsMatches.filter(
-          (s) => typeof s === "string" && /^## .*/.test(s)
+          (s) => typeof s === "string" && /^## .*/.test(s),
         );
 
         let sectionName =
@@ -120,18 +117,18 @@ const buildOverviewPages = (lang = null) => {
 
         sectionName = sectionName.replace(cleanHeadingIdRegex, "");
         const sectionNameButton = `<Heading as='h3' margin="0" size="md">
-        <AccordionButton cursor="initial" fontSize="inherit">
+        <Accordion.ItemTrigger cursor="initial" fontSize="inherit">
           <Box as="span" flex='1' textAlign='left'>
            <Link as={ReactLink} to="${url_prefix}/${urlSectionBasename}" color="linkColor">
             ${sectionName}
             </Link>
            </Box>
-          <AccordionIcon cursor="pointer" />
-          </AccordionButton>
+          <Accordion.ItemIndicator cursor="pointer">⌄</Accordion.ItemIndicator>
+          </Accordion.ItemTrigger>
         </Heading>`;
 
-        overviewMarkdown = `${overviewMarkdown}\n<AccordionItem>${sectionNameButton}\n<AccordionPanel>
-          <UnorderedList sx={{listStyleType: "' '", margin: 0, li: {
+        overviewMarkdown = `${overviewMarkdown}\n<Accordion.Item value="${urlSectionBasename}">${sectionNameButton}\n<Accordion.ItemContent><Accordion.ItemBody>
+          <List.Root css={{listStyleType: "' '", margin: 0, "& li": {
              textTransform: "uppercase",
              maxWidth: "70%",
              textOverflow: "ellipsis",
@@ -165,11 +162,11 @@ const buildOverviewPages = (lang = null) => {
             .replace(cleanHeadingIdRegex, "")
             .trim();
           const subsectionId = makeId(subsectionMatch.replace(/#/g, ""));
-          overviewMarkdown = `${overviewMarkdown}<ListItem>
+          overviewMarkdown = `${overviewMarkdown}<List.Item>
            <Link as={ReactLink} color="linkColor" fontSize="17px" fontWeight="600"
             to="${url_prefix}/${urlSectionBasename}#${subsectionId}">${subsectionClean}</Link>\n`;
 
-          overviewMarkdown = `${overviewMarkdown}<UnorderedList p="0">`;
+          overviewMarkdown = `${overviewMarkdown}<List.Root p="0">`;
           const subsubSectionsMd = subsubSections.map((s) => [
             `${(s || "undefined subchapter")
               .replace(/[0-9]_/g, " ")
@@ -181,20 +178,20 @@ const buildOverviewPages = (lang = null) => {
               ([
                 word,
                 id,
-              ]) => `<ListItem maxWidth="100%!important" w="100%"> <Link as={ReactLink}
+              ]) => `<List.Item maxWidth="100%!important" w="100%"> <Link as={ReactLink}
                   color="linkColor" fontSize="15px" fontWeight="400"
-                  to="${url_prefix}/${urlSectionBasename}#${id}">${word}</Link></ListItem>`
+                  to="${url_prefix}/${urlSectionBasename}#${id}">${word}</Link></List.Item>`,
             )
             .join("\n")}`;
-          overviewMarkdown = `${overviewMarkdown}</UnorderedList></ListItem>`;
+          overviewMarkdown = `${overviewMarkdown}</List.Root></List.Item>`;
         }
-        overviewMarkdown = `${overviewMarkdown}\n</UnorderedList></AccordionPanel></AccordionItem>`;
+        overviewMarkdown = `${overviewMarkdown}\n</List.Root></Accordion.ItemBody></Accordion.ItemContent></Accordion.Item>`;
       }
       // const tmpLoc = path.join(tmpdir(), `${chapterPrefix}-overview.md`);
       // fs.writeFileSync(tmpLoc, overviewMarkdown);
       // execMarkdownToHtml(tmpLoc);
 
-      overviewMarkdown = `${overviewMarkdown}\n</Accordion>`;
+      overviewMarkdown = `${overviewMarkdown}\n</Accordion.Root>`;
 
       const jsxPage = `${prepend({
         title: name,
@@ -202,7 +199,7 @@ const buildOverviewPages = (lang = null) => {
       // console.log(jsxPage);
       fs.writeFileSync(
         path.join(jsxOutput, `${chapterPrefix}-overview.jsx`),
-        jsxPage
+        jsxPage,
       );
     }
   }

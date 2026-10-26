@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from "react";
-import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import { ChakraProvider, createSystem, defaultConfig } from "@chakra-ui/react";
 import { BrowserRouter } from "react-router-dom";
 import ResizeObserver from "resize-observer-polyfill";
 import MobileNav from "./components/MobileNav";
@@ -22,29 +22,27 @@ import {
   isHomeRoute,
 } from "./constants/routes";
 
-const theme = {
-  ...extendTheme({
-    fonts: {
-      heading: `'Roboto Condensed', sans-serif`,
-      body: `'Roboto Condensed', sans-serif`,
+const theme = createSystem(defaultConfig, {
+  theme: {
+    tokens: {
+      fonts: {
+        heading: { value: "'Roboto Condensed', sans-serif" },
+        body: { value: "'Roboto Condensed', sans-serif" },
+      },
+      colors: { linkColor: { value: "#6f519b" } },
     },
-    colors: {
-      linkColor: "#6f519b",
-    },
-  }),
-  styles: {
-    global: { a: { color: "#6f519b" } },
   },
-};
+  globalCss: { a: { color: "#6f519b" } },
+});
 
 function App() {
   const initialState = (browserHistory.location.pathname || "").replace(
     /\/$/g,
-    ""
+    "",
   );
 
   const [currentRoute, setCurrentRoute] = useState(
-    isEmpty(initialState) ? "/" : initialState
+    isEmpty(initialState) ? "/" : initialState,
   );
 
   // Determine which language routes we're on
@@ -57,7 +55,7 @@ function App() {
       : routes;
 
   const routeIndex = findIndex(
-    propEq("url", getDefaultContentRoute(currentRoute))
+    propEq(getDefaultContentRoute(currentRoute), "url"),
   )(allRoutes);
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -74,7 +72,7 @@ function App() {
   const mobileMode = windowWidth < 800 && !isHomeRoute(currentRoute);
 
   return (
-    <ChakraProvider theme={theme}>
+    <ChakraProvider value={theme}>
       <BookProvider>
         <CsoundProvider>
           <GuiRenderer />

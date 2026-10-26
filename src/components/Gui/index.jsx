@@ -1,13 +1,10 @@
-/** @jsxRuntime classic */
-/** @jsx jsx */
-import { jsx } from "@emotion/react";
 // eslint-disable no-unused-vars
 import React from "react";
 import * as R from "ramda";
 import { Rnd } from "react-rnd";
 // import { Parser as acornParser } from "acorn";
 // import acornJsx from "acorn-jsx";
-import StickyEl from "../../vendor/react-sticky-el.min.js";
+import StickyEl from "react-sticky-el";
 import RcSlider from "rc-slider";
 import CloseIcon from "../../assets/close.svg";
 import useCsound from "../../CsoundContext";

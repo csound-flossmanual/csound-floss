@@ -1,6 +1,5 @@
 const R = require("ramda");
 const { DomHandler, DomUtils, Parser } = require("htmlparser2");
-const mjAPI = require("mathjax-node");
 const util = require("util");
 const { buildLink } = require("../utils");
 

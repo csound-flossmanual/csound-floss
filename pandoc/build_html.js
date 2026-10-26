@@ -1,4 +1,3 @@
-const pandoc = require("pandoc-filter-promisified");
 const { execSync } = require("child_process");
 const { tmpdir } = require("os");
 const fs = require("fs");
@@ -26,12 +25,13 @@ function execMarkdownToHtml(fileName, lang = null) {
   // Determine language: prioritize argument, fall back to env var, default to 'en'
   const currentLang = lang || process.env.LANG || "en";
   const isFrench = currentLang === "fr";
+  const isFarsi = currentLang === "fa";
 
   // Load language-specific constants
-  const fragmentsDirSuffix = isFrench ? "_fr" : "";
+  const fragmentsDirSuffix = isFrench ? "_fr" : isFarsi ? "_fa" : "";
   const jsxOutput = path.resolve(
     __dirname,
-    `../src/book_fragments${fragmentsDirSuffix}`
+    `../src/book_fragments${fragmentsDirSuffix}`,
   );
 
   const chapterBasename = path.basename(fileName, ".md");
@@ -39,7 +39,7 @@ function execMarkdownToHtml(fileName, lang = null) {
 
   try {
     const pandocCommand = `pandoc --to=html5 --wrap=auto ${fileName} -f ${MARKDOWN_EXTENSIONS.join(
-      "+"
+      "+",
     )} -o ${tmpDest} --mathjax`;
 
     console.log(`Processing ${LANG.toUpperCase()} ${fileName} with pandoc...`);
@@ -52,14 +52,14 @@ function execMarkdownToHtml(fileName, lang = null) {
   } catch (error) {
     console.error(`Error executing pandoc for file ${fileName}:`);
     console.error(
-      `Command: pandoc --to=html5 --wrap=auto ${fileName} -f ${MARKDOWN_EXTENSIONS.join("+")} -o ${tmpDest} --mathjax`
+      `Command: pandoc --to=html5 --wrap=auto ${fileName} -f ${MARKDOWN_EXTENSIONS.join("+")} -o ${tmpDest} --mathjax`,
     );
     console.error(`Exit code: ${error.status}`);
     console.error(
-      `Stderr: ${error.stderr ? error.stderr.toString() : "No stderr output"}`
+      `Stderr: ${error.stderr ? error.stderr.toString() : "No stderr output"}`,
     );
     console.error(
-      `Stdout: ${error.stdout ? error.stdout.toString() : "No stdout output"}`
+      `Stdout: ${error.stdout ? error.stdout.toString() : "No stdout output"}`,
     );
     throw new Error(`Failed to convert ${fileName} to HTML: ${error.message}`);
   }
@@ -83,14 +83,14 @@ function execMarkdownToHtml(fileName, lang = null) {
     processedHtmlString = postProcessHtml(
       escapedHtmlString,
       fileName,
-      currentLang
+      currentLang,
     );
   } catch (error) {
     console.error(`Error in postProcessHtml for file ${fileName}:`);
     console.error(`Error details:`, error.message);
     console.error(`Stack trace:`, error.stack);
     throw new Error(
-      `Failed to post-process HTML for ${fileName}: ${error.message}`
+      `Failed to post-process HTML for ${fileName}: ${error.message}`,
     );
   }
 
@@ -108,10 +108,10 @@ function execMarkdownToHtml(fileName, lang = null) {
       .map((line) => {
         // Don't add whitespace around table-related elements
         const isTableElement = /^<\/?(?:table|tbody|thead|tr|td|th)/.test(
-          line.trim()
+          line.trim(),
         );
         const endsWithTableElement = /(?:table|tbody|thead|tr|td|th)>$/.test(
-          line.trim()
+          line.trim(),
         );
 
         if (isTableElement && endsWithTableElement) {
@@ -130,7 +130,7 @@ function execMarkdownToHtml(fileName, lang = null) {
     console.error(`Error details:`, error.message);
     console.error(`Stack trace:`, error.stack);
     throw new Error(
-      `Failed to convert HTML to JSX for ${fileName}: ${error.message}`
+      `Failed to convert HTML to JSX for ${fileName}: ${error.message}`,
     );
   }
 
@@ -144,19 +144,19 @@ function execMarkdownToHtml(fileName, lang = null) {
         R.propOr(
           isFrench ? "Chapitre Sans Titre" : "Untitled Chapter",
           "sectionName",
-          linkData
-        )
-      )
+          linkData,
+        ),
+      ),
     );
     console.log(`Successfully generated ${chapterBasename}.jsx`);
   } catch (error) {
     console.error(`Error writing JSX file for ${fileName}:`);
     console.error(
-      `Output path: ${path.join(jsxOutput, `${chapterBasename}.jsx`)}`
+      `Output path: ${path.join(jsxOutput, `${chapterBasename}.jsx`)}`,
     );
     console.error(`Error details:`, error.message);
     throw new Error(
-      `Failed to write JSX file for ${fileName}: ${error.message}`
+      `Failed to write JSX file for ${fileName}: ${error.message}`,
     );
   }
 
