@@ -3,6 +3,8 @@ const { tmpdir } = require("os");
 const fs = require("fs");
 const path = require("path");
 const postProcessHtml = require("./filters/html_post_process");
+const { parseDocument } = require("htmlparser2");
+const { nameExamples } = require("./examples");
 const {
   buildLink,
   ensureEmptyDir,
@@ -161,6 +163,7 @@ function execMarkdownToHtml(fileName, lang = null) {
   }
 
   return {
+    examples: nameExamples(parseDocument(htmlString).children, fileName),
     module: `${chapterBasename}`,
     ...linkData,
   };

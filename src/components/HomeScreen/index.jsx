@@ -8,6 +8,7 @@ import odfLogo from "../../assets/odf_logo_wikimedia.png";
 import { Link } from "react-router-dom";
 import * as ß from "./styles";
 import { getRouteConstants } from "../../constants/routes";
+import ExampleDownload from "../ExampleDownload";
 
 const HomeScreen = () => (
   <div css={ß.root}>
@@ -93,6 +94,7 @@ const HomeScreen = () => (
         <p>{`Download OpenDocument version`}</p>
       </a>
     </div>
+    <ExampleDownload />
     <div>
       <hr style={{ backgroundColor: "#333", height: 2 }} />
       <a

@@ -69,6 +69,63 @@ function expectParsed(state, rootName) {
   expect(errors).toEqual([]);
 }
 
+it.each([undefined, "", "undefined", "csound", "csd"])(
+  "highlights a score section with language label '%s'",
+  async (lang) => {
+    const doc = '<CsScore>\ni "Hello" 0 2\n</CsScore>';
+    const view = await mount(doc, lang);
+    expect(view.state.readOnly).toBe(true);
+    expect(PlayControls).not.toHaveBeenCalled();
+    const highlighted = [...host.querySelectorAll(".cm-line span[class]")].map(
+      (node) => node.textContent,
+    );
+    expect(highlighted).toEqual(
+      expect.arrayContaining(["<CsScore>", '"Hello"', "0", "2", "</CsScore>"]),
+    );
+  },
+);
+
+it.each(["undefined", "csound", "sco"])(
+  "highlights a bare score event labelled '%s'",
+  async (lang) => {
+    const view = await mount('i "Hello" 0 2', lang);
+    expect(syntaxTree(view.state).topNode.name).toBe("ScoreFile");
+    expect(view.state.readOnly).toBe(true);
+    expect(host.querySelector(".cm-csoundScoreOpcodeType")?.textContent).toBe(
+      "i",
+    );
+    expect(
+      [...host.querySelectorAll(".cm-line span[class]")].map(
+        (node) => node.textContent,
+      ),
+    ).toEqual(expect.arrayContaining(["0", "2"]));
+    expect(PlayControls).not.toHaveBeenCalled();
+  },
+);
+
+it("uses orchestra mode for the book's csound fence label", async () => {
+  const view = await mount(orchestra, "csound");
+  expectParsed(view.state, "OrchestraFile");
+  expect(view.state.readOnly).toBe(true);
+  expect(host.querySelector(".cm-csoundBuiltinOpcode")?.textContent).toBe(
+    "oscili",
+  );
+  expect(PlayControls).not.toHaveBeenCalled();
+});
+
+it.each(["python", "c", "text"])(
+  "keeps the explicit '%s' label on code containing CSD tags",
+  async (lang) => {
+    const view = await mount('section = "<CsScore>"', lang);
+    expect(syntaxTree(view.state).topNode.name).not.toBe("CsdFile");
+  },
+);
+
+it("keeps unlabelled non-Csound text as plain text", async () => {
+  await mount("npm install\npython script.py", "undefined");
+  expect(host.querySelectorAll(".cm-line span[class]")).toHaveLength(0);
+});
+
 it.each([
   ["orc", orchestra, "OrchestraFile"],
   ["sco", score, "ScoreFile"],

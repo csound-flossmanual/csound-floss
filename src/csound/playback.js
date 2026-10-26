@@ -131,10 +131,11 @@ export function createPlaybackController(
     return run.finished;
   };
 
-  const play = async (source) => {
+  const play = async (source, filename = "example.csd") => {
     if (active) return;
     const run = { starting: true, originalFiles: new Set() };
     active = run;
+    dispatch({ type: "STORE_EXAMPLE", example: { source, filename } });
     dispatch({ type: "CLEAR_LOGS" });
     dispatch({ type: "NOTIFY_NEW_FILES", filesGenerated: [] });
     dispatch({ type: "SET_IS_LOADING", isLoading: true });

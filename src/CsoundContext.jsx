@@ -17,6 +17,9 @@ CsoundDispatchContext.displayName = "CsoundDispatchContext";
 
 export const reducer = (state, action) => {
   switch (action.type) {
+    case "STORE_EXAMPLE": {
+      return assoc("example", action.example, state);
+    }
     case "STORE_LIBCSOUND": {
       return assoc("libcsound", action.libcsound, state);
     }
@@ -39,25 +42,25 @@ export const reducer = (state, action) => {
       if (action.filesGenerated.length > 0) {
         return pipe(
           assoc("filesystemDialogOpen", true),
-          assoc("filesGenerated", action.filesGenerated)
+          assoc("filesGenerated", action.filesGenerated),
         )(state);
       } else {
         return pipe(
           assoc("filesystemDialogOpen", false),
-          assoc("filesGenerated", [])
+          assoc("filesGenerated", []),
         )(state);
       }
     }
     case "CLOSE_FILES_DIALOG": {
       return pipe(
         assoc("filesystemDialogOpen", false),
-        assoc("filesGenerated", [])
+        assoc("filesGenerated", []),
       )(state);
     }
     case "CLOSE_LOG_DIALOG": {
       return pipe(
         assoc("logDialogOpen", false),
-        assoc("logDialogClosed", true)
+        assoc("logDialogClosed", true),
       )(state);
     }
     case "OPEN_LOG_DIALOG": {
@@ -76,7 +79,7 @@ export const reducer = (state, action) => {
             assoc("isPaused", false),
             assoc("isPlaying", false),
             assoc("isLoading", false),
-            assoc("isRendering", false)
+            assoc("isRendering", false),
           )(state);
         }
         case "play": {
@@ -84,14 +87,14 @@ export const reducer = (state, action) => {
             assoc("isPaused", false),
             assoc("isPlaying", true),
             assoc("isLoading", false),
-            when((s) => !s.logDialogClosed, assoc("logDialogOpen", true))
+            when((s) => !s.logDialogClosed, assoc("logDialogOpen", true)),
           )(state);
         }
         case "pause": {
           return pipe(
             assoc("isPaused", true),
             assoc("isPlaying", false),
-            assoc("isLoading", false)
+            assoc("isLoading", false),
           )(state);
         }
         default: {
@@ -109,6 +112,7 @@ export const reducer = (state, action) => {
 export const CsoundProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, {
     libcsound: null,
+    example: null,
     isPaused: false,
     isPlaying: false,
     isLoading: false,
@@ -129,7 +133,7 @@ export const CsoundProvider = ({ children }) => {
     () => () => {
       void controller.current.dispose();
     },
-    []
+    [],
   );
   useEffect(() => {
     const files = state.filesGenerated;

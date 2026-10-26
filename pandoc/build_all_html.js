@@ -12,11 +12,12 @@ const {
   IS_FRENCH,
 } = require("./constants");
 const { buildOverviewPages } = require("./build_html_overview_pages");
+const { buildExamples } = require("./build_examples");
 const toc = require(TOC_FILE);
 
 const allChapters = fg.sync([`${BOOK_DIRECTORY}/*.md`], { dot: false });
 
-const buildAllHtml = (lang = null) => {
+const buildAllHtml = async (lang = null) => {
   // Determine language: prioritize argument, fall back to env var, default to 'en'
   const currentLang = lang || process.env.LANG || "en";
   const isFrench = currentLang === "fr";
@@ -44,7 +45,7 @@ const buildAllHtml = (lang = null) => {
 
   const jsxOutput = path.resolve(
     __dirname,
-    `../src/book_fragments${fragmentsDirSuffix}`
+    `../src/book_fragments${fragmentsDirSuffix}`,
   );
   const bookDirectory = path.resolve(__dirname, `../book${langDirSuffix}`);
 
@@ -61,6 +62,7 @@ const buildAllHtml = (lang = null) => {
 
   ensureEmptyDir(jsxOutput);
   buildOverviewPages(currentLang);
+  const examples = [];
   R.pipe(
     R.map((chapter) => execMarkdownToHtml(chapter, currentLang)),
     (routesOrig) => {
@@ -68,6 +70,8 @@ const buildAllHtml = (lang = null) => {
       let currentChapterNumber = -1;
 
       for (const routeData of routesOrig) {
+        examples.push(...routeData.examples);
+        delete routeData.examples;
         if (
           routeData.chapter !== currentChapterNumber &&
           routeData.with_overview_page
@@ -97,14 +101,15 @@ const buildAllHtml = (lang = null) => {
       }
       fs.writeFileSync(
         path.join(jsxOutput, `routes.json`),
-        JSON.stringify(routes)
+        JSON.stringify(routes),
       );
-    }
+    },
   )(allChapters);
 
   const otherDir = path.resolve(__dirname, "../other");
   const interactiveDemo = path.join(otherDir, "interactive-demo.md");
   R.pipe(execMarkdownToHtml)(interactiveDemo);
+  await buildExamples(examples, currentLang);
 };
 
 module.exports = { buildAllHtml };

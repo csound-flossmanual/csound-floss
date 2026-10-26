@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
+import ExampleDownload from "../ExampleDownload";
 import wasmLogo from "../../assets/wasm_wikimedia.svg";
 import epubLogo from "../../assets/epub_icon_wikimedia.svg";
 import pdfLogo from "../../assets/pdf_icon_wikimedia.svg";
@@ -96,6 +97,7 @@ const HomeScreenFr = () => (
         <p>{`Télécharger la version OpenDocument française`}</p>
       </a>
     </div>
+    <ExampleDownload lang="fr" />
     <div>
       <hr style={{ backgroundColor: "#333", height: 2 }} />
       <a

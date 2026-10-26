@@ -13,11 +13,13 @@ import {
 } from "@codemirror/language";
 import PlayControls from "./PlayControls";
 import { csoundTheme } from "./csound-theme";
+import { csoundMode } from "./language-mode";
 import * as ß from "./styles";
 
-const CodeElement = ({ data, lang }) => {
+const CodeElement = ({ data, lang, filename = "example.csd" }) => {
   const editorReference = useRef(null);
   const initialEditorState = decode(data || "");
+  const mode = csoundMode(initialEditorState, lang);
   const isCsd =
     initialEditorState.includes("<CsoundSynthesizer>") &&
     initialEditorState.includes("</CsoundSynthesizer>");
@@ -65,14 +67,14 @@ const CodeElement = ({ data, lang }) => {
                   syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
                   language.of(cpp()),
                 ]
-              : ["orc", "csd", "sco"].includes(lang)
+              : mode
                 ? [
                     EditorState.readOnly.of(true),
                     syntaxHighlighting(defaultHighlightStyle, {
                       fallback: true,
                     }),
                     csound({
-                      mode: lang,
+                      mode,
                       hover: false,
                       completion: false,
                     }),
@@ -103,12 +105,14 @@ const CodeElement = ({ data, lang }) => {
     initialEditorState,
     onChange,
     lang,
+    mode,
   ]);
 
   return (
     <div css={isCsd ? ß.codeMirror(isCsd) : [ß.codeMirror(isCsd), ß.readOnly]}>
       {isCsd && (
         <PlayControls
+          filename={filename}
           currentEditorState={state}
           initialEditorState={initialEditorState}
         />
