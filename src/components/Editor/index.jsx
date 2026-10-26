@@ -2,7 +2,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useCallback, useState, useRef, useEffect } from "react";
 import { decode } from "he";
-import { csoundMode } from "@hlolli/codemirror-lang-csound";
+import { csound } from "@kunstmusik/codemirror-lang-csound";
 import { EditorView, basicSetup } from "codemirror";
 import { EditorState, Compartment } from "@codemirror/state";
 import { cpp } from "@codemirror/lang-cpp";
@@ -12,15 +12,20 @@ import {
   syntaxHighlighting,
 } from "@codemirror/language";
 import PlayControls from "./PlayControls";
+import { csoundTheme } from "./csound-theme";
 import * as ß from "./styles";
 
 const CodeElement = ({ data, lang }) => {
-  const isCsd = data.includes("CsoundSynthesizer") && lang !== "csd";
   const editorReference = useRef(null);
   const initialEditorState = decode(data || "");
+  const isCsd =
+    initialEditorState.includes("<CsoundSynthesizer>") &&
+    initialEditorState.includes("</CsoundSynthesizer>");
   const [state, setState] = useState(initialEditorState);
   const [hasMounted, setHasMounted] = useState(false);
   const [editorView, setEditorView] = useState(null);
+
+  useEffect(() => () => editorView?.destroy(), [editorView]);
 
   useEffect(() => {
     if (!hasMounted) {
@@ -34,15 +39,21 @@ const CodeElement = ({ data, lang }) => {
         setState(event.state.doc.toString());
       }
     },
-    [setState]
+    [setState],
   );
 
   useEffect(() => {
     if (hasMounted && editorReference.current && !editorView) {
       const language = new Compartment();
       const newEditor = new EditorView({
-        extensions:
-          lang === "python"
+        extensions: isCsd
+          ? [
+              basicSetup,
+              csound({ mode: "csd" }),
+              csoundTheme,
+              EditorView.updateListener.of(onChange),
+            ]
+          : lang === "python"
             ? [
                 EditorState.readOnly.of(true),
                 syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
@@ -60,24 +71,19 @@ const CodeElement = ({ data, lang }) => {
                     syntaxHighlighting(defaultHighlightStyle, {
                       fallback: true,
                     }),
-                    csoundMode({
-                      fileType: lang,
-                      enableSynopsis: false,
-                      enableCompletion: false,
+                    csound({
+                      mode: lang,
+                      hover: false,
+                      completion: false,
                     }),
+                    csoundTheme,
                   ]
-                : isCsd
-                  ? [
-                      basicSetup,
-                      csoundMode(),
-                      EditorView.updateListener.of(onChange),
-                    ]
-                  : [
-                      EditorState.readOnly.of(true),
-                      syntaxHighlighting(defaultHighlightStyle, {
-                        fallback: true,
-                      }),
-                    ],
+                : [
+                    EditorState.readOnly.of(true),
+                    syntaxHighlighting(defaultHighlightStyle, {
+                      fallback: true,
+                    }),
+                  ],
         parent: editorReference.current,
       });
       setEditorView(newEditor);

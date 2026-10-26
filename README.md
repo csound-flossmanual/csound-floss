@@ -61,9 +61,11 @@ npm test
 npm run build
 ```
 
-The dependency update command runs `ncu -u`, including prereleases such as the
-Csound editor package. The HTML-to-JSX converter uses current Cheerio and its
-encoding helper through npm overrides. CodeMirror shares one state package to keep extensions compatible.
+The dependency update command runs `ncu -u`, including prereleases.
+The Csound editor uses `@kunstmusik/codemirror-lang-csound` for CSD, ORC, and SCO
+syntax, completion, and opcode help. The help catalog loads on demand.
+The HTML-to-JSX converter uses current Cheerio and its encoding helper through
+npm overrides. CodeMirror shares one state package to keep extensions compatible.
 MathJax 4 loads from jsDelivr when a chapter contains equations. Csound loads its
 upstream module and embedded WASM as a separate asset when playback starts.
 
