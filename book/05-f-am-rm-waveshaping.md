@@ -169,7 +169,7 @@ aIndxL    =         (aL + 1) / 2
 aWavShpL  tablei    aIndxL, iTrnsFnc, 1
 aIndxR    =         (aR + 1) / 2
 aWavShpR  tablei    aIndxR, iTrnsFnc, 1
-          outs      aWavShpL*kEnv, aWavShpR*kEnv
+          out       aWavShpL*kEnv, aWavShpR*kEnv
 endin
 
 </CsInstruments>
@@ -225,7 +225,7 @@ kdist     line      0, p3, 1 ;increase the distortion over p3
 aL, aR    soundin   "ClassGuit.wav"
 aout1     distort   aL, kdist, ifn
 aout2     distort   aR, kdist, ifn
-          outs      aout1*ivol, aout2*ivol
+          out       aout1*ivol, aout2*ivol
 endin
 </CsInstruments>
 <CsScore>

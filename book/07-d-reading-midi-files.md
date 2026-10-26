@@ -78,7 +78,7 @@ endin
 
   instr 99 ; gathering of fluidsynth audio and audio output
 aSigL, aSigR fluidOut           giEngine      ; read all audio from soundfont
-             outs               aSigL, aSigR  ; send audio to outputs
+             out                aSigL, aSigR  ; send audio to outputs
   endin
 </CsInstruments>
 <CsScore>

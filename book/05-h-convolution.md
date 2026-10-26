@@ -144,7 +144,7 @@ aconv	        pconvolve gasig, p4,ipartitionsize
 adel            delay     gasig, ipartitionsize/sr
 ; create a dry/wet mix
 aMix           ntrpol    adel, aconv*0.1, p5
-               outs      aMix ,aMix
+               out       aMix ,aMix
 gasig	        =         0
  endin
 
@@ -234,13 +234,13 @@ iTableBuffer    ftgentmp        0,0,-iTabLen,-2, 0
 icount          =               0
 loop:
 ival            table           iTabLen-icount-1, ifn
-                tableiw         ival,icount,iTableBuffer
-                loop_lt         icount,1,iTabLen,loop
+                tablew          ival,icount,iTableBuffer
+                looplt          icount,1,iTabLen,loop
 icount          =               0
 loop2:
 ival            table           icount,iTableBuffer
-                tableiw         ival,icount,ifn
-                loop_lt         icount,1,iTabLen,loop2
+                tablew          ival,icount,ifn
+                looplt          icount,1,iTabLen,loop2
  endop
 
  instr 3 ; reverse the contents of a function table
@@ -261,7 +261,7 @@ aconv ftconv  gasig, p4, iplen,0, iirlen
 adel            delay     gasig,(iplen/sr) + ((iirlen/sr)*p6)
 ; create a dry/wet mix
 aMix   ntrpol    adel,aconv*0.1,p5
-        outs      aMix, aMix
+        out       aMix, aMix
 gasig           =         0
  endin
 

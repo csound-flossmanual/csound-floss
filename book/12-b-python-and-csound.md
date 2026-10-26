@@ -860,7 +860,7 @@ ipclass = ioct + (ipclass / 100) ; Pitch class of the note
 ifreq = cpspch(ipclass) ;Note frequency in Hertz
 aenv linen .2, 0.05, p3, 0.1 ;Amplitude envelope
 aout poscil  aenv, ifreq , giSine ;Simple oscillator
-outs aout, aout
+out aout, aout
 endin
 
 </CsInstruments>

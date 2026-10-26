@@ -156,7 +156,7 @@ aOut       moogladder   aMix, kFiltEnv, kRes
 ;amplitude envelope
 aAmpEnv    expsegr      0.0001,iAAtt,1,iADec,iASus,iARel,0.0001
 aOut       =            aOut*aAmpEnv
-           outs         aOut,aOut
+           out          aOut,aOut
   endin
 </CsInstruments>
 
@@ -386,7 +386,7 @@ aMixR    sum      a2*kAmp2,a4*kAmp4,a6*kAmp6,a8*kAmp8,a10*kAmp10,a12*kAmp12,\
                         a14*kAmp14,a16*kAmp16,a18*kAmp18,a20*kAmp20,a22*kAmp22
 
 kEnv     linseg   0, p3*0.5, 1,p3*0.5,0,1,0       ; global amplitude envelope
-outs   (aMixL*kEnv*0.00008), (aMixR*kEnv*0.00008) ; audio sent to outputs
+out    (aMixL*kEnv*0.00008), (aMixR*kEnv*0.00008) ; audio sent to outputs
   endin
 
 </CsInstruments>
@@ -583,7 +583,7 @@ instr 1
   aMix     sum     aForm1*ampdbfs(kDB1), aForm2*ampdbfs(kDB2),
        aForm3*ampdbfs(kDB3), aForm4*ampdbfs(kDB4), aForm5*ampdbfs(kDB5)
   kEnv     linseg    0,3,1,p3-6,1,3,0     ; an amplitude envelope
-           outs      aMix*kEnv, aMix*kEnv ; send audio to outputs
+           out       aMix*kEnv, aMix*kEnv ; send audio to outputs
 endin
 
 </CsInstruments>

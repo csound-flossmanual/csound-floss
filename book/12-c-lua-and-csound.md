@@ -54,7 +54,7 @@ It will show whether Csound can be run via the Lua Csound API.
     0dbfs=1
     instr 1
     aout vco2 0.5, 440
-    outs aout, aout
+    out aout, aout
     endin
     ]]
 

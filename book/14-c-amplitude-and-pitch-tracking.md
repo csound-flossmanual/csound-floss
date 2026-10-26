@@ -546,10 +546,10 @@ endin
 
 instr   Clap
  if frac(p1)==0 then
-  event_i       "i", p1+0.1, 0,     0.02
-  event_i       "i", p1+0.1, 0.01,  0.02
-  event_i       "i", p1+0.1, 0.02,  0.02
-  event_i       "i", p1+0.1, 0.03,  2
+  eventi        "i", p1+0.1, 0,     0.02
+  eventi        "i", p1+0.1, 0.01,  0.02
+  eventi        "i", p1+0.1, 0.02,  0.02
+  eventi        "i", p1+0.1, 0.03,  2
  else
   kenv  transeg 1,p3,-25,0
   iamp  random  0.7,1

@@ -751,13 +751,13 @@ kCps      =            cpsmidinn(kNum)    ; convert note number to cps
 kOct      =            octcps(kCps)       ; convert cps to oct format
 ; amplitude envelope                  attack    sustain       decay  gap
 kAmpEnv loopseg kBtFreq, 0, 0, 0,0.1, 1, 55/kTempo, 1, 0.1,0, 5/kTempo,0,0
-kAmpEnv   =            (kHold=0?kAmpEnv:1)  ; if a held note, ignore envelope
+kAmpEnv   =            (kHold == 0 ? kAmpEnv : 1) ; held note: ignore envelope
 kAmpEnv   port         kAmpEnv,0.001
 
 ; filter envelope
 kCfOct    looptseg      kBtFreq,0,0,kCfBase+kCfEnv+kOct,kDecay,1,kCfBase+kOct
 ; if hold is off, use filter envelope, otherwise use steady state value:
-kCfOct    =             (kHold=0?kCfOct:kCfBase+kOct)
+kCfOct    =             (kHold == 0 ? kCfOct : kCfBase+kOct)
 kCfOct    limit        kCfOct, 4, 14 ; limit the cutoff frequency (oct format)
 aSig      vco2         0.4, kCps, i(kWaveform)*2, 0.5 ; VCO-style oscillator
 aFilt lpf18 aSig, cpsoct(kCfOct), kRes, (kDist^2)*10 ; filter audio

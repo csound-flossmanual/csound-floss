@@ -396,7 +396,7 @@ giSpb init 0.45
 
 opcode Echo, 0, S
 Smsg xin
-    printf_i "\n%s\n\n", 1, Smsg
+    printfi "\n%s\n\n", 1, Smsg
 endop
 
 opcode EchoFilterName, 0, i
@@ -524,7 +524,7 @@ endin
 opcode Note, 0, iiii
     idt = 2 * giSpb
     iNum, iCoeff, iPch, iFilterType xin
-    event_i "i", "Bass", idt * iNum, idt, iCoeff, cpspch(iPch), iFilterType
+    eventi "i", "Bass", idt * iNum, idt, iCoeff, cpspch(iPch), iFilterType
 endop
 
 instr Notes
@@ -562,12 +562,12 @@ endin
 opcode TrigNotes, 0, ii
 iNum, iFilterType xin
 idt = 20
-    event_i "i", "Notes", idt * iNum, 0, iFilterType
+    eventi "i", "Notes", idt * iNum, 0, iFilterType
 endop
 
 instr PlayAll
 iMixLevel = p4
-event_i "i", "Main", 0, (14 * 20), iMixLevel
+eventi "i", "Main", 0, (14 * 20), iMixLevel
 
 TrigNotes 0, $MOOG_LADDER
 TrigNotes 1, $MOOG_VCF
@@ -591,8 +591,8 @@ opcode DumpNotes, 0, iiSi
 iNum, iFilterType, SFile, iMixLevel xin
 idt = 20
 Sstr sprintf {{i "%s" %f %f "%s" %f}}, "Dump", idt*iNum, idt, SFile, iMixLevel
-        scoreline_i Sstr
-        event_i "i", "Notes", idt * iNum, 0, iFilterType
+        scorelinei Sstr
+        eventi "i", "Notes", idt * iNum, 0, iFilterType
 endop
 
 
@@ -634,7 +634,7 @@ iReverbFeedback = 0.3
 iMixLevel       = p4
 
 aoutL, aoutR Reverb gaOut, gaOut, iReverbFeedback, iMixLevel
-outs (iVolume * aoutL), (iVolume * aoutR)
+out (iVolume * aoutL), (iVolume * aoutR)
 
 gaOut = 0
 endin

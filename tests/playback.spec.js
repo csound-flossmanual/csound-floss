@@ -197,7 +197,9 @@ it("collects nested files, skips directories and source samples, and supplies un
   const engine = {
     fs: {
       readdir: vi.fn(async (path) =>
-        path === "/" ? [".", "..", "samples.wav", "out"] : ["data.unknown"],
+        path === "/"
+          ? [".", "..", "samples.wav", ".csound-stk-rawwaves", "out"]
+          : ["data.unknown"],
       ),
       stat: vi.fn(async (path) => ({
         isDirectory: path === "/out",
@@ -207,6 +209,7 @@ it("collects nested files, skips directories and source samples, and supplies un
     },
   };
   const files = await collectOutputFiles(engine, new Set(["/samples.wav"]));
+  expect(engine.fs.readdir).not.toHaveBeenCalledWith("/.csound-stk-rawwaves/");
   expect(engine.fs.readFile).toHaveBeenCalledTimes(1);
   expect(files).toEqual([
     {
@@ -223,6 +226,32 @@ it("reports missing samples instead of compiling with missing input", async () =
   const engine = { fs: { writeFile: vi.fn() } };
   await expect(loadSourceMaterials(engine, sample)).rejects.toThrow("404");
   expect(engine.fs.writeFile).not.toHaveBeenCalled();
+});
+it("loads UDOs at the relative SourceMaterials paths used by downloaded examples", async () => {
+  const bytes = new Uint8Array([1, 2, 3]);
+  global.fetch = vi.fn().mockResolvedValue({
+    ok: true,
+    arrayBuffer: async () => bytes.buffer,
+  });
+  const engine = { fs: { writeFile: vi.fn(), mkdir: vi.fn() } };
+  await loadSourceMaterials(
+    engine,
+    `
+    #include "../SourceMaterials/ambisonics2D_udos.txt"
+    #include "../SourceMaterials/ambisonics_utilities.txt"
+  `,
+  );
+  expect(engine.fs.mkdir).toHaveBeenCalledExactlyOnceWith("/SourceMaterials");
+  for (const name of ["ambisonics2D_udos.txt", "ambisonics_utilities.txt"]) {
+    expect(global.fetch).toHaveBeenCalledWith(
+      `/resources/SourceMaterials/${name}`,
+    );
+    expect(engine.fs.writeFile).toHaveBeenCalledWith(name, bytes);
+    expect(engine.fs.writeFile).toHaveBeenCalledWith(
+      `/SourceMaterials/${name}`,
+      bytes,
+    );
+  }
 });
 it("handles repeated Stop clicks without racing engine disposal", async () => {
   const s = setup();

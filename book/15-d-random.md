@@ -93,7 +93,7 @@ iFreq      =          p4
 aImp       mpulse     .5, p3
 aMode      mode       aImp, iFreq, 1000
 aEnv       linen      aMode, 0.01, p3, p3-0.01
-           outs       aEnv, aEnv
+           out        aEnv, aEnv
 endin
 </CsInstruments>
 <CsScore>
@@ -137,7 +137,7 @@ instr white_noise
 iBit       =          p4 ;0 = 16 bit, 1 = 31 bit
  ;input of rand: amplitude, fixed seed (0.5), bit size
 aNoise     rand       .1, 0.5, iBit
-           outs       aNoise, aNoise
+           out        aNoise, aNoise
 endin
 
 </CsInstruments>
@@ -272,14 +272,14 @@ iStart     =          0
  until iThisNote == iHowMany do
 iMidiPch   random     36, 84 ;midi note
 iDur       random     .5, 1 ;duration
-           event_i    "i", "play", iStart, iDur, int(iMidiPch)
+           eventi     "i", "play", iStart, iDur, int(iMidiPch)
 iStart     +=         iDur ;increase start
 iThisNote  +=         1 ;increase counter
  enduntil
  ;reset the duration of this instr to make all events happen
 p3         =          iStart + 2
  ;trigger next instrument two seconds after the last note
-           event_i    "i", "notes_linrnd_low", p3, 1, iHowMany
+           eventi     "i", "notes_linrnd_low", p3, 1, iHowMany
 endin
 
 instr notes_linrnd_low
@@ -291,14 +291,14 @@ iStart     =          0
  until iThisNote == iHowMany do
 iMidiPch   linrnd_low 36, 84 ;lower pitches preferred
 iDur       linrnd_high .5, 1 ;longer durations preferred
-           event_i    "i", "play", iStart, iDur, int(iMidiPch)
+           eventi     "i", "play", iStart, iDur, int(iMidiPch)
 iStart     +=         iDur
 iThisNote  +=         1
  enduntil
  ;reset the duration of this instr to make all events happen
 p3         =          iStart + 2
  ;trigger next instrument two seconds after the last note
-           event_i    "i", "notes_linrnd_high", p3, 1, iHowMany
+           eventi     "i", "notes_linrnd_high", p3, 1, iHowMany
 endin
 
 instr notes_linrnd_high
@@ -310,14 +310,14 @@ iStart     =          0
  until iThisNote == iHowMany do
 iMidiPch   linrnd_high 36, 84 ;higher pitches preferred
 iDur       linrnd_low .3, 1.2 ;shorter durations preferred
-           event_i    "i", "play", iStart, iDur, int(iMidiPch)
+           eventi     "i", "play", iStart, iDur, int(iMidiPch)
 iStart     +=         iDur
 iThisNote  +=         1
  enduntil
  ;reset the duration of this instr to make all events happen
 p3         =          iStart + 2
  ;call instr to exit csound
-           event_i    "i", "exit", p3+1, 1
+           eventi     "i", "exit", p3+1, 1
 endin
 
 
@@ -342,7 +342,7 @@ aMix       ntrpol     aPluck, aFilter, iMidiNote, 36, 84
  ;(low = left, high = right)
 iPan       =          (iMidiNote-36) / 48
 aL, aR     pan2       aMix, iPan
-           outs       aL, aR
+           out        aL, aR
 endin
 
 instr exit
@@ -410,14 +410,14 @@ iStart     =          0
  until iThisNote == iHowMany do
 iMidiPch   random     36, 84 ;midi note
 iDur       random     .25, 1.75 ;duration
-           event_i    "i", "play", iStart, iDur, int(iMidiPch)
+           eventi     "i", "play", iStart, iDur, int(iMidiPch)
 iStart     +=         iDur ;increase start
 iThisNote  +=         1 ;increase counter
  enduntil
  ;reset the duration of this instr to make all events happen
 p3         =          iStart + 2
  ;trigger next instrument two seconds after the last note
-           event_i    "i", "notes_trirnd", p3, 1, iHowMany
+           eventi     "i", "notes_trirnd", p3, 1, iHowMany
 endin
 
 instr notes_trirnd
@@ -429,14 +429,14 @@ iStart     =          0
  until iThisNote == iHowMany do
 iMidiPch   trirnd     36, 84 ;medium pitches preferred
 iDur       trirnd     .25, 1.75 ;medium durations preferred
-           event_i    "i", "play", iStart, iDur, int(iMidiPch)
+           eventi     "i", "play", iStart, iDur, int(iMidiPch)
 iStart     +=         iDur
 iThisNote  +=         1
  enduntil
  ;reset the duration of this instr to make all events happen
 p3         =          iStart + 2
  ;call instr to exit csound
-           event_i    "i", "exit", p3+1, 1
+           eventi     "i", "exit", p3+1, 1
 endin
 
 
@@ -461,7 +461,7 @@ aMix       ntrpol     aPluck, aFilter, iMidiNote, 36, 84
  ;(low = left, high = right)
 iPan       =          (iMidiNote-36) / 48
 aL, aR     pan2       aMix, iPan
-           outs       aL, aR
+           out        aL, aR
 endin
 
 instr exit
@@ -555,7 +555,7 @@ nchnls = 2
 seed 0
 
 ;****SEQUENCE OF UNITS AS ARRAY****/
-giSequence[] array 0, 1.2, 1.4, 2.2, 2.4, 3.2, 3.6
+giSequence[] fillarray 0, 1.2, 1.4, 2.2, 2.4, 3.2, 3.6
 giSeqIndx = 0 ;startindex
 
 ;****UDO DEFINITIONS****
@@ -634,29 +634,29 @@ iPrint     =          1
 
   ;calculate iMidiPch and iDur depending on type
   if iDistrib == 0 then
-printf_i   "%s", iPrint, "... uniform distribution:\n"
-printf_i   "%s", iPrint, "EQUAL LIKELIHOOD OF ALL PITCHES AND DURATIONS\n"
+printfi    "%s", iPrint, "... uniform distribution:\n"
+printfi    "%s", iPrint, "EQUAL LIKELIHOOD OF ALL PITCHES AND DURATIONS\n"
 iMidiPch   random     iMinPch, iMaxPch ;midi note
 iDur       random     iMinDur, iMaxDur ;duration
   elseif iDistrib == 1 then
-printf_i    "... linear low distribution with %d units:\n", iPrint, iUnits
-printf_i    "%s", iPrint, "LOWER NOTES AND LONGER DURATIONS PREFERRED\n"
+printfi     "... linear low distribution with %d units:\n", iPrint, iUnits
+printfi     "%s", iPrint, "LOWER NOTES AND LONGER DURATIONS PREFERRED\n"
 iMidiPch   linrnd_low iMinPch, iMaxPch, iUnits
 iDur       linrnd_high iMinDur, iMaxDur, iUnits
   elseif iDistrib == 2 then
-printf_i    "... linear high distribution with %d units:\n", iPrint, iUnits
-printf_i    "%s", iPrint, "HIGHER NOTES AND SHORTER DURATIONS PREFERRED\n"
+printfi     "... linear high distribution with %d units:\n", iPrint, iUnits
+printfi     "%s", iPrint, "HIGHER NOTES AND SHORTER DURATIONS PREFERRED\n"
 iMidiPch   linrnd_high iMinPch, iMaxPch, iUnits
 iDur       linrnd_low iMinDur, iMaxDur, iUnits
   else
-printf_i    "... triangular distribution with %d units:\n", iPrint, iUnits
-printf_i    "%s", iPrint, "MEDIUM NOTES AND DURATIONS PREFERRED\n"
+printfi     "... triangular distribution with %d units:\n", iPrint, iUnits
+printfi     "%s", iPrint, "MEDIUM NOTES AND DURATIONS PREFERRED\n"
 iMidiPch   trirnd     iMinPch, iMaxPch, iUnits
 iDur       trirnd     iMinDur, iMaxDur, iUnits
   endif
 
  ;call subinstrument to play note
-           event_i    "i", "play", iStart, iDur, int(iMidiPch)
+           eventi     "i", "play", iStart, iDur, int(iMidiPch)
 
  ;increase start tim and counter
 iStart     +=         iDur
@@ -672,10 +672,10 @@ p3         =          iStart + 2
 giSeqIndx  +=         1
  ;call instr again if sequence has not been ended
  if giSeqIndx < lenarray(giSequence) then
-           event_i    "i", "notes", p3, 1, iHowMany
+           eventi     "i", "notes", p3, 1, iHowMany
  ;or exit
  else
-           event_i    "i", "exit", p3, 1
+           eventi     "i", "exit", p3, 1
  endif
 endin
 
@@ -700,7 +700,7 @@ aMix       ntrpol     aPluck, aFilter, iMidiNote, 36, 84
  ;(low = left, high = right)
 iPan       =          (iMidiNote-36) / 48
 aL, aR     pan2       aMix, iPan
-           outs       aL, aR
+           out        aL, aR
 endin
 
 instr exit
@@ -786,7 +786,7 @@ seed 0
 
 
 ;****POSSIBLE DURATIONS AS ARRAY****
-giDurs[]   array      3/2, 1, 2/3, 1/2, 1/3, 1/4
+giDurs[]   fillarray      3/2, 1, 2/3, 1/2, 1/3, 1/4
 giLenDurs  lenarray   giDurs
 
 ;****POSSIBLE PITCHES AS ARRAY****
@@ -805,7 +805,7 @@ iCnt       +=         1
  enduntil
 
 ;****SEQUENCE OF UNITS AS ARRAY****
-giSequence[] array    0, 1.2, 1.4, 2.2, 2.4, 3.2, 3.6
+giSequence[] fillarray    0, 1.2, 1.4, 2.2, 2.4, 3.2, 3.6
 giSeqIndx  =          0 ;startindex
 
 ;****UDO DEFINITIONS****
@@ -878,23 +878,23 @@ iPrint     =          1
 
   ;calculate iMidiPch and iDur depending on type
   if iDistrib == 0 then
-printf_i   "%s", iPrint, "... uniform distribution:\n"
-printf_i   "%s", iPrint, "EQUAL LIKELINESS OF ALL PITCHES AND DURATIONS\n"
+printfi    "%s", iPrint, "... uniform distribution:\n"
+printfi    "%s", iPrint, "EQUAL LIKELINESS OF ALL PITCHES AND DURATIONS\n"
 iScaleIndx random     0, giLenScale-.0001 ;midi note
 iDurIndx   random     0, giLenDurs-.0001 ;duration
   elseif iDistrib == 1 then
-printf_i   "... linear low distribution with %d units:\n", iPrint, iUnits
-printf_i   "%s", iPrint, "LOWER NOTES AND LONGER DURATIONS PREFERRED\n"
+printfi    "... linear low distribution with %d units:\n", iPrint, iUnits
+printfi    "%s", iPrint, "LOWER NOTES AND LONGER DURATIONS PREFERRED\n"
 iScaleIndx linrnd_low 0, giLenScale-.0001, iUnits
 iDurIndx   linrnd_low 0, giLenDurs-.0001, iUnits
   elseif iDistrib == 2 then
-printf_i   "... linear high distribution with %d units:\n", iPrint, iUnits
-printf_i   "%s", iPrint, "HIGHER NOTES AND SHORTER DURATIONS PREFERRED\n"
+printfi    "... linear high distribution with %d units:\n", iPrint, iUnits
+printfi    "%s", iPrint, "HIGHER NOTES AND SHORTER DURATIONS PREFERRED\n"
 iScaleIndx linrnd_high 0, giLenScale-.0001, iUnits
 iDurIndx   linrnd_high 0, giLenDurs-.0001, iUnits
            else
-printf_i   "... triangular distribution with %d units:\n", iPrint, iUnits
-printf_i   "%s", iPrint, "MEDIUM NOTES AND DURATIONS PREFERRED\n"
+printfi    "... triangular distribution with %d units:\n", iPrint, iUnits
+printfi    "%s", iPrint, "MEDIUM NOTES AND DURATIONS PREFERRED\n"
 iScaleIndx trirnd     0, giLenScale-.0001, iUnits
 iDurIndx   trirnd     0, giLenDurs-.0001, iUnits
   endif
@@ -902,7 +902,7 @@ iDurIndx   trirnd     0, giLenDurs-.0001, iUnits
  ;call subinstrument to play note
 iDur       =          giDurs[int(iDurIndx)]
 iPch       =          giScale[int(iScaleIndx)]
-           event_i    "i", "play", iStart, iDur, iPch
+           eventi     "i", "play", iStart, iDur, iPch
 
  ;increase start time and counter
 iStart     +=         iDur
@@ -918,10 +918,10 @@ p3         =          iStart + 2
 giSeqIndx += 1
  ;call instr again if sequence has not been ended
  if giSeqIndx < lenarray(giSequence) then
-           event_i    "i", "notes", p3, 1, iHowMany
+           eventi     "i", "notes", p3, 1, iHowMany
  ;or exit
            else
-           event_i    "i", "exit", p3, 1
+           eventi     "i", "exit", p3, 1
  endif
 endin
 
@@ -945,7 +945,7 @@ aMix       ntrpol     aPluck, aFilter, iFreq, 65, 65*16
  ;(low = left, high = right)
 iPan       =          (iFreq-65) / (65*16)
 aL, aR     pan2       aMix, iPan
-           outs       aL, aR
+           out        aL, aR
 endin
 
 instr exit
@@ -999,7 +999,7 @@ nchnls = 1
 seed 0
 
 instr 1
-iLine[]    array      .2, .5, .3
+iLine[]    fillarray      .2, .5, .3
 iVal       random     0, 1
 iAccum     =          iLine[0]
 iIndex     =          0
@@ -1007,7 +1007,7 @@ iIndex     =          0
 iIndex     +=         1
 iAccum     +=         iLine[iIndex]
  enduntil
-printf_i "Random number = %.3f, next element = %c!\n", 1, iVal, iIndex+97
+printfi "Random number = %.3f, next element = %c!\n", 1, iVal, iIndex+97
 endin
 </CsInstruments>
 <CsScore>
@@ -1085,7 +1085,7 @@ kAccum     +=         kMarkovTable[kPrevEl][kNextEl]
 
 ;****DEFINITIONS FOR NOTES****
  ;notes as proportions and a base frequency
-giNotes[]  array      1, 9/8, 6/5, 5/4, 4/3, 3/2, 5/3
+giNotes[]  fillarray      1, 9/8, 6/5, 5/4, 4/3, 3/2, 5/3
 giBasFreq  =          330
  ;probability of notes as markov matrix:
   ;first -> only to third and fourth
@@ -1106,13 +1106,13 @@ giProbNotes fillarray 0.0, 0.0, 0.5, 0.5, 0.0, 0.0, 0.0,
 
 ;****DEFINITIONS FOR DURATIONS****
  ;possible durations
-gkDurs[]    array     1, 1/2, 1/3
+gkDurs[]    fillarray     1, 1/2, 1/3
  ;probability of durations as markov matrix:
   ;first -> anything
   ;second -> mostly self
   ;third -> mostly second
 gkProbDurs[][] init   3, 3
-gkProbDurs array      1/3, 1/3, 1/3,
+gkProbDurs fillarray      1/3, 1/3, 1/3,
                       0.2, 0.6, 0.3,
                       0.1, 0.5, 0.4
 
@@ -1135,7 +1135,7 @@ gkPrevDur  Markovk    gkProbDurs, gkPrevDur
  ;and write it to the global variable for (next) previous note
 giPrevNote Markov     giProbNotes, giPrevNote
  ;call instr to play this note
-           event_i    "i", "play_note", 0, 2, giPrevNote
+           eventi     "i", "play_note", 0, 2, giPrevNote
  ;turn off this instrument
            turnoff
   endin
@@ -1152,7 +1152,7 @@ iPan       random     0.1, .9
 aImp       mpulse     1, p3
 aOut       mode       aImp, iFreq, iQ
 aL, aR     pan2       aOut, iPan
-           outs       aL, aR
+           out        aL, aR
   endin
 
 </CsInstruments>
@@ -1313,7 +1313,7 @@ aImp       mpulse     1, p3
 aMode      mode       aImp, iFreq, iQ
 aOut       linen      aMode, 0, p3, p3/4
 aL, aR     pan2       aOut, iPan
-           outs       aL, aR
+           out        aL, aR
   endin
 
 </CsInstruments>
@@ -1721,7 +1721,7 @@ giWave  ftgen  0, 0, 2^10, 10, 1,0,1/4,0,1/16,0,1/64,0,1/256,0,1/1024
 inote =       p4
 aEnv  linen   0.1,0.01,p3,0.01
 aSig  poscil  aEnv,cpsmidinn(inote),giWave
-      outs    aSig,aSig
+      out     aSig,aSig
   endin
 
   instr 2 ; an instrument with 'humanising'
@@ -1741,13 +1741,13 @@ kcps    =        cpsmidinn(inote+(iRndNte*0.01)+(kNteWob*0.01))
 ; amplitude envelope (randomisation of attack time)
 aEnv    linen   0.1*ampdb(iRndAmp+kAmpWob),0.01+rnd(0.03),p3,0.01
 aSig    poscil  aEnv,kcps,giWave
-        outs    aSig,aSig
+        out     aSig,aSig
 endin
 
 </CsInstruments>
 <CsScore>
 t 0 80
-\#define SCORE(i) \#
+#define SCORE(i) #
 i $i 0 1   60
 i .  + 2.5 69
 i .  + 0.5 67
@@ -1759,10 +1759,10 @@ i .  + 2.5 70
 i .  + 0.5 69
 i .  + 0.5 67
 i .  + 0.5 65
-i .  + 3   64 \#
-$$SCORE(1)  ; play melody without humanising
+i .  + 3   64 #
+$SCORE(1)  ; play melody without humanising
 b 17
-$$SCORE(2)  ; play melody with humanising
+$SCORE(2)  ; play melody with humanising
 e
 </CsScore>
 </CsoundSynthesizer>

@@ -193,7 +193,7 @@ instr 1 ;soundfile to fsig
 asig      soundin   "fox.wav"
 fsig      pvsanal   asig, gifftsiz, gioverlap, gifftsiz*2, giwintyp
 aback     pvsynth   fsig
-          outs      aback, aback
+          out       aback, aback
 endin
 
 instr 2 ;live input to fsig
@@ -201,7 +201,7 @@ instr 2 ;live input to fsig
 ain       inch      1 ;live input from channel 1
 fsig      pvsanal   ain, gifftsiz, gioverlap, gifftsiz, giwintyp
 alisten   pvsynth   fsig
-          outs      alisten, alisten
+          out       alisten, alisten
 endin
 
 </CsInstruments>
@@ -280,7 +280,7 @@ instr 1
 iTimeScal =         p4
 fsig      pvstanal  iTimeScal, 1, 1, gifil
 aout      pvsynth   fsig
-          outs      aout, aout
+          out       aout, aout
 endin
 
 </CsInstruments>

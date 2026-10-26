@@ -215,7 +215,7 @@ instr 1 ;linear amplitude rise
 kamp      line    0, p3, 1     ;amp rise 0->1
 asig      poscil  1, 1000      ;1000 Hz sine
 aout      =       asig * kamp
-          outs    aout, aout
+          out     aout, aout
 endin
 
 instr 2 ;linear rise of dB
@@ -223,7 +223,7 @@ kdb       line    -80, p3, 0   ;dB rise -80 -> 0
 asig      poscil  1, 1000      ;1000 Hz sine
 kamp      =       ampdb(kdb)   ;transformation db -> amp
 aout      =       asig * kamp
-          outs    aout, aout
+          out     aout, aout
 endin
 
 </CsInstruments>
@@ -309,7 +309,7 @@ instr 1
            delayw    asnd + exp(-krms) * a3     ;feedback depending on rms
  a3        reson     -(a1+a2), 3000, 7000, 2    ;calculate a3
  aout      linen     a1/3, 1, p3, 1             ;apply fade in and fade out
-           outs      aout, aout
+           out       aout, aout
 endin
 </CsInstruments>
 <CsScore>
@@ -365,7 +365,7 @@ instr 1
            printk    1, kfreq ;prints the frequencies once a second
  asin      poscil    .2, kfreq
  aout      linen     asin, .01, p3, .01
-           outs      aout, aout
+           out       aout, aout
 endin
 </CsInstruments>
 <CsScore>

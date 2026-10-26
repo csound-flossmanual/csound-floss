@@ -824,7 +824,7 @@ itimemode   =          0         ; 0=stretch factor 1=pointer
             prints     p8        ; print a description
 aSigL,aSigR sndwarpst  kamp,ktimewarp,kresample,ifn1,ibeg, \
                                  iwsize,irandw,ioverlap,ifn2,itimemode
-            outs       aSigL,aSigR
+            out        aSigL,aSigR
   endin
 
 </CsInstruments>
@@ -948,12 +948,12 @@ aSigR       moogvcf2    aSigR, kcf, 0.5
 ; - these will be sent to the reverb instrument (2)
 gaSendL     =          gaSendL+(aSigL*0.4)
 gaSendR     =          gaSendR+(aSigR*0.4)
-            outs       aSigL,aSigR
+            out        aSigL,aSigR
   endin
 
   instr 3 ; reverb (always on)
 aRvbL,aRvbR reverbsc   gaSendL,gaSendR,0.85,8000
-            outs       aRvbL,aRvbR
+            out        aRvbL,aRvbR
 ;clear variables to prevent out of control accumulation
             clear      gaSendL,gaSendR
   endin
@@ -1079,13 +1079,13 @@ aSigR  granule  kamp,ivoice,iratio,imode,ithd,giSoundR,ipshift,igskip,\
 ;send a little to the reverb effect
 gaSendL     =          gaSendL+(aSigL*0.3)
 gaSendR     =          gaSendR+(aSigR*0.3)
-            outs       aSigL,aSigR
+            out        aSigL,aSigR
   endin
 
   instr 2 ; global reverb instrument (always on)
 ; use reverbsc opcode for creating reverb signal
 aRvbL,aRvbR reverbsc   gaSendL,gaSendR,0.85,8000
-            outs       aRvbL,aRvbR
+            out        aRvbL,aRvbR
 ;clear variables to prevent out of control accumulation
             clear      gaSendL,gaSendR
   endin
@@ -1242,7 +1242,7 @@ a2         grain      1, ipitch, kdens2, 0, 0, 1, giFt2, giFt1, 1
 a3         grain      1, ipitch, kdens3, 0, 0, 1, giFt2, giFt1, 1
 aleft      =          kamp*(a1+a2)
 aright     =          kamp*(a2+a3)
-           outs       aleft, aright ; Output granulation
+           out        aleft, aright ; Output granulation
 gareverbL  =          gareverbL + a1+a2 ; send granulation to Instr 2 (Reverb)
 gareverbR  =          gareverbR + a2+a3
 endin
@@ -1251,7 +1251,7 @@ instr 2 ; Reverb
 kkamp      line       0, p3, 0.08
 aL         reverb     gareverbL, 10*kkamp ; reverberate what is in gareverbL
 aR         reverb     gareverbR, 10*kkamp ; and garaverbR
-           outs       kkamp*aL, kkamp*aR ; and output the result
+           out        kkamp*aL, kkamp*aR ; and output the result
 gareverbL  =          0 ; empty the receivers for the next loop
 gareverbR  =          0
 endin

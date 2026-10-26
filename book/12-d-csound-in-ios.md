@@ -132,7 +132,7 @@ nchnls = 2
 
 instr 1
 asig poscil 0.5 , 440
-outs asig , asig
+out asig , asig
 endin
 
 </CsInstruments>
@@ -339,7 +339,7 @@ example:
 instr 1
 kfreq chnget "frequency"
 asig oscil 0.5 , kfreq
-outs asig , asig
+out asig , asig
 endin
 ```
 
@@ -351,7 +351,7 @@ followed by the channel name:
 instr 1
 krand randomi 300 , 2000 , 1 , 3
 asig poscil 0.5 , krand
-outs asig , asig
+out asig , asig
 chnset krand , "randFreq"
 endin
 ```
@@ -444,7 +444,7 @@ ipdx random 0 ,13
 ipch table ipdx , 2+i( gkscale )
 aenv expseg 1 , ( p3 ) , .001
 asig oscil iamp * aenv , cpspch(ipch) , 1
-outs asig * ipan , asig * (1 - ipan)
+out asig * ipan , asig * (1 - ipan)
 endin
 ```
 
@@ -490,7 +490,7 @@ ipch table ipdx , 2+i( gkscale )
 aenv expseg 1 , ( p3 ) , .001
 asig oscil iamp * aenv , cpspch(ipch) , 1
 chnset cpspch(ipch) , " pitchOut "
-outs asig * ipan , asig * (1 - ipan)
+out asig * ipan , asig * (1 - ipan)
 endin
 ```
 
@@ -540,7 +540,7 @@ kfreq += 20 ;add offset
 kamp chnget " amplitude "
 kamp port kamp , .001 ; smooth values
 asig poscil kamp , kfreq
-outs asig , asig
+out asig , asig
 endin
 ```
 
@@ -594,7 +594,7 @@ ipch table ipdx , 2+i( gkscale )
 aenv expseg 1 , ( p3 ) , .001
 asig oscil iamp * aenv , cpspch(ipch) , 1
 chnset cpspch(ipch) , " pitchOut "
-outs asig * ipan , asig * (1 - ipan)
+out asig * ipan , asig * (1 - ipan)
 endin
 ```
 
@@ -721,7 +721,7 @@ kpch = 880 + ( kaccelX * 220)
 a1 vco2 ( kattPitch + .5) * .2 , kpch
 a1 moogladder a1 , kcutoff , kresonance
 aL , aR reverbsc a1 , a1 , .72 , 5000
-outs aL , aR
+out aL , aR
 endin
 ```
 
@@ -797,7 +797,7 @@ aosc poscil .5 , kfreq , 2
 arvb reverb aosc , 1.5
 asig = (aosc * (1 - kverb) ) + (arvb * kverb)
 chnset asig , " samples "
-outs asig , asig
+out asig , asig
 endin
 ```
 

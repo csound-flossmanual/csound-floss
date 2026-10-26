@@ -377,7 +377,7 @@ gidata ftgen 1,0,1048576,-2,0 ; Table for controller data.
 opcode RecordController,0,Ki
  kval,ifn        xin
  i_      ftgen   1,0,ftlen(ifn),-2,0             ; erase table
- tableiw i(kval),1,ifn           ; write initial value at index 1.
+ tablew i(kval),1,ifn           ; write initial value at index 1.
          ;(Index 0 will be used be storing the complete gesture duration.)
  kndx    init    2         ; Initialise index
  kTime   timeinsts         ; time since this instrument started in seconds

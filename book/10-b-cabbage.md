@@ -227,7 +227,7 @@ can be found in the Widget reference section of these docs.
 ### Getting started
 
 Now that the basics of the Csound language have been outlined, let's create a simple instrument.
-The opcodes used in this simple walk through are `vco2`, `madsr`, `moogladder` and `outs`.
+The opcodes used in this simple walk through are `vco2`, `madsr`, `moogladder` and `out`.
 
 The vco2 opcode models a voltage controlled oscillator.
 It provides users with an effective way of generating band-limited waveforms
@@ -292,7 +292,7 @@ instr 1
  iFreq = p4
  iAmp = p5
  aOut vco2 iAmp, iFreq
- outs aOut, aOut
+ out aOut, aOut
 endin
 
 </CsInstruments>
@@ -377,7 +377,7 @@ instr 1
  iRel = 0.7
  kEnv madsr iAtt, iDec, iSus, iRel
  aOut vco2 iAmp, iFreq
- outs aOut*kEnv, aOut*kEnv
+ out aOut*kEnv, aOut*kEnv
 endin
 
 </CsInstruments>
@@ -442,7 +442,7 @@ instr 1
  iRel chnget "rel"
  kEnv madsr iAtt, iDec, iSus, iRel
  aOut vco2 iAmp, iFreq
- outs aOut*kEnv, aOut*kEnv
+ out aOut*kEnv, aOut*kEnv
 endin
 ```
 
@@ -532,7 +532,7 @@ instr 1
  kEnv madsr iAtt, iDec, iSus, iRel
  aOut vco2 iAmp, iFreq
  aLP moogladder aOut, kCutOff, kRes
- outs aLP*kEnv, aLP*kEnv
+ out aLP*kEnv, aLP*kEnv
 endin
 
 </CsInstruments>
@@ -575,7 +575,7 @@ kEnv madsr iAtt, iDec, iSus, iRel
 aOut vco2 iAmp, iFreq
 kLFO lfo 1, 1, 5
 aLP moogladder aOut, kLFO*kCutOff, kRes
-outs aLP*kEnv, aLP*kEnv
+out aLP*kEnv, aLP*kEnv
 endin
 (...)
 ```
@@ -664,7 +664,7 @@ instr 1
  aOut vco2 iAmp, iFreq
  kLFO lfo 1, kLFOFreq
  aLP moogladder aOut, kLFO*kCutOff, kRes
- outs kAmp*(aLP*kEnv), kAmp*(aLP*kEnv)
+ out kAmp*(aLP*kEnv), kAmp*(aLP*kEnv)
 endin
 
 </CsInstruments>
@@ -678,7 +678,7 @@ f0 z
 ## A basic Cabbage effect
 
 Cabbage effects are used to process incoming audio. To do this we make use of the signal input opcodes.
-One can use either `ins` or `inch`.
+One can use either `in` or `inch`.
 To create a new effect click the new file button and select audio effect.
 
 After you have named the new effect Cabage will generate a very simple instrument
@@ -734,7 +734,7 @@ instr 1
  aInL inch 1
  aInR inch 2
  aOutL, aOutR reverbsc aInL, aInR, kFdBack, kFco
- outs aOutL*kGain, aOutR*kGain
+ out aOutL*kGain, aOutR*kGain
 endin
 
 </CsInstruments>
