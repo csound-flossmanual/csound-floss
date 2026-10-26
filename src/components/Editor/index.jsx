@@ -16,9 +16,11 @@ import { csoundTheme } from "./csound-theme";
 import * as ß from "./styles";
 
 const CodeElement = ({ data, lang }) => {
-  const isCsd = data.includes("CsoundSynthesizer") && lang !== "csd";
   const editorReference = useRef(null);
   const initialEditorState = decode(data || "");
+  const isCsd =
+    initialEditorState.includes("<CsoundSynthesizer>") &&
+    initialEditorState.includes("</CsoundSynthesizer>");
   const [state, setState] = useState(initialEditorState);
   const [hasMounted, setHasMounted] = useState(false);
   const [editorView, setEditorView] = useState(null);
@@ -44,8 +46,14 @@ const CodeElement = ({ data, lang }) => {
     if (hasMounted && editorReference.current && !editorView) {
       const language = new Compartment();
       const newEditor = new EditorView({
-        extensions:
-          lang === "python"
+        extensions: isCsd
+          ? [
+              basicSetup,
+              csound({ mode: "csd" }),
+              csoundTheme,
+              EditorView.updateListener.of(onChange),
+            ]
+          : lang === "python"
             ? [
                 EditorState.readOnly.of(true),
                 syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
@@ -70,19 +78,12 @@ const CodeElement = ({ data, lang }) => {
                     }),
                     csoundTheme,
                   ]
-                : isCsd
-                  ? [
-                      basicSetup,
-                      csound({ mode: "csd" }),
-                      csoundTheme,
-                      EditorView.updateListener.of(onChange),
-                    ]
-                  : [
-                      EditorState.readOnly.of(true),
-                      syntaxHighlighting(defaultHighlightStyle, {
-                        fallback: true,
-                      }),
-                    ],
+                : [
+                    EditorState.readOnly.of(true),
+                    syntaxHighlighting(defaultHighlightStyle, {
+                      fallback: true,
+                    }),
+                  ],
         parent: editorReference.current,
       });
       setEditorView(newEditor);

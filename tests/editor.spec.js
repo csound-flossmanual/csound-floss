@@ -72,12 +72,17 @@ function expectParsed(state, rootName) {
 it.each([
   ["orc", orchestra, "OrchestraFile"],
   ["sco", score, "ScoreFile"],
-  ["csd", csd, "CsdFile"],
+  ["csd", `<CsScore>\n${score}</CsScore>\n`, "CsdFile"],
 ])(
   "keeps %s examples read-only and uses the right parser",
   async (lang, doc, top) => {
     const view = await mount(doc, lang);
-    expectParsed(view.state, top);
+    if (lang === "csd") {
+      // CSD fragments are useful in the book even though they are not whole files.
+      expect(syntaxTree(view.state).topNode.name).toBe(top);
+    } else {
+      expectParsed(view.state, top);
+    }
     expect(view.state.doc.toString()).toBe(doc);
     expect(view.state.readOnly).toBe(true);
     expect(
@@ -87,33 +92,38 @@ it.each([
   },
 );
 
-it("offers opcode completion in playable CSDs and sends edits to playback", async () => {
-  const view = await mount(csd, "");
-  expectParsed(view.state, "CsdFile");
-  expect(view.state.readOnly).toBe(false);
-  const pos = csd.indexOf("oscili") + 3;
-  const sources = view.state.languageDataAt("autocomplete", pos);
-  expect(sources).toHaveLength(1);
-  const completion = await sources[0](
-    new CompletionContext(view.state, pos, true),
-  );
-  expect(completion.options.some(({ label }) => label === "oscili")).toBe(true);
-  await act(() =>
-    view.dispatch({
-      changes: {
-        from: csd.indexOf("440"),
-        to: csd.indexOf("440") + 3,
-        insert: "880",
-      },
-    }),
-  );
-  expect(PlayControls.mock.lastCall[0].currentEditorState).toBe(
-    csd.replace("440", "880"),
-  );
-  const destroy = vi.spyOn(view, "destroy");
-  await act(() => root.unmount());
-  expect(destroy).toHaveBeenCalledOnce();
-});
+it.each(["", "csd", "orc", "sco", "csound"])(
+  "keeps full CSDs editable with language label '%s' and sends edits to playback",
+  async (lang) => {
+    const view = await mount(csd, lang);
+    expectParsed(view.state, "CsdFile");
+    expect(view.state.readOnly).toBe(false);
+    const pos = csd.indexOf("oscili") + 3;
+    const sources = view.state.languageDataAt("autocomplete", pos);
+    expect(sources).toHaveLength(1);
+    const completion = await sources[0](
+      new CompletionContext(view.state, pos, true),
+    );
+    expect(completion.options.some(({ label }) => label === "oscili")).toBe(
+      true,
+    );
+    await act(() =>
+      view.dispatch({
+        changes: {
+          from: csd.indexOf("440"),
+          to: csd.indexOf("440") + 3,
+          insert: "880",
+        },
+      }),
+    );
+    expect(PlayControls.mock.lastCall[0].currentEditorState).toBe(
+      csd.replace("440", "880"),
+    );
+    const destroy = vi.spyOn(view, "destroy");
+    await act(() => root.unmount());
+    expect(destroy).toHaveBeenCalledOnce();
+  },
+);
 
 it("keeps names beginning with header constants as whole identifiers", async () => {
   const doc = "sr = 48000\nkrate = 1\nksmpsValue = 32\n";
