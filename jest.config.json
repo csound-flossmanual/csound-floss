@@ -1,3 +1,14 @@
 {
-  "testRegex": "tests/.*\\.spec\\.js$"
+  "testRegex": "tests/.*\\.spec\\.js$",
+  "transform": {
+    "^.+\\.jsx?$": [
+      "babel-jest",
+      {
+        "presets": ["babel-preset-react-app"]
+      }
+    ]
+  },
+  "moduleNameMapper": {
+    "\\.svg$": "<rootDir>/tests/file-mock.js"
+  }
 }

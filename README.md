@@ -12,7 +12,7 @@ yarn build:pdf
 ### Requirements
 
 - pandoc 2.3+
-- nodejs 17.x or later
+- Node.js 22.13.0 or later (required by Csound 7)
 - yarn 1.x but no later (make sure it's less than 2.x)
 
 ## Developing
