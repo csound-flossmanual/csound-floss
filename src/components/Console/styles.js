@@ -187,7 +187,7 @@ export const panel = css`
     display: flex;
     flex-direction: column;
     min-height: 0;
-    flex: 1 0 96px;
+    flex: 1 1 96px;
   }
   .tool-content {
     overflow: auto;
