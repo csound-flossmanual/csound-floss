@@ -1,18 +1,14 @@
 # 12 A. THE CSOUND API
 
-An application programming interface (API) is an interface provided by a computer system,
-library or application that allows users to access functions and routines for a particular task.
-It gives developers a way to harness the functionality of existing software within a host application.
-The Csound API can be used to control an instance of Csound through a series of different functions
-thus making it possible to harness all the power of Csound in one’s own applications.
-In other words, almost anything that can be done within Csound can be done with the API.
-The API is written in C, but there are interfaces to other languages as well, such as Python, C++ and Java.
+The Csound application programming interface (API) lets a host program
+compile instruments, run performances, and exchange data with Csound.
+The core API uses C functions. Wrappers and foreign function interfaces
+let other languages call those functions.
 
-Though it is written in C, the Csound API uses an object structure.
-This is achieved through an opaque pointer representing a Csound instance.
-This opaque pointer is passed as the first argument when an API function is called from the host program.
+Each Csound instance has an opaque `CSOUND *` pointer: the host passes
+it to API functions without accessing the instance's internal fields.
 
-The introductory C and C++ examples below use the Csound 7 host API.
+The examples in this chapter use the Csound 7 host API.
 Use headers and a library from the same Csound 7 installation.
 On Linux, include csound.h and link with libcsound64 for double-precision
 samples, or libcsound for single-precision samples. This precision is
@@ -61,15 +57,14 @@ Each call to `csoundPerformKsmps()` then performs one control block.
 It returns zero to continue and a non-zero value when performance ends.
 We also check `csoundErrCnt()` because an error can abort an instrument
 without stopping the whole score. We destroy the instance on every exit path.
-The [Csound 7 API migration guide](https://github.com/csound/csound/blob/develop/doc/API_Migration_Guide_Csound_6_to_7.md)
+The [Csound 7 API migration guide](https://github.com/csound/csound/blob/develop/docs/API_Migration_Guide_Csound_6_to_7.md)
 describes this lifecycle and the removal of `csoundPerform()`.
 
 On Linux, with the include and library paths set, build against the
-double-precision library as follows. `-DUSE_DOUBLE` selects the matching
-sample type in the headers:
+double-precision library as follows:
 
 ```none
-gcc -std=c99 -DUSE_DOUBLE -o csoundCommand csoundCommand.c -lcsound64
+gcc -std=c99 -o csoundCommand csoundCommand.c -lcsound64
 ```
 
 For a single-precision library build:
@@ -79,13 +74,15 @@ gcc -std=c99 -o csoundCommand csoundCommand.c -lcsound
 ```
 
 The sample type used by the host must match the library's sample precision.
-The `MYFLT` type used later in this chapter is `double` when `USE_DOUBLE`
-is defined, and `float` otherwise.
+Csound 7 calls this type `cs_float`; `MYFLT` remains an alias.
+The installed `float-version.h` selects the library's numeric types.
+See the [numeric types guide](https://github.com/csound/csound/blob/develop/docs/numeric-types.md)
+for the build options.
 
 The C API has been wrapped in a C++ class for convenience.
 This gives the Csound basic C++ API. With this API, the above example would become:
 
-```c
+```cpp
 #include <csound/csound.hpp>
 #include <vector>
 
@@ -115,943 +112,836 @@ would instead need a matching `delete` to run that destructor. On Linux,
 the example would be built with the following command:
 
 ```none
-g++ -std=c++11 -DUSE_DOUBLE -o csoundCommandCpp csoundCommand.cpp -lcsound64
+g++ -std=c++11 -o csoundCommandCpp csoundCommand.cpp -lcsound64
 ```
 
 ## Threading
 
-Before we begin to look at how to control Csound in real time we need to look at threads.
-Threads are used so that a program can split itself into two or more simultaneously running tasks.
-Multiple threads can be executed in parallel on many computer systems.
-The advantage of running threads is that you do not have to wait for one part of your software to
-finish executing before you start another.
+A host can run Csound's performance loop in a worker thread while its
+main thread reads input or draws a user interface. Threads are one way
+to do this; a host can also process events between calls to
+`csoundPerformKsmps()`, or call it from an audio callback.
 
-In order to control aspects of your instruments in real time your will need to employ the use of threads.
-In the first example on this page, the host stays in its performance loop
-while `csoundPerformKsmps()` returns zero. A non-zero result ends the loop.
-To let another part of a host, such as a GUI, remain active during
-performance, the host can run this loop in a separate thread.
-
-When implementing threads using the Csound API, we must define a special performance-thread function.
-We then pass the name of this performance function to `csoundCreateThread()`,
-thus registering our performance-thread function with Csound.
-When defining a Csound performance-thread routine you must declare it to have a return type uintptr_t,
-hence it will need to return a value when called. The thread function will take only one parameter,
-a pointer to void. This pointer to void is quite important as it allows us to pass
-important data from the main thread to the performance thread.
-As several variables are needed in our thread function the best approach is to
-create a user defined data structure that will hold all the information your performance thread will need.
-For example:
+Csound 7 declares its thread functions in `csound_threads.h`. The worker
+takes a `void *` argument and returns a `uintptr_t` value:
 
 ```c
-typedef struct {
-  int result;        /* result of csoundCompile() */
-  CSOUND *csound;    /* instance of csound */
-  bool PERF_STATUS;  /* performance status */
-} userData;
-```
-
-Below is a basic performance-thread routine. `*data` is cast as a userData data type so that we can access its members.
-
-```c
-uintptr_t csThread(void *data)
-{
-  userData *udata = (userData *)data;
-  if (!udata->result) {
-    while ((csoundPerformKsmps(udata->csound) == 0) &&
-           (udata->PERF_STATUS == 1));
-    csoundDestroy(udata->csound);
-  }
-  udata->PERF_STATUS = 0;
-  return 1;
-}
-```
-
-In order to start this thread we must call the `csoundCreateThread()` API function which is declared in csound.h as:
-
-```c
-void *csoundCreateThread(uintptr_t (*threadRoutine (void *),
+void *csoundCreateThread(uintptr_t (*threadRoutine)(void *),
                          void *userdata);
+uintptr_t csoundJoinThread(void *thread);
 ```
 
-If you are building a command line program you will need to use some kind of
-mechanism to prevent `int main()` from returning until after the performance has taken place.
-A simple while loop will suffice.
-
-The first example presented above can now be rewritten to include a unique performance thread:
+The following host accepts a CSD filename. Its worker performs control
+blocks until the score ends, an error stops performance, or the main
+thread sets the stop flag. The C11 atomic flag lets both threads access
+that flag safely. Only the main thread destroys Csound, after joining
+the worker. The shared `UserData` stays alive until that join completes.
 
 ```c
-#include <stdio.h>
 #include <csound/csound.h>
-
-uintptr_t csThread(void *clientData);
+#include <csound/csound_threads.h>
+#include <stdatomic.h>
+#include <stdbool.h>
+#include <stdio.h>
 
 typedef struct {
-  int result;
   CSOUND *csound;
-  int PERF_STATUS;
-} userData;
+  atomic_bool stop;
+} UserData;
 
-int main(int argc, char *argv[])
+static uintptr_t perform(void *data)
 {
-  int finish;
-  void *ThreadID;
-  userData *ud;
-  ud = (userData *)malloc(sizeof(userData));
-  MYFLT *pvalue;
-  ud->csound = csoundCreate(NULL);
-  ud->result = csoundCompile(ud->csound, argc, argv);
-
-  if (!ud->result) {
-    ud->PERF_STATUS = 1;
-    ThreadID = csoundCreateThread(csThread, (void *)ud);
+  UserData *ud = data;
+  int result = 0;
+  while (!atomic_load(&ud->stop) && result == 0) {
+    result = csoundPerformKsmps(ud->csound);
   }
-  else {
+  return (result < 0 || csoundErrCnt(ud->csound) > 0);
+}
+
+int main(int argc, char **argv)
+{
+  if (argc != 2) {
+    fprintf(stderr, "Usage: %s file.csd\n", argv[0]);
     return 1;
   }
-
-  /* keep performing until user types a number and presses enter */
-  scanf("%d", &finish);
-  ud->PERF_STATUS = 0;
-  csoundDestroy(ud->csound);
-  free(ud);
-  return 0;
-}
-
-/* performance thread function */
-uintptr_t csThread(void *data)
-{
-  userData *udata = (userData *)data;
-  if (!udata->result) {
-    while ((csoundPerformKsmps(udata->csound) == 0) &&
-           (udata->PERF_STATUS == 1));
-    csoundDestroy(udata->csound);
+  CSOUND *csound = csoundCreate(NULL, NULL);
+  if (csound == NULL) return 1;
+  if (csoundCompileCSD(csound, argv[1], 0, 0) != 0 ||
+      csoundStart(csound) != 0) {
+    csoundDestroy(csound);
+    return 1;
   }
-  udata->PERF_STATUS = 0;
-  return 1;
+  UserData ud = {.csound = csound};
+  atomic_init(&ud.stop, false);
+  void *thread = csoundCreateThread(perform, &ud);
+  if (thread == NULL) {
+    csoundDestroy(csound);
+    return 1;
+  }
+  puts("Press Enter to stop.");
+  getchar();
+  atomic_store(&ud.stop, true);
+  int failed = (int)csoundJoinThread(thread);
+  csoundDestroy(csound);
+  return failed;
 }
 ```
 
-The application above might not appear all that interesting.
-In fact it's almost the exact same as the first example presented except that users can now stop
-Csound by hitting 'enter'. The real worth of threads can only be appreciated when you start
-to control your instrument in real time.
+Build and run it on Linux with a C11 compiler:
+
+```none
+gcc -std=c11 -o threadedHost threadedHost.c -lcsound64
+./threadedHost myexample.csd
+```
+
+Use the CSD's `CsOptions` to choose audio output. This simple host waits
+for Enter or end of input even if the score has already finished.
+It also checks thread creation and joins the worker before returning.
 
 ## Channel I/O
 
-The big advantage to using the API is that it allows a host to control your
-Csound instruments in real time.
-There are several mechanisms provided by the API that allow us to do this.
-The simplest mechanism makes use of a 'software bus'.
-
-The term bus is usually used to describe a means of communication between hardware components.
-Buses are used in mixing consoles to route signals out of the mixing desk into external devices.
-Signals get sent through the sends and are taken back into the console through the returns.
-The same thing happens in a software bus, only instead of sending analog signals to
-different hardware devices we send data to and from different software.
-
-Using one of the software bus opcodes in Csound we can provide an interface
-for communication with a host application.
-An example of one such opcode is `chnget`. The `chnget` opcode reads data
-that is being sent from a host Csound API application on a particular named channel,
-and assigns it to an output variable.
-In the following example instrument 1 retrieves any data
-the host may be sending on a channel named "pitch":
+Named channels let a host and an orchestra exchange control values,
+audio blocks, strings, and other data. For example, this CSD reads a
+frequency from the `pitch` channel:
 
 ```csound
+<CsoundSynthesizer>
+<CsOptions>
+-odac
+</CsOptions>
+<CsInstruments>
+sr = 44100
+ksmps = 32
+nchnls = 1
+0dbfs = 1
+
 instr 1
-kfreq chnget "pitch"
-asig  oscil  10000, kfreq, 1
-      out    asig
+  kPitch chnget "pitch"
+  aSignal poscil 0.1, kPitch
+  out aSignal
 endin
+</CsInstruments>
+<CsScore>
+i 1 0 3600
+</CsScore>
+</CsoundSynthesizer>
 ```
 
-One way in which data can be sent from a host application to an
-instance of Csound is through the use of the `csoundGetChannelPtr()` API function
-which is defined in csound.h as:
+In Csound 7, `csoundGetChannelPtr()` takes a `void **` for the returned
+pointer. Its type argument combines a data type, such as
+`CSOUND_CONTROL_CHANNEL`, with `CSOUND_INPUT_CHANNEL` and/or
+`CSOUND_OUTPUT_CHANNEL`. Input means data sent from the host to Csound.
+Output means data sent from Csound to the host.
+
+The function returns zero on success. A negative result reports an error;
+a positive result reports an existing channel with an incompatible type.
+The returned pointer refers to one `cs_float` for a control channel,
+`ksmps` samples for an audio channel, or a `STRINGDAT` for a string channel.
+Direct access through that pointer needs synchronization during threaded
+performance. The channel get/set functions below handle that for us.
+
+Save the CSD above as `pitch.csd`. This host checks the channel type and
+sets its value with `csoundSetControlChannel()`. The worker and its stop
+flag follow the same pattern as the previous example:
 
 ```c
-int csoundGetChannelPtr(CSOUND *, MYFLT **p, const char *name,  int type);
-```
-
-`CsoundGetChannelPtr()` stores a pointer to the specified channel of the bus in p.
-The channel pointer p is of type `MYFLT *`.
-The argument name is the name of the channel and the argument type is a
-bitwise OR of exactly one of the following values:
-
-```c
-# control data (one MYFLT value)
-CSOUND_CONTROL_CHANNEL
-
-# audio data (ksmps MYFLT values)
-CSOUND_AUDIO_CHANNEL
-
-# string data (MYFLT values with
-# enough space to store
-# csoundGetChannelDatasize())
-CSOUND_STRING_CHANNEL
-
-
-#characters, including the NULL character at the end of the string)
-#and at least one of these:
-
-# when you need Csound to accept incoming values from a host
-CSOUND_INPUT_CHANNEL
-# when you need Csound to send outgoing values to a host
-CSOUND_OUTPUT_CHANNEL
-```
-
-If the call to `csoundGetChannelPtr()` is successful the function will return zero.
-If not, it will return a negative error code.
-We can now modify our previous code in order to send data from our application
-on a named software bus to an instance of Csound using `csoundGetChannelPtr()`.
-
-```c
-#include <stdio.h>
 #include <csound/csound.h>
+#include <csound/csound_threads.h>
+#include <stdatomic.h>
+#include <stdbool.h>
+#include <stdio.h>
 
-/* performance thread function prototype */
-uintptr_t csThread(void *clientData);
-
-/* userData structure declaration */
 typedef struct {
-  int result;
   CSOUND *csound;
-  int PERF_STATUS;
-} userData;
+  atomic_bool stop;
+} UserData;
 
-/*-----------------------------------------------------------
- * main function
- *-----------------------------------------------------------*/
-int main(int argc, char *argv[])
+static uintptr_t perform(void *data)
 {
-  int userInput = 200;
-  void *ThreadID;
-  userData *ud;
-  ud = (userData *)malloc(sizeof(userData));
-  MYFLT *pvalue;
-  ud->csound = csoundCreate(NULL);
-  ud->result = csoundCompile(ud->csound, argc, argv);
-  if (csoundGetChannelPtr(ud->csound, &pvalue, "pitch",
-          CSOUND_INPUT_CHANNEL | CSOUND_CONTROL_CHANNEL) != 0) {
-    printf("csoundGetChannelPtr could not get the \"pitch\" channel");
-    return 1;
+  UserData *ud = data;
+  int result = 0;
+  while (!atomic_load(&ud->stop) && result == 0) {
+    result = csoundPerformKsmps(ud->csound);
   }
-  if (!ud->result) {
-    ud->PERF_STATUS = 1;
-    ThreadID = csoundCreateThread(csThread, (void*)ud);
-  }
-  else {
-    printf("csoundCompiled returned an error");
-    return 1;
-  }
-  printf("\nEnter a pitch in Hz(0 to Exit) and type return\n");
-  while (userInput != 0) {
-    *pvalue = (MYFLT)userInput;
-    scanf("%d", &userInput);
-  }
-  ud->PERF_STATUS = 0;
-  csoundDestroy(ud->csound);
-  free(ud);
-  return 0;
+  return (result < 0 || csoundErrCnt(ud->csound) > 0);
 }
 
-/*-----------------------------------------------------------
- * definition of our performance thread function
- *-----------------------------------------------------------*/
-uintptr_t csThread(void *data)
+int main(int argc, char **argv)
 {
-  userData *udata = (userData *)data;
-  if (!udata->result) {
-    while ((csoundPerformKsmps(udata->csound) == 0) &&
-           (udata->PERF_STATUS == 1));
-    csoundDestroy(udata->csound);
+  if (argc != 2) {
+    fprintf(stderr, "Usage: %s file.csd\n", argv[0]);
+    return 1;
   }
-  udata->PERF_STATUS = 0;
-  return 1;
+  CSOUND *csound = csoundCreate(NULL, NULL);
+  if (csound == NULL) return 1;
+  if (csoundCompileCSD(csound, argv[1], 0, 0) != 0 ||
+      csoundStart(csound) != 0) {
+    csoundDestroy(csound);
+    return 1;
+  }
+  void *channel = NULL;
+  int type = CSOUND_CONTROL_CHANNEL | CSOUND_INPUT_CHANNEL;
+  if (csoundGetChannelPtr(csound, &channel, "pitch", type) != 0) {
+    csoundDestroy(csound);
+    return 1;
+  }
+  csoundSetControlChannel(csound, "pitch", 200);
+  UserData ud = {.csound = csound};
+  atomic_init(&ud.stop, false);
+  void *thread = csoundCreateThread(perform, &ud);
+  if (thread == NULL) {
+    csoundDestroy(csound);
+    return 1;
+  }
+  char line[128];
+  puts("Enter a pitch in Hz, or 0 to stop.");
+  while (fgets(line, sizeof(line), stdin) != NULL) {
+    double pitch;
+    if (sscanf(line, "%lf", &pitch) != 1) continue;
+    if (pitch == 0) break;
+    if (pitch > 0 && pitch < csoundGetSr(csound) / 2) {
+      csoundSetControlChannel(csound, "pitch", (cs_float)pitch);
+    }
+  }
+  atomic_store(&ud.stop, true);
+  int failed = (int)csoundJoinThread(thread);
+  csoundDestroy(csound);
+  return failed;
 }
 ```
 
-There are several ways of sending data to and from Csound through software buses.
-They are divided in two categories:
+```none
+gcc -std=c11 -o channelHost channelHost.c -lcsound64
+./channelHost pitch.csd
+```
 
 ### Named Channels with no Callback
 
-This category uses `csoundGetChannelPtr()` to get a pointer to the data of the named channel.
-There are also six functions to send data to and from a named channel in a thread safe way:
+These functions copy channel data in a thread-safe way:
 
 ```c
-MYFLT csoundGetControlChannel(CSOUND *csound, const char *name, int *err)
-void csoundSetControlChannel(CSOUND *csound, const char *name, MYFLT val)
-void csoundGetAudioChannel(CSOUND *csound, const char *name, MYFLT *samples)
-void csoundSetAudioChannel(CSOUND *csound, const char *name, MYFLT *samples)
-void csoundGetStringChannel(CSOUND *csound, const char *name, char *string)
-void csoundSetStringChannel(CSOUND *csound, const char *name, char *string)
+cs_float csoundGetControlChannel(CSOUND *csound, const char *name,
+                                int32_t *err);
+void csoundSetControlChannel(CSOUND *csound, const char *name,
+                             cs_float value);
+void csoundGetAudioChannel(CSOUND *csound, const char *name,
+                           cs_float *samples);
+void csoundSetAudioChannel(CSOUND *csound, const char *name,
+                           const cs_float *samples);
+void csoundGetStringChannel(CSOUND *csound, const char *name,
+                            char *string);
+void csoundSetStringChannel(CSOUND *csound, const char *name,
+                            const char *string);
 ```
 
-The opcodes concerned are `chani`, `chano`, `chnget` and `chnset`.
-When using numbered channels with `chani` and `chano`, the API sees those channels as named channels,
-the name being derived from the channel number (i.e. 1 gives "1", 17 gives "17", etc).
+Audio buffers must hold at least `ksmps` samples. For strings,
+`csoundGetChannelDatasize()` reports the required buffer size in bytes.
+A string can grow during performance, so a size query followed by a copy
+also needs coordination with the writer. Reading between control blocks
+in the performance thread avoids that race.
 
-There is also a helper function returning the data size of a named channel:
-
-```c
-int csoundGetChannelDatasize(CSOUND *csound, const char *name)
-```
-
-It is particularly useful when dealing with string channels.
+Use `chnget` and `chnset` in the orchestra. The numbered channels used by
+`chani` and `chano` appear in the API as names such as `"1"` and `"17"`.
 
 ### Named Channels with Callback
 
-Each time a named channel with callback is used (opcodes `invalue`, `outvalue`, `chnrecv`, and `chnsend`), the corresponding callback registered by one of those functions will be called:
+The `invalue` and `outvalue` opcodes call host functions registered with:
 
 ```c
-void csoundSetInputChannelCallback(
-  CSOUND *csound, channelCallback_t inputChannelCalback
-);
-void csoundSetOutputChannelCallback(
-  CSOUND *csound, channelCallback_t outputChannelCalback
-);
+void csoundSetInputChannelCallback(CSOUND *csound,
+                                   channelCallback_t callback);
+void csoundSetOutputChannelCallback(CSOUND *csound,
+                                    channelCallback_t callback);
 ```
+
+The callback receives the channel name, a value pointer, and type
+information. It must handle the channel's data type and return promptly,
+since Csound may call it from the performance thread.
 
 ### Other Channel Functions
 
+Csound 7 also provides array and spectral channels. Use
+`csoundInitArrayChannel()` or `csoundInitPvsChannel()` to set them up.
+The PVS copy functions use `PVSDAT`, with the channel name before the
+data pointer:
+
 ```c
-int csoundSetPvsChannel(
-  CSOUND *csound, const PVSDATEXT *fin, const char *name
-);
-int csoundGetPvsChannel(
-  CSOUND *csound, PVSDATEXT *fout, const char *name
-);
-
-int csoundSetControlChannelHints(
-  CSOUND *csound, const char *name, controlChannelHints_t hints
-);
-int csoundGetControlChannelHints(
-  CSOUND *csound, const char *name, controlChannelHints_t *hints
-);
-
-int *csoundGetChannelLock(CSOUND *csound, const char *name);
-# kills off one or more running instances of an instrument
-int csoundKillInstance(
-  CSOUND *csound, MYFLT instr, char *instrName, int mode, int allow_release
-);
-
-int csoundRegisterKeyboardCallback(
-  CSOUND *csound,
-  int (*func)(void *userData, void *p, unsigned int type),
-  void *userData, unsigned int type
-);
-# replace csoundSetCallback() and csoundRemoveCallback()
-void csoundRemoveKeyboardCallback(
-  CSOUND *csound,
-  int (*func)(void *, void *, unsigned int)
-);
+int32_t csoundSetPvsChannel(CSOUND *csound, const char *name,
+                           const PVSDAT *data);
+int32_t csoundGetPvsChannel(CSOUND *csound, const char *name,
+                           PVSDAT *data);
 ```
+
+`csoundSetControlChannelHints()` and `csoundGetControlChannelHints()`
+store and retrieve metadata such as a control's range. Release attributes
+returned by the getter with `csoundDeleteControlChannelHints()`.
+For direct channel access, Csound 7 provides `csoundLockChannel()` and
+`csoundUnlockChannel()`. Follow the rules for each data type in
+[csound.h](https://github.com/csound/csound/blob/develop/include/csound.h).
 
 ## Score Events
 
-Adding score events to the csound instance is easy to do.
-It requires that csound has its threading done, see the paragraph above on threading.
-To enter a score event into csound, one calls the following function:
+Csound 7 uses `csoundEventString()` for text events and `csoundEvent()`
+for numeric p-fields. A host can send events between control blocks,
+or queue them from another thread by setting the final `async` argument
+to 1. For example, given a running `CSOUND *csound`:
 
 ```c
-void myInputMessageFunction(void *data, const char *message)
-{
-  userData *udata = (userData *)data;
-  csoundInputMessage(udata->csound, message );
-}
+/* Instrument 1, no delay, one second, p4 = 0.5, p5 = 440. */
+csoundEventString(csound, "i 1 0 1 0.5 440", 1);
+
+/* The same event as numeric p-fields. */
+cs_float fields[] = {1, 0, 1, 0.5, 440};
+csoundEvent(csound, CS_INSTR_EVENT, fields, 5, 1);
 ```
 
-Now we can call that function to insert Score events into a running csound instance.
-The formatting of the message should be the same as one would normally have in the Score part of the .csd file.
-The example shows the format for the message. Note that if you're allowing csound to print its error messages,
-if you send a malformed message, it will warn you. Good for debugging.
-There's an example with the csound source code that allows you to type in a message,
-and then it will send it.
-
-```c
-/*                     instrNum  start  duration   p4   p5   p6  ... pN */
-const char *message = "i1        0      1          0.5  0.3  0.1";
-myInputMessageFunction((void*)udata, message);
-```
+These are two alternatives; calling both schedules two notes. During
+performance, p2 is a delay from the time Csound inserts the event.
+Call `csoundStart()` before sending these events; numeric events sent
+before that call have no effect. Use explicit start times for live events
+rather than relying on score-file carry notation such as `+`.
+The receiving instrument decides what p4 and later fields mean.
 
 ## Callbacks
 
-Csound can call subroutines declared in the host program when some special events occur.
-This is done through the callback mechanism.
-One has to declare to Csound the existence of a callback routine using an API setter function.
-Then when a corresponding event occurs during performance,
-Csound will call the host callback routine, eventually passing some arguments to it.
-
-The example below shows a very simple command line application allowing the user to rewind
-the score or to abort the performance. This is achieved by reading characters from
-the keyboard: 'r' for rewind and 'q' for quit. During performance, Csound executes a loop.
-Each pass in the loop yields ksmps audio frames. Using the API `csoundSetYieldCallback()` function,
-we can tell to Csound to call our own routine after each pass in its internal loop.
-
-The yieldCallback routine must be non-blocking. That's why it is a bit tricky to force
-the C `getc` function to be non-blocking. To enter a character,
-you have to type the character and then hit the return key.
+A callback lets Csound call a host function when an event occurs. For
+example, a message callback can route Csound's messages to a console or
+log. This host adds a prefix and keeps the messages visible, including
+errors:
 
 ```c
 #include <csound/csound.h>
+#include <stdarg.h>
+#include <stdio.h>
 
-int yieldCallback(CSOUND *csound)
+static void message(CSOUND *csound, int attr, const char *format,
+                    va_list args)
 {
-  int fd, oldstat, dummy;
-  char ch;
+  (void)csound;
+  (void)attr;
+  fputs("[Csound] ", stderr);
+  vfprintf(stderr, format, args);
+}
 
-  fd = fileno(stdin);
-  oldstat = fcntl(fd, F_GETFL, dummy);
-  fcntl(fd, F_SETFL, oldstat | O_NDELAY);
-  ch = getc(stdin);
-  fcntl(fd, F_SETFL, oldstat);
-  if (ch == -1)
+int main(int argc, char **argv)
+{
+  if (argc != 2) return 1;
+  CSOUND *csound = csoundCreate(NULL, NULL);
+  if (csound == NULL) return 1;
+  csoundSetMessageCallback(csound, message);
+  int result = csoundCompileCSD(csound, argv[1], 0, 0);
+  if (result == 0) result = csoundStart(csound);
+  if (result != 0) {
+    csoundDestroy(csound);
     return 1;
-  switch (ch) {
-  case 'r':
-    csoundRewindScore(csound);
-    break;
-  case 'q':
-    csoundStop(csound);
-    break;
   }
-  return 1;
-}
-
-int main(int argc, char **argv)
-{
-  CSOUND *csound = csoundCreate(NULL);
-  csoundSetYieldCallback(csound, yieldCallback);
-  int result = csoundCompile(csound, argc, argv);
-  if (result == 0) {
-    result = csoundPerform(csound);
-  }
+  while ((result = csoundPerformKsmps(csound)) == 0) {}
+  int failed = (result < 0 || csoundErrCnt(csound) > 0);
   csoundDestroy(csound);
-  return (result >= 0 ? 0 : result);
+  return failed;
 }
 ```
 
-The user can also set callback routines for file open events, real-time audio events,
-real-time MIDI events, message events, keyboards events, graph events,
-and channel invalue and outvalue events.
+Build this C host as in the first example. A real-time host should avoid
+slow work in callbacks; console output here serves only to show the
+mechanism. Csound 7 removes `csoundSetYieldCallback()`. To control each
+block, put host work around `csoundPerformKsmps()`, or use the performance
+thread's process callback.
 
-## CsoundPerformanceThread: A Swiss Knife for the API
+Other callback groups have their own headers: `csound_files.h` for file
+events, `csound_rtaudio.h` for audio, `csound_rtmidi.h` for MIDI, and
+`csound_graph_display.h` for graphs.
 
-Beside the API, Csound provides a helper C++ class to facilitate threading issues: `CsoundPerformanceThread`.
-This class performs a score in a separate thread, allowing the host program to do its own processing
-in its main thread during the score performance.
-The host program will communicate with the `CsoundPerformanceThread` class by sending messages to it,
-calling `CsoundPerformanceThread` methods.
-Those messages are queued inside `CsoundPerformanceThread` and
-are treated in a first in first out (FIFO) manner.
+## CsoundPerformanceThread
 
-The example below is equivalent to the example in the callback section.
-But this time, as the characters are read in a different thread,
-there is no need to have a non-blocking character reading routine.
+`CsoundPerformanceThread` runs the performance loop and queues commands
+from the host. Csound 7 includes this C++ class in the main Csound library;
+there is no separate `libcsnd6` dependency. Include `csound.hpp` before
+`csPerfThread.hpp`.
 
-```c
+Compile and start the Csound instance before creating the worker. The
+worker begins paused; `Play()` starts processing. This host accepts `r`
+to return to score time zero and `q` to quit. Press Enter after a command.
+End of input also stops and joins the worker.
+
+```cpp
 #include <csound/csound.hpp>
 #include <csound/csPerfThread.hpp>
-
-#include <iostream>
-using namespace std;
-
-int main(int argc, char **argv)
-{
-  Csound *cs = new Csound();
-  int result = cs->Compile(argc, argv);
-  if (result == 0) {
-    CsoundPerformanceThread *pt = new CsoundPerformanceThread(cs);
-    pt->Play();
-    while (pt->GetStatus() == 0) {
-      char c = cin.get();
-      switch (c) {
-      case 'r':
-        cs->RewindScore();
-        break;
-      case 'q':
-        pt->Stop();
-        pt->Join();
-        break;
-      }
-    }
-  }
-  return (result >= 0 ? 0 : result);
-}
-```
-
-Because `CsoundPerformanceThread` is not part of the API, we have to link to libcsnd6 to get it working:
-
-```none
-g++ -DUSE_DOUBLE -o perfThread perfThread.cpp -lcsound64 -lcsnd6
-```
-
-When using this class from Python or Java,
-this is not an issue because the ctcsound.py module and
-the csnd6.jar package include the API functions and classes,
-and the `CsoundPerformanceThread` class as well (see below).
-
-Here is a more complete example which could be the base of a frontal application to run Csound.
-The host application is modeled through the `CsoundSession` class which has its own event loop (mainLoop).
-`CsoundSession` inherits from the API `Csound` class and
-it embeds an object of type `CsoundPerformanceThread`.
-Most of the `CsoundPerformanceThread` class methods are used.
-
-```c
-#include <csound/csound.hpp>
-#include <csound/csPerfThread.hpp>
-#include <iostream>
-#include <string>
-
-using namespace std;
-
-class CsoundSession : public Csound {
-public:
-  CsoundSession(string const &csdFileName = "") : Csound() {
-    m_pt = NULL;
-    m_csd = "";
-    if (!csdFileName.empty()) {
-      m_csd = csdFileName;
-      startThread();
-    }
-  };
-
-  void startThread() {
-    if (Compile((char *)m_csd.c_str()) == 0) {
-      m_pt = new CsoundPerformanceThread(this);
-      m_pt - > Play();
-    }
-  };
-
-  void resetSession(string const &csdFileName) {
-    if (!csdFileName.empty())
-      m_csd = csdFileName;
-    if (!m_csd.empty()) {
-      stopPerformance();
-      startThread();
-    }
-  };
-
-  void stopPerformance() {
-    if (m_pt) {
-      if (m_pt - > GetStatus() == 0)
-        m_pt - > Stop();
-      m_pt - > Join();
-      m_pt = NULL;
-    }
-    Reset();
-  };
-
-  void mainLoop() {
-    string s;
-    bool loop = true;
-    while (loop) {
-      cout
-          << endl
-          << "l)oad csd; " +
-             "e(vent; " +
-             "r(ewind; " +
-             "t(oggle pause; " +
-             "s(top; " +
-             "p(lay; " +
-             "q(uit: ";
-      char c = cin.get();
-      switch (c) {
-      case 'l':
-        cout << "Enter the name of csd file:";
-        cin >> s;
-        resetSession(s);
-        break;
-      case 'e':
-        cout << "Enter a score event:";
-        cin.ignore(1000, '\n'); // a bit tricky, but well, this is C++!
-        getline(cin, s);
-        m_pt - > InputMessage(s.c_str());
-        break;
-      case 'r':
-        RewindScore();
-        break;
-      case 't':
-        if (m_pt)
-          m_pt - > TogglePause();
-        break;
-      case 's':
-        stopPerformance();
-        break;
-      case 'p':
-        resetSession("");
-        break;
-      case 'q':
-        if (m_pt) {
-          m_pt - > Stop();
-          m_pt - > Join();
-        }
-        loop = false;
-        break;
-      }
-      cout << endl;
-    }
-  };
-
-private:
-  string m_csd;
-  CsoundPerformanceThread *m_pt;
-};
-
-int main(int argc, char **argv) {
-  string csdName = "";
-  if (argc > 1)
-    csdName = argv[1];
-  CsoundSession *session = new CsoundSession(csdName);
-  session - > mainLoop();
-}
-```
-
-The application is built with the following command:
-
-```none
-g++ -o csoundSession csoundSession.cpp -lcsound64 -lcsnd6
-```
-
-There are also methods in `CsoundPerformanceThread` for sending score events (`ScoreEvent`),
-for moving the time pointer (`SetScoreOffsetSeconds`),
-for setting a callback function (`SetProcessCallback`) to be called at the end of each pass in the process loop,
-and for flushing the message queue (`FlushMessageQueue`).
-
-As an exercise, the user should complete this example using the methods above and
-then try to rewrite the example in Python and/or in Java (see below).
-
-## Csound API Review
-
-The best source of information is the csound.h header file.
-Let us review some important API functions in a C++ example:
-
-```c
-#include <csound/csound.hpp>
-#include <csound/csPerfThread.hpp>
-
 #include <iostream>
 #include <string>
 #include <vector>
-using namespace std;
 
-string orc1 = "instr 1              \n"
-              "idur = p3            \n"
-              "iamp = p4            \n"
-              "ipch = cpspch(p5)    \n"
-              "kenv linen  iamp, 0.05, idur, 0.1 \n"
-              "a1   poscil kenv, ipch \n"
-              "     out    a1         \n"
-              "endin";
-
-string orc2 = "instr 1    \n"
-              "idur = p3  \n"
-              "iamp = p4  \n"
-              "ipch = cpspch(p5)  \n"
-              "a1 foscili iamp, ipch, 1, 1.5, 1.25  \n"
-              "   out     a1      \n"
-              "endin\n";
-
-string orc3 = "instr 1    \n"
-              "idur = p3  \n"
-              "iamp = p4  \n"
-              "ipch = cpspch(p5-1)         \n"
-              "kenv  linen    iamp, 0.05, idur, 0.1  \n"
-              "asig  rand     0.45         \n"
-              "afilt moogvcf2 asig, ipch*4, ipch/(ipch * 1.085)  \n"
-              "asig  balance  afilt, asig  \n"
-              "      out      kenv*asig    \n"
-              "endin\n";
-
-string sco1 = "i 1 0 1    0.5 8.00\n"
-              "i 1 + 1    0.5 8.04\n"
-              "i 1 + 1.5  0.5 8.07\n"
-              "i 1 + 0.25 0.5 8.09\n"
-              "i 1 + 0.25 0.5 8.11\n"
-              "i 1 + 0.5  0.8 9.00\n";
-
-string sco2 = "i 1 0 1    0.5 9.00\n"
-              "i 1 + 1    0.5 8.07\n"
-              "i 1 + 1    0.5 8.04\n"
-              "i 1 + 1    0.5 8.02\n"
-              "i 1 + 1    0.5 8.00\n";
-
-string sco3 = "i 1 0 0.5  0.5 8.00\n"
-              "i 1 + 0.5  0.5 8.04\n"
-              "i 1 + 0.5  0.5 8.00\n"
-              "i 1 + 0.5  0.5 8.04\n"
-              "i 1 + 0.5  0.5 8.00\n"
-              "i 1 + 0.5  0.5 8.04\n"
-              "i 1 + 1.0  0.8 8.00\n";
-
-void noMessageCallback(CSOUND *cs, int attr, const char *format,
-                       va_list valist) {
-  // Do nothing so that Csound will not print any message,
-  // leaving a clean console for our app
-  return;
-}
-
-class CsoundSession : public Csound {
-public:
-  CsoundSession(vector<string> &orc, vector<string> &sco) : Csound() {
-    m_orc = orc;
-    m_sco = sco;
-    m_pt = NULL;
-  };
-
-  void mainLoop() {
-    SetMessageCallback(noMessageCallback);
-    SetOutput((char *)"dac", NULL, NULL);
-    GetParams(&m_csParams);
-    m_csParams.sample_rate_override = 48000;
-    m_csParams.control_rate_override = 480;
-    m_csParams.e0dbfs_override = 1.0;
-    // Note that setParams is called before first compilation
-    SetParams(&m_csParams);
-    if (CompileOrc(orc1.c_str()) == 0) {
-      Start(this->GetCsound());
-      // Just to be sure...
-      cout << GetSr() << ", " << GetKr() << ", ";
-      cout << GetNchnls() << ", " << Get0dBFS() << endl;
-      m_pt = new CsoundPerformanceThread(this);
-      m_pt->Play();
-    } else {
-      return;
-    }
-
-    string s;
-    TREE *tree;
-    bool loop = true;
-    while (loop) {
-      cout << endl << "1) 2) 3): orchestras, 4) 5) 6): scores; q(uit: ";
-      char c = cin.get();
-      cin.ignore(1, '\n');
-      switch (c) {
-      case '1':
-        tree = ParseOrc(m_orc[0].c_str());
-        CompileTree(tree);
-        DeleteTree(tree);
-        break;
-      case '2':
-        CompileOrc(m_orc[1].c_str());
-        break;
-      case '3':
-        EvalCode(m_orc[2].c_str());
-        break;
-      case '4':
-        ReadScore((char *)m_sco[0].c_str());
-        break;
-      case '5':
-        ReadScore((char *)m_sco[1].c_str());
-        break;
-      case '6':
-        ReadScore((char *)m_sco[2].c_str());
-        break;
-      case 'q':
-        if (m_pt) {
-          m_pt->Stop();
-          m_pt->Join();
-        }
-        loop = false;
-        break;
-      }
-    }
-  };
-
-private:
-  CsoundPerformanceThread *m_pt;
-  CSOUND_PARAMS m_csParams;
-  vector<string> m_orc;
-  vector<string> m_sco;
-};
-
-int main(int argc, char **argv) {
-  vector<string> orc;
-  orc.push_back(orc1);
-  orc.push_back(orc2);
-  orc.push_back(orc3);
-  vector<string> sco;
-  sco.push_back(sco1);
-  sco.push_back(sco2);
-  sco.push_back(sco3);
-  CsoundSession *session = new CsoundSession(orc, sco);
-  session->mainLoop();
+int main(int argc, char **argv)
+{
+  Csound cs;
+  if (cs.GetCsound() == nullptr) return 1;
+  std::vector<const char *> args(argv, argv + argc);
+  if (cs.Compile(argc, args.data()) != 0 || cs.Start() != 0) return 1;
+  CsoundPerformanceThread pt(cs.GetCsound());
+  pt.Play();
+  std::string command;
+  std::cout << "r: rewind; q: quit" << std::endl;
+  while (std::getline(std::cin, command)) {
+    if (command == "q") break;
+    if (command == "r") pt.SetScoreOffsetSeconds(0);
+  }
+  pt.Stop();
+  int result = pt.Join();
+  return (result < 0 || csoundErrCnt(cs.GetCsound()) > 0);
 }
 ```
-
-## Deprecated Functions
 
 ```none
-csoundQueryInterface()
-csoundSetInputValueCallback()
-csoundSetOutputValueCallback()
-csoundSetChannelIOCallback()
-csoundPerformKsmpsAbsolute()
+g++ -std=c++11 -o perfThread perfThread.cpp -lcsound64
+./perfThread myexample.csd
 ```
 
-are still in the header file but are now deprecated.
+The input loop waits for `q` or end of input even after the score ends.
+Rewinding seeks within an active performance; after the worker has
+stopped, reset, compile, and start a new performance to play again.
+
+The next host groups that lifecycle in a `CsoundSession` class. It owns
+both objects, joins and deletes the worker before resetting Csound, and
+checks for an active session before accepting events. A failed load does
+not leave a worker behind. Commands and filenames each occupy one line.
+
+```cpp
+#include <csound/csound.hpp>
+#include <csound/csPerfThread.hpp>
+#include <iostream>
+#include <memory>
+#include <string>
+
+class CsoundSession {
+  Csound cs;
+  std::unique_ptr<CsoundPerformanceThread> thread;
+  std::string filename;
+  bool failed = false;
+
+public:
+  ~CsoundSession() { stop(); }
+
+  void stop()
+  {
+    if (thread) {
+      thread->Stop();
+      int result = thread->Join();
+      failed |= (result < 0 || csoundErrCnt(cs.GetCsound()) > 0);
+      thread.reset();
+    }
+    if (cs.GetCsound() != nullptr) cs.Reset();
+  }
+
+  void start(const std::string &name)
+  {
+    stop();
+    if (!name.empty()) filename = name;
+    if (filename.empty()) {
+      std::cerr << "Load a CSD file first.\n";
+      return;
+    }
+    if (cs.GetCsound() == nullptr ||
+        cs.Compile(filename.c_str()) != 0 || cs.Start() != 0) {
+      failed = true;
+      return;
+    }
+    thread.reset(new CsoundPerformanceThread(cs.GetCsound()));
+    thread->Play();
+  }
+
+  int mainLoop()
+  {
+    std::string command, value;
+    std::cout << "l: load; e: event; r: rewind; t: pause/resume; "
+                 "s: stop; p: replay; q: quit" << std::endl;
+    while (std::getline(std::cin, command)) {
+      if (command == "q") break;
+      if (command == "l") {
+        std::cout << "CSD filename: " << std::flush;
+        if (!std::getline(std::cin, value)) break;
+        start(value);
+      } else if (command == "p") {
+        start("");
+      } else if (command == "s") {
+        stop();
+      } else if (command == "e" || command == "r" || command == "t") {
+        if (!thread || thread->GetStatus() != 0) {
+          std::cerr << "No active performance.\n";
+          continue;
+        }
+        if (command == "e") {
+          std::cout << "Score event: " << std::flush;
+          if (!std::getline(std::cin, value)) break;
+          thread->InputMessage(value.c_str());
+        } else if (command == "r") {
+          thread->SetScoreOffsetSeconds(0);
+        } else {
+          thread->TogglePause();
+        }
+      }
+    }
+    stop();
+    return failed;
+  }
+};
+
+int main(int argc, char **argv)
+{
+  CsoundSession session;
+  if (argc > 1) session.start(argv[1]);
+  return session.mainLoop();
+}
+```
+
+```none
+g++ -std=c++11 -o csoundSession csoundSession.cpp -lcsound64
+./csoundSession myexample.csd
+```
+
+`InputMessage()` remains a method of `CsoundPerformanceThread`, although
+Csound 7 removed the C function `csoundInputMessage()`. The thread class
+also offers `ScoreEvent()`, `CompileOrc()`, and `SetProcessCallback()`.
+The process callback runs before each control block. It must not wait
+for keyboard input. `FlushMessageQueue()` waits for queued commands to
+finish; call it from the host thread, never from the worker's callback.
+
+## Csound API Review
+
+This example changes instruments and sends score events during a
+performance. It sets options before starting Csound, then uses the
+performance thread's queue for both orchestra changes and events. Their
+order matters: a new instrument must reach Csound before its notes.
+
+```cpp
+#include <csound/csound.hpp>
+#include <csound/csPerfThread.hpp>
+#include <iostream>
+#include <string>
+
+const char *orchestras[] = {
+  R"(instr 1
+    kEnv linen p4, 0.05, p3, 0.1
+    aSignal poscil kEnv, cpspch(p5)
+    out aSignal
+  endin)",
+  R"(instr 1
+    kEnv linen p4, 0.05, p3, 0.1
+    aSignal foscili kEnv, cpspch(p5), 1, 1.5, 1.25
+    out aSignal
+  endin)",
+  R"(instr 1
+    kEnv linen p4, 0.05, p3, 0.1
+    aNoise rand 0.45
+    aFilter moogvcf2 aNoise, cpspch(p5 - 1) * 4, 0.5
+    aSignal balance aFilter, aNoise
+    out kEnv * aSignal
+  endin)"
+};
+
+const char *scores[] = {
+  "i 1 0 1 0.5 8.00\ni 1 1 1 0.5 8.04\n"
+  "i 1 2 1.5 0.5 8.07\ni 1 3.5 0.25 0.5 8.09\n"
+  "i 1 3.75 0.25 0.5 8.11\ni 1 4 0.5 0.8 9.00\n",
+  "i 1 0 1 0.5 9.00\ni 1 1 1 0.5 8.07\n"
+  "i 1 2 1 0.5 8.04\ni 1 3 1 0.5 8.02\n"
+  "i 1 4 1 0.5 8.00\n",
+  "i 1 0 0.5 0.5 8.00\ni 1 0.5 0.5 0.5 8.04\n"
+  "i 1 1 0.5 0.5 8.00\ni 1 1.5 0.5 0.5 8.04\n"
+  "i 1 2 0.5 0.5 8.00\ni 1 2.5 0.5 0.5 8.04\n"
+  "i 1 3 1 0.8 8.00\n"
+};
+
+int main(int argc, char **argv)
+{
+  Csound cs;
+  if (cs.GetCsound() == nullptr) return 1;
+  if (cs.SetOption("-odac") != 0) return 1;
+  for (int i = 1; i < argc; ++i) {
+    if (cs.SetOption(argv[i]) != 0) return 1;
+  }
+  const char *header = "sr=48000\nksmps=100\nnchnls=1\n0dbfs=1\n";
+  std::string initial = std::string(header) + orchestras[0];
+  if (cs.CompileOrc(initial.c_str()) != 0 || cs.Start() != 0) return 1;
+  std::cout << cs.GetSr() << " Hz; " << cs.GetKr() << " blocks/s; "
+            << cs.GetChannels() << " channel(s)\n";
+  CsoundPerformanceThread pt(cs.GetCsound());
+  pt.Play();
+  std::cout << "1/2/3: instruments; 4/5/6: scores; q: quit" << std::endl;
+  std::string command;
+  while (std::getline(std::cin, command)) {
+    if (command == "q") break;
+    if (command.size() != 1) continue;
+    char key = command[0];
+    if (key >= '1' && key <= '3') {
+      pt.CompileOrc(orchestras[key - '1']);
+    } else if (key >= '4' && key <= '6') {
+      pt.InputMessage(scores[key - '4']);
+    }
+  }
+  pt.Stop();
+  int result = pt.Join();
+  return (result < 0 || csoundErrCnt(cs.GetCsound()) > 0);
+}
+```
+
+Build with the same flags as the preceding C++ example. It uses the
+audio device by default; pass `-n` to run without audio output. Starting
+from orchestra text without a score lets it wait for host events until
+the host stops it. Existing notes keep their instrument definition when
+a new definition replaces it; later notes use the new definition.
+
+## Removed Csound 6 Functions
+
+Csound 7 removes several functions used by older hosts:
+
+- Replace `csoundPerform()` with a loop over `csoundPerformKsmps()`.
+- Instead of `csoundStop()`, end the host's performance loop.
+- Replace `csoundCleanup()` with `csoundReset()` or `csoundDestroy()`.
+- Replace `csoundInputMessage()` and `csoundReadScore()` with
+  `csoundEventString()`.
+- Replace `csoundSetParams()` and `csoundSetOutput()` with
+  `csoundSetOption()`.
+- Instead of `csoundSetYieldCallback()`, run host code between control
+  blocks.
+
+The thread class's `Stop()` method still exists: it sends a stop command
+to that worker. See the
+[migration guide](https://github.com/csound/csound/blob/develop/docs/API_Migration_Guide_Csound_6_to_7.md)
+for changed signatures and functions moved to other headers.
 
 ## Builtin Wrappers
 
-The Csound API has also been wrapped to other languages.
-Usually Csound is built and distributed including a wrapper for Python and a wrapper for Java.
+Use bindings built for the same Csound 7 API as the loaded library.
+Package names and installation paths vary by system; a Csound 6 wrapper
+does not become compatible just by loading a Csound 7 library.
 
-To use the Python Csound API wrapper, you have to import the ctcsound module.
-The ctcsound module is normally installed in the site-packages or dist-packages directory of your
-python distribution as a ctcsound.py file. Our csound command example becomes:
+### Python
+
+The Csound 7 source includes `ctcsound.py`, which uses Python's `ctypes`
+module and NumPy. Make the matching module available on Python's import
+path. Its method names include `perform_ksmps()`, with an underscore.
+`compile_()` takes separate arguments, so unpack the command-line list
+with `*sys.argv`:
 
 ```python
+import ctypes as ct
 import sys
 import ctcsound
 
-cs = ctcsound.Csound()
-result = cs.compile_(sys.argv)
-if result == 0:
-    result = cs.perform()
-cs.cleanup()
-del cs
-sys.exit(result)
+# The wrapper does not yet expose an error-count method.
+error_count = ctcsound.libcsound.csoundErrCnt
+error_count.argtypes = [ct.c_void_p]
+error_count.restype = ct.c_int32
+
+
+def run(args):
+    cs = ctcsound.Csound()
+    if not cs.csound():
+        return 1
+    try:
+        result = cs.compile_(*args)
+        if result == 0:
+            result = cs.start()
+        if result != 0:
+            return 1
+        while True:
+            result = cs.perform_ksmps()
+            if result != 0:
+                break
+        return int(result < 0 or error_count(cs.csound()) > 0)
+    finally:
+        cs.destroy()
+
+
+sys.exit(run(sys.argv))
 ```
-
-We use a Csound object (remember Python has OOp features).
-Note the use of the `sys.argv` list to get the program input arguments.
-
-This example would be launched with the following command:
 
 ```none
-python csoundCommand.py myexample.csd
+python3 csoundCommand.py myexample.csd
 ```
 
-To use the Java Csound API wrapper, you have to import the csnd6 package.
-The csnd6 package is located in the csnd6.jar archive which has to be known from your Java path.
-Our csound command example becomes:
+`destroy()` releases the native instance and its resources, including
+open output files. The wrapper clears its pointer, so later object
+destruction will not destroy that instance twice. Do not also call
+`csoundDestroy()` on the pointer yourself.
+The error-count call uses the wrapper's loaded library through `ctypes`;
+it catches instrument errors that do not end the whole performance.
 
-```java
-import csnd6.*;
+### Java
 
-public class CsoundCommand
-{
-  private Csound csound = null;
-  private CsoundArgVList arguments = null;
+The old desktop `csnd6.jar` example uses the Csound 6 SWIG wrapper.
+The Csound 7 source disables that desktop wrapper while the Java binding
+moves toward [CsoundJNI](https://github.com/kunstmusik/CsoundJNI).
+See the current
+[Java binding notes](https://github.com/csound/csound/blob/develop/languages/java/README.md)
+for its status. Do not assume a `csnd7` package with the old methods exists.
+The Android binding has a separate build path.
 
-  public CsoundCommand(String[] args) {
-    csound = new Csound();
-    arguments = new CsoundArgVList();
-    arguments.Append("dummy");
-    for (int i = 0; i < args.length; i++) {
-      arguments.Append(args[i]);
-    }
-    int result = csound.Compile(arguments.argc(), arguments.argv());
-    if (result == 0) {
-      result = csound.Perform();
-    }
-    System.out.println(result);
-  }
-
-
-  public static void main(String[] args) {
-    CsoundCommand csCmd = new CsoundCommand(args);
-  }
-}
-```
-
-Note the "dummy" string as first argument in the arguments list.
-C, C++ and Python expect that the first argument in a program argv input array is implicitly the name of
-the calling program.
-This is not the case in Java: the first location in the program argv input array contains
-the first command line argument if any. So we have to had this "dummy" string value in
-the first location of the arguments array so that the C API function called by our csound.Compile method is happy.
-This illustrates a fundamental point about the Csound API.
-Whichever API wrapper is used (C++, Python, Java, etc),
-it is the C API which is working under the hood.
-So a thorough knowledge of the Csound C API is
-highly recommended if you plan to use the Csound API in any of its different flavours.
-
-On our linux system, with csnd.jar located in /usr/local/lib/,
-our Java Program would be compiled and run with the following commands:
-
-```none
-javac -cp /usr/local/lib/csnd6.jar CsoundCommand.java
-java -cp /usr/local/lib/csnd6.jar:. CsoundCommand
-```
-
-There is a drawback using the java wrappers: as it is built during the Csound build,
-the host system on which Csound will be used must have the same version of
-Java than the one which were on the system used to build Csound.
-The mechanism presented in the next section can solve this problem.
+A Java host needs a binding and native library built for its Csound API,
+platform, and CPU architecture. The JVM must also support the binding's
+class-file version; it need not be the exact JDK version used to build it.
 
 ## Foreign Function Interfaces
 
-Modern programming languages often propose a mechanism called
-Foreign Function Interface (FFI) which allows the user to write an
-interface to shared libraries written in C.
+A foreign function interface (FFI) lets a language call functions in a C
+library. It still needs exact signatures, compatible data types, and a
+library built for the host's platform. The following examples use the
+Csound 7 create, compile, start, perform-block, and destroy lifecycle.
 
-Python provides the ctypes module which is used by the ctcsound.py module.
+### Java
 
-Lua proposes the same functionality through the LuaJIT project.
-Here is a version of the csound command using LuaJIT FFI:
+Java 22 and later provide the Foreign Function & Memory API. This host
+uses it to call the Csound 7 C API directly, without a wrapper JAR. Save
+it as `Csound7Host.java`:
+
+```java
+import java.lang.foreign.Arena;
+import java.lang.foreign.FunctionDescriptor;
+import java.lang.foreign.Linker;
+import java.lang.foreign.MemorySegment;
+import java.lang.foreign.SymbolLookup;
+import java.lang.invoke.MethodHandle;
+import java.nio.file.Path;
+import static java.lang.foreign.ValueLayout.ADDRESS;
+import static java.lang.foreign.ValueLayout.JAVA_INT;
+
+public class Csound7Host {
+    private static MethodHandle bind(SymbolLookup library, String name,
+                                     FunctionDescriptor signature) {
+        return Linker.nativeLinker().downcallHandle(
+            library.find(name).orElseThrow(), signature);
+    }
+
+    public static void main(String[] args) throws Throwable {
+        if (args.length < 2) {
+            throw new IllegalArgumentException(
+                "Use: Csound7Host <library> [options] <CSD>");
+        }
+        try (Arena arena = Arena.ofConfined()) {
+            SymbolLookup library = SymbolLookup.libraryLookup(
+                Path.of(args[0]), arena);
+            MethodHandle create = bind(library, "csoundCreate",
+                FunctionDescriptor.of(ADDRESS, ADDRESS, ADDRESS));
+            MethodHandle destroy = bind(library, "csoundDestroy",
+                FunctionDescriptor.ofVoid(ADDRESS));
+            MethodHandle compile = bind(library, "csoundCompile",
+                FunctionDescriptor.of(JAVA_INT, ADDRESS, JAVA_INT, ADDRESS));
+            MethodHandle start = bind(library, "csoundStart",
+                FunctionDescriptor.of(JAVA_INT, ADDRESS));
+            MethodHandle perform = bind(library, "csoundPerformKsmps",
+                FunctionDescriptor.of(JAVA_INT, ADDRESS));
+            MethodHandle errorCount = bind(library, "csoundErrCnt",
+                FunctionDescriptor.of(JAVA_INT, ADDRESS));
+
+            MemorySegment cs = (MemorySegment) create.invokeExact(
+                MemorySegment.NULL, MemorySegment.NULL);
+            if (cs.equals(MemorySegment.NULL)) {
+                throw new IllegalStateException("could not create Csound");
+            }
+            try {
+                MemorySegment argv = arena.allocate(ADDRESS, args.length);
+                argv.setAtIndex(ADDRESS, 0, arena.allocateFrom("csound"));
+                for (int i = 1; i < args.length; i++) {
+                    argv.setAtIndex(ADDRESS, i, arena.allocateFrom(args[i]));
+                }
+                int result = (int) compile.invokeExact(cs, args.length, argv);
+                if (result != 0) {
+                    throw new IllegalStateException("compile failed");
+                }
+                result = (int) start.invokeExact(cs);
+                if (result != 0) {
+                    throw new IllegalStateException("start failed");
+                }
+                do {
+                    result = (int) perform.invokeExact(cs);
+                } while (result == 0);
+                if (result < 0 || (int) errorCount.invokeExact(cs) != 0) {
+                    throw new IllegalStateException("performance failed");
+                }
+            } finally {
+                destroy.invokeExact(cs);
+            }
+        }
+    }
+}
+```
+
+The first argument names the native library. The remaining arguments go
+to Csound, with a program name inserted at the start of its argument
+array. Replace the library path below with your installation's path:
+
+```none
+java --enable-native-access=ALL-UNNAMED Csound7Host.java \
+  /path/to/libcsound64.so myexample.csd
+```
+
+On macOS, use the binary inside the Csound framework. The arena keeps the
+argument strings and library handle alive through performance. The
+`finally` block destroys Csound before the arena closes, including when
+compilation or performance fails.
+
+### LuaJIT
+
+LuaJIT provides the `ffi` module. This example loads `libcsound64` on
+Linux. On other systems, set `CSOUND_LIBRARY` to the full path of the
+Csound 7 shared library, such as the binary inside a macOS framework.
 
 ```lua
--- This is the wrapper part defining our LuaJIT interface to
--- the Csound API functions that we will use, and a helper function
--- called csoundCompile, which makes a pair of C argc, argv arguments from
--- the script input args and calls the API csoundCompile function
--- This wrapper could be written in a separate file and imported
--- in the main program.
-
 local ffi = require("ffi")
 ffi.cdef[[
-typedef void CSOUND;
-CSOUND *csoundCreate(void *hostData);
-int csoundCompile(CSOUND *, int argc, const char *argv[]);
-int csoundPerform(CSOUND *);
+typedef struct CSOUND_ CSOUND;
+CSOUND *csoundCreate(void *hostData, const char *opcodedir);
+int32_t csoundCompile(CSOUND *, int32_t argc, const char **argv);
+int32_t csoundStart(CSOUND *);
+int32_t csoundPerformKsmps(CSOUND *);
+int32_t csoundErrCnt(CSOUND *);
 void csoundDestroy(CSOUND *);
 ]]
 
-csoundAPI = ffi.load("csound64.so")
+local api = ffi.load(os.getenv("CSOUND_LIBRARY") or "csound64")
+local args = {arg[0]}
+for i = 1, #arg do args[#args + 1] = arg[i] end
+local argv = ffi.new("const char *[?]", #args + 1)
+for i = 1, #args do argv[i - 1] = args[i] end
+argv[#args] = nil
 
-string_array_t = ffi.typeof("const char *[?]")
-
-function csoundCompile(csound, args)
-  local argv = {"dummy"}
-  for i, v in ipairs(args) do
-    argv[i+1] = v
-  end
-  local cargv = string_array_t(#argv + 1, argv)
-  cargv[#argv] = nil
-  return csoundAPI.csoundCompile(csound, #argv, cargv)
+local csound = api.csoundCreate(nil, nil)
+if csound == nil then os.exit(1) end
+local result = api.csoundCompile(csound, #args, argv)
+if result == 0 then result = api.csoundStart(csound) end
+local failed = result ~= 0
+if not failed then
+  repeat
+    result = api.csoundPerformKsmps(csound)
+  until result ~= 0
+  failed = result < 0 or api.csoundErrCnt(csound) > 0
 end
-
--- This is the Csound commandline program using the wrapper interface
-csound = csoundAPI.csoundCreate(nil)
-result = csoundCompile(csound, {...})
-if result == 0 then
-  csoundAPI.csoundPerform(csound)
-end
-csoundAPI.csoundDestroy(csound)
+api.csoundDestroy(csound)
+os.exit(failed and 1 or 0)
 ```
 
-The FFI package of the Google Go programming language is called cgo.
-Here is a version of the csound command using cgo:
+```none
+luajit csoundCommand.lua myexample.csd
+```
+
+The `args` table keeps the strings alive while C uses their pointers.
+The first argument is the host program's name, as the C API expects.
+
+### Go
+
+Go's `cgo` compiles a small C interface alongside the Go code. This host
+includes the Csound 7 header and uses C-allocated argument strings. It
+frees those strings after compilation and destroys Csound before
+`os.Exit()`, which does not run deferred calls itself.
 
 ```go
 package main
 
-/* This is the wrapper part defining our Go interface to
-   the Csound API functions that we will use. It uses the go object
-   model building methods that will call the corresponding API functions.
-   This wrapper could be written in a separate file and imported
-   in the main program.
-*/
-
 /*
-#cgo CFLAGS: -DUSE_DOUBLE=1
-#cgo CFLAGS: -I /usr/local/include
-#cgo linux CFLAGS: -DLINUX=1
-#cgo LDFLAGS: -lcsound64
-
+#cgo linux LDFLAGS: -lcsound64
+#cgo darwin LDFLAGS: -framework CsoundLib64
+#include <stdlib.h>
 #include <csound/csound.h>
 */
 import "C"
@@ -1061,76 +951,73 @@ import (
     "unsafe"
 )
 
-type CSOUND struct {
-    Cs (*C.CSOUND)
-}
-
-type MYFLT float64
-
-func CsoundCreate(hostData unsafe.Pointer) CSOUND {
-    var cs (*C.CSOUND)
-    if hostData != nil {
-	    cs = C.csoundCreate(hostData)
-    } else {
-	    cs = C.csoundCreate(nil)
-    }
-    return CSOUND{cs}
-}
-
-func (csound CSOUND) Compile(args []string) int {
-    argc := C.int(len(args))
-    argv := make([]*C.char, argc)
+func compile(cs *C.CSOUND, args []string) int {
+    argv := make([]*C.char, len(args))
     for i, arg := range args {
-	    argv[i] = C.CString(arg)
+        argv[i] = C.CString(arg)
     }
-    result := C.csoundCompile(csound.Cs, argc, &argv[0])
+    result := C.csoundCompile(cs, C.int32_t(len(argv)), &argv[0])
     for _, arg := range argv {
-	    C.free(unsafe.Pointer(arg))
+        C.free(unsafe.Pointer(arg))
     }
     return int(result)
 }
 
-func (csound CSOUND) Perform() int {
-    return int(C.csoundPerform(csound.Cs))
-}
-
-func (csound *CSOUND) Destroy() {
-    C.csoundDestroy(csound.Cs)
-    csound.Cs = nil
-}
-
-// This is the Csound commandline program using the wrapper interface
-func main() {
-    csound := CsoundCreate(nil)
-    if result := csound.Compile(os.Args); result == 0 {
-	    csound.Perform()
+func run(args []string) int {
+    cs := C.csoundCreate(nil, nil)
+    if cs == nil {
+        return 1
     }
-    csound.Destroy()
+    defer C.csoundDestroy(cs)
+    if compile(cs, args) != 0 || C.csoundStart(cs) != 0 {
+        return 1
+    }
+    result := C.int32_t(0)
+    for result == 0 {
+        result = C.csoundPerformKsmps(cs)
+    }
+    if result < 0 || C.csoundErrCnt(cs) > 0 {
+        return 1
+    }
+    return 0
+}
+
+func main() {
+    os.Exit(run(os.Args))
 }
 ```
 
-A complete wrapper to the Csound API written in Go is available at
-the [Go-Csnd project](https://github.com/fggp/go-csnd) on github.
+With the Csound headers and library on the compiler's search paths:
 
-The different examples in this section are written for Linux.
-For other operating systems, some adaptations are needed: for example,
-for Windows the library name suffix is .dll instead of .so.
+```none
+go build -o csoundCommand csoundCommand.go
+./csoundCommand myexample.csd
+```
 
-The advantage of FFI over Builtin Wrappers is that as long as the signatures of
-the functions in the interface are the same than the ones in the API,
-it will work without caring about the version number of the
-foreign programming language used to write the host program.
-Moreover, one needs to include in the interface only the functions used in the host program.
-However a good understanding of the C language low level features is needed to write
-the helper functions needed to adapt the foreign language data structures to the C pointer system.
+For a nonstandard installation, set `CGO_CFLAGS` to its include path and
+`CGO_LDFLAGS` to its library path. On macOS, the framework also needs to
+be on the compiler's framework search path. The runtime loader must be
+able to find the same library. Windows needs its own linker settings.
+
+These small interfaces expose only the functions each host uses. When
+extending them, check the current C header rather than copying declarations
+from a Csound 6 wrapper. Calling an FFI function with the wrong signature
+can corrupt memory or crash the host.
 
 ## References & Links
 
-[Csound API Docs](https://csound.com/docs/api/index.html)
+[Csound 7 host API header](https://github.com/csound/csound/blob/develop/include/csound.h)
 
-[Csound API Examples](https://github.com/csound/csoundAPI_examples)
+[Csound 6 to 7 API migration guide](https://github.com/csound/csound/blob/develop/docs/API_Migration_Guide_Csound_6_to_7.md)
 
-[ctcsound Docs](https://csound.com/docs/ctcsound)
+[Csound 7 C++ wrapper](https://github.com/csound/csound/blob/develop/include/csound.hpp)
+
+[Csound 7 performance thread](https://github.com/csound/csound/blob/develop/include/csPerfThread.hpp)
+
+[Csound 7 Python binding](https://github.com/csound/csound/blob/develop/languages/python/ctcsound.py)
+
+The following articles provide historical background. Their code predates
+Csound 7 and needs the API changes described above:
 
 Rory Walsh 2006, Developing standalone applications using the Csound Host API and wxWidgets,
 [Csound Journal Volume 1 Issue 4 - Summer 2006](http://csoundjournal.com/2006summer/wxCsound.html)
