@@ -71,19 +71,19 @@ This gives the Csound basic C++ API. With this API, the above example would beco
 
 int main(int argc, char **argv)
 {
-  Csound *cs = new Csound();
-  int result = cs->Compile(argc, argv);
+  Csound cs;
+  int result = cs.Compile(argc, argv);
   if (result == 0) {
-    result = cs->Perform();
+    result = cs.Perform();
   }
   return (result >= 0 ? 0 : result);
 }
 ```
 
-Here, we get a pointer to a Csound object instead of the csound opaque pointer.
-We call methods of this object instead of C functions,
-and we don't need to call `csoundDestroy()` in the end of the program,
-because the C++ object destruction mechanism takes care of this. On our linux system,
+Here, we create a local Csound object and call its methods instead of C functions.
+When `main` returns, the object's destructor calls `csoundDestroy()`,
+so we do not need to call it ourselves. A raw pointer created with `new`
+would instead need a matching `delete` to run that destructor. On our linux system,
 the example would be built with the following command:
 
 ```none

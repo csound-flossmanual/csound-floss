@@ -91,16 +91,17 @@ beginning of a score:
 
     t 0 60
 
-"At time (beat) zero set tempo to 60 beats per minute"; but this could
-easily be anything else or evena string of tempo change events following
-the format of a [linsegb](https://csound.com/docs/manual/linsegb.html) statement.
+"At time (beat) zero set tempo to 60 beats per minute"; other tempos or
+a series of beat/tempo pairs can follow the
+[t statement](https://csound.com/docs/manual/t.html) format:
 
     t 0 120 5 120 5 90 10 60
 
-This time tempo begins at 120bpm and remains steady until the 5th beat,
-whereupon there is an immediate change to 90bpm; thereafter the tempo
-declines in linear fashion until the 10th beat when the tempo has
-reached 60bpm.
+Here the tempo starts at 120 BPM and stays steady until beat 5, where it
+changes at once to 90 BPM. It then slows to 60 BPM at beat 10. Csound
+interpolates the duration of a beat, in seconds, linearly between these
+points, rather than the BPM value. At beat 7.5, the beat duration is
+halfway between 60/90 and 60/60 seconds, so the tempo is 72 BPM.
 
 `m` statements allow us to define sections of the score that might be
 repeated (`s` statements marking the end of that section).

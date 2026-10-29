@@ -180,9 +180,9 @@ when the power exponent is 50 the strength of the fundamental has waned
 somewhat. What is not clear from the sonogram is that the partials
 present are only the odd numbered ones. As the power exponent is reduced
 below 1 through 0.5 and finally 0.1, odd numbered harmonic partials
-again appear but this time the strength of the fundamental remains
-constant. It can also be observed that aliasing is becoming a problem as
-evidenced by the vertical artifacts in the sonograms for 0.5 and in
+again appear and the strength of the fundamental increases. The peak
+amplitude of the waveform remains constant. It can also be observed that
+aliasing is becoming a problem as evidenced by the vertical artifacts in the sonograms for 0.5 and in
 particular 0.1. This is a significant concern when using waveshaping
 techniques. Raising the sampling rate can provide additional headroom
 before aliasing manifests but ultimately subtlety in waveshaping's use

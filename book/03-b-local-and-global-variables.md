@@ -576,9 +576,11 @@ and is out of range after 1/10 second. If you change the frequency to
 401 Hz, you will get a signal which increases first, and then decreases,
 because each audio vector has 40.1 cycles of the sine wave. So the
 phases are shifting; first getting stronger and then weaker. If you
-change the frequency to 10 Hz, and then to 15 Hz (at ksmps=44100), you
-cannot hear anything, but if you render to file, you can see the whole
-process of either enforcing or erasing quite clear:
+change the frequency to 10 Hz, and then to 15 Hz (at ksmps=4410), you
+can render to file to see the difference. At 10 Hz, each block contains
+one full cycle, so successive blocks reinforce each other. At 15 Hz,
+each block contains 1.5 cycles, so successive blocks have opposite phases
+and cancel when added:
 
 ![*<small>Self-reinforcing global audio signal on account of its state in one
 control cycle being the same as in the previous one</small>*](../resources/images/03-b-add-freq10hz-1.png)

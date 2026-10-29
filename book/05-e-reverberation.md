@@ -206,9 +206,10 @@ reverberated. This contrasts with _freeverb_'s rather static
 reverberant tail. On the other hand _reverbsc_'s tail is not as smooth
 as that of _freeverb,_ inidividual echoes are sometimes discernible so
 it may not be as well suited to the reverberation of percussive sounds.
-Also be aware that as well as reducing the reverb time, the feedback
-level parameter reduces the overall amplitude of the effect to the point
-where a setting of 1 will result in silence from the opcode.
+The feedback level controls the decay time. Values closer to 1 give a
+longer decay; the opcode reference defines 1 as infinite decay. This
+setting does not mute the output. To silence the effect, set its output
+gain to zero.
 
 ### Method III: chn opcodes
 

@@ -93,7 +93,7 @@ To get **input** from your sound card into Csound, use the option
 
 in your `CsOptions` tag.
 
-If you use `-i dac`, Csound will connect with the system default.
+If you use `-i adc`, Csound will connect with the system default input.
 This is usually desirable.
 
 If you want another audio device than the system default, you need to get the

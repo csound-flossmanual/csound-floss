@@ -425,7 +425,7 @@ i "Convolver" 	2	13.65
 Some comments to the code of this example:
 
 - Line 13: A function table is created in which the impulse responses can be recorded in real-time.
-  A power of two size (here 2^17^ = 131072) is preferred as the partition size will then be an integer multiple of the table size.
+  With the chosen power-of-two sizes, the table size (2^17^ = 131072) is an integer multiple of the partition size (2048). The table holds 64 partitions.
 - Line 15-24: This instrument mimics the audio source on which the convolution will be applied.
   Here it is _beats.wav_, a short sound file which is looped.
 - Line 27: Whenever instr _Record_IR_ is called, it will record an impulse response to table _giIR_record_.

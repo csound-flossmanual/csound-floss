@@ -478,15 +478,17 @@ e 99999 ;make possible to perform long (exit will be automatically)
 ;example by joachim heintz
 ```
 
-#### More Linear and Triangular
+#### Combining More Uniform Draws
 
-Having written this with some very simple UDOs, it is easy to emphasise
-the probability peaks of the distributions by generating more than two
-random numbers. If you generate three numbers and choose the smallest of
-them, you will get many more numbers near the minimum in total for the
-linear distribution. If you generate three random numbers and take the
-mean of them, you will end up with more numbers near the middle in total
-for the triangular distribution.
+Using more than two uniform random numbers makes the results more
+concentrated, but also changes the shape of the distribution. The minimum
+of three independent draws favors low values with a quadratic density,
+not a linear one. For $n$ uniform draws on [0,1], the minimum has density
+$n(1-x)^{n-1}$ and the maximum has density $nx^{n-1}$.
+
+The mean of two uniform draws has a triangular distribution. With more
+draws, its density has curved pieces and becomes more concentrated near
+the middle. These distributions of means are called _Bates distributions_.
 
 If we want to write UDOs with a flexible number of sub-generated
 numbers, we have to write the code in a slightly different way. Instead
@@ -514,19 +516,20 @@ above code for the UDO _trirnd_ would lead to this formulation:
     endop
 
 To get this completely flexible, you only have to get _iMaxCount_ as
-input argument. The code for the linear distribution UDOs is quite
-similar. -- The next example shows these steps:
+input argument. The code for taking a minimum or maximum is quite
+similar. The next example names these general methods _minrnd_,
+_maxrnd_, and _meanrnd_, and shows these steps:
 
 1.  Uniform distribution.
 2.  Linear distribution with the precedence of lower pitches and longer
     durations, generated with two units.
-3.  The same but with four units.
+3.  The same minimum/maximum method with four units, giving cubic densities.
 4.  Linear distribution with the precedence of higher pitches and
     shorter durations, generated with two units.
-5.  The same but with four units.
+5.  The same maximum/minimum method with four units, giving cubic densities.
 6.  Triangular distribution with the precedence of both medium pitches
     and durations, generated with two units.
-7.  The same but with six units.
+7.  The mean of six units, giving a more concentrated Bates distribution.
 
 Rather than using different instruments for the different distributions,
 the next example combines all possibilities in one single instrument.
@@ -559,8 +562,8 @@ giSequence[] fillarray 0, 1.2, 1.4, 2.2, 2.4, 3.2, 3.6
 giSeqIndx = 0 ;startindex
 
 ;****UDO DEFINITIONS****
-opcode linrnd_low, i, iii
- ;linear random with precedence of lower values
+opcode minrnd, i, iii
+ ;minimum of uniform draws, favoring lower values
 iMin, iMax, iMaxCount xin
  ;set counter and initial (absurd) result
 iCount     =          0
@@ -574,8 +577,8 @@ iCount     +=         1
            xout       iRnd
 endop
 
-opcode linrnd_high, i, iii
- ;linear random with precedence of higher values
+opcode maxrnd, i, iii
+ ;maximum of uniform draws, favoring higher values
 iMin, iMax, iMaxCount xin
  ;set counter and initial (absurd) result
 iCount     =          0
@@ -589,7 +592,7 @@ iCount     +=         1
            xout       iRnd
 endop
 
-opcode trirnd, i, iii
+opcode meanrnd, i, iii
 iMin, iMax, iMaxCount xin
  ;set a counter and accumulator
 iCount     =          0
@@ -606,9 +609,9 @@ iRnd       =          iAccum / iMaxCount
 endop
 
 ;****ONE INSTRUMENT TO PERFORM ALL DISTRIBUTIONS****
-;0 = uniform, 1 = linrnd_low, 2 = linrnd_high, 3 = trirnd
+;0 = uniform, 1 = minrnd, 2 = maxrnd, 3 = meanrnd
 ;the fractional part denotes the number of units, e.g.
-;3.4 = triangular distribution with four sub-units
+;3.4 = mean of four uniform draws
 
 instr notes
  ;how many notes to be played
@@ -639,20 +642,20 @@ printfi    "%s", iPrint, "EQUAL LIKELIHOOD OF ALL PITCHES AND DURATIONS\n"
 iMidiPch   random     iMinPch, iMaxPch ;midi note
 iDur       random     iMinDur, iMaxDur ;duration
   elseif iDistrib == 1 then
-printfi     "... linear low distribution with %d units:\n", iPrint, iUnits
+printfi     "... minimum of %d uniform draws:\n", iPrint, iUnits
 printfi     "%s", iPrint, "LOWER NOTES AND LONGER DURATIONS PREFERRED\n"
-iMidiPch   linrnd_low iMinPch, iMaxPch, iUnits
-iDur       linrnd_high iMinDur, iMaxDur, iUnits
+iMidiPch   minrnd     iMinPch, iMaxPch, iUnits
+iDur       maxrnd     iMinDur, iMaxDur, iUnits
   elseif iDistrib == 2 then
-printfi     "... linear high distribution with %d units:\n", iPrint, iUnits
+printfi     "... maximum of %d uniform draws:\n", iPrint, iUnits
 printfi     "%s", iPrint, "HIGHER NOTES AND SHORTER DURATIONS PREFERRED\n"
-iMidiPch   linrnd_high iMinPch, iMaxPch, iUnits
-iDur       linrnd_low iMinDur, iMaxDur, iUnits
+iMidiPch   maxrnd     iMinPch, iMaxPch, iUnits
+iDur       minrnd     iMinDur, iMaxDur, iUnits
   else
-printfi     "... triangular distribution with %d units:\n", iPrint, iUnits
+printfi     "... mean of %d uniform draws:\n", iPrint, iUnits
 printfi     "%s", iPrint, "MEDIUM NOTES AND DURATIONS PREFERRED\n"
-iMidiPch   trirnd     iMinPch, iMaxPch, iUnits
-iDur       trirnd     iMinDur, iMaxDur, iUnits
+iMidiPch   meanrnd    iMinPch, iMaxPch, iUnits
+iDur       meanrnd    iMinDur, iMaxDur, iUnits
   endif
 
  ;call subinstrument to play note
@@ -721,7 +724,7 @@ similar to exponential or gaussian distributions.^[
 According to Dodge/Jerse, the usual algorithms for exponential and
 gaussian are:
 Exponential: Generate a uniformly distributed number
-between 0 and 1 and take its natural logarithm.
+strictly between 0 and 1 and take the negative of its natural logarithm.
 Gauss: Take the mean of uniformly distributed numbers
 and scale them by the standard deviation.] Their
 shape can easily be formed by the number of sub-units used.
@@ -1352,12 +1355,13 @@ can reach values greater than 1 but the area under the function is 1.
 
 #### Generating Random Numbers With a Given Probability or Density
 
-Csound provides opcodes for some specific densities but no means to
-produce random number with user defined probability or density
-functions. The opcodes _rand_density_ and _rand_probability_ (see
-below) generate random numbers with probabilities or densities given by
-tables.
-They are realized by using the so-called _rejection sampling method_.
+Csound supports user-defined distributions through
+[cuserrnd](https://csound.com/docs/manual/cuserrnd.html) and
+[duserrnd](https://csound.com/docs/manual/duserrnd.html), with tables
+prepared using GEN40, GEN41, or GEN42 as appropriate for the opcode.
+The UDOs _rand_density_ and _rand_probability_ below show another approach:
+they generate random numbers from probability or density tables using
+the _rejection sampling method_.
 
 #### Rejection Sampling
 
@@ -1409,8 +1413,7 @@ endop
 ; kout  random number
 ; in: i_nr number of possible values
 ; i_fn1 function for random values
-; i_fn2 probability functionExponential: Generate a uniformly distributed
-; number between 0 and 1 and take its natural logarithm.
+; i_fn2 probability function
 
 opcode  rand_probability, k, iii
 inr,ifn1,ifn2   xin
