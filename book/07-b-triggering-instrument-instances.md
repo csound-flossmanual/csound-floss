@@ -228,8 +228,8 @@ kend      release   ;get a "1" if instrument is turned off
   endin
 
   instr 2
-ichn      =         int(frac(p1)*100)
-inote     =         round(frac(frac(p1)*100)*1000)
+ichn      =         p4
+inote     =         p5
           prints    "instr %f: ichn = %f, inote = %f%n", p1, ichn, inote
           printks   "instr %f playing!%n", 1, p1
   endin
@@ -241,9 +241,10 @@ inote     =         round(frac(frac(p1)*100)*1000)
 ;Example by Joachim Heintz, using code of Victor Lazzarini
 ```
 
-This example merely demonstrates a technique for passing information
-about MIDI channel and note number from the directly triggered
-instrument to a sub-instrument. A practical application for this would
+The fractional instrument number identifies the instance to stop when
+the key is released. The caller also passes the MIDI channel and note
+number as p4 and p5. Reading these fields avoids rounding errors from
+decoding the fractional part of p1. A practical application for this would
 be for creating keygroups - triggering different instruments by playing
 in different regions of the keyboard. In this case you could change just
 the line:
@@ -287,7 +288,7 @@ giInstrs ftgen 0, 0, -5, -2, 2, 3, 4, 10, 100 ;instruments to be triggered
 
  opcode MidiTrig, 0, io
 ;triggers the first inum instruments in the function table ifn by a midi event
-; with fractional numbers containing channel and note number information
+; fractional numbers identify instances; p4 and p5 carry channel and note
 
 ; -- if inum=0 or not given, all instrument numbers in ifn are triggered
 ifn, inum  xin
@@ -299,7 +300,7 @@ turnon:
 iinstrnum tabi      iturnon, ifn
 if iinstrnum > 0 then
 ifracnum  =         iinstrnum + ichn/100 + inote/100000
-         eventi    "i", ifracnum, 0, -1
+         eventi    "i", ifracnum, 0, -1, ichn, inote
 endif
          looplt    iturnon, 1, inum, turnon
 kend      release
@@ -321,15 +322,15 @@ endif
  endin
 
  instr 2
-ichn      =         int(frac(p1)*100)
-inote     =         round(frac(frac(p1)*100)*1000)
+ichn      =         p4
+inote     =         p5
          prints    "instr %f: ichn = %f, inote = %f%n", p1, ichn, inote
          printks   "instr %f playing!%n", 1, p1
  endin
 
  instr 3
-ichn      =         int(frac(p1)*100)
-inote     =         round(frac(frac(p1)*100)*1000)
+ichn      =         p4
+inote     =         p5
          prints    "instr %f: ichn = %f, inote = %f%n", p1, ichn, inote
          printks   "instr %f playing!%n", 1, p1
  endin

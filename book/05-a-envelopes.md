@@ -555,7 +555,7 @@ created with expseg could use the following code:
 
 ```csound
     kEnv expseg 0.001, p3/4, 0.901, p3/2, 0.901, p3/4, 0.001
-    kEnv = kEnv – 0.001
+    kEnv = kEnv - 0.001
 ```
 
 and would look like this:
@@ -727,7 +727,7 @@ kCfEnv    randomi      0,4,0.2     ; filter envelope depth
 kRes      randomi      0.5,0.9,0.2 ; filter resonance
 kVol      =            0.5         ; volume control
 kDecay    randomi      -10,10,0.2  ; decay shape of the filter.
-kWaveform =            0           ; oscillator waveform. 0=sawtooth 2=square
+iWaveform =            0           ; fixed waveform: 0=sawtooth 2=square
 kDist     randomi      0,1,0.1     ; amount of distortion
 kPhFreq   =            kTempo/240  ; freq. to repeat the entire phrase
 kBtFreq   =            (kTempo)/15 ; frequency of each 1/16th note
@@ -759,7 +759,7 @@ kCfOct    looptseg      kBtFreq,0,0,kCfBase+kCfEnv+kOct,kDecay,1,kCfBase+kOct
 ; if hold is off, use filter envelope, otherwise use steady state value:
 kCfOct    =             (kHold == 0 ? kCfOct : kCfBase+kOct)
 kCfOct    limit        kCfOct, 4, 14 ; limit the cutoff frequency (oct format)
-aSig      vco2         0.4, kCps, i(kWaveform)*2, 0.5 ; VCO-style oscillator
+aSig      vco2         0.4, kCps, iWaveform, 0.5 ; VCO-style oscillator
 aFilt lpf18 aSig, cpsoct(kCfOct), kRes, (kDist^2)*10 ; filter audio
 aSig      balance       aFilt,aSig             ; balance levels
 kOn       port         kOn, 0.006              ; smooth on/off switching

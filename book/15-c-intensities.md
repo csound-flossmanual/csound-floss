@@ -21,9 +21,10 @@ the _Fletcher-Munson_ curves.
 ### SIL — Sound Intensity Level
 
 There are many ways to describe a sound physically.
-One of the most common is the _Sound Intensity Level_ (SIL).
-It describes the amount of power on a certain surface,
-so its unit is Watts per square meter _W/m^2^_.
+_Sound intensity_ is the sound power per unit area,
+measured in watts per square meter _W/m^2^_.
+_Sound Intensity Level_ (SIL) expresses the ratio of an intensity to a
+reference intensity on a logarithmic scale, usually in decibels (dB).
 
 The range of human hearing is about 10^-12^ W/m^2^
 at the threshold of hearing to 10^0^ W/m^2^
@@ -47,7 +48,7 @@ For real world sounds, it makes sense to set the reference value $I_0$
 to the threshold of hearing which has been fixed as 10^-12^ W/m^2^
 at 1000 Hertz. So the range of human hearing covers about 12 Bel.
 Usually 1 Bel is divided into 10 decibel, so the common formula for
-measuring a sound intensity is:
+calculating sound intensity level is:
 
 <div style="text-align: center;">
 <p style="display:inline-block; padding: 1em;">
@@ -262,7 +263,7 @@ These are the squared amplitudes:
 The mean of these values is:
 
 $\frac{0+0.146+0.5+0.854+1+0.854+0.5+0.146+0+0.146+0.5+0.854+1+0.854+0.5+0.146}{16}$
-$\ \  = \frac{8}{16} = 0.5$
+$\ \ = \frac{8}{16} = 0.5$
 
 And the resulting RMS value is $\sqrt{0.5} = 0.707$.
 

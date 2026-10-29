@@ -470,7 +470,10 @@ are particularily suited for this approach.
 It is even simple to "tune" a MIDI keyboard in quarter tones or to any historical tuning using Csound.
 The following example shows the fundamentals.
 It plays the five notes C D E F G (= MIDI 60 62 64 65 67) first in
-Pythoagorean tuning, then in Meantone, then as quarter tones, then as partials 1-5.
+Pythagorean tuning, then in quarter-comma meantone, then as quarter tones, then as partials 1-5.
+In quarter-comma meantone, the fifth has the ratio 5^(1/4)^.
+The C–D and D–E whole tones both have the ratio $\sqrt{5}/2$,
+and the C–E major third has the ratio 5/4.
 
 #### **_EXAMPLE 15B05_Tuning_Systems.csd_**
 
@@ -493,9 +496,9 @@ instr Pythagorean
 endin
 
 instr Meantone
- giScale[] fillarray 1, 10/9, 5/4, 4/3, 3/2
+ giScale[] fillarray 1, sqrt(5)/2, 5/4, 2/(5^(1/4)), 5^(1/4)
  schedule("LetPlay",0,0)
- puts "Meantone scale",1
+ puts "Quarter-comma meantone scale",1
 endin
 
 instr Quartertone

@@ -164,7 +164,8 @@ We will give one simple example for each case.
 
 This is a code which creates a GUI which lets the user browse an audio file,
 start and stop playback in a loop, with a volume slider, and deletes
-the Csound instance when closing. Comments are below.
+the Csound instance when closing. Mono files play through both output
+channels; files with two or more channels use the first two. Comments are below.
 
 ```python
 import PySimpleGUI as sg
@@ -177,7 +178,13 @@ instr 1
  kVol chnget "vol"
  aSound[] diskin Sfile, 1, 0, 1
  kFadeOut linenr 1, .01, 1, .01
- out aSound[0]*kFadeOut*ampdb(kVol), aSound[1]*kFadeOut*ampdb(kVol)
+ aLeft = aSound[0]
+ if lenarray(aSound) == 1 then
+  aRight = aLeft
+ else
+  aRight = aSound[1]
+ endif
+ out aLeft*kFadeOut*ampdb(kVol), aRight*kFadeOut*ampdb(kVol)
 endin
 """
 cs.sendCode(orc)

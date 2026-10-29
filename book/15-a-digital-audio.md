@@ -199,9 +199,11 @@ Westerns. Let us say for example that a camera is taking 30 frames per
 second of a wheel moving. In one example, if the wheel is completing one
 rotation in exactly 1/30th of a second, then every picture looks the
 same and as a result the wheel appears to be motionless. If the wheel
-speeds up, i.e. it increases its rotational frequency, it will appear as
-if the wheel is slowly turning backwards. This is because the wheel will
-complete more than a full rotation between each snapshot.
+speeds up slightly, it appears to turn slowly forwards: each frame shows
+the small advance beyond one full rotation. If it slows down slightly,
+it appears to turn backwards. At 30 frames per second, 31 rotations per
+second give an apparent advance of 12 degrees per frame, while 29 give
+an apparent retreat of 12 degrees per frame.
 
 As an aside, it is worth observing that a lot of modern \'glitch\' music
 intentionally makes a feature of the spectral distortion that aliasing
@@ -224,7 +226,12 @@ bit can only be in one of two states: off or on, 0 or 1. All computer data
 Bits in groups of eight are called _bytes_, and one byte historically
 represented a single character of data in the computer memory. Mostly one byte is the smallest unit of data, and bigger units will be created by using two, three or more bytes. A good example is the number of bytes which is used to store the number for one audio sample. In early games it was 1 byte (8 bit), on a CD it is 2 bytes (16 bit), in sound cards it is often 3 bytes (24 bit), in most audio software it is internally 4 bytes (32 bit), and in Csound 8 bytes (64 bit).
 
-The [word length](<https://en.wikipedia.org/wiki/Word_(computer_architecture)>) of a computer is the number of bits which is handled as a unit by the processor. The transition from 32-bit to 64-bit word length around 2010 in the most commonly used processors required new compilations of Csound and other applications, in particular for the Windows installers. To put it simple: A 32-bit machine needs an application compiled for 32-bit, a 64-bit machine needs an application compiled for 64-bit.
+The [word length](<https://en.wikipedia.org/wiki/Word_(computer_architecture)>) of a computer is the number of bits which is handled as a unit by the processor.
+Applications must target an architecture supported by the processor and operating system.
+A 64-bit system may also support 32-bit applications; for example,
+[64-bit Windows runs them through WOW64](https://learn.microsoft.com/en-us/windows/win32/winprog64/running-32-bit-applications).
+Choose a Csound build supported by your operating system. Plugins loaded
+into Csound must also match the architecture of that Csound build.
 
 ## Bit-depth Resolution
 

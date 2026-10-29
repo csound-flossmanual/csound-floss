@@ -178,14 +178,15 @@ i 1 0 30
 ;example by joachim heintz
 ```
 
-### Short Form: (a v b ? x : y)
+### Short Form: (condition ? x : y)
 
 If you need an if-statement to give a value to an (i- or k-) variable,
-you can also use a traditional short form in parentheses: [(a v b ? x :
+you can also use a traditional short form in parentheses: [(condition ? x :
 y)](http://www.csound.com/docs/manual/equals.html).^[
 Since the release of the new parser (Csound 5.14), the expression
-can also be written without parentheses.] It asks whether
-the condition a or b is true. If a, the value is set to x; if b, to y.
+can also be written without parentheses.] If the condition is true, the
+expression returns x; otherwise it returns y. For example, in
+`(a > b ? x : y)`, the condition is the comparison `a > b`.
 For instance, the last example could be written in this way:
 
 #### **_EXAMPLE 03C03_IfThen_short_form.csd_**
@@ -1297,7 +1298,7 @@ The idea for using this internal time as measurement for time loops is this:
 
 The next example does exactly the same as example 03C21 with the help of
 the _metro_ opcode did, but now by using the internal clock.^[
-To say the truth, *metro* is more precise. But this can be neglected
+To say the truth, _metro_ is more precise. But this can be neglected
 for live situations for which this approach is mainly meant to be used.]
 
 #### **_EXAMPLE 03C23_Timeloop_Internal_Clock.csd_**
