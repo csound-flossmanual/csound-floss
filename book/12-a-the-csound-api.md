@@ -12,82 +12,110 @@ Though it is written in C, the Csound API uses an object structure.
 This is achieved through an opaque pointer representing a Csound instance.
 This opaque pointer is passed as the first argument when an API function is called from the host program.
 
-To use the Csound C API, you have to include csound.h in your source file and to link your code with
-libcsound64 (or libcsound if using the 32 bit version of the library).
-Here is an example of the csound command line application written in C, using the Csound C API:
+The introductory C and C++ examples below use the Csound 7 host API.
+Use headers and a library from the same Csound 7 installation.
+On Linux, include csound.h and link with libcsound64 for double-precision
+samples, or libcsound for single-precision samples. This precision is
+separate from the processor's 32-bit or 64-bit architecture.
+Here is a simple command-line host written in C:
 
 ```c
 #include <csound/csound.h>
+#include <stdlib.h>
 
 int main(int argc, char **argv)
 {
-  CSOUND *csound = csoundCreate(NULL);
-  int result = csoundCompile(csound, argc, argv);
-  if (result == 0) {
-    result = csoundPerform(csound);
+  CSOUND *csound = csoundCreate(NULL, NULL);
+  if (csound == NULL) return 1;
+  const char **args = malloc(argc * sizeof(*args));
+  if (args == NULL) {
+    csoundDestroy(csound);
+    return 1;
   }
+  for (int i = 0; i < argc; ++i) args[i] = argv[i];
+  int result = csoundCompile(csound, argc, args);
+  free(args);
+  if (result == 0) {
+    result = csoundStart(csound);
+  }
+  if (result != 0) {
+    csoundDestroy(csound);
+    return 1;
+  }
+  while ((result = csoundPerformKsmps(csound)) == 0) {
+    /* Perform one control block at a time. */
+  }
+  int failed = (result < 0 || csoundErrCnt(csound) > 0);
   csoundDestroy(csound);
-  return (result >= 0 ? 0 : result);
+  return failed;
 }
 ```
 
 First we create an instance of Csound.
-To do this we call `csoundCreate()` which returns the opaque pointer
-that will be passed to most Csound API functions.
-Then we compile the orc/sco files or the csd file given as input arguments through
-the argv parameter of the main function.
-If the compilation is successful (result == 0), we call the `csoundPerform()` function.
-`csoundPerform()` will cause Csound to perform until the end of the score is reached.
-When this happens `csoundPerform()` returns a non-zero value and
-we destroy our instance before ending the program.
+`csoundCreate(NULL, NULL)` uses no host data and the default opcode directory.
+It returns the opaque pointer passed to most Csound API functions.
+We copy the command-line string pointers into the `const char *` array
+expected by `csoundCompile()`, then compile the input files.
+After a successful compilation, we must call `csoundStart()`.
+Each call to `csoundPerformKsmps()` then performs one control block.
+It returns zero to continue and a non-zero value when performance ends.
+We also check `csoundErrCnt()` because an error can abort an instrument
+without stopping the whole score. We destroy the instance on every exit path.
+The [Csound 7 API migration guide](https://github.com/csound/csound/blob/develop/doc/API_Migration_Guide_Csound_6_to_7.md)
+describes this lifecycle and the removal of `csoundPerform()`.
 
-On a linux system, using libcsound64 (double version of the csound library),
-supposing that all include and library paths are set correctly,
-we would build the above example with the following
-command (notice the use of the -DUSE_DOUBLE flag to signify that we
-compile against the 64 bit version of the csound library):
-
-```none
-gcc -DUSE_DOUBLE -o csoundCommand csoundCommand.c -lcsound64
-```
-
-The command for building with a 32 bit version of the library would be:
+On Linux, with the include and library paths set, build against the
+double-precision library as follows. `-DUSE_DOUBLE` selects the matching
+sample type in the headers:
 
 ```none
-gcc -o csoundCommand csoundCommand.c -lcsound
+gcc -std=c99 -DUSE_DOUBLE -o csoundCommand csoundCommand.c -lcsound64
 ```
 
-Within the C or C++ examples of this chapter,
-we will use the MYFLT type for the audio samples.
-Doing so, the same source files can be used for both development (32 bit or 64 bit),
-the compiler knowing how to interpret MYFLT as double if the macro USE_DOUBLE is defined,
-or as float if the macro is not defined.
+For a single-precision library build:
+
+```none
+gcc -std=c99 -o csoundCommand csoundCommand.c -lcsound
+```
+
+The sample type used by the host must match the library's sample precision.
+The `MYFLT` type used later in this chapter is `double` when `USE_DOUBLE`
+is defined, and `float` otherwise.
 
 The C API has been wrapped in a C++ class for convenience.
 This gives the Csound basic C++ API. With this API, the above example would become:
 
 ```c
 #include <csound/csound.hpp>
+#include <vector>
 
 int main(int argc, char **argv)
 {
   Csound cs;
-  int result = cs.Compile(argc, argv);
+  if (cs.GetCsound() == nullptr) return 1;
+  std::vector<const char *> args(argv, argv + argc);
+  int result = cs.Compile(argc, args.data());
   if (result == 0) {
-    result = cs.Perform();
+    result = cs.Start();
   }
-  return (result >= 0 ? 0 : result);
+  if (result != 0) return 1;
+  while ((result = cs.PerformKsmps()) == 0) {
+    /* Perform one control block at a time. */
+  }
+  return (result < 0 || csoundErrCnt(cs.GetCsound()) > 0);
 }
 ```
 
 Here, we create a local Csound object and call its methods instead of C functions.
+The vector supplies the string pointers expected by `Compile()`.
+`GetCsound()` gives access to the C API's error-count check.
 When `main` returns, the object's destructor calls `csoundDestroy()`,
 so we do not need to call it ourselves. A raw pointer created with `new`
-would instead need a matching `delete` to run that destructor. On our linux system,
+would instead need a matching `delete` to run that destructor. On Linux,
 the example would be built with the following command:
 
 ```none
-g++ -DUSE_DOUBLE -o csoundCommandCpp csoundCommand.cpp -lcsound64
+g++ -std=c++11 -DUSE_DOUBLE -o csoundCommandCpp csoundCommand.cpp -lcsound64
 ```
 
 ## Threading
@@ -99,12 +127,10 @@ The advantage of running threads is that you do not have to wait for one part of
 finish executing before you start another.
 
 In order to control aspects of your instruments in real time your will need to employ the use of threads.
-If you run the first example found on this page you will see that
-the host will run for as long as `csoundPerform()` returns 0.
-As soon as it returns non-zero it will exit the loop and cause the application to quit.
-Once called, `csoundPerform()` will cause the program to hang until it is finished.
-In order to interact with Csound while it is performing you will need to
-call `csoundPerform()` in a separate unique thread.
+In the first example on this page, the host stays in its performance loop
+while `csoundPerformKsmps()` returns zero. A non-zero result ends the loop.
+To let another part of a host, such as a GUI, remain active during
+performance, the host can run this loop in a separate thread.
 
 When implementing threads using the Csound API, we must define a special performance-thread function.
 We then pass the name of this performance function to `csoundCreateThread()`,
